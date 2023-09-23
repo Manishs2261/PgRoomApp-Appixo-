@@ -36,6 +36,33 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  #for state management
+  get: ^4.6.5
+  #for use restapis
+  http: ^1.1.0
+  shared_preferences: ^2.2.0
+  fluttertoast: ^8.2.2
+  #for integrating firebase
+  firebase_core: ^2.15.1
+  #for handing google sign in
+  google_sign_in: ^6.1.5
+  #for handling firebase authentication
+  firebase_auth: ^4.9.0
+  # for scessing cloud firestore database
+  cloud_firestore: ^4.9.1
+  #Forfor showing network image
+  cached_network_image: ^3.2.3
+  #for pick image
+  image_picker: ^1.0.4
+  #for accessing firebase storege (for uploading files)
+  firebase_storage: ^11.2.6
+  #for showing Emojis
+  emoji_picker_flutter: ^1.6.1
+  #for showing a messagepack:
+  firebase_messaging: ^14.6.7
+  #for notification channel_talk_flutter:
+  flutter_notification_channel: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -59,8 +86,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+     - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
