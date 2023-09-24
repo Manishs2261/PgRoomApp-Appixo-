@@ -5,18 +5,10 @@ import 'package:pgroom/main.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreen extends StatelessWidget {
+   SplashScreen({super.key});
 
   final splashontroller = Get.put(SplashController());
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: Image(image:  AssetImage(splashScreen),width: mediaQuery.width *  .8,
+        child: Image(image:  AssetImage(splashImage),width: mediaQuery.width *  .8,
           height: mediaQuery.height * .8,),
       ),
     );

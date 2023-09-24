@@ -62,6 +62,8 @@ dependencies:
   firebase_messaging: ^14.6.7
   #for notification channel_talk_flutter:
   flutter_notification_channel: ^2.0.0
+  #for on Boarding screen
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
