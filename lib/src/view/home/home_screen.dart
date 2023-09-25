@@ -5,6 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/add_your_home/add_your_home.dart';
 import 'package:pgroom/src/view/login_screen/login_screen.dart';
+import 'package:pgroom/src/view/search/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,10 +19,69 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar:  PreferredSize(
-        preferredSize:Size.fromHeight(100),
-        child: AppBar(
-          title: Text("Home"),
-        ),
+        preferredSize:Size.fromHeight(115),
+        child: SafeArea(
+          child: Column(
+            children: [
+              AppBar(
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 25,
+                      width: 135,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all()
+
+
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Post Room",textAlign: TextAlign.center),
+                          Container(
+                            alignment: Alignment.center,
+                            height: 15,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.orange,
+                              borderRadius: BorderRadius.circular(12)
+                            ),
+                            child: Text("Free",style: TextStyle(fontSize: 10),
+                              textAlign: TextAlign.center,),
+                          )
+                        ],
+                      )
+                    ),
+                  )
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20,right: 20),
+                child: TextFormField(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> SearchScreen()));
+
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    
+                    hintText: "Enter Locality / Landmark / Colony",
+                    prefixIcon: Icon(Icons.search_rounded),
+                    suffixIcon: Icon(Icons.mic),
+                    isDense: false,
+
+                    contentPadding: EdgeInsets.only(bottom: 5,),
+
+                  ),
+                ),
+              )
+            ],
+          ),
+        )
 
       ),
       drawer: Drawer(
@@ -46,19 +106,51 @@ class _HomeScreenState extends State<HomeScreen> {
                   )]
                 ),
                 child: Container(
-                  child: Row(
+                  padding: EdgeInsets.zero,
+                  child: Stack(
                     children: [
-                      CircleAvatar(maxRadius: 30,child: Icon(Icons.person,size: 35,),),
-                      SizedBox(width: 15,),
-                      Flexible(
-                        child: Text("Manish sahu ",
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: false,
-                            maxLines: 1,
-                        ),
+                      Row(
+                        children: [
+                          CircleAvatar(maxRadius: 30,child: Icon(Icons.person,size: 35,),),
+                          SizedBox(width: 15,),
+
+                          Expanded(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Text("Manish sahu ",
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Text("sahusanhu138@gmail.com ",
+                                    style: TextStyle(fontSize: 12),
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+
+                        child: CircleAvatar(
+                          backgroundColor: Colors.blue,
+                          radius: 13,
+                          child: Icon(Icons.edit,size: 18,color: Colors.white,),
+                        )
+                      )
                     ],
-                  ),
+                  )
                 ),
               ),
             ),
