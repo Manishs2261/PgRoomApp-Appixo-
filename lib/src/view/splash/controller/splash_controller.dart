@@ -9,7 +9,7 @@ class SplashController extends GetxController{
   Future<void> startSplashScreen() async {
 
     await Future.delayed(Duration(milliseconds: 5000));
-    Get.to(()=> OnBoardingOneScreen());
+    Get.off(()=> OnBoardingOneScreen());
 
 
   }
