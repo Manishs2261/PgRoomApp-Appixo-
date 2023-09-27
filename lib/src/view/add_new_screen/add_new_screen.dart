@@ -15,10 +15,13 @@ class AddNewRoom extends StatefulWidget {
 }
 
 class _AddNewRoomState extends State<AddNewRoom> {
-  int count = 1;
-  bool isBool = false;
 
-  List<File>? imageFileList = [];
+     bool? _checkBox = false;
+  final _globlekey = GlobalKey<FormState>();
+  // for bool value false not show a image
+  bool isBool = false;
+ // for storing a more image in list
+  List<dynamic> imageFileList = [];
 
   // image picker form Gallary
   File? _selectedCoverImage;
@@ -29,8 +32,9 @@ class _AddNewRoomState extends State<AddNewRoom> {
         .pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     setState(() {
-      // _selectedCoverImage = File(image.path);
-      imageFileList?.add(File(image.path));
+       //_selectedCoverImage = File(image.path);
+       imageFileList.add(File(image.path));
+
     });
   }
 
@@ -39,7 +43,8 @@ class _AddNewRoomState extends State<AddNewRoom> {
         .pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     setState(() {
-      _selectImage = File(image.path);
+      _selectedCoverImage = File(image.path);
+
     });
   }
 
@@ -99,7 +104,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                             left: 80,
                             child: InkWell(
                               onTap: () {
-                                _pickeImageFromGallery();
+                                _pickeCoverImageFromGallery();
                               },
                               child: Container(
                                 height: 60,
@@ -150,27 +155,54 @@ class _AddNewRoomState extends State<AddNewRoom> {
 
               isBool
                   ? Container(
-                      padding: EdgeInsets.all(10),
-                      height: 120,
-                      width: double.infinity,
-                      decoration: BoxDecoration(),
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: false,
-                          itemCount: imageFileList?.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: EdgeInsets.all(3),
-                              height: 120,
-                              width: 120,
-                              decoration: BoxDecoration(border: Border.all()),
-                              child: Image.file(
-                                imageFileList![index],
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          }),
-                    )
+                    padding: EdgeInsets.all(10),
+                    height: 120,
+                    width: double.infinity,
+                    decoration: BoxDecoration(),
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: imageFileList.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: EdgeInsets.all(2),
+                            padding: EdgeInsets.all(1),
+                            height: 120,
+                            width: 120,
+                            decoration: BoxDecoration(border: Border.all(color: Colors.black26)),
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                Image.file(
+                                  imageFileList[index],
+                                  fit: BoxFit.cover,
+                                ),
+                                Positioned(
+                                    top: 1,
+                                    right: 1,
+                                    child: InkWell(
+                                      onTap: (){
+                                        setState(() {
+
+                                           imageFileList.removeAt(index);
+                                          print("remove = $index");
+                                          print(isBool);
+                                        });
+                                      },
+                                      child: CircleAvatar(
+
+                                          radius: 11,
+                                          backgroundColor: Colors.black26,
+                                          child: Icon(Icons.close,size: 18,color: Colors.white,)
+
+                                      ),
+                                    )
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  )
+
                   : Container(
                       height: 100,
                       width: double.infinity,
@@ -189,19 +221,99 @@ class _AddNewRoomState extends State<AddNewRoom> {
                       _pickeImageFromGallery();
                       isBool = true;
 
-                      for (var i in imageFileList!) {
-                        print(imageFileList);
-                        print(i);
-
-                        print("image print ");
-                      }
                     },
-                    child: Text("add")),
-              )
+                    child: Text("Add image")),
+              ),
+              SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Form(
+                  key: _globlekey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormWedgit(
+                          hintText: "Enter Home / House Name",
+                          lableText: 'House Name',
+                          icon: Icon(Icons.home),),
+                        SizedBox(height: 10,),
+                        TextFormWedgit(
+                          hintText: "Enter Rent Price",
+                          lableText: 'Rent Price',
+                          icon: Icon(Icons.currency_rupee),),
+                        SizedBox(height: 10,),
+                        TextFormWedgit(
+                          hintText: "House Address",
+                          lableText: 'House addsress',
+                          icon: Icon(Icons.location_city_outlined),),
+                        SizedBox(height: 10,),
+                        TextFormWedgit(
+                          hintText: "City Name",
+                          lableText: 'City Name',
+                          icon: Icon(Icons.location_city_rounded),),
+                        SizedBox(height: 10,),
+                        TextFormWedgit(
+                          hintText: "Land Mark address",
+                          lableText: 'Land Makr address',
+                          icon: Icon(Icons.home),),
+                        SizedBox(height: 20,),
+                        
+                        Text("Room Type :- ",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+
+                       CheckboxListTile(
+                         title: Text("Single person"),
+                           value: _checkBox,
+                           onChanged: (value){
+                         setState(() {
+                           _checkBox = value;
+
+                           if(_checkBox == true)
+                             {
+                                setState(() {
+                                  Text("heloo");
+                                });
+                             }
+
+                         });
+                           },
+                         controlAffinity: ListTileControlAffinity.leading,
+                       )
+
+                      ],
+                    )),
+              ),
+
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class TextFormWedgit extends StatelessWidget {
+  const TextFormWedgit({
+    super.key, required this.hintText, required this.lableText, required this.icon,
+  });
+
+  final String hintText,lableText;
+  final Icon icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      decoration: InputDecoration(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
+        hintText: hintText,
+        labelText: lableText,
+        contentPadding: EdgeInsets.only(top: 5,left: 10),
+        prefixIcon: icon
+      ),
+      validator: (value){
+        return null;
+        },
+
     );
   }
 }
