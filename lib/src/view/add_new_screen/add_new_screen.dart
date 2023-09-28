@@ -5,6 +5,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/view/add_new_screen/widget/my_check_boxwidget.dart';
+import 'package:pgroom/src/view/add_new_screen/widget/my_text_form_field.dart';
+import 'package:pgroom/src/view/add_new_screen/widget/radio_button_widget.dart';
+
+
 
 class AddNewRoom extends StatefulWidget {
   const AddNewRoom({super.key});
@@ -14,6 +19,9 @@ class AddNewRoom extends StatefulWidget {
 }
 
 class _AddNewRoomState extends State<AddNewRoom> {
+
+  HostelTypeEnum? _hostelTypeEnum;
+
   bool _checkbox1 = false;
   bool _checkbox2 = false;
   bool _checkbox3 = false;
@@ -253,7 +261,19 @@ class _AddNewRoomState extends State<AddNewRoom> {
                     child: Text("Add image")),
               ),
               SizedBox(
-                height: 20,
+                height: 25,
+              ),
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    onPressed: (){},
+                    child: Text("Save",style: TextStyle(color: Colors.white),)),
+              ),
+
+              SizedBox(
+                height: 25,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
@@ -262,7 +282,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      TextFormWedgit(
+                      MyTextFormWedgit(
                         hintText: "Enter Home / House Name",
                         lableText: 'House Name',
                         icon: Icon(Icons.home),
@@ -273,7 +293,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormWedgit(
+                      MyTextFormWedgit(
                         hintText: "House Address",
                         lableText: 'House addsress',
                         icon: Icon(Icons.location_city_outlined),
@@ -281,7 +301,7 @@ class _AddNewRoomState extends State<AddNewRoom> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormWedgit(
+                      MyTextFormWedgit(
                         hintText: "City Name",
                         lableText: 'City Name',
                         icon: Icon(Icons.location_city_rounded),
@@ -289,12 +309,13 @@ class _AddNewRoomState extends State<AddNewRoom> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormWedgit(
+                      MyTextFormWedgit(
                         hintText: "Land Mark address",
                         lableText: 'Land Makr address',
                         icon: Icon(Icons.home),
                       ),
 
+                // ===========Hostel type================={
                       SizedBox(
                         height: 20,
                       ),
@@ -303,30 +324,31 @@ class _AddNewRoomState extends State<AddNewRoom> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox19,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox19 = value!;
-                                });
-                              }),
-                          Text("Boys Hostel"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox19,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox19 = value!;
-                                });
-                              }),
-                          Text("Girls Hostel"),
-                        ],
-                      ),
+
+                      // ======boys hostel =====
+                      MyRadioButtonWidget(
+                          titel: "Boys Hostel",
+                          value: HostelTypeEnum.BoysH,
+                          hostelTypeEnum: _hostelTypeEnum,
+                          onChange: (value){
+                            setState(() {
+                              _hostelTypeEnum = value;
+                            });
+                          }),
+
+                      // ======Girls hostel =====
+                      MyRadioButtonWidget(
+                          titel: "Girls Hostel",
+                          value: HostelTypeEnum.GirlsH,
+                          hostelTypeEnum: _hostelTypeEnum,
+                          onChange: (value){
+                            setState(() {
+                              _hostelTypeEnum = value;
+                            });
+                          }),
+
+
+                      //==============================}
                       SizedBox(
                         height: 20,
                       ),
@@ -459,138 +481,108 @@ class _AddNewRoomState extends State<AddNewRoom> {
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox5,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox5 = value!;
-                                });
-                              }),
-                          Text("Wi-Fi"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox6,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox6 = value!;
-                                });
-                              }),
-                          Text("Bed"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox7,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox7 = value!;
-                                });
-                              }),
-                          Text("Chair"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox8,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox8 = value!;
-                                });
-                              }),
-                          Text("Table"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox9,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox9 = value!;
-                                });
-                              }),
-                          Text("Fan"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox10,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox10 = value!;
-                                });
-                              }),
-                          Text("Gadda"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox11,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox11 = value!;
-                                });
-                              }),
-                          Text("Light"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox12,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox12 = value!;
-                                });
-                              }),
-                          Text("Bed Sheet"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox13,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox13 = value!;
-                                });
-                              }),
-                          Text("Locker"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox14,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox14 = value!;
-                                });
-                              }),
-                          Text("Washing machin"),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: _checkbox15,
-                              onChanged: (value) {
-                                setState(() {
-                                  _checkbox15 = value!;
-                                });
-                              }),
-                          Text("Parking"),
-                        ],
-                      ),
+
+                      //======for Wi-fi==========
+                      MYCheckBoxWidget(
+                          title: "Wi-Fi",
+                          checkBool: _checkbox5,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox5 = value!;
+                            });
+                          }),
+                      //======for Bed==========
+                      MYCheckBoxWidget(
+                          title: "Bed",
+                          checkBool: _checkbox6,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox6 = value!;
+                            });
+                          }),
+
+                      //======for chairs==========
+                      MYCheckBoxWidget(
+                        title: "Chair",
+                          checkBool: _checkbox7,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox7 = value!;
+                            });
+                          }),
+
+                      //======for Table ==========
+                      MYCheckBoxWidget(
+                          title: "Table",
+                          checkBool: _checkbox8,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox8 = value!;
+                            });
+                          }),
+                      //======for Fan==========
+                      MYCheckBoxWidget(
+                          title: "Fan",
+                          checkBool: _checkbox9,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox9 = value!;
+                            });
+                          }),
+                      //======for Gadda==========
+                      MYCheckBoxWidget(
+                          title: "Gadda",
+                          checkBool: _checkbox10,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox10 = value!;
+                            });
+                          }),
+                      //======for Light==========
+                      MYCheckBoxWidget(
+                          title: "Light",
+                          checkBool: _checkbox11,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox11 = value!;
+                            });
+                          }),
+                      //======for Locker==========
+                      MYCheckBoxWidget(
+                          title: "Locker",
+                          checkBool: _checkbox12,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox12 = value!;
+                            });
+                          }),
+                      //======for Bedsheet==========
+                      MYCheckBoxWidget(
+                          title: "Bed Sheet",
+                          checkBool: _checkbox13,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox13 = value!;
+                            });
+                          }),
+                      //======for washing machine==========
+                      MYCheckBoxWidget(
+                          title: "Washing Machine",
+                          checkBool: _checkbox14,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox14 = value!;
+                            });
+                          }),
+                      //======for parking==========
+                      MYCheckBoxWidget(
+                          title: "Parking",
+                          checkBool: _checkbox15,
+                          onChanged: (value){
+                            setState(() {
+                              _checkbox15 = value!;
+                            });
+                          }),
                       SizedBox(
                         height: 20,
                       ),
@@ -821,6 +813,23 @@ class _AddNewRoomState extends State<AddNewRoom> {
                   ),
                 ),
               ),
+
+              SizedBox(
+                height: 25,
+              ),
+
+              SizedBox(
+                width: double.infinity,
+                height: 40,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    onPressed: (){},
+                    child: Text("Save",style: TextStyle(color: Colors.white,fontSize: 20),)),
+              ),
+
+              SizedBox(
+                height: 40,
+              ),
             ],
           ),
         ),
@@ -829,30 +838,3 @@ class _AddNewRoomState extends State<AddNewRoom> {
   }
 }
 
-class TextFormWedgit extends StatelessWidget {
-  const TextFormWedgit({
-    super.key,
-    required this.hintText,
-    required this.lableText,
-    required this.icon,
-  });
-
-  final String hintText, lableText;
-  final Icon icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
-          hintText: hintText,
-          labelText: lableText,
-          contentPadding: EdgeInsets.only(top: 5, left: 10),
-          prefixIcon: icon),
-      validator: (value) {
-        return null;
-      },
-    );
-  }
-}
