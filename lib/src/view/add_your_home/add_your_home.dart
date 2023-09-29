@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgroom/main.dart';
-import 'package:pgroom/src/view/add_new_screen/add_new_screen.dart';
+
+import '../rent_form_screen/add_image_screen.dart';
+
 
 class AddYourHome extends StatefulWidget {
   const AddYourHome({super.key});
@@ -23,7 +25,7 @@ class _AddYourHomeState extends State<AddYourHome> {
             width: mediaQuery.width * .8,
             child: ElevatedButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AddNewRoom()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> AddImageScreen()));
               },
               child: Text("Add New"),),
           ),

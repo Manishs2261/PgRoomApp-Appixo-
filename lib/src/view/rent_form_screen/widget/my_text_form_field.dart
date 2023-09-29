@@ -2,25 +2,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyTextFormWedgit extends StatelessWidget {
-  const MyTextFormWedgit({
+   MyTextFormWedgit({
     super.key,
     required this.hintText,
     required this.lableText,
-    required this.icon,
+     this.icon,
+    required this.borderRadius,
+     this.contentPadding,
+     this.isCollapsed = false,
+     this.isDense = false,
   });
 
   final String hintText, lableText;
-  final Icon icon;
+  final Icon? icon;
+  BorderRadius  borderRadius;
+  EdgeInsetsGeometry? contentPadding;
+  bool isCollapsed ;
+  bool  isDense;
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
+          border: OutlineInputBorder(
+              borderRadius: borderRadius),
           hintText: hintText,
           labelText: lableText,
-          contentPadding: EdgeInsets.only(top: 5, left: 10),
+          contentPadding:  contentPadding,
+          isCollapsed: isCollapsed,
+          isDense: isDense,
           prefixIcon: icon),
       validator: (value) {
         return null;
