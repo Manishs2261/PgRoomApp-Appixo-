@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //for radio button
-enum HostelTypeEnum {BoysH, GirlsH}
+enum HostelTypeEnum {BoysH, GirlsH,Faimaly,}
 
-class MyRadioButtonWidget extends StatelessWidget {
-  MyRadioButtonWidget({
+
+class MyHostelRadioButtonWidget extends StatelessWidget {
+  MyHostelRadioButtonWidget({
     required this.titel,
     required this.value,
     required this.hostelTypeEnum,
@@ -18,7 +19,7 @@ class MyRadioButtonWidget extends StatelessWidget {
   Function(HostelTypeEnum?)? onChange;
   @override
   Widget build(BuildContext context) {
-    return RadioListTile(
+    return RadioListTile<HostelTypeEnum>(
         contentPadding: EdgeInsets.zero,
         title: Text(titel),
         value: value,

@@ -11,90 +11,102 @@ class RentDetailsScsreen extends StatefulWidget {
 }
 
 class _RentDetailsScsreenState extends State<RentDetailsScsreen> {
-
   final _globlekey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Rent Details"),),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15,right: 15,top: 40),
-        child: Form(
-          key: _globlekey,
+      appBar: AppBar(
+        title: Text("Rent Details"),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
+          child: Form(
+            key: _globlekey,
+            child: Column(
 
-          child: Column(
-            children: [
-
-              // =================Home Name================
-              MyTextFormWedgit(
-                hintText: "Enter Home / House Name",
-                lableText: 'House Name',
-                icon: Icon(Icons.home),
-                borderRadius: BorderRadius.circular(11),
-                contentPadding: EdgeInsets.only(top: 5, left: 10),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-
-
-              //==========House Address================
-              MyTextFormWedgit(
-                hintText: "House Address",
-                lableText: 'House addsress',
-                icon: Icon(Icons.location_city_outlined),
-                borderRadius: BorderRadius.circular(11),
-                contentPadding: EdgeInsets.only(top: 5, left: 10),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //===========City Name================
-              MyTextFormWedgit(
-                hintText: "City Name",
-                lableText: 'City Name',
-                icon: Icon(Icons.location_city_rounded),
-                borderRadius: BorderRadius.circular(11),
-                contentPadding: EdgeInsets.only(top: 5, left: 10),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              //============Land Mark address=================
-              MyTextFormWedgit(
-                hintText: "Land Mark address",
-                lableText: 'Land Makr address',
-                icon: Icon(Icons.home),
-                borderRadius: BorderRadius.circular(11),
-                contentPadding: EdgeInsets.only(top: 5, left: 10),
-              ),
-
-              SizedBox(height: 50,),
-
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: (){},
-                  child: Text("Save"),
+              children: [
+                // =================Home Name================
+                MyTextFormWedgit(
+                  hintText: "Enter Home / House Name",
+                  lableText: 'House Name',
+                  icon: Icon(Icons.home),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: EdgeInsets.only(top: 5, left: 10),
                 ),
-              ),
-              SizedBox(height: 50,),
-
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HostelAndRoomTypeScreen()));
-                  },
-                  child: Text("Next"),
+                SizedBox(
+                  height: 10,
                 ),
-              )
-            ],
+
+                //==========House Address================
+                MyTextFormWedgit(
+                  hintText: "House Address",
+                  lableText: 'House addsress',
+                  icon: Icon(Icons.location_city_outlined),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: EdgeInsets.only(top: 5, left: 10),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //===========City Name================
+                MyTextFormWedgit(
+                  hintText: "City Name",
+                  lableText: 'City Name',
+                  icon: Icon(Icons.location_city_rounded),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: EdgeInsets.only(top: 5, left: 10),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                //============Land Mark address=================
+                MyTextFormWedgit(
+                  hintText: "Land Mark address",
+                  lableText: 'Land Makr address',
+                  icon: Icon(Icons.home),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: EdgeInsets.only(top: 5, left: 10),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                //==========Contuct Number================
+                MyTextFormWedgit(
+                  hintText: "Contact Number",
+                  lableText: 'Contuct Number',
+                  icon: Icon(Icons.phone),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: EdgeInsets.only(top: 5, left: 10),
+                ),
+
+
+
+                SizedBox(
+                  height: 80,
+                ),
+
+
+
+
+                SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HostelAndRoomTypeScreen()));
+                    },
+                    child: Text("Save & Next"),
+                  ),
+                )
+              ],
+            ),
           ),
-
         ),
       ),
     );
