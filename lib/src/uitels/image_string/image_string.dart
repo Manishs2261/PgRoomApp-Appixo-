@@ -10,3 +10,4 @@ const String onBoardingTwoImage = 'assets/images/on_boarding_two.png';
 
 const String loginGoogleImage = 'assets/images/google.png';
 const String roomImage = 'assets/images/room.jpg';
+const String loginImage = 'assets/images/login.png';
