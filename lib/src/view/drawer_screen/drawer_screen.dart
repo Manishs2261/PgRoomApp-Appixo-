@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../add_your_home/add_your_home.dart';
-import '../login_screen/login_screen.dart';
+import '../auth_screen/login_screen/login_screen.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({

@@ -5,8 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/add_your_home/add_your_home.dart';
 import 'package:pgroom/src/view/details_rent_screen/details_rent_screen.dart';
-import 'package:pgroom/src/view/login_screen/login_screen.dart';
-import 'package:pgroom/src/view/search/search.dart';
+ import 'package:pgroom/src/view/search/search.dart';
 
 import '../drawer_screen/drawer_screen.dart';
 
