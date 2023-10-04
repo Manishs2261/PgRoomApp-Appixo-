@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 
 import '../../../uitels/image_string/image_string.dart';
 
@@ -46,10 +47,12 @@ class _ForgetPasswordPhoneNumberScreenState extends State<ForgetPasswordPhoneNum
                 height: 40,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpPhoneNumberScreen()));
+                  },
                   child: Text("Sent Otp"),
                 ),
-              )
+              ),
 
             ],
           ),

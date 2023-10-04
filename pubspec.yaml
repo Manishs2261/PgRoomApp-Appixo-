@@ -64,6 +64,8 @@ dependencies:
   flutter_notification_channel: ^2.0.0
   #for on Boarding screen
   smooth_page_indicator: ^1.1.0
+  #otp fill screen
+  pinput: ^3.0.1
 
 
 dev_dependencies:
