@@ -25,8 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: SafeArea(
             child: Column(
               children: [
+
+                //=======App bar code ====================
                 AppBar(
                   actions: [
+                    //===post room free==================
                     Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: Container(
@@ -34,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 25,
                           width: 135,
                           decoration: BoxDecoration(
+
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all()),
                           child: Row(
@@ -41,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text("Post Room", textAlign: TextAlign.center),
+
+                              //===========free container =============
                               Container(
                                 alignment: Alignment.center,
                                 height: 15,
@@ -59,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
+
+                //========search field code ==============
                 Padding(
                   padding: const EdgeInsets.only(left: 20, right: 20),
                   child: TextFormField(
@@ -69,6 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               builder: (context) => SearchScreen()));
                     },
                     decoration: InputDecoration(
+                      fillColor: Colors.yellow[50],
+                      filled: true,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                       hintText: "Enter Locality / Landmark / Colony",
@@ -83,8 +93,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
-          )),
+          ),
+      ),
+
+      //======drawer code ===============
       drawer: DrawerScreen(),
+      //=======list view builder code==============
       body: ListView.builder(
 
           padding: EdgeInsets.only(left: 5, right: 5),
@@ -101,7 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 200,
                     width: double.infinity,
                     decoration:
-                        BoxDecoration(color: Colors.blue.shade100, boxShadow: [
+                        BoxDecoration(
+                             color: Color.fromRGBO(200, 200, 40, 0.01),
+                            boxShadow: [
                       BoxShadow(
                         color: Colors.white,
                         spreadRadius: 3,
@@ -181,21 +197,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 3,
                               ),
                               Text("city - Bilaspur"),
-                              Text("Room Type - single and shareable")
+                              Text("Room Type - boys hostel")
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
+                //==========like or unlike button ==========
                 Positioned(
                     top: 10,
                     left: 10,
                     child: Icon(
                       CupertinoIcons.heart,
                       color: Colors.white,
-                    ))
+                    ),
+                ),
+
               ],
             );
           }),

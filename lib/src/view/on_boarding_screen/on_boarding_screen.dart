@@ -86,7 +86,8 @@ class OnBoardingOneScreen extends StatelessWidget {
                         // =======for smooth indicater use=====
 
                         SmoothPageIndicator(
-                            controller: _onBoaeding.pageController, count: 2),
+                            controller: _onBoaeding.pageController,
+                            count: 2),
 
                         //========== for Next page===========
                         TextButton(
