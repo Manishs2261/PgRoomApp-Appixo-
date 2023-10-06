@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pgroom/src/view/on_boarding_screen/controller/on_boarding_controller.dart';
 import 'package:pgroom/src/view/on_boarding_screen/widget/on_boarding_widget.dart';
@@ -13,7 +14,7 @@ class OnBoardingOneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("onBoaurding screen +> build");
+    print("onBoaurding screen +> build =====================");
 
     // on boarding controller ==========
     final _onBoaeding = onBoardingConlroller();
@@ -58,7 +59,7 @@ class OnBoardingOneScreen extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
+                                    builder: (context) => LoginScreen()));
                           },
                           child: Text(
                             "Start",

@@ -12,6 +12,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("splash screen : ================");
     splashontroller.startSplashScreen();
     mediaQuery = MediaQuery.of(context).size;
     return Scaffold(

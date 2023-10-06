@@ -17,9 +17,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  //for like or unlike
+  bool like = false;
+
   @override
   Widget build(BuildContext context) {
+
+    print("home build : +===================");
     return Scaffold(
+
+      //==preferrendSize provide a maximum appbar length
       appBar: PreferredSize(
           preferredSize: Size.fromHeight(115),
           child: SafeArea(
@@ -206,14 +214,42 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 //==========like or unlike button ==========
-                Positioned(
+
+                like == false
+                ?
+                    Positioned(
                     top: 10,
                     left: 10,
-                    child: Icon(
+                    child: InkWell(
+                      onTap: (){
+                        setState(() {
+                          like = true;
+                        });
+                      },
+                      child: Icon(
                       CupertinoIcons.heart,
                       color: Colors.white,
+                      ),
                     ),
-                ),
+                    )
+                    :
+                      Positioned(
+                        top: 10,
+                        left: 10,
+                        child: InkWell(
+                          onTap: (){
+
+                            setState(() {
+                              like = false;
+                            });
+                          },
+                          child: Icon(
+                            CupertinoIcons.heart_fill,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+
 
               ],
             );

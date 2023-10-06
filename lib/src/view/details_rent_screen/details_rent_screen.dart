@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/details_rent_screen/controller/image_page_controller.dart';
@@ -255,15 +256,46 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
                 ],
               ),
               SizedBox(
-                height: 50,
+                height: 40,
               ),
 
+          Text("Rating now :-",style: TextStyle(fontWeight: FontWeight.w500,
+          fontSize: 18),),
+          SizedBox(height: 10,),
+
+          Align(
+            alignment: Alignment.center,
+            child: RatingBar.builder(
+
+              minRating: 1,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+              itemBuilder: (context, _) => Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              onRatingUpdate: (rating) {
+                print(rating);
+              },
+            ),
+          ),
+             SizedBox(height: 10,),
               TextFormField(
                 maxLines: 5,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: "message"
+                  hintText: "write your Review..."
                 ),
+              ),
+              SizedBox(height: 20,),
+              SizedBox(height: 40,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: (){},
+                child: Text("Submit"),
+              ),
               ),
               SizedBox(
                 height: 50,

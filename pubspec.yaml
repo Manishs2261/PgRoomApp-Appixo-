@@ -43,7 +43,7 @@ dependencies:
   shared_preferences: ^2.2.0
   fluttertoast: ^8.2.2
   #for integrating firebase
-  firebase_core: ^2.15.1
+  firebase_core: ^2.17.0
   #for handing google sign in
   google_sign_in: ^6.1.5
   #for handling firebase authentication
@@ -66,6 +66,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   #otp fill screen
   pinput: ^3.0.1
+  #rating bar
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:
