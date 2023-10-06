@@ -3,6 +3,7 @@ import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:pgroom/main.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
+import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 
 import '../forget_password_email/forget_password.dart';
@@ -153,7 +154,11 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
               Text("Don't have an account ? "),
-              Text("Sign-up",style: TextStyle(color: Colors.blue),)
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SingInScreen()));
+                },
+                  child: Text("Sign-up",style: TextStyle(color: Colors.blue),))
             ],),
              SizedBox(height: 10,),
 
