@@ -1,6 +1,11 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/main.dart';
+import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
@@ -21,6 +26,9 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
 
   final globleKey = GlobalKey<FormState>();
+  final TextEditingController _emailControlerLogin = TextEditingController();
+  final TextEditingController _passwordControlerLogin = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +70,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   //===========Email and phone number  text
                   // field===============
                   TextFormField(
+                    controller: _emailControlerLogin,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintText: "Enter Email id or Number",
+                      hintText: "Enter Email id ",
                       prefixIcon: Icon(Icons.email_outlined),
                       contentPadding: EdgeInsets.only(top: 5),
                     ),
@@ -72,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 15,),
                   //==========password text field==============
                   TextFormField(
+                    controller: _passwordControlerLogin,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintText: "Enter Password",
@@ -89,43 +99,9 @@ class _LoginScreenState extends State<LoginScreen> {
               alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: (){
-//========Bottom sheet screen ===============
-                 showModalBottomSheet(context: context,
-                     builder: (context)=> Container(
-                       padding: EdgeInsets.all(30),
-                       child: Column(
-                         crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                           Text("Make Selection!",style: TextStyle(fontSize:
-                           20,fontWeight: FontWeight.bold),),
-                           Text("Selection one of the option given below to "
-                               "reset your password"),
-                           SizedBox(height: 20,),
 
-                           //=====Email - reset password container=====
-                           ForgetPasswordBottomWidget(title: 'E-Mail', subtitle: 'Reset via E-Mail Verification"',
-                             iconData: Icons.email_outlined, ontap: () {
-
-                             Navigator.pop(context);
-                             Navigator.push(context, MaterialPageRoute
-                               (builder: (context)=> ForgetPasswordEmailScreen()));
-                             },),
-                           SizedBox(height: 15,),
-
-                           //==phone number reset password container =====
-                           ForgetPasswordBottomWidget(title: "Phone Number",
-                               subtitle: "Reset via Phone no verification",
-                               iconData: Icons
-                                   .phone_android_outlined, ontap: () {
-                               Navigator.pop(context);
-                               Navigator.push(context, MaterialPageRoute
-                                 (builder: (context)=> ForgetPasswordPhoneNumberScreen()));
-                             },)
-
-
-                         ],
-                       ),
-                     ));
+                    Navigator.push(context, MaterialPageRoute(builder:
+                    (context)=> ForgetPasswordEmailScreen()));
 
                    },
                     child: Text("Forget PassWord ",style: TextStyle(color: Colors.blue),))),
@@ -136,15 +112,16 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                onPressed: () async {
 
-                    SizedBox(width: 15,),
-                    Text("Login ",style: TextStyle(fontSize: 18),)
-                  ],
-                ),
+
+
+                  
+                 // AuthApisClass.loginEmailAndPassword(
+                 // _emailControlerLogin.text,
+                 //     _passwordControlerLogin.text);
+                },
+                child:  Text("Login"),
               ),
             ),
             SizedBox(height: 10,),
@@ -178,7 +155,10 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+
+                  AuthApisClass.handleGoogleButttonClicke();
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

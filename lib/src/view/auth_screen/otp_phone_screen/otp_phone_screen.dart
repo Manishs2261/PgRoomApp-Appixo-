@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
+import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../uitels/image_string/image_string.dart';
@@ -12,6 +15,11 @@ class OtpPhoneNumberScreen extends StatefulWidget {
 }
 
 class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  var code = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +37,16 @@ class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
             Text("Enter the verification code send at  \n 738*****75"),
             SizedBox(height: 50,),
 
+
          Pinput(
 
-        validator: (s) {},
+
            length: 6,
-        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+      // pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
         showCursor: true,
+           onChanged: (value){
+             code = value;
+           },
 
       ),
             SizedBox(height: 50,),
@@ -42,7 +54,11 @@ class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: () async {
+
+
+
+                },
                 child: Text("Submit"),
               ),
             )

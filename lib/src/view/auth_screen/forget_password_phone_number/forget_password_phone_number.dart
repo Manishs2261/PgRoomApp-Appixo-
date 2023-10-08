@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 
@@ -6,11 +7,17 @@ import '../../../uitels/image_string/image_string.dart';
 class ForgetPasswordPhoneNumberScreen extends StatefulWidget {
   const ForgetPasswordPhoneNumberScreen({super.key});
 
+  static String verify = '';
+
   @override
   State<ForgetPasswordPhoneNumberScreen> createState() => _ForgetPasswordPhoneNumberScreenState();
 }
 
 class _ForgetPasswordPhoneNumberScreenState extends State<ForgetPasswordPhoneNumberScreen> {
+
+  final TextEditingController _phoneOtpController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +41,7 @@ class _ForgetPasswordPhoneNumberScreenState extends State<ForgetPasswordPhoneNum
 
               SizedBox(height: 50,),
               TextFormField(
+                controller: _phoneOtpController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   hintText: "Enter Registed phone number",
@@ -47,8 +55,10 @@ class _ForgetPasswordPhoneNumberScreenState extends State<ForgetPasswordPhoneNum
                 height: 40,
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpPhoneNumberScreen()));
+                  onPressed: () async {
+
+
+
                   },
                   child: Text("Sent Otp"),
                 ),
