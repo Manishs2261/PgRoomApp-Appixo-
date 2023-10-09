@@ -1,12 +1,22 @@
 import 'dart:developer';
 
+import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:http/http.dart';
+
 
 import '../../view/home/home_screen.dart';
 
 class AuthApisClass {
+
+
+  static EmailOTP myauth = EmailOTP();
+
 
   // =======google sing =============
  static handleGoogleButttonClicke(){
@@ -91,6 +101,63 @@ static loginEmailAndPassword(String email,String pass) async {
    );
 
  }
+
+ //===========send opt email verification ===============
+  static Future<bool> sendEmailOtpVerification( String email) async {
+
+    //====send otp code ==========
+    myauth.setConfig(
+
+      appEmail: "sahusanju138@gmail.com",
+      appName: "Email OTP by manish",
+      userEmail: email,
+      otpLength: 6,
+      otpType: OTPType.digitsOnly,
+    );
+    if (await myauth.sendOTP() == true) {
+      Get.snackbar(
+          'Send OTP',
+          'Successfully ',
+          snackPosition: SnackPosition.TOP
+      );
+      return true;
+    } else {
+      Get.snackbar(
+          'Failed',
+          'otp send is failed',
+          snackPosition: SnackPosition.TOP
+      );
+      return false;
+
+    }
+  }
+
+  //=========== otp verification code=============
+
+  static Future<bool> otpSubmitVerification(String otp) async {
+
+    if (await myauth.verifyOTP(otp: otp)
+    == true) {
+      Get.snackbar(
+          'OTP',
+          'Successfully  verify',
+          snackPosition: SnackPosition.TOP
+      );
+      return true;
+
+    } else {
+      Get.snackbar(
+          'OTP',
+          'faield verification',
+          snackPosition: SnackPosition.TOP
+      );
+      return false;
+    }
+
+  }
+
+
+
 
  static phoneOtpVerification(){
 

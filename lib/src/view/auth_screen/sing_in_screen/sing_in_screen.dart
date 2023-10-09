@@ -1,6 +1,8 @@
+import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
@@ -21,6 +23,9 @@ class _SingInScreenState extends State<SingInScreen> {
   final TextEditingController _otpControllersing = TextEditingController();
   final TextEditingController _nameControllersing = TextEditingController();
   final TextEditingController _citynameontrollersing = TextEditingController();
+  bool _isOtp = false;
+  bool _isSend = false;
+  bool _isVerify = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +57,7 @@ class _SingInScreenState extends State<SingInScreen> {
                   key: globleKey,
                   child: Column(
                     children: [
-                      //=========enter amail text field =============
+                      //=========enter email text field =============
                       TextFormField(
                         controller: _emailControllersing,
                         keyboardType: TextInputType.text,
@@ -70,24 +75,63 @@ class _SingInScreenState extends State<SingInScreen> {
                             prefixIcon: Icon(Icons.email_outlined),
                             contentPadding: EdgeInsets.only(top: 5),
                             //=====send the otp text buttton ==========
-                            suffix: InkWell(
-                                onTap: () {
+                            suffix:
+                                // in there have two condition
+                                //first condition
+                                // if otp is verified than remove a SEND otp
+                                // text button and re_send text button
+                                // second condition
+                                // send opt and resend otp button
 
-
-                                },
-                                child: Text("| SEND OTP   ")),
+                                // first condition
+                                (_isVerify)
+                                    ? Text("")
+                                    // second condtion
+                                    : (_isSend)
+                                        ? InkWell(
+                                            onTap: () async {
+                                              //====send otp code ==========
+                                              AuthApisClass
+                                                      .sendEmailOtpVerification(
+                                                          _emailControllersing
+                                                              .text)
+                                                  .then((value) {})
+                                                  .onError(
+                                                      (error, stackTrace) {});
+                                            },
+                                            child: Text(
+                                              "| RE-SEND   ",
+                                              style: TextStyle(
+                                                  color: Colors.green),
+                                            ))
+                                        : InkWell(
+                                            onTap: () async {
+                                              //====send otp code ==========
+                                              AuthApisClass
+                                                      .sendEmailOtpVerification(
+                                                          _emailControllersing
+                                                              .text)
+                                                  .then((value) {
+                                                setState(() {
+                                                  _isSend = value;
+                                                });
+                                              }).onError(
+                                                      (error, stackTrace) {});
+                                            },
+                                            child: Text("| SEND OTP   ")),
                             suffixStyle: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.blue)),
                       ),
+
                       SizedBox(
                         height: 15,
                       ),
                       //========enter otp text field =============
                       TextFormField(
                         controller: _otpControllersing,
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter otp';
@@ -96,61 +140,75 @@ class _SingInScreenState extends State<SingInScreen> {
                           }
                         },
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "Enter OTP",
-                          prefixIcon: Icon(Icons.password),
-                          contentPadding: EdgeInsets.only(top: 5),
-                          suffix: (false)
-                              ? InkWell(
-                                  onTap: () {
-                                    print("send otp ");
-                                  },
-                                  child: Text(
-                                    "| Submit   ",
-                                    style: TextStyle(color: Colors.green),
-                                  ))
-                              : InkWell(
-                                  onTap: () {
-                                    print("send otp ");
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter OTP",
+                            prefixIcon: Icon(Icons.password),
+                            contentPadding: EdgeInsets.only(top: 5),
+                            suffix: (_isOtp)
+                                ? Padding(
+                                    padding: EdgeInsets.only(right: 10),
                                     child: Icon(
                                       Icons.verified,
                                       color: Colors.green,
                                     ),
-                                  ),
-                                ),
-                        ),
+                                  )
+                                : InkWell(
+                                    onTap: () async {
+                                      //============verify otp ===========
+                                      if (_otpControllersing.text.isNotEmpty &&
+                                          _otpControllersing.text.length == 6) {
+                                        AuthApisClass.otpSubmitVerification(
+                                                _otpControllersing.text)
+                                            .then((value) {
+                                          setState(() {
+                                            _isOtp = value;
+                                            _isVerify = value;
+                                          });
+                                          print(value);
+                                        }).onError((error, stackTrace) {});
+                                      } else {
+                                        Get.snackbar(
+                                            "wrong OTP",
+                                            "Enter six "
+                                                "digit otp");
+                                      }
+                                    },
+                                    child: Text(
+                                      "| Submit   ",
+                                      style: TextStyle(color: Colors.green),
+                                    ),
+                                  )),
                       ),
+
                       SizedBox(
                         height: 15,
                       ),
                       // ===========Enter Password text fied =============
-                      TextFormField(
-                        controller: _passwordControllersing,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter password ';
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          hintText: "Enter min 6 cgaracter of  password",
-                          prefixIcon: Icon(Icons.lock),
-                          contentPadding: EdgeInsets.only(top: 5),
+                      if (_isOtp)
+                        TextFormField(
+                          controller: _passwordControllersing,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter password ';
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter min 6 cgaracter of  password",
+                            prefixIcon: Icon(Icons.lock),
+                            contentPadding: EdgeInsets.only(top: 5),
+                          ),
                         ),
-                      ),
-                      if (true)
+                      if (_isOtp)
                         SizedBox(
                           height: 15,
                         ),
-                      if (true)
+                      if (_isOtp)
                         //===========enter name text field ================
                         TextFormField(
                           controller: _nameControllersing,
@@ -170,11 +228,11 @@ class _SingInScreenState extends State<SingInScreen> {
                             contentPadding: EdgeInsets.only(top: 5),
                           ),
                         ),
-                      if (true)
+                      if (_isOtp)
                         SizedBox(
                           height: 15,
                         ),
-                      if (true)
+                      if (_isOtp)
 
                         //=============enter city name text field =============
                         TextFormField(
