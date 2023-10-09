@@ -64,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(height: 50,),
               Form(
                 key: globleKey,
+
                   child: Column(
                 children: [
 
@@ -71,6 +72,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   // field===============
                   TextFormField(
                     controller: _emailControlerLogin,
+                    validator: (value){
+                      if(value == null || value.isEmpty)
+                        {
+                          return 'Please enter Email id ';
+                        }else{
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintText: "Enter Email id ",
@@ -82,6 +92,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   //==========password text field==============
                   TextFormField(
                     controller: _passwordControlerLogin,
+
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Password ';
+                            } else {
+                              return null;
+                            }
+                          },
+                          keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintText: "Enter Password",
@@ -114,7 +133,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 onPressed: () async {
 
-
+                       if(globleKey.currentState!.validate()){
+                         print ("login");
+                       }
 
                   
                  // AuthApisClass.loginEmailAndPassword(

@@ -11,6 +11,11 @@ class ForgetPasswordEmailScreen extends StatefulWidget {
 }
 
 class _ForgetPasswordEmailScreenState extends State<ForgetPasswordEmailScreen> {
+
+
+  final globleKey = GlobalKey<FormState>();
+  final TextEditingController _emailControlerLogin = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,12 +37,26 @@ class _ForgetPasswordEmailScreenState extends State<ForgetPasswordEmailScreen> {
               (fontSize: 16),),
 
             SizedBox(height: 50,),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                hintText: "Enter Registed Email id",
-                prefixIcon: Icon(Icons.email_outlined),
-                contentPadding: EdgeInsets.only(top: 5),
+
+            Form(
+              key: globleKey,
+              child: TextFormField(
+                controller: _emailControlerLogin,
+                validator: (value){
+                  if(value == null || value.isEmpty)
+                  {
+                    return 'Please enter Email id ';
+                  }else{
+                    return null;
+                  }
+                },
+
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                  hintText: "Enter Registed Email id",
+                  prefixIcon: Icon(Icons.email_outlined),
+                  contentPadding: EdgeInsets.only(top: 5),
+                ),
               ),
             ),
 
@@ -47,8 +66,13 @@ class _ForgetPasswordEmailScreenState extends State<ForgetPasswordEmailScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder:
-                  (context)=> OtpEmailScreen()));
+
+                  if(globleKey.currentState!.validate()){
+                    Navigator.push(context, MaterialPageRoute(builder:
+                        (context)=> OtpEmailScreen()));
+                  }
+
+
                 },
                 child: Text("Sent Otp"),
               ),
