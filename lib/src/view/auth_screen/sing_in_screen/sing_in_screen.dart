@@ -25,7 +25,8 @@ class _SingInScreenState extends State<SingInScreen> {
   final TextEditingController _citynameontrollersing = TextEditingController();
   bool _isOtp = false;
   bool _isSend = false;
-  bool _isVerify = true;
+  bool _isVerify = false;
+  bool _alredyExitUser = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class _SingInScreenState extends State<SingInScreen> {
                                 // first condition
                                 (_isVerify)
                                     ? Text("")
-                                    // second condtion
+                                    // second condition
                                     : (_isSend)
                                         ? InkWell(
                                             onTap: () async {
@@ -267,12 +268,21 @@ class _SingInScreenState extends State<SingInScreen> {
                             print(_emailControllersing.text);
 
                             if (globleKey.currentState!.validate()) {
-                              print("sing");
+                              AuthApisClass.singEmailIdAndPassword(
+                                  _emailControllersing.text,
+                                  _passwordControllersing.text).then((value){
+
+                                    //in this condition
+                                //if email is alredy exist not sing
+                                    _alredyExitUser = value;
+                                    if(_alredyExitUser)
+                                    Navigator.push(context,
+                                 MaterialPageRoute(builder: (context)=> HomeScreen()));
+                              });
+
+
                             }
 
-                            // AuthApisClass.singEmailIdAndPassword(
-                            //     _emailControllersing.text,
-                            //     _passwordControllersing.text);
                           },
                           child: Text("Submit"),
                         ),
@@ -281,7 +291,7 @@ class _SingInScreenState extends State<SingInScreen> {
                         height: 20,
                       ),
 
-                      // =======Dont have an account button
+                      // =======Dont have an account button=========
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

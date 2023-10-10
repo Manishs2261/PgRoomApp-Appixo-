@@ -47,24 +47,28 @@ class AuthApisClass {
 
   //====sing with email and password==========
 
- static singEmailIdAndPassword(String email , pass) async {
+ static Future<bool> singEmailIdAndPassword(String email ,String pass) async {
    try {
      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
        email: email,
        password: pass,
      );
-     print("susscefule sign");
+
 
    } on FirebaseAuthException catch (e) {
      if (e.code == 'weak-password') {
-       print('The password provided is too weak.');
+       Get.snackbar("Weak Password", "This password is weak use Number,"
+           "Character");
      } else if (e.code == 'email-already-in-use') {
-       print('The account already exists for that email.');
+       Get.snackbar("Email-already-in-use","This email id is alreday exist",
+           backgroundColor: Colors.redAccent);
+       return false;
      }
    } catch (e) {
-     print(e);
+     Get.snackbar(" sing error", "$e");
    }
 
+   return true;
  }
 
 // ======login with email id and password====
@@ -76,14 +80,15 @@ static loginEmailAndPassword(String email,String pass) async {
         password: pass
     );
 
-    print("login sussceful");
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      print('No user found for that email.');
+      Get.snackbar("NO user found", "No user found for that email.");
     } else if (e.code == 'wrong-password') {
-      print('Wrong password provided for that user.');
+       Get.snackbar("Worng password", "Wrong password provided for that user"
+           ".",backgroundColor: Colors.redAccent);
     }
   }
+
 }
 
 // phone number verification code
