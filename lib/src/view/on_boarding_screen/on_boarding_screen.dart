@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
@@ -56,10 +57,7 @@ class OnBoardingOneScreen extends StatelessWidget {
                       width: 300,
                       child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LoginScreen()));
+                             Get.offNamed(RoutesName.loginScreen);
                           },
                           child: Text(
                             "Start",

@@ -73,21 +73,34 @@ class AuthApisClass {
 
 // ======login with email id and password====
 
-static loginEmailAndPassword(String email,String pass) async {
+static Future<bool> loginEmailAndPassword(String email,String pass) async {
   try {
     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: pass
     );
 
+
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       Get.snackbar("NO user found", "No user found for that email.");
+
+      return false;
     } else if (e.code == 'wrong-password') {
        Get.snackbar("Worng password", "Wrong password provided for that user"
            ".",backgroundColor: Colors.redAccent);
-    }
+
+       return false;
+    } else
+      {
+        Get.snackbar("Error", "In valid Email id and password");
+        print(e.code);
+        return false;
+      }
   }
+
+
+  return true;
 
 }
 
