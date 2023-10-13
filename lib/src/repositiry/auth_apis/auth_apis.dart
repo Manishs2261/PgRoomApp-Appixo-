@@ -55,6 +55,8 @@ class AuthApisClass {
      );
 
 
+
+
    } on FirebaseAuthException catch (e) {
      if (e.code == 'weak-password') {
        Get.snackbar("Weak Password", "This password is weak use Number,"
@@ -80,6 +82,7 @@ static Future<bool> loginEmailAndPassword(String email,String pass) async {
         password: pass
     );
 
+    print("data lodin 🧧${credential.user}");
 
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {

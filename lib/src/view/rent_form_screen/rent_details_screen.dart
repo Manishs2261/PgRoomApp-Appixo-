@@ -13,6 +13,17 @@ class RentDetailsScsreen extends StatefulWidget {
 class _RentDetailsScsreenState extends State<RentDetailsScsreen> {
   final _globlekey = GlobalKey<FormState>();
 
+  var _currencies = [
+    "Food",
+    "Transport",
+    "Personal",
+    "Shopping",
+    "Medical",
+    "Rent",
+    "Movie",
+    "Salary"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +91,36 @@ class _RentDetailsScsreenState extends State<RentDetailsScsreen> {
                   icon: Icon(Icons.phone),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: EdgeInsets.only(top: 5, left: 10),
+                ),
+
+
+
+                FormField<String>(
+                  builder: (FormFieldState<String> state) {
+                    return InputDecorator(
+                      decoration: InputDecoration(
+
+                          errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),
+                          hintText: 'Please select expense',
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5.0))),
+
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+
+                          isDense: true,
+                          onChanged: ( newValue) {
+
+                          },
+                          items: _currencies.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  },
                 ),
 
 
