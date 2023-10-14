@@ -58,6 +58,7 @@ class SingInScreen extends StatelessWidget {
                         ()=> TextFormField(
                             controller: _controller.emailControllersing.value,
                             keyboardType: TextInputType.text,
+
                             autofocus: true,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -293,6 +294,7 @@ class SingInScreen extends StatelessWidget {
                                       _controller.loading.value  = false;
 
                                     if (_controller.alredyExitUser.value)
+
 
                                       Get.offAllNamed(RoutesName.homeScreen);
                                   });

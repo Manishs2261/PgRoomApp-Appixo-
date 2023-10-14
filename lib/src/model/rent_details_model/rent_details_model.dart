@@ -1,18 +1,18 @@
-class RentdetalsModel {
+class RentDetailsModel {
   String? houseName;
   String? address;
   String? cityName;
   String? contactNumber;
   String? landMark;
 
-  RentdetalsModel(
+  RentDetailsModel(
       {this.houseName,
         this.address,
         this.cityName,
         this.contactNumber,
         this.landMark});
 
-  RentdetalsModel.fromJson(Map<String, dynamic> json) {
+  RentDetailsModel.fromJson(Map<String, dynamic> json) {
     houseName = json['houseName'];
     address = json['address'];
     cityName = json['cityName'];

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
@@ -40,6 +41,7 @@ class _RentDetailsScsreenState extends State<RentDetailsScsreen> {
               children: [
                 // =================Home Name================
                 MyTextFormWedgit(
+
                   controller: houseNameController,
                   hintText: "Enter Home / House Name",
                   lableText: 'House Name',
@@ -117,9 +119,25 @@ class _RentDetailsScsreenState extends State<RentDetailsScsreen> {
                       print(cityNameController.text);
                       print(landdMarkController.text);
                       print(contactNumberController.text);
+                       //
+                       // ApisClass.newRentDetailsCollection(
+                       //     houseNameController.text,
+                       //     houseAddressController.text,
+                       //     cityNameController.text,
+                       //     landdMarkController.text,
+                       //     contactNumberController.text).then((value) {
+                       //
+                       //       Get.snackbar("add", "sussfulyy");
+                       // }).onError((error, stackTrace) {
+                       //
+                       //   Get.snackbar("errror", "errrr");
+                       //   print("Error + : $error");
+                       // });
 
 
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> HostelAndRoomTypeScreen()));
+
+                      Navigator.push(context, MaterialPageRoute(builder:
+                     (context)=> HostelAndRoomTypeScreen()));
 
                     },
                     child: Text("Save & Next"),

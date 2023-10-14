@@ -120,6 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+        print("user : ${ApisClass.user}");
+
           await FirebaseAuth.instance.signOut();
           await GoogleSignIn().signOut();
           Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
@@ -132,9 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder(
 
         stream: ApisClass.firestore.collection('rentCollection').snapshots(),
-        // stream: ApisClass.firestore.collection('rentUser').doc
-        //   ("s30wXWQIDuPPzjrNmf7Q").collection('rentDetails').snapshots(),
-        //
+      //   stream: ApisClass.firestore.collection('rentUser').doc
+      //     ("s30wXWQIDuPPzjrNmf7Q").collection('pgRoomAndFlatType').snapshots(),
+
         builder: (context, snapshot) {
 
           switch(snapshot.connectionState){
