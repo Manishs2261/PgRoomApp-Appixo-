@@ -135,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         stream: ApisClass.firestore.collection('rentCollection').snapshots(),
       //   stream: ApisClass.firestore.collection('rentUser').doc
-      //     ("s30wXWQIDuPPzjrNmf7Q").collection('pgRoomAndFlatType').snapshots(),
+      //     ("s30wXWQIDuPPzjrNmf7Q").collection('providFacilites').snapshots(),
 
         builder: (context, snapshot) {
 

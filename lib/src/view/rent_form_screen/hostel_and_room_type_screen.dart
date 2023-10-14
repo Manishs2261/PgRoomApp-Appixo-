@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
@@ -32,6 +35,9 @@ bool isBool = false;
   final fourPersonContrller = TextEditingController();
   final faimlyPersonContrller = TextEditingController();
 
+  String roomType = '';
+  String bhk = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +66,8 @@ bool isBool = false;
                     setState(() {
                       _hostelTypeEnum = value;
                       isBool = false;
+                      roomType = "Boys";
+                      bhk = '';
                     });
                   }),
 
@@ -72,6 +80,8 @@ bool isBool = false;
                     setState(() {
                       _hostelTypeEnum = value;
                       isBool = false;
+                      roomType = "Girls";
+                   bhk = '';
                     });
                   }),
 
@@ -84,6 +94,7 @@ bool isBool = false;
                     setState(() {
                       _hostelTypeEnum = value;
                       isBool = true;
+                      roomType = "Faimly";
                     });
                   }),
 
@@ -101,6 +112,7 @@ bool isBool = false;
                           onChange: (value) {
                             setState(() {
                               _faltTypeEnum = value;
+                               bhk = '1BHK';
                             });
                           }),
 
@@ -111,6 +123,7 @@ bool isBool = false;
                           onChange: (value) {
                             setState(() {
                               _faltTypeEnum = value;
+                               bhk = '2BHK';
                             });
                           }),
 
@@ -121,6 +134,7 @@ bool isBool = false;
                           onChange: (value) {
                             setState(() {
                               _faltTypeEnum = value;
+                               bhk = '3BHK';
                             });
                           }),
 
@@ -287,6 +301,25 @@ bool isBool = false;
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
+                      //
+                      // ApisClass.pgRoomAndFlatTypePrice(
+                      //     roomType,
+                      //     bhk,
+                      //     singlePersonContrller.text,
+                      //     doublePersonContrller.text,
+                      //     triplePersonContrller.text,
+                      //     fourPersonContrller.text,
+                      //     faimlyPersonContrller.text).then((value) {
+                      //
+                      //       Get.snackbar("add","sussfulley");
+                      // }).onError((error, stackTrace) {
+                      //   Get.snackbar("errror","errpr");
+                      //   print("error 🔴$error");
+                      // });
+
+
+
+
                       Navigator.push(
                           context,
                           MaterialPageRoute(

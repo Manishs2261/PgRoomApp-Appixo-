@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 
 import 'charges_and_door_timing_screen.dart';
@@ -13,17 +16,17 @@ class ProvideFacilitesScreen extends StatefulWidget {
 
 class _ProvideFacilitesScreenState extends State<ProvideFacilitesScreen> {
 
-  bool _checkbox5 = false;
-  bool _checkbox6 = false;
-  bool _checkbox7 = false;
-  bool _checkbox8 = false;
-  bool _checkbox9 = false;
-  bool _checkbox10 = false;
-  bool _checkbox11 = false;
-  bool _checkbox12 = false;
-  bool _checkbox13 = false;
-  bool _checkbox14 = false;
-  bool _checkbox15 = false;
+  bool wifi = false;
+  bool bed = false;
+  bool chari = false;
+  bool table = false;
+  bool fan = false;
+  bool gadda = false;
+  bool light = false;
+  bool locker = false;
+  bool bedSheet = false;
+  bool washingMachin = false;
+  bool parking = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,102 +45,102 @@ class _ProvideFacilitesScreenState extends State<ProvideFacilitesScreen> {
             //======for Wi-fi==========
             MYCheckBoxWidget(
                 title: "Wi-Fi",
-                checkBool: _checkbox5,
+                checkBool: wifi,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox5 = value!;
+                    wifi = value!;
                   });
                 }),
             //======for Bed==========
             MYCheckBoxWidget(
                 title: "Bed",
-                checkBool: _checkbox6,
+                checkBool: bed,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox6 = value!;
+                    bed = value!;
                   });
                 }),
 
             //======for chairs==========
             MYCheckBoxWidget(
                 title: "Chair",
-                checkBool: _checkbox7,
+                checkBool: chari,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox7 = value!;
+                    chari = value!;
                   });
                 }),
 
             //======for Table ==========
             MYCheckBoxWidget(
                 title: "Table",
-                checkBool: _checkbox8,
+                checkBool: table,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox8 = value!;
+                    table = value!;
                   });
                 }),
             //======for Fan==========
             MYCheckBoxWidget(
                 title: "Fan",
-                checkBool: _checkbox9,
+                checkBool: fan,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox9 = value!;
+                    fan = value!;
                   });
                 }),
             //======for Gadda==========
             MYCheckBoxWidget(
                 title: "Gadda",
-                checkBool: _checkbox10,
+                checkBool: gadda,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox10 = value!;
+                    gadda = value!;
                   });
                 }),
             //======for Light==========
             MYCheckBoxWidget(
                 title: "Light",
-                checkBool: _checkbox11,
+                checkBool: light,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox11 = value!;
+                    light = value!;
                   });
                 }),
             //======for Locker==========
             MYCheckBoxWidget(
                 title: "Locker",
-                checkBool: _checkbox12,
+                checkBool: locker,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox12 = value!;
+                    locker = value!;
                   });
                 }),
             //======for Bedsheet==========
             MYCheckBoxWidget(
                 title: "Bed Sheet",
-                checkBool: _checkbox13,
+                checkBool: bedSheet,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox13 = value!;
+                    bedSheet = value!;
                   });
                 }),
             //======for washing machine==========
             MYCheckBoxWidget(
                 title: "Washing Machine",
-                checkBool: _checkbox14,
+                checkBool: washingMachin,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox14 = value!;
+                    washingMachin = value!;
                   });
                 }),
             //======for parking==========
             MYCheckBoxWidget(
                 title: "Parking",
-                checkBool: _checkbox15,
+                checkBool: parking,
                 onChanged: (value) {
                   setState(() {
-                    _checkbox15 = value!;
+                    parking = value!;
                   });
                 }),
 
@@ -146,7 +149,30 @@ class _ProvideFacilitesScreenState extends State<ProvideFacilitesScreen> {
               height: 40,
               width: double.infinity,
               child: ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChargesAndDoorTime()));
+
+                // ApisClass.newProvidFacilites(
+                //     wifi,
+                //     bed,
+                //     chari,
+                //     table,
+                //     fan,
+                //     gadda,
+                //     light,
+                //     locker,
+                //     bedSheet,
+                //     washingMachin,
+                //     parking).then((value) {
+                //
+                //       Get.snackbar("add","sussefully");
+                // }).onError((error, stackTrace) {
+                //   print("error ${error}");
+                //   Get.snackbar("error", "error");
+                // });
+
+
+
+               Navigator.push(context, MaterialPageRoute(builder: (context)
+               =>ChargesAndDoorTime()));
               }, child: Text("next")),
             )
 
