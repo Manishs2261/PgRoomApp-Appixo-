@@ -26,6 +26,12 @@ bool isBool = false;
   bool _checkboxFour4 = false;
   bool _checkboxFaimalyRoom = false;
 
+  final singlePersonContrller = TextEditingController();
+  final doublePersonContrller = TextEditingController();
+  final triplePersonContrller = TextEditingController();
+  final fourPersonContrller = TextEditingController();
+  final faimlyPersonContrller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,6 +154,7 @@ bool isBool = false;
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
+                        controller: singlePersonContrller,
                         hintText: "Price",
                         lableText: "Price",
                         isCollapsed: true,
@@ -176,6 +183,7 @@ bool isBool = false;
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
+                        controller: doublePersonContrller,
                         hintText: "Price",
                         lableText: "Price",
                         isCollapsed: true,
@@ -203,6 +211,7 @@ bool isBool = false;
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
+                        controller: triplePersonContrller,
                         hintText: "Price",
                         lableText: "Price",
                         isCollapsed: true,
@@ -230,6 +239,7 @@ bool isBool = false;
                         child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
+                        controller: fourPersonContrller,
                         hintText: "Price",
                         lableText: "Price",
                         isCollapsed: true,
@@ -258,6 +268,7 @@ bool isBool = false;
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: MyTextFormWedgit(
+                            controller: faimlyPersonContrller,
                             hintText: "Price",
                             lableText: "Price",
                             isCollapsed: true,

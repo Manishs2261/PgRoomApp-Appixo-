@@ -132,6 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: StreamBuilder(
 
         stream: ApisClass.firestore.collection('rentCollection').snapshots(),
+        // stream: ApisClass.firestore.collection('rentUser').doc
+        //   ("s30wXWQIDuPPzjrNmf7Q").collection('rentDetails').snapshots(),
+        //
         builder: (context, snapshot) {
 
           switch(snapshot.connectionState){
@@ -143,6 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
             case ConnectionState.done:
 
               final data = snapshot.data?.docs;
+
+              // for(var i in data!)
+              //   {
+              //     log("Data : ${jsonEncode(i.data())}");
+              //   }
+
               rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList()
           ?? [];
 

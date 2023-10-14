@@ -18,6 +18,8 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
   bool _checkbox18 = false;
   bool _checkbox26 = false;
 
+  final restrictedController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,6 +130,7 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child:  MyTextFormWedgit(
+                            controller: restrictedController,
                             hintText: "Enter at time",
                             lableText: "Time",
                             isDense: true,

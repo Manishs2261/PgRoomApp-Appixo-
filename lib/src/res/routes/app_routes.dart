@@ -2,12 +2,19 @@
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pgroom/src/view/add_your_home/add_your_home.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/auth_screen/otp_email_screen/otp_email_screen.dart';
 import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pgroom/src/view/on_boarding_screen/on_boarding_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/add_image_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/permission_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/provide_facilites_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/rent_details_screen.dart';
 
 import '../../view/auth_screen/forget_password_email/forget_password.dart';
 import '../../view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
@@ -65,6 +72,38 @@ static appRoutes()=>[
   transition: Transition.leftToRightWithFade),
 
 
+  GetPage(name: RoutesName.rentDetails_screen, page:()=> RentDetailsScsreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.addYourHomeScreen, page:()=>AddYourHome() ,
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.addImageScreen, page:()=> AddImageScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.chargeAndDoorTimingScreen, page:()=> ChargesAndDoorTime(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.hostelAndRoomTypeScreen, page:()=> HostelAndRoomTypeScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.perimissionScreen, page:()=> PermissioinScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.providsFacilitesScreen, page:()=> ProvideFacilitesScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+
+  GetPage(name: RoutesName.rentDetailsFormScreen, page:()=> RentDetailsScsreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
 
 ];
 

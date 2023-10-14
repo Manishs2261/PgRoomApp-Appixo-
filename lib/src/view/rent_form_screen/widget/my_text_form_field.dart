@@ -6,6 +6,7 @@ class MyTextFormWedgit extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.lableText,
+     required this.controller,
      this.icon,
     required this.borderRadius,
      this.contentPadding,
@@ -13,16 +14,18 @@ class MyTextFormWedgit extends StatelessWidget {
      this.isDense = false,
   });
 
-  final String hintText, lableText;
-  final Icon? icon;
+   String hintText, lableText;
+   Icon? icon;
   BorderRadius  borderRadius;
   EdgeInsetsGeometry? contentPadding;
   bool isCollapsed ;
   bool  isDense;
+  TextEditingController controller;
 
    @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
           border: OutlineInputBorder(
