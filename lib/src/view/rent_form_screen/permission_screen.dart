@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 
 class PermissioinScreen extends StatefulWidget {
@@ -12,13 +15,14 @@ class PermissioinScreen extends StatefulWidget {
 class _PermissioinScreenState extends State<PermissioinScreen> {
 
 
-  bool _checkbox19 = false;
-  bool _checkbox20 = false;
-  bool _checkbox21 = false;
-  bool _checkbox22 = false;
-  bool _checkbox23 = false;
-  bool _checkbox24 = false;
-  bool _checkbox25 = false;
+  bool cookingAllow = false;
+  bool veg = false;
+
+  bool both = false;
+  bool girl = false;
+  bool boy = false;
+  bool faimlyMamber = false;
+  String cookingType = "";
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +46,22 @@ class _PermissioinScreenState extends State<PermissioinScreen> {
                 //=============for cooking ============
                 MYCheckBoxWidget(
                     title:"Cooking allow" ,
-                    checkBool:  _checkbox19,
+                    checkBool:  cookingAllow,
                     onChanged:  (value) {
                       setState(() {
-                        _checkbox19 = value!;
+                        cookingAllow = value!;
+
+                        if(cookingAllow == false){
+                          veg = false;
+                          both = false;
+                          cookingType = "";
+                        }
+
                       });
                     } ),
 
                 // ===========for coocking conditions  ===============
-                if( _checkbox19)
+                if( cookingAllow)
                   Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Column(
@@ -59,31 +70,28 @@ class _PermissioinScreenState extends State<PermissioinScreen> {
                         //=============for veg allows============
                         MYCheckBoxWidget(
                             title:"veg only " ,
-                            checkBool:  _checkbox20,
+                            checkBool:  veg,
                             onChanged:  (value) {
                               setState(() {
-                                _checkbox20 = value!;
+                                veg = value!;
+                                both = false;
+                                cookingType = "veg Only";
                               });
                             } ),
 
 
                         //=============for Non-veg allows============
-                        MYCheckBoxWidget(
-                            title:"Non - veg" ,
-                            checkBool:  _checkbox21,
-                            onChanged:  (value) {
-                              setState(() {
-                                _checkbox21 = value!;
-                              });
-                            } ),
+
 
                         //=============for Both allows============
                         MYCheckBoxWidget(
-                            title:"Both" ,
-                            checkBool:  _checkbox22,
+                            title:"veg and non-veg both allow" ,
+                            checkBool:  both,
                             onChanged:  (value) {
                               setState(() {
-                                _checkbox22 = value!;
+                                both = value!;
+                                veg = false;
+                                cookingType = "veg and non-veg both allow";
                               });
                             } ),
 
@@ -97,20 +105,20 @@ class _PermissioinScreenState extends State<PermissioinScreen> {
             //=============for Girls allows============
             MYCheckBoxWidget(
                 title:"Girl allow" ,
-                checkBool:  _checkbox23,
+                checkBool:  girl,
                 onChanged:  (value) {
                   setState(() {
-                    _checkbox23 = value!;
+                    girl = value!;
                   });
                 } ),
 
             //=============for Boys allows============
             MYCheckBoxWidget(
                 title:"Boy allow" ,
-                checkBool:  _checkbox24,
+                checkBool:  boy,
                 onChanged:  (value) {
                   setState(() {
-                    _checkbox24 = value!;
+                    boy = value!;
                   });
                 } ),
 
@@ -118,10 +126,10 @@ class _PermissioinScreenState extends State<PermissioinScreen> {
 
             MYCheckBoxWidget(
                 title:"Family member  allow" ,
-                checkBool:  _checkbox25,
+                checkBool:  faimlyMamber,
                 onChanged:  (value) {
                   setState(() {
-                    _checkbox25 = value!;
+                    faimlyMamber = value!;
                   });
                 } ),
 
@@ -129,7 +137,25 @@ class _PermissioinScreenState extends State<PermissioinScreen> {
             SizedBox(
               height: 40,
               width: double.infinity,
-              child: ElevatedButton(onPressed: (){},
+              child: ElevatedButton(onPressed: (){
+
+                ApisClass.newPermission(
+                    cookingAllow,
+                    cookingType,
+                    girl,
+                    boy,
+                    faimlyMamber).then((value) {
+
+                      Get.snackbar("add","sussefluy");
+                }).onError((error, stackTrace) {
+
+                  Get.snackbar("error", "error");
+                  print("errror + $error");
+                });
+
+
+
+              },
               child: Text("Save "),),
             )
           ],
