@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/permission_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
+ import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
+     '.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
 
 class ChargesAndDoorTime extends StatefulWidget {
@@ -13,12 +17,12 @@ class ChargesAndDoorTime extends StatefulWidget {
 
 class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
 
-  bool _checkbox16 = false;
-  bool _checkbox17 = false;
-  bool _checkbox18 = false;
-  bool _checkbox26 = false;
+  bool electricityBill = false;
+  bool waterBill = false;
+  bool fexibleTime = false;
+  bool restrictedTime = false;
 
-  final restrictedController = TextEditingController();
+  final restrictedController = TextEditingController(text: "");
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +56,15 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
                       materialTapTargetSize:
                       MaterialTapTargetSize.shrinkWrap,
                       title: "Electricity Bill",
-                      checkBool: _checkbox16,
+                      checkBool: electricityBill,
                       onChanged: (value) {
                         setState(() {
-                          _checkbox16 = value!;
+                          electricityBill = value!;
                         });
                       }),
 
                   // ==========for checking Electricity bill condition=======
-                  _checkbox16
+                  electricityBill
                       ? Text(
                     "Electricity bill are include in your room rent",
                     style: TextStyle(color: Colors.green),
@@ -82,16 +86,16 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
                           materialTapTargetSize:
                           MaterialTapTargetSize.shrinkWrap,
                           title: "Water Bill",
-                          checkBool: _checkbox17,
+                          checkBool: waterBill,
                           onChanged: (value) {
                             setState(() {
-                              _checkbox17 = value!;
+                              waterBill = value!;
                             });
                           }),
                     ],
                   ),
                   //=========for checking water bill condition============
-                  _checkbox17
+                  waterBill
                       ? Text(
                     "Water bill are  include in your room rent",
                     style: TextStyle(color: Colors.green),
@@ -118,14 +122,15 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
                   //=============for Restricted Time ============
                   MYCheckBoxWidget(
                       title:"Restricted Time" ,
-                      checkBool:  _checkbox26,
+                      checkBool:  restrictedTime,
                       onChanged:  (value) {
                         setState(() {
-                          _checkbox26 = value!;
+                          restrictedTime = value!;
+                          fexibleTime = false;
                         });
                       } ),
                   // =======for checking a condition ===========
-                  if(_checkbox26)
+                  if(restrictedTime)
                     Flexible(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -147,12 +152,17 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
               //=============for fexible time ============
               MYCheckBoxWidget(
                   title:"Fexible time" ,
-                  checkBool:  _checkbox18,
+                  checkBool:  fexibleTime,
                   onChanged:  (value) {
                     setState(() {
-                      _checkbox18 = value!;
+                      fexibleTime = value!;
+                      restrictedTime = false;
+                      restrictedController.clear();
+
                     });
                   } ),
+
+
 
               SizedBox(
                 height: 20,
@@ -162,7 +172,27 @@ class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
                 height: 40,
                 width: double.infinity,
                 child: ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> PermissioinScreen()));
+
+                  // ApisClass.newAdditionChargesAndDoorClosing(
+                  //     restrictedController.text,
+                  //     electricityBill,
+                  //     waterBill,
+                  //     fexibleTime).then((value) {
+                  //
+                  //       Get.snackbar("add","sussefulley");
+                  // }).onError((error, stackTrace) {
+                  //
+                  //   print("Errr :$error");
+                  //   Get.snackbar("errro", "error");
+                  // });
+
+
+
+
+
+
+                  Navigator.push(context, MaterialPageRoute(builder:
+                 (context)=> PermissioinScreen()));
                 }, child:Text("next")),
               )
             ],

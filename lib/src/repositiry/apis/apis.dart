@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pgroom/src/model/additional_charges_and_door_cloging_model/additional_charges_and_door_cloging_model.dart';
 import 'package:pgroom/src/model/provide_facilites_models/provides_facilites_models.dart';
 import 'package:pgroom/src/model/rent_details_model/rent_details_model.dart';
 
@@ -84,6 +85,25 @@ static Future<void>newProvidFacilites(bool wifi,bed,chair,table,fan,gadda,
   );
   return await firestore.collection('rentUser').doc(user.uid).collection
     ('providFacilites').doc(time).set(provide.toJson());
+
+}
+
+//for crete a additional charges
+static Future<void>newAdditionChargesAndDoorClosing(String restricted,bool
+electricity,water,fexibleTime)
+async {
+
+  final charges = AdditionChargesAndDoorClosingModel(
+    electricityBill: electricity,
+    fexibleTime: fexibleTime,
+    restrictedTime: restricted,
+    waterBill: water
+  );
+
+  return await firestore.collection('rentUser').doc(user.uid).collection
+    ('otherCharges').doc(time).set(charges.toJson());
+
+
 
 }
 
