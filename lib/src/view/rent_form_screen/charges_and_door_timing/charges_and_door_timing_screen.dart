@@ -1,201 +1,182 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/view/rent_form_screen/permission/permission_screen.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
-     '.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
+    '.dart';
+import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field'
+    '.dart';
 
-class ChargesAndDoorTime extends StatefulWidget {
-  const ChargesAndDoorTime({super.key});
+class ChargesAndDoorTime extends StatelessWidget {
+  ChargesAndDoorTime({super.key});
 
-  @override
-  State<ChargesAndDoorTime> createState() => _ChargesAndDoorTimeState();
-}
-
-class _ChargesAndDoorTimeState extends State<ChargesAndDoorTime> {
-
-  bool electricityBill = false;
-  bool waterBill = false;
-  bool fexibleTime = false;
-  bool restrictedTime = false;
-
-  final restrictedController = TextEditingController(text: "");
+  final controller = Get.put(AdditionalChargesController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("charge "),),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15,right: 15),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-
-              Text(
-                "Additional charges :- ",
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "In this chargs include your roon rent or not",
-                style: TextStyle(color: Colors.orange),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-
-              //======for Electricity bill =============
-              Column(
+    if (kDebugMode) {
+      print("Build +> charges Scren 🔴");
+    }
+    return GestureDetector(
+      onTap: ()=>FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+            child: SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MYCheckBoxWidget(
-                      materialTapTargetSize:
-                      MaterialTapTargetSize.shrinkWrap,
-                      title: "Electricity Bill",
-                      checkBool: electricityBill,
-                      onChanged: (value) {
-                        setState(() {
-                          electricityBill = value!;
-                        });
-                      }),
-
-                  // ==========for checking Electricity bill condition=======
-                  electricityBill
-                      ? Text(
-                    "Electricity bill are include in your room rent",
-                    style: TextStyle(color: Colors.green),
-                  )
-                      : Text(
-                    "Electricity bill are not include in your room rent",
+                  const Text(
+                    "Additional charges :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const Text(
+                    "In this chargs include your roon rent or not",
                     style: TextStyle(color: Colors.orange),
-                  )
-                ],
-              ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-              //======for water bill =============
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                  //======for Electricity bill =============
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MYCheckBoxWidget(
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
-                          title: "Water Bill",
-                          checkBool: waterBill,
-                          onChanged: (value) {
-                            setState(() {
-                              waterBill = value!;
-                            });
-                          }),
+                      Obx(
+                        () => MYCheckBoxWidget(
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            title: "Electricity Bill",
+                            checkBool: controller.electricityBill.value,
+                            onChanged: (value) {
+                              controller.electricityBill.value = value!;
+                            }),
+                      ),
+
+                      // ==========for checking Electricity bill condition=======
+                      Obx(
+                        () => controller.electricityBill.value
+                            ? const Text(
+                                "Electricity bill are include in your room rent",
+                                style: TextStyle(color: Colors.green),
+                              )
+                            : const Text(
+                                "Electricity bill are not include in your room rent",
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                      )
                     ],
                   ),
-                  //=========for checking water bill condition============
-                  waterBill
-                      ? Text(
-                    "Water bill are  include in your room rent",
-                    style: TextStyle(color: Colors.green),
-                  )
-                      : Text(
-                    "Water bill are not include in your room rent",
-                    style: TextStyle(color: Colors.orange),
-                  )
-                ],
-              ),
 
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Door Closing Time :- ",
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              Row(
-                children: [
-
-
-                  //=============for Restricted Time ============
-                  MYCheckBoxWidget(
-                      title:"Restricted Time" ,
-                      checkBool:  restrictedTime,
-                      onChanged:  (value) {
-                        setState(() {
-                          restrictedTime = value!;
-                          fexibleTime = false;
-                        });
-                      } ),
-                  // =======for checking a condition ===========
-                  if(restrictedTime)
-                    Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child:  MyTextFormWedgit(
-                            controller: restrictedController,
-                            hintText: "Enter at time",
-                            lableText: "Time",
-                            isDense: true,
-                            isCollapsed: true,
-                            borderRadius: BorderRadius.zero,
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 15),
+                  //======for water bill =============
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Obx(
+                            () => MYCheckBoxWidget(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                title: "Water Bill",
+                                checkBool: controller.waterBill.value,
+                                onChanged: (value) {
+                                  controller.waterBill.value = value!;
+                                }),
                           ),
+                        ],
+                      ),
+                      //=========for checking water bill condition============
+                      Obx(
+                        () => controller.waterBill.value
+                            ? const Text(
+                                "Water bill are  include in your room rent",
+                                style: TextStyle(color: Colors.green),
+                              )
+                            : const Text(
+                                "Water bill are not include in your room rent",
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                      )
+                    ],
+                  ),
 
-                        ))
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "Door Closing Time :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      //=============for Restricted Time ============
+                      Obx(
+                        () => MYCheckBoxWidget(
+                            title: "Restricted Time",
+                            checkBool: controller.restrictedTime.value,
+                            onChanged: (value) {
 
+                              controller.restrictedTimeCondition(value);
+                            }),
+                      ),
+                      // =======for checking a condition ===========
+                      Obx(() => (controller.restrictedTime.value)
+                          ? Flexible(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: MyTextFormWedgit(
+                                controller: controller.restrictedController.value,
+                                hintText: "Enter at time",
+                                lableText: "Time",
+                                isDense: true,
+                                isCollapsed: true,
+                                borderRadius: BorderRadius.zero,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 15),
+                              ),
+                            ))
+                          : const Text(""))
+                    ],
+                  ),
+                  //=============for fexible time ============
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Fexible time",
+                        checkBool: controller.fexibleTime.value,
+                        onChanged: (value) {
+                       controller.fexibleTimeCondition(value);
+                        }),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+
+                          // controller method call
+                          controller.onSubmitButton();
+
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => PermissioinScreen()));
+                        },
+                        child: Obx(
+                          ()=> (controller.loading.value)
+                          ? const CircularProgressIndicator(color: Colors.blue,)
+                       : const Text("next"),
+                        )),
+                  )
                 ],
               ),
-              //=============for fexible time ============
-              MYCheckBoxWidget(
-                  title:"Fexible time" ,
-                  checkBool:  fexibleTime,
-                  onChanged:  (value) {
-                    setState(() {
-                      fexibleTime = value!;
-                      restrictedTime = false;
-                      restrictedController.clear();
-
-                    });
-                  } ),
-
-
-
-              SizedBox(
-                height: 20,
-              ),
-
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(onPressed: (){
-
-                  // ApisClass.newAdditionChargesAndDoorClosing(
-                  //     restrictedController.text,
-                  //     electricityBill,
-                  //     waterBill,
-                  //     fexibleTime).then((value) {
-                  //
-                  //       Get.snackbar("add","sussefulley");
-                  // }).onError((error, stackTrace) {
-                  //
-                  //   print("Errr :$error");
-                  //   Get.snackbar("errro", "error");
-                  // });
-
-
-
-
-
-
-                  Navigator.push(context, MaterialPageRoute(builder:
-                 (context)=> PermissioinScreen()));
-                }, child:Text("next")),
-              )
-            ],
+            ),
           ),
         ),
       ),

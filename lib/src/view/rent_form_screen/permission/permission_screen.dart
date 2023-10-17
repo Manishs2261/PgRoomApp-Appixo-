@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/permission_controller.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
+ import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
+     '.dart';
+
+import 'controller/permission_controller.dart';
 
 class PermissioinScreen extends StatelessWidget {
   PermissioinScreen({super.key});
