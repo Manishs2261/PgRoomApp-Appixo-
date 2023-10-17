@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
-import 'package:pgroom/src/view/rent_form_screen/rent_details_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_screen.dart';
 
 class AddImageScreen extends StatefulWidget {
   const AddImageScreen({super.key});

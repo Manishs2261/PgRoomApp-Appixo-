@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/view/rent_form_screen/provide_facilites_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/provide_facilites/provide_facilites_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';

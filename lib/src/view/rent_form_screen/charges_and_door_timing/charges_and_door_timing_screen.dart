@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/view/rent_form_screen/permission_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/permission/permission_screen.dart';
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
      '.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';

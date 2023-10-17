@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgroom/main.dart';
 
-import '../rent_form_screen/add_image_screen.dart';
+import '../rent_form_screen/add_image_/add_image_screen.dart';
 
 
 class AddYourHome extends StatefulWidget {

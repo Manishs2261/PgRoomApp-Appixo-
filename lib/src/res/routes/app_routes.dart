@@ -9,12 +9,12 @@ import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.da
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pgroom/src/view/on_boarding_screen/on_boarding_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/add_image_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/permission_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/provide_facilites_screen.dart';
-import 'package:pgroom/src/view/rent_form_screen/rent_details_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/add_image_/add_image_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/charges_and_door_timing_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/permission/permission_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/provide_facilites/provide_facilites_screen.dart';
+import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_screen.dart';
 
 import '../../view/auth_screen/forget_password_email/forget_password.dart';
 import '../../view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';

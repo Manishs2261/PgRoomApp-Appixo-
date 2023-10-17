@@ -5,7 +5,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 
-import 'charges_and_door_timing_screen.dart';
+import '../charges_and_door_timing/charges_and_door_timing_screen.dart';
 
 class ProvideFacilitesScreen extends StatefulWidget {
   const ProvideFacilitesScreen({super.key});
