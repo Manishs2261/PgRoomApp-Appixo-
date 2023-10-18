@@ -1,182 +1,159 @@
-import 'package:flutter/cupertino.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 
-import '../charges_and_door_timing/charges_and_door_timing_screen.dart';
 
-class ProvideFacilitesScreen extends StatefulWidget {
-  const ProvideFacilitesScreen({super.key});
+class ProvideFacilitesScreen extends StatelessWidget {
+  ProvideFacilitesScreen({super.key});
 
-  @override
-  State<ProvideFacilitesScreen> createState() => _ProvideFacilitesScreenState();
-}
+  final controller = Get.put(ProvideFacilitesController());
 
-class _ProvideFacilitesScreenState extends State<ProvideFacilitesScreen> {
-
-  bool wifi = false;
-  bool bed = false;
-  bool chari = false;
-  bool table = false;
-  bool fan = false;
-  bool gadda = false;
-  bool light = false;
-  bool locker = false;
-  bool bedSheet = false;
-  bool washingMachin = false;
-  bool parking = false;
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("builed => provider facilites screen 🍎");
+    }
     return Scaffold(
-      appBar: AppBar(title: Text("provide facilites"),),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15,right: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Provide a Facilities :- ",
-              style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Provide a Facilities :- ",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
 
-            //======for Wi-fi==========
-            MYCheckBoxWidget(
-                title: "Wi-Fi",
-                checkBool: wifi,
-                onChanged: (value) {
-                  setState(() {
-                    wifi = value!;
-                  });
-                }),
-            //======for Bed==========
-            MYCheckBoxWidget(
-                title: "Bed",
-                checkBool: bed,
-                onChanged: (value) {
-                  setState(() {
-                    bed = value!;
-                  });
-                }),
+              //======for Wi-fi==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Wi-Fi",
+                    checkBool: controller.wifi.value,
+                    onChanged: (value) {
+                      controller.wifi.value = value!;
+                    }),
+              ),
+              //======for Bed==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Bed",
+                    checkBool: controller.bed.value,
+                    onChanged: (value) {
+                      controller.bed.value = value!;
+                    }),
+              ),
 
-            //======for chairs==========
-            MYCheckBoxWidget(
-                title: "Chair",
-                checkBool: chari,
-                onChanged: (value) {
-                  setState(() {
-                    chari = value!;
-                  });
-                }),
+              //======for chairs==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Chair",
+                    checkBool: controller.chari.value,
+                    onChanged: (value) {
+                      controller.chari.value = value!;
+                    }),
+              ),
 
-            //======for Table ==========
-            MYCheckBoxWidget(
-                title: "Table",
-                checkBool: table,
-                onChanged: (value) {
-                  setState(() {
-                    table = value!;
-                  });
-                }),
-            //======for Fan==========
-            MYCheckBoxWidget(
-                title: "Fan",
-                checkBool: fan,
-                onChanged: (value) {
-                  setState(() {
-                    fan = value!;
-                  });
-                }),
-            //======for Gadda==========
-            MYCheckBoxWidget(
-                title: "Gadda",
-                checkBool: gadda,
-                onChanged: (value) {
-                  setState(() {
-                    gadda = value!;
-                  });
-                }),
-            //======for Light==========
-            MYCheckBoxWidget(
-                title: "Light",
-                checkBool: light,
-                onChanged: (value) {
-                  setState(() {
-                    light = value!;
-                  });
-                }),
-            //======for Locker==========
-            MYCheckBoxWidget(
-                title: "Locker",
-                checkBool: locker,
-                onChanged: (value) {
-                  setState(() {
-                    locker = value!;
-                  });
-                }),
-            //======for Bedsheet==========
-            MYCheckBoxWidget(
-                title: "Bed Sheet",
-                checkBool: bedSheet,
-                onChanged: (value) {
-                  setState(() {
-                    bedSheet = value!;
-                  });
-                }),
-            //======for washing machine==========
-            MYCheckBoxWidget(
-                title: "Washing Machine",
-                checkBool: washingMachin,
-                onChanged: (value) {
-                  setState(() {
-                    washingMachin = value!;
-                  });
-                }),
-            //======for parking==========
-            MYCheckBoxWidget(
-                title: "Parking",
-                checkBool: parking,
-                onChanged: (value) {
-                  setState(() {
-                    parking = value!;
-                  });
-                }),
+              //======for Table ==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Table",
+                    checkBool: controller.table.value,
+                    onChanged: (value) {
+                      controller.table.value = value!;
+                    }),
+              ),
+              //======for Fan==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Fan",
+                    checkBool: controller.fan.value,
+                    onChanged: (value) {
+                      controller.fan.value = value!;
+                    }),
+              ),
+              //======for Gadda==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Gadda",
+                    checkBool: controller.gadda.value,
+                    onChanged: (value) {
+                      controller.gadda.value = value!;
+                    }),
+              ),
+              //======for Light==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Light",
+                    checkBool: controller.light.value,
+                    onChanged: (value) {
+                      controller.light.value = value!;
+                    }),
+              ),
+              //======for Locker==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Locker",
+                    checkBool: controller.locker.value,
+                    onChanged: (value) {
+                      controller.locker.value = value!;
+                    }),
+              ),
+              //======for Bedsheet==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Bed Sheet",
+                    checkBool: controller.bedSheet.value,
+                    onChanged: (value) {
+                      controller.bedSheet.value = value!;
+                    }),
+              ),
+              //======for washing machine==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Washing Machine",
+                    checkBool: controller.washingMachin.value,
+                    onChanged: (value) {
+                      controller.washingMachin.value = value!;
+                    }),
+              ),
+              //======for parking==========
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Parking",
+                    checkBool: controller.parking.value,
+                    onChanged: (value) {
+                      controller.parking.value = value!;
+                    }),
+              ),
 
-            SizedBox(height: 20,),
-            SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: ElevatedButton(onPressed: (){
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      controller.onsubmitButton();
 
-                // ApisClass.newProvidFacilites(
-                //     wifi,
-                //     bed,
-                //     chari,
-                //     table,
-                //     fan,
-                //     gadda,
-                //     light,
-                //     locker,
-                //     bedSheet,
-                //     washingMachin,
-                //     parking).then((value) {
-                //
-                //       Get.snackbar("add","sussefully");
-                // }).onError((error, stackTrace) {
-                //   print("error ${error}");
-                //   Get.snackbar("error", "error");
-                // });
-
-
-
-               Navigator.push(context, MaterialPageRoute(builder: (context)
-               =>ChargesAndDoorTime()));
-              }, child: Text("next")),
-            )
-
-          ],
+                      // Navigator.push(context, MaterialPageRoute(builder: (context)
+                      // =>ChargesAndDoorTime()));
+                    },
+                    child: Obx(
+                      () => (controller.loading.value)
+                          ? const CircularProgressIndicator(
+                              color: Colors.blue,
+                            )
+                          : const Text("next"),
+                    )),
+              )
+            ],
+          ),
         ),
       ),
     );
