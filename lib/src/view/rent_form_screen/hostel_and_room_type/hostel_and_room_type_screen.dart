@@ -1,333 +1,309 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/view/rent_form_screen/provide_facilites/provide_facilites_screen.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
 
+class HostelAndRoomTypeScreen extends StatelessWidget {
+  HostelAndRoomTypeScreen({super.key});
 
-class HostelAndRoomTypeScreen extends StatefulWidget {
-  const HostelAndRoomTypeScreen({super.key});
-
-  @override
-  State<HostelAndRoomTypeScreen> createState() =>
-      _HostelAndRoomTypeScreenState();
-}
-
-class _HostelAndRoomTypeScreenState extends State<HostelAndRoomTypeScreen> {
-  HostelTypeEnum? _hostelTypeEnum;
-  FaltTypeEnum? _faltTypeEnum;
-
-bool isBool = false;
-  bool _checkboxSingle1 = false;
-  bool _checkboxDoble2 = false;
-  bool _checkboxTriple3 = false;
-  bool _checkboxFour4 = false;
-  bool _checkboxFaimalyRoom = false;
-
-  final singlePersonContrller = TextEditingController();
-  final doublePersonContrller = TextEditingController();
-  final triplePersonContrller = TextEditingController();
-  final fourPersonContrller = TextEditingController();
-  final faimlyPersonContrller = TextEditingController();
-
-  String roomType = '';
-  String bhk = '';
+  final controller = Get.put(HostelAndRoomController());
 
   @override
   Widget build(BuildContext context) {
+    if (kDebugMode) {
+      print("build sceen => hostel screen 🔴");
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Hostel and room type"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 15,right: 15),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // ===========Hostel type================={
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ===========Hostel type================={
 
-              Text(
-                "Hostel Type :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
-              // ======boys hostel =====
-              MyHostelRadioButtonWidget(
-                  titel: "Boys Hostel",
-                  value: HostelTypeEnum.BoysH,
-                  hostelTypeEnum: _hostelTypeEnum,
-                  onChange: (value) {
-                    setState(() {
-                      _hostelTypeEnum = value;
-                      isBool = false;
-                      roomType = "Boys";
-                      bhk = '';
-                    });
-                  }),
-
-              // ======Girls hostel =====
-              MyHostelRadioButtonWidget(
-                  titel: "Girls Hostel",
-                  value: HostelTypeEnum.GirlsH,
-                  hostelTypeEnum: _hostelTypeEnum,
-                  onChange: (value) {
-                    setState(() {
-                      _hostelTypeEnum = value;
-                      isBool = false;
-                      roomType = "Girls";
-                   bhk = '';
-                    });
-                  }),
-
-              // ======Flat Room =====
-              MyHostelRadioButtonWidget(
-                  titel: "Flat",
-                  value: HostelTypeEnum.Faimaly,
-                  hostelTypeEnum: _hostelTypeEnum,
-                  onChange: (value) {
-                    setState(() {
-                      _hostelTypeEnum = value;
-                      isBool = true;
-                      roomType = "Faimly";
-                    });
-                  }),
-
-              if(isBool)
-              Padding(
-                padding: const EdgeInsets.only(left: 40),
-                child: Column(
-                  children: [
-                    // ==========check a flat  conditiion==========
-
-                      MyFlatRadioButtonWidget(
-                          titel: "1BHK",
-                          value: FaltTypeEnum.OneBhk,
-                          flatTypeEnum: _faltTypeEnum,
-                          onChange: (value) {
-                            setState(() {
-                              _faltTypeEnum = value;
-                               bhk = '1BHK';
-                            });
-                          }),
-
-                      MyFlatRadioButtonWidget(
-                          titel: "2BHK",
-                          value: FaltTypeEnum.TwoBhk,
-                          flatTypeEnum: _faltTypeEnum,
-                          onChange: (value) {
-                            setState(() {
-                              _faltTypeEnum = value;
-                               bhk = '2BHK';
-                            });
-                          }),
-
-                      MyFlatRadioButtonWidget(
-                          titel: "3BHK",
-                          value: FaltTypeEnum.ThreeBhk,
-                          flatTypeEnum: _faltTypeEnum,
-                          onChange: (value) {
-                            setState(() {
-                              _faltTypeEnum = value;
-                               bhk = '3BHK';
-                            });
-                          }),
-
-                  ],
+                const Text(
+                  "Hostel Type :- ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-              ),
 
-              //==============================}
-
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Room Type & Monthly Price :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-
-              //========for Single Person ============
-              Row(
-                children: [
-                  MYCheckBoxWidget(
-                      title: "Single Person",
-                      checkBool: _checkboxSingle1,
-                      onChanged: (value) {
-                        setState(() {
-                          _checkboxSingle1 = value!;
-                        });
+                // ======boys hostel =====
+                Obx(
+                  () => MyHostelRadioButtonWidget(
+                      titel: "Boys Hostel",
+                      value: HostelTypeEnum.BoysH,
+                      hostelTypeEnum: controller.hostelTypeEnum.value,
+                      onChange: (value) {
+                        controller.boysHostelContions(value);
                       }),
-                  if (_checkboxSingle1)
-                    Flexible(
-                        child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: MyTextFormWedgit(
-                        controller: singlePersonContrller,
-                        hintText: "Price",
-                        lableText: "Price",
-                        isCollapsed: true,
-                        isDense: true,
-                        borderRadius: BorderRadius.circular(11),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                      ),
-                    ))
-                ],
-              ),
+                ),
 
-              //====== double person===========
-              Row(
-                children: [
-                  MYCheckBoxWidget(
-                      title: "Doble Person",
-                      checkBool: _checkboxDoble2,
-                      onChanged: (value) {
-                        setState(() {
-                          _checkboxDoble2 = value!;
-                        });
+                // ======Girls hostel =====
+                Obx(
+                  () => MyHostelRadioButtonWidget(
+                      titel: "Girls Hostel",
+                      value: HostelTypeEnum.GirlsH,
+                      hostelTypeEnum: controller.hostelTypeEnum.value,
+                      onChange: (value) {
+                        controller.girlsHostelContions(value);
                       }),
-                  if (_checkboxDoble2)
-                    Flexible(
-                        child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: MyTextFormWedgit(
-                        controller: doublePersonContrller,
-                        hintText: "Price",
-                        lableText: "Price",
-                        isCollapsed: true,
-                        isDense: true,
-                        borderRadius: BorderRadius.circular(11),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                      ),
-                    ))
-                ],
-              ),
-              //==========for Triple person ==========
-              Row(
-                children: [
-                  MYCheckBoxWidget(
-                      title: "Triple Person",
-                      checkBool: _checkboxTriple3,
-                      onChanged: (value) {
-                        setState(() {
-                          _checkboxTriple3 = value!;
-                        });
+                ),
+
+                // ======Flat Room =====
+                Obx(
+                  () => MyHostelRadioButtonWidget(
+                      titel: "Flat",
+                      value: HostelTypeEnum.Faimaly,
+                      hostelTypeEnum: controller.hostelTypeEnum.value,
+                      onChange: (value) {
+                        controller.flatTypeContionas(value);
                       }),
-                  if (_checkboxTriple3)
-                    Flexible(
-                        child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: MyTextFormWedgit(
-                        controller: triplePersonContrller,
-                        hintText: "Price",
-                        lableText: "Price",
-                        isCollapsed: true,
-                        isDense: true,
-                        borderRadius: BorderRadius.circular(11),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                      ),
-                    ))
-                ],
-              ),
-              //======four person room type =========
-              Row(
-                children: [
-                  MYCheckBoxWidget(
-                      title: "Four Person +",
-                      checkBool: _checkboxFour4,
-                      onChanged: (value) {
-                        setState(() {
-                          _checkboxFour4 = value!;
-                        });
-                      }),
-                  if (_checkboxFour4)
-                    Flexible(
-                        child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: MyTextFormWedgit(
-                        controller: fourPersonContrller,
-                        hintText: "Price",
-                        lableText: "Price",
-                        isCollapsed: true,
-                        isDense: true,
-                        borderRadius: BorderRadius.circular(11),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                      ),
-                    ))
-                ],
-              ),
+                ),
 
-              //==========faimaly Room ===========
-              Row(
-                children: [
-                  MYCheckBoxWidget(
-                      title: "Faimaly Room / Flat",
-                      checkBool: _checkboxFaimalyRoom,
-                      onChanged: (value) {
-                        setState(() {
-                          _checkboxFaimalyRoom = value!;
-                        });
-                      }),
-                  if (_checkboxFaimalyRoom)
-                    Flexible(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: MyTextFormWedgit(
-                            controller: faimlyPersonContrller,
-                            hintText: "Price",
-                            lableText: "Price",
-                            isCollapsed: true,
-                            isDense: true,
-                            borderRadius: BorderRadius.circular(11),
-                            contentPadding:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          ),
-                        ))
-                ],
-              ),
+                Obx(() => (controller.isBool.value)
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 40),
+                        child: Column(
+                          children: [
+                            // ==========check a flat  conditiion==========
 
-              SizedBox(height: 20,),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      //
-                      // ApisClass.pgRoomAndFlatTypePrice(
-                      //     roomType,
-                      //     bhk,
-                      //     singlePersonContrller.text,
-                      //     doublePersonContrller.text,
-                      //     triplePersonContrller.text,
-                      //     fourPersonContrller.text,
-                      //     faimlyPersonContrller.text).then((value) {
-                      //
-                      //       Get.snackbar("add","sussfulley");
-                      // }).onError((error, stackTrace) {
-                      //   Get.snackbar("errror","errpr");
-                      //   print("error 🔴$error");
-                      // });
+                            Obx(
+                              () => MyFlatRadioButtonWidget(
+                                  titel: "1BHK",
+                                  value: FaltTypeEnum.OneBhk,
+                                  flatTypeEnum: controller.faltTypeEnum.value,
+                                  onChange: (value) {
+                                    controller.oneBhkCondition(value);
+                                  }),
+                            ),
 
+                            Obx(
+                              () => MyFlatRadioButtonWidget(
+                                  titel: "2BHK",
+                                  value: FaltTypeEnum.TwoBhk,
+                                  flatTypeEnum: controller.faltTypeEnum.value,
+                                  onChange: (value) {
+                                    controller.twoBhkCondition(value);
+                                  }),
+                            ),
 
+                            Obx(
+                              () => MyFlatRadioButtonWidget(
+                                  titel: "3BHK",
+                                  value: FaltTypeEnum.ThreeBhk,
+                                  flatTypeEnum: controller.faltTypeEnum.value,
+                                  onChange: (value) {
+                                    controller.threeBhkCondition(value);
+                                  }),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const Text("")),
 
+                //==============================}
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProvideFacilitesScreen()));
-                    },
-                    child: Text("Save & Next")),
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Room Type & Monthly Price :- ",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+
+                //========for Single Person ============
+                Obx(
+                  () => Row(
+                    children: [
+                      MYCheckBoxWidget(
+                          title: "Single Person",
+                          checkBool: controller.checkboxSingle1.value,
+                          onChanged: (value) {
+                            controller.checkboxSingle1.value = value!;
+                          }),
+                      Obx(
+                        () => (controller.checkboxSingle1.value)
+                            ? Flexible(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: MyTextFormWedgit(
+                                  controller:
+                                      controller.singlePersonContrller.value,
+                                  hintText: "Price",
+                                  lableText: "Price",
+                                  isCollapsed: true,
+                                  isDense: true,
+                                  borderRadius: BorderRadius.circular(11),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 15),
+                                ),
+                              ))
+                            : const Text(""),
+                      )
+                    ],
+                  ),
+                ),
+
+                //====== double person===========
+                Obx(
+                  () => Row(
+                    children: [
+                      MYCheckBoxWidget(
+                          title: "Doble Person",
+                          checkBool: controller.checkboxDoble2.value,
+                          onChanged: (value) {
+                            controller.checkboxDoble2.value = value!;
+                          }),
+                      Obx(
+                        () => (controller.checkboxDoble2.value)
+                            ? Flexible(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: MyTextFormWedgit(
+                                  controller:
+                                      controller.doublePersonContrller.value,
+                                  hintText: "Price",
+                                  lableText: "Price",
+                                  isCollapsed: true,
+                                  isDense: true,
+                                  borderRadius: BorderRadius.circular(11),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 15),
+                                ),
+                              ))
+                            : const Text(""),
+                      )
+                    ],
+                  ),
+                ),
+                //==========for Triple person ==========
+                Obx(
+                  () => Row(
+                    children: [
+                      MYCheckBoxWidget(
+                          title: "Triple Person",
+                          checkBool: controller.checkboxTriple3.value,
+                          onChanged: (value) {
+                            controller.checkboxTriple3.value = value!;
+                          }),
+                      Obx(
+                        () => (controller.checkboxTriple3.value)
+                            ? Flexible(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: MyTextFormWedgit(
+                                  controller:
+                                      controller.triplePersonContrller.value,
+                                  hintText: "Price",
+                                  lableText: "Price",
+                                  isCollapsed: true,
+                                  isDense: true,
+                                  borderRadius: BorderRadius.circular(11),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 15),
+                                ),
+                              ))
+                            : const Text(""),
+                      )
+                    ],
+                  ),
+                ),
+                //======four person room type =========
+                Obx(
+                  () => Row(
+                    children: [
+                      MYCheckBoxWidget(
+                          title: "Four Person +",
+                          checkBool: controller.checkboxFour4.value,
+                          onChanged: (value) {
+                            controller.checkboxFour4.value = value!;
+                          }),
+                      Obx(
+                        () => (controller.checkboxFour4.value)
+                            ? Flexible(
+                                child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: MyTextFormWedgit(
+                                  controller:
+                                      controller.fourPersonContrller.value,
+                                  hintText: "Price",
+                                  lableText: "Price",
+                                  isCollapsed: true,
+                                  isDense: true,
+                                  borderRadius: BorderRadius.circular(11),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 15),
+                                ),
+                              ))
+                            : const Text(""),
+                      )
+                    ],
+                  ),
+                ),
+
+                //==========faimaly Room ===========
+                Obx(
+                  () => Row(
+                    children: [
+                      MYCheckBoxWidget(
+                          title: "Faimaly Room / Flat",
+                          checkBool: controller.checkboxFaimalyRoom.value,
+                          onChanged: (value) {
+                            controller.checkboxFaimalyRoom.value = value!;
+                          }),
+                      Obx(() => (controller.checkboxFaimalyRoom.value)
+                          ? Flexible(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: MyTextFormWedgit(
+                                controller:
+                                    controller.faimlyPersonContrller.value,
+                                hintText: "Price",
+                                lableText: "Price",
+                                isCollapsed: true,
+                                isDense: true,
+                                borderRadius: BorderRadius.circular(11),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 15),
+                              ),
+                            ))
+                          : const Text(""))
+                    ],
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        controller.onSubmitButton();
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             ProvideFacilitesScreen()));
+                      },
+                      child: Obx(
+                        () => (controller.loading.value)
+                            ? const CircularProgressIndicator(
+                                color: Colors.blue,
+                              )
+                            : const Text("Save & Next"),
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),
