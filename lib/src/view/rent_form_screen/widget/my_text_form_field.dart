@@ -7,6 +7,7 @@ class MyTextFormWedgit extends StatelessWidget {
     required this.hintText,
     required this.lableText,
      required this.controller,
+     this.validator,
      this.icon,
     required this.borderRadius,
      this.contentPadding,
@@ -21,6 +22,7 @@ class MyTextFormWedgit extends StatelessWidget {
   bool isCollapsed ;
   bool  isDense;
   TextEditingController controller;
+   String? Function(String?)? validator;
 
    @override
   Widget build(BuildContext context) {
@@ -36,9 +38,7 @@ class MyTextFormWedgit extends StatelessWidget {
           isCollapsed: isCollapsed,
           isDense: isDense,
           prefixIcon: icon),
-      validator: (value) {
-        return null;
-      },
+      validator: validator,
     );
   }
 }
