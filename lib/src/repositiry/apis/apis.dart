@@ -7,7 +7,7 @@ import 'package:pgroom/src/model/provide_facilites_models/provides_facilites_mod
 import 'package:pgroom/src/model/rent_details_model/rent_details_model.dart';
 
 import '../../model/pgroomm_and_flat_type_model/pgroom_and_flat_type_model.dart';
-
+import 'dart:io';
 class ApisClass{
 
 
@@ -22,6 +22,7 @@ class ApisClass{
   static FirebaseStorage storage = FirebaseStorage.instance;
 
    static final time = DateTime.now().microsecondsSinceEpoch.toString();
+  static var download;
 
 // crete a user new rrnt Details Collection
 
@@ -126,5 +127,39 @@ async {
 
 }
 
+
+// uplaoad  Cover image data in firestorev database
+  static Future uploadCoverImage(File imageFile )async{
+
+    try{
+      final reference = storage.ref().child('coverimage/${DateTime.now()}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
+
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      download = await snapshot.ref.getDownloadURL();
+      print("url : $download");
+    }catch(e)
+    {
+      print("image is not uploaded ; $e");
+    }
+  }
+
+  //upload other images in firestore databse
+
+
+static Future uploadOtherImage(File imageFile)async{
+
+  try{
+    final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
+    final UploadTask uploadTask = reference.putFile(imageFile);
+
+    final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+    download = await snapshot.ref.getDownloadURL();
+    print("url : $download");
+  }catch(e)
+  {
+    print("image is not uploaded ; $e");
+  }
+}
 
 }

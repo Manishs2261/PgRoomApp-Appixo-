@@ -34,3 +34,9 @@ class ContactNumberValidator {
     return value==null ||value.isEmpty ? "Password can't be empty" : null;
   }
 }
+
+class PriceValidator {
+  static String? validate(String? value) {
+    return value==null ||value.isEmpty ? "Price can't be empty" : null;
+  }
+}

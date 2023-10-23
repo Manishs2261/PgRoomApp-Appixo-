@@ -7,6 +7,8 @@ import 'package:pgroom/src/uitels/text_field_validator/text_field_validator.dart
 import 'package:pgroom/src/view/rent_form_screen/rent_details/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
 
+import '../hostel_and_room_type/hostel_and_room_type_screen.dart';
+
 class RentDetailsScsreen extends StatelessWidget {
   RentDetailsScsreen({super.key});
 
@@ -111,8 +113,8 @@ class RentDetailsScsreen extends StatelessWidget {
                           controller.onSubmitButton();
                         }
 
-                        // Navigator.push(context, MaterialPageRoute(builder:
-                        //   (context)=> HostelAndRoomTypeScreen()));
+                         Navigator.push(context, MaterialPageRoute(builder:
+                           (context)=> HostelAndRoomTypeScreen()));
                       },
                       child: Obx(
                         () => (controller.loading.value)

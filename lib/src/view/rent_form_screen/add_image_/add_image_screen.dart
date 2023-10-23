@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_screen.dart';
 
@@ -14,9 +17,11 @@ class AddImageScreen extends StatefulWidget {
 class _AddImageScreenState extends State<AddImageScreen> {
   // for bool value false not show a image
   bool isBool = false;
+  bool addimage = false;
 
   // for storing a more image in list
-  List<dynamic> imageFileList = [];
+  List imageFileList  = [];
+  File? otherImage ;
 
   // image picker form Gallary
   File? _selectedCoverImage;
@@ -27,7 +32,18 @@ class _AddImageScreenState extends State<AddImageScreen> {
     if (image == null) return;
     setState(() {
       imageFileList.add(File(image.path));
+      otherImage = File(image.path);
+
     });
+
+ // await ApisClass.uploadOtherImage(otherImage!).then((value) {
+ //
+ //      Get.snackbar("upload ", "other image");
+ //    }).onError((error, stackTrace) {
+ //
+ //      Get.snackbar("error", "error");
+ //      print("errror => $error");
+ //    });
   }
 
   Future _pickeCoverImageFromGallery() async {
@@ -41,7 +57,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("rebuild add new scren");
+    print("rebuild => add new sccreen 🍎");
 
     return Scaffold(
       appBar: AppBar(
@@ -103,6 +119,10 @@ class _AddImageScreenState extends State<AddImageScreen> {
                             left: 80,
                             child: InkWell(
                               onTap: () {
+                                setState(() {
+
+                                  addimage = true;
+                                });
                                 _pickeCoverImageFromGallery();
                               },
                               child: Container(
@@ -112,17 +132,17 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.white)),
                                 child: Text(
-                                  "Add cover Image",
+                                  "Choose cover Image",
                                   style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: 20,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w400),
                                 ),
                               ),
                             ),
                           ),
 
-                    //==========for delete a image===========
+                    //==========for delete  Cover image a image===========
                     _selectedCoverImage != null
                         ? Positioned(
                             right: 1,
@@ -131,6 +151,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                 print("cut image");
 
                                 setState(() {
+                                  addimage = false;
                                   _selectedCoverImage = null;
                                 });
                               },
@@ -148,11 +169,28 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 ),
               ),
 
+         SizedBox(height: 10,),
+
+         //when a upload image show successful sign
+
+           addimage
+              ?Row(
+                children: [
+                  Padding(padding: EdgeInsets.only(left: 7)),
+                  Text("Add",style: TextStyle(color: Colors.green),),
+                  SizedBox(width: 5,),
+                  Icon(Icons.verified,color: Colors.green,size: 20,)
+                ],
+              )
+           : Text(""),
+
+
               SizedBox(
                 height: 20,
               ),
+
               Text(
-                " Othe images ",
+                " Add a Othe images ",
                 style: TextStyle(color: Colors.green),
               ),
               SizedBox(
@@ -192,6 +230,12 @@ class _AddImageScreenState extends State<AddImageScreen> {
                                         onTap: () {
                                           setState(() {
                                             imageFileList.removeAt(index);
+
+                                            if(imageFileList.isEmpty){
+                                              setState(() {
+                                                isBool = false;
+                                              });
+                                            }
                                           });
                                         },
                                         child: CircleAvatar(
@@ -231,7 +275,10 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 child: ElevatedButton(
                     onPressed: () {
                       _pickeImageFromGallery();
-                      isBool = true;
+
+                      setState(() {
+                        isBool = true;
+                      });
                     },
                     child: Text("Chosse image")),
               ),
@@ -249,11 +296,40 @@ class _AddImageScreenState extends State<AddImageScreen> {
                         ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     onPressed: () {
 
+                      // ApisClass.uploadCoverImage(_selectedCoverImage!).then((value) {
+                      //
+                      //   Get.snackbar("upload","image");
+                      // }).onError((error, stackTrace) {
+                      //
+                      //   Get.snackbar("error", "error");
+                      //   print("error  => $error");
+                      // });
 
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => RentDetailsScsreen()));
+
+                      // ApisClass.uploadOtherImage(otherImage!).then((value) {
+                      //
+                      //   Get.snackbar("upload ", "other image");
+                      // }).onError((error, stackTrace) {
+                      //
+                      //   Get.snackbar("error", "error");
+                      //   print("errror => $error");
+                      // });
+
+
+                      if(_selectedCoverImage?.exists() == null)
+                        {
+                          Get.snackbar("cover image", "not emplty");
+                        }else
+                          {
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => RentDetailsScsreen()));
+                         }
+
+
+
                     },
                     child: Text(
                       "Save & Next",

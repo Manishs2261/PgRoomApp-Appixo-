@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/uitels/text_field_validator/text_field_validator.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
@@ -142,6 +143,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(11),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 15),
+
                                 ),
                               ))
                             : const Text(""),
@@ -175,6 +177,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(11),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 15),
+
                                 ),
                               ))
                             : const Text(""),
@@ -207,6 +210,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(11),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 15),
+
                                 ),
                               ))
                             : const Text(""),
@@ -239,6 +243,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(11),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 15),
+
                                 ),
                               ))
                             : const Text(""),
@@ -271,6 +276,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(11),
                                 contentPadding: const EdgeInsets.symmetric(
                                     vertical: 5, horizontal: 15),
+
                               ),
                             ))
                           : const Text(""))
