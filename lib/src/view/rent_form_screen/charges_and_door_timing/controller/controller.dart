@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../../../repositiry/apis/apis.dart';
 
@@ -26,6 +27,9 @@ onSubmitButton(){
       fexibleTime.value).then((value) {
         loading.value = false;
     Get.snackbar("add","sussefulley");
+  Get.toNamed(RoutesName.perimissionScreen);
+
+
   }).onError((error, stackTrace) {
    loading.value = false;
     if (kDebugMode) {

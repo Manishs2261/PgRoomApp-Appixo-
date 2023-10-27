@@ -113,8 +113,7 @@ class RentDetailsScsreen extends StatelessWidget {
                           controller.onSubmitButton();
                         }
 
-                         Navigator.push(context, MaterialPageRoute(builder:
-                           (context)=> HostelAndRoomTypeScreen()));
+
                       },
                       child: Obx(
                         () => (controller.loading.value)

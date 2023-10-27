@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../../../repositiry/apis/apis.dart';
+import '../../../../res/route_name/routes_name.dart';
 
 class ProvideFacilitesController extends GetxController{
 
@@ -40,6 +41,7 @@ class ProvideFacilitesController extends GetxController{
 
       loading.value = false;
       Get.snackbar("add","sussefully");
+      Get.toNamed(RoutesName.chargeAndDoorTimingScreen);
     }).onError((error, stackTrace) {
       loading.value = false;
       if (kDebugMode) {

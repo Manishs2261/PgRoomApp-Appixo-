@@ -163,10 +163,7 @@ class ChargesAndDoorTime extends StatelessWidget {
                           // controller method call
                           controller.onSubmitButton();
 
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => PermissioinScreen()));
+
                         },
                         child: Obx(
                           ()=> (controller.loading.value)

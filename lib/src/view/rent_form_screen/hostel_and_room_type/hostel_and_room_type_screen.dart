@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/uitels/text_field_validator/text_field_validator.dart';
+import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/controller/controller.dart';
+import 'package:pgroom/src/view/rent_form_screen/rent_details/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
@@ -12,6 +14,8 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
   HostelAndRoomTypeScreen({super.key});
 
   final controller = Get.put(HostelAndRoomController());
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -292,13 +296,9 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
+                        //call a controller method
                         controller.onSubmitButton();
 
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             ProvideFacilitesScreen()));
                       },
                       child: Obx(
                         () => (controller.loading.value)

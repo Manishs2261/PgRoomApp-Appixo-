@@ -1,16 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
      '.dart';
 
+import '../add_image_/controller/controller.dart';
+import '../hostel_and_room_type/controller/controller.dart';
+import '../rent_details/controller/controller.dart';
 import 'controller/permission_controller.dart';
 
 class PermissioinScreen extends StatelessWidget {
   PermissioinScreen({super.key});
 
   final controller = Get.put(PermissionController());
+  final hostleController = Get.put(HostelAndRoomController());
+  final imageController = Get.put(AddImageController());
+  final rentControllet = Get.put(RentDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +130,27 @@ class PermissioinScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      //method
+                      //call controller method
                       controller.onSubmitPermissionBotton();
+
+
+                      ApisClass.rentDetailsHomeList(
+                          hostleController.roomType.value,
+                          rentControllet.houseNameController.value.text,
+                          rentControllet.houseAddressController.value.text,
+                          rentControllet.cityNameController.value.text,
+                          ApisClass.download,
+                          false,
+                          "4.5",
+                          hostleController.singlePersonContrller.value.text
+                      ).then((value) {
+                        Get.snackbar("home", "upload");
+                      }).onError((error, stackTrace){
+                        Get.snackbar("errro", "home");
+                        print("error $error");
+                      });
+
+
                     },
                     child: Obx(
                       () => (controller.loading.value)

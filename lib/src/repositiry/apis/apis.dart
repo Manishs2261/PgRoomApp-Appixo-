@@ -5,6 +5,7 @@ import 'package:pgroom/src/model/additional_charges_and_door_cloging_model/addit
 import 'package:pgroom/src/model/permission_model/permission_model.dart';
 import 'package:pgroom/src/model/provide_facilites_models/provides_facilites_models.dart';
 import 'package:pgroom/src/model/rent_details_model/rent_details_model.dart';
+import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
 import '../../model/pgroomm_and_flat_type_model/pgroom_and_flat_type_model.dart';
 import 'dart:io';
@@ -24,12 +25,31 @@ class ApisClass{
    static final time = DateTime.now().microsecondsSinceEpoch.toString();
   static var download;
 
+
+  //upload data in firebase for home screen
+
+  static Future<void> rentDetailsHomeList(String roomType,houseName,address,
+      city,coverIMage,like,review,rentPrice)async{
+    final userHomeList = UserRentModel(
+      houseName: houseName,
+      addres: address,
+      roomType: roomType,
+      city: city,
+      like: false,
+      coverImage: coverIMage,
+      rentPrice: rentPrice,
+      review: review
+    );
+    return await firestore.collection("rentCollection").doc(time).set(userHomeList
+        .toJson());
+
+  }
+
+
 // crete a user new rrnt Details Collection
 
 static Future<void>newRentDetailsCollection(String houseName,address,
     cityName,landMark,contuctNumber)async {
-
-
 
   final rentDetailsMoel =RentDetailsModel(
     houseName: houseName,
@@ -44,6 +64,8 @@ static Future<void>newRentDetailsCollection(String houseName,address,
 
 
 }
+
+
 
 //crete a new pgRoom and falt type and price
 
@@ -132,11 +154,13 @@ async {
   static Future uploadCoverImage(File imageFile )async{
 
     try{
-      final reference = storage.ref().child('coverimage/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('coverimage/${user.uid}/${DateTime
+          .now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
 
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       download = await snapshot.ref.getDownloadURL();
+      print("user $user");
       print("url : $download");
     }catch(e)
     {
@@ -144,9 +168,8 @@ async {
     }
   }
 
+
   //upload other images in firestore databse
-
-
 static Future uploadOtherImage(File imageFile)async{
 
   try{
@@ -155,7 +178,9 @@ static Future uploadOtherImage(File imageFile)async{
 
     final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
     download = await snapshot.ref.getDownloadURL();
+
     print("url : $download");
+
   }catch(e)
   {
     print("image is not uploaded ; $e");

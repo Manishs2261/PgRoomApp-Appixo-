@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../rent_details/rent_details_screen.dart';
 
@@ -66,7 +67,7 @@ class AddImageController extends GetxController{
      }else
      {
 
-       Get.snackbar("next ", "page");
+       Get.toNamed(RoutesName.rentDetailsFormScreen);
 
      }
    }

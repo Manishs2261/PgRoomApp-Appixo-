@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../../../repositiry/apis/apis.dart';
 
@@ -24,6 +25,9 @@ class RentDetailsController extends GetxController{
         contactNumberController.value.text).then((value) {
           loading.value = false;
           Get.snackbar("add", "sussfulyy");
+
+          Get.toNamed(RoutesName.hostelAndRoomTypeScreen);
+
     }).onError((error, stackTrace) {
           loading.value = false;
       Get.snackbar("errror", "errrr");
