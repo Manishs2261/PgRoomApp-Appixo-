@@ -240,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         style: DefaultTextStyle.of(context).style,
                                         children:  <TextSpan>[
                                           TextSpan(
-                                              text: '${rentList[index].rentPrice}',
+                                              text: '${rentList[index].singlePersonPrice}',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                           TextSpan(text: ' /- montly'),

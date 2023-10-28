@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 
 import '../../../../repositiry/apis/apis.dart';
+import '../../hostel_and_room_type/controller/controller.dart';
+import '../../rent_details/controller/controller.dart';
 
 class PermissionController extends GetxController {
 
@@ -13,7 +16,6 @@ class PermissionController extends GetxController {
   RxBool faimlyMamber = false.obs;
   RxBool loading = false.obs;
   var cookingType = "".obs;
-
 
 
   cookingAllowCondition(value) {
@@ -67,5 +69,10 @@ onSubmitPermissionBotton(){
     }
   });
 }
+
+
+
+
+
 
 }

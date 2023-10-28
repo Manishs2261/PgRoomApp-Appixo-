@@ -28,17 +28,50 @@ class ApisClass{
 
   //upload data in firebase for home screen
 
-  static Future<void> rentDetailsHomeList(String roomType,houseName,address,
-      city,coverIMage,like,review,rentPrice)async{
+  static Future<void> rentDetailsHomeList(coverImage,houseName,
+      address,cityName,landMark,contactNumber,bhk,roomType,singlePrice,
+      doublePrice,triplePrice,fourPrice,faimlyPrice,restrictedTime,review,
+       wifi, bed, chair, table,fan,gadda,light,locker,bedSheet,
+      washingMachine,parking,
+      electricityBill,waterBill,fexible,cooking,cookingType,boyAllow,
+      girlAllow,faimalyMember,like)async{
+
     final userHomeList = UserRentModel(
-      houseName: houseName,
-      addres: address,
-      roomType: roomType,
-      city: city,
-      like: false,
-      coverImage: coverIMage,
-      rentPrice: rentPrice,
-      review: review
+    coverImage: coverImage,
+    houseName: houseName,
+    addres: address,
+    city: cityName,
+    landMark: landMark,
+    contactNumber: contactNumber,
+    bhkType: bhk,
+    roomType: roomType,
+    singlePersonPrice: singlePrice,
+    doublePersionPrice: doublePrice,
+    triplePersionPrice: triplePrice,
+    fourPersionPrice: fourPrice,
+    faimlyPrice: faimlyPrice,
+      review: review,
+      wifi: wifi,
+      bed: bed,
+      chair: chair,
+      table: table,
+      fan: fan,
+      gadda: gadda,
+      light: light,
+      locker: locker,
+      bedSheet: bedSheet,
+      washingMachin: washingMachine,
+      parking: parking,
+      electricityBill: electricityBill,
+      waterBill: waterBill,
+      fexibleTime: fexible,
+      cooking: cooking,
+      cookingType: cookingType,
+      boy: boyAllow,
+      girls: girlAllow,
+      faimlyMember: faimalyMember,
+      like: like,
+      restrictedTime: restrictedTime
     );
     return await firestore.collection("rentCollection").doc(time).set(userHomeList
         .toJson());

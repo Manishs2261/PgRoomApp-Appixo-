@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/view/rent_form_screen/data_save_controller/data_save_controller.dart';
 
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
      '.dart';
@@ -15,9 +16,8 @@ class PermissioinScreen extends StatelessWidget {
   PermissioinScreen({super.key});
 
   final controller = Get.put(PermissionController());
-  final hostleController = Get.put(HostelAndRoomController());
-  final imageController = Get.put(AddImageController());
-  final rentControllet = Get.put(RentDetailsController());
+  final saveController = Get.put(DataSaveController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,25 +130,12 @@ class PermissioinScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
+
                       //call controller method
                       controller.onSubmitPermissionBotton();
+                      saveController.saveRentDetails();
 
 
-                      ApisClass.rentDetailsHomeList(
-                          hostleController.roomType.value,
-                          rentControllet.houseNameController.value.text,
-                          rentControllet.houseAddressController.value.text,
-                          rentControllet.cityNameController.value.text,
-                          ApisClass.download,
-                          false,
-                          "4.5",
-                          hostleController.singlePersonContrller.value.text
-                      ).then((value) {
-                        Get.snackbar("home", "upload");
-                      }).onError((error, stackTrace){
-                        Get.snackbar("errro", "home");
-                        print("error $error");
-                      });
 
 
                     },

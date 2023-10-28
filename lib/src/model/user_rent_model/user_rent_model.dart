@@ -7,18 +7,18 @@ class UserRentModel {
   bool? washingMachin;
   bool? girls;
   bool? faimlyMember;
-  bool? waterBill;
   bool? boy;
-  bool? locker;
+  bool? waterBill;
   String? landMark;
+  bool? locker;
   String? triplePersionPrice;
   String? houseName;
   bool? fan;
   String? review;
   String? coverImage;
   String? contactNumber;
+  String? restrictedTime;
   bool? cooking;
-  String? rentPrice;
   bool? gadda;
   String? roomType;
   bool? table;
@@ -29,9 +29,9 @@ class UserRentModel {
   String? addres;
   bool? bedSheet;
   bool? electricityBill;
-  String? fexibleTime;
-  String? fourPersionPrice;
   bool? light;
+  String? fourPersionPrice;
+  bool? fexibleTime;
   String? singlePersonPrice;
   String? cookingType;
 
@@ -44,18 +44,18 @@ class UserRentModel {
         this.washingMachin,
         this.girls,
         this.faimlyMember,
-        this.waterBill,
         this.boy,
-        this.locker,
+        this.waterBill,
         this.landMark,
+        this.locker,
         this.triplePersionPrice,
         this.houseName,
         this.fan,
         this.review,
         this.coverImage,
         this.contactNumber,
+        this.restrictedTime,
         this.cooking,
-        this.rentPrice,
         this.gadda,
         this.roomType,
         this.table,
@@ -66,9 +66,9 @@ class UserRentModel {
         this.addres,
         this.bedSheet,
         this.electricityBill,
-        this.fexibleTime,
-        this.fourPersionPrice,
         this.light,
+        this.fourPersionPrice,
+        this.fexibleTime,
         this.singlePersonPrice,
         this.cookingType});
 
@@ -81,18 +81,18 @@ class UserRentModel {
     washingMachin = json['washingMachin'];
     girls = json['girls'];
     faimlyMember = json['faimlyMember'];
-    waterBill = json['waterBill'];
     boy = json['boy'];
-    locker = json['locker'];
+    waterBill = json['waterBill'];
     landMark = json['landMark'];
+    locker = json['locker'];
     triplePersionPrice = json['triplePersionPrice'];
     houseName = json['houseName'];
     fan = json['fan'];
     review = json['review'];
     coverImage = json['coverImage'];
     contactNumber = json['contactNumber'];
+    restrictedTime = json['restrictedTime'];
     cooking = json['cooking'];
-    rentPrice = json['rentPrice'];
     gadda = json['gadda'];
     roomType = json['roomType'];
     table = json['table'];
@@ -103,9 +103,9 @@ class UserRentModel {
     addres = json['addres'];
     bedSheet = json['bedSheet'];
     electricityBill = json['electricityBill'];
-    fexibleTime = json['fexibleTime'];
-    fourPersionPrice = json['fourPersionPrice'];
     light = json['light'];
+    fourPersionPrice = json['fourPersionPrice'];
+    fexibleTime = json['fexibleTime'];
     singlePersonPrice = json['singlePersonPrice'];
     cookingType = json['cookingType'];
   }
@@ -120,18 +120,18 @@ class UserRentModel {
     data['washingMachin'] = this.washingMachin;
     data['girls'] = this.girls;
     data['faimlyMember'] = this.faimlyMember;
-    data['waterBill'] = this.waterBill;
     data['boy'] = this.boy;
-    data['locker'] = this.locker;
+    data['waterBill'] = this.waterBill;
     data['landMark'] = this.landMark;
+    data['locker'] = this.locker;
     data['triplePersionPrice'] = this.triplePersionPrice;
     data['houseName'] = this.houseName;
     data['fan'] = this.fan;
     data['review'] = this.review;
     data['coverImage'] = this.coverImage;
     data['contactNumber'] = this.contactNumber;
+    data['restrictedTime'] = this.restrictedTime;
     data['cooking'] = this.cooking;
-    data['rentPrice'] = this.rentPrice;
     data['gadda'] = this.gadda;
     data['roomType'] = this.roomType;
     data['table'] = this.table;
@@ -142,9 +142,9 @@ class UserRentModel {
     data['addres'] = this.addres;
     data['bedSheet'] = this.bedSheet;
     data['electricityBill'] = this.electricityBill;
-    data['fexibleTime'] = this.fexibleTime;
-    data['fourPersionPrice'] = this.fourPersionPrice;
     data['light'] = this.light;
+    data['fourPersionPrice'] = this.fourPersionPrice;
+    data['fexibleTime'] = this.fexibleTime;
     data['singlePersonPrice'] = this.singlePersonPrice;
     data['cookingType'] = this.cookingType;
     return data;
