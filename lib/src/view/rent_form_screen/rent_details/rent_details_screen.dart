@@ -113,7 +113,7 @@ class RentDetailsScsreen extends StatelessWidget {
                       onPressed: () {
                         if (_globlekey.currentState!.validate()) {
                           //controller.onSubmitButton();
-                          Get.toNamed(RoutesName.hostelAndRoomTypeScreen);
+                       controller.onSubmitButton();
                         }
 
 

@@ -13,26 +13,9 @@ class RentDetailsController extends GetxController {
   final contactNumberController = TextEditingController().obs;
   RxBool loading = false.obs;
 
-  // onSubmitButton() {
-  //   loading.value = true;
-  //   ApisClass.newRentDetailsCollection(
-  //           houseNameController.value.text,
-  //           houseAddressController.value.text,
-  //           cityNameController.value.text,
-  //           landdMarkController.value.text,
-  //           contactNumberController.value.text
-  //   )
-  //       .then((value) {
-  //     loading.value = false;
-  //     Get.snackbar("add", "sussfuly");
-  //
-  //     Get.toNamed(RoutesName.hostelAndRoomTypeScreen);
-  //   }).onError((error, stackTrace) {
-  //     loading.value = false;
-  //     Get.snackbar("error", "error");
-  //     if (kDebugMode) {
-  //       print("Error ⛔ RentDetailsController =>   $error");
-  //     }
-  //   });
-  // }
+ onSubmitButton(){
+   Get.toNamed(RoutesName.hostelAndRoomTypeScreen);
+ }
+
+
 }

@@ -47,30 +47,6 @@ class PermissionController extends GetxController {
     "veg and non-veg both allow";
   }
 
-// onSubmitPermissionBotton(){
-//
-//   loading.value = true;
-//
-//   ApisClass.newPermission(
-//       cookingAllow.value,
-//        cookingType.value,
-//         girl.value,
-//       boy.value,
-//       faimlyMamber.value)
-//       .then((value) {
-//       loading.value = false;
-//     Get.snackbar("add", "sussefluy");
-//   }).onError((error, stackTrace) {
-//      loading.value = false;
-//
-//     Get.snackbar("error", "error");
-//     if (kDebugMode) {
-//       print("errror + $error");
-//     }
-//   });
-// }
-
-
 
 
 

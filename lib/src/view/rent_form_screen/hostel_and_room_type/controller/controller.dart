@@ -75,29 +75,9 @@ class HostelAndRoomController extends GetxController {
     bhk.value = '3BHK';
   }
 
-  // onSubmitButton() {
-  //
-  //   Get.toNamed(RoutesName.providsFacilitesScreen);
+  onSubimitButton(){
 
-    // loading.value = true;
-    // ApisClass.pgRoomAndFlatTypePrice(
-    //         roomType.value,
-    //         bhk.value,
-    //         singlePersonContrller.value.text,
-    //         doublePersonContrller.value.text,
-    //         triplePersonContrller.value.text,
-    //         fourPersonContrller.value.text,
-    //         faimlyPersonContrller.value.text)
-    //     .then((value) {
-    //   loading.value = false;
-    //   Get.snackbar("add", "sussfulley");
-    //   Get.toNamed(RoutesName.providsFacilitesScreen);
-    // }).onError((error, stackTrace) {
-    //   loading.value = false;
-    //   Get.snackbar("errror", "errpr");
-    //   if (kDebugMode) {
-    //     print("error 🔴$error");
-    //   }
-    // });
-  //}
+    Get.toNamed(RoutesName.providsFacilitesScreen);
+  }
+
 }

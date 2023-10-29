@@ -131,20 +131,8 @@ class PermissioinScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-
                       //call controller method
-                    //  controller.onSubmitPermissionBotton();
-                      print("refrence id");
-
                       saveController.saveUserRentDetaitls();
-
-                    //  saveController.saveRentDetails();
-
-
-
-
-
-
 
 
                     },

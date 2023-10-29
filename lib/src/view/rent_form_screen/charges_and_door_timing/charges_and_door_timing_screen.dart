@@ -162,11 +162,8 @@ class ChargesAndDoorTime extends StatelessWidget {
                     child: ElevatedButton(
                         onPressed: () {
 
-                          // controller method call
-                         // controller.onSubmitButton();
-
-                          Get.toNamed(RoutesName.perimissionScreen);
-
+                          //routes code
+                        controller.onSubmitButton();
 
                         },
                         child: Obx(

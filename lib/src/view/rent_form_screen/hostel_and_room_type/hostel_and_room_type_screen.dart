@@ -298,9 +298,9 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        //call a controller method
-                        //controller.onSubmitButton();
-                        Get.toNamed(RoutesName.providsFacilitesScreen);
+
+                        //contorller method
+                      controller.onSubimitButton();
 
                       },
                       child: Obx(
