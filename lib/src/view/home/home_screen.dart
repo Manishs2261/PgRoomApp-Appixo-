@@ -168,6 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       GestureDetector(
                         onTap: (){
+                        print(snapshot.data?.docs[index].id);
+
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsRentInfoScreen()));
                         },
                         child: Container(

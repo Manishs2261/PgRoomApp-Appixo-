@@ -2,6 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 
@@ -139,10 +140,12 @@ class ProvideFacilitesScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      controller.onsubmitButton();
+                     // controller.onsubmitButton();
 
                       // Navigator.push(context, MaterialPageRoute(builder: (context)
                       // =>ChargesAndDoorTime()));
+
+                      Get.toNamed(RoutesName.chargeAndDoorTimingScreen);
                     },
                     child: Obx(
                       () => (controller.loading.value)

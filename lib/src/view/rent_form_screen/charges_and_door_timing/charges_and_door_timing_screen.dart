@@ -7,6 +7,8 @@ import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/control
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field'
     '.dart';
 
+import '../../../res/route_name/routes_name.dart';
+
 class ChargesAndDoorTime extends StatelessWidget {
   ChargesAndDoorTime({super.key});
 
@@ -161,7 +163,9 @@ class ChargesAndDoorTime extends StatelessWidget {
                         onPressed: () {
 
                           // controller method call
-                          controller.onSubmitButton();
+                         // controller.onSubmitButton();
+
+                          Get.toNamed(RoutesName.perimissionScreen);
 
 
                         },

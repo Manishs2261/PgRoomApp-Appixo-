@@ -34,6 +34,7 @@ class UserRentModel {
   bool? fexibleTime;
   String? singlePersonPrice;
   String? cookingType;
+  String? userRentId;
 
   UserRentModel(
       {this.parking,
@@ -70,7 +71,8 @@ class UserRentModel {
         this.fourPersionPrice,
         this.fexibleTime,
         this.singlePersonPrice,
-        this.cookingType});
+        this.cookingType,
+      this.userRentId});
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
     parking = json['parking'];
@@ -108,6 +110,7 @@ class UserRentModel {
     fexibleTime = json['fexibleTime'];
     singlePersonPrice = json['singlePersonPrice'];
     cookingType = json['cookingType'];
+    userRentId = json['userRentId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -147,6 +150,7 @@ class UserRentModel {
     data['fexibleTime'] = this.fexibleTime;
     data['singlePersonPrice'] = this.singlePersonPrice;
     data['cookingType'] = this.cookingType;
+    data['userRentId'] = this.userRentId;
     return data;
   }
 }

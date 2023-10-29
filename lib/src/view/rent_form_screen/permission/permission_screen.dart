@@ -7,6 +7,7 @@ import 'package:pgroom/src/view/rent_form_screen/data_save_controller/data_save_
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
      '.dart';
 
+import '../../../res/route_name/routes_name.dart';
 import '../add_image_/controller/controller.dart';
 import '../hostel_and_room_type/controller/controller.dart';
 import '../rent_details/controller/controller.dart';
@@ -132,8 +133,16 @@ class PermissioinScreen extends StatelessWidget {
                     onPressed: () {
 
                       //call controller method
-                      controller.onSubmitPermissionBotton();
-                      saveController.saveRentDetails();
+                    //  controller.onSubmitPermissionBotton();
+                      print("refrence id");
+
+                      saveController.saveUserRentDetaitls();
+
+                    //  saveController.saveRentDetails();
+
+
+
+
 
 
 

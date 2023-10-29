@@ -21,34 +21,34 @@ class ProvideFacilitesController extends GetxController{
   RxBool loading = false.obs;
 
 
-  onsubmitButton(){
-
-
-    loading.value = true;
-    ApisClass.newProvidFacilites(
-        wifi.value,
-        bed.value,
-        chari.value,
-        table.value,
-        fan.value,
-        gadda.value,
-        light.value,
-        locker.value,
-        bedSheet.value,
-        washingMachin.value,
-        parking.value
-    ).then((value) {
-
-      loading.value = false;
-      Get.snackbar("add","sussefully");
-      Get.toNamed(RoutesName.chargeAndDoorTimingScreen);
-    }).onError((error, stackTrace) {
-      loading.value = false;
-      if (kDebugMode) {
-        print("error $error");
-      }
-      Get.snackbar("error", "error");
-    });
-  }
+  // onsubmitButton(){
+  //
+  //
+  //   loading.value = true;
+  //   ApisClass.newProvidFacilites(
+  //       wifi.value,
+  //       bed.value,
+  //       chari.value,
+  //       table.value,
+  //       fan.value,
+  //       gadda.value,
+  //       light.value,
+  //       locker.value,
+  //       bedSheet.value,
+  //       washingMachin.value,
+  //       parking.value
+  //   ).then((value) {
+  //
+  //     loading.value = false;
+  //     Get.snackbar("add","sussefully");
+  //     Get.toNamed(RoutesName.chargeAndDoorTimingScreen);
+  //   }).onError((error, stackTrace) {
+  //     loading.value = false;
+  //     if (kDebugMode) {
+  //       print("error $error");
+  //     }
+  //     Get.snackbar("error", "error");
+  //   });
+  //}
 
 }

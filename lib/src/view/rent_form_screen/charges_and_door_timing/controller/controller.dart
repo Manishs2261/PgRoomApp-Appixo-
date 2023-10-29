@@ -14,22 +14,23 @@ class AdditionalChargesController extends GetxController {
 
   final restrictedController = TextEditingController(text: "").obs;
 
-  onSubmitButton() {
-    loading.value = true;
-    ApisClass.newAdditionChargesAndDoorClosing(restrictedController.value.text,
-            electricityBill.value, waterBill.value, fexibleTime.value)
-        .then((value) {
-      loading.value = false;
-      Get.snackbar("add", "sussefulley");
-      Get.toNamed(RoutesName.perimissionScreen);
-    }).onError((error, stackTrace) {
-      loading.value = false;
-      if (kDebugMode) {
-        print("Errr :$error");
-      }
-      Get.snackbar("errro", "error");
-    });
-  }
+  // onSubmitButton() {
+  //
+  //
+  //  // loading.value = true;
+  //   ApisClass.newAdditionChargesAndDoorClosing(restrictedController.value.text,
+  //           electricityBill.value, waterBill.value, fexibleTime.value)
+  //       .then((value) {
+  //    // loading.value = false;
+  //     Get.snackbar("add", "sussefulley");
+  //   }).onError((error, stackTrace) {
+  //    // loading.value = false;
+  //     if (kDebugMode) {
+  //       print("Errr :$error");
+  //     }
+  //     Get.snackbar("errro", "error");
+  //   });
+  // }
 
   fexibleTimeCondition(value) {
     fexibleTime.value = value!;

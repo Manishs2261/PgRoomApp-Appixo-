@@ -10,6 +10,8 @@ import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widg
 import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
 import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field.dart';
 
+import '../../../res/route_name/routes_name.dart';
+
 class HostelAndRoomTypeScreen extends StatelessWidget {
   HostelAndRoomTypeScreen({super.key});
 
@@ -297,7 +299,8 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () {
                         //call a controller method
-                        controller.onSubmitButton();
+                        //controller.onSubmitButton();
+                        Get.toNamed(RoutesName.providsFacilitesScreen);
 
                       },
                       child: Obx(

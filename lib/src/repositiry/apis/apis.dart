@@ -24,11 +24,12 @@ class ApisClass{
 
    static final time = DateTime.now().microsecondsSinceEpoch.toString();
   static var download;
+  static var userRentId  = "";
 
 
   //upload data in firebase for home screen
 
-  static Future<void> rentDetailsHomeList(coverImage,houseName,
+  static Future  rentDetailsHomeList(coverImage,houseName,
       address,cityName,landMark,contactNumber,bhk,roomType,singlePrice,
       doublePrice,triplePrice,fourPrice,faimlyPrice,restrictedTime,review,
        wifi, bed, chair, table,fan,gadda,light,locker,bedSheet,
@@ -71,12 +72,116 @@ class ApisClass{
       girls: girlAllow,
       faimlyMember: faimalyMember,
       like: like,
-      restrictedTime: restrictedTime
+      restrictedTime: restrictedTime,
+      userRentId: time
     );
-    return await firestore.collection("rentCollection").doc(time).set(userHomeList
+    return await firestore.collection("rentCollection").doc(userRentId).set
+      (userHomeList
         .toJson());
+    // return await firestore.collection("rentCollection").add
+    //   (userHomeList
+    //     .toJson());
 
   }
+
+
+  //user detals
+
+  static Future<DocumentReference<Map<String, dynamic>>?> rentDetailsUser
+      (coverImage,houseName,
+      address,cityName,landMark,contactNumber,bhk,roomType,singlePrice,
+      doublePrice,triplePrice,fourPrice,faimlyPrice,restrictedTime,review,
+      wifi, bed, chair, table,fan,gadda,light,locker,bedSheet,
+      washingMachine,parking,
+      electricityBill,waterBill,fexible,cooking,cookingType,boyAllow,
+      girlAllow,faimalyMember,like)async{
+
+    final  userHomeList =  UserRentModel(
+        coverImage: coverImage,
+        houseName: houseName,
+        addres: address,
+        city: cityName,
+        landMark: landMark,
+        contactNumber: contactNumber,
+        bhkType: bhk,
+        roomType: roomType,
+        singlePersonPrice: singlePrice,
+        doublePersionPrice: doublePrice,
+        triplePersionPrice: triplePrice,
+        fourPersionPrice: fourPrice,
+        faimlyPrice: faimlyPrice,
+        review: review,
+        wifi: wifi,
+        bed: bed,
+        chair: chair,
+        table: table,
+        fan: fan,
+        gadda: gadda,
+        light: light,
+        locker: locker,
+        bedSheet: bedSheet,
+        washingMachin: washingMachine,
+        parking: parking,
+        electricityBill: electricityBill,
+        waterBill: waterBill,
+        fexibleTime: fexible,
+        cooking: cooking,
+        cookingType: cookingType,
+        boy: boyAllow,
+        girls: girlAllow,
+        faimlyMember: faimalyMember,
+        like: like,
+        restrictedTime: restrictedTime,
+      userRentId: time
+    ) ;
+    // return await firestore.collection("userRentDetails").doc(user.uid).collection
+    //   ("${user.uid}").doc(time).set
+    //   (userHomeList
+    //     .toJson());
+
+
+    return await firestore.collection("userRentDetails").doc(user.uid)
+        .collection("${user.uid}").add
+      (userHomeList
+        .toJson()).then((value) {
+          print(value.id);
+          userRentId = value.id;
+        return null;
+
+    });
+
+  }
+
+  static Future<void> deleteData(String deleteId)async{
+
+    try
+    {
+
+      //delete a firebasestore
+      DocumentReference documentReference = firestore.collection
+        ('userRentDetails').doc(user.uid).collection("${user.uid}").doc(deleteId);
+      DocumentReference documentReference1 = firestore.collection('rentCollection').doc
+        (deleteId);
+
+      // // Delete the document.
+      await documentReference.delete();
+      await documentReference1.delete();
+      //
+      // // delete a firestorege image data
+      // final reff = storage.refFromURL(imageUrl);
+      // await reff.delete();
+
+      print("deleted");
+
+    }catch(e)
+    {
+      print("data in not delete $e");
+    }
+  }
+
+
+
+
 
 
 // crete a user new rrnt Details Collection
