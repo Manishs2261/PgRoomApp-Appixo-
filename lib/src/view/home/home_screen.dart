@@ -32,8 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List< UserRentModel>rentList = [];
 
 
-  //for like or unlike
-  bool like = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -272,43 +271,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      //==========like or unlike button ==========
-
-                      like == false
-                          ?
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: InkWell(
-                          onTap: (){
-                            setState(() {
-                              like = true;
-                            });
-                          },
-                          child: Icon(
-                            CupertinoIcons.heart,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-                          :
-                      Positioned(
-                        top: 10,
-                        left: 10,
-                        child: InkWell(
-                          onTap: (){
-
-                            setState(() {
-                              like = false;
-                            });
-                          },
-                          child: Icon(
-                            CupertinoIcons.heart_fill,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-
 
                     ],
                   );

@@ -9,94 +9,63 @@ import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
 import '../../model/pgroomm_and_flat_type_model/pgroom_and_flat_type_model.dart';
 import 'dart:io';
-class ApisClass{
 
-
+class ApisClass {
   // for authentication
   static FirebaseAuth auth = FirebaseAuth.instance;
+
   //to return current user
   static User get user => auth.currentUser!;
 
   // for accessing cloud firestore database
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   // fpr storing self   `information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
-   static final time = DateTime.now().microsecondsSinceEpoch.toString();
+  static final time = DateTime.now().microsecondsSinceEpoch.toString();
   static var download;
-  static var userRentId  = "";
-
+  static var userRentId = "";
 
   //upload data in firebase for home screen
 
-  static Future  rentDetailsHomeList(coverImage,houseName,
-      address,cityName,landMark,contactNumber,bhk,roomType,singlePrice,
-      doublePrice,triplePrice,fourPrice,faimlyPrice,restrictedTime,review,
-       wifi, bed, chair, table,fan,gadda,light,locker,bedSheet,
-      washingMachine,parking,
-      electricityBill,waterBill,fexible,cooking,cookingType,boyAllow,
-      girlAllow,faimalyMember,like)async{
-
+  static Future rentDetailsHomeList(
+      coverImage,
+      houseName,
+      address,
+      cityName,
+      landMark,
+      contactNumber,
+      bhk,
+      roomType,
+      singlePrice,
+      doublePrice,
+      triplePrice,
+      fourPrice,
+      faimlyPrice,
+      restrictedTime,
+      review,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      electricityBill,
+      waterBill,
+      fexible,
+      cooking,
+      cookingType,
+      boyAllow,
+      girlAllow,
+      faimalyMember,
+      like) async {
     final userHomeList = UserRentModel(
-    coverImage: coverImage,
-    houseName: houseName,
-    addres: address,
-    city: cityName,
-    landMark: landMark,
-    contactNumber: contactNumber,
-    bhkType: bhk,
-    roomType: roomType,
-    singlePersonPrice: singlePrice,
-    doublePersionPrice: doublePrice,
-    triplePersionPrice: triplePrice,
-    fourPersionPrice: fourPrice,
-    faimlyPrice: faimlyPrice,
-      review: review,
-      wifi: wifi,
-      bed: bed,
-      chair: chair,
-      table: table,
-      fan: fan,
-      gadda: gadda,
-      light: light,
-      locker: locker,
-      bedSheet: bedSheet,
-      washingMachin: washingMachine,
-      parking: parking,
-      electricityBill: electricityBill,
-      waterBill: waterBill,
-      fexibleTime: fexible,
-      cooking: cooking,
-      cookingType: cookingType,
-      boy: boyAllow,
-      girls: girlAllow,
-      faimlyMember: faimalyMember,
-      like: like,
-      restrictedTime: restrictedTime,
-      userRentId: time
-    );
-    return await firestore.collection("rentCollection").doc(userRentId).set
-      (userHomeList
-        .toJson());
-    // return await firestore.collection("rentCollection").add
-    //   (userHomeList
-    //     .toJson());
-
-  }
-
-
-  //user detals
-
-  static Future<DocumentReference<Map<String, dynamic>>?> rentDetailsUser
-      (coverImage,houseName,
-      address,cityName,landMark,contactNumber,bhk,roomType,singlePrice,
-      doublePrice,triplePrice,fourPrice,faimlyPrice,restrictedTime,review,
-      wifi, bed, chair, table,fan,gadda,light,locker,bedSheet,
-      washingMachine,parking,
-      electricityBill,waterBill,fexible,cooking,cookingType,boyAllow,
-      girlAllow,faimalyMember,like)async{
-
-    final  userHomeList =  UserRentModel(
         coverImage: coverImage,
         houseName: houseName,
         addres: address,
@@ -132,36 +101,112 @@ class ApisClass{
         faimlyMember: faimalyMember,
         like: like,
         restrictedTime: restrictedTime,
-      userRentId: time
-    ) ;
-    // return await firestore.collection("userRentDetails").doc(user.uid).collection
-    //   ("${user.uid}").doc(time).set
-    //   (userHomeList
-    //     .toJson());
-
-
-    return await firestore.collection("userRentDetails").doc(user.uid)
-        .collection("${user.uid}").add
-      (userHomeList
-        .toJson()).then((value) {
-          print(value.id);
-          userRentId = value.id;
-        return null;
-
-    });
-
+        userRentId: time);
+    return await firestore
+        .collection("rentCollection")
+        .doc(userRentId)
+        .set(userHomeList.toJson());
   }
 
-  static Future<void> deleteData(String deleteId)async{
+  //user detals
 
-    try
-    {
+  static Future<DocumentReference<Map<String, dynamic>>?> rentDetailsUser(
+      coverImage,
+      houseName,
+      address,
+      cityName,
+      landMark,
+      contactNumber,
+      bhk,
+      roomType,
+      singlePrice,
+      doublePrice,
+      triplePrice,
+      fourPrice,
+      faimlyPrice,
+      restrictedTime,
+      review,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      electricityBill,
+      waterBill,
+      fexible,
+      cooking,
+      cookingType,
+      boyAllow,
+      girlAllow,
+      faimalyMember,
+      like) async {
+    final userHomeList = UserRentModel(
+        coverImage: coverImage,
+        houseName: houseName,
+        addres: address,
+        city: cityName,
+        landMark: landMark,
+        contactNumber: contactNumber,
+        bhkType: bhk,
+        roomType: roomType,
+        singlePersonPrice: singlePrice,
+        doublePersionPrice: doublePrice,
+        triplePersionPrice: triplePrice,
+        fourPersionPrice: fourPrice,
+        faimlyPrice: faimlyPrice,
+        review: review,
+        wifi: wifi,
+        bed: bed,
+        chair: chair,
+        table: table,
+        fan: fan,
+        gadda: gadda,
+        light: light,
+        locker: locker,
+        bedSheet: bedSheet,
+        washingMachin: washingMachine,
+        parking: parking,
+        electricityBill: electricityBill,
+        waterBill: waterBill,
+        fexibleTime: fexible,
+        cooking: cooking,
+        cookingType: cookingType,
+        boy: boyAllow,
+        girls: girlAllow,
+        faimlyMember: faimalyMember,
+        like: like,
+        restrictedTime: restrictedTime,
+        userRentId: time);
 
+    return await firestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection("${user.uid}")
+        .add(userHomeList.toJson())
+        .then((value) {
+      print(value.id);
+      userRentId = value.id;
+      return null;
+    });
+  }
+
+  // delete data code
+  static Future<void> deleteData(String deleteId) async {
+    try {
       //delete a firebasestore
-      DocumentReference documentReference = firestore.collection
-        ('userRentDetails').doc(user.uid).collection("${user.uid}").doc(deleteId);
-      DocumentReference documentReference1 = firestore.collection('rentCollection').doc
-        (deleteId);
+      DocumentReference documentReference = firestore
+          .collection('userRentDetails')
+          .doc(user.uid)
+          .collection("${user.uid}")
+          .doc(deleteId);
+      DocumentReference documentReference1 =
+          firestore.collection('rentCollection').doc(deleteId);
 
       // // Delete the document.
       await documentReference.delete();
@@ -172,160 +217,41 @@ class ApisClass{
       // await reff.delete();
 
       print("deleted");
-
-    }catch(e)
-    {
+    } catch (e) {
       print("data in not delete $e");
     }
   }
 
-
-
-
-
-
-// crete a user new rrnt Details Collection
-
-static Future<void>newRentDetailsCollection(String houseName,address,
-    cityName,landMark,contuctNumber)async {
-
-  final rentDetailsMoel =RentDetailsModel(
-    houseName: houseName,
-    address: address,
-    cityName: cityName,
-    landMark: landMark,
-    contactNumber: cityName
-
-  );
-  return await firestore.collection('rentUser').doc(user.uid).collection
-    ('rentDetails').doc(time).set(rentDetailsMoel.toJson());
-
-
-}
-
-
-
-//crete a new pgRoom and falt type and price
-
-static Future<void>pgRoomAndFlatTypePrice(String roomType,bhk,singleP,doubleP,
-    triplep,fourP,faimly)async {
-
-  final pgRoomPrice = PgRoomAndFlatTypeModel(
-
-    roomType: roomType,
-    bhkType: bhk,
-    singlePersonPrice: singleP,
-    doublePersionPrice: doubleP,
-    triplePersionPrice: triplep,
-    fourPersionPrice: fourP,
-    faimlyPrice: faimly,
-  );
-
-     return await firestore.collection('rentUser').doc(user.uid).collection
-       ('pgRoomAndFlatType').doc(time).set(pgRoomPrice.toJson());
-
-}
-
-
-//create a provide facilites firebase
-
-static Future<void>newProvidFacilites(bool wifi,bed,chair,table,fan,gadda,
-    light,locker,bedSheet,washingMachin,parking)async {
-
-  final provide = ProvideFacilitesModel(
-    wifi: wifi,
-    bed: bed,
-    chair: chair,
-    table: table,
-    fan: fan,
-    gadda: gadda,
-    light: light,
-    locker: locker,
-    bedSheet: bedSheet,
-    washingMachin: washingMachin,
-    parking: parking
-  );
-  return await firestore.collection('rentUser').doc(user.uid).collection
-    ('providFacilites').doc(time).set(provide.toJson());
-
-}
-
-//for crete a additional charges
-static Future<void>newAdditionChargesAndDoorClosing(String restricted,bool
-electricity,water,fexibleTime)
-async {
-
-  final charges = AdditionChargesAndDoorClosingModel(
-    electricityBill: electricity,
-    fexibleTime: fexibleTime,
-    restrictedTime: restricted,
-    waterBill: water
-  );
-
-  return await firestore.collection('rentUser').doc(user.uid).collection
-    ('otherCharges').doc(time).set(charges.toJson());
-}
-
-
-//create a new permission
-
-static Future<void>newPermission(bool cookingAllow,cookingType,girl,boy,
-    faimlyMember)
-async {
-
-  final permission = PermissionModel(
-    boy: boy,
-    cooking: cookingAllow,
-    cookingType: cookingType,
-    faimlyMember: faimlyMember,
-    girl: girl
-  );
-
-  return await firestore.collection('rentUser').doc(user.uid).collection
-    ('permission').doc(time).set(permission.toJson());
-
-
-}
-
-
 // uplaoad  Cover image data in firestorev database
-  static Future uploadCoverImage(File imageFile )async{
-
-    try{
-      final reference = storage.ref().child('coverimage/${user.uid}/${DateTime
-          .now()}.jpg');
+  static Future uploadCoverImage(File imageFile) async {
+    try {
+      final reference =
+          storage.ref().child('coverimage/${user.uid}/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
 
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       download = await snapshot.ref.getDownloadURL();
-      print("user $user");
+
       print("url : $download");
-    }catch(e)
-    {
+    } catch (e) {
       print("image is not uploaded ; $e");
     }
   }
 
 
+
   //upload other images in firestore databse
-static Future uploadOtherImage(File imageFile)async{
+  static Future uploadOtherImage(File imageFile) async {
+    try {
+      final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
 
-  try{
-    final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
-    final UploadTask uploadTask = reference.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      download = await snapshot.ref.getDownloadURL();
 
-    final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
-    download = await snapshot.ref.getDownloadURL();
-
-    print("url : $download");
-
-  }catch(e)
-  {
-    print("image is not uploaded ; $e");
+      print("url : $download");
+    } catch (e) {
+      print("image is not uploaded ; $e");
+    }
   }
-}
-
-
-
-
 }

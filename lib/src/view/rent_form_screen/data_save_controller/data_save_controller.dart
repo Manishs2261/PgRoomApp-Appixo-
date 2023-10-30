@@ -12,8 +12,7 @@ import '../hostel_and_room_type/controller/controller.dart';
 import '../permission/controller/permission_controller.dart';
 import '../rent_details/controller/controller.dart';
 
-class DataSaveController extends GetxController{
-
+class DataSaveController extends GetxController {
   final premissionController = Get.put(PermissionController());
   final hostleController = Get.put(HostelAndRoomController());
   final rentControllet = Get.put(RentDetailsController());
@@ -21,176 +20,113 @@ class DataSaveController extends GetxController{
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitesController());
 
-
- saveRentDetails() {
-
-   // premissionController.onSubmitPermissionBotton();
-   // hostleController.onSubmitButton();
-   // rentControllet.onSubmitButton();
-   // chargeAndDoorController.onSubmitButton();
-   // providerController.onsubmitButton();
-
+  saveRentDetails() {
     ApisClass.rentDetailsHomeList(
-        ApisClass.download,
-        rentControllet.houseNameController.value.text,
-        rentControllet.houseAddressController.value.text,
-        rentControllet.cityNameController.value.text,
-        rentControllet.landdMarkController.value.text,
-        rentControllet.contactNumberController.value.text,
-        hostleController.bhk.value,
-        hostleController.roomType.value,
-        hostleController.singlePersonContrller.value.text,
-        hostleController.doublePersonContrller.value.text,
-        hostleController.triplePersonContrller.value.text,
-        hostleController.fourPersonContrller.value.text,
-        hostleController.faimlyPersonContrller.value.text,
-        chargeAndDoorController.restrictedController.value.text,
-        "4.2",
-        providerController.wifi.value,
-        providerController.bed.value,
-        providerController.chari.value,
-        providerController.table.value,
-        providerController.fan.value,
-        providerController.gadda.value,
-        providerController.light.value,
-        providerController.locker.value,
-        providerController.bedSheet.value,
-        providerController.washingMachin.value,
-        providerController.parking.value,
-        chargeAndDoorController.electricityBill.value,
-        chargeAndDoorController.waterBill.value,
-        chargeAndDoorController.fexibleTime.value,
-        premissionController.cookingAllow.value,
-        premissionController.cookingType.value,
-        premissionController.boy.value,
-        premissionController.girl.value,
-        premissionController.faimlyMamber.value,
-       false
-    ).then((value)  {
-
-
+            ApisClass.download,
+            rentControllet.houseNameController.value.text,
+            rentControllet.houseAddressController.value.text,
+            rentControllet.cityNameController.value.text,
+            rentControllet.landdMarkController.value.text,
+            rentControllet.contactNumberController.value.text,
+            hostleController.bhk.value,
+            hostleController.roomType.value,
+            hostleController.singlePersonContrller.value.text,
+            hostleController.doublePersonContrller.value.text,
+            hostleController.triplePersonContrller.value.text,
+            hostleController.fourPersonContrller.value.text,
+            hostleController.faimlyPersonContrller.value.text,
+            chargeAndDoorController.restrictedController.value.text,
+            "4.2",
+            providerController.wifi.value,
+            providerController.bed.value,
+            providerController.chari.value,
+            providerController.table.value,
+            providerController.fan.value,
+            providerController.gadda.value,
+            providerController.light.value,
+            providerController.locker.value,
+            providerController.bedSheet.value,
+            providerController.washingMachin.value,
+            providerController.parking.value,
+            chargeAndDoorController.electricityBill.value,
+            chargeAndDoorController.waterBill.value,
+            chargeAndDoorController.fexibleTime.value,
+            premissionController.cookingAllow.value,
+            premissionController.cookingType.value,
+            premissionController.boy.value,
+            premissionController.girl.value,
+            premissionController.faimlyMamber.value,
+            false)
+        .then((value) {
       Get.snackbar("save", "details");
-     // Get.offAllNamed(RoutesName.homeScreen);
-
-      //clearValue();
-
     }).onError((error, stackTrace) {
-
-      Get.snackbar("error", "details");
+      Get.snackbar("Error", "details");
       print("save Error => $error");
       print("save Error => $stackTrace");
     });
-
   }
 
-
-  saveUserRentDetaitls(){
+  saveUserRentDetaitls() {
     ApisClass.rentDetailsUser(
-        ApisClass.download,
-        rentControllet.houseNameController.value.text,
-        rentControllet.houseAddressController.value.text,
-        rentControllet.cityNameController.value.text,
-        rentControllet.landdMarkController.value.text,
-        rentControllet.contactNumberController.value.text,
-        hostleController.bhk.value,
-        hostleController.roomType.value,
-        hostleController.singlePersonContrller.value.text,
-        hostleController.doublePersonContrller.value.text,
-        hostleController.triplePersonContrller.value.text,
-        hostleController.fourPersonContrller.value.text,
-        hostleController.faimlyPersonContrller.value.text,
-        chargeAndDoorController.restrictedController.value.text,
-        "4.2",
-        providerController.wifi.value,
-        providerController.bed.value,
-        providerController.chari.value,
-        providerController.table.value,
-        providerController.fan.value,
-        providerController.gadda.value,
-        providerController.light.value,
-        providerController.locker.value,
-        providerController.bedSheet.value,
-        providerController.washingMachin.value,
-        providerController.parking.value,
-        chargeAndDoorController.electricityBill.value,
-        chargeAndDoorController.waterBill.value,
-        chargeAndDoorController.fexibleTime.value,
-        premissionController.cookingAllow.value,
-        premissionController.cookingType.value,
-        premissionController.boy.value,
-        premissionController.girl.value,
-        premissionController.faimlyMamber.value,
-        false
-    ).then((value)  {
-      print("vberof ${ApisClass.userRentId}");
+            ApisClass.download,
+            rentControllet.houseNameController.value.text,
+            rentControllet.houseAddressController.value.text,
+            rentControllet.cityNameController.value.text,
+            rentControllet.landdMarkController.value.text,
+            rentControllet.contactNumberController.value.text,
+            hostleController.bhk.value,
+            hostleController.roomType.value,
+            hostleController.singlePersonContrller.value.text,
+            hostleController.doublePersonContrller.value.text,
+            hostleController.triplePersonContrller.value.text,
+            hostleController.fourPersonContrller.value.text,
+            hostleController.faimlyPersonContrller.value.text,
+            chargeAndDoorController.restrictedController.value.text,
+            "4.2",
+            providerController.wifi.value,
+            providerController.bed.value,
+            providerController.chari.value,
+            providerController.table.value,
+            providerController.fan.value,
+            providerController.gadda.value,
+            providerController.light.value,
+            providerController.locker.value,
+            providerController.bedSheet.value,
+            providerController.washingMachin.value,
+            providerController.parking.value,
+            chargeAndDoorController.electricityBill.value,
+            chargeAndDoorController.waterBill.value,
+            chargeAndDoorController.fexibleTime.value,
+            premissionController.cookingAllow.value,
+            premissionController.cookingType.value,
+            premissionController.boy.value,
+            premissionController.girl.value,
+            premissionController.faimlyMamber.value,
+            false
+    )
+        .then((value) {
+      //seva home list data
       saveRentDetails();
-      print("after ${ApisClass.userRentId}");
-      Get.snackbar("save", "details",backgroundColor: Colors.red);
+
+      Get.snackbar("save", "details", backgroundColor: Colors.red);
       Get.offAllNamed(RoutesName.homeScreen);
       //clearValue();
-
     }).onError((error, stackTrace) {
-
-      Get.snackbar("error", "details",backgroundColor: Colors.blue);
+      Get.snackbar("Error", "details", backgroundColor: Colors.blue);
       print("save Error => $error");
       print("save Error => $stackTrace");
     });
-
-
-
-
-
   }
 
+  uploadData(){
 
+    addImageController.uploadCoverImage().then((value) {
+      saveUserRentDetaitls();
 
+    }).onError((error, stackTrace) {
 
-
-
-  // clearValue(){
-//   //
-//   //   ApisClass.download = "";
-//   //   addImageController.selectedCoverImage.value = "";
-//   //   rentControllet.houseNameController.value.clear();
-//   //   rentControllet.houseAddressController.value.clear();
-//   //   rentControllet.cityNameController.value.clear();
-//   //   rentControllet.landdMarkController.value.clear();
-//   //   rentControllet.contactNumberController.value.clear();
-//   //
-//   //   hostleController.singlePersonContrller.value.clear();
-//   //   hostleController.doublePersonContrller.value.clear();
-//   //   hostleController.triplePersonContrller.value.clear();
-//   //   hostleController.fourPersonContrller.value.clear();
-//   //   hostleController.faimlyPersonContrller.value.clear();
-//   //   chargeAndDoorController.restrictedController.value.clear();
-//   //   " ";
-//   //   providerController.wifi.value = false;
-//   //   providerController.bed.value = false;
-//   //   providerController.chari.value = false;
-//   //   providerController.table.value = false;
-//   //   providerController.fan.value = false;
-//   //   providerController.gadda.value = false;
-//   //   providerController.light.value = false;
-//   //   providerController.locker.value = false;
-//   //   providerController.bedSheet.value = false;
-//   //   providerController.washingMachin.value = false;
-//   //   providerController.parking.value = false;
-//   //   chargeAndDoorController.electricityBill.value = false;
-//   //   chargeAndDoorController.waterBill.value = false;
-//   //   chargeAndDoorController.fexibleTime.value = false;
-//   //   premissionController.cookingAllow.value = false;
-//   //
-//   //   premissionController.boy.value = false;
-//   //   premissionController.girl.value = false;
-//   //   premissionController.faimlyMamber.value = false;
-//   //
-//   //   hostleController.checkboxSingle1.value  =false;
-//   //   hostleController.checkboxDoble2.value = false;
-//   //   hostleController.checkboxTriple3.value = false;
-//   //   hostleController.checkboxFour4.value = false;
-//   //   hostleController.checkboxFaimalyRoom.value = false;
-//   //
-//   //
-//   // }
+      Get.snackbar("Error", "image upload error");
+    });
+  }
 
 }
