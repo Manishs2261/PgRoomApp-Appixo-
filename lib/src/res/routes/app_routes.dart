@@ -18,6 +18,7 @@ import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_scree
 
 import '../../view/auth_screen/forget_password_email/forget_password.dart';
 import '../../view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
+import '../../view/details_rent_screen/details_rent_screen.dart';
 import '../../view/splash/splash_screen.dart';
 import '../route_name/routes_name.dart';
 
@@ -102,6 +103,10 @@ static appRoutes()=>[
 
 
   GetPage(name: RoutesName.rentDetailsFormScreen, page:()=> RentDetailsScsreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.detailsRentInfoScreen, page:()=> DetailsRentInfoScreen(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 

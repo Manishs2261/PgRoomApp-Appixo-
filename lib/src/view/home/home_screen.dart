@@ -11,6 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/add_your_home/add_your_home.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
@@ -29,7 +30,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  List< UserRentModel>rentList = [];
+  List<UserRentModel>rentList = [];
 
 
 
@@ -165,11 +166,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return Stack(
                     children: [
+                      // Navigation DetailRentInfo_Screen button
                       GestureDetector(
                         onTap: (){
+
                         print(snapshot.data?.docs[index].id);
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsRentInfoScreen()));
+                        Get.toNamed(RoutesName.detailsRentInfoScreen ,
+                            arguments:  rentList[index] );
+
+
                         },
                         child: Container(
                           padding: EdgeInsets.all(3),

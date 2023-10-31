@@ -5,22 +5,29 @@ class DetailsRowWidgets extends StatelessWidget {
   DetailsRowWidgets({
     required this.title,
     this.price = "",
-    required this.icon,
+     this.isIcon  = false,
     super.key,
   });
 
   String title;
   String price;
+  bool isIcon;
 
-  IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        isIcon
+            ? Icon(
+      Icons.done,
+      color: Colors.green,
+      size: 20,
+    )
+            :
         Icon(
-          icon,
-          color: Colors.green,
+          Icons.close,
+          color: Colors.red,
           size: 20,
         ),
         SizedBox(

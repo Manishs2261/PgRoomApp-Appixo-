@@ -27,7 +27,10 @@ class ApisClass {
   static var download;
   static var userRentId = "";
 
-  //upload data in firebase for home screen
+
+  //upload data in firebase for home screen list
+  // in list all data in one collection
+  // user collection documnet id and home list id is same
 
   static Future rentDetailsHomeList(
       coverImage,
@@ -108,7 +111,9 @@ class ApisClass {
         .set(userHomeList.toJson());
   }
 
-  //user detals
+
+
+  // this data store in data in user profile specific
 
   static Future<DocumentReference<Map<String, dynamic>>?> rentDetailsUser(
       coverImage,
@@ -196,6 +201,9 @@ class ApisClass {
     });
   }
 
+
+
+
   // delete data code
   static Future<void> deleteData(String deleteId) async {
     try {
@@ -232,8 +240,8 @@ class ApisClass {
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       download = await snapshot.ref.getDownloadURL();
 
-      print("url : $download");
     } catch (e) {
+
       print("image is not uploaded ; $e");
     }
   }
