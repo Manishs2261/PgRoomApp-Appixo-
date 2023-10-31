@@ -7,8 +7,9 @@ import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/details_rent_screen/controller/image_page_controller.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/circle_Container_widgets.dart';
-import 'package:pgroom/src/view/details_rent_screen/widget/detaails_row_widgets.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
 
 class DetailsRentInfoScreen extends StatelessWidget {
   DetailsRentInfoScreen({super.key});
@@ -47,7 +48,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 child: PageView(
                   controller: imageIndecterController,
                   children: [
-                    Image(image: AssetImage(roomImage), fit: BoxFit.cover),
+                    Image(image:  NetworkImage(data.coverImage.toString()),
+                        fit: BoxFit.cover),
                     Image(image: AssetImage(room2Image), fit: BoxFit.cover),
                     Image(image: AssetImage(room3Image), fit: BoxFit.cover),
                   ],

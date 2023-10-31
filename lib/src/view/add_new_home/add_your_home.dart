@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/main.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/view/edit_add_new_home/edit_add_new_home.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../repositiry/apis/apis.dart';
 import '../details_rent_screen/details_rent_screen.dart';
 import '../rent_form_screen/add_image_/add_image_screen.dart';
-
 
 class AddYourHome extends StatefulWidget {
   const AddYourHome({super.key});
@@ -17,13 +20,7 @@ class AddYourHome extends StatefulWidget {
 }
 
 class _AddYourHomeState extends State<AddYourHome> {
-
-
-  List< UserRentModel>rentList = [];
-
-
-  //for like or unlike
-  bool like = false;
+  List<UserRentModel> rentList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,30 +33,32 @@ class _AddYourHomeState extends State<AddYourHome> {
             height: 40,
             width: mediaQuery.width * .8,
             child: ElevatedButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> AddImageScreen()));
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddImageScreen()));
               },
-              child: Text("Add New"),),
+              child: Text("Add New"),
+            ),
           ),
-          
           Expanded(
-            child:  StreamBuilder(
-
-                stream: ApisClass.firestore.collection('userRentDetails')
-                    .doc(ApisClass.user.uid).collection("${ApisClass.user.uid}").snapshots(),
+            child: StreamBuilder(
+                stream: ApisClass.firestore
+                    .collection('userRentDetails')
+                    .doc(ApisClass.user.uid)
+                    .collection("${ApisClass.user.uid}")
+                    .snapshots(),
                 // stream: ApisClass.firestore.collection('rentUser').doc
                 //   ("s30wXWQIDuPPzjrNmf7Q").collection('permission').snapshots(),
 
                 builder: (context, snapshot) {
-
-                  switch(snapshot.connectionState){
-
+                  switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
                     case ConnectionState.none:
-                      return Center(child: CircularProgressIndicator(),);
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
                     case ConnectionState.active:
                     case ConnectionState.done:
-
                       final data = snapshot.data?.docs;
 
                       // for(var i in data!)
@@ -67,34 +66,35 @@ class _AddYourHomeState extends State<AddYourHome> {
                       //     log("Data : ${jsonEncode(i.data())}");
                       //   }
 
-                      rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList()
-                          ?? [];
-
-
+                      rentList = data
+                              ?.map((e) => UserRentModel.fromJson(e.data()))
+                              .toList() ??
+                          [];
 
                       return ListView.builder(
-
                           padding: EdgeInsets.only(left: 5, right: 5),
                           itemCount: rentList.length,
                           itemBuilder: (context, index) {
                             return Stack(
                               children: [
                                 GestureDetector(
-                                  onTap: (){
-                                    print(snapshot.data?.docs[index].id);
-                                    print(rentList[index].userRentId);
-                                  //  ApisClass.deleteData(snapshot.data!
-                                        //.docs[index].id);
+                                  onTap: () {
 
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsRentInfoScreen()));
+                                    final itemid = snapshot.data?.docs[index].id;
+                                    final imageUrl = rentList[index].coverImage;
+                                    Get.toNamed(RoutesName
+                                        .editAddNewHome_Screen, arguments:
+                                    {'list': rentList[index], 'id': itemid,
+                                      'url': imageUrl},);
+
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(3),
                                     height: 200,
                                     width: double.infinity,
-                                    decoration:
-                                    BoxDecoration(
-                                        color: Color.fromRGBO(200, 200, 40, 0.01),
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(200, 200, 40, 0.01),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.white,
@@ -108,10 +108,12 @@ class _AddYourHomeState extends State<AddYourHome> {
                                           width: 150,
                                           height: 300,
 
-                                          imageUrl: '${rentList[index].coverImage}',
+                                          imageUrl:
+                                              '${rentList[index].coverImage}',
                                           fit: BoxFit.fill,
                                           // placeholder: (context, url) => CircularProgressIndicator(),
-                                          errorWidget: (context, url, error) => CircleAvatar(
+                                          errorWidget: (context, url, error) =>
+                                              CircleAvatar(
                                             child: Icon(Icons.image_outlined),
                                           ),
                                         ),
@@ -123,16 +125,20 @@ class _AddYourHomeState extends State<AddYourHome> {
 
                                         Expanded(
                                           child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Flexible(
                                                 child: Text(
                                                   "${rentList[index].houseName} ",
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   softWrap: false,
                                                   maxLines: 1,
                                                   style: TextStyle(
-                                                      fontSize: 17, fontWeight: FontWeight.w500),
+                                                      fontSize: 17,
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                               SizedBox(
@@ -145,7 +151,8 @@ class _AddYourHomeState extends State<AddYourHome> {
                                                     color: Colors.yellow,
                                                     size: 17,
                                                   ),
-                                                  Text("${rentList[index].review}"),
+                                                  Text(
+                                                      "${rentList[index].review}"),
                                                   Text(" (28 reviews)")
                                                 ],
                                               ),
@@ -155,13 +162,19 @@ class _AddYourHomeState extends State<AddYourHome> {
                                               RichText(
                                                 text: TextSpan(
                                                   text: 'Rent - ₹',
-                                                  style: DefaultTextStyle.of(context).style,
-                                                  children:  <TextSpan>[
+                                                  style: DefaultTextStyle.of(
+                                                          context)
+                                                      .style,
+                                                  children: <TextSpan>[
                                                     TextSpan(
-                                                        text: '${rentList[index].singlePersonPrice}',
+                                                        text:
+                                                            '${rentList[index].singlePersonPrice}',
                                                         style: TextStyle(
-                                                            fontWeight: FontWeight.bold)),
-                                                    TextSpan(text: ' /- montly'),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold)),
+                                                    TextSpan(
+                                                        text: ' /- montly'),
                                                   ],
                                                 ),
                                               ),
@@ -171,7 +184,8 @@ class _AddYourHomeState extends State<AddYourHome> {
                                               Flexible(
                                                 child: Text(
                                                   "${rentList[index].addres} ",
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   softWrap: false,
                                                   maxLines: 2,
                                                 ),
@@ -179,8 +193,10 @@ class _AddYourHomeState extends State<AddYourHome> {
                                               SizedBox(
                                                 height: 3,
                                               ),
-                                              Text("city - ${rentList[index].city}"),
-                                              Text("Room Type - ${rentList[index].roomType}")
+                                              Text(
+                                                  "city - ${rentList[index].city}"),
+                                              Text(
+                                                  "Room Type - ${rentList[index].roomType}")
                                             ],
                                           ),
                                         ),
@@ -188,55 +204,12 @@ class _AddYourHomeState extends State<AddYourHome> {
                                     ),
                                   ),
                                 ),
-                                //==========like or unlike button ==========
-
-                                like == false
-                                    ?
-                                Positioned(
-                                  top: 10,
-                                  left: 10,
-                                  child: InkWell(
-                                    onTap: (){
-                                      setState(() {
-                                        like = true;
-                                      });
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.heart,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                )
-                                    :
-                                Positioned(
-                                  top: 10,
-                                  left: 10,
-                                  child: InkWell(
-                                    onTap: (){
-
-                                      setState(() {
-                                        like = false;
-                                      });
-                                    },
-                                    child: Icon(
-                                      CupertinoIcons.heart_fill,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-
-
                               ],
                             );
                           });
-
                   }
-
-
-                }
-            ),
+                }),
           )
-
         ],
       ),
     );

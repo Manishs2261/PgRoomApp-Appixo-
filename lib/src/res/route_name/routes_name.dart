@@ -18,6 +18,7 @@ class RoutesName{
   static const String detailsRentInfoScreen = "/detailsRentInfo_Screen";
 
   static const String rentDetails_screen = "/rentDetails_screen";
+  static const String editAddNewHome_Screen = "/editAddNewHome_screen";
 
   static const String addYourHomeScreen = "/add_your_home_screen";
   static const String addImageScreen = "/addImage_screen";
@@ -28,5 +29,6 @@ class RoutesName{
   static const String providsFacilitesScreen = "/provides_facilites_screen";
   static const String rentDetailsFormScreen = "/rent_Details_Form_screen";
 
+  static const String editFormScreen = "/editDorm_screen";
 
 }

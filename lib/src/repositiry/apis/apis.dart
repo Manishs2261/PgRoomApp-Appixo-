@@ -205,7 +205,7 @@ class ApisClass {
 
 
   // delete data code
-  static Future<void> deleteData(String deleteId) async {
+  static Future<void> deleteData(String deleteId, String imageUrl) async {
     try {
       //delete a firebasestore
       DocumentReference documentReference = firestore
@@ -216,13 +216,13 @@ class ApisClass {
       DocumentReference documentReference1 =
           firestore.collection('rentCollection').doc(deleteId);
 
-      // // Delete the document.
+       // Delete the document.
       await documentReference.delete();
       await documentReference1.delete();
       //
-      // // delete a firestorege image data
-      // final reff = storage.refFromURL(imageUrl);
-      // await reff.delete();
+      // delete a firestorege image data
+      final reff = storage.refFromURL(imageUrl);
+      await reff.delete();
 
       print("deleted");
     } catch (e) {
