@@ -21,6 +21,7 @@ class AddImageController extends GetxController {
   // image picker form Gallary
   RxString selectedCoverImage = "".obs;
 
+
   Future pickeImageFromGallery() async {
     final image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 70);
@@ -35,28 +36,26 @@ class AddImageController extends GetxController {
     });
   }
 
+  //===========================================
   Future pickeCoverImageFromGallery() async {
-     image = await ImagePicker()
+    image = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     selectedCoverImage.value = image!.path.toString();
-
   }
 
-  Future uploadCoverImage()async{
 
+  Future uploadCoverImage() async {
     await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
       Get.snackbar("upload ", "cover  image");
     }).onError((error, stackTrace) {
       Get.snackbar("error", "error");
       print("errror => $error");
     });
-
   }
+  //============================================
 
-
-
-
+  // om submit button
   onSubmitButton() {
     if (selectedCoverImage.isEmpty) {
       Get.snackbar("cover image", "not emplty");

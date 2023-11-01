@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
  import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget'
     '.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/my_text_form_field'
-    '.dart';
+import 'package:pgroom/src/uitels/my_text_form_widgets/my_text_form_field.dart';
 
 import '../../../res/route_name/routes_name.dart';
 

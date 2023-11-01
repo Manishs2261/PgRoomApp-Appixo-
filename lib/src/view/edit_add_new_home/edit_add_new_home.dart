@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:http/http.dart';
+
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -57,7 +57,8 @@ class EditAddNewHomeScreen extends StatefulWidget {
                  child: ElevatedButton(
                    onPressed: () {
 
-                     Get.toNamed(RoutesName.editFormScreen);
+                     Get.toNamed(RoutesName.editFormScreen , arguments:
+                     {'list':data , 'id':itemId , });
 
                    },
                    child: Text("Edit"),

@@ -1,18 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 
 class MyTextFormWedgit extends StatelessWidget {
    MyTextFormWedgit({
     super.key,
     required this.hintText,
     required this.lableText,
-     required this.controller,
+      this.controller,
      this.validator,
      this.icon,
     required this.borderRadius,
      this.contentPadding,
      this.isCollapsed = false,
      this.isDense = false,
+
   });
 
    String hintText, lableText;
@@ -21,8 +23,10 @@ class MyTextFormWedgit extends StatelessWidget {
   EdgeInsetsGeometry? contentPadding;
   bool isCollapsed ;
   bool  isDense;
-  TextEditingController controller;
+  TextEditingController? controller;
    String? Function(String?)? validator;
+
+
 
    @override
   Widget build(BuildContext context) {

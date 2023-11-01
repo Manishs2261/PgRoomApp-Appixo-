@@ -262,4 +262,35 @@ class ApisClass {
       print("image is not uploaded ; $e");
     }
   }
+
+  //update data
+
+static Future updateRentData(String itemID , name,address,city,landMark,number)
+async{
+
+
+    final userModel = UserRentModel(
+      houseName: name,
+      addres:  address,
+      city: city,
+      landMark: landMark,
+      contactNumber: number,
+    );
+
+    return {
+    await firestore
+        .collection("rentCollection")
+        .doc(itemID)
+        .set(userModel.toJson()),
+
+      await firestore.collection("userRentDetails").doc(user.uid).collection("${user.uid}")
+          .doc(itemID).set(userModel.toJson())
+
+    };
+
+}
+
+
+
+
 }

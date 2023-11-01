@@ -6,9 +6,9 @@ import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 
 class AddImageScreen extends StatelessWidget {
-   AddImageScreen({super.key});
+  AddImageScreen({super.key});
 
-  final controller = Get.put(AddImageController());
+  final imageController = Get.put(AddImageController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,9 +55,9 @@ class AddImageScreen extends StatelessWidget {
                     children: [
                       // =====for initial image when your don't choose image============
                       Obx(
-                        () => controller.selectedCoverImage.value != ""
+                        () => imageController.selectedCoverImage.value != ""
                             ? Image(
-                                image: FileImage(File(controller
+                                image: FileImage(File(imageController
                                     .selectedCoverImage.value
                                     .toString())),
                                 height: double.infinity,
@@ -75,23 +75,25 @@ class AddImageScreen extends StatelessWidget {
                       // ========for add a image button=========
 
                       Obx(
-                        () => controller.selectedCoverImage.value != ""
+                        () => imageController.selectedCoverImage.value != ""
                             ? const Text("")
                             : Positioned(
                                 top: 60,
                                 left: 80,
                                 child: InkWell(
                                   onTap: () {
-                                    controller.addimage.value = true;
+                                    imageController.addimage.value = true;
 
-                                    controller.pickeCoverImageFromGallery();
+                                    imageController
+                                        .pickeCoverImageFromGallery();
                                   },
                                   child: Container(
                                     height: 60,
                                     width: 200,
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.white)),
+                                        border:
+                                            Border.all(color: Colors.white)),
                                     child: const Text(
                                       "Choose cover Image",
                                       style: TextStyle(
@@ -106,13 +108,14 @@ class AddImageScreen extends StatelessWidget {
 
                       //==========for delete  Cover image a image===========
                       Obx(
-                        () => controller.selectedCoverImage.value != ""
+                        () => imageController.selectedCoverImage.value != ""
                             ? Positioned(
                                 right: 1,
                                 child: InkWell(
                                   onTap: () {
-                                    controller.addimage.value = false;
-                                    controller.selectedCoverImage.value = "";
+                                    imageController.addimage.value = false;
+                                    imageController.selectedCoverImage.value =
+                                        "";
                                   },
                                   child: const CircleAvatar(
                                     radius: 14,
@@ -136,7 +139,7 @@ class AddImageScreen extends StatelessWidget {
                 //when a upload image show successful sign
 
                 Obx(
-                  () => controller.addimage.value
+                  () => imageController.addimage.value
                       ? const Row(
                           children: [
                             Padding(padding: EdgeInsets.only(left: 7)),
@@ -172,7 +175,7 @@ class AddImageScreen extends StatelessWidget {
                 //===========other image container============
 
                 Obx(
-                  () => controller.isBool.value
+                  () => imageController.isBool.value
                       ? Container(
                           padding: const EdgeInsets.all(10),
                           height: 120,
@@ -180,7 +183,7 @@ class AddImageScreen extends StatelessWidget {
                           decoration: const BoxDecoration(),
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: controller.imageFileList.length,
+                              itemCount: imageController.imageFileList.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   margin: const EdgeInsets.all(2),
@@ -188,12 +191,13 @@ class AddImageScreen extends StatelessWidget {
                                   height: 120,
                                   width: 120,
                                   decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black26)),
+                                      border:
+                                          Border.all(color: Colors.black26)),
                                   child: Stack(
                                     fit: StackFit.expand,
                                     children: [
                                       Image.file(
-                                        controller.imageFileList[index],
+                                        imageController.imageFileList[index],
                                         fit: BoxFit.cover,
                                       ),
                                       Positioned(
@@ -201,12 +205,13 @@ class AddImageScreen extends StatelessWidget {
                                           right: 1,
                                           child: InkWell(
                                             onTap: () {
-                                              controller.imageFileList
+                                              imageController.imageFileList
                                                   .removeAt(index);
 
-                                              if (controller
+                                              if (imageController
                                                   .imageFileList.isEmpty) {
-                                                controller.isBool.value = false;
+                                                imageController.isBool.value =
+                                                    false;
                                               }
                                             },
                                             child: const CircleAvatar(
@@ -246,8 +251,8 @@ class AddImageScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        controller.pickeImageFromGallery();
-                        controller.isBool.value = true;
+                        imageController.pickeImageFromGallery();
+                        imageController.isBool.value = true;
                       },
                       child: const Text("Chosse image")),
                 ),
@@ -261,12 +266,10 @@ class AddImageScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
                       onPressed: () {
-
-                        controller.onSubmitButton();
-
+                        imageController.onSubmitButton();
                       },
                       child: const Text(
                         "Save & Next",
