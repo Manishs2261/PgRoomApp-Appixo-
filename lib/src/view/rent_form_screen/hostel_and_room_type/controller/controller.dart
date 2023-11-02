@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../../../repositiry/apis/apis.dart';
-import '../../widget/flat_radio_button_wedget.dart';
-import '../../widget/hostel_radio_button_widget.dart';
+import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
+import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
 
 class HostelAndRoomController extends GetxController {
   // choose any one for initialize Enum verible not all

@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/view/edit_add_new_home/edit_screen/controller/controller.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
@@ -13,23 +14,16 @@ import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
 import '../../uitels/image_string/image_string.dart';
 import '../details_rent_screen/widget/circle_Container_widgets.dart';
 
-class EditAddNewHomeScreen extends StatefulWidget {
-   const EditAddNewHomeScreen({super.key});
-
-   @override
-   State<EditAddNewHomeScreen> createState() => _EditAddNewHomeScreenState();
- }
-
- class _EditAddNewHomeScreenState extends State<EditAddNewHomeScreen> {
-
+class EditAddNewHomeScreen extends StatelessWidget {
+    EditAddNewHomeScreen({super.key });
 
    final imageIndecterController = PageController();
 
    final itemId =  Get.arguments["id"];
+
    UserRentModel data = Get.arguments['list'];
+
    final imageUrl = Get.arguments['url'];
-
-
 
    @override
    Widget build(BuildContext context) {

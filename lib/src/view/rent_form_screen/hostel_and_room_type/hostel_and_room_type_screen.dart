@@ -5,17 +5,17 @@ import 'package:pgroom/src/uitels/text_field_validator/text_field_validator.dart
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/rent_details/controller/controller.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/flat_radio_button_wedget.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/hostel_radio_button_widget.dart';
-import 'package:pgroom/src/view/rent_form_screen/widget/my_check_boxwidget.dart';
-import 'package:pgroom/src/uitels/my_text_form_widgets/my_text_form_field.dart';
+import 'package:pgroom/src/uitels/widgets/flat_radio_button_wedget.dart';
+import 'package:pgroom/src/uitels/widgets/hostel_radio_button_widget.dart';
+import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
+import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
 
 import '../../../res/route_name/routes_name.dart';
 
 class HostelAndRoomTypeScreen extends StatelessWidget {
   HostelAndRoomTypeScreen({super.key});
 
-  final hostelController = Get.put(HostelAndRoomController());
+  final controller = Get.put(HostelAndRoomController());
 
 
 
@@ -30,7 +30,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
           child: SingleChildScrollView(
-            child: HostelAndRoomWidgets(hostelController: hostelController),
+            child: HostelAndRoomWidgets(hostelController: controller),
           ),
         ),
       ),
