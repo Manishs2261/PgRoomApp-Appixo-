@@ -1,36 +1,30 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
-
 import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
 import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
 
-class EditFormScreenController extends GetxController{
+class EditFormScreenController extends GetxController {
+  UserRentModel data;
 
-    UserRentModel data;
+  EditFormScreenController(this.data);
 
- EditFormScreenController(this.data);
-    RxBool checkboxSingle1 = false.obs;
-@override
+  RxBool checkboxSingle1 = false.obs;
+
+  @override
   void onInit() {
     // TODO: implement onInit
-  onprint();
-   checkboxSingle1 = (data.singlePersonPrice != null).obs;
+    onprint();
+    checkboxSingle1 = (data.singlePersonPrice != null).obs;
     super.onInit();
   }
-
-
 
   final houseNameController = TextEditingController().obs;
   final houseAddressController = TextEditingController().obs;
   final cityNameController = TextEditingController().obs;
   final landdMarkController = TextEditingController().obs;
   final contactNumberController = TextEditingController().obs;
-
-
 
   // choose any one for initialize Enum verible not all
   var faltTypeEnum = FaltTypeEnum.OneBhk.obs;
@@ -42,8 +36,6 @@ class EditFormScreenController extends GetxController{
   RxBool checkboxTriple3 = false.obs;
   RxBool checkboxFour4 = false.obs;
   RxBool checkboxFaimalyRoom = false.obs;
-
-
 
   RxString roomType = ''.obs;
   RxString bhk = ''.obs;
@@ -95,16 +87,7 @@ class EditFormScreenController extends GetxController{
     bhk.value = '3BHK';
   }
 
-  onprint(){
-
+  onprint() {
     print(data.houseName);
   }
-
-
-
-
-
-
-
 }
-
