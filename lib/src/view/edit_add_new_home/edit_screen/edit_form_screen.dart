@@ -51,6 +51,7 @@ class EditFormScreen extends StatelessWidget {
                   children: [
                     // =================Home Name================
                     MyTextFormWedgit(
+                      textKeyBoard: TextInputType.text,
                       controller: controller.houseNameController.value,
                       hintText: "Enter Home / House Name",
                       lableText: 'House Name',
@@ -66,6 +67,7 @@ class EditFormScreen extends StatelessWidget {
 
                     //==========House Address================
                     MyTextFormWedgit(
+                      textKeyBoard: TextInputType.text,
                       controller: controller.houseAddressController.value,
                       hintText: "House Address",
                       lableText: 'House addsress',
@@ -79,6 +81,7 @@ class EditFormScreen extends StatelessWidget {
                     ),
                     //===========City Name================
                     MyTextFormWedgit(
+                      textKeyBoard: TextInputType.text,
                       controller: controller.cityNameController.value,
                       hintText: "City Name",
                       lableText: 'City Name',
@@ -92,6 +95,7 @@ class EditFormScreen extends StatelessWidget {
                     ),
                     //============Land Mark address=================
                     MyTextFormWedgit(
+                      textKeyBoard: TextInputType.text,
                       controller: controller.landdMarkController.value,
                       hintText: "Land Mark address",
                       lableText: 'Land Makr address',
@@ -106,6 +110,7 @@ class EditFormScreen extends StatelessWidget {
 
                     //==========Contuct Number================
                     MyTextFormWedgit(
+                      textKeyBoard: TextInputType.phone,
                       controller: controller.contactNumberController.value,
                       hintText: "Contact Number",
                       lableText: 'Contact Number',
@@ -177,6 +182,7 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.number,
                                 controller:
                                     controller.singlePersonContrller.value,
                                 hintText: "Price",
@@ -210,6 +216,7 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.number,
                                 controller:
                                     controller.doublePersonContrller.value,
                                 hintText: "Price",
@@ -242,6 +249,7 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.number,
                                 controller:
                                     controller.triplePersonContrller.value,
                                 hintText: "Price",
@@ -274,6 +282,7 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.number,
                                 controller:
                                     controller.fourPersonContrller.value,
                                 hintText: "Price",
@@ -306,6 +315,7 @@ class EditFormScreen extends StatelessWidget {
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: MyTextFormWedgit(
+                              textKeyBoard: TextInputType.number,
                               controller:
                                   controller.faimlyPersonContrller.value,
                               hintText: "Price",
@@ -543,6 +553,7 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.number,
                                 controller:
                                     controller.restrictedController.value,
                                 hintText: "Enter at time",

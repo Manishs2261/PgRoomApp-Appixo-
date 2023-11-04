@@ -17,8 +17,6 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
 
   final controller = Get.put(HostelAndRoomController());
 
-
-
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
@@ -28,7 +26,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          padding: const EdgeInsets.only(left: 25, right: 15, top: 10),
           child: SingleChildScrollView(
             child: HostelAndRoomWidgets(hostelController: controller),
           ),
@@ -61,7 +59,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
         // ======boys hostel =====
         Obx(
           () => MyHostelRadioButtonWidget(
-
               titel: "Boys Hostel",
               value: HostelTypeEnum.BoysH,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
@@ -159,6 +156,7 @@ class HostelAndRoomWidgets extends StatelessWidget {
                         child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: MyTextFormWedgit(
+                          textKeyBoard: TextInputType.number,
                           controller:
                               hostelController.singlePersonContrller.value,
                           hintText: "Price",
@@ -168,7 +166,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
-
                         ),
                       ))
                     : const Text(""),
@@ -193,6 +190,7 @@ class HostelAndRoomWidgets extends StatelessWidget {
                         child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: MyTextFormWedgit(
+                          textKeyBoard: TextInputType.number,
                           controller:
                               hostelController.doublePersonContrller.value,
                           hintText: "Price",
@@ -202,7 +200,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
-
                         ),
                       ))
                     : const Text(""),
@@ -226,6 +223,7 @@ class HostelAndRoomWidgets extends StatelessWidget {
                         child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: MyTextFormWedgit(
+                          textKeyBoard: TextInputType.number,
                           controller:
                               hostelController.triplePersonContrller.value,
                           hintText: "Price",
@@ -235,7 +233,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
-
                         ),
                       ))
                     : const Text(""),
@@ -259,6 +256,7 @@ class HostelAndRoomWidgets extends StatelessWidget {
                         child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: MyTextFormWedgit(
+                          textKeyBoard: TextInputType.number,
                           controller:
                               hostelController.fourPersonContrller.value,
                           hintText: "Price",
@@ -268,7 +266,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 5, horizontal: 15),
-
                         ),
                       ))
                     : const Text(""),
@@ -292,6 +289,7 @@ class HostelAndRoomWidgets extends StatelessWidget {
                       child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
+                        textKeyBoard: TextInputType.number,
                         controller:
                             hostelController.faimlyPersonContrller.value,
                         hintText: "Price",
@@ -301,7 +299,6 @@ class HostelAndRoomWidgets extends StatelessWidget {
                         borderRadius: BorderRadius.circular(11),
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
-
                       ),
                     ))
                   : const Text(""))
@@ -317,10 +314,8 @@ class HostelAndRoomWidgets extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
               onPressed: () {
-
                 //contorller method
-              hostelController.onSubimitButton();
-
+                hostelController.onSubimitButton();
               },
               child: Obx(
                 () => (hostelController.loading.value)

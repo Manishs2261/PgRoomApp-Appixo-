@@ -23,7 +23,7 @@ class ChargesAndDoorTime extends StatelessWidget {
         appBar: AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+            padding: const EdgeInsets.only(left: 25, right: 15, top: 10),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,6 +127,7 @@ class ChargesAndDoorTime extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
+                                textKeyBoard: TextInputType.text,
                                 controller: controller.restrictedController.value,
                                 hintText: "Enter at time",
                                 lableText: "Time",

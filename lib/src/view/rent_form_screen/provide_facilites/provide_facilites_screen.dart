@@ -21,7 +21,7 @@ class ProvideFacilitesScreen extends StatelessWidget {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
+          padding: const EdgeInsets.only(left: 25, right: 15, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

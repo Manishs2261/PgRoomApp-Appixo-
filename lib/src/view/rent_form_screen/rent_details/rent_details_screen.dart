@@ -45,14 +45,16 @@ class RentDetailsScsreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: EmailValidator.validate,
+                    textKeyBoard: TextInputType.text,
                   ),
 
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
 
                   //==========House Address================
                   MyTextFormWedgit(
+                    textKeyBoard: TextInputType.text,
                     controller: controller.houseAddressController.value,
                     hintText: "House Address",
                     lableText: 'House addsress',
@@ -62,10 +64,11 @@ class RentDetailsScsreen extends StatelessWidget {
                     validator: AddressValidator.validate,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //===========City Name================
                   MyTextFormWedgit(
+                    textKeyBoard: TextInputType.text,
                     controller: controller.cityNameController.value,
                     hintText: "City Name",
                     lableText: 'City Name',
@@ -75,10 +78,11 @@ class RentDetailsScsreen extends StatelessWidget {
                     validator: CityValidator.validate,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
                   //============Land Mark address=================
                   MyTextFormWedgit(
+                    textKeyBoard: TextInputType.text,
                     controller: controller.landdMarkController.value,
                     hintText: "Land Mark address",
                     lableText: 'Land Makr address',
@@ -88,11 +92,13 @@ class RentDetailsScsreen extends StatelessWidget {
                     validator: LandMarkValidator.validate,
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 15,
                   ),
 
                   //==========Contuct Number================
                   MyTextFormWedgit(
+                    textKeyBoard: TextInputType.phone,
+                    maxLength: 10,
                     controller: controller.contactNumberController.value,
                     hintText: "Contact Number",
                     lableText: 'Contact Number',

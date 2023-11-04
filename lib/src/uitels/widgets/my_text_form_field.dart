@@ -14,6 +14,8 @@ class MyTextFormWedgit extends StatelessWidget {
      this.contentPadding,
      this.isCollapsed = false,
      this.isDense = false,
+     this.maxLength,
+     required this.textKeyBoard,
 
   });
 
@@ -25,14 +27,18 @@ class MyTextFormWedgit extends StatelessWidget {
   bool  isDense;
   TextEditingController? controller;
    String? Function(String?)? validator;
+   int ? maxLength;
+   TextInputType textKeyBoard;
 
 
 
    @override
   Widget build(BuildContext context) {
     return TextFormField(
+
+      maxLength: maxLength,
       controller: controller,
-      keyboardType: TextInputType.text,
+      keyboardType: textKeyBoard,
       decoration: InputDecoration(
           border: OutlineInputBorder(
               borderRadius: borderRadius),
