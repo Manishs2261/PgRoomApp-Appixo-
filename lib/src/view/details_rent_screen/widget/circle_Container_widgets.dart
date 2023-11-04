@@ -25,6 +25,7 @@ class CircleContainerWidgets extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(360),
               color: Colors.blueGrey[100],
+
             ),
             child: Icon(iconData,size: 35,
               color: Colors.black,),

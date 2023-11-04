@@ -24,7 +24,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details info"),
+
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -32,9 +32,11 @@ class DetailsRentInfoScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "${data.houseName}",
-                style: TextStyle(fontSize: 22),
+              Center(
+                child: Text(
+                  "${data.houseName}",
+                  style: TextStyle(fontSize: 22,fontWeight: FontWeight.w500),
+                ),
               ),
               SizedBox(
                 height: 5,
@@ -64,7 +66,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     controller: imageIndecterController,
                     count: 3,
                     effect: WormEffect(
-                      dotHeight: 12,
+                      dotHeight: 6,
                     )),
               ),
 
@@ -74,6 +76,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(padding: EdgeInsets.only(left: 15)),
                   Text(
                     "Address :- ",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -91,6 +94,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               ),
               Row(
                 children: [
+                  Padding(padding: EdgeInsets.only(left: 15)),
                   Text(
                     "Rental Room Type :-",
                     style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
@@ -98,41 +102,48 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   Text("  ${data.roomType}")
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Price :-",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 10),
+                child: Text(
+                  "Price :-",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 60),
                 child: Column(
                   children: [
+
+                    if(data.singlePersonPrice != "")
                     DetailsRowWidgets(
                       title: "Single Person :-  ",
                       price: '${data.singlePersonPrice}/- '
                           'month',
                       isIcon: true,
                     ),
+                    if(data.doublePersionPrice != "")
                     DetailsRowWidgets(
                       title: "doble Person :-  ",
                       price: '${data.doublePersionPrice}/- '
                           'month',
                       isIcon: true,
                     ),
+                    if(data.triplePersionPrice != "")
                     DetailsRowWidgets(
                       title: "triple Person :-  ",
                       price: '${data.triplePersionPrice}/- '
                           'month',
                       isIcon: true,
                     ),
+                    if(data.fourPersionPrice != "")
                     DetailsRowWidgets(
                       title: "four Pluse Person :-  ",
                       price: '${data.fourPersionPrice}/- '
                           'month',
                       isIcon: true,
                     ),
+                    if(data.faimlyPrice != "")
                     DetailsRowWidgets(
                       title: "Famaily  :-  ",
                       price: '${data.faimlyPrice}/- '
@@ -142,12 +153,13 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Services :-",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 10),
+                child: Text(
+                  "Services :-",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -229,12 +241,12 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "Bills & charges:-",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 10),
+                child: Text(
+                  "Bills & charges:-",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -252,31 +264,57 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 10,
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "Time :-  ",
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    ),
+
+                    (data.restrictedTime != '')
+                      ?
+                    Text(" Restricted - ${data.restrictedTime}")
+                       : Text("Fexible"),
+
+                  ],
+                ),
               ),
-              Text(
-                "Permission:-",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 10),
+                child: Text(
+                  "Permission:-",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 60, top: 15),
                 child: Column(
                   children: [
+
+                    if(data.girls != "")
                     DetailsRowWidgets(
-                      title: "Girl",
+                      title: "Girl Allow",
                       isIcon: data.girls!,
                     ),
+
+                    if(data.boy != "")
                     DetailsRowWidgets(
-                      title: "Boy",
+                      title: "Boy Allow",
                       isIcon: data.boy!,
                     ),
+                    if(data.faimlyMember != "")
                     DetailsRowWidgets(
-                      title: "family member",
+                      title: "family member Allow",
                       isIcon: data.faimlyMember!,
                     ),
+
+                    if(data.cooking!)
                     DetailsRowWidgets(
-                      title: "cooking",
+                      title: "cooking Allow :-  ${data.cookingType}",
                       isIcon: data.cooking!,
                     ),
                   ],
@@ -295,7 +333,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               ),
 
               SizedBox(
-                height: 30,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -314,13 +352,14 @@ class DetailsRentInfoScreen extends StatelessWidget {
                       ontap: () {})
                 ],
               ),
-              SizedBox(
-                height: 40,
-              ),
 
-              Text(
-                "Rating now :-",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 15,top: 50),
+                child: Text(
+                  "Rating now :-",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -349,6 +388,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
               TextFormField(
                 maxLines: 5,
                 decoration: InputDecoration(
+                  filled: true,
+                    fillColor: Colors.yellow.shade50,
                     border: OutlineInputBorder(),
                     hintText: "write your Review..."),
               ),

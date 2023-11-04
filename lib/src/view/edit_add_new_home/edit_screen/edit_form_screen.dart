@@ -22,41 +22,10 @@ import '../../../uitels/widgets/hostel_radio_button_widget.dart';
 class EditFormScreen extends StatelessWidget {
   EditFormScreen({super.key});
 
-
-
   final itemId = Get.arguments["id"];
   final UserRentModel data = Get.arguments['list'];
 
-
-
   final controller = Get.put(EditFormScreenController(Get.arguments['list']));
-
-
-
-
-
-
-  final houseNameController =
-      TextEditingController(text: Get.arguments['list'].houseName);
-  final houseAddressController =
-      TextEditingController(text: Get.arguments['list'].addres);
-  final cityNameController =
-      TextEditingController(text: Get.arguments['list'].city);
-  final landdMarkController =
-      TextEditingController(text: Get.arguments['list'].landMark);
-  final contactNumberController =
-      TextEditingController(text: Get.arguments['list'].contactNumber);
-
-  final singlePersonContrller =
-      TextEditingController(text: Get.arguments['list'].singlePersonPrice);
-  final doublePersonContrller =
-      TextEditingController(text: Get.arguments['list'].doublePersionPrice);
-  final triplePersonContrller =
-      TextEditingController(text: Get.arguments['list'].triplePersionPrice);
-  final fourPersonContrller =
-      TextEditingController(text: Get.arguments['list'].fourPersionPrice);
-  final faimlyPersonContrller =
-      TextEditingController(text: Get.arguments['list'].faimlyPrice);
 
   final _globlekey = GlobalKey<FormState>();
 
@@ -82,7 +51,7 @@ class EditFormScreen extends StatelessWidget {
                   children: [
                     // =================Home Name================
                     MyTextFormWedgit(
-                      controller: houseNameController,
+                      controller: controller.houseNameController.value,
                       hintText: "Enter Home / House Name",
                       lableText: 'House Name',
                       icon: const Icon(Icons.home),
@@ -97,7 +66,7 @@ class EditFormScreen extends StatelessWidget {
 
                     //==========House Address================
                     MyTextFormWedgit(
-                      controller: houseAddressController,
+                      controller: controller.houseAddressController.value,
                       hintText: "House Address",
                       lableText: 'House addsress',
                       icon: const Icon(Icons.location_city_outlined),
@@ -110,7 +79,7 @@ class EditFormScreen extends StatelessWidget {
                     ),
                     //===========City Name================
                     MyTextFormWedgit(
-                      controller: cityNameController,
+                      controller: controller.cityNameController.value,
                       hintText: "City Name",
                       lableText: 'City Name',
                       icon: const Icon(Icons.location_city_rounded),
@@ -123,7 +92,7 @@ class EditFormScreen extends StatelessWidget {
                     ),
                     //============Land Mark address=================
                     MyTextFormWedgit(
-                      controller: landdMarkController,
+                      controller: controller.landdMarkController.value,
                       hintText: "Land Mark address",
                       lableText: 'Land Makr address',
                       icon: const Icon(Icons.home),
@@ -137,7 +106,7 @@ class EditFormScreen extends StatelessWidget {
 
                     //==========Contuct Number================
                     MyTextFormWedgit(
-                      controller: contactNumberController,
+                      controller: controller.contactNumberController.value,
                       hintText: "Contact Number",
                       lableText: 'Contact Number',
                       icon: const Icon(Icons.phone),
@@ -158,79 +127,29 @@ class EditFormScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
 
-              // ======boys hostel =====
-              Obx(
-                () => MyHostelRadioButtonWidget(
-                    titel: "Boys Hostel",
-                    value: HostelTypeEnum.BoysH,
-                    hostelTypeEnum: controller.hostelTypeEnum.value,
-                    onChange: (value) {
-                      controller.boysHostelContions(value);
-                    }),
-              ),
-
-              // ======Girls hostel =====
-              Obx(
-                () => MyHostelRadioButtonWidget(
-                    titel: "Girls Hostel",
-                    value: HostelTypeEnum.GirlsH,
-                    hostelTypeEnum: controller.hostelTypeEnum.value,
-                    onChange: (value) {
-                      controller.girlsHostelContions(value);
-                    }),
-              ),
-
-              // ======Flat Room =====
-              Obx(
-                () => MyHostelRadioButtonWidget(
-                    titel: "Flat",
-                    value: HostelTypeEnum.Faimaly,
-                    hostelTypeEnum: controller.hostelTypeEnum.value,
-                    onChange: (value) {
-                      controller.flatTypeContionas(value);
-                    }),
-              ),
-
-              Obx(() => (controller.isBool.value)
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 40),
-                      child: Column(
-                        children: [
-                          // ==========check a flat  conditiion==========
-
-                          Obx(
-                            () => MyFlatRadioButtonWidget(
-                                titel: "1BHK",
-                                value: FaltTypeEnum.OneBhk,
-                                flatTypeEnum: controller.faltTypeEnum.value,
-                                onChange: (value) {
-                                  controller.oneBhkCondition(value);
-                                }),
-                          ),
-
-                          Obx(
-                            () => MyFlatRadioButtonWidget(
-                                titel: "2BHK",
-                                value: FaltTypeEnum.TwoBhk,
-                                flatTypeEnum: controller.faltTypeEnum.value,
-                                onChange: (value) {
-                                  controller.twoBhkCondition(value);
-                                }),
-                          ),
-
-                          Obx(
-                            () => MyFlatRadioButtonWidget(
-                                titel: "3BHK",
-                                value: FaltTypeEnum.ThreeBhk,
-                                flatTypeEnum: controller.faltTypeEnum.value,
-                                onChange: (value) {
-                                  controller.threeBhkCondition(value);
-                                }),
-                          ),
-                        ],
-                      ),
+              (controller.bhk == "")
+                  ? Row(
+                      children: [
+                        Padding(padding: EdgeInsets.only(left: 15, top: 80)),
+                        Text("${data.roomType}",
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                      ],
                     )
-                  : const Text("")),
+                  : Row(
+                      children: [
+                        Padding(padding: EdgeInsets.only(left: 15, top: 80)),
+                        Text("${data.roomType}  - ",
+                            style: TextStyle(
+                              fontSize: 20,
+                            )),
+                        Text("${data.bhkType}",
+                            style: TextStyle(
+                              fontSize: 18,
+                            )),
+                      ],
+                    ),
 
               //==============================}
 
@@ -258,7 +177,8 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
-                                controller: singlePersonContrller,
+                                controller:
+                                    controller.singlePersonContrller.value,
                                 hintText: "Price",
                                 lableText: "Price",
                                 isCollapsed: true,
@@ -290,7 +210,8 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
-                                controller: doublePersonContrller,
+                                controller:
+                                    controller.doublePersonContrller.value,
                                 hintText: "Price",
                                 lableText: "Price",
                                 isCollapsed: true,
@@ -321,7 +242,8 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
-                                controller: triplePersonContrller,
+                                controller:
+                                    controller.triplePersonContrller.value,
                                 hintText: "Price",
                                 lableText: "Price",
                                 isCollapsed: true,
@@ -352,7 +274,8 @@ class EditFormScreen extends StatelessWidget {
                               child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: MyTextFormWedgit(
-                                controller: fourPersonContrller,
+                                controller:
+                                    controller.fourPersonContrller.value,
                                 hintText: "Price",
                                 lableText: "Price",
                                 isCollapsed: true,
@@ -383,7 +306,8 @@ class EditFormScreen extends StatelessWidget {
                             child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: MyTextFormWedgit(
-                              controller: faimlyPersonContrller,
+                              controller:
+                                  controller.faimlyPersonContrller.value,
                               hintText: "Price",
                               lableText: "Price",
                               isCollapsed: true,
@@ -401,22 +325,367 @@ class EditFormScreen extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      //contorller method
-                      controller.onprint();
-                    },
-                    child: Obx(
-                      () => (controller.loading.value)
-                          ? const CircularProgressIndicator(
-                              color: Colors.blue,
-                            )
-                          : const Text("Save & Next"),
-                    )),
-              )
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Provide a Facilities :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+
+                  //======for Wi-fi==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Wi-Fi",
+                        checkBool: controller.wifi.value,
+                        onChanged: (value) {
+                          controller.wifi.value = value!;
+                        }),
+                  ),
+                  //======for Bed==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Bed",
+                        checkBool: controller.bed.value,
+                        onChanged: (value) {
+                          controller.bed.value = value!;
+                        }),
+                  ),
+
+                  //======for chairs==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Chair",
+                        checkBool: controller.chari.value,
+                        onChanged: (value) {
+                          controller.chari.value = value!;
+                        }),
+                  ),
+
+                  //======for Table ==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Table",
+                        checkBool: controller.table.value,
+                        onChanged: (value) {
+                          controller.table.value = value!;
+                        }),
+                  ),
+                  //======for Fan==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Fan",
+                        checkBool: controller.fan.value,
+                        onChanged: (value) {
+                          controller.fan.value = value!;
+                        }),
+                  ),
+                  //======for Gadda==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Gadda",
+                        checkBool: controller.gadda.value,
+                        onChanged: (value) {
+                          controller.gadda.value = value!;
+                        }),
+                  ),
+                  //======for Light==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Light",
+                        checkBool: controller.light.value,
+                        onChanged: (value) {
+                          controller.light.value = value!;
+                        }),
+                  ),
+                  //======for Locker==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Locker",
+                        checkBool: controller.locker.value,
+                        onChanged: (value) {
+                          controller.locker.value = value!;
+                        }),
+                  ),
+                  //======for Bedsheet==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Bed Sheet",
+                        checkBool: controller.bedSheet.value,
+                        onChanged: (value) {
+                          controller.bedSheet.value = value!;
+                        }),
+                  ),
+                  //======for washing machine==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Washing Machine",
+                        checkBool: controller.washingMachin.value,
+                        onChanged: (value) {
+                          controller.washingMachin.value = value!;
+                        }),
+                  ),
+                  //======for parking==========
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Parking",
+                        checkBool: controller.parking.value,
+                        onChanged: (value) {
+                          controller.parking.value = value!;
+                        }),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Additional charges :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  const Text(
+                    "In this chargs include your roon rent or not",
+                    style: TextStyle(color: Colors.orange),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  //======for Electricity bill =============
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(
+                        () => MYCheckBoxWidget(
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            title: "Electricity Bill",
+                            checkBool: controller.electricityBill.value,
+                            onChanged: (value) {
+                              controller.electricityBill.value = value!;
+                            }),
+                      ),
+
+                      // ==========for checking Electricity bill condition=======
+                      Obx(
+                        () => controller.electricityBill.value
+                            ? const Text(
+                                "Electricity bill are include in your room rent",
+                                style: TextStyle(color: Colors.green),
+                              )
+                            : const Text(
+                                "Electricity bill are not include in your room rent",
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                      )
+                    ],
+                  ),
+
+                  //======for water bill =============
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Obx(
+                            () => MYCheckBoxWidget(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                title: "Water Bill",
+                                checkBool: controller.waterBill.value,
+                                onChanged: (value) {
+                                  controller.waterBill.value = value!;
+                                }),
+                          ),
+                        ],
+                      ),
+                      //=========for checking water bill condition============
+                      Obx(
+                        () => controller.waterBill.value
+                            ? const Text(
+                                "Water bill are  include in your room rent",
+                                style: TextStyle(color: Colors.green),
+                              )
+                            : const Text(
+                                "Water bill are not include in your room rent",
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                      )
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Text(
+                    "Door Closing Time :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Row(
+                    children: [
+                      //=============for Restricted Time ============
+                      Obx(
+                        () => MYCheckBoxWidget(
+                            title: "Restricted Time",
+                            checkBool: controller.restrictedTime.value,
+                            onChanged: (value) {
+                              controller.restrictedTimeCondition(value);
+                            }),
+                      ),
+                      // =======for checking a condition ===========
+                      Obx(() => (controller.restrictedTime.value)
+                          ? Flexible(
+                              child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: MyTextFormWedgit(
+                                controller:
+                                    controller.restrictedController.value,
+                                hintText: "Enter at time",
+                                lableText: "Time",
+                                isDense: true,
+                                isCollapsed: true,
+                                borderRadius: BorderRadius.zero,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 15),
+                              ),
+                            ))
+                          : const Text(""))
+                    ],
+                  ),
+                  //=============for fexible time ============
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Fexible time",
+                        checkBool: controller.fexibleTime.value,
+                        onChanged: (value) {
+                          controller.fexibleTimeCondition(value);
+                        }),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Permission :- ",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+
+                  //=======PErmission ===============
+                  Column(
+                    children: [
+                      //=============for cooking ============
+                      Obx(
+                        () => MYCheckBoxWidget(
+                            title: "Cooking allow",
+                            checkBool: controller.cookingAllow.value,
+                            onChanged: (value) {
+                              //controller method
+                              controller.cookingAllowCondition(value);
+                            }),
+                      ),
+
+                      // ===========for coocking conditions  ===============
+                      Obx(
+                        () => (controller.cookingAllow.value)
+                            ? Padding(
+                                padding: const EdgeInsets.only(left: 25),
+                                child: Column(
+                                  children: [
+                                    //=============for veg allows============
+                                    Obx(
+                                      () => MYCheckBoxWidget(
+                                          title: "veg only ",
+                                          checkBool: controller.veg.value,
+                                          onChanged: (value) {
+                                            // controller method
+                                            controller.vegOnlyCondition(value);
+                                          }),
+                                    ),
+
+                                    //=============for Non-veg allows============
+
+                                    //=============for Both allows============
+                                    Obx(
+                                      () => MYCheckBoxWidget(
+                                          title: "veg and non-veg both allow",
+                                          checkBool:
+                                              controller.bothVegAndNonVeg.value,
+                                          onChanged: (value) {
+                                            controller
+                                                .vegAndNonVegCondition(value);
+                                          }),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const Text(""),
+                      ),
+                    ],
+                  ),
+
+                  //=============for Girls allows============
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Girl allow",
+                        checkBool: controller.girl.value,
+                        onChanged: (value) {
+                          controller.girl.value = value!;
+                        }),
+                  ),
+
+                  //=============for Boys allows============
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Boy allow",
+                        checkBool: controller.boy.value,
+                        onChanged: (value) {
+                          controller.boy.value = value!;
+                        }),
+                  ),
+
+                  //=============for Family member allows============
+
+                  Obx(
+                    () => MYCheckBoxWidget(
+                        title: "Family member  allow",
+                        checkBool: controller.faimlyMamber.value,
+                        onChanged: (value) {
+                          controller.faimlyMamber.value = value!;
+                        }),
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 40,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          //call controller method
+                          // saveController.uploadData();
+                        },
+                        child: Obx(
+                          () => (controller.loading.value)
+                              ? const CircularProgressIndicator(
+                                  color: Colors.blue,
+                                )
+                              : const Text("Save "),
+                        )),
+                  )
+                ],
+              ),
             ],
           ),
         )),
