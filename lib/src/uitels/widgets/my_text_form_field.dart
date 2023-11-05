@@ -16,6 +16,8 @@ class MyTextFormWedgit extends StatelessWidget {
      this.isDense = false,
      this.maxLength,
      required this.textKeyBoard,
+     this.maxLine,
+     this.minLine,
 
   });
 
@@ -29,6 +31,8 @@ class MyTextFormWedgit extends StatelessWidget {
    String? Function(String?)? validator;
    int ? maxLength;
    TextInputType textKeyBoard;
+   int? minLine;
+   int? maxLine;
 
 
 
@@ -36,6 +40,8 @@ class MyTextFormWedgit extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
 
+      minLines: minLine,
+      maxLines: maxLine,
       maxLength: maxLength,
       controller: controller,
       keyboardType: textKeyBoard,

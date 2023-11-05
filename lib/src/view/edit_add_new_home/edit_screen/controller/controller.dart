@@ -1,15 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 
+import '../../../../res/route_name/routes_name.dart';
 import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
 import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
 
 class EditFormScreenController extends GetxController {
   UserRentModel data = UserRentModel();
 
+  var itemId;
 
-  EditFormScreenController(this.data);
+  EditFormScreenController(this.data, this.itemId);
 
 
    Rx<TextEditingController> houseNameController = TextEditingController().obs;
@@ -71,6 +77,12 @@ class EditFormScreenController extends GetxController {
   RxBool faimlyMamber = false.obs;
 
   var cookingType = "".obs;
+  XFile? image;
+
+  // image picker form Gallary
+  RxString selectedCoverImage = "".obs;
+
+  RxBool selectedImagr = false.obs;
 
   @override
   void onInit() {
@@ -128,13 +140,79 @@ class EditFormScreenController extends GetxController {
      girl = data.girls!.obs;
      boy = data.boy!.obs;
      faimlyMamber = data.faimlyMember!.obs;
+      restrictedTime = (data.restrictedTime != null).obs;
 
      cookingType = "${data.cookingType}".obs;
+
+     // image picker form Gallary
+      selectedCoverImage = "${data.coverImage}".obs;
+      selectedImagr = (data.coverImage != '').obs;
 
 
 
     super.onInit();
   }
+
+
+  // for bool value false not show a image
+  RxBool isBool = false.obs;
+  RxBool addimage = false.obs;
+  RxBool isSelected = false.obs;
+
+
+  // for storing a more image in list
+  RxList imageFileList = [].obs;
+
+
+
+
+  Future pickeImageFromGallery() async {
+    final image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 70);
+    if (image == null) return;
+    imageFileList.add(File(image.path));
+
+    await ApisClass.uploadOtherImage(File(image.path)).then((value) {
+      Get.snackbar("upload ", "other image");
+    }).onError((error, stackTrace) {
+      Get.snackbar("error", "error");
+      print("errror => $error");
+    });
+  }
+
+  //===========================================
+  Future pickeCoverImageFromGallery() async {
+    image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 70);
+    if (image == null) return;
+    selectedCoverImage.value = image!.path.toString();
+  }
+
+
+  Future uploadCoverImage() async {
+    await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
+      Get.snackbar("upload ", "cover  image");
+    }).onError((error, stackTrace) {
+      Get.snackbar("error", "error");
+      print("errror => $error");
+    });
+  }
+  //============================================
+
+  // om submit button
+  // onSubmitButton() {
+  //   if (selectedCoverImage.isEmpty) {
+  //     Get.snackbar("cover image", "not emplty");
+  //   } else {
+  //     Get.toNamed(RoutesName.rentDetailsFormScreen);
+  //   }
+  // }
+
+
+
+
+
+
 
 
   cookingAllowCondition(value) {
@@ -192,7 +270,58 @@ class EditFormScreenController extends GetxController {
   }
 
 
-  onprint() {
-    print(data.houseName);
+  onSubmitButton() {
+
+
+   // print(selectedCoverImage);
+
+    ApisClass.updateRentData(
+      itemId,
+      selectedCoverImage,
+      houseAddressController,
+      houseAddressController,
+      cityNameController,
+      landdMarkController,
+      contactNumberController,
+      bhk,
+      roomType,
+      singlePersonContrller,
+      doublePersonContrller,
+      triplePersonContrller,
+      fourPersonContrller,
+      faimlyPersonContrller,
+      restrictedTime,
+      '3.5',
+      wifi,
+      bed,
+      chari,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachin,
+      parking,
+      electricityBill,
+      waterBill,
+      fexibleTime,
+      cookingAllow,
+      cookingType,
+      boy,
+      girl,
+      faimlyMamber,
+      false,
+    ).then((value) {
+
+      Get.snackbar("Update ", "successfully");
+    }).onError((error, stackTrace) {
+
+      print(error);
+      print(stackTrace);
+      Get.snackbar("error", "udatae",);
+    });
+
+
   }
 }

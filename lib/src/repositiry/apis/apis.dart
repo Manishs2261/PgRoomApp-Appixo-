@@ -265,32 +265,96 @@ class ApisClass {
 
   //update data
 
-static Future updateRentData(String itemID , name,address,city,landMark,number)
-async{
 
-
+  static Future updateRentData(
+      itemID,
+      coverImage,
+      houseName,
+      address,
+      cityName,
+      landMark,
+      contactNumber,
+      bhk,
+      roomType,
+      singlePrice,
+      doublePrice,
+      triplePrice,
+      fourPrice,
+      faimlyPrice,
+      restrictedTime,
+      review,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      electricityBill,
+      waterBill,
+      fexible,
+      cooking,
+      cookingType,
+      boyAllow,
+      girlAllow,
+      faimalyMember,
+      like) async
+  {
     final userModel = UserRentModel(
-      houseName: name,
-      addres:  address,
-      city: city,
-      landMark: landMark,
-      contactNumber: number,
-    );
+        coverImage: coverImage,
+        houseName: houseName,
+        addres: address,
+        city: cityName,
+        landMark: landMark,
+        contactNumber: contactNumber,
+        bhkType: bhk,
+        roomType: roomType,
+        singlePersonPrice: singlePrice,
+        doublePersionPrice: doublePrice,
+        triplePersionPrice: triplePrice,
+        fourPersionPrice: fourPrice,
+        faimlyPrice: faimlyPrice,
+        review: review,
+        wifi: wifi,
+        bed: bed,
+        chair: chair,
+        table: table,
+        fan: fan,
+        gadda: gadda,
+        light: light,
+        locker: locker,
+        bedSheet: bedSheet,
+        washingMachin: washingMachine,
+        parking: parking,
+        electricityBill: electricityBill,
+        waterBill: waterBill,
+        fexibleTime: fexible,
+        cooking: cooking,
+        cookingType: cookingType,
+        boy: boyAllow,
+        girls: girlAllow,
+        faimlyMember: faimalyMember,
+        like: like,
+        restrictedTime: restrictedTime,
+        userRentId: time);
+
 
     return {
-    await firestore
-        .collection("rentCollection")
-        .doc(itemID)
-        .set(userModel.toJson()),
+      await firestore
+          .collection("rentCollection")
+          .doc(itemID)
+          .set(userModel.toJson()),
 
-      await firestore.collection("userRentDetails").doc(user.uid).collection("${user.uid}")
+      await firestore.collection("userRentDetails").doc(user.uid).collection(
+          "${user.uid}")
           .doc(itemID).set(userModel.toJson())
-
     };
-
-}
-
+  }
 
 
 
-}
+  }

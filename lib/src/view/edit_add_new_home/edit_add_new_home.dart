@@ -1,4 +1,5 @@
  import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -40,9 +41,10 @@ class EditAddNewHomeScreen extends StatelessWidget {
        body: SingleChildScrollView(
          child: Padding(
            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-           child: Column(
+           child:  Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
+
 
 
                SizedBox(
@@ -66,10 +68,10 @@ class EditAddNewHomeScreen extends StatelessWidget {
                  child: ElevatedButton(
                    onPressed: () {
 
-                      ApisClass.deleteData(itemId, imageUrl).then((value) {
-                        CircularProgressIndicator(color: Colors.blue,);
-                        Navigator.pop(context);
-                      });
+                     ApisClass.deleteData(itemId, imageUrl).then((value) {
+                       CircularProgressIndicator(color: Colors.blue,);
+                       Navigator.pop(context);
+                     });
                    },
                    child: Text("Delete"),
                  ),
@@ -80,11 +82,16 @@ class EditAddNewHomeScreen extends StatelessWidget {
                ),
 
 
-               Text(
-                 "${data.houseName}",
-                 style: TextStyle(fontSize: 22),
+
+
+
+               Center(
+                 child: Text(
+                   "${data.houseName}",
+                   style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                 ),
                ),
-               SizedBox(
+               const SizedBox(
                  height: 5,
                ),
                // Image(image: AssetImage(roomImage)),
@@ -96,14 +103,15 @@ class EditAddNewHomeScreen extends StatelessWidget {
                  child: PageView(
                    controller: imageIndecterController,
                    children: [
-                     Image(image: NetworkImage(data.coverImage.toString()), fit: BoxFit
-                         .cover),
-                     Image(image: AssetImage(room2Image), fit: BoxFit.cover),
-                     Image(image: AssetImage(room3Image), fit: BoxFit.cover),
+                     Image(
+                         image: NetworkImage(data.coverImage.toString()),
+                         fit: BoxFit.cover),
+                     const Image(image: AssetImage(room2Image), fit: BoxFit.cover),
+                     const Image(image: AssetImage(room3Image), fit: BoxFit.cover),
                    ],
                  ),
                ),
-               SizedBox(
+               const SizedBox(
                  height: 5,
                ),
                Align(
@@ -111,18 +119,19 @@ class EditAddNewHomeScreen extends StatelessWidget {
                  child: SmoothPageIndicator(
                      controller: imageIndecterController,
                      count: 3,
-                     effect: WormEffect(
-                       dotHeight: 12,
+                     effect: const WormEffect(
+                       dotHeight: 6,
                      )),
                ),
 
-               SizedBox(
+               const SizedBox(
                  height: 20,
                ),
                Row(
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   Text(
+                   const Padding(padding: EdgeInsets.only(left: 15)),
+                   const Text(
                      "Address :- ",
                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                    ),
@@ -134,70 +143,78 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
+               const SizedBox(
                  height: 10,
                ),
                Row(
                  children: [
-                   Text(
+                   const Padding(padding: EdgeInsets.only(left: 15)),
+                   const Text(
                      "Rental Room Type :-",
                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                    ),
                    Text("  ${data.roomType}")
                  ],
                ),
-               SizedBox(
-                 height: 10,
-               ),
-               Text(
-                 "Price :-",
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+
+               const Padding(
+                 padding: EdgeInsets.only(left: 15, top: 10),
+                 child: Text(
+                   "Price :-",
+                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                 ),
                ),
                Padding(
-                 padding: EdgeInsets.only(left: 60),
+                 padding: const EdgeInsets.only(left: 60),
                  child: Column(
                    children: [
-                     DetailsRowWidgets(
-                       title: "Single Person :-  ",
-                       price: '${data.singlePersonPrice}/- '
-                           'month',
-                       isIcon: true,
-                     ),
-                     DetailsRowWidgets(
-                       title: "doble Person :-  ",
-                       price: '${data.doublePersionPrice}/- '
-                           'month',
-                       isIcon: true,
-                     ),
-                     DetailsRowWidgets(
-                       title: "triple Person :-  ",
-                       price: '${data.triplePersionPrice}/- '
-                           'month',
-                       isIcon: true,
-                     ),
-                     DetailsRowWidgets(
-                       title: "four Pluse Person :-  ",
-                       price: '${data.fourPersionPrice}/- '
-                           'month',
-                       isIcon: true,
-                     ),
-                     DetailsRowWidgets(
-                       title: "Famaily  :-  ",
-                       price: '${data.faimlyPrice}/- '
-                           'month',
-                       isIcon: true,
-                     ),
+                     if (data.singlePersonPrice != "")
+                       DetailsRowWidgets(
+                         title: "Single Person :-  ",
+                         price: '${data.singlePersonPrice}/- '
+                             'month',
+                         isIcon: true,
+                       ),
+                     if (data.doublePersionPrice != "")
+                       DetailsRowWidgets(
+                         title: "doble Person :-  ",
+                         price: '${data.doublePersionPrice}/- '
+                             'month',
+                         isIcon: true,
+                       ),
+                     if (data.triplePersionPrice != "")
+                       DetailsRowWidgets(
+                         title: "triple Person :-  ",
+                         price: '${data.triplePersionPrice}/- '
+                             'month',
+                         isIcon: true,
+                       ),
+                     if (data.fourPersionPrice != "")
+                       DetailsRowWidgets(
+                         title: "four Pluse Person :-  ",
+                         price: '${data.fourPersionPrice}/- '
+                             'month',
+                         isIcon: true,
+                       ),
+                     if (data.faimlyPrice != "")
+                       DetailsRowWidgets(
+                         title: "Famaily  :-  ",
+                         price: '${data.faimlyPrice}/- '
+                             'month',
+                         isIcon: true,
+                       ),
                    ],
                  ),
                ),
-               SizedBox(
-                 height: 10,
+
+               const Padding(
+                 padding: EdgeInsets.only(left: 15, top: 10),
+                 child: Text(
+                   "Services :-",
+                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                 ),
                ),
-               Text(
-                 "Services :-",
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-               ),
-               SizedBox(
+               const SizedBox(
                  height: 10,
                ),
                Row(
@@ -217,7 +234,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
+               const SizedBox(
                  height: 5,
                ),
                Row(
@@ -237,7 +254,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
+               const SizedBox(
                  height: 5,
                ),
                Row(
@@ -257,7 +274,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
+               const SizedBox(
                  height: 5,
                ),
                Row(
@@ -277,14 +294,14 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
-                 height: 10,
+               const Padding(
+                 padding: EdgeInsets.only(left: 15, top: 10),
+                 child: Text(
+                   "Bills & charges:-",
+                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                 ),
                ),
-               Text(
-                 "Bills & charges:-",
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-               ),
-               SizedBox(
+               const SizedBox(
                  height: 10,
                ),
                Row(
@@ -300,41 +317,63 @@ class EditAddNewHomeScreen extends StatelessWidget {
                    ),
                  ],
                ),
-               SizedBox(
-                 height: 10,
+
+               Padding(
+                 padding: const EdgeInsets.only(left: 15, top: 10),
+                 child: Row(
+                   children: [
+                     const Text(
+                       "Time :-  ",
+                       style:
+                       TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                     ),
+                     (data.restrictedTime != '')
+                         ? Text(" Restricted - ${data.restrictedTime}")
+                         : const Text("Fexible"),
+                   ],
+                 ),
                ),
-               Text(
-                 "Permission:-",
-                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+
+               const Padding(
+                 padding: EdgeInsets.only(left: 15, top: 10),
+                 child: Text(
+                   "Permission:-",
+                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                 ),
                ),
                Padding(
                  padding: const EdgeInsets.only(left: 60, top: 15),
                  child: Column(
                    children: [
-                     DetailsRowWidgets(
-                       title: "Girl",
-                       isIcon: data.girls!,
-                     ),
-                     DetailsRowWidgets(
-                       title: "Boy",
-                       isIcon: data.boy!,
-                     ),
-                     DetailsRowWidgets(
-                       title: "family member",
-                       isIcon: data.faimlyMember!,
-                     ),
-                     DetailsRowWidgets(
-                       title: "cooking",
-                       isIcon: data.cooking!,
-                     ),
+                     if (data.girls != "")
+                       DetailsRowWidgets(
+                         title: "Girl Allow",
+                         isIcon: data.girls!,
+                       ),
+                     if (data.boy != "")
+                       DetailsRowWidgets(
+                         title: "Boy Allow",
+                         isIcon: data.boy!,
+                       ),
+                     if (data.faimlyMember != "")
+                       DetailsRowWidgets(
+                         title: "family member Allow",
+                         isIcon: data.faimlyMember!,
+                       ),
+                     if (data.cooking!)
+                       DetailsRowWidgets(
+                         title: "cooking Allow :-  ${data.cookingType}",
+                         isIcon: data.cooking!,
+                       ),
                    ],
                  ),
                ),
-               SizedBox(
-                 height: 80,
+               const SizedBox(
+                 height: 50,
                ),
-
-
+               const SizedBox(
+                 height: 50,
+               ),
              ],
            ),
          ),

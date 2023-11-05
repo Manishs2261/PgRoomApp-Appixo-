@@ -63,4 +63,7 @@ class AddImageController extends GetxController {
       Get.toNamed(RoutesName.rentDetailsFormScreen);
     }
   }
+
+
+
 }

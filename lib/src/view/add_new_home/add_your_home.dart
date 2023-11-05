@@ -37,9 +37,10 @@ class _AddYourHomeState extends State<AddYourHome> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => AddImageScreen()));
               },
-              child: Text("Add New"),
+              child: Text("Add New "),
             ),
           ),
+          SizedBox(height: 15,),
           Expanded(
             child: StreamBuilder(
                 stream: ApisClass.firestore
