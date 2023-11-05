@@ -31,4 +31,13 @@ class RoutesName{
 
   static const String editFormScreen = "/editDorm_screen";
 
+  static const String editRentDetailScreen = '/editRentDetailScreen';
+  static const String editChargesScreen = '/editChargesScreen';
+  static const String editPermissionScreen = '/editPermissionScreen';
+  static const String editFaciliteProviderScreen = '/editProvideScrrn';
+  static const String editHostleAndCDoorScreen = '/editHostleAndDoorScreen ';
+  static const String editRoomTyprAndPriceScreen = '/editRoomTypeAndPrice';
+  static const String editImagesScreen = '/editImage_Screen';
+
+
 }

@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:http/http.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 
 import '../../view/home/home_screen.dart';
@@ -23,6 +24,7 @@ class AuthApisClass {
    signInWithGoogle().then((value) {
       log('\nUser :${value.user}');
       log('\nyser Additional information :${value.additionalUserInfo}');
+      Get.offAllNamed(RoutesName.homeScreen);
     });
 
   }
