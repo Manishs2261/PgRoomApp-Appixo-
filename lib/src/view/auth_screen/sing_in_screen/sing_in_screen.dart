@@ -5,15 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SingInScreen extends StatelessWidget {
-   SingInScreen({super.key});
+  SingInScreen({super.key});
 
   final globleKey = GlobalKey<FormState>();
 
@@ -55,10 +57,9 @@ class SingInScreen extends StatelessWidget {
                       children: [
                         //=========enter email text field =============
                         Obx(
-                        ()=> TextFormField(
+                          () => TextFormField(
                             controller: _controller.emailControllersing.value,
                             keyboardType: TextInputType.text,
-
                             autofocus: true,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -83,45 +84,45 @@ class SingInScreen extends StatelessWidget {
 
                                     // first condition
                                     Obx(
-                                      ()=> (_controller.isVerify.value)
-                                          ? Text("")
-                                          // second condition
-                                          : (_controller.isSend.value)
-                                              ? InkWell(
-                                                  onTap: () async {
-                                                    //====send otp code ==========
-                                                    AuthApisClass
-                                                            .sendEmailOtpVerification(
-                                                                _controller
-                                                                    .emailControllersing.value
-                                                                    .text)
-                                                        .then((value) {})
-                                                        .onError(
-                                                            (error, stackTrace) {});
-                                                  },
-                                                  child: Text(
-                                                    "| RE-SEND   ",
-                                                    style: TextStyle(
-                                                        color: Colors.green),
-                                                  ))
-                                              : InkWell(
-                                                  onTap: () async {
-                                                    //====send otp code ==========
-                                                    AuthApisClass
-                                                            .sendEmailOtpVerification(
-                                                                _controller
-                                                                    .emailControllersing.value
-                                                                    .text)
-                                                        .then((value) {
-
-                                                        _controller.isSend.value =
-                                                            value;
-
-                                                    }).onError(
-                                                            (error, stackTrace) {});
-                                                  },
-                                                  child: Text("| SEND OTP   ")),
-                                    ),
+                                  () => (_controller.isVerify.value)
+                                      ? Text("")
+                                      // second condition
+                                      : (_controller.isSend.value)
+                                          ? InkWell(
+                                              onTap: () async {
+                                                //====send otp code ==========
+                                                AuthApisClass
+                                                        .sendEmailOtpVerification(
+                                                            _controller
+                                                                .emailControllersing
+                                                                .value
+                                                                .text)
+                                                    .then((value) {})
+                                                    .onError(
+                                                        (error, stackTrace) {});
+                                              },
+                                              child: Text(
+                                                "| RE-SEND   ",
+                                                style: TextStyle(
+                                                    color: Colors.green),
+                                              ))
+                                          : InkWell(
+                                              onTap: () async {
+                                                //====send otp code ==========
+                                                AuthApisClass
+                                                        .sendEmailOtpVerification(
+                                                            _controller
+                                                                .emailControllersing
+                                                                .value
+                                                                .text)
+                                                    .then((value) {
+                                                  _controller.isSend.value =
+                                                      value;
+                                                }).onError(
+                                                        (error, stackTrace) {});
+                                              },
+                                              child: Text("| SEND OTP   ")),
+                                ),
                                 suffixStyle: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -149,9 +150,8 @@ class SingInScreen extends StatelessWidget {
                               hintText: "Enter OTP",
                               prefixIcon: Icon(Icons.password),
                               contentPadding: EdgeInsets.only(top: 5),
-                              suffix:
-                              Obx(
-                                    ()=> (_controller.isOtp.value)
+                              suffix: Obx(
+                                () => (_controller.isOtp.value)
                                     ? Padding(
                                         padding: EdgeInsets.only(right: 10),
                                         child: Icon(
@@ -161,10 +161,9 @@ class SingInScreen extends StatelessWidget {
                                       )
                                     : InkWell(
                                         onTap: () async {
-                                          //============verify otp  
+                                          //============verify otp
                                           // controller mathods ===========
-                                        _controller.onOtpSubmitController();
-                                        
+                                          _controller.onOtpSubmitController();
                                         },
                                         child: Text(
                                           "| Submit   ",
@@ -179,90 +178,91 @@ class SingInScreen extends StatelessWidget {
                         ),
                         // ===========Enter Password text fied =============
                         Obx(
-                          ()=> (_controller.isOtp.value)
-                          ?
-                            TextFormField(
-                              controller: _controller.passwordControllersing
-                                  .value,
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter password ';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: "Enter min 6 cgaracter of  password",
-                                prefixIcon: Icon(Icons.lock),
-                                contentPadding: EdgeInsets.only(top: 5),
-                              ),
-                            )
-                              : Text(""),
-                        ) ,
-
-                        (_controller.isOtp.value)
-                            ?
-                        SizedBox(
-                          height: 15,
-                        )
-                            : Text(""),
-                        Obx(
-                          ()=> (_controller.isOtp.value)
-                          ? //===========enter name text field ================
-                            TextFormField(
-                              controller: _controller.nameControllersing.value,
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter yOUr name';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: "Enter Name",
-                                prefixIcon: Icon(Icons.person),
-                                contentPadding: EdgeInsets.only(top: 5),
-                              ),
-                            )
+                          () => (_controller.isOtp.value)
+                              ? TextFormField(
+                                  controller:
+                                      _controller.passwordControllersing.value,
+                                  keyboardType: TextInputType.text,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter password ';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText:
+                                        "Enter min 6 cgaracter of  password",
+                                    prefixIcon: Icon(Icons.lock),
+                                    contentPadding: EdgeInsets.only(top: 5),
+                                  ),
+                                )
                               : Text(""),
                         ),
-                         (_controller.isOtp.value)
-                        ?
-                          SizedBox(
-                            height: 15,
-                          )
-                         : Text(""),
+
+                        (_controller.isOtp.value)
+                            ? SizedBox(
+                                height: 15,
+                              )
+                            : Text(""),
+                        Obx(
+                          () => (_controller.isOtp.value)
+                              ? //===========enter name text field ================
+                              TextFormField(
+                                  controller:
+                                      _controller.nameControllersing.value,
+                                  keyboardType: TextInputType.text,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter yOUr name';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: "Enter Name",
+                                    prefixIcon: Icon(Icons.person),
+                                    contentPadding: EdgeInsets.only(top: 5),
+                                  ),
+                                )
+                              : Text(""),
+                        ),
+                        (_controller.isOtp.value)
+                            ? SizedBox(
+                                height: 15,
+                              )
+                            : Text(""),
 
                         Obx(
-                          ()=> (_controller.isOtp.value)
-                          //=============enter city name text field =============
-                          ?
-                            TextFormField(
-                              controller: _controller.citynameontrollersing.value,
-                              keyboardType: TextInputType.text,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please enter city name ';
-                                } else {
-                                  return null;
-                                }
-                              },
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                hintText: "Enter city name",
-                                prefixIcon: Icon(Icons.location_city),
-                                contentPadding: EdgeInsets.only(top: 5),
-                              ),
-                            )
-                          :
-                              Text(""),
+                          () => (_controller.isOtp.value)
+                              //=============enter city name text field =============
+                              ? TextFormField(
+                                  controller:
+                                      _controller.citynameontrollersing.value,
+                                  keyboardType: TextInputType.text,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter city name ';
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    hintText: "Enter city name",
+                                    prefixIcon: Icon(Icons.location_city),
+                                    contentPadding: EdgeInsets.only(top: 5),
+                                  ),
+                                )
+                              : Text(""),
                         ),
                         SizedBox(
                           height: 40,
@@ -270,40 +270,42 @@ class SingInScreen extends StatelessWidget {
 
                         //===========submit button ===============
                         Obx(
-                            ()=> SizedBox(
+                          () => SizedBox(
                             height: 40,
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () async {
-                                
                                 if (globleKey.currentState!.validate()) {
-
-
-                                    _controller.loading.value  = true;
+                                  _controller.loading.value = true;
 
                                   AuthApisClass.singEmailIdAndPassword(
-                                          _controller.emailControllersing.value
-                                              .text,
+                                          _controller
+                                              .emailControllersing.value.text,
                                           _controller.passwordControllersing
                                               .value.text)
-                                      .then((value) {
+                                      .then((value) async {
                                     //in this condition
                                     //if email is alredy exist not sing
-                                    _controller.alredyExitUser.value = value;
 
-                                      _controller.loading.value  = false;
+                                    SharedPreferences prefrence = await
+                                    SharedPreferences.getInstance();
+
+                                    prefrence.setString('userUid', ApisClass
+                                        .user.uid);
+
+                                    _controller.alredyExitUser.value = value;
+                                    _controller.loading.value = false;
 
                                     if (_controller.alredyExitUser.value)
-
-
                                       Get.offAllNamed(RoutesName.homeScreen);
                                   });
                                 }
                               },
                               child: (_controller.loading.value)
-                                 ? CircularProgressIndicator(color: Colors.blue,)
-                                  :
-                              Text("Submit"),
+                                  ? CircularProgressIndicator(
+                                      color: Colors.blue,
+                                    )
+                                  : Text("Submit"),
                             ),
                           ),
                         ),
