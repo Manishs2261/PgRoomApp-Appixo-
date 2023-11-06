@@ -8,8 +8,7 @@ import '../../../../uitels/widgets/my_check_boxwidget.dart';
 import '../controller/controller.dart';
 
 class EditProvideFacilites extends StatelessWidget {
-   EditProvideFacilites({super.key});
-
+  EditProvideFacilites({super.key});
 
   final itemId = Get.arguments["id"];
   final UserRentModel data = Get.arguments['list'];
@@ -20,11 +19,13 @@ class EditProvideFacilites extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Provide Facilites"),),
+      appBar: AppBar(
+        title: Text("Edit Provide Facilites"),
+      ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 20,right: 20,top: 30),
-          child:Column(
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
@@ -34,7 +35,7 @@ class EditProvideFacilites extends StatelessWidget {
 
               //======for Wi-fi==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Wi-Fi",
                     checkBool: controller.wifi.value,
                     onChanged: (value) {
@@ -43,7 +44,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Bed==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Bed",
                     checkBool: controller.bed.value,
                     onChanged: (value) {
@@ -53,7 +54,7 @@ class EditProvideFacilites extends StatelessWidget {
 
               //======for chairs==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Chair",
                     checkBool: controller.chari.value,
                     onChanged: (value) {
@@ -63,7 +64,7 @@ class EditProvideFacilites extends StatelessWidget {
 
               //======for Table ==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Table",
                     checkBool: controller.table.value,
                     onChanged: (value) {
@@ -72,7 +73,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Fan==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Fan",
                     checkBool: controller.fan.value,
                     onChanged: (value) {
@@ -81,7 +82,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Gadda==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Gadda",
                     checkBool: controller.gadda.value,
                     onChanged: (value) {
@@ -90,7 +91,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Light==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Light",
                     checkBool: controller.light.value,
                     onChanged: (value) {
@@ -99,7 +100,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Locker==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Locker",
                     checkBool: controller.locker.value,
                     onChanged: (value) {
@@ -108,7 +109,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for Bedsheet==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Bed Sheet",
                     checkBool: controller.bedSheet.value,
                     onChanged: (value) {
@@ -117,7 +118,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for washing machine==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Washing Machine",
                     checkBool: controller.washingMachin.value,
                     onChanged: (value) {
@@ -126,7 +127,7 @@ class EditProvideFacilites extends StatelessWidget {
               ),
               //======for parking==========
               Obx(
-                    () => MYCheckBoxWidget(
+                () => MYCheckBoxWidget(
                     title: "Parking",
                     checkBool: controller.parking.value,
                     onChanged: (value) {
@@ -143,20 +144,14 @@ class EditProvideFacilites extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-
                       controller.EditProvidFacilitesData().then((value) {
-
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        Navigator.pop(context);
-
-
                       }).onError((error, stackTrace) {
-
                         Get.snackbar("error", "error");
                       });
-
-                    }, child: Text("Update")),
+                    },
+                    child: Text("Update")),
               )
             ],
           ),

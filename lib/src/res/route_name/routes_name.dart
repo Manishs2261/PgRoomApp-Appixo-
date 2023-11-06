@@ -39,5 +39,7 @@ class RoutesName{
   static const String editRoomTyprAndPriceScreen = '/editRoomTypeAndPrice';
   static const String editImagesScreen = '/editImage_Screen';
 
+  static const String searchScreen = '/search_screen';
+
 
 }

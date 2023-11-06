@@ -19,6 +19,7 @@ import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/hostel_and
 import 'package:pgroom/src/view/rent_form_screen/permission/permission_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/provide_facilites_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_screen.dart';
+import 'package:pgroom/src/view/search/search.dart';
 
 import '../../view/add_new_home/add_your_home.dart';
 import '../../view/auth_screen/forget_password_email/forget_password.dart';
@@ -153,6 +154,11 @@ static appRoutes()=>[
   GetPage(name: RoutesName.editImagesScreen, page:()=>  EditImageScreen(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.searchScreen, page:()=>  SearchScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
 
 
 ];

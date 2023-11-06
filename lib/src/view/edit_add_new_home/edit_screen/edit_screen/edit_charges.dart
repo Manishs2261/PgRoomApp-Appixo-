@@ -162,11 +162,8 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                   onPressed: () {
 
                     controller.EditAdditionalChargesAndDoor().then((value) {
-
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-
+                      Get.back();
+                      Get.back();
 
                     }).onError((error, stackTrace) {
 

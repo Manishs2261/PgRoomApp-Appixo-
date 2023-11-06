@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
+
+import '../../model/user_rent_model/user_rent_model.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -8,8 +13,14 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
+    print("Build Screen => Search Screen 🔴");
+    print(ApisClass.getAllDataItem());
+
     return Scaffold(
       appBar: AppBar(),
       body: Column(

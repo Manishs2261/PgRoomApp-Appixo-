@@ -277,18 +277,14 @@ class EditImageScreen extends StatelessWidget {
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     onPressed: () {
-
                       controller.EditImage().then((value) {
                         Navigator.pop(context);
                         Navigator.pop(context);
-                        Navigator.pop(context);
-                      }).onError((error, stackTrace){
-
+                      }).onError((error, stackTrace) {
                         Get.snackbar("Error", "Image upadte ");
                         print(error);
                         print(stackTrace);
                       });
-
                     },
                     child: const Text(
                       "Update",

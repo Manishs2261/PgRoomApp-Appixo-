@@ -530,4 +530,10 @@ class ApisClass {
 
     });
   }
+
+  //Get all data in list
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllDataItem(){
+    return firestore.collection('rentCollection').snapshots();
+  }
 }

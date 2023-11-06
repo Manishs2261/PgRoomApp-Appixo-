@@ -3,16 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/view/splash/splash_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 
 //globel object for accessing device scren size
 late Size  mediaQuery;
 
-void main() {
+
+
+Future<void> main() async {
 
   // for initilazerfirebase=========
   _initializerFirebase();
+
 
   runApp(const MyApp());
 }
@@ -23,6 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

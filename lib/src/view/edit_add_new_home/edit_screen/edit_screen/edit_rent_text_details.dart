@@ -115,20 +115,14 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: () {
-
                               controller.EditRentDetailsData().then((value) {
-
                                 Navigator.pop(context);
                                 Navigator.pop(context);
-                                Navigator.pop(context);
-
-
                               }).onError((error, stackTrace) {
-
                                 Get.snackbar("error", "error");
                               });
-
-                            }, child: Text("Update")),
+                            },
+                            child: Text("Update")),
                       )
                     ],
                   ),
