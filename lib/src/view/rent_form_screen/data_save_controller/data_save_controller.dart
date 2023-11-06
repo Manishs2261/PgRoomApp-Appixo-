@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/model/rent_details_model/rent_details_model.dart';
-import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
+ import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';

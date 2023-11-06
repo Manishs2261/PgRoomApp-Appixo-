@@ -3,14 +3,9 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:pgroom/src/model/additional_charges_and_door_cloging_model/additional_charges_and_door_cloging_model.dart';
-import 'package:pgroom/src/model/permission_model/permission_model.dart';
-import 'package:pgroom/src/model/provide_facilites_models/provides_facilites_models.dart';
-import 'package:pgroom/src/model/rent_details_model/rent_details_model.dart';
-import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
+  import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
-import '../../model/pgroomm_and_flat_type_model/pgroom_and_flat_type_model.dart';
-import 'dart:io';
+ import 'dart:io';
 
 class ApisClass {
   // for authentication

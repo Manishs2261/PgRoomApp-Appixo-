@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,32 +10,31 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:http/http.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view/home/home_screen.dart';
 
 class AuthApisClass {
-
-
   static EmailOTP myauth = EmailOTP();
 
-
   // =======google sing =============
- static handleGoogleButttonClicke(){
-   signInWithGoogle().then((value) {
+  static handleGoogleButttonClicke() {
+    signInWithGoogle().then((value) async {
+      // sharedPrefrences code
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      preferences.setString('userUid', value.user!.uid);
       log('\nUser :${value.user}');
-      log('\nyser Additional information :${value.additionalUserInfo}');
       Get.offAllNamed(RoutesName.homeScreen);
     });
-
   }
 
- static Future<UserCredential> signInWithGoogle() async {
+  static Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -46,91 +46,83 @@ class AuthApisClass {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-
   //====sing with email and password==========
 
- static Future<bool> singEmailIdAndPassword(String email ,String pass) async {
-   try {
-     final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-       email: email,
-       password: pass,
-     );
+  static Future<bool> singEmailIdAndPassword(String email, String pass) async {
+    try {
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Get.snackbar(
+            "Weak Password",
+            "This password is weak use Number,"
+                "Character");
+      } else if (e.code == 'email-already-in-use') {
+        Get.snackbar("Email-already-in-use", "This email id is alreday exist",
+            backgroundColor: Colors.redAccent);
+        return false;
+      }
+    } catch (e) {
+      Get.snackbar(" sing error", "$e");
+    }
 
-
-
-
-   } on FirebaseAuthException catch (e) {
-     if (e.code == 'weak-password') {
-       Get.snackbar("Weak Password", "This password is weak use Number,"
-           "Character");
-     } else if (e.code == 'email-already-in-use') {
-       Get.snackbar("Email-already-in-use","This email id is alreday exist",
-           backgroundColor: Colors.redAccent);
-       return false;
-     }
-   } catch (e) {
-     Get.snackbar(" sing error", "$e");
-   }
-
-   return true;
- }
+    return true;
+  }
 
 // ======login with email id and password====
 
-static Future<bool> loginEmailAndPassword(String email,String pass) async {
-  try {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: pass
-    );
+  static Future<bool> loginEmailAndPassword(String email, String pass) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: pass);
 
-    print("data lodin 🧧${credential.user}");
+      print("data lodin 🧧${credential.user}");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Get.snackbar("NO user found", "No user found for that email.");
 
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      Get.snackbar("NO user found", "No user found for that email.");
+        return false;
+      } else if (e.code == 'wrong-password') {
+        Get.snackbar(
+            "Worng password",
+            "Wrong password provided for that user"
+                ".",
+            backgroundColor: Colors.redAccent);
 
-      return false;
-    } else if (e.code == 'wrong-password') {
-       Get.snackbar("Worng password", "Wrong password provided for that user"
-           ".",backgroundColor: Colors.redAccent);
-
-       return false;
-    } else
-      {
+        return false;
+      } else {
         Get.snackbar("Error", "In valid Email id and password");
         print(e.code);
         return false;
       }
+    }
+
+    return true;
   }
-
-
-  return true;
-
-}
 
 // phone number verification code
 
- static phoneNUmberVerification() async {
-   await FirebaseAuth.instance.verifyPhoneNumber(
-     phoneNumber: "+91",
-     verificationCompleted: (PhoneAuthCredential credential) {},
-     verificationFailed: (FirebaseAuthException e) {},
-     codeSent: (String verificationId, int? resendToken) {
-     //  ForgetPasswordPhoneNumberScreen.verify = verificationId;
-       // Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpPhoneNumberScreen()));
-     },
-     codeAutoRetrievalTimeout: (String verificationId) {},
-   );
+  static phoneNUmberVerification() async {
+    await FirebaseAuth.instance.verifyPhoneNumber(
+      phoneNumber: "+91",
+      verificationCompleted: (PhoneAuthCredential credential) {},
+      verificationFailed: (FirebaseAuthException e) {},
+      codeSent: (String verificationId, int? resendToken) {
+        //  ForgetPasswordPhoneNumberScreen.verify = verificationId;
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpPhoneNumberScreen()));
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
 
- }
-
- //===========send opt email verification ===============
-  static Future<bool> sendEmailOtpVerification( String email) async {
-
+  //===========send opt email verification ===============
+  static Future<bool> sendEmailOtpVerification(String email) async {
     //====send otp code ==========
     myauth.setConfig(
-
       appEmail: "sahusanju138@gmail.com",
       appName: "Email OTP by manish",
       userEmail: email,
@@ -138,70 +130,48 @@ static Future<bool> loginEmailAndPassword(String email,String pass) async {
       otpType: OTPType.digitsOnly,
     );
     if (await myauth.sendOTP() == true) {
-      Get.snackbar(
-          'Send OTP',
-          'Successfully ',
-          snackPosition: SnackPosition.TOP
-      );
+      Get.snackbar('Send OTP', 'Successfully ',
+          snackPosition: SnackPosition.TOP);
       return true;
     } else {
-      Get.snackbar(
-          'Failed',
-          'otp send is failed',
-          snackPosition: SnackPosition.TOP
-      );
+      Get.snackbar('Failed', 'otp send is failed',
+          snackPosition: SnackPosition.TOP);
       return false;
-
     }
   }
 
   //=========== otp verification code=============
 
   static Future<bool> otpSubmitVerification(String otp) async {
-
-    if (await myauth.verifyOTP(otp: otp)
-    == true) {
-      Get.snackbar(
-          'OTP',
-          'Successfully  verify',
-          snackPosition: SnackPosition.TOP
-      );
+    if (await myauth.verifyOTP(otp: otp) == true) {
+      Get.snackbar('OTP', 'Successfully  verify',
+          snackPosition: SnackPosition.TOP);
       return true;
-
     } else {
-      Get.snackbar(
-          'OTP',
-          'faield verification',
-          snackPosition: SnackPosition.TOP
-      );
+      Get.snackbar('OTP', 'faield verification',
+          snackPosition: SnackPosition.TOP);
       return false;
     }
-
   }
 
-
-
-
- static phoneOtpVerification(){
-
- //   try{
- //
- //
- //     // Create a PhoneAuthCredential with the code
- //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
- //         verificationId: ForgetPasswordPhoneNumberScreen.verify,
- //         smsCode: Scode);
- //
- //     // Sign the user in (or link) with the credential
- //     await auth.signInWithCredential(credential).then((value) {
- //
- //       print("login susscefule");
- //       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
- //     });
- //   }
- //       catch(e){
- //     print("error otp : $e");
- //       }
- }
-
+  static phoneOtpVerification() {
+    //   try{
+    //
+    //
+    //     // Create a PhoneAuthCredential with the code
+    //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //         verificationId: ForgetPasswordPhoneNumberScreen.verify,
+    //         smsCode: Scode);
+    //
+    //     // Sign the user in (or link) with the credential
+    //     await auth.signInWithCredential(credential).then((value) {
+    //
+    //       print("login susscefule");
+    //       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
+    //     });
+    //   }
+    //       catch(e){
+    //     print("error otp : $e");
+    //       }
+  }
 }
