@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 
 
 import '../add_new_home/add_your_home.dart';
@@ -33,7 +34,13 @@ class DrawerScreen extends StatelessWidget {
 
                   )]
               ),
-              child: Container(
+              child: ApisClass.user.displayName == ""
+                ? Padding(
+                  padding: const EdgeInsets.only(top: 25,bottom: 25,left: 30,
+                      right: 30),
+                  child: ElevatedButton(onPressed: (){}, child: Text("Login")),
+                )
+             : Container(
                   padding: EdgeInsets.zero,
                   child: Stack(
                     children: [
@@ -48,14 +55,14 @@ class DrawerScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Flexible(
-                                  child: Text("Manish sahu ",
+                                  child: Text("${ApisClass.user.displayName}",
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,
                                     maxLines: 1,
                                   ),
                                 ),
                                 Flexible(
-                                  child: Text("sahusanhu138@gmail.com ",
+                                  child: Text("${ApisClass.user.email}",
                                     style: TextStyle(fontSize: 12),
                                     overflow: TextOverflow.ellipsis,
                                     softWrap: false,

@@ -154,6 +154,10 @@ class AuthApisClass {
     }
   }
 
+  // store a user data
+
+
+
   static phoneOtpVerification() {
     //   try{
     //

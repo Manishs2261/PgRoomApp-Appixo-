@@ -230,66 +230,7 @@ class EditFormScreenController extends GetxController {
     faltTypeEnum.value = newFlatTypeEnum!;
   }
 
-  onDataUpdate() {
-    ApisClass.updateRentData(
-      itemId,
-      data.coverImage,
-      houseNameController.value.text,
-      houseAddressController.value.text,
-      cityNameController.value.text,
-      landdMarkController.value.text,
-      contactNumberController.value.text,
-      bhk.value,
-      roomType.value,
-      singlePersonContrller.value.text,
-      doublePersonContrller.value.text,
-      triplePersonContrller.value.text,
-      fourPersonContrller.value.text,
-      faimlyPersonContrller.value.text,
-      restrictedTime,
-      '3.5',
-      wifi.value,
-      bed.value,
-      chari.value,
-      table.value,
-      fan.value,
-      gadda.value,
-      light.value,
-      locker.value,
-      bedSheet.value,
-      washingMachin.value,
-      parking.value,
-      electricityBill.value,
-      waterBill.value,
-      fexibleTime.value,
-      cookingAllow.value,
-      cookingType.value,
-      boy.value,
-      girl.value,
-      faimlyMamber.value,
-      false,
-    ).then((value) {
-      Get.snackbar("Update ", "successfully");
-      Get.toNamed(RoutesName.addYourHomeScreen);
-    }).onError((error, stackTrace) {
-      print(error);
-      print(stackTrace);
-      Get.snackbar(
-        "error",
-        "udatae",
-      );
-    });
-  }
-
-  onSubmitButton() {
-    uploadCoverImage().then((value) {
-      onDataUpdate();
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "image upload error");
-    });
-  }
-
-  Future<void>EditImage()async {
+  Future<void> EditImage() async {
     ApisClass.updateItemImage(File(image!.path), itemId).then((value) {
       Get.snackbar("update image", "image");
       Get.toNamed(RoutesName.addYourHomeScreen);
@@ -357,40 +298,27 @@ class EditFormScreenController extends GetxController {
     });
   }
 
-  Future<void>EditAdditionalChargesAndDoor()async{
-
-
-    ApisClass.updateAdditionalCharesAndDoorDate(itemId,
-        electricityBill.value,
-        waterBill.value,
-        restrictedController.value.text,
-        fexibleTime.value
-    ).then((value) {
+  Future<void> EditAdditionalChargesAndDoor() async {
+    ApisClass.updateAdditionalCharesAndDoorDate(itemId, electricityBill.value,
+            waterBill.value, restrictedController.value.text, fexibleTime.value)
+        .then((value) {
       Get.snackbar("Upload", "data");
     }).onError((error, stackTrace) {
       Get.snackbar("Error", "update");
       print(error);
       print(stackTrace);
-
     });
   }
 
-  Future<void>EditPermissionData()async{
-
-    ApisClass.updatePermissionData(
-        itemId,
-        cookingType.value,
-        cookingAllow.value,
-        boy.value,
-        girl.value,
-        faimlyMamber.value).then((value) {
-
+  Future<void> EditPermissionData() async {
+    ApisClass.updatePermissionData(itemId, cookingType.value,
+            cookingAllow.value, boy.value, girl.value, faimlyMamber.value)
+        .then((value) {
       Get.snackbar("Upload", "data");
     }).onError((error, stackTrace) {
       Get.snackbar("Error", "update");
       print(error);
       print(stackTrace);
-
     });
   }
 }

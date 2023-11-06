@@ -14,7 +14,9 @@ import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen_controller/login_controller.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../splash/controller/splash_controller.dart';
 import '../forget_password_email/forget_password.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -37,7 +39,11 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 30),
             child: InkWell(
-                onTap: () {
+                onTap: () async {
+                  SharedPreferences prefrence = await SharedPreferences
+                      .getInstance();
+                  prefrence.setString("userUid", "value");
+
                Get.offAllNamed(RoutesName.homeScreen);
                 },
                 child: Text(

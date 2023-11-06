@@ -42,6 +42,7 @@ class MyTextFormWedgit extends StatelessWidget {
 
       minLines: minLine,
       maxLines: maxLine,
+
       maxLength: maxLength,
       controller: controller,
       keyboardType: textKeyBoard,

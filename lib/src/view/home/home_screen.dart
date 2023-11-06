@@ -116,8 +116,7 @@ class HomeScreen extends StatelessWidget {
       //=======list view builder code==============
       body: StreamBuilder(
           stream: ApisClass.firestore.collection('rentCollection').snapshots(),
-          // stream: ApisClass.firestore.collection('rentUser').doc
-          //   ("s30wXWQIDuPPzjrNmf7Q").collection('permission').snapshots(),
+
 
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
