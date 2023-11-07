@@ -133,7 +133,6 @@ class PermissioinScreen extends StatelessWidget {
                       //call controller method
                       saveController.uploadData();
 
-
                     },
                     child: Obx(
                       () => (controller.loading.value)

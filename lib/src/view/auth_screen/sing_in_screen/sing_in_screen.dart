@@ -287,12 +287,29 @@ class SingInScreen extends StatelessWidget {
                                     //in this condition
                                     //if email is alredy exist not sing
 
+                                    ApisClass.saveUserData(
+                                        _controller.nameControllersing.value.text,
+                                        _controller.citynameontrollersing
+                                            .value.text,
+                                        _controller.emailControllersing.value.text
+                                    ).then((value) {
+
+                                      Get.snackbar("Save","Sussefully");
+                                    }).onError((error, stackTrace) {
+
+                                      Get.snackbar("Error", "user data error");
+                                      print(error);
+                                      print(stackTrace);
+                                    });
+
+
+                                    // LOgin sharedPrefrence code +++++++++
                                     SharedPreferences prefrence = await
                                     SharedPreferences.getInstance();
-
+                                     // store a data in sharedPrefrence
                                     prefrence.setString('userUid', ApisClass
                                         .user.uid);
-
+                                    //========================
                                     _controller.alredyExitUser.value = value;
                                     _controller.loading.value = false;
 

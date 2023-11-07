@@ -28,9 +28,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("home build : Home Screen 🔴");
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+
+          ApisClass.getAllItemData();
+
+
+        },
+      ),
       //==preferrendSize provide a maximum appbar length
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(115),
+        preferredSize: Size.fromHeight(125),
         child: SafeArea(
           child: Column(
             children: [
@@ -82,7 +90,7 @@ class HomeScreen extends StatelessWidget {
 
               //========search field code ==============
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20,top: 5),
+                padding: const EdgeInsets.only(left: 20, right: 20,top: 5,),
                 child: TextFormField(
                   onTap: () {
 
@@ -116,7 +124,6 @@ class HomeScreen extends StatelessWidget {
       //=======list view builder code==============
       body: StreamBuilder(
           stream: ApisClass.firestore.collection('rentCollection').snapshots(),
-
 
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {

@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-  import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
- import 'dart:io';
+import 'dart:io';
 
 class ApisClass {
   // for authentication
@@ -23,8 +25,14 @@ class ApisClass {
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
   static var download;
   static var userRentId = "";
+  static var userName;
+
+  static var userEmail;
+  static var userCity;
+  static var  houseNameMap ;
 
   static UserRentModel model = UserRentModel();
+ static List<UserRentModel> allDataList = [];
 
 
   //upload data in firebase for home screen list
@@ -253,8 +261,6 @@ class ApisClass {
     }
   }
 
-
-
   //update profile picture of user
 
   static Future<void> updateItemImage(File file, String itmeId) async {
@@ -419,8 +425,7 @@ class ApisClass {
       'boy': boy,
       'cooking': cooking,
       'cookingType': cookinType,
-      'faimlyMember':faimlyMember
-
+      'faimlyMember': faimlyMember
     });
 
     await firestore
@@ -433,14 +438,52 @@ class ApisClass {
       'boy': boy,
       'cooking': cooking,
       'cookingType': cookinType,
-      'faimlyMember':faimlyMember
-
+      'faimlyMember': faimlyMember
     });
   }
 
   //Get all data in list
 
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getAllDataItem(){
-    return firestore.collection('rentCollection').snapshots();
+  static Future<void> getUserData() async {
+    //
+    // var collection = firestore.collection('loginUser');
+    // var querySnapshot = await collection.get();
+    // for (var queryDocumentSnapshot in querySnapshot.docs) {
+    //   Map<String, dynamic> data = queryDocumentSnapshot.data();
+    //   var name = data['name'];
+    //   var phone = data['city'];
+    // }
+
+    var collection = firestore.collection('loginUser').doc(user.uid);
+    var querySnapshot = await collection.get();
+
+    Map<String, dynamic>? data = querySnapshot.data();
+    userName = data?['Name'];
+    userCity = data?['city'];
+    userEmail = data?['email'];
+  }
+
+
+  static Future<void> getAllItemData()async{
+
+    var collection = firestore.collection('rentCollection');
+    var querySnapshot = await collection.get();
+    for (var queryDocumentSnapshot in querySnapshot.docs) {
+      Map<String, dynamic> data = queryDocumentSnapshot.data();
+      var name = data['city'];
+       houseNameMap = data['houseName'];
+
+    }
+
+  }
+
+
+  // store a user data
+  static Future<void> saveUserData(name, city, email) async {
+    await firestore.collection("loginUser").doc(user.uid).set({
+      'city': city,
+      'email': email,
+      'Name': name,
+    });
   }
 }

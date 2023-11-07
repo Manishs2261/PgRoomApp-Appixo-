@@ -19,6 +19,7 @@ class DataSaveController extends GetxController {
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitesController());
 
+
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
             ApisClass.download,
@@ -118,6 +119,7 @@ class DataSaveController extends GetxController {
   }
 
   uploadData(){
+
 
     addImageController.uploadCoverImage().then((value) {
       saveUserRentDetaitls();

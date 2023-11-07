@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 
-
 import '../add_new_home/add_your_home.dart';
 import '../auth_screen/login_screen/login_screen.dart';
 
@@ -25,76 +24,105 @@ class DrawerScreen extends StatelessWidget {
             height: 150,
             width: double.infinity,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey.shade100,
-                  boxShadow: [BoxShadow(
-                    blurRadius: 3,
-                    blurStyle: BlurStyle.outer,
-                    offset: Offset.zero,
-
-                  )]
-              ),
-              child: ApisClass.user.displayName == ""
-                ? Padding(
-                  padding: const EdgeInsets.only(top: 25,bottom: 25,left: 30,
-                      right: 30),
-                  child: ElevatedButton(onPressed: (){}, child: Text("Login")),
+              decoration:
+                  BoxDecoration(color: Colors.blueGrey.shade100, boxShadow: [
+                BoxShadow(
+                  blurRadius: 3,
+                  blurStyle: BlurStyle.outer,
+                  offset: Offset.zero,
                 )
-             : Container(
-                  padding: EdgeInsets.zero,
-                  child: Stack(
-                    children: [
-                      Row(
+              ]),
+              child: ApisClass.user.uid == ""
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 25, bottom: 25, left: 30, right: 30),
+                      child: ElevatedButton(
+                          onPressed: () {}, child: Text("Login")),
+                    )
+                  : Container(
+                      padding: EdgeInsets.zero,
+                      child: Stack(
                         children: [
-                          CircleAvatar(maxRadius: 30,child: Icon(Icons.person,size: 35,),),
-                          SizedBox(width: 15,),
-
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                  child: Text("${ApisClass.user.displayName}",
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: false,
-                                    maxLines: 1,
-                                  ),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                maxRadius: 30,
+                                child: Icon(
+                                  Icons.person,
+                                  size: 35,
                                 ),
-                                Flexible(
-                                  child: Text("${ApisClass.user.email}",
-                                    style: TextStyle(fontSize: 12),
-                                    overflow: TextOverflow.ellipsis,
-                                    softWrap: false,
-                                    maxLines: 1,
-                                  ),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // in this condition
+                                    (ApisClass.user.displayName == "")
+                                        // if user is sign in Email id and password
+                                        //than show show first condition
+                                        ? Flexible(
+                                            child: Text(
+                                              "${ApisClass.userName}",
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: false,
+                                              maxLines: 1,
+                                            ),
+                                          )
+                                        //if user is sign google email
+                                        // than  show second condition
+                                        : Flexible(
+                                            child: Text(
+                                              "${ApisClass.user.displayName}",
+                                              overflow: TextOverflow.ellipsis,
+                                              softWrap: false,
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                    // in  this email both are same
+                                    Flexible(
+                                      child: Text(
+                                        "${ApisClass.user.email}",
+                                        style: TextStyle(fontSize: 12),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          )
+                              )
+                            ],
+                          ),
+                          Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: CircleAvatar(
+                                backgroundColor: Colors.blue,
+                                radius: 13,
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                              ))
                         ],
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-
-                          child: CircleAvatar(
-                            backgroundColor: Colors.blue,
-                            radius: 13,
-                            child: Icon(Icons.edit,size: 18,color: Colors.white,),
-                          )
-                      )
-                    ],
-                  )
-              ),
+                      )),
             ),
           ),
           ListTile(
             leading: Icon(Icons.login),
-            trailing: Icon(Icons.arrow_forward_ios,size: 16,),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
             title: const Text('Login'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
               print("login");
               // Update the state of the app.
               // Navigator.pop(context);
@@ -103,7 +131,10 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.person),
             title: const Text('Profile'),
-            trailing: Icon(Icons.arrow_forward_ios,size: 16,),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
             onTap: () {
               // Update the state of the app.
               // ...
@@ -112,9 +143,13 @@ class DrawerScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: const Text('Add Your Room'),
-            trailing: Icon(Icons.arrow_forward_ios,size: 16,),
+            trailing: Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => AddYourHome()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddYourHome()));
               // Update the state of the app.
               // ...
             },

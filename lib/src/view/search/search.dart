@@ -15,11 +15,10 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
 
 
-
   @override
   Widget build(BuildContext context) {
     print("Build Screen => Search Screen 🔴");
-    print(ApisClass.getAllDataItem());
+
 
     return Scaffold(
       appBar: AppBar(),
