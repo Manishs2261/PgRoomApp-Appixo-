@@ -7,7 +7,6 @@ import '../../hostel_and_room_type/controller/controller.dart';
 import '../../rent_details/controller/controller.dart';
 
 class PermissionController extends GetxController {
-
   RxBool cookingAllow = false.obs;
   RxBool veg = false.obs;
   RxBool bothVegAndNonVeg = false.obs;
@@ -16,7 +15,6 @@ class PermissionController extends GetxController {
   RxBool faimlyMamber = false.obs;
   RxBool loading = false.obs;
   var cookingType = "".obs;
-
 
   cookingAllowCondition(value) {
     cookingAllow.value = value;
@@ -28,27 +26,15 @@ class PermissionController extends GetxController {
     }
   }
 
-
-  vegOnlyCondition(value){
-
+  vegOnlyCondition(value) {
     veg.value = value!;
-    bothVegAndNonVeg.value =
-    false;
-    cookingType.value =
-    "veg Only";
+    bothVegAndNonVeg.value = false;
+    cookingType.value = "veg Only";
   }
 
-  vegAndNonVegCondition(value){
-
-    bothVegAndNonVeg.value =
-    value!;
-   veg.value = false;
-    cookingType.value =
-    "veg and non-veg both allow";
+  vegAndNonVegCondition(value) {
+    bothVegAndNonVeg.value = value!;
+    veg.value = false;
+    cookingType.value = "veg and non-veg both allow";
   }
-
-
-
-
-
 }

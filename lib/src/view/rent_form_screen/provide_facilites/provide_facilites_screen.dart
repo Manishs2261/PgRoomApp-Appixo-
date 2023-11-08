@@ -140,12 +140,8 @@ class ProvideFacilitesScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                     // controller.onsubmitButton();
+                      controller.onSubmitButton();
 
-                      // Navigator.push(context, MaterialPageRoute(builder: (context)
-                      // =>ChargesAndDoorTime()));
-
-                      Get.toNamed(RoutesName.chargeAndDoorTimingScreen);
                     },
                     child: Obx(
                       () => (controller.loading.value)

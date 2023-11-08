@@ -34,8 +34,7 @@ class _AddYourHomeState extends State<AddYourHome> {
             width: mediaQuery.width * .8,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddImageScreen()));
+                 Get.toNamed(RoutesName.addImageScreen);
               },
               child: Text("Add New "),
             ),

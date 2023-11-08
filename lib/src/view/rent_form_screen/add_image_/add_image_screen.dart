@@ -266,15 +266,17 @@ class AddImageScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 40,
                   child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
                       onPressed: () {
                         imageController.onSubmitButton();
                       },
-                      child: const Text(
-                        "Save & Next",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      )),
+                      child:Obx(
+                            () => (imageController.loading.value)
+                            ? const CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                            : const Text("Save & Next"),
+                      )
+                  ),
                 ),
 
                 const SizedBox(

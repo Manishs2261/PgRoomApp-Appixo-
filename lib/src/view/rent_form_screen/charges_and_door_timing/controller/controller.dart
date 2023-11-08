@@ -28,6 +28,13 @@ class AdditionalChargesController extends GetxController {
 
   onSubmitButton(){
 
-    Get.toNamed(RoutesName.perimissionScreen);
+
+    loading.value = false;
+    Get.toNamed(RoutesName.perimissionScreen)?.then((value) {
+      loading.value = false;
+    }).onError((error, stackTrace){
+
+      loading.value = false;
+    });
   }
 }

@@ -14,13 +14,13 @@ class AddImageController extends GetxController {
   RxBool addimage = false.obs;
   RxBool isSelected = false.obs;
   XFile? image;
+  RxBool loading = false.obs;
 
   // for storing a more image in list
   RxList imageFileList = [].obs;
 
   // image picker form Gallary
   RxString selectedCoverImage = "".obs;
-
 
   Future pickeImageFromGallery() async {
     final image = await ImagePicker()
@@ -44,7 +44,6 @@ class AddImageController extends GetxController {
     selectedCoverImage.value = image!.path.toString();
   }
 
-
   Future uploadCoverImage() async {
     await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
       Get.snackbar("upload ", "cover  image");
@@ -53,6 +52,7 @@ class AddImageController extends GetxController {
       print("errror => $error");
     });
   }
+
   //============================================
 
   // om submit button
@@ -60,10 +60,13 @@ class AddImageController extends GetxController {
     if (selectedCoverImage.isEmpty) {
       Get.snackbar("cover image", "not emplty");
     } else {
-      Get.toNamed(RoutesName.rentDetailsFormScreen);
+      loading.value = true;
+      Get.toNamed(RoutesName.rentDetailsFormScreen)?.then((value) {
+
+        loading.value = false;
+      }).onError((error, stackTrace){
+        loading.value = false;
+      });
     }
   }
-
-
-
 }

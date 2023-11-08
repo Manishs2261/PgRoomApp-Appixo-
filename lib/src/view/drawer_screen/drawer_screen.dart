@@ -1,6 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../add_new_home/add_your_home.dart';
 import '../auth_screen/login_screen/login_screen.dart';
@@ -26,7 +30,7 @@ class DrawerScreen extends StatelessWidget {
             child: DrawerHeader(
               decoration:
                   BoxDecoration(color: Colors.blueGrey.shade100, boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                   blurRadius: 3,
                   blurStyle: BlurStyle.outer,
                   offset: Offset.zero,
@@ -37,7 +41,7 @@ class DrawerScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 25, bottom: 25, left: 30, right: 30),
                       child: ElevatedButton(
-                          onPressed: () {}, child: Text("Login")),
+                          onPressed: () {}, child: const Text("Login")),
                     )
                   : Container(
                       padding: EdgeInsets.zero,
@@ -45,14 +49,32 @@ class DrawerScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(
-                                maxRadius: 30,
-                                child: Icon(
-                                  Icons.person,
-                                  size: 35,
-                                ),
-                              ),
-                              SizedBox(
+                              (ApisClass.user.photoURL == "")
+                                  //if user login using email id and password
+                                  ? const CircleAvatar(
+                                      maxRadius: 30,
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 35,
+                                      ),
+                                    )
+
+                                  // if user login google email id
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: CachedNetworkImage(
+                                        width: 60,
+                                        height: 60,
+                                        fit: BoxFit.cover,
+                                        imageUrl:
+                                            ApisClass.user.photoURL.toString(),
+                                        errorWidget: (context, url, error) =>
+                                            const CircleAvatar(
+                                                child: Icon(
+                                                    CupertinoIcons.person)),
+                                      ),
+                                    ),
+                              const SizedBox(
                                 width: 15,
                               ),
                               Expanded(
@@ -86,7 +108,7 @@ class DrawerScreen extends StatelessWidget {
                                     Flexible(
                                       child: Text(
                                         "${ApisClass.user.email}",
-                                        style: TextStyle(fontSize: 12),
+                                        style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 1,
@@ -97,59 +119,34 @@ class DrawerScreen extends StatelessWidget {
                               )
                             ],
                           ),
-                          Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: CircleAvatar(
-                                backgroundColor: Colors.blue,
-                                radius: 13,
-                                child: Icon(
-                                  Icons.edit,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                              ))
                         ],
                       )),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.login),
-            trailing: Icon(
+            leading: const Icon(Icons.login),
+            trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 16,
             ),
             title: const Text('Login'),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()));
-              print("login");
+             Get.offAllNamed(RoutesName.loginScreen);
+
               // Update the state of the app.
               // Navigator.pop(context);
             },
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: const Text('Profile'),
-            trailing: Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-            ),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.home),
+            leading: const Icon(Icons.home),
             title: const Text('Add Your Room'),
-            trailing: Icon(
+            trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 16,
             ),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AddYourHome()));
+                  MaterialPageRoute(builder: (context) => const AddYourHome()));
               // Update the state of the app.
               // ...
             },

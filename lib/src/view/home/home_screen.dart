@@ -94,9 +94,10 @@ class HomeScreen extends StatelessWidget {
                 child: TextFormField(
                   onTap: () {
 
-                    Get.toNamed(RoutesName.searchScreen);
+                    Get.toNamed(RoutesName.searchScreen,arguments: rentList);
 
                   },
+                  autofocus: false,
                   decoration: InputDecoration(
                     fillColor: Colors.yellow[50],
                     filled: true,
@@ -146,131 +147,145 @@ class HomeScreen extends StatelessWidget {
                         .toList() ??
                     [];
 
-                return ListView.builder(
-                    padding: EdgeInsets.only(left: 5, right: 5),
-                    itemCount: rentList.length,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        children: [
-                          // Navigation DetailRentInfo_Screen button
-                          GestureDetector(
-                            onTap: () {
-                              print(snapshot.data?.docs[index].id);
-
-                              Get.toNamed(RoutesName.detailsRentInfoScreen,
-                                  arguments: rentList[index]);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(3),
-                              height: 200,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(200, 200, 40, 0.01),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.white,
-                                      spreadRadius: 3,
-                                    )
-                                  ]),
-                              child: Row(
-                                children: [
-                                  //====== front image========
-                                  CachedNetworkImage(
-                                    width: 150,
-                                    height: 300,
-
-                                    imageUrl: '${rentList[index].coverImage}',
-                                    fit: BoxFit.fill,
-                                    // placeholder: (context, url) => CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        CircleAvatar(
-                                      child: Icon(Icons.image_outlined),
-                                    ),
-                                  ),
-
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  // =====Details ============
-
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "${rentList[index].houseName} ",
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: false,
-                                            maxLines: 1,
-                                            style: TextStyle(
-                                                fontSize: 17,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.yellow,
-                                              size: 17,
-                                            ),
-                                            Text("${rentList[index].review}"),
-                                            Text(" (28 reviews)")
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: 'Rent - ₹',
-                                            style: DefaultTextStyle.of(context)
-                                                .style,
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                  text:
-                                                      '${rentList[index].singlePersonPrice}',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              TextSpan(text: ' /- montly'),
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            "${rentList[index].addres} ",
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: false,
-                                            maxLines: 2,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 3,
-                                        ),
-                                        Text("city - ${rentList[index].city}"),
-                                        Text(
-                                            "Room Type - ${rentList[index].roomType}")
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    });
+                return ItemListView(rentList: rentList);
             }
           }),
     );
+  }
+}
+
+class ItemListView extends StatelessWidget {
+  const ItemListView({
+    super.key,
+    required this.rentList,
+  });
+
+  final List<UserRentModel> rentList;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        padding: EdgeInsets.only(left: 5, right: 5),
+        itemCount: rentList.length,
+        itemBuilder: (context, index) {
+          return Stack(
+            children: [
+              // Navigation DetailRentInfo_Screen button
+              GestureDetector(
+                onTap: () {
+
+
+                  Get.toNamed(RoutesName.detailsRentInfoScreen,
+                      arguments: rentList[index]);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(3),
+                  height: 200,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(200, 200, 40, 0.01),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.white,
+                          spreadRadius: 3,
+                        )
+                      ]),
+                  child: Row(
+                    children: [
+                      //====== front image========
+                      CachedNetworkImage(
+                        width: 150,
+                        height: 300,
+
+                        imageUrl: '${rentList[index].coverImage}',
+                        fit: BoxFit.fill,
+                        // placeholder: (context, url) => CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            CircleAvatar(
+                          child: Icon(Icons.image_outlined),
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: 10,
+                      ),
+                      // =====Details ============
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "${rentList[index].houseName} ",
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                  size: 17,
+                                ),
+                                Text("${rentList[index].review}"),
+                                Text(" (28 reviews)")
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: 'Rent - ₹',
+                                style: DefaultTextStyle.of(context)
+                                    .style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text:
+                                          '${rentList[index].singlePersonPrice}',
+                                      style: TextStyle(
+                                          fontWeight:
+                                              FontWeight.bold)),
+                                  TextSpan(text: ' /- montly'),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Flexible(
+                              child: Text(
+                                "${rentList[index].addres} ",
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                maxLines: 2,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 3,
+                            ),
+                            Text("city - ${rentList[index].city}"),
+                            Text(
+                                "Room Type - ${rentList[index].roomType}")
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

@@ -468,12 +468,14 @@ class ApisClass {
 
     var collection = firestore.collection('rentCollection');
     var querySnapshot = await collection.get();
+    Map<String, dynamic> data;
     for (var queryDocumentSnapshot in querySnapshot.docs) {
-      Map<String, dynamic> data = queryDocumentSnapshot.data();
+       data = queryDocumentSnapshot.data();
       var name = data['city'];
        houseNameMap = data['houseName'];
 
     }
+
 
   }
 

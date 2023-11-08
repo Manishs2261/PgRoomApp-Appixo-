@@ -1,11 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 
+import '../../../res/route_name/routes_name.dart';
 import '../add_image_/controller/controller.dart';
 import '../hostel_and_room_type/controller/controller.dart';
 import '../permission/controller/permission_controller.dart';
@@ -18,7 +18,7 @@ class DataSaveController extends GetxController {
   final addImageController = Get.put(AddImageController());
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitesController());
-
+  RxBool loading = false.obs;
 
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
@@ -59,10 +59,15 @@ class DataSaveController extends GetxController {
             false)
         .then((value) {
       Get.snackbar("save", "details");
+      loading.value = false;
     }).onError((error, stackTrace) {
       Get.snackbar("Error", "details");
-      print("save Error => $error");
-      print("save Error => $stackTrace");
+      if (kDebugMode) {
+        print("save Error => $error");
+      }
+      if (kDebugMode) {
+        print("save Error => $stackTrace");
+      }
     });
   }
 
@@ -102,36 +107,33 @@ class DataSaveController extends GetxController {
             premissionController.boy.value,
             premissionController.girl.value,
             premissionController.faimlyMamber.value,
-            false
-    )
+            false)
         .then((value) {
       //seva home list data
       saveRentDetails();
-
+      loading.value = false;
       Get.snackbar("save", "details", backgroundColor: Colors.red);
-      Get.offAllNamed(RoutesName.homeScreen);
-      //clearValue();
+        Get.offAllNamed(RoutesName.homeScreen);
+
     }).onError((error, stackTrace) {
       Get.snackbar("Error", "details", backgroundColor: Colors.blue);
-      print("save Error => $error");
-      print("save Error => $stackTrace");
+      if (kDebugMode) {
+        print("save Error => $error");
+      }
+      if (kDebugMode) {
+        print("save Error => $stackTrace");
+      }
     });
   }
 
-  uploadData(){
-
-
+  uploadData() {
+    loading.value = true;
     addImageController.uploadCoverImage().then((value) {
+      loading.value = true;
       saveUserRentDetaitls();
-
     }).onError((error, stackTrace) {
-
+      loading.value = false;
       Get.snackbar("Error", "image upload error");
     });
   }
-
-
-
-
-
 }

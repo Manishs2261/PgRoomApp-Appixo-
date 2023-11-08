@@ -21,5 +21,17 @@ class ProvideFacilitesController extends GetxController{
   RxBool loading = false.obs;
 
 
+  onSubmitButton(){
+
+    loading.value = true;
+
+    Get.toNamed(RoutesName.chargeAndDoorTimingScreen)?.then((value) {
+      loading.value = false;
+    }).onError((error, stackTrace) {
+
+      loading.value = false;
+    });
+  }
+
 
 }

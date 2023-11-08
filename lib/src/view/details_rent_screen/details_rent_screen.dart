@@ -34,7 +34,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
               Center(
                 child: Text(
                   "${data.houseName}",
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.w500),
                 ),
               ),
               const SizedBox(
@@ -52,8 +53,10 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     Image(
                         image: NetworkImage(data.coverImage.toString()),
                         fit: BoxFit.cover),
-                    const Image(image: AssetImage(room2Image), fit: BoxFit.cover),
-                    const Image(image: AssetImage(room3Image), fit: BoxFit.cover),
+                    const Image(
+                        image: AssetImage(room2Image), fit: BoxFit.cover),
+                    const Image(
+                        image: AssetImage(room3Image), fit: BoxFit.cover),
                   ],
                 ),
               ),

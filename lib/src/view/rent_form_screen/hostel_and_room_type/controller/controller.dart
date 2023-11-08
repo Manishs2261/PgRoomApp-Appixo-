@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-import '../../../../repositiry/apis/apis.dart';
 import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
 import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
 
@@ -25,8 +23,8 @@ class HostelAndRoomController extends GetxController {
   final fourPersonContrller = TextEditingController().obs;
   final faimlyPersonContrller = TextEditingController().obs;
 
-  RxString roomType = ''.obs;
-  RxString bhk = ''.obs;
+  RxString roomType = 'Boys'.obs;
+  RxString bhk = '1BHK'.obs;
 
   RxBool loading = false.obs;
 
@@ -75,9 +73,12 @@ class HostelAndRoomController extends GetxController {
     bhk.value = '3BHK';
   }
 
-  onSubimitButton(){
-
-    Get.toNamed(RoutesName.providsFacilitesScreen);
+  onSubimitButton() {
+    loading.value = true;
+    Get.toNamed(RoutesName.providsFacilitesScreen)?.then((value) {
+      loading.value = false;
+    }).onError((error, stackTrace) {
+      loading.value = false;
+    });
   }
-
 }

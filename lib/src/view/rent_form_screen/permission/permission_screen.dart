@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/rent_form_screen/data_save_controller/data_save_controller.dart';
 
- import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
+import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
 
 import '../../../res/route_name/routes_name.dart';
 import '../add_image_/controller/controller.dart';
@@ -18,10 +18,8 @@ class PermissioinScreen extends StatelessWidget {
   final controller = Get.put(PermissionController());
   final saveController = Get.put(DataSaveController());
 
-
   @override
   Widget build(BuildContext context) {
-
     if (kDebugMode) {
       print("build screen => permission 🔴");
     }
@@ -132,10 +130,9 @@ class PermissioinScreen extends StatelessWidget {
                     onPressed: () {
                       //call controller method
                       saveController.uploadData();
-
                     },
                     child: Obx(
-                      () => (controller.loading.value)
+                      () => (saveController.loading.value)
                           ? const CircularProgressIndicator(
                               color: Colors.blue,
                             )
