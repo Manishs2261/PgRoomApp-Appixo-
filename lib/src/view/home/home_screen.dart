@@ -18,9 +18,10 @@ import 'package:pgroom/src/view/search/search.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../drawer_screen/drawer_screen.dart';
+import '../splash/controller/splash_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
+  HomeScreen({super.key});
 
   List<UserRentModel> rentList = [];
 
@@ -29,11 +30,8 @@ class HomeScreen extends StatelessWidget {
     print("home build : Home Screen 🔴");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-
-          ApisClass.getAllItemData();
-
-
+        onPressed: () {
+          Get.defaultDialog();
         },
       ),
       //==preferrendSize provide a maximum appbar length
@@ -49,39 +47,45 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 10),
                     child: InkWell(
-                      onTap: (){
-                        Get.toNamed(RoutesName.addYourHomeScreen);
-
+                      onTap: () {
+                        (ApisClass.auth.currentUser?.uid == finalUserUid)
+                            ? Get.toNamed(RoutesName.addYourHomeScreen)
+                            :     Get.defaultDialog(title: "Login please",
+                        middleText: "Without lonin your are not post home",
+                        actions: [ElevatedButton(onPressed: (){
+                          Get.offAllNamed(RoutesName.loginScreen);
+                        }, child:Text
+                          ("Login"))]);
                       },
                       child: Container(
-                          alignment: Alignment.center,
-                          height: 25,
-                          width: 135,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all()),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Post Room", textAlign: TextAlign.center),
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 135,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all()),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Post Room", textAlign: TextAlign.center),
 
-                              //===========free container =============
-                              Container(
-                                alignment: Alignment.center,
-                                height: 15,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                    color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Text(
-                                  "Free",
-                                  style: TextStyle(fontSize: 10),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )
-                            ],
-                          ),
+                            //===========free container =============
+                            Container(
+                              alignment: Alignment.center,
+                              height: 15,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                  color: Colors.orange,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: Text(
+                                "Free",
+                                style: TextStyle(fontSize: 10),
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -90,12 +94,14 @@ class HomeScreen extends StatelessWidget {
 
               //========search field code ==============
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20,top: 5,),
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  top: 5,
+                ),
                 child: TextFormField(
                   onTap: () {
-
-                    Get.toNamed(RoutesName.searchScreen,arguments: rentList);
-
+                    Get.toNamed(RoutesName.searchScreen, arguments: rentList);
                   },
                   autofocus: false,
                   decoration: InputDecoration(
@@ -118,21 +124,42 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
-
-
       //======drawer code ===============
       drawer: DrawerScreen(),
       //=======list view builder code==============
       body: StreamBuilder(
           stream: ApisClass.firestore.collection('rentCollection').snapshots(),
-
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.signal_wifi_connected_no_internet_4),
+                      Text("No Internet Connection"),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      CircularProgressIndicator(
+                        color: Colors.blue,
+                      )
+                    ],
+                  ),
+                );
               case ConnectionState.none:
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Row(
+                    children: [
+                      Icon(Icons.signal_wifi_connected_no_internet_4),
+                      Text("No Internet Connection"),
+                      CircularProgressIndicator(
+                        color: Colors.blue,
+                      )
+                    ],
+                  ),
                 );
+
               case ConnectionState.active:
               case ConnectionState.done:
                 final data = snapshot.data?.docs;
@@ -173,8 +200,6 @@ class ItemListView extends StatelessWidget {
               // Navigation DetailRentInfo_Screen button
               GestureDetector(
                 onTap: () {
-
-
                   Get.toNamed(RoutesName.detailsRentInfoScreen,
                       arguments: rentList[index]);
                 },
@@ -200,8 +225,7 @@ class ItemListView extends StatelessWidget {
                         imageUrl: '${rentList[index].coverImage}',
                         fit: BoxFit.fill,
                         // placeholder: (context, url) => CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            CircleAvatar(
+                        errorWidget: (context, url, error) => CircleAvatar(
                           child: Icon(Icons.image_outlined),
                         ),
                       ),
@@ -213,8 +237,7 @@ class ItemListView extends StatelessWidget {
 
                       Expanded(
                         child: Column(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
                               child: Text(
@@ -223,8 +246,7 @@ class ItemListView extends StatelessWidget {
                                 softWrap: false,
                                 maxLines: 1,
                                 style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: 17, fontWeight: FontWeight.w500),
                               ),
                             ),
                             SizedBox(
@@ -247,15 +269,13 @@ class ItemListView extends StatelessWidget {
                             RichText(
                               text: TextSpan(
                                 text: 'Rent - ₹',
-                                style: DefaultTextStyle.of(context)
-                                    .style,
+                                style: DefaultTextStyle.of(context).style,
                                 children: <TextSpan>[
                                   TextSpan(
                                       text:
                                           '${rentList[index].singlePersonPrice}',
                                       style: TextStyle(
-                                          fontWeight:
-                                              FontWeight.bold)),
+                                          fontWeight: FontWeight.bold)),
                                   TextSpan(text: ' /- montly'),
                                 ],
                               ),
@@ -275,8 +295,7 @@ class ItemListView extends StatelessWidget {
                               height: 3,
                             ),
                             Text("city - ${rentList[index].city}"),
-                            Text(
-                                "Room Type - ${rentList[index].roomType}")
+                            Text("Room Type - ${rentList[index].roomType}")
                           ],
                         ),
                       ),

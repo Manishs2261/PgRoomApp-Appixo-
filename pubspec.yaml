@@ -70,7 +70,10 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   #email and otp verification_code_builder:
   email_otp: ^2.0.1
+  #login sharedPrefence
   shared_preferences: ^2.2.2
+  # check internet connection_notifier:
+  connectivity_plus: ^5.0.1
 
 
 dev_dependencies:

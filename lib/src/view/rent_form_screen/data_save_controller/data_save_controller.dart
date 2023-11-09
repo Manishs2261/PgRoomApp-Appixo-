@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,8 @@ class DataSaveController extends GetxController {
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitesController());
   RxBool loading = false.obs;
+
+  Connectivity connectivity = Connectivity();
 
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
@@ -113,8 +116,7 @@ class DataSaveController extends GetxController {
       saveRentDetails();
       loading.value = false;
       Get.snackbar("save", "details", backgroundColor: Colors.red);
-        Get.offAllNamed(RoutesName.homeScreen);
-
+      Get.offAllNamed(RoutesName.homeScreen);
     }).onError((error, stackTrace) {
       Get.snackbar("Error", "details", backgroundColor: Colors.blue);
       if (kDebugMode) {
@@ -126,14 +128,19 @@ class DataSaveController extends GetxController {
     });
   }
 
-  uploadData() {
-    loading.value = true;
-    addImageController.uploadCoverImage().then((value) {
-      loading.value = true;
-      saveUserRentDetaitls();
-    }).onError((error, stackTrace) {
-      loading.value = false;
-      Get.snackbar("Error", "image upload error");
-    });
+  uploadData() async {
+        loading.value = true;
+        addImageController.uploadCoverImage().then((value) {
+          loading.value = true;
+          saveUserRentDetaitls();
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Error", "image upload error");
+        });
+
+
+
+
+
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,16 +21,13 @@ import '../../splash/controller/splash_controller.dart';
 import '../forget_password_email/forget_password.dart';
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({super.key});
+  LoginScreen({super.key});
 
   final globleKey = GlobalKey<FormState>();
 
   final _controller = Get.put(LoginScreenController());
-   final emailControlerLogin = TextEditingController();
-   final passwordControlerLogin = TextEditingController();
 
-
-   @override
+  @override
   Widget build(BuildContext context) {
     print("rebUild => login screen 🔴");
     return Scaffold(
@@ -40,11 +38,11 @@ class LoginScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 30),
             child: InkWell(
                 onTap: () async {
-                  SharedPreferences prefrence = await SharedPreferences
-                      .getInstance();
+                  SharedPreferences prefrence =
+                      await SharedPreferences.getInstance();
                   prefrence.setString("userUid", "value");
 
-               Get.offAllNamed(RoutesName.homeScreen);
+                  Get.offAllNamed(RoutesName.homeScreen);
                 },
                 child: Text(
                   "Skip",
@@ -94,33 +92,33 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         //===========Email and phone number  text
                         // field===============
-                       TextFormField(
-                            controller: emailControlerLogin,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Email id ';
-                              } else {
-                                return null;
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: "Enter Email id ",
-                              prefixIcon: Icon(Icons.email_outlined),
-                              contentPadding: EdgeInsets.only(top: 5),
-                            ),
+                        TextFormField(
+                          controller: _controller.emailControlerLogin.value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter Email id ';
+                            } else {
+                              return null;
+                            }
+                          },
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            hintText: "Enter Email id ",
+                            prefixIcon: Icon(Icons.email_outlined),
+                            contentPadding: EdgeInsets.only(top: 5),
                           ),
+                        ),
 
                         SizedBox(
                           height: 15,
                         ),
                         //==========password text field==============
                         Obx(
-                          ()=> TextFormField(
-                            controller: passwordControlerLogin,
-                            obscureText:_controller.passView.value,
+                          () => TextFormField(
+                            controller: _controller.passwordControlerLogin.value,
+                            obscureText: _controller.passView.value,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter Password ';
@@ -134,19 +132,17 @@ class LoginScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10)),
                               hintText: "Enter Password",
                               prefixIcon: Icon(Icons.lock),
-                              suffixIcon:
-                                 (_controller.passView.value)
-                                    ? InkWell(
-                                        onTap: () {
-                                          _controller.passView.value= false;
-                                        },
-                                        child: Icon(Icons.visibility_off))
-                                    : InkWell(
-                                        onTap: () {
-                                          _controller.passView.value = true;
-                                        },
-                                        child: Icon(Icons.visibility)),
-
+                              suffixIcon: (_controller.passView.value)
+                                  ? InkWell(
+                                      onTap: () {
+                                        _controller.passView.value = false;
+                                      },
+                                      child: Icon(Icons.visibility_off))
+                                  : InkWell(
+                                      onTap: () {
+                                        _controller.passView.value = true;
+                                      },
+                                      child: Icon(Icons.visibility)),
                               contentPadding: EdgeInsets.only(top: 5),
                             ),
                           ),
@@ -175,26 +171,27 @@ class LoginScreen extends StatelessWidget {
                   height: 50,
                   width: double.infinity,
                   child: Obx(
-                      ()=> ElevatedButton(
+                    () => ElevatedButton(
                       onPressed: () async {
-
                         if (globleKey.currentState!.validate()) {
 
-                       _controller.loading.value = true;
-
-
-                          AuthApisClass.loginEmailAndPassword(
-                                  emailControlerLogin.text,
-                                  passwordControlerLogin.text)
+                          await _controller.connectivity
+                              .checkConnectivity()
                               .then((value) {
-                            //if user use wrong password and email id thna
-                            // not to allow next page navigation
-                            _controller.worngpassword.value = value;
-
-                          _controller.loading.value = false;
-                            if (_controller.worngpassword.value)
-                               Get.offAllNamed(RoutesName.homeScreen);
+                            if (value == ConnectivityResult.none) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text(
+                                      'Please Check Your Internet Connection '),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            } else {
+                              _controller.onLoginButton();
+                            }
+                            ;
                           });
+
                         }
                       },
                       child: (_controller.loading.value)
@@ -216,7 +213,7 @@ class LoginScreen extends StatelessWidget {
                     Text("Don't have an account ? "),
                     InkWell(
                         onTap: () {
-                     Get.toNamed(RoutesName.singScreen);
+                          Get.toNamed(RoutesName.singScreen);
                         },
                         child: Text(
                           "Sign-up",
@@ -284,5 +281,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
-

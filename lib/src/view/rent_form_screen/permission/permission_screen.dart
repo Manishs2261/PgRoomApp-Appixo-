@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -127,9 +128,25 @@ class PermissioinScreen extends StatelessWidget {
                 height: 40,
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       //call controller method
-                      saveController.uploadData();
+
+                      await saveController.connectivity
+                          .checkConnectivity()
+                          .then((value) {
+                        if (value == ConnectivityResult.none) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                  'Please Check Your Internet Connection '),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        } else {
+                          saveController.uploadData();
+                        }
+                        ;
+                      });
                     },
                     child: Obx(
                       () => (saveController.loading.value)

@@ -8,6 +8,7 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../add_new_home/add_your_home.dart';
 import '../auth_screen/login_screen/login_screen.dart';
+import '../splash/controller/splash_controller.dart';
 
 class DrawerScreen extends StatelessWidget {
   const DrawerScreen({
@@ -36,12 +37,14 @@ class DrawerScreen extends StatelessWidget {
                   offset: Offset.zero,
                 )
               ]),
-              child: ApisClass.user.uid == ""
+              child: ApisClass.auth.currentUser?.uid == null
                   ? Padding(
                       padding: const EdgeInsets.only(
                           top: 25, bottom: 25, left: 30, right: 30),
                       child: ElevatedButton(
-                          onPressed: () {}, child: const Text("Login")),
+                          onPressed: () {
+                            Get.offAllNamed(RoutesName.loginScreen);
+                          }, child: const Text("Login")),
                     )
                   : Container(
                       padding: EdgeInsets.zero,
@@ -49,7 +52,7 @@ class DrawerScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              (ApisClass.user.photoURL == "")
+                              (ApisClass.auth.currentUser?.uid == null)
                                   //if user login using email id and password
                                   ? const CircleAvatar(
                                       maxRadius: 30,
@@ -67,7 +70,7 @@ class DrawerScreen extends StatelessWidget {
                                         height: 60,
                                         fit: BoxFit.cover,
                                         imageUrl:
-                                            ApisClass.user.photoURL.toString(),
+                                            ApisClass.auth.currentUser!.photoURL.toString(),
                                         errorWidget: (context, url, error) =>
                                             const CircleAvatar(
                                                 child: Icon(
@@ -83,7 +86,7 @@ class DrawerScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // in this condition
-                                    (ApisClass.user.displayName == "")
+                                    (ApisClass.auth.currentUser?.displayName == "")
                                         // if user is sign in Email id and password
                                         //than show show first condition
                                         ? Flexible(
@@ -98,7 +101,7 @@ class DrawerScreen extends StatelessWidget {
                                         // than  show second condition
                                         : Flexible(
                                             child: Text(
-                                              "${ApisClass.user.displayName}",
+                                              "${ApisClass.auth.currentUser?.displayName}",
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: false,
                                               maxLines: 1,
@@ -107,7 +110,7 @@ class DrawerScreen extends StatelessWidget {
                                     // in  this email both are same
                                     Flexible(
                                       child: Text(
-                                        "${ApisClass.user.email}",
+                                        "${ApisClass.auth.currentUser?.email}",
                                         style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
@@ -123,20 +126,7 @@ class DrawerScreen extends StatelessWidget {
                       )),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.login),
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-              size: 16,
-            ),
-            title: const Text('Login'),
-            onTap: () {
-             Get.offAllNamed(RoutesName.loginScreen);
 
-              // Update the state of the app.
-              // Navigator.pop(context);
-            },
-          ),
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Add Your Room'),
@@ -145,8 +135,10 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddYourHome()));
+              (ApisClass.auth.currentUser?.uid == finalUserUid)
+                  ?  Get.toNamed(RoutesName.addYourHomeScreen)
+                  :
+              Get.snackbar("Login", "Your not login ");
               // Update the state of the app.
               // ...
             },

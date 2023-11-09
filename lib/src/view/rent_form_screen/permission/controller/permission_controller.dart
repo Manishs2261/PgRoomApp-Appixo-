@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
@@ -15,6 +16,8 @@ class PermissionController extends GetxController {
   RxBool faimlyMamber = false.obs;
   RxBool loading = false.obs;
   var cookingType = "".obs;
+
+
 
   cookingAllowCondition(value) {
     cookingAllow.value = value;
