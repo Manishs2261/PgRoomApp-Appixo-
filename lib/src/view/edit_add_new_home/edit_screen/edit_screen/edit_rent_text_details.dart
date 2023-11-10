@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/text_field_validator/text_field_validator.dart';
+ import '../../../../uitels/validator/text_field_validator.dart';
 import '../../../../uitels/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 

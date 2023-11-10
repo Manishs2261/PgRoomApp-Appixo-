@@ -145,7 +145,7 @@ class PermissioinScreen extends StatelessWidget {
                         } else {
                           saveController.uploadData();
                         }
-                        ;
+
                       });
                     },
                     child: Obx(

@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +10,7 @@ import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/validator/text_field_validator.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
@@ -18,7 +20,6 @@ class SingInScreen extends StatelessWidget {
   SingInScreen({super.key});
 
   final globleKey = GlobalKey<FormState>();
-
   final _controller = Get.put(SingScsreenController());
 
   @override
@@ -61,12 +62,7 @@ class SingInScreen extends StatelessWidget {
                             controller: _controller.emailControllersing.value,
                             keyboardType: TextInputType.text,
                             autofocus: true,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter Email id ';
-                              }
-                              return null;
-                            },
+                            validator: EmailValidator.validate,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10)),
@@ -75,14 +71,15 @@ class SingInScreen extends StatelessWidget {
                                 contentPadding: EdgeInsets.only(top: 5),
                                 //=====send the otp text buttton ==========
                                 suffix:
-                                    // in there have two condition
-                                    //first condition
-                                    // if otp is verified than remove a SEND otp
-                                    // text button and re_send text button
-                                    // second condition
-                                    // send opt and resend otp button
 
-                                    // first condition
+                                    /// in there have two condition
+                                    ///first condition
+                                    ///if otp is verified than remove a SEND
+                                    /// otp
+                                    /// text button and re_send text button
+                                    /// second condition
+                                    ///send opt and resend otp button
+                                    /// first condition
                                     Obx(
                                   () => (_controller.isVerify.value)
                                       ? Text("")
@@ -90,16 +87,35 @@ class SingInScreen extends StatelessWidget {
                                       : (_controller.isSend.value)
                                           ? InkWell(
                                               onTap: () async {
-                                                //====send otp code ==========
-                                                AuthApisClass
-                                                        .sendEmailOtpVerification(
-                                                            _controller
-                                                                .emailControllersing
-                                                                .value
-                                                                .text)
-                                                    .then((value) {})
-                                                    .onError(
-                                                        (error, stackTrace) {});
+                                                ///====RE- send otp code
+
+                                                await _controller.connectivity
+                                                    .checkConnectivity()
+                                                    .then((value) {
+                                                  if (value ==
+                                                      ConnectivityResult.none) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: const Text(
+                                                            'Please Check Your Internet Connection '),
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    AuthApisClass
+                                                            .sendEmailOtpVerification(
+                                                                _controller
+                                                                    .emailControllersing
+                                                                    .value
+                                                                    .text)
+                                                        .then((value) {})
+                                                        .onError((error,
+                                                            stackTrace) {});
+                                                  }
+                                                });
                                               },
                                               child: Text(
                                                 "| RE-SEND   ",
@@ -109,17 +125,36 @@ class SingInScreen extends StatelessWidget {
                                           : InkWell(
                                               onTap: () async {
                                                 //====send otp code ==========
-                                                AuthApisClass
-                                                        .sendEmailOtpVerification(
-                                                            _controller
-                                                                .emailControllersing
-                                                                .value
-                                                                .text)
+
+                                                await _controller.connectivity
+                                                    .checkConnectivity()
                                                     .then((value) {
-                                                  _controller.isSend.value =
-                                                      value;
-                                                }).onError(
-                                                        (error, stackTrace) {});
+                                                  if (value ==
+                                                      ConnectivityResult.none) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: const Text(
+                                                            'Please Check Your Internet Connection '),
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    AuthApisClass
+                                                            .sendEmailOtpVerification(
+                                                                _controller
+                                                                    .emailControllersing
+                                                                    .value
+                                                                    .text)
+                                                        .then((value) {
+                                                      _controller.isSend.value =
+                                                          value;
+                                                    }).onError((error,
+                                                            stackTrace) {});
+                                                  }
+                                                });
                                               },
                                               child: Text("| SEND OTP   ")),
                                 ),
@@ -137,13 +172,7 @@ class SingInScreen extends StatelessWidget {
                         TextFormField(
                           controller: _controller.otpControllersing.value,
                           keyboardType: TextInputType.number,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter otp';
-                            } else {
-                              return null;
-                            }
-                          },
+                          validator: OtpValidator.validate,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10)),
@@ -163,7 +192,25 @@ class SingInScreen extends StatelessWidget {
                                         onTap: () async {
                                           //============verify otp
                                           // controller mathods ===========
-                                          _controller.onOtpSubmitController();
+
+                                          await _controller.connectivity
+                                              .checkConnectivity()
+                                              .then((value) {
+                                            if (value ==
+                                                ConnectivityResult.none) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: const Text(
+                                                      'Please Check Your Internet Connection '),
+                                                  backgroundColor: Colors.red,
+                                                ),
+                                              );
+                                            } else {
+                                              _controller
+                                                  .onOtpSubmitController();
+                                            }
+                                          });
                                         },
                                         child: Text(
                                           "| Submit   ",
@@ -183,13 +230,7 @@ class SingInScreen extends StatelessWidget {
                                   controller:
                                       _controller.passwordControllersing.value,
                                   keyboardType: TextInputType.text,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter password ';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
+                                  validator: PasswordValidator.validate,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius:
@@ -203,11 +244,11 @@ class SingInScreen extends StatelessWidget {
                               : Text(""),
                         ),
 
-                        (_controller.isOtp.value)
-                            ? SizedBox(
-                                height: 15,
-                              )
-                            : Text(""),
+                        if (_controller.isOtp.value)
+                          SizedBox(
+                            height: 15,
+                          ),
+
                         Obx(
                           () => (_controller.isOtp.value)
                               ? //===========enter name text field ================
@@ -215,13 +256,7 @@ class SingInScreen extends StatelessWidget {
                                   controller:
                                       _controller.nameControllersing.value,
                                   keyboardType: TextInputType.text,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter yOUr name';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
+                                  validator: NameValidator.validate,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius:
@@ -233,11 +268,10 @@ class SingInScreen extends StatelessWidget {
                                 )
                               : Text(""),
                         ),
-                        (_controller.isOtp.value)
-                            ? SizedBox(
-                                height: 15,
-                              )
-                            : Text(""),
+                        if (_controller.isOtp.value)
+                          SizedBox(
+                            height: 15,
+                          ),
 
                         Obx(
                           () => (_controller.isOtp.value)
@@ -246,13 +280,7 @@ class SingInScreen extends StatelessWidget {
                                   controller:
                                       _controller.citynameontrollersing.value,
                                   keyboardType: TextInputType.text,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Please enter city name ';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
+                                  validator: CityValidator.validate,
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderRadius:
@@ -264,8 +292,14 @@ class SingInScreen extends StatelessWidget {
                                 )
                               : Text(""),
                         ),
+
+                        if (_controller.isOtp.value)
+                          SizedBox(
+                            height: 15,
+                          ),
+
                         SizedBox(
-                          height: 40,
+                          height: 10,
                         ),
 
                         //===========submit button ===============
@@ -276,45 +310,21 @@ class SingInScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (globleKey.currentState!.validate()) {
-                                  _controller.loading.value = true;
-
-                                  AuthApisClass.singEmailIdAndPassword(
-                                          _controller
-                                              .emailControllersing.value.text,
-                                          _controller.passwordControllersing
-                                              .value.text)
-                                      .then((value) async {
-                                    //in this condition
-                                    //if email is alredy exist not sing
-
-                                    ApisClass.saveUserData(
-                                        _controller.nameControllersing.value.text,
-                                        _controller.citynameontrollersing
-                                            .value.text,
-                                        _controller.emailControllersing.value.text
-                                    ).then((value) {
-
-                                      Get.snackbar("Save","Sussefully");
-                                    }).onError((error, stackTrace) {
-
-                                      Get.snackbar("Error", "user data error");
-                                      print(error);
-                                      print(stackTrace);
-                                    });
-
-
-                                    // LOgin sharedPrefrence code +++++++++
-                                    SharedPreferences prefrence = await
-                                    SharedPreferences.getInstance();
-                                     // store a data in sharedPrefrence
-                                    prefrence.setString('userUid', ApisClass
-                                        .user.uid);
-                                    //========================
-                                    _controller.alredyExitUser.value = value;
-                                    _controller.loading.value = false;
-
-                                    if (_controller.alredyExitUser.value)
-                                      Get.offAllNamed(RoutesName.homeScreen);
+                                  await _controller.connectivity
+                                      .checkConnectivity()
+                                      .then((value) {
+                                    if (value == ConnectivityResult.none) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                              'Please Check Your Internet Connection '),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                    } else {
+                                      _controller.onSubmitButton();
+                                    }
                                   });
                                 }
                               },

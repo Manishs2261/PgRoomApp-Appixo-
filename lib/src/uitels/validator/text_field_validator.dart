@@ -40,3 +40,15 @@ class PriceValidator {
     return value==null ||value.isEmpty ? "Price can't be empty" : null;
   }
 }
+
+class OtpValidator {
+  static String? validate(String? value) {
+    return value==null ||value.isEmpty ? "OTP can't be empty" : null;
+  }
+}
+
+class NameValidator {
+  static String? validate(String? value) {
+    return value==null ||value.isEmpty ? "Name can't be empty" : null;
+  }
+}

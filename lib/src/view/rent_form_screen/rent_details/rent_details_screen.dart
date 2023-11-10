@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/state_manager.dart';
-import 'package:pgroom/src/uitels/text_field_validator/text_field_validator.dart';
-import 'package:pgroom/src/view/rent_form_screen/rent_details/controller/controller.dart';
+ import 'package:pgroom/src/view/rent_form_screen/rent_details/controller'
+     '/controller.dart';
 import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
 import 'package:pinput/pinput.dart';
 
 import '../../../res/route_name/routes_name.dart';
+import '../../../uitels/validator/text_field_validator.dart';
 import '../hostel_and_room_type/hostel_and_room_type_screen.dart';
 
 class RentDetailsScsreen extends StatelessWidget {
