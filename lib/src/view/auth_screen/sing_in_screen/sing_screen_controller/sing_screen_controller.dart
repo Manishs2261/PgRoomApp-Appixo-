@@ -36,6 +36,7 @@ class SingScsreenController extends GetxController {
           .then((value) {
         isOtp.value = value;
         isVerify.value = value;
+        timer.cancel();
       }).onError((error, stackTrace) {});
     } else {
       Get.snackbar(

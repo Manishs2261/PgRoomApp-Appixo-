@@ -252,7 +252,9 @@ class LoginScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       //google sing code
-                      AuthApisClass.handleGoogleButttonClicke();
+
+
+                      AuthApisClass.handleGoogleButttonClicke(context);
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

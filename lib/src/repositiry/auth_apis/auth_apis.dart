@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,15 +17,27 @@ import '../../view/home/home_screen.dart';
 
 class AuthApisClass {
   static EmailOTP myauth = EmailOTP();
+  static Connectivity connectivity = Connectivity();
 
   // =======google sing =============
-  static handleGoogleButttonClicke() {
-    signInWithGoogle().then((value) async {
-      // sharedPrefrences code
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      preferences.setString('userUid', value.user!.uid);
-      log('\nUser :${value.user}');
-      Get.offAllNamed(RoutesName.homeScreen);
+  static handleGoogleButttonClicke(BuildContext context) async {
+    await connectivity.checkConnectivity().then((value) {
+      if (value == ConnectivityResult.none) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Please Check Your Internet Connection '),
+            backgroundColor: Colors.red,
+          ),
+        );
+      } else {
+        signInWithGoogle().then((value) async {
+          // sharedPrefrences code
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          preferences.setString('userUid', value.user!.uid);
+          log('\nUser :${value.user}');
+          Get.offAllNamed(RoutesName.homeScreen);
+        });
+      }
     });
   }
 
@@ -153,8 +166,6 @@ class AuthApisClass {
       return false;
     }
   }
-
-
 
   static phoneOtpVerification() {
     //   try{

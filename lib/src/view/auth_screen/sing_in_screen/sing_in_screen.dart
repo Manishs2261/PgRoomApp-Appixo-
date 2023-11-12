@@ -20,7 +20,7 @@ class SingInScreen extends StatelessWidget {
   SingInScreen({super.key});
 
   final globleKey = GlobalKey<FormState>();
-  final emailGloblKey = GlobalKey<FormState>();
+
   final _controller = Get.put(SingScsreenController());
 
   @override
@@ -59,129 +59,140 @@ class SingInScreen extends StatelessWidget {
                       children: [
                         //=========enter email text field =============
                         Obx(
-                          () => Form(
-                            key: emailGloblKey,
-                            child: TextFormField(
-                              controller: _controller.emailControllersing.value,
-                              keyboardType: TextInputType.text,
-                              autofocus: true,
-                              validator: EmailValidator.validate,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  hintText: "Enter Email id ",
-                                  prefixIcon: Icon(Icons.email_outlined),
-                                  contentPadding: EdgeInsets.only(top: 5),
-                                  //=====send the otp text buttton ==========
-                                  suffix:
+                          () => TextFormField(
+                            controller: _controller.emailControllersing.value,
+                            keyboardType: TextInputType.text,
+                            autofocus: true,
+                            validator: EmailValidator.validate,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                hintText: "Enter Email id ",
+                                prefixIcon: Icon(Icons.email_outlined),
+                                contentPadding: EdgeInsets.only(top: 5),
+                                //=====send the otp text buttton ==========
+                                suffix:
 
-                                      /// in there have two condition
-                                      ///first condition
-                                      ///if otp is verified than remove a SEND
-                                      /// otp
-                                      /// text button and re_send text button
-                                      /// second condition
-                                      ///send opt and resend otp button
-                                      /// first condition
-                                      Obx(
-                                    () => (_controller.isVerify.value)
-                                        ? Text("")
-                                        // second condition
-                                        : (_controller.isSend.value)
-                                            ? Obx(
-                                                () => (_controller
-                                                            .counter.value !=
-                                                        0)
-                                                    ? Obx(
-                                                        () => Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  right: 22),
-                                                          child: Text(
-                                                              "${_controller.counter.value}"),
-                                                        ),
-                                                      )
-                                                    : InkWell(
-                                                        onTap: () async {
-                                                          ///====RE- send otp code
+                                    /// in there have two condition
+                                    ///first condition
+                                    ///if otp is verified than remove a SEND
+                                    /// otp
+                                    /// text button and re_send text button
+                                    /// second condition
+                                    ///send opt and resend otp button
+                                    /// first condition
+                                    Obx(
+                                  () => (_controller.isVerify.value)
+                                      ? Text("")
+                                      // second condition
+                                      : (_controller.isSend.value)
+                                          ? Obx(
+                                              () => (_controller
+                                                          .counter.value !=
+                                                      0)
+                                                  ? Obx(
+                                                      () => Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                right: 22),
+                                                        child: Text(
+                                                            "${_controller.counter.value}"),
+                                                      ),
+                                                    )
+                                                  : InkWell(
+                                                      onTap: () async {
+                                                        ///====RE- send otp code
 
-                                                          if(globleKey
-                                                              .currentState!.validate())
-                                                            {
-                                                              _controller
-                                                                  .onReSendOtpButton(
+                                                        if (_controller
+                                                                .emailControllersing
+                                                                .value
+                                                                .text ==
+                                                            "") {
+                                                          return null;
+                                                        } else {
+                                                          _controller
+                                                              .onReSendOtpButton(
                                                                   context);
-                                                            }
-
-                                                        },
-                                                        child: Obx(
-                                                          () => (_controller
-                                                                  .otpLoading
-                                                                  .value)
-                                                              ? Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          right:
-                                                                              20),
-                                                                  child: SizedBox(
-                                                                    height: 20,
-                                                                    width: 20,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: Colors
-                                                                          .blue,
-                                                                      strokeWidth:
-                                                                          3,
-                                                                    ),
-                                                                  ),
-                                                                )
-                                                              : Text(
-                                                                  "| RE-SEND   ",
-                                                                  style:
-                                                                      TextStyle(
+                                                        }
+                                                      },
+                                                      child: Obx(
+                                                        () => (_controller
+                                                                .otpLoading
+                                                                .value)
+                                                            ? Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        right:
+                                                                            20),
+                                                                child: SizedBox(
+                                                                  height: 20,
+                                                                  width: 20,
+                                                                  child:
+                                                                      CircularProgressIndicator(
                                                                     color: Colors
-                                                                        .green,
+                                                                        .blue,
+                                                                    strokeWidth:
+                                                                        3,
                                                                   ),
                                                                 ),
-                                                        )),
-                                              )
-                                            : InkWell(
-                                                onTap: () async {
-                                                  //====send otp code ==========
+                                                              )
+                                                            : Text(
+                                                                "| RE-SEND   ",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .green,
+                                                                ),
+                                                              ),
+                                                      )),
+                                            )
+                                          : InkWell(
+                                              onTap: () async {
+                                                //====send otp code ==========
 
+                                                if (_controller
+                                                        .emailControllersing
+                                                        .value
+                                                        .text ==
+                                                    "") {
+                                                  print("email is empty");
+
+                                                  return null;
+                                                } else {
+                                                  print("email");
 
                                                   _controller
                                                       .onSendOtpButton(context);
-                                                },
-                                                child: Obx(
-                                                  () => (_controller
-                                                          .otpLoading.value)
-                                                      ? Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  right: 20),
-                                                          child: SizedBox(
-                                                            height: 20,
-                                                            width: 20,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              color: Colors.blue,
-                                                              strokeWidth: 3,
-                                                            ),
+                                                }
+                                              },
+                                              child: Obx(
+                                                () => (_controller
+                                                        .otpLoading.value)
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                right: 20),
+                                                        child: SizedBox(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            color: Colors.blue,
+                                                            strokeWidth: 3,
                                                           ),
-                                                        )
-                                                      : Text("| "
-                                                          "SEND OTP   "),
-                                                )),
-                                  ),
-                                  suffixStyle: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.blue)),
-                            ),
+                                                        ),
+                                                      )
+                                                    : Text("| "
+                                                        "SEND OTP   "),
+                                              )),
+                                ),
+                                suffixStyle: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.blue)),
                           ),
                         ),
 
@@ -227,8 +238,14 @@ class SingInScreen extends StatelessWidget {
                                                 ),
                                               );
                                             } else {
-                                              _controller
-                                                  .onOtpSubmitController();
+                                              if (_controller.otpControllersing
+                                                      .value.text ==
+                                                  "") {
+                                                return null;
+                                              } else {
+                                                _controller
+                                                    .onOtpSubmitController();
+                                              }
                                             }
                                           });
                                         },
@@ -264,10 +281,15 @@ class SingInScreen extends StatelessWidget {
                               : Text(""),
                         ),
 
-                        if (_controller.isOtp.value)
-                          SizedBox(
-                            height: 15,
-                          ),
+                        Obx(
+                          () => (_controller.isOtp.value)
+                              ? SizedBox(
+                                  height: 15,
+                                )
+                              : SizedBox(
+                                  height: 0,
+                                ),
+                        ),
 
                         Obx(
                           () => (_controller.isOtp.value)
@@ -288,10 +310,15 @@ class SingInScreen extends StatelessWidget {
                                 )
                               : Text(""),
                         ),
-                        if (_controller.isOtp.value)
-                          SizedBox(
-                            height: 15,
-                          ),
+                        Obx(
+                          () => (_controller.isOtp.value)
+                              ? SizedBox(
+                                  height: 15,
+                                )
+                              : SizedBox(
+                                  height: 0,
+                                ),
+                        ),
 
                         Obx(
                           () => (_controller.isOtp.value)
@@ -313,10 +340,15 @@ class SingInScreen extends StatelessWidget {
                               : Text(""),
                         ),
 
-                        if (_controller.isOtp.value)
-                          SizedBox(
-                            height: 15,
-                          ),
+                        Obx(
+                          () => (_controller.isOtp.value)
+                              ? SizedBox(
+                                  height: 15,
+                                )
+                              : SizedBox(
+                                  height: 0,
+                                ),
+                        ),
 
                         SizedBox(
                           height: 10,
