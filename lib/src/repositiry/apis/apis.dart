@@ -29,11 +29,10 @@ class ApisClass {
 
   static var userEmail;
   static var userCity;
-  static var  houseNameMap ;
+  static var houseNameMap;
 
   static UserRentModel model = UserRentModel();
- static List<UserRentModel> allDataList = [];
-
+  static List<UserRentModel> allDataList = [];
 
   //upload data in firebase for home screen list
   // in list all data in one collection
@@ -463,22 +462,16 @@ class ApisClass {
     userEmail = data?['email'];
   }
 
-
-  static Future<void> getAllItemData()async{
-
+  static Future<void> getAllItemData() async {
     var collection = firestore.collection('rentCollection');
     var querySnapshot = await collection.get();
     Map<String, dynamic> data;
     for (var queryDocumentSnapshot in querySnapshot.docs) {
-       data = queryDocumentSnapshot.data();
+      data = queryDocumentSnapshot.data();
       var name = data['city'];
-       houseNameMap = data['houseName'];
-
+      houseNameMap = data['houseName'];
     }
-
-
   }
-
 
   // store a user data
   static Future<void> saveUserData(name, city, email) async {
@@ -488,4 +481,17 @@ class ApisClass {
       'Name': name,
     });
   }
+
+
+  /// Rating and review create apies
+static Future<void>ratingAndReviewCreateData(rating , review,itemId)async{
+    
+    await firestore.collection("userReview").doc("reviewCollection")
+        .collection("$itemId").add({
+      'rating':rating,
+      'title':review,
+    });
+
+
+}
 }

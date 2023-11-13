@@ -164,6 +164,8 @@ class HomeScreen extends StatelessWidget {
               case ConnectionState.done:
                 final data = snapshot.data?.docs;
 
+
+
                 // for(var i in data!)
                 //   {
                 //     log("Data : ${jsonEncode(i.data())}");
@@ -174,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                         .toList() ??
                     [];
 
-                return ItemListView(rentList: rentList);
+                return ItemListView(rentList: rentList,snapshost: snapshot,);
             }
           }),
     );
@@ -184,10 +186,13 @@ class HomeScreen extends StatelessWidget {
 class ItemListView extends StatelessWidget {
   const ItemListView({
     super.key,
-    required this.rentList,
+    required this.rentList, this.snapshost,
   });
 
   final List<UserRentModel> rentList;
+  final snapshost;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -200,8 +205,12 @@ class ItemListView extends StatelessWidget {
               // Navigation DetailRentInfo_Screen button
               GestureDetector(
                 onTap: () {
+
+                  final itemid = snapshost.data?.docs[index].id;
+
                   Get.toNamed(RoutesName.detailsRentInfoScreen,
-                      arguments: rentList[index]);
+                      arguments: {'list': rentList[index], 'id': itemid,
+                      });
                 },
                 child: Container(
                   padding: EdgeInsets.all(3),
