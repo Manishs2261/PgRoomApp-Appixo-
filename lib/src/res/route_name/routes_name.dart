@@ -42,4 +42,5 @@ class RoutesName{
   static const String searchScreen = '/search_screen';
 
 
+  static const String viewAllReview = '/viewallreview_screen';
 }

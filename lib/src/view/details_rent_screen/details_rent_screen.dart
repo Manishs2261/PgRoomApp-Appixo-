@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/model/rating_and_review_Model/rating_and_review_Model.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/view/details_rent_screen/controller/details_screen_controller.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/circle_Container_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -15,16 +18,18 @@ import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
 class DetailsRentInfoScreen extends StatelessWidget {
   DetailsRentInfoScreen({super.key});
 
+  final controller = Get.put(DetailsScreenController());
+
+  ///page view controller
   final imageIndecterController = PageController();
 
-  final reviewController = TextEditingController();
 
   final itemId = Get.arguments["id"];
 
   UserRentModel data = Get.arguments['list'];
   var raingNow;
 
-  List<  RatingAndReviewModel > ratingList = [];
+  List<RatingAndReviewModel> ratingList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +44,6 @@ class DetailsRentInfoScreen extends StatelessWidget {
           padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Center(
                 child: Text(
@@ -342,6 +346,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
+
               ///===========================================
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -363,7 +368,6 @@ class DetailsRentInfoScreen extends StatelessWidget {
 
               ///======================================================
 
-
               ///Rating Now
               const Padding(
                 padding: EdgeInsets.only(left: 15, top: 50),
@@ -379,6 +383,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: RatingBar.builder(
+                  initialRating: 0,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
@@ -389,7 +394,6 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     color: Colors.amber,
                   ),
                   onRatingUpdate: (rating) {
-
                     raingNow = rating;
                     if (kDebugMode) {
                       print(rating);
@@ -401,7 +405,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 height: 10,
               ),
               TextFormField(
-                controller: reviewController,
+                controller: controller.reviewController.value,
                 maxLines: 3,
                 decoration: InputDecoration(
                     filled: true,
@@ -417,109 +421,181 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () {
+                    ApisClass.ratingAndReviewCreateData(
+                            raingNow, controller.reviewController.value.text,
+                        itemId)
+                        .then((value) {
 
-                    ApisClass.ratingAndReviewCreateData(raingNow,
-                        reviewController.text, itemId).then((value) {
-
-                          Get.snackbar("raing", "submit");
+                          controller.reviewController.value.text = '';
+                      Get.snackbar("raing", "submit");
                     }).onError((error, stackTrace) {
                       Get.snackbar("error", "error");
                       print(error);
                     });
-
                   },
                   child: const Text("Submit"),
                 ),
               ),
 
-
-              const Padding(
-                padding: EdgeInsets.only(left: 15, top: 50),
-                child: Text(
-                  "Review :-",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+              Padding(
+                padding:
+                    EdgeInsets.only(left: 15, top: 50, bottom: 20, right: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Review :-",
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          Get.toNamed(RoutesName.viewAllReview,
+                              arguments: itemId);
+                        },
+                        child: Text(
+                          "view all",
+                          style: TextStyle(color: Colors.blue),
+                        ))
+                  ],
                 ),
               ),
 
-              
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  StreamBuilder(
-                      stream: ApisClass.firestore.collection("userReview").doc
-                        ("reviewCollection").collection("$itemId").snapshots(),
-                      builder: (context, snapshot){
-                        final data = snapshot.data?.docs;
+              Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    StreamBuilder(
+                        stream: ApisClass.firestore
+                            .collection("userReview")
+                            .doc("reviewCollection")
+                            .collection("$itemId")
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          final data = snapshot.data?.docs;
 
-                        ratingList = data
-                            ?.map((e) => RatingAndReviewModel.fromJson(e.data()))
-                            .toList() ??
-                            [];
+                          ratingList = data
+                                  ?.map((e) =>
+                                      RatingAndReviewModel.fromJson(e.data()))
+                                  .toList() ??
+                              [];
 
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: ratingList.length,
-                            itemBuilder: (context, index){
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                 Row(
-                                   children: [
-                                     Container(
-                                       height: 25,
-                                       width: 25,
-                                       decoration:BoxDecoration(
-                                         borderRadius: BorderRadius.circular(50),
-                                         color: Colors.blue
-                                       ),
-
-                                     ),
-                                     SizedBox(width: 10,),
-                                     Text("Manish sahu",style: TextStyle
-                                       (fontWeight: FontWeight.w600),),
-                                   ],
-                                 ),
-
-                                  RatingBar.builder(
-                                    ignoreGestures: true,
-                                    itemSize: 17,
-                                    initialRating: ratingList[index].rating!,
-                                    direction: Axis.horizontal,
-                                    allowHalfRating: true,
-                                    itemCount: 5,
-                                    itemPadding: const EdgeInsets.symmetric
-                                      (horizontal: 2.0),
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ), onRatingUpdate: (double value) {  },
-
-                                  ),
-                                  Container(
-                                     margin: EdgeInsets.only(top: 10,bottom: 20),
-                                    padding: EdgeInsets.all(10.0),
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade50
-                                    ),
-                                    child: Text("${ratingList[index].title}"),
-                                  )
-
-
-                                ],
-                              );
-
-
+                          if (ratingList.length == 0) {
+                            controller.isView.value = false;
+                            return Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.reviews_outlined),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text("No Review"),
+                              ],
+                            ));
+                          } else {
+                            Future.delayed(Duration.zero, () {
+                              //your code goes here
+                              controller.isView.value = true;
                             });
 
-                      }
-                  ),
-                ],
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                addRepaintBoundaries: true,
+                                physics: ScrollPhysics(),
+                                itemCount: ratingList.length,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 25,
+                                            width: 25,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                color: Colors.blue),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "Manish sahu",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      RatingBar.builder(
+                                        ignoreGestures: true,
+                                        itemSize: 17,
+                                        initialRating:
+                                            ratingList[index].rating!,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        itemPadding: const EdgeInsets.symmetric(
+                                            horizontal: 2.0),
+                                        itemBuilder: (context, _) => const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                        ),
+                                        onRatingUpdate: (double value) {},
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(
+                                            top: 10, bottom: 20),
+                                        padding: EdgeInsets.all(10.0),
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.shade50),
+                                        child:
+                                            Text("${ratingList[index].title}"),
+                                      ),
+                                    ],
+                                  );
+                                });
+                          }
+                        }),
+                  ],
+                ),
+              ),
+              Obx(
+                () => (controller.isView.value)
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed(RoutesName.viewAllReview,
+                                  arguments: itemId);
+                            },
+                            child: Text(
+                              "View All",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                        ),
+                      )
+                    : Text(""),
               ),
 
-              SizedBox(height: 50,)
+              SizedBox(
+                height: 50,
+              ),
             ],
           ),
         ),
