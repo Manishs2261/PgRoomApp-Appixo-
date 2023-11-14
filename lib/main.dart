@@ -8,12 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 
 //globel object for accessing device scren size
-late Size  mediaQuery;
-
+late Size mediaQuery;
 
 
 Future<void> main() async {
-
   // for initilazerfirebase=========
   _initializerFirebase();
 
@@ -27,16 +25,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: SplashScreen(),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: SplashScreen(),
         getPages: AppRoutes.appRoutes()
     );
   }
@@ -44,7 +41,7 @@ class MyApp extends StatelessWidget {
 
 // ===for initialize firebase ===
 
-_initializerFirebase()async {
+_initializerFirebase() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

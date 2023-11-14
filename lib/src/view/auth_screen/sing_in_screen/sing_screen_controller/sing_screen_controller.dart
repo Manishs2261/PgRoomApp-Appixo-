@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../repositiry/apis/apis.dart';
 import '../../../../repositiry/auth_apis/auth_apis.dart';
 import '../../../../res/route_name/routes_name.dart';
+import '../../../splash/controller/splash_controller.dart';
 
 class SingScsreenController extends GetxController {
   final emailControllersing = TextEditingController().obs;
@@ -69,6 +70,8 @@ class SingScsreenController extends GetxController {
       SharedPreferences prefrence = await SharedPreferences.getInstance();
       // store a data in sharedPrefrence
       prefrence.setString('userUid', ApisClass.user.uid);
+      //initialize  a varible
+      finalUserUidGloble  = prefrence.getString('userUid');
       //========================
       alredyExitUser.value = value;
       loading.value = false;

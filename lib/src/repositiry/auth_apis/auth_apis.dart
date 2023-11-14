@@ -11,6 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:http/http.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../view/home/home_screen.dart';
@@ -33,7 +34,10 @@ class AuthApisClass {
         signInWithGoogle().then((value) async {
           // sharedPrefrences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
+          //upload user uid data in SharedPreferenses
           preferences.setString('userUid', value.user!.uid);
+          // initializ varible
+          finalUserUidGloble  = preferences.getString('userUid');
           log('\nUser :${value.user}');
           Get.offAllNamed(RoutesName.homeScreen);
         });

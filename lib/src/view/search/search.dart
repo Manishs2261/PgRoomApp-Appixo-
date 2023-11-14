@@ -23,22 +23,20 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {
       displayList = data
           .where((element) =>
-      element.houseName!.toLowerCase().contains(value.toLowerCase()) ||
-          element.city!.toLowerCase().contains(value.toLowerCase()))
+              element.houseName!.toLowerCase().contains(value.toLowerCase()) ||
+              element.city!.toLowerCase().contains(value.toLowerCase()))
           .toList();
-
     });
 
-    if(value == "")
+    if (value == "")
       setState(() {
-         displayList = [];
+        displayList = [];
       });
-
-
   }
 
   @override
   Widget build(BuildContext context) {
+    print(data);
     print("Build Screen => Search Screen 🔴");
 
     return Scaffold(
@@ -54,9 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 minLines: 1,
                 keyboardType: TextInputType.text,
                 onChanged: (value) => updateList(value),
-                onSubmitted: (value) {
-
-                },
+                onSubmitted: (value) {},
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),

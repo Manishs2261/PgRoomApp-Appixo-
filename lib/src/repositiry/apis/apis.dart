@@ -9,6 +9,8 @@ import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
 import 'dart:io';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class ApisClass {
   // for authentication
   static FirebaseAuth auth = FirebaseAuth.instance;
@@ -444,15 +446,6 @@ class ApisClass {
   //Get all data in list
 
   static Future<void> getUserData() async {
-    //
-    // var collection = firestore.collection('loginUser');
-    // var querySnapshot = await collection.get();
-    // for (var queryDocumentSnapshot in querySnapshot.docs) {
-    //   Map<String, dynamic> data = queryDocumentSnapshot.data();
-    //   var name = data['name'];
-    //   var phone = data['city'];
-    // }
-
     var collection = firestore.collection('loginUser').doc(user.uid);
     var querySnapshot = await collection.get();
 
@@ -492,6 +485,14 @@ static Future<void>ratingAndReviewCreateData(rating , review,itemId)async{
       'title':review,
     });
 
-
 }
+
+  static Future<bool> removeUser()async{
+
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.clear();
+
+    return true;
+  }
+
 }

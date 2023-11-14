@@ -31,7 +31,8 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.defaultDialog();
+
+          Get.toNamed(RoutesName.loginScreen);
         },
       ),
       //==preferrendSize provide a maximum appbar length
@@ -48,14 +49,21 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 10),
                     child: InkWell(
                       onTap: () {
-                        (ApisClass.auth.currentUser?.uid == finalUserUid)
+
+                        (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
                             ? Get.toNamed(RoutesName.addYourHomeScreen)
-                            :     Get.defaultDialog(title: "Login please",
-                        middleText: "Without lonin your are not post home",
-                        actions: [ElevatedButton(onPressed: (){
-                          Get.offAllNamed(RoutesName.loginScreen);
-                        }, child:Text
-                          ("Login"))]);
+                            : Get.defaultDialog(
+                                title: "Login please",
+                                middleText:
+                                    "Without lonin your are not post home",
+                                actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Get.offAllNamed(
+                                              RoutesName.loginScreen);
+                                        },
+                                        child: Text("Login"))
+                                  ]);
                       },
                       child: Container(
                         alignment: Alignment.center,
@@ -164,8 +172,6 @@ class HomeScreen extends StatelessWidget {
               case ConnectionState.done:
                 final data = snapshot.data?.docs;
 
-
-
                 // for(var i in data!)
                 //   {
                 //     log("Data : ${jsonEncode(i.data())}");
@@ -176,7 +182,10 @@ class HomeScreen extends StatelessWidget {
                         .toList() ??
                     [];
 
-                return ItemListView(rentList: rentList,snapshost: snapshot,);
+                return ItemListView(
+                  rentList: rentList,
+                  snapshost: snapshot,
+                );
             }
           }),
     );
@@ -186,13 +195,12 @@ class HomeScreen extends StatelessWidget {
 class ItemListView extends StatelessWidget {
   const ItemListView({
     super.key,
-    required this.rentList, this.snapshost,
+    required this.rentList,
+    this.snapshost,
   });
 
   final List<UserRentModel> rentList;
   final snapshost;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -208,9 +216,10 @@ class ItemListView extends StatelessWidget {
 
                   final itemid = snapshost.data?.docs[index].id;
 
-                  Get.toNamed(RoutesName.detailsRentInfoScreen,
-                      arguments: {'list': rentList[index], 'id': itemid,
-                      });
+                  Get.toNamed(RoutesName.detailsRentInfoScreen, arguments: {
+                    'list': rentList[index],
+                    'id': itemid,
+                  });
                 },
                 child: Container(
                   padding: EdgeInsets.all(3),

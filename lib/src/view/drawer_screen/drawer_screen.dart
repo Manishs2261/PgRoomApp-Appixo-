@@ -17,6 +17,10 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("build drawer screen = 🍎🍎🍎");
+    ApisClass.getUserData();
+    print(ApisClass.userName);
+    print(ApisClass.auth.currentUser?.displayName);
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
@@ -44,7 +48,8 @@ class DrawerScreen extends StatelessWidget {
                       child: ElevatedButton(
                           onPressed: () {
                             Get.offAllNamed(RoutesName.loginScreen);
-                          }, child: const Text("Login")),
+                          },
+                          child: const Text("Login")),
                     )
                   : Container(
                       padding: EdgeInsets.zero,
@@ -69,8 +74,9 @@ class DrawerScreen extends StatelessWidget {
                                         width: 60,
                                         height: 60,
                                         fit: BoxFit.cover,
-                                        imageUrl:
-                                            ApisClass.auth.currentUser!.photoURL.toString(),
+                                        imageUrl: ApisClass
+                                            .auth.currentUser!.photoURL
+                                            .toString(),
                                         errorWidget: (context, url, error) =>
                                             const CircleAvatar(
                                                 child: Icon(
@@ -86,7 +92,8 @@ class DrawerScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // in this condition
-                                    (ApisClass.auth.currentUser?.displayName == "")
+                                    (ApisClass.auth.currentUser?.displayName ==
+                                            null)
                                         // if user is sign in Email id and password
                                         //than show show first condition
                                         ? Flexible(
@@ -126,7 +133,6 @@ class DrawerScreen extends StatelessWidget {
                       )),
             ),
           ),
-
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Add Your Room'),
@@ -135,10 +141,9 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
-              (ApisClass.auth.currentUser?.uid == finalUserUid)
-                  ?  Get.toNamed(RoutesName.addYourHomeScreen)
-                  :
-              Get.snackbar("Login", "Your not login ");
+              (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
+                  ? Get.toNamed(RoutesName.addYourHomeScreen)
+                  : Get.snackbar("Login", "Your not login ");
               // Update the state of the app.
               // ...
             },
