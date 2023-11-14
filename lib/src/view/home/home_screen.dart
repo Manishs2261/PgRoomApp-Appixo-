@@ -24,6 +24,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   List<UserRentModel> rentList = [];
+  var snapData ;
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +110,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: TextFormField(
                   onTap: () {
-                    Get.toNamed(RoutesName.searchScreen, arguments: rentList);
+                    Get.toNamed(RoutesName.searchScreen, arguments: {
+                      'list': rentList,
+                      'id': snapData,
+                    });
                   },
                   autofocus: false,
                   decoration: InputDecoration(
@@ -177,6 +181,7 @@ class HomeScreen extends StatelessWidget {
                 //     log("Data : ${jsonEncode(i.data())}");
                 //   }
 
+                snapData = snapshot;
                 rentList = data
                         ?.map((e) => UserRentModel.fromJson(e.data()))
                         .toList() ??

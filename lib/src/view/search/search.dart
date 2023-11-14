@@ -15,7 +15,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final searchController = TextEditingController();
-  List<UserRentModel> data = Get.arguments;
+  List<UserRentModel> data = Get.arguments['list'];
+  var snapData = Get.arguments['id'];
 
   List<UserRentModel> displayList = [];
 
@@ -73,7 +74,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ), // Added this
                 )),
           ),
-          Expanded(child: ItemListView(rentList: displayList))
+          Expanded(child: ItemListView(rentList: displayList,snapshost: snapData,))
         ],
       ),
     );
