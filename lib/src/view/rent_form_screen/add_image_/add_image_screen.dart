@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/model/other_image_model.dart';
+import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/uitels/image_string/image_string.dart';
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 
@@ -9,6 +11,7 @@ class AddImageScreen extends StatelessWidget {
   AddImageScreen({super.key});
 
   final imageController = Get.put(AddImageController());
+List<OtherImageModel> imageListmodel = [];
 
   @override
   Widget build(BuildContext context) {
@@ -278,10 +281,67 @@ class AddImageScreen extends StatelessWidget {
                       )
                   ),
                 ),
+                const SizedBox(
+                  height: 40,
+                ),
+
+                ElevatedButton(onPressed: (){
+                  imageController.onPrint();
+                }, child: Text("text image")),
 
                 const SizedBox(
                   height: 40,
                 ),
+
+                ElevatedButton(onPressed: (){
+                  imageController.uploadOtherImage().then((value) {
+
+                    ApisClass.uploadOtherImagefirebase(ApisClass.otherImageDownload);
+                  }).onError((error, stackTrace) {
+                    Get.snackbar("erro", "manish");
+                  });
+                }, child: Text("text image")),
+
+
+                const SizedBox(
+                  height: 40,
+                ),
+
+                ElevatedButton(onPressed: (){
+                  ApisClass.demoGetImage().then((value) {
+
+
+                  });
+
+                }, child: Text("get image")),
+                const SizedBox(
+                  height: 40,
+                ),
+
+
+                SizedBox(
+                  height: 1000,
+                  child: StreamBuilder(
+                      stream: ApisClass.firestore.collection("demoImage").snapshots(),
+                      builder: (context,snapshot){
+                        final data = snapshot.data?.docs;
+                        imageListmodel = data
+                            ?.map((e) => OtherImageModel.fromJson(e.data()))
+                            .toList() ??
+                            [];
+
+                        print(imageListmodel);
+
+                        return ListView.builder(
+                            itemCount: imageListmodel.length,
+                            itemBuilder: (context,index){
+                              print(index);
+                              return Image(image: NetworkImage
+                                ("${imageListmodel[index].dImage?[2]}"));
+                            });
+
+                      }),
+                )
               ],
             ),
           ),

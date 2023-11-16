@@ -24,6 +24,7 @@ class _AddYourHomeState extends State<AddYourHome> {
 
   @override
   Widget build(BuildContext context) {
+    print("build - add home screen 🍎");
     return Scaffold(
       appBar: AppBar(),
       body: Column(

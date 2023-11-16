@@ -14,6 +14,7 @@ class AddImageController extends GetxController {
   RxBool addimage = false.obs;
   RxBool isSelected = false.obs;
   XFile? image;
+  XFile? otherImage;
   RxBool loading = false.obs;
 
   // for storing a more image in list
@@ -23,17 +24,26 @@ class AddImageController extends GetxController {
   RxString selectedCoverImage = "".obs;
 
   Future pickeImageFromGallery() async {
-    final image = await ImagePicker()
+    otherImage= await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (image == null) return;
-    imageFileList.add(File(image.path));
+    if (otherImage == null) return;
+    imageFileList.add(File(otherImage!.path));
+  }
 
-    await ApisClass.uploadOtherImage(File(image.path)).then((value) {
-      Get.snackbar("upload ", "other image");
-    }).onError((error, stackTrace) {
-      Get.snackbar("error", "error");
-      print("errror => $error");
-    });
+
+  Future uploadOtherImage() async {
+    for(var i in imageFileList) {
+
+      await ApisClass.uploadOtherImage(File(i!.path)).then(
+              (value) {
+            Get.snackbar("upload ", "other image");
+          }).onError((error, stackTrace) {
+        Get.snackbar("error other image ", "error");
+        print("errror => $error");
+      });
+    }
+
+
   }
 
   //===========================================
@@ -68,5 +78,9 @@ class AddImageController extends GetxController {
         loading.value = false;
       });
     }
+  }
+
+  onPrint(){
+    print(imageFileList);
   }
 }

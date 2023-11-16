@@ -51,6 +51,7 @@ class HomeScreen extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
 
+
                         (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
                             ? Get.toNamed(RoutesName.addYourHomeScreen)
                             : Get.defaultDialog(

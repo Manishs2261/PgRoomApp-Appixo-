@@ -19,8 +19,7 @@ class DrawerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("build drawer screen = 🍎🍎🍎");
     ApisClass.getUserData();
-    print(ApisClass.userName);
-    print(ApisClass.auth.currentUser?.displayName);
+
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
       // through the options in the drawer if there isn't enough vertical
@@ -68,7 +67,16 @@ class DrawerScreen extends StatelessWidget {
                                     )
 
                                   // if user login google email id
-                                  : ClipRRect(
+                                   :  (ApisClass.auth.currentUser?.displayName ==
+                                  null)
+                              ?CircleAvatar(
+                                maxRadius: 30,
+                                child: Icon(
+                                  Icons.person,
+                                  size: 35,
+                                ),
+                              )
+                              :ClipRRect(
                                       borderRadius: BorderRadius.circular(50),
                                       child: CachedNetworkImage(
                                         width: 60,
@@ -141,6 +149,9 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
+
+              print(ApisClass.auth.currentUser?.uid);
+
               (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
                   ? Get.toNamed(RoutesName.addYourHomeScreen)
                   : Get.snackbar("Login", "Your not login ");
@@ -148,6 +159,8 @@ class DrawerScreen extends StatelessWidget {
               // ...
             },
           ),
+
+
         ],
       ),
     );

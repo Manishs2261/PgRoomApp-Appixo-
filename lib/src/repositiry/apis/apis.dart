@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 
 import 'dart:io';
@@ -28,10 +29,12 @@ class ApisClass {
   static var download;
   static var userRentId = "";
   static var userName;
-
+  static List otherImageDownload = [];
+  static var otherDownload;
   static var userEmail;
   static var userCity;
   static var houseNameMap;
+  static var demoImage;
 
   static UserRentModel model = UserRentModel();
   static List<UserRentModel> allDataList = [];
@@ -222,7 +225,7 @@ class ApisClass {
       // Delete the document.
       await documentReference.delete();
       await documentReference1.delete();
-      //
+
       // delete a firestorege image data
       final reff = storage.refFromURL(imageUrl);
       await reff.delete();
@@ -239,7 +242,6 @@ class ApisClass {
       final reference =
           storage.ref().child('coverimage/${user.uid}/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
-
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       download = await snapshot.ref.getDownloadURL();
     } catch (e) {
@@ -252,17 +254,15 @@ class ApisClass {
     try {
       final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
-
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
-      download = await snapshot.ref.getDownloadURL();
-
-      print("url : $download");
+      otherDownload = await snapshot.ref.getDownloadURL();
+      otherImageDownload.add(otherDownload);
+      print("url : $otherDownload");
     } catch (e) {
       print("image is not uploaded ; $e");
     }
   }
 
-  //update profile picture of user
 
   static Future<void> updateItemImage(File file, String itmeId) async {
     //getting image file extenstion
@@ -295,6 +295,30 @@ class ApisClass {
   }
 
   //update Rent Details data
+//==============================================================================
+
+
+  static Future<void> uploadOtherImagefirebase(otherI)async {
+    
+    await firestore.collection("demoImage").doc(user.uid).set({
+      'dImage':otherI
+    }).then((value){
+      Get..snackbar("firebase","upload");
+    }).onError((error, stackTrace) {
+      Get.snackbar("error firebase", "error");
+    });
+    
+  }
+
+  static Future<void> demoGetImage()async {
+ var ima =  await firestore.collection("demoImage").doc(user.uid).get();
+
+ Map<String, dynamic>? data = ima.data();
+ demoImage = data?['dImage'];
+
+  }
+  
+  
 
   static Future<void> updateRentDetilaData(
       name, address, city, landMark, number, itemID) async {
@@ -475,24 +499,22 @@ class ApisClass {
     });
   }
 
-
   /// Rating and review create apies
-static Future<void>ratingAndReviewCreateData(rating , review,itemId)async{
-    
-    await firestore.collection("userReview").doc("reviewCollection")
-        .collection("$itemId").add({
-      'rating':rating,
-      'title':review,
+  static Future<void> ratingAndReviewCreateData(rating, review, itemId) async {
+    await firestore
+        .collection("userReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .add({
+      'rating': rating,
+      'title': review,
     });
+  }
 
-}
-
-  static Future<bool> removeUser()async{
-
+  static Future<bool> removeUser() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
 
     return true;
   }
-
 }
