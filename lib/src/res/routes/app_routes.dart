@@ -8,6 +8,7 @@ import 'package:pgroom/src/view/auth_screen/otp_email_screen/otp_email_screen.da
 import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_form_screen.dart';
+import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/room_and_price.dart';
@@ -20,6 +21,7 @@ import 'package:pgroom/src/view/rent_form_screen/permission/permission_screen.da
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/provide_facilites_screen.dart';
 import 'package:pgroom/src/view/rent_form_screen/rent_details/rent_details_screen.dart';
 import 'package:pgroom/src/view/search/search.dart';
+import 'package:pgroom/src/view/view_all_image/view_all_image.dart';
 import 'package:pgroom/src/view/view_all_review/view_all_review.dart';
 
 import '../../view/add_new_home/add_your_home.dart';
@@ -164,6 +166,13 @@ static appRoutes()=>[
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
+  GetPage(name: RoutesName.viewALlImage, page:()=>  ViewAllImage(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.editOtherImageScareen, page:()=> EditOtherImageScreen(),
+      transitionDuration: Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
 
 
 ];

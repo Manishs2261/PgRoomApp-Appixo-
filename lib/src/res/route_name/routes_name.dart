@@ -38,9 +38,11 @@ class RoutesName{
   static const String editHostleAndCDoorScreen = '/editHostleAndDoorScreen ';
   static const String editRoomTyprAndPriceScreen = '/editRoomTypeAndPrice';
   static const String editImagesScreen = '/editImage_Screen';
+  static const String editOtherImageScareen = '/editOtherImageScarnn';
 
   static const String searchScreen = '/search_screen';
 
 
   static const String viewAllReview = '/viewallreview_screen';
+  static const String viewALlImage = '/viewAllIMage_screen';
 }

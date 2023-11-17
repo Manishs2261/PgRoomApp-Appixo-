@@ -57,6 +57,19 @@ class EditFormScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
+                      Get.toNamed(RoutesName.editOtherImageScareen,
+                          arguments: {'list': data, 'id': itemId});
+                    },
+                    child: Text(" Edit Other image ")),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
                       Get.toNamed(RoutesName.editRentDetailScreen,
                           arguments: {'list': data, 'id': itemId});
                     },

@@ -168,7 +168,7 @@ List<OtherImageModel> imageListmodel = [];
                 ),
 
                 const Text(
-                  " Add a Othe images ",
+                  " Add a Other images ",
                   style: TextStyle(color: Colors.green),
                 ),
                 const SizedBox(
@@ -285,63 +285,6 @@ List<OtherImageModel> imageListmodel = [];
                   height: 40,
                 ),
 
-                ElevatedButton(onPressed: (){
-                  imageController.onPrint();
-                }, child: Text("text image")),
-
-                const SizedBox(
-                  height: 40,
-                ),
-
-                ElevatedButton(onPressed: (){
-                  imageController.uploadOtherImage().then((value) {
-
-                    ApisClass.uploadOtherImagefirebase(ApisClass.otherImageDownload);
-                  }).onError((error, stackTrace) {
-                    Get.snackbar("erro", "manish");
-                  });
-                }, child: Text("text image")),
-
-
-                const SizedBox(
-                  height: 40,
-                ),
-
-                ElevatedButton(onPressed: (){
-                  ApisClass.demoGetImage().then((value) {
-
-
-                  });
-
-                }, child: Text("get image")),
-                const SizedBox(
-                  height: 40,
-                ),
-
-
-                SizedBox(
-                  height: 1000,
-                  child: StreamBuilder(
-                      stream: ApisClass.firestore.collection("demoImage").snapshots(),
-                      builder: (context,snapshot){
-                        final data = snapshot.data?.docs;
-                        imageListmodel = data
-                            ?.map((e) => OtherImageModel.fromJson(e.data()))
-                            .toList() ??
-                            [];
-
-                        print(imageListmodel);
-
-                        return ListView.builder(
-                            itemCount: imageListmodel.length,
-                            itemBuilder: (context,index){
-                              print(index);
-                              return Image(image: NetworkImage
-                                ("${imageListmodel[index].dImage?[2]}"));
-                            });
-
-                      }),
-                )
               ],
             ),
           ),

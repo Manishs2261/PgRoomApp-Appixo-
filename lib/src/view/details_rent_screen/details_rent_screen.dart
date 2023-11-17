@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/model/other_image_model.dart';
 import 'package:pgroom/src/model/rating_and_review_Model/rating_and_review_Model.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
@@ -63,10 +64,30 @@ class DetailsRentInfoScreen extends StatelessWidget {
                           image: NetworkImage(
                               controller.data.coverImage.toString()),
                           fit: BoxFit.cover),
-                      const Image(
-                          image: AssetImage(room2Image), fit: BoxFit.cover),
-                      const Image(
-                          image: AssetImage(room3Image), fit: BoxFit.cover),
+
+                          Container(
+                            color: Colors.white,
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: (){Get.toNamed(RoutesName.viewALlImage);
+                                },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 40,
+                                width: 130,
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[400],
+                                  borderRadius: BorderRadius.circular(50)
+                                ),
+                                child: Text("View All Photo",style: TextStyle
+                                  (color: Colors.white,fontSize: 15,fontWeight:
+                                FontWeight.w600,),),
+                              ),
+                            ),
+
+                          ),
+
+
                     ],
                   ),
                 ),
@@ -80,7 +101,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: SmoothPageIndicator(
                       controller: controller.imageIndecterController.value,
-                      count: 3,
+                      count: 2,
                       effect: const WormEffect(
                         dotHeight: 6,
                       )),

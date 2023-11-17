@@ -1,15 +1,15 @@
 class OtherImageModel {
-  List<String>? dImage;
+  String? otherRentImage;
 
-  OtherImageModel({this.dImage});
+  OtherImageModel({this.otherRentImage});
 
   OtherImageModel.fromJson(Map<String, dynamic> json) {
-    dImage = json['dImage'].cast<String>();
+    otherRentImage = json['otherRentImage'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['dImage'] = this.dImage;
+    data['otherRentImage'] = this.otherRentImage;
     return data;
   }
 }

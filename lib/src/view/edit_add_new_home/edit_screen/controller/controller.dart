@@ -40,6 +40,8 @@ class EditFormScreenController extends GetxController {
   RxBool checkboxFour4 = false.obs;
   RxBool checkboxFaimalyRoom = false.obs;
 
+
+
   // choose any one for initialize Enum verible not all
   var faltTypeEnum = FaltTypeEnum.OneBhk.obs;
   var hostelTypeEnum = HostelTypeEnum.BoysH.obs;
