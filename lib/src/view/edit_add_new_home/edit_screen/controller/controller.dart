@@ -155,19 +155,7 @@ class EditFormScreenController extends GetxController {
   // for storing a more image in list
   RxList imageFileList = [].obs;
 
-  Future pickeImageFromGallery() async {
-    final image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (image == null) return;
-    imageFileList.add(File(image.path));
 
-    await ApisClass.uploadOtherImage(File(image.path)).then((value) {
-      Get.snackbar("upload ", "other image");
-    }).onError((error, stackTrace) {
-      Get.snackbar("error", "error");
-      print("errror => $error");
-    });
-  }
 
   //===========================================
   Future pickeCoverImageFromGallery() async {

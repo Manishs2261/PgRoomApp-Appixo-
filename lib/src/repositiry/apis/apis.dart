@@ -29,7 +29,7 @@ class ApisClass {
   static var download;
   static var userRentId = "";
   static var userName;
-  static List otherImageDownload = [];
+
   static var otherDownload;
   static var userEmail;
   static var userCity;
@@ -250,19 +250,35 @@ class ApisClass {
   }
 
   //upload other images in firestore databse
-  static Future uploadOtherImage(File imageFile) async {
+  static Future uploadOtherImage(File imageFile, itemid) async {
     try {
       final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       otherDownload = await snapshot.ref.getDownloadURL();
-      otherImageDownload.add(otherDownload);
+
+      await firestore
+          .collection("OtherImageUserList")
+          .doc(itemid)
+          .collection("$itemid")
+          .add({'OtherImage': otherDownload}).then((value) async {
+        print(value.id);
+        userRentId = value.id;
+
+        await firestore
+            .collection("OtherImageList")
+            .doc(itemid)
+            .collection("$itemid")
+            .doc(userRentId)
+            .set({'OtherImage': otherDownload});
+
+        return null;
+      });
       print("url : $otherDownload");
     } catch (e) {
       print("image is not uploaded ; $e");
     }
   }
-
 
   static Future<void> updateItemImage(File file, String itmeId) async {
     //getting image file extenstion
@@ -295,31 +311,6 @@ class ApisClass {
   }
 
   //update Rent Details data
-//==============================================================================
-
-
-  static Future<void> uploadOtherImagefirebase(otherI)async {
-    
-    await firestore.collection("demoImage").doc(user.uid).set({
-      'dImage':otherI
-    }).then((value){
-      Get..snackbar("firebase","upload");
-    }).onError((error, stackTrace) {
-      Get.snackbar("error firebase", "error");
-    });
-    
-  }
-
-  static Future<void> demoGetImage()async {
- var ima =  await firestore.collection("demoImage").doc(user.uid).get();
-
- Map<String, dynamic>? data = ima.data();
- demoImage = data?['dImage'];
-
-  }
-  
-  //============================
-
   static Future<void> updateRentDetilaData(
       name, address, city, landMark, number, itemID) async {
     await firestore.collection("rentCollection").doc(itemID).update({

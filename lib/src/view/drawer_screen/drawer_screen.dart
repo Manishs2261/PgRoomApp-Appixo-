@@ -18,6 +18,7 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("build drawer screen = 🍎🍎🍎");
+
     ApisClass.getUserData();
 
     return Drawer(
@@ -68,11 +69,11 @@ class DrawerScreen extends StatelessWidget {
 
                                   // if user login google email id
                                    :  (ApisClass.auth.currentUser?.displayName ==
-                                  null)
+                                  '')
                               ?CircleAvatar(
                                 maxRadius: 30,
                                 child: Icon(
-                                  Icons.person,
+                                  Icons.home,
                                   size: 35,
                                 ),
                               )
@@ -88,7 +89,7 @@ class DrawerScreen extends StatelessWidget {
                                         errorWidget: (context, url, error) =>
                                             const CircleAvatar(
                                                 child: Icon(
-                                                    CupertinoIcons.person)),
+                                                    CupertinoIcons.circle)),
                                       ),
                                     ),
                               const SizedBox(
@@ -101,7 +102,7 @@ class DrawerScreen extends StatelessWidget {
                                   children: [
                                     // in this condition
                                     (ApisClass.auth.currentUser?.displayName ==
-                                            null)
+                                            '')
                                         // if user is sign in Email id and password
                                         //than show show first condition
                                         ? Flexible(

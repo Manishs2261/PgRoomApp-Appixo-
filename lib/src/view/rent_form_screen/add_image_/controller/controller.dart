@@ -23,28 +23,6 @@ class AddImageController extends GetxController {
   // image picker form Gallary
   RxString selectedCoverImage = "".obs;
 
-  Future pickeImageFromGallery() async {
-    otherImage= await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (otherImage == null) return;
-    imageFileList.add(File(otherImage!.path));
-  }
-
-
-  Future uploadOtherImage() async {
-    for(var i in imageFileList) {
-
-      await ApisClass.uploadOtherImage(File(i!.path)).then(
-              (value) {
-            Get.snackbar("upload ", "other image");
-          }).onError((error, stackTrace) {
-        Get.snackbar("error other image ", "error");
-        print("errror => $error");
-      });
-    }
-
-
-  }
 
   //===========================================
   Future pickeCoverImageFromGallery() async {

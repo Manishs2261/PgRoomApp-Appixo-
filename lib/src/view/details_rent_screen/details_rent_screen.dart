@@ -22,6 +22,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
   // Getx Controller controller for besiness code
   final controller = Get.put(
       DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
+  final itemId = Get.arguments['id'];
 
   @override
   Widget build(BuildContext context) {
@@ -64,12 +65,13 @@ class DetailsRentInfoScreen extends StatelessWidget {
                           image: NetworkImage(
                               controller.data.coverImage.toString()),
                           fit: BoxFit.cover),
-
-                          Container(
+                      Container(
                             color: Colors.white,
                             alignment: Alignment.center,
                             child: InkWell(
-                              onTap: (){Get.toNamed(RoutesName.viewALlImage);
+                              onTap: (){
+                                Get.toNamed(RoutesName.viewALlImage ,
+                                    arguments: itemId);
                                 },
                               child: Container(
                                 alignment: Alignment.center,

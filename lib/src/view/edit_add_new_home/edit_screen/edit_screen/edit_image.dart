@@ -254,16 +254,7 @@ class EditImageScreen extends StatelessWidget {
               ),
 
               //=============choose button ===========
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.pickeImageFromGallery();
-                      controller.isBool.value = true;
-                    },
-                    child: const Text("Chosse image")),
-              ),
+
 
               const SizedBox(
                 height: 60,

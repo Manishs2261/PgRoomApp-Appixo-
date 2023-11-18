@@ -244,21 +244,6 @@ List<OtherImageModel> imageListmodel = [];
                         ),
                 ),
 
-                const SizedBox(
-                  height: 10,
-                ),
-
-                //=============choose button ===========
-                SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        imageController.pickeImageFromGallery();
-                        imageController.isBool.value = true;
-                      },
-                      child: const Text("Chosse image")),
-                ),
 
                 const SizedBox(
                   height: 60,
