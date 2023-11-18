@@ -210,7 +210,7 @@ class ApisClass {
     });
   }
 
-  // delete data code
+  // delete cover image  data code
   static Future<void> deleteData(String deleteId, String imageUrl) async {
     try {
       //delete a firebasestore
@@ -219,6 +219,7 @@ class ApisClass {
           .doc(user.uid)
           .collection("${user.uid}")
           .doc(deleteId);
+      
       DocumentReference documentReference1 =
           firestore.collection('rentCollection').doc(deleteId);
 
@@ -234,6 +235,32 @@ class ApisClass {
     } catch (e) {
       print("data in not delete $e");
     }
+  }
+  
+  //delete Other image data 
+  static Future<void> deleteotherImage(String deleteOtherIMageId,String 
+  ItemId , String imageUrl)async{
+    try{
+      DocumentReference documentReference = firestore.collection
+        ("OtherImageUserList").doc(ItemId).collection("$ItemId").doc
+        (deleteOtherIMageId);
+
+      DocumentReference documentReference1 = firestore.collection
+        ("OtherImageList").doc(ItemId).collection(ItemId).doc
+        (deleteOtherIMageId);
+
+      await documentReference.delete();
+      await documentReference1.delete();
+
+      // delete a firestorege image data
+      final reff = storage.refFromURL(imageUrl);
+      await reff.delete();
+
+      print("deleted");
+    } catch (e) {
+      print("data in not delete $e");
+    }
+    
   }
 
 // uplaoad  Cover image data in firestorev database

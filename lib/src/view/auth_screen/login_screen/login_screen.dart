@@ -117,7 +117,8 @@ class LoginScreen extends StatelessWidget {
                         //==========password text field==============
                         Obx(
                           () => TextFormField(
-                            controller: _controller.passwordControlerLogin.value,
+                            controller:
+                                _controller.passwordControlerLogin.value,
                             obscureText: _controller.passView.value,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -174,7 +175,6 @@ class LoginScreen extends StatelessWidget {
                     () => ElevatedButton(
                       onPressed: () async {
                         if (globleKey.currentState!.validate()) {
-
                           await _controller.connectivity
                               .checkConnectivity()
                               .then((value) {
@@ -191,7 +191,6 @@ class LoginScreen extends StatelessWidget {
                             }
                             ;
                           });
-
                         }
                       },
                       child: (_controller.loading.value)
@@ -252,7 +251,6 @@ class LoginScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       //google sing code
-
 
                       AuthApisClass.handleGoogleButttonClicke(context);
                     },

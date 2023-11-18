@@ -106,8 +106,8 @@ class EditOtherImageScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      controller.pickeImageFromGallery();
-                      controller.isBool.value = true;
+
+                     controller.onChooseImage(context);
                     },
                     child: const Text("Chosse image")),
               ),
@@ -199,7 +199,17 @@ class EditOtherImageScreen extends StatelessWidget {
                                                   top: 1,
                                                   right: 1,
                                                   child: InkWell(
-                                                    onTap: () {},
+                                                    onTap: () {
+
+                                                     final imageId = snapshot
+                                                         .data
+                                                      !.docs[index].id;
+                                                     final imageUrl =
+                                                     rentList[index].OtherImage;
+                                                     controller.onDeleteButton
+                                                       (context ,imageId ,
+                                                       itemId,imageUrl!);
+                                                    },
                                                     child: CircleAvatar(
                                                         radius: 18,
                                                         backgroundColor:
