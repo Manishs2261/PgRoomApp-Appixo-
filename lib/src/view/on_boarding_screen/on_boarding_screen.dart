@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pgroom/src/view/on_boarding_screen/controller/on_boarding_controller.dart';
@@ -31,14 +31,14 @@ class OnBoardingOneScreen extends StatelessWidget {
             children: [
               //========screen one ===============
               onBoardingWidget(
-                image: onBoardingOneImage,
+                image: AppImage.onBoardingOneImage,
                 title: 'Welcome',
                 color: Colors.blue.shade100,
               ),
 
               //=============screen two===============
               onBoardingWidget(
-                image: onBoardingTwoImage,
+                image: AppImage.onBoardingTwoImage,
                 title: 'Hello',
                 color: Colors.blueGrey.shade100,
               )

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/model/other_image_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 
 class AddImageScreen extends StatelessWidget {
@@ -68,7 +68,7 @@ List<OtherImageModel> imageListmodel = [];
                                 fit: BoxFit.cover,
                               )
                             : const Image(
-                                image: AssetImage(roomImage),
+                                image: AssetImage(AppImage.roomImage),
                                 height: double.infinity,
                                 width: double.infinity,
                                 fit: BoxFit.cover,

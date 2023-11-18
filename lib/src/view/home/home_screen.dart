@@ -10,7 +10,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/details_rent_screen/details_rent_screen.dart';

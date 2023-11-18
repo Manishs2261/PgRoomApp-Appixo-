@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/view/auth_screen/otp_email_screen/otp_email_screen.dart';
 
-import '../../../uitels/image_string/image_string.dart';
+import '../../../uitels/Constants/image_string.dart';
 
 class ForgetPasswordEmailScreen extends StatefulWidget {
   const ForgetPasswordEmailScreen({super.key});
@@ -26,7 +26,7 @@ class _ForgetPasswordEmailScreenState extends State<ForgetPasswordEmailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            Image(image: AssetImage(loginImage,),width: 150,height: 150,fit:
+            Image(image: AssetImage(AppImage.loginImage,),width: 150,height: 150,fit:
             BoxFit.cover,),
             Text("Forget Password",style: TextStyle(fontSize: 30,fontWeight:
             FontWeight

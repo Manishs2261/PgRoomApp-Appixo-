@@ -5,7 +5,7 @@ import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../uitels/image_string/image_string.dart';
+import '../../../uitels/Constants/image_string.dart';
 
 class OtpPhoneNumberScreen extends StatefulWidget {
   const OtpPhoneNumberScreen({super.key});
@@ -29,7 +29,7 @@ class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image(image: AssetImage(loginImage,),width: 150,height: 150,fit:
+            Image(image: AssetImage(AppImage.loginImage,),width: 150,height: 150,fit:
             BoxFit.cover,),
             Text("Verification",style: TextStyle(fontSize: 30,fontWeight:
             FontWeight

@@ -12,7 +12,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
-import '../../uitels/image_string/image_string.dart';
+import '../../uitels/Constants/image_string.dart';
 import '../details_rent_screen/widget/circle_Container_widgets.dart';
 
 class EditAddNewHomeScreen extends StatelessWidget {
@@ -103,9 +103,9 @@ class EditAddNewHomeScreen extends StatelessWidget {
                         image: NetworkImage(data.coverImage.toString()),
                         fit: BoxFit.cover),
                     const Image(
-                        image: AssetImage(room2Image), fit: BoxFit.cover),
+                        image: AssetImage(AppImage.room2Image), fit: BoxFit.cover),
                     const Image(
-                        image: AssetImage(room3Image), fit: BoxFit.cover),
+                        image: AssetImage(AppImage.room3Image), fit: BoxFit.cover),
                   ],
                 ),
               ),

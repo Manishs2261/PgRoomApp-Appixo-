@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../uitels/image_string/image_string.dart';
+import '../../../uitels/Constants/image_string.dart';
 
 class OtpEmailScreen extends StatefulWidget {
   const OtpEmailScreen({super.key});
@@ -23,7 +23,7 @@ class _OtpEmailScreenState extends State<OtpEmailScreen> {
           children: [
             Image(
               image: AssetImage(
-                loginImage,
+                AppImage.loginImage,
               ),
               width: 150,
               height: 150,

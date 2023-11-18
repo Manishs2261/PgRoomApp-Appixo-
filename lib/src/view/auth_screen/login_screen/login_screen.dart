@@ -10,7 +10,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/main.dart';
 import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_password_phone_number.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen_controller/login_controller.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Image(
                   image: AssetImage(
-                    loginImage,
+                    AppImage.loginImage,
                   ),
                   width: 150,
                   height: 150,
@@ -258,7 +258,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image(
-                          image: AssetImage(loginGoogleImage),
+                          image: AssetImage(AppImage.loginGoogleImage),
                           height: 30,
                           width: 30,
                         ),

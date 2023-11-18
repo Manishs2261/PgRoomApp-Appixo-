@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/image_string/image_string.dart';
+import '../../../../uitels/Constants/image_string.dart';
 import '../controller/controller.dart';
 
 class EditImageScreen extends StatelessWidget {
@@ -76,7 +76,7 @@ class EditImageScreen extends StatelessWidget {
                                       fit: BoxFit.cover,
                                     )
                                   : const Image(
-                                      image: AssetImage(roomImage),
+                                      image: AssetImage(AppImage.roomImage),
                                       height: double.infinity,
                                       width: double.infinity,
                                       fit: BoxFit.cover,

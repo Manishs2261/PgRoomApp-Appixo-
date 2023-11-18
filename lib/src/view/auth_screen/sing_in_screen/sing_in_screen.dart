@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/repositiry/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 import 'package:pgroom/src/uitels/validator/text_field_validator.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
@@ -38,7 +38,7 @@ class SingInScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image(
-                  image: AssetImage(loginImage),
+                  image: AssetImage(AppImage.loginImage),
                   height: 150,
                   width: 150,
                   fit: BoxFit.cover,

@@ -9,7 +9,7 @@ import 'package:pgroom/src/model/rating_and_review_Model/rating_and_review_Model
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/image_string/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/image_string.dart';
 import 'package:pgroom/src/view/details_rent_screen/controller/details_screen_controller.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/circle_Container_widgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
