@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -22,7 +21,7 @@ class AppHelperFunction {
       return Colors.pink;
     } else if (value == 'grey') {
       return Colors.grey;
-    } else if (value == 'purplr') {
+    } else if (value == 'purple') {
       return Colors.purple;
     } else if (value == 'black') {
       return Colors.black;
@@ -35,6 +34,7 @@ class AppHelperFunction {
     } else if (value == 'indigo') {
       return Colors.indigo;
     }
+    return null;
   }
 
   static void showSnackBar(String message) {
@@ -53,7 +53,7 @@ class AppHelperFunction {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -89,8 +89,8 @@ class AppHelperFunction {
   }
 
   static String getFormattedDate(DateTime date,
-      {String fomate = 'dd MMM yyyy'}) {
-    return DateFormat(fomate).format(date);
+      {String format = 'dd MMM yyyy'}) {
+    return DateFormat(format).format(date);
   }
 
   static List<T> removeDuplicates<T>(List<T> list) {
