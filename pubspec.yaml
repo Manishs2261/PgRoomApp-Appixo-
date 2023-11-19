@@ -74,6 +74,8 @@ dependencies:
   shared_preferences: ^2.2.2
   # check internet connection_notifier:
   connectivity_plus: ^5.0.1
+  #date format
+  intl: ^0.18.1
 
 
 dev_dependencies:
