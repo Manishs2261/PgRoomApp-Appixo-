@@ -6,7 +6,6 @@ class AppValidator {
 
     //Regular expression for email validation
     final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-
     if (!emailRegExp.hasMatch(value)) {
       return 'Invalid email address.';
     }
@@ -35,7 +34,6 @@ class AppValidator {
     if (!value.contains(RegExp(r'[@#$%^&*(),.?":{}|<>]'))) {
       return 'Password must contains at least one special character.';
     }
-
     return null;
   }
 

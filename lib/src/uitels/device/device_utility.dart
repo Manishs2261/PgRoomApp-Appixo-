@@ -6,24 +6,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AppDeviceUtils {
   static void hideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static Future<void> setStatusBArColor(Color color) async {
+  static Future<void> setStatusBarColor(Color color) async {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: color),
     );
   }
 
-  static bool isLandscapOrientation(BuildContext context) {
+  static bool isLandscapeOrientation(BuildContext context) {
     final viewInsets = View.of(context).viewInsets;
     return viewInsets.bottom == 0;
   }
 
-  static bool isPortaitOrientation(BuildContext context) {
+  static bool isPortraitOrientation(BuildContext context) {
     final viewInsets = View.of(context).viewInsets;
     return viewInsets.bottom != 0;
   }
@@ -49,7 +50,7 @@ class AppDeviceUtils {
     return MediaQuery.of(Get.context!).padding.top;
   }
 
-  static double getBttomNavigationBarHeight() {
+  static double getBottomNavigationBarHeight() {
     return kBottomNavigationBarHeight;
   }
 
@@ -58,16 +59,16 @@ class AppDeviceUtils {
   }
 
   static double getKeyboardHeight() {
-    final viewInstans = MediaQuery.of(Get.context!).viewInsets;
-    return viewInstans.bottom;
+    final viewInsets = MediaQuery.of(Get.context!).viewInsets;
+    return viewInsets.bottom;
   }
 
-  static Future<bool> isKeyboadVisible() async {
+  static Future<bool> isKeyboardVisible() async {
     final viewInsets = View.of(Get.context!).viewInsets;
     return viewInsets.bottom > 0;
   }
 
-  static Future<bool> isPhysicaDevice() async {
+  static Future<bool> isPhysicalDevice() async {
     return defaultTargetPlatform == TargetPlatform.android ||
         defaultTargetPlatform == TargetPlatform.iOS;
   }
@@ -108,11 +109,11 @@ class AppDeviceUtils {
     return Platform.isAndroid;
   }
 
-// static void launchUrl(String url)async{
-//   if(await canLaunchUrlString(url)){
-//     await launchUrlString(url);
-//   }else{
-//     throw 'Could not launch $url';
-//   }
-// }
+static void launchUrl(String url)async{
+  if(await canLaunchUrlString(url)){
+    await launchUrlString(url);
+  }else{
+    throw 'Could not launch $url';
+  }
+}
 }

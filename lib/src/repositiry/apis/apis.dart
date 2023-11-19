@@ -1,28 +1,25 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
-
 import 'dart:io';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApisClass {
   // for authentication
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-  //to return current user
+  //to return current user info
   static User get user => auth.currentUser!;
 
   // for accessing cloud firestore database
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // fpr storing self   `information
+  // for storing Image  information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
@@ -219,7 +216,7 @@ class ApisClass {
           .doc(user.uid)
           .collection("${user.uid}")
           .doc(deleteId);
-      
+
       DocumentReference documentReference1 =
           firestore.collection('rentCollection').doc(deleteId);
 
@@ -236,18 +233,22 @@ class ApisClass {
       print("data in not delete $e");
     }
   }
-  
-  //delete Other image data 
-  static Future<void> deleteotherImage(String deleteOtherIMageId,String 
-  ItemId , String imageUrl)async{
-    try{
-      DocumentReference documentReference = firestore.collection
-        ("OtherImageUserList").doc(ItemId).collection("$ItemId").doc
-        (deleteOtherIMageId);
 
-      DocumentReference documentReference1 = firestore.collection
-        ("OtherImageList").doc(ItemId).collection(ItemId).doc
-        (deleteOtherIMageId);
+  //delete Other image data
+  static Future<void> deleteotherImage(
+      String deleteOtherIMageId, String ItemId, String imageUrl) async {
+    try {
+      DocumentReference documentReference = firestore
+          .collection("OtherImageUserList")
+          .doc(ItemId)
+          .collection("$ItemId")
+          .doc(deleteOtherIMageId);
+
+      DocumentReference documentReference1 = firestore
+          .collection("OtherImageList")
+          .doc(ItemId)
+          .collection(ItemId)
+          .doc(deleteOtherIMageId);
 
       await documentReference.delete();
       await documentReference1.delete();
@@ -260,7 +261,6 @@ class ApisClass {
     } catch (e) {
       print("data in not delete $e");
     }
-    
   }
 
 // uplaoad  Cover image data in firestorev database
