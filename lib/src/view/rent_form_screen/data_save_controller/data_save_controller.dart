@@ -129,18 +129,13 @@ class DataSaveController extends GetxController {
   }
 
   uploadData() async {
-        loading.value = true;
-        addImageController.uploadCoverImage().then((value) {
-          loading.value = true;
-          saveUserRentDetaitls();
-        }).onError((error, stackTrace) {
-          loading.value = false;
-          Get.snackbar("Error", "image upload error");
-        });
-
-
-
-
-
+    loading.value = true;
+    addImageController.uploadCoverImage().then((value) {
+      loading.value = true;
+      saveUserRentDetaitls();
+    }).onError((error, stackTrace) {
+      loading.value = false;
+      Get.snackbar("Error", "image upload error");
+    });
   }
 }

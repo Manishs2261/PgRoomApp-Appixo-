@@ -1,4 +1,6 @@
 class AppImage {
+
+
   // splash screen image
   static const String splashImage = 'assets/images/splash_screen.png';
 
@@ -7,9 +9,7 @@ class AppImage {
   static const String onBoardingTwoImage = 'assets/images/on_boarding_two.png';
 
 // login image
-
   static const String loginGoogleImage = 'assets/images/google.png';
-
   static const String loginImage = 'assets/images/login.png';
 
 //rent details image
