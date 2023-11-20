@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
+import 'package:pgroom/src/uitels/Theme/theme.dart';
 import 'package:pgroom/src/view/splash/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,10 +28,13 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         themeMode: ThemeMode.system,
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+         darkTheme: AppTheme.darkTheme,
+         theme: AppTheme.lightTheme,
+
+         //theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   useMaterial3: true,
+        // ),
         home: SplashScreen(),
         getPages: AppRoutes.appRoutes());
   }
