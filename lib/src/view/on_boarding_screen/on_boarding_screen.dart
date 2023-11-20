@@ -2,8 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/Constants/colors.dart';
 import 'package:pgroom/src/uitels/Constants/image_string.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pgroom/src/view/on_boarding_screen/controller/on_boarding_controller.dart';
@@ -33,14 +36,14 @@ class OnBoardingOneScreen extends StatelessWidget {
               onBoardingWidget(
                 image: AppImage.onBoardingOneImage,
                 title: 'Welcome',
-                color: Colors.blue.shade100,
+                color: AppColors.white,
               ),
 
               //=============screen two===============
               onBoardingWidget(
                 image: AppImage.onBoardingTwoImage,
                 title: 'Hello',
-                color: Colors.blueGrey.shade100,
+                color: AppColors.white,
               )
             ],
           ),
@@ -50,21 +53,7 @@ class OnBoardingOneScreen extends StatelessWidget {
           Obx(
             () => _onBoaeding.onPageChange.value
             //========start button ========
-                ? Container(
-                    padding: EdgeInsets.only(bottom: 15),
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      width: 300,
-                      child: ElevatedButton(
-                          onPressed: () {
-                             Get.offNamed(RoutesName.loginScreen);
-                          },
-                          child: Text(
-                            "Start",
-                            style: TextStyle(fontSize: 20),
-                          )),
-                    ),
-                  )
+                ? StartButton()
 
             //=========smooth indecater===============
                 : Container(
@@ -86,13 +75,17 @@ class OnBoardingOneScreen extends StatelessWidget {
 
                         SmoothPageIndicator(
                             controller: _onBoaeding.pageController,
-                            count: 2),
+                            count: 2,
+                          effect: WormEffect(
+                            dotHeight: 6,
+                            dotWidth: 30
+                          ),
+                        ),
 
                         //========== for Next page===========
                         TextButton(
                             onPressed: () => _onBoaeding.Next(),
-                            child: Icon(
-                              Icons.arrow_forward,
+                            child: Icon(Iconsax.arrow_right_3,
                               size: 30,
                             )),
                       ],
@@ -102,6 +95,32 @@ class OnBoardingOneScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class StartButton extends StatelessWidget {
+  const StartButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = AppHelperFunction.isDarkMode(context);
+    return Container(
+        padding: EdgeInsets.only(bottom: 15),
+        alignment: Alignment.bottomCenter,
+        child: SizedBox(
+          width: 300,
+          child: ElevatedButton(
+              onPressed: () {
+                 Get.offNamed(RoutesName.loginScreen);
+              },
+              child: Text(
+                "Start",
+                style: TextStyle(fontSize: 20),
+              )),
+        ),
+      );
   }
 }
 
