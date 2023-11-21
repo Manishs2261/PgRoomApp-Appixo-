@@ -9,7 +9,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class AppDeviceUtils {
-  static void hideKeyboard(BuildContext context) {
+  static  hideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 

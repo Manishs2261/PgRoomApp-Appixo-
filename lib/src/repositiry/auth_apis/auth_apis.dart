@@ -11,6 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:http/http.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
 import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,12 +25,7 @@ class AuthApisClass {
   static handleGoogleButttonClicke(BuildContext context) async {
     await connectivity.checkConnectivity().then((value) {
       if (value == ConnectivityResult.none) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Please Check Your Internet Connection '),
-            backgroundColor: Colors.red,
-          ),
-        );
+         AppHelperFunction.showSnackBar('Please Check Your Internet Connection');
       } else {
         signInWithGoogle().then((value) async {
           // sharedPrefrences code

@@ -45,10 +45,7 @@ class SingInScreen extends StatelessWidget {
                 ),
                 Text(
                   "Sing-in",
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1),
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400, letterSpacing: 1),
                 ),
                 SizedBox(
                   height: 20,
@@ -65,8 +62,7 @@ class SingInScreen extends StatelessWidget {
                             autofocus: true,
                             validator: EmailValidator.validate,
                             decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                                 hintText: "Enter Email id ",
                                 prefixIcon: Icon(Icons.email_outlined),
                                 contentPadding: EdgeInsets.only(top: 5),
@@ -87,63 +83,40 @@ class SingInScreen extends StatelessWidget {
                                       // second condition
                                       : (_controller.isSend.value)
                                           ? Obx(
-                                              () => (_controller
-                                                          .counter.value !=
-                                                      0)
+                                              () => (_controller.counter.value != 0)
                                                   ? Obx(
                                                       () => Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 22),
-                                                        child: Text(
-                                                            "${_controller.counter.value}"),
+                                                        padding: const EdgeInsets.only(right: 22),
+                                                        child: Text("${_controller.counter.value}"),
                                                       ),
                                                     )
                                                   : InkWell(
                                                       onTap: () async {
                                                         ///====RE- send otp code
 
-                                                        if (_controller
-                                                                .emailControllersing
-                                                                .value
-                                                                .text ==
-                                                            "") {
+                                                        if (_controller.emailControllersing.value.text == "") {
                                                           return null;
                                                         } else {
-                                                          _controller
-                                                              .onReSendOtpButton(
-                                                                  context);
+                                                          _controller.onReSendOtpButton(context);
                                                         }
                                                       },
                                                       child: Obx(
-                                                        () => (_controller
-                                                                .otpLoading
-                                                                .value)
+                                                        () => (_controller.otpLoading.value)
                                                             ? Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        right:
-                                                                            20),
+                                                                padding: const EdgeInsets.only(right: 20),
                                                                 child: SizedBox(
                                                                   height: 20,
                                                                   width: 20,
-                                                                  child:
-                                                                      CircularProgressIndicator(
-                                                                    color: Colors
-                                                                        .blue,
-                                                                    strokeWidth:
-                                                                        3,
+                                                                  child: CircularProgressIndicator(
+                                                                    color: Colors.blue,
+                                                                    strokeWidth: 3,
                                                                   ),
                                                                 ),
                                                               )
                                                             : Text(
                                                                 "| RE-SEND   ",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .green,
+                                                                style: TextStyle(
+                                                                  color: Colors.green,
                                                                 ),
                                                               ),
                                                       )),
@@ -152,34 +125,24 @@ class SingInScreen extends StatelessWidget {
                                               onTap: () async {
                                                 //====send otp code ==========
 
-                                                if (_controller
-                                                        .emailControllersing
-                                                        .value
-                                                        .text ==
-                                                    "") {
+                                                if (_controller.emailControllersing.value.text == "") {
                                                   print("email is empty");
 
                                                   return null;
                                                 } else {
                                                   print("email");
 
-                                                  _controller
-                                                      .onSendOtpButton(context);
+                                                  _controller.onSendOtpButton(context);
                                                 }
                                               },
                                               child: Obx(
-                                                () => (_controller
-                                                        .otpLoading.value)
+                                                () => (_controller.otpLoading.value)
                                                     ? Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                right: 20),
+                                                        padding: const EdgeInsets.only(right: 20),
                                                         child: SizedBox(
                                                           height: 20,
                                                           width: 20,
-                                                          child:
-                                                              CircularProgressIndicator(
+                                                          child: CircularProgressIndicator(
                                                             color: Colors.blue,
                                                             strokeWidth: 3,
                                                           ),
@@ -189,10 +152,7 @@ class SingInScreen extends StatelessWidget {
                                                         "SEND OTP   "),
                                               )),
                                 ),
-                                suffixStyle: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.blue)),
+                                suffixStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.blue)),
                           ),
                         ),
 
@@ -205,8 +165,7 @@ class SingInScreen extends StatelessWidget {
                           keyboardType: TextInputType.number,
                           validator: OtpValidator.validate,
                           decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               hintText: "Enter OTP",
                               prefixIcon: Icon(Icons.password),
                               contentPadding: EdgeInsets.only(top: 5),
@@ -224,27 +183,19 @@ class SingInScreen extends StatelessWidget {
                                           //============verify otp
                                           // controller mathods ===========
 
-                                          await _controller.connectivity
-                                              .checkConnectivity()
-                                              .then((value) {
-                                            if (value ==
-                                                ConnectivityResult.none) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
+                                          await _controller.connectivity.checkConnectivity().then((value) {
+                                            if (value == ConnectivityResult.none) {
+                                              ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
-                                                  content: const Text(
-                                                      'Please Check Your Internet Connection '),
+                                                  content: const Text('Please Check Your Internet Connection '),
                                                   backgroundColor: Colors.red,
                                                 ),
                                               );
                                             } else {
-                                              if (_controller.otpControllersing
-                                                      .value.text ==
-                                                  "") {
+                                              if (_controller.otpControllersing.value.text == "") {
                                                 return null;
                                               } else {
-                                                _controller
-                                                    .onOtpSubmitController();
+                                                _controller.onOtpSubmitController();
                                               }
                                             }
                                           });
@@ -264,16 +215,12 @@ class SingInScreen extends StatelessWidget {
                         Obx(
                           () => (_controller.isOtp.value)
                               ? TextFormField(
-                                  controller:
-                                      _controller.passwordControllersing.value,
+                                  controller: _controller.passwordControllersing.value,
                                   keyboardType: TextInputType.text,
                                   validator: PasswordValidator.validate,
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    hintText:
-                                        "Enter min 6 cgaracter of  password",
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                                    hintText: "Enter min 6 cgaracter of  password",
                                     prefixIcon: Icon(Icons.lock),
                                     contentPadding: EdgeInsets.only(top: 5),
                                   ),
@@ -295,14 +242,11 @@ class SingInScreen extends StatelessWidget {
                           () => (_controller.isOtp.value)
                               ? //===========enter name text field ================
                               TextFormField(
-                                  controller:
-                                      _controller.nameControllersing.value,
+                                  controller: _controller.nameControllersing.value,
                                   keyboardType: TextInputType.text,
                                   validator: NameValidator.validate,
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                                     hintText: "Enter Name",
                                     prefixIcon: Icon(Icons.person),
                                     contentPadding: EdgeInsets.only(top: 5),
@@ -324,14 +268,11 @@ class SingInScreen extends StatelessWidget {
                           () => (_controller.isOtp.value)
                               //=============enter city name text field =============
                               ? TextFormField(
-                                  controller:
-                                      _controller.citynameontrollersing.value,
+                                  controller: _controller.citynameontrollersing.value,
                                   keyboardType: TextInputType.text,
                                   validator: CityValidator.validate,
                                   decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                                     hintText: "Enter city name",
                                     prefixIcon: Icon(Icons.location_city),
                                     contentPadding: EdgeInsets.only(top: 5),
@@ -362,15 +303,11 @@ class SingInScreen extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (globleKey.currentState!.validate()) {
-                                  await _controller.connectivity
-                                      .checkConnectivity()
-                                      .then((value) {
+                                  await _controller.connectivity.checkConnectivity().then((value) {
                                     if (value == ConnectivityResult.none) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
+                                      ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                          content: const Text(
-                                              'Please Check Your Internet Connection '),
+                                          content: const Text('Please Check Your Internet Connection '),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
@@ -399,10 +336,7 @@ class SingInScreen extends StatelessWidget {
                             Text("Alreday have an account ? "),
                             InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                                 },
                                 child: Text(
                                   "Sign-in",

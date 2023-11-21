@@ -23,6 +23,8 @@ class ApisClass {
   static FirebaseStorage storage = FirebaseStorage.instance;
 
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
+
+
   static var download;
   static var userRentId = "";
   static var userName;
