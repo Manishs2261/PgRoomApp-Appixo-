@@ -1,37 +1,43 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:pgroom/src/uitels/Constants/sizes.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
 
 class onBoardingWidget extends StatelessWidget {
   onBoardingWidget({
     super.key,
     required this.image,
     required this.title,
-    required this.color,
+    required this.subtitle,
   });
 
   final String image;
   final String title;
-  final Color color;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      color: color,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image(
-            image: AssetImage(image),
-            height: 300,
-            width: 300,
-          ),
-          Text(
-            title,
-            style: TextStyle(fontSize: 25),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Image(
+          image: AssetImage(image),
+          height: AppHelperFunction.screenHeight() * 0.3,
+          width: AppHelperFunction.screenWidth() * 0.8,
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineMedium,
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: AppSizes.spaceBtwItems,),
+        Text(
+          subtitle,
+          style: Theme.of(context).textTheme.bodyMedium,
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }

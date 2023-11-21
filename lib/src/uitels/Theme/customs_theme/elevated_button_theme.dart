@@ -14,7 +14,7 @@ class AppElevatedButtonTheme{
       disabledForegroundColor: AppColors.grey,
       disabledBackgroundColor: AppColors.grey,
       side: BorderSide(color: AppColors.primary),
-      padding: EdgeInsets.symmetric(vertical: 18),
+      padding: EdgeInsets.symmetric(vertical: 12),
       textStyle: TextStyle(fontSize: 16,color: AppColors.white,fontWeight: FontWeight.w600),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     )
@@ -28,7 +28,7 @@ class AppElevatedButtonTheme{
         disabledForegroundColor: AppColors.grey,
         disabledBackgroundColor: AppColors.grey,
         side: BorderSide(color: AppColors.primary),
-        padding: EdgeInsets.symmetric(vertical: 18),
+        padding: EdgeInsets.symmetric(vertical: 12),
         textStyle: TextStyle(fontSize: 16,color: AppColors.white,fontWeight: FontWeight.w600),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       )
