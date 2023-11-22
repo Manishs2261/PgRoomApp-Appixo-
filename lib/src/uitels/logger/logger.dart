@@ -8,7 +8,7 @@ class AppLoggerHelper {
       lineLength: 3,
       colors: true,
       printEmojis: true,
-      printTime: true,
+
     ),
     level: Level.debug,
   );
@@ -28,4 +28,6 @@ class AppLoggerHelper {
   static void error(String message, [dynamic error]) {
     _logger.e(message, error: error, stackTrace: StackTrace.current);
   }
+
+
 }

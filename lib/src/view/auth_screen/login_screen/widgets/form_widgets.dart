@@ -106,7 +106,7 @@ class FormWidgets extends StatelessWidget {
           ),
         ),
         const SizedBox(
-          height: AppSizes.spaceBtwItems,
+          height: AppSizes.spaceBtwSSections,
         ),
 
         // =======Don't have an account button

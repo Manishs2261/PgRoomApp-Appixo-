@@ -79,6 +79,7 @@ dependencies:
   logger: ^2.0.2+1
   url_launcher: ^6.2.1
   iconsax: ^0.0.8
+  another_flushbar: ^1.12.30
 
 
 dev_dependencies:

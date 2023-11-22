@@ -1,8 +1,10 @@
-
+import 'package:another_flushbar/flushbar.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
 class AppHelperFunction {
   static Color? getColor(String value) {
@@ -39,8 +41,18 @@ class AppHelperFunction {
 
   static void showSnackBar(String message) {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
-      SnackBar(content: Text(message),),
+      SnackBar(
+        content: Text(message),
+      ),
     );
+  }
+
+  static void showFlashbar(String message) {
+    Flushbar(
+      message: message,
+      duration: Duration(seconds: 3),
+      flushbarPosition: FlushbarPosition.TOP,
+    ).show(Get.context!);
   }
 
   static void showAlert(String title, String message) {
@@ -73,23 +85,32 @@ class AppHelperFunction {
   }
 
   static bool isDarkMode(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark;
+    return Theme
+        .of(context)
+        .brightness == Brightness.dark;
   }
 
   static Size screenSize() {
-    return MediaQuery.of(Get.context!).size;
+    return MediaQuery
+        .of(Get.context!)
+        .size;
   }
 
   static double screenHeight() {
-    return MediaQuery.of(Get.context!).size.height;
+    return MediaQuery
+        .of(Get.context!)
+        .size
+        .height;
   }
 
   static double screenWidth() {
-    return MediaQuery.of(Get.context!).size.width;
+    return MediaQuery
+        .of(Get.context!)
+        .size
+        .width;
   }
 
-  static String getFormattedDate(DateTime date,
-      {String format = 'dd MMM yyyy'}) {
+  static String getFormattedDate(DateTime date, {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);
   }
 
@@ -100,12 +121,31 @@ class AppHelperFunction {
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
     for (var i = 0; i < widgets.length; i += rowSize) {
-      final rowChildren = widgets.sublist(
-          i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
+      final rowChildren = widgets.sublist(i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
       wrappedList.add(Row(
         children: rowChildren,
       ));
     }
     return wrappedList;
+  }
+
+
+
+  static Future<bool> checkInternetAvailability() async {
+    Connectivity connectivity = Connectivity();
+    //check a internet connection
+    bool isValue = false ;
+    await connectivity.checkConnectivity().then((value) {
+      if (value == ConnectivityResult.none) {
+        AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
+        isValue = false ;
+      }else{
+        isValue = true;
+      }
+    });
+
+    return isValue;
+
+
   }
 }

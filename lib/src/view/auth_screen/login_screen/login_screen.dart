@@ -1,8 +1,8 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/uitels/Constants/sizes.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen_controller/login_controller.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/widgets/form_widgets.dart';
@@ -18,9 +18,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("rebUild => login screen 🔴");
-    }
+    AppLoggerHelper.debug("Login screen ");
     return Scaffold(
       appBar: AppBar(
         //=======skip buttton ========

@@ -18,14 +18,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../view/home/home_screen.dart';
 
 class AuthApisClass {
-  static EmailOTP myauth = EmailOTP();
+  static EmailOTP emailOtp = EmailOTP();
   static Connectivity connectivity = Connectivity();
+  static bool otpSend = false;
 
   // =======google sing =============
   static handleGoogleButttonClicke(BuildContext context) async {
     await connectivity.checkConnectivity().then((value) {
       if (value == ConnectivityResult.none) {
-         AppHelperFunction.showSnackBar('Please Check Your Internet Connection');
+        AppHelperFunction.showSnackBar('Please Check Your Internet Connection');
       } else {
         signInWithGoogle().then((value) async {
           // sharedPrefrences code
@@ -33,7 +34,7 @@ class AuthApisClass {
           //upload user uid data in SharedPreferenses
           preferences.setString('userUid', value.user!.uid);
           // initializ varible
-          finalUserUidGloble  = preferences.getString('userUid');
+          finalUserUidGloble = preferences.getString('userUid');
           log('\nUser :${value.user}');
           Get.offAllNamed(RoutesName.homeScreen);
         });
@@ -46,8 +47,7 @@ class AuthApisClass {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -63,8 +63,7 @@ class AuthApisClass {
 
   static Future<bool> singEmailIdAndPassword(String email, String pass) async {
     try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: pass,
       );
@@ -75,8 +74,7 @@ class AuthApisClass {
             "This password is weak use Number,"
                 "Character");
       } else if (e.code == 'email-already-in-use') {
-        Get.snackbar("Email-already-in-use", "This email id is alreday exist",
-            backgroundColor: Colors.redAccent);
+        Get.snackbar("Email-already-in-use", "This email id is alreday exist", backgroundColor: Colors.redAccent);
         return false;
       }
     } catch (e) {
@@ -90,8 +88,7 @@ class AuthApisClass {
 
   static Future<bool> loginEmailAndPassword(String email, String pass) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: pass);
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
 
       print("data lodin 🧧${credential.user}");
     } on FirebaseAuthException catch (e) {
@@ -135,20 +132,18 @@ class AuthApisClass {
   //===========send opt email verification ===============
   static Future<bool> sendEmailOtpVerification(String email) async {
     //====send otp code ==========
-    myauth.setConfig(
+    emailOtp.setConfig(
       appEmail: "sahusanju138@gmail.com",
       appName: "Email OTP by manish",
       userEmail: email,
       otpLength: 6,
       otpType: OTPType.digitsOnly,
     );
-    if (await myauth.sendOTP() == true) {
-      Get.snackbar('Send OTP', 'Successfully ',
-          snackPosition: SnackPosition.TOP);
+    if (await emailOtp.sendOTP() == true) {
+      otpSend = true;
       return true;
     } else {
-      Get.snackbar('Failed', 'otp send is failed',
-          snackPosition: SnackPosition.TOP);
+      otpSend = false;
       return false;
     }
   }
@@ -156,13 +151,11 @@ class AuthApisClass {
   //=========== otp verification code=============
 
   static Future<bool> otpSubmitVerification(String otp) async {
-    if (await myauth.verifyOTP(otp: otp) == true) {
-      Get.snackbar('OTP', 'Successfully  verify',
-          snackPosition: SnackPosition.TOP);
+    if (await emailOtp.verifyOTP(otp: otp) == true) {
+      Get.snackbar('OTP', 'Successfully  verify', snackPosition: SnackPosition.TOP);
       return true;
     } else {
-      Get.snackbar('OTP', 'faield verification',
-          snackPosition: SnackPosition.TOP);
+      Get.snackbar('OTP', 'faield verification', snackPosition: SnackPosition.TOP);
       return false;
     }
   }
