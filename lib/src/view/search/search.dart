@@ -5,6 +5,7 @@ import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/view/home/home_screen.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
+import '../home/widgets/ItemListView.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -74,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ), // Added this
                 )),
           ),
-          Expanded(child: ItemListView(rentList: displayList,snapshost: snapData,))
+          Expanded(child: ItemListView(rentList: displayList,snapshot: snapData,))
         ],
       ),
     );
