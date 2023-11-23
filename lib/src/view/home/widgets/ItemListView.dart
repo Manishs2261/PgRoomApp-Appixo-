@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/uitels/Constants/colors.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../uitels/helpers/heiper_function.dart';
@@ -19,7 +21,8 @@ class ItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = AppHelperFunction.isDarkMode(context);
     return ListView.builder(
-        padding: const EdgeInsets.only(left: 1, right: 1),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.only(left: 0.2, right: 0.2),
         itemCount: rentList.length,
         itemBuilder: (context, index) {
           return GestureDetector(
@@ -34,24 +37,42 @@ class ItemListView extends StatelessWidget {
             child: Container(
               height: 180,
               width: double.infinity,
-              decoration: BoxDecoration(color: dark ? Colors.black : const Color.fromRGBO(200, 200, 40, 0.01), boxShadow: const [
-                BoxShadow(
-                  color: Colors.white,
-                  spreadRadius: 3,
-                )
-              ]),
+              decoration: BoxDecoration(
+                  color: dark ? AppColors.dark : const Color.fromRGBO(200, 200, 40, 0.01),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.white,
+                      spreadRadius: 0.2,
+                    )
+                  ]),
               child: Row(
                 children: [
                   //====== front image========
-                  CachedNetworkImage(
+                  Container(
                     width: 150,
                     height: 280,
+                    color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
+                    
+                    child: CachedNetworkImage(
 
-                    imageUrl: '${rentList[index].coverImage}',
-                    fit: BoxFit.fill,
-                    // placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => const CircleAvatar(
-                      child: Icon(Icons.image_outlined),
+                      imageUrl: '${rentList[index].coverImage}',
+                      fit: BoxFit.fill,
+
+                        placeholder: (context, url) => Container(
+                          color:  Colors.transparent,
+                          height: 100,
+                          width: 100,
+                          child: SpinKitFadingCircle(
+                            color: AppColors.primary,
+                            size: 35,
+                          ),
+                        ),
+                      errorWidget: (context, url, error) =>  Container(
+                        width: 150,
+                        height: 280,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.image_outlined,size: 50,),
+                      )
                     ),
                   ),
 
@@ -118,7 +139,6 @@ class ItemListView extends StatelessWidget {
                         ),
                         Text("city - ${rentList[index].city}"),
                         Text("Room Type - ${rentList[index].roomType}"),
-
                       ],
                     ),
                   ),

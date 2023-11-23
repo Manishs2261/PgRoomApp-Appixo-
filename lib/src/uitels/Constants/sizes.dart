@@ -32,6 +32,7 @@ class AppSizes {
   static const double defaultSpace = 24.0;
   static const double spaceBtwItems = 16.0;
   static const double spaceBtwSSections = 32.0;
+  static const double sizeBoxSpace = 5.0;
 
 //Border radius
   static const double borderRadiusSm = 4.0;

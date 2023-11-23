@@ -1,43 +1,43 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/model/other_image_model.dart';
-import 'package:pgroom/src/model/rating_and_review_Model/rating_and_review_Model.dart';
-import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
-import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/Constants/image_string.dart';
+import 'package:pgroom/src/uitels/Constants/sizes.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/details_rent_screen/controller/details_screen_controller.dart';
-import 'package:pgroom/src/view/details_rent_screen/widget/circle_Container_widgets.dart';
+import 'package:pgroom/src/view/details_rent_screen/widget/ContactAndShareWidgets.dart';
+import 'package:pgroom/src/view/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../uitels/Constants/colors.dart';
 import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
 
 class DetailsRentInfoScreen extends StatelessWidget {
   DetailsRentInfoScreen({super.key});
 
-  // Getx Controller controller for besiness code
-  final controller = Get.put(
-      DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
+  // Getx Controller controller for business code
+  final controller = Get.put(DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
   final itemId = Get.arguments['id'];
 
   @override
   Widget build(BuildContext context) {
     //debug code ========
-    if (kDebugMode) {
-      print("build - deataislRnatInfoScreen 🍎 ");
-    }
+    AppLoggerHelper.debug("Build - DetailsRentInfoScreen");
     //============
+
+    //its return  Boolean value
+    final dark = AppHelperFunction.isDarkMode(context);
+
     return Scaffold(
+      backgroundColor: dark ? AppColors.dark : AppColors.light,
       appBar: AppBar(),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            padding: const EdgeInsets.only(left: 2, right: 2, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -45,84 +45,99 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   // house name
                   child: Text(
                     "${controller.data.houseName}",
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                   ),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                const SizedBox(height: AppSizes.sizeBoxSpace),
                 // Image(image: AssetImage(roomImage)),
 
                 //=======Page view======
                 Container(
                   height: 250,
                   width: double.infinity,
+                  color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
                   child: PageView(
                     controller: controller.imageIndecterController.value,
                     children: [
-                      Image(
-                          image: NetworkImage(
-                              controller.data.coverImage.toString()),
-                          fit: BoxFit.cover),
-                      Container(
-                            color: Colors.white,
-                            alignment: Alignment.center,
-                            child: InkWell(
-                              onTap: (){
-                                Get.toNamed(RoutesName.viewALlImage ,
-                                    arguments: itemId);
-                                },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                width: 130,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[400],
-                                  borderRadius: BorderRadius.circular(50)
+                      //show cover image
+                      CachedNetworkImage(
+                          imageUrl: controller.data.coverImage.toString(),
+                          fit: BoxFit.fill,
+                          placeholder: (context, url) => Container(
+                                color: Colors.transparent,
+                                height: 100,
+                                width: 100,
+                                child: const SpinKitFadingCircle(
+                                  color: AppColors.primary,
+                                  size: 35,
                                 ),
-                                child: Text("View All Photo",style: TextStyle
-                                  (color: Colors.white,fontSize: 15,fontWeight:
-                                FontWeight.w600,),),
+                              ),
+                          errorWidget: (context, url, error) => Container(
+                                width: 150,
+                                height: 280,
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.image_outlined,
+                                  size: 50,
+                                ),
+                              )),
+
+                      //view all image Page
+                      Container(
+                        color: Colors.white,
+                        alignment: Alignment.center,
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(RoutesName.viewALlImage, arguments: itemId);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: 130,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50), border: Border.all(color: Colors.blue)),
+                            child: const Text(
+                              "View All Photo",
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-
                           ),
-
-
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 //===============
                 const SizedBox(
-                  height: 5,
+                  height: AppSizes.sizeBoxSpace * 2,
                 ),
 
-                // smooth page indicater ============
+                // smooth page indicator ============
                 Align(
                   alignment: Alignment.center,
                   child: SmoothPageIndicator(
                       controller: controller.imageIndecterController.value,
                       count: 2,
-                      effect: const WormEffect(
-                        dotHeight: 6,
-                      )),
+                      effect: const WormEffect(dotHeight: 4, dotWidth: 30, activeDotColor: AppColors.primary)),
                 ),
                 //=================
 
                 const SizedBox(
-                  height: 20,
+                  height: AppSizes.sizeBoxSpace * 4,
                 ),
+
+                // House Address
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Padding(padding: EdgeInsets.only(left: 15)),
-
                     // house Address=====
                     const Text(
                       "Address :- ",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                     Expanded(
                       child: Text(
@@ -135,18 +150,20 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
+
+                //Rental Room Type
                 Row(
                   children: [
                     const Padding(padding: EdgeInsets.only(left: 15)),
                     const Text(
                       "Rental Room Type :-",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                     ),
                     Text("  ${controller.data.roomType}")
                   ],
                 ),
 
+                //Price
                 const Padding(
                   padding: EdgeInsets.only(left: 15, top: 10),
                   child: Text(
@@ -167,7 +184,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                         ),
                       if (controller.data.doublePersionPrice != "")
                         DetailsRowWidgets(
-                          title: "doble Person :-  ",
+                          title: "double Person :-  ",
                           price: '${controller.data.doublePersionPrice}/- '
                               'month',
                           isIcon: true,
@@ -181,14 +198,14 @@ class DetailsRentInfoScreen extends StatelessWidget {
                         ),
                       if (controller.data.fourPersionPrice != "")
                         DetailsRowWidgets(
-                          title: "four Pluse Person :-  ",
+                          title: "four Plus Person :-  ",
                           price: '${controller.data.fourPersionPrice}/- '
                               'month',
                           isIcon: true,
                         ),
                       if (controller.data.faimlyPrice != "")
                         DetailsRowWidgets(
-                          title: "Famaily  :-  ",
+                          title: "Family  :-  ",
                           price: '${controller.data.faimlyPrice}/- '
                               'month',
                           isIcon: true,
@@ -197,6 +214,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   ),
                 ),
 
+                // Room services
                 const Padding(
                   padding: EdgeInsets.only(left: 15, top: 10),
                   child: Text(
@@ -275,11 +293,11 @@ class DetailsRentInfoScreen extends StatelessWidget {
                       isIcon: controller.data.parking!,
                     ),
                     DetailsRowWidgets(
-                      title: "barhroom \n attech",
+                      title: "bathroom \n attach",
                       isIcon: false,
                     ),
                     DetailsRowWidgets(
-                      title: "barhroom \n shareable",
+                      title: "bathroom \n shareable",
                       isIcon: false,
                     ),
                   ],
@@ -314,13 +332,11 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     children: [
                       const Text(
                         "Time :-  ",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                       ),
                       (controller.data.restrictedTime != '')
-                          ? Text(
-                              " Restricted - ${controller.data.restrictedTime}")
-                          : const Text("Fexible"),
+                          ? Text(" Restricted - ${controller.data.restrictedTime}")
+                          : const Text("Flexible"),
                     ],
                   ),
                 ),
@@ -353,8 +369,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                         ),
                       if (controller.data.cooking!)
                         DetailsRowWidgets(
-                          title:
-                              "cooking Allow :-  ${controller.data.cookingType}",
+                          title: "cooking Allow :-  ${controller.data.cookingType}",
                           isIcon: controller.data.cooking!,
                         ),
                     ],
@@ -363,257 +378,14 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("contect now"),
-                  ),
-                ),
 
-                const SizedBox(
-                  height: 50,
-                ),
-
-                //===========================================
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    //=========share =========
-                    CircleContainerWidgets(
-                      title: 'Share',
-                      iconData: Icons.share_outlined,
-                      ontap: () {},
-                    ),
-
-                    // ==========map view ===========
-                    CircleContainerWidgets(
-                        title: "Map view",
-                        iconData: Icons.location_on_outlined,
-                        ontap: () {})
-                  ],
-                ),
+                const ContactAndShareWidgets(),
 
                 //======================================================
 
-                //Rating Now
-                const Padding(
-                  padding: EdgeInsets.only(left: 15, top: 50,bottom: 10),
-                  child: Text(
-                    "Rating now :-",
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
-                  ),
-                ),
+                RatingAndReviewWidgets(controller: controller, dark: dark),
 
-                Align(
-                  alignment: Alignment.center,
-                  child: RatingBar.builder(
-                    initialRating: 0,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      controller.raingNow = rating;
-                      if (kDebugMode) {
-                        print(rating);
-                      }
-                    },
-                  ),
-                ),
                 const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: controller.reviewController.value,
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.yellow.shade50,
-                      border: const OutlineInputBorder(),
-                      hintText: "write your Review..."),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // call a controlle method
-                      controller.onSubmitReviewButton();
-                    },
-                    child: const Text("Submit"),
-                  ),
-                ),
-
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: 15, top: 50, bottom: 20, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Review :-",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 20),
-                      ),
-                      InkWell(
-                          onTap: () {
-                            Get.toNamed(RoutesName.viewAllReview,
-                                arguments: controller.itemId);
-                          },
-                          child: Text(
-                            "view all",
-                            style: TextStyle(color: Colors.blue),
-                          ))
-                    ],
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      StreamBuilder(
-                          stream: ApisClass.firestore
-                              .collection("userReview")
-                              .doc("reviewCollection")
-                              .collection("${controller.itemId}")
-                              .snapshots(),
-                          builder: (context, snapshot) {
-
-                            final snapshotdata = snapshot.data?.docs;
-                            controller.ratingList = snapshotdata
-                                    ?.map((e) =>
-                                        RatingAndReviewModel.fromJson(e.data()))
-                                    .toList() ??
-                                [];
-
-                            if (controller.ratingList.length == 0) {
-                              controller.isView.value = false;
-                              return Center(
-                                  child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.reviews_outlined),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text("No Review"),
-                                ],
-                              ));
-                            } else {
-                              Future.delayed(Duration.zero, () {
-                                //your code goes here
-                                controller.isView.value = true;
-                              });
-
-                              return ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  addRepaintBoundaries: true,
-                                  physics: ScrollPhysics(),
-                                  itemCount: controller.ratingList.length,
-                                  itemBuilder: (context, index) {
-                                    return Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              height: 25,
-                                              width: 25,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                  color: Colors.blue),
-                                            ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              "Manish sahu",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        RatingBar.builder(
-                                          ignoreGestures: true,
-                                          itemSize: 17,
-                                          initialRating: controller
-                                              .ratingList[index].rating!,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 2.0),
-                                          itemBuilder: (context, _) =>
-                                              const Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          ),
-                                          onRatingUpdate: (double value) {},
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, bottom: 20),
-                                          padding: EdgeInsets.all(10.0),
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey.shade50),
-                                          child: Text(
-                                              "${controller.ratingList[index].title}"),
-                                        ),
-                                      ],
-                                    );
-                                  });
-                            }
-                          }),
-                    ],
-                  ),
-                ),
-                Obx(
-                  () => (controller.isView.value)
-                      ? Padding(
-                          padding: const EdgeInsets.only(right: 15),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: InkWell(
-                              onTap: () {
-                                Get.toNamed(RoutesName.viewAllReview,
-                                    arguments: controller.itemId);
-                              },
-                              child: Text(
-                                "View All",
-                                style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ),
-                        )
-                      : Text(""),
-                ),
-
-                SizedBox(
                   height: 50,
                 ),
               ],
