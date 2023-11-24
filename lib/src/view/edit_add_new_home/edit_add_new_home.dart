@@ -1,24 +1,18 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/view/edit_add_new_home/edit_screen/controller/controller.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:pgroom/src/uitels/Constants/sizes.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
+import '../../uitels/Constants/colors.dart';
+import '../../uitels/helpers/heiper_function.dart';
 import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
-import '../../uitels/Constants/image_string.dart';
-import '../details_rent_screen/widget/circle_Container_widgets.dart';
 
 class EditAddNewHomeScreen extends StatelessWidget {
   EditAddNewHomeScreen({super.key});
-
-  final imageIndecterController = PageController();
 
   final itemId = Get.arguments["id"];
 
@@ -28,98 +22,97 @@ class EditAddNewHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build - deataislRnatInfoScreen 🍎 ");
-
-    print(data.houseName);
-    print(imageUrl);
-
+    AppLoggerHelper.debug("Build -EditAddNewHomeScreen ");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details info"),
+        title: const Text("Details info"),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          padding: const EdgeInsets.only(left: 5, right: 5, top: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed(RoutesName.editFormScreen, arguments: {
-                      'list': data,
-                      'id': itemId,
-                    });
-                  },
-                  child: Text("Edit"),
+              Center(
+                child: SizedBox(
+                  height: 40,
+                  width: AppHelperFunction.screenWidth() * 0.9,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.toNamed(RoutesName.editFormScreen, arguments: {
+                        'list': data,
+                        'id': itemId,
+                      });
+                    },
+                    child: const Text("Edit"),
+                  ),
                 ),
               ),
-              SizedBox(
-                height: 20,
+              const SizedBox(
+                height: AppSizes.spaceBtwItems,
               ),
 
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    ApisClass.deleteData(itemId, imageUrl).then((value) {
-                      CircularProgressIndicator(
-                        color: Colors.blue,
-                      );
-                      Navigator.pop(context);
-                    });
-                  },
-                  child: Text("Delete"),
+              Center(
+                child: SizedBox(
+                  height: 40,
+                  width: AppHelperFunction.screenWidth() * 0.9,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ApisClass.deleteData(itemId, imageUrl).then((value) {
+                        const CircularProgressIndicator(
+                          color: Colors.blue,
+                        );
+                        Navigator.pop(context);
+                      });
+                    },
+                    child: const Text("Delete"),
+                  ),
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
 
               Center(
                 child: Text(
                   "${data.houseName}",
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
                 ),
               ),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               // Image(image: AssetImage(roomImage)),
 
-              //=======Page view======
-              Container(
+              //=======Image view======
+              SizedBox(
                 height: 250,
                 width: double.infinity,
-                child: PageView(
-                  controller: imageIndecterController,
-                  children: [
-                    Image(
-                        image: NetworkImage(data.coverImage.toString()),
-                        fit: BoxFit.cover),
-                    const Image(
-                        image: AssetImage(AppImage.room2Image), fit: BoxFit.cover),
-                    const Image(
-                        image: AssetImage(AppImage.room3Image), fit: BoxFit.cover),
-                  ],
-                ),
+                child: CachedNetworkImage(
+                    imageUrl: data.coverImage.toString(),
+                    fit: BoxFit.fill,
+                    placeholder: (context, url) => Container(
+                          color: Colors.transparent,
+                          height: 100,
+                          width: 100,
+                          child: const SpinKitFadingCircle(
+                            color: AppColors.primary,
+                            size: 35,
+                          ),
+                        ),
+                    errorWidget: (context, url, error) => Container(
+                          width: 150,
+                          height: 280,
+                          alignment: Alignment.center,
+                          child: const Icon(
+                            Icons.image_outlined,
+                            size: 50,
+                          ),
+                        )),
               ),
               const SizedBox(
                 height: 5,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: SmoothPageIndicator(
-                    controller: imageIndecterController,
-                    count: 3,
-                    effect: const WormEffect(
-                      dotHeight: 6,
-                    )),
               ),
 
               const SizedBox(
@@ -175,7 +168,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                       ),
                     if (data.doublePersionPrice != "")
                       DetailsRowWidgets(
-                        title: "doble Person :-  ",
+                        title: "double Person :-  ",
                         price: '${data.doublePersionPrice}/- '
                             'month',
                         isIcon: true,
@@ -189,14 +182,14 @@ class EditAddNewHomeScreen extends StatelessWidget {
                       ),
                     if (data.fourPersionPrice != "")
                       DetailsRowWidgets(
-                        title: "four Pluse Person :-  ",
+                        title: "four Plus Person :-  ",
                         price: '${data.fourPersionPrice}/- '
                             'month',
                         isIcon: true,
                       ),
                     if (data.faimlyPrice != "")
                       DetailsRowWidgets(
-                        title: "Famaily  :-  ",
+                        title: "family  :-  ",
                         price: '${data.faimlyPrice}/- '
                             'month',
                         isIcon: true,
@@ -283,11 +276,11 @@ class EditAddNewHomeScreen extends StatelessWidget {
                     isIcon: data.parking!,
                   ),
                   DetailsRowWidgets(
-                    title: "barhroom \n attech",
+                    title: "bathroom \n attach",
                     isIcon: false,
                   ),
                   DetailsRowWidgets(
-                    title: "barhroom \n shareable",
+                    title: "bathroom \n shareable",
                     isIcon: false,
                   ),
                 ],
@@ -322,12 +315,9 @@ class EditAddNewHomeScreen extends StatelessWidget {
                   children: [
                     const Text(
                       "Time :-  ",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
-                    (data.restrictedTime != '')
-                        ? Text(" Restricted - ${data.restrictedTime}")
-                        : const Text("Fexible"),
+                    (data.restrictedTime != '') ? Text(" Restricted - ${data.restrictedTime}") : const Text("flexible"),
                   ],
                 ),
               ),
@@ -365,9 +355,6 @@ class EditAddNewHomeScreen extends StatelessWidget {
                       ),
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 50,
               ),
               const SizedBox(
                 height: 50,

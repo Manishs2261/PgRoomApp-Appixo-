@@ -10,7 +10,6 @@ import 'package:pgroom/src/view/details_rent_screen/controller/details_screen_co
 import 'package:pgroom/src/view/details_rent_screen/widget/ContactAndShareWidgets.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../uitels/Constants/colors.dart';
 import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
 

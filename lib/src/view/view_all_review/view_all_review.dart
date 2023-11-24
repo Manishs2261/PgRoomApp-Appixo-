@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import '../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../repositiry/apis/apis.dart';
 
@@ -14,12 +15,14 @@ class ViewAllReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - ViewAllReviewScreen  ");
+    final dark = AppHelperFunction.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Review"),
+        title: const Text("All Review"),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15, top: 25),
+        padding: const EdgeInsets.only(left: 15, right: 15,top: 10),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -33,15 +36,11 @@ class ViewAllReviewScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     final data = snapshot.data?.docs;
 
-                    ratingList = data
-                            ?.map(
-                                (e) => RatingAndReviewModel.fromJson(e.data()))
-                            .toList() ??
-                        [];
+                    ratingList = data?.map((e) => RatingAndReviewModel.fromJson(e.data())).toList() ?? [];
 
                     return ListView.builder(
                         shrinkWrap: true,
-                        physics: ScrollPhysics(),
+                        physics: const ScrollPhysics(),
                         itemCount: ratingList.length,
                         itemBuilder: (context, index) {
                           return Column(
@@ -53,21 +52,19 @@ class ViewAllReviewScreen extends StatelessWidget {
                                   Container(
                                     height: 25,
                                     width: 25,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: Colors.blue),
+                                    decoration:
+                                        BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     "Manish sahu",
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
+                                    style: TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5,
                               ),
                               RatingBar.builder(
@@ -77,8 +74,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                                 itemBuilder: (context, _) => const Icon(
                                   Icons.star,
                                   color: Colors.amber,
@@ -86,11 +82,10 @@ class ViewAllReviewScreen extends StatelessWidget {
                                 onRatingUpdate: (double value) {},
                               ),
                               Container(
-                                margin: EdgeInsets.only(top: 10, bottom: 20),
-                                padding: EdgeInsets.all(10.0),
+                                margin: const EdgeInsets.only(top: 10, bottom: 20),
+                                padding: const EdgeInsets.all(10.0),
                                 width: double.infinity,
-                                decoration:
-                                    BoxDecoration(color: Colors.grey.shade50),
+                                decoration: BoxDecoration(color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade50),
                                 child: Text("${ratingList[index].title}"),
                               )
                             ],

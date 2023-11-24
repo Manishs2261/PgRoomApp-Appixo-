@@ -7,7 +7,7 @@ import 'package:pgroom/src/view/auth_screen/login_screen/login_screen.dart';
 import 'package:pgroom/src/view/auth_screen/otp_email_screen/otp_email_screen.dart';
 import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_in_screen.dart';
-import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_form_screen.dart';
+import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_form_screen_button.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
@@ -30,7 +30,7 @@ import '../../view/auth_screen/forget_password_phone_number/forget_password_phon
 import '../../view/details_rent_screen/details_rent_screen.dart';
 import '../../view/edit_add_new_home/edit_add_new_home.dart';
 import '../../view/edit_add_new_home/edit_screen/edit_screen/edit_charges.dart';
-import '../../view/edit_add_new_home/edit_screen/edit_screen/edit_image.dart';
+import '../../view/edit_add_new_home/edit_screen/edit_screen/Edit_Cover_Image_Screen.dart';
 import '../../view/edit_add_new_home/edit_screen/edit_screen/edit_provid_facilites.dart';
 import '../../view/splash/splash_screen.dart';
 import '../route_name/routes_name.dart';
@@ -128,7 +128,7 @@ static appRoutes()=>[
       transition: Transition.leftToRightWithFade),
 
 
-  GetPage(name: RoutesName.editFormScreen, page:()=>  EditFormScreen(),
+  GetPage(name: RoutesName.editFormScreen, page:()=>  EditFormScreenButton(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
@@ -154,7 +154,7 @@ static appRoutes()=>[
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.editImagesScreen, page:()=>  EditImageScreen(),
+  GetPage(name: RoutesName.editImagesScreen, page:()=>  EditCoverImageScreen(),
       transitionDuration: Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 

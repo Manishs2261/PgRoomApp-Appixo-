@@ -36,7 +36,8 @@ class AppBarWIdgets extends StatelessWidget {
               alignment: Alignment.center,
               height: 25,
               width: 135,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all()),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),
+                  border: Border.all()),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

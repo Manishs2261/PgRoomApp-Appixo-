@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../repositiry/apis/apis.dart';
 import '../../../res/route_name/routes_name.dart';

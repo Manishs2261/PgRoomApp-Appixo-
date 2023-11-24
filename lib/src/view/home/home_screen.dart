@@ -29,50 +29,49 @@ class HomeScreen extends StatelessWidget {
       //==preferrendSize provide a maximum appbar length
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(120),
-        child: SafeArea(
-          child: Column(
-            children: [
-              //=======App bar code ====================
-              const AppBarWIdgets(),
-
-              //========search field code ==============
-              Container(
-                color: AppColors.primary,
-                height: 62,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                    top: 5,
-                  ),
-                  child: TextFormField(
-                    onTap: () {
-                      Get.toNamed(RoutesName.searchScreen, arguments: {
-                        'list': rentList,
-                        'id': snapData,
-                      });
-                    },
-                    autofocus: false,
-                    keyboardType: TextInputType.none,
-                    decoration: InputDecoration(
-                      fillColor: Colors.yellow[50],
-                      filled: true,
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintText: "Enter Locality / Landmark / Colony",
-                      prefixIcon: const Icon(Icons.search_rounded),
-                      suffixIcon: const Icon(Icons.mic),
-                      isDense: false,
-                      contentPadding: const EdgeInsets.only(
-                        bottom: 5,
+        child: Column(
+              children: [
+                //=======App bar code ====================
+                const AppBarWIdgets(),
+                //========search field code ==============
+                Container(
+                  color: AppColors.primary,
+                  height: 62,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                      top: 5,
+                    ),
+                    child: TextFormField(
+                      onTap: () {
+                        Get.toNamed(RoutesName.searchScreen, arguments: {
+                          'list': rentList,
+                          'id': snapData,
+                        });
+                      },
+                      autofocus: false,
+                      keyboardType: TextInputType.none,
+                      decoration: InputDecoration(
+                        fillColor: Colors.yellow[50],
+                        filled: true,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        hintText: "Enter Locality / Landmark / Colony",
+                        prefixIcon: const Icon(Icons.search_rounded),
+                        suffixIcon: const Icon(Icons.mic),
+                        isDense: false,
+                        contentPadding: const EdgeInsets.only(
+                          bottom: 5,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
+
+              ],
+            ),
         ),
-      ),
+
 
       //======drawer code ===============
       drawer: const DrawerScreen(),

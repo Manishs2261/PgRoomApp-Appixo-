@@ -23,8 +23,8 @@ class HostelAndRoomController extends GetxController {
   final fourPersonContrller = TextEditingController().obs;
   final faimlyPersonContrller = TextEditingController().obs;
 
-  RxString roomType = 'Boys'.obs;
-  RxString bhk = '1BHK'.obs;
+  RxString roomType = ''.obs;
+  RxString bhk = ''.obs;
 
   RxBool loading = false.obs;
 

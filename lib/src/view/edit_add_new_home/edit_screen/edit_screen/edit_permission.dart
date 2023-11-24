@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../uitels/widgets/my_check_boxwidget.dart';
@@ -13,14 +12,14 @@ class EditPermissiionScreen extends StatelessWidget {
   final itemId = Get.arguments["id"];
   final UserRentModel data = Get.arguments['list'];
 
-  final controller = Get.put(
-      EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
+  final controller = Get.put(EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - EditPermissiionScreen ");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Permission"),
+        title: const Text("Edit Permission"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -28,12 +27,12 @@ class EditPermissiionScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Permission :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
 
-              //=======PErmission ===============
+              //=======Permission ===============
               Column(
                 children: [
                   //=============for cooking ============
@@ -47,41 +46,39 @@ class EditPermissiionScreen extends StatelessWidget {
                         }),
                   ),
 
-                  // ===========for coocking conditions  ===============
-                  Obx(
-                    () => (controller.cookingAllow.value)
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 25),
-                            child: Column(
-                              children: [
-                                //=============for veg allows============
-                                Obx(
-                                  () => MYCheckBoxWidget(
-                                      title: "veg only ",
-                                      checkBool: controller.veg.value,
-                                      onChanged: (value) {
-                                        // controller method
-                                        controller.vegOnlyCondition(value);
-                                      }),
-                                ),
+                  // ===========for cooking conditions  ===============
+                  Obx(() => Visibility(
+                        visible: controller.cookingAllow.value,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 25),
+                          child: Column(
+                            children: [
+                              //=============for veg allows============
+                              Obx(
+                                () => MYCheckBoxWidget(
+                                    title: "veg only ",
+                                    checkBool: controller.veg.value,
+                                    onChanged: (value) {
+                                      // controller method
+                                      controller.vegOnlyCondition(value);
+                                    }),
+                              ),
 
-                                //=============for Non-veg allows============
+                              //=============for Non-veg allows============
 
-                                //=============for Both allows============
-                                Obx(
-                                  () => MYCheckBoxWidget(
-                                      title: "veg and non-veg both allow",
-                                      checkBool:
-                                          controller.bothVegAndNonVeg.value,
-                                      onChanged: (value) {
-                                        controller.vegAndNonVegCondition(value);
-                                      }),
-                                ),
-                              ],
-                            ),
-                          )
-                        : const Text(""),
-                  ),
+                              //=============for Both allows============
+                              Obx(
+                                () => MYCheckBoxWidget(
+                                    title: "veg and non-veg both allow",
+                                    checkBool: controller.bothVegAndNonVeg.value,
+                                    onChanged: (value) {
+                                      controller.vegAndNonVegCondition(value);
+                                    }),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
                 ],
               ),
 
@@ -124,17 +121,12 @@ class EditPermissiionScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
-                      controller.EditPermissionData().then((value) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      }).onError((error, stackTrace) {
-                        Get.snackbar("error", "error");
-                      });
+                      controller.onEditPermissionData();
                     },
                     child: Obx(
                       () => (controller.loading.value)
                           ? const CircularProgressIndicator(
-                              color: Colors.blue,
+                              strokeWidth: 3.0,
                             )
                           : const Text("Save "),
                     )),

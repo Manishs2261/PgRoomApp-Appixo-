@@ -9,9 +9,9 @@ class CustomeAppBarTheme{
     scrolledUnderElevation: 0,
     backgroundColor: AppColors.primary,
     surfaceTintColor: AppColors.primary,
-    iconTheme: IconThemeData(color: AppColors.black,size: 24),
-    actionsIconTheme: IconThemeData(color: AppColors.black,size: 24),
-    titleTextStyle: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600,color: AppColors.black),
+    iconTheme: IconThemeData(color: AppColors.white,size: 24),
+    actionsIconTheme: IconThemeData(color: AppColors.white,size: 24),
+    titleTextStyle: TextStyle(fontSize: 18.0,fontWeight: FontWeight.w600,color: AppColors.white),
   );
 
 

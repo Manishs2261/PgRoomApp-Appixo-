@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../uitels/widgets/my_check_boxwidget.dart';
 import '../controller/controller.dart';
@@ -13,14 +11,14 @@ class EditProvideFacilites extends StatelessWidget {
   final itemId = Get.arguments["id"];
   final UserRentModel data = Get.arguments['list'];
 
-  final controller = Get.put(
-      EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
+  final controller = Get.put(EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - EditProvideFacilities");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Provide Facilites"),
+        title: const Text("Edit Provide Facilities"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -28,9 +26,9 @@ class EditProvideFacilites extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Provide a Facilities :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
 
               //======for Wi-fi==========
@@ -139,19 +137,20 @@ class EditProvideFacilites extends StatelessWidget {
                 height: 50,
               ),
 
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.EditProvidFacilitesData().then((value) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      }).onError((error, stackTrace) {
-                        Get.snackbar("error", "error");
-                      });
-                    },
-                    child: Text("Update")),
+              Obx(
+                () => SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        controller.onEditProviderFacilitesData();
+                      },
+                      child: (controller.loading.value)
+                          ? const CircularProgressIndicator(
+                              strokeWidth: 3.0,
+                            )
+                          : const Text("Update")),
+                ),
               )
             ],
           ),

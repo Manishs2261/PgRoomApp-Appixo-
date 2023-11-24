@@ -1,11 +1,9 @@
 import 'dart:io';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
 class EditOtherImageController extends GetxController {
   var itemid;
@@ -15,17 +13,19 @@ class EditOtherImageController extends GetxController {
   // for bool value false not show a image
   RxBool isBool = false.obs;
   XFile? otherImage;
-  var containerHeight = 0.obs;
-  RxBool contianShow = true.obs;
 
-  Connectivity connectivity = Connectivity();
+  //dynamic container height
+  var containerHeight = 0.obs;
+
+  //for display  list view
+  RxBool containerShow = true.obs;
+  RxBool loading = false.obs;
 
   // for storing a more image in list
   RxList imageFileList = [].obs;
 
-  Future pickeImageFromGallery() async {
-    otherImage = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
+  Future pickImageFromGallery() async {
+    otherImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (otherImage == null) return;
     imageFileList.add(File(otherImage!.path));
 
@@ -33,46 +33,33 @@ class EditOtherImageController extends GetxController {
   }
 
   Future uploadOtherImage() async {
-    await ApisClass.uploadOtherImage(File(otherImage!.path), itemid)
-        .then((value) {
-      Get.snackbar("upload ", "other image");
+    await ApisClass.uploadOtherImage(File(otherImage!.path), itemid).then((value) {
+      Get.snackbar("Image Upload ", "Successfully");
+      loading.value = false;
     }).onError((error, stackTrace) {
-      Get.snackbar("error other image ", "error");
-      print("errror => $error");
+      Get.snackbar("Image Upload", "Failed");
+      AppLoggerHelper.error("Other image Upload Error", error);
+      AppLoggerHelper.error("Other image Upload Error", stackTrace);
     });
   }
 
-  onDeleteButton(BuildContext context, String imageId, String itemId,
-      String imageUrl) async {
-    await connectivity.checkConnectivity().then((value) {
-      if (value == ConnectivityResult.none) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Please Check Your Internet Connection '),
-            backgroundColor: Colors.red,
-          ),
-        );
-      } else {
-        ApisClass.deleteotherImage(imageId, itemId, imageUrl);
+  onDeleteButton(String imageId, String itemId, String imageUrl) async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        ApisClass.deleteotherImage(imageId, itemId, imageUrl).then((value) {
+          AppHelperFunction.showSnackBar("Image Deleted");
+        });
       }
     });
   }
 
-  onChooseImage(BuildContext context) async {
-    await connectivity.checkConnectivity().then((value) {
-      if (value == ConnectivityResult.none) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Please Check Your Internet Connection '),
-            backgroundColor: Colors.red,
-          ),
-        );
-      } else {
-
-        pickeImageFromGallery();
+  onChooseUploadOtherImage() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        pickImageFromGallery();
         isBool.value = true;
       }
     });
-
   }
 }

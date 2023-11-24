@@ -1,29 +1,25 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-
-import '../../../../res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
 import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
 
 class EditFormScreenController extends GetxController {
   UserRentModel data = UserRentModel();
-
   var itemId;
 
   EditFormScreenController(this.data, this.itemId);
 
   Rx<TextEditingController> houseNameController = TextEditingController().obs;
-  Rx<TextEditingController> houseAddressController =
-      TextEditingController().obs;
+  Rx<TextEditingController> houseAddressController = TextEditingController().obs;
   Rx<TextEditingController> cityNameController = TextEditingController().obs;
   Rx<TextEditingController> landdMarkController = TextEditingController().obs;
-  Rx<TextEditingController> contactNumberController =
-      TextEditingController().obs;
+  Rx<TextEditingController> contactNumberController = TextEditingController().obs;
 
   Rx<TextEditingController> singlePersonContrller = TextEditingController().obs;
   Rx<TextEditingController> doublePersonContrller = TextEditingController().obs;
@@ -31,16 +27,13 @@ class EditFormScreenController extends GetxController {
   Rx<TextEditingController> fourPersonContrller = TextEditingController().obs;
   Rx<TextEditingController> faimlyPersonContrller = TextEditingController().obs;
 
-  Rx<TextEditingController> restrictedController =
-      TextEditingController(text: "").obs;
+  Rx<TextEditingController> restrictedController = TextEditingController(text: "").obs;
 
   RxBool checkboxSingle1 = false.obs;
   RxBool checkboxDoble2 = false.obs;
   RxBool checkboxTriple3 = false.obs;
   RxBool checkboxFour4 = false.obs;
   RxBool checkboxFaimalyRoom = false.obs;
-
-
 
   // choose any one for initialize Enum verible not all
   var faltTypeEnum = FaltTypeEnum.OneBhk.obs;
@@ -90,17 +83,12 @@ class EditFormScreenController extends GetxController {
     houseAddressController = TextEditingController(text: data.addres).obs;
     cityNameController = TextEditingController(text: data.city).obs;
     landdMarkController = TextEditingController(text: data.landMark).obs;
-    contactNumberController =
-        TextEditingController(text: data.contactNumber).obs;
+    contactNumberController = TextEditingController(text: data.contactNumber).obs;
 
-    singlePersonContrller =
-        TextEditingController(text: data.singlePersonPrice).obs;
-    doublePersonContrller =
-        TextEditingController(text: data.doublePersionPrice).obs;
-    triplePersonContrller =
-        TextEditingController(text: data.triplePersionPrice).obs;
-    fourPersonContrller =
-        TextEditingController(text: data.fourPersionPrice).obs;
+    singlePersonContrller = TextEditingController(text: data.singlePersonPrice).obs;
+    doublePersonContrller = TextEditingController(text: data.doublePersionPrice).obs;
+    triplePersonContrller = TextEditingController(text: data.triplePersionPrice).obs;
+    fourPersonContrller = TextEditingController(text: data.fourPersionPrice).obs;
     faimlyPersonContrller = TextEditingController(text: data.faimlyPrice).obs;
 
     restrictedController = TextEditingController(text: data.restrictedTime).obs;
@@ -155,27 +143,11 @@ class EditFormScreenController extends GetxController {
   // for storing a more image in list
   RxList imageFileList = [].obs;
 
-
-
-  //===========================================
-  Future pickeCoverImageFromGallery() async {
-    image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
+  Future pickCoverImageFromGallery() async {
+    image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     selectedCoverImage.value = image!.path.toString();
   }
-
-  Future uploadCoverImage() async {
-    await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
-      Get.snackbar("upload ", "cover  image");
-    }).onError((error, stackTrace) {
-      Get.snackbar("error", "error");
-      print("errror => $error");
-      print(stackTrace);
-    });
-  }
-
-  //============================================
 
   cookingAllowCondition(value) {
     cookingAllow.value = value;
@@ -220,42 +192,56 @@ class EditFormScreenController extends GetxController {
     faltTypeEnum.value = newFlatTypeEnum!;
   }
 
-  Future<void> EditImage() async {
-    ApisClass.updateItemImage(File(image!.path), itemId).then((value) {
-      Get.snackbar("update image", "image");
-      Get.toNamed(RoutesName.addYourHomeScreen);
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "image");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditCoverImageSaveButton() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updateItemImage(File(image!.path), itemId).then((value) {
+          Get.snackbar("Image Update ", "Successfully");
+          loading.value = false;
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Image Update ", "Failed");
+          AppLoggerHelper.error("Update cover image Error", error);
+          AppLoggerHelper.error("Update cover image Error", stackTrace);
+        });
+      }
     });
   }
 
-  Future<void> EditRentDetailsData() async {
-    ApisClass.updateRentDetilaData(
-            houseNameController.value.text,
-            houseAddressController.value.text,
-            cityNameController.value.text,
-            landdMarkController.value.text,
-            contactNumberController.value.text,
-            itemId)
-        .then((value) {
-      Get.snackbar("Upload", "data");
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "update");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditRentDetailsData() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updateRentDetilaData(
+                houseNameController.value.text,
+                houseAddressController.value.text,
+                cityNameController.value.text,
+                landdMarkController.value.text,
+                contactNumberController.value.text,
+                itemId)
+            .then((value) {
+          loading.value = false;
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload Rent Details Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
     });
   }
 
   Future<void> EditRoomTypeAndPriceData() async {
-    ApisClass.updateRoomTypeAndPrice(
-            itemId,
-            singlePersonContrller.value.text,
-            doublePersonContrller.value.text,
-            triplePersonContrller.value.text,
-            fourPersonContrller.value.text,
-            faimlyPersonContrller.value.text)
+    ApisClass.updateRoomTypeAndPrice(itemId, singlePersonContrller.value.text, doublePersonContrller.value.text,
+            triplePersonContrller.value.text, fourPersonContrller.value.text, faimlyPersonContrller.value.text)
         .then((value) {
       Get.snackbar("Upload", "data");
     }).onError((error, stackTrace) {
@@ -265,50 +251,80 @@ class EditFormScreenController extends GetxController {
     });
   }
 
-  Future<void> EditProvidFacilitesData() async {
-    ApisClass.updateProvideFacilitesData(
-      itemId,
-      wifi.value,
-      bed.value,
-      chari.value,
-      table.value,
-      fan.value,
-      gadda.value,
-      light.value,
-      locker.value,
-      bedSheet.value,
-      washingMachin.value,
-      parking.value,
-    ).then((value) {
-      Get.snackbar("Upload", "data");
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "update");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditProviderFacilitesData() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updateProvideFacilitesData(
+          itemId,
+          wifi.value,
+          bed.value,
+          chari.value,
+          table.value,
+          fan.value,
+          gadda.value,
+          light.value,
+          locker.value,
+          bedSheet.value,
+          washingMachin.value,
+          parking.value,
+        ).then((value) {
+          loading.value = false;
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload Provider Facilite Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
     });
   }
 
-  Future<void> EditAdditionalChargesAndDoor() async {
-    ApisClass.updateAdditionalCharesAndDoorDate(itemId, electricityBill.value,
-            waterBill.value, restrictedController.value.text, fexibleTime.value)
-        .then((value) {
-      Get.snackbar("Upload", "data");
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "update");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditAdditionalChargesAndDoor() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updateAdditionalCharesAndDoorDate(
+                itemId, electricityBill.value, waterBill.value, restrictedController.value.text, fexibleTime.value)
+            .then((value) {
+          loading.value = false;
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload Additional charges  Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
     });
   }
 
-  Future<void> EditPermissionData() async {
-    ApisClass.updatePermissionData(itemId, cookingType.value,
-            cookingAllow.value, boy.value, girl.value, faimlyMamber.value)
-        .then((value) {
-      Get.snackbar("Upload", "data");
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "update");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditPermissionData() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updatePermissionData(
+                itemId, cookingType.value, cookingAllow.value, boy.value, girl.value, faimlyMamber.value)
+            .then((value) {
+          loading.value = false;
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload Permission Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
     });
   }
 }

@@ -31,7 +31,7 @@ class LandMarkValidator {
 
 class ContactNumberValidator {
   static String? validate(String? value) {
-    return value==null ||value.isEmpty ? "Password can't be empty" : null;
+    return value==null ||value.isEmpty ? "Contact Number can't be empty" : null;
   }
 }
 

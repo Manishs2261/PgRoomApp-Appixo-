@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/uitels/Constants/sizes.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../uitels/widgets/my_check_boxwidget.dart';
@@ -11,20 +11,21 @@ import '../controller/controller.dart';
 class EditAdditionalChargesAndDoorTime extends StatelessWidget {
   EditAdditionalChargesAndDoorTime({super.key});
 
-
   final itemId = Get.arguments["id"];
   final UserRentModel data = Get.arguments['list'];
 
-  final controller = Get.put(
-      EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
+  final controller = Get.put(EditFormScreenController(Get.arguments['list'], Get.arguments["id"]));
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - EditAdditionalChargesAndDoorTime");
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Charges and Time"),),
+      appBar: AppBar(
+        title: const Text("Edit Charges and Time"),
+      ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20,right: 20,top: 30),
-        child:Column(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
@@ -32,11 +33,11 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const Text(
-              "In this chargs include your roon rent or not",
+              "In this charges include your room rent or not",
               style: TextStyle(color: Colors.orange),
             ),
             const SizedBox(
-              height: 30,
+              height: AppSizes.spaceBtwSSections,
             ),
 
             //======for Electricity bill =============
@@ -44,9 +45,8 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Obx(
-                      () => MYCheckBoxWidget(
-                      materialTapTargetSize:
-                      MaterialTapTargetSize.shrinkWrap,
+                  () => MYCheckBoxWidget(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       title: "Electricity Bill",
                       checkBool: controller.electricityBill.value,
                       onChanged: (value) {
@@ -56,15 +56,15 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
 
                 // ==========for checking Electricity bill condition=======
                 Obx(
-                      () => controller.electricityBill.value
+                  () => controller.electricityBill.value
                       ? const Text(
-                    "Electricity bill are include in your room rent",
-                    style: TextStyle(color: Colors.green),
-                  )
+                          "Electricity bill are include in your room rent",
+                          style: TextStyle(color: Colors.green),
+                        )
                       : const Text(
-                    "Electricity bill are not include in your room rent",
-                    style: TextStyle(color: Colors.orange),
-                  ),
+                          "Electricity bill are not include in your room rent",
+                          style: TextStyle(color: Colors.orange),
+                        ),
                 )
               ],
             ),
@@ -76,9 +76,8 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                 Row(
                   children: [
                     Obx(
-                          () => MYCheckBoxWidget(
-                          materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
+                      () => MYCheckBoxWidget(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           title: "Water Bill",
                           checkBool: controller.waterBill.value,
                           onChanged: (value) {
@@ -89,15 +88,15 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                 ),
                 //=========for checking water bill condition============
                 Obx(
-                      () => controller.waterBill.value
+                  () => controller.waterBill.value
                       ? const Text(
-                    "Water bill are  include in your room rent",
-                    style: TextStyle(color: Colors.green),
-                  )
+                          "Water bill are  include in your room rent",
+                          style: TextStyle(color: Colors.green),
+                        )
                       : const Text(
-                    "Water bill are not include in your room rent",
-                    style: TextStyle(color: Colors.orange),
-                  ),
+                          "Water bill are not include in your room rent",
+                          style: TextStyle(color: Colors.orange),
+                        ),
                 )
               ],
             ),
@@ -113,7 +112,7 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
               children: [
                 //=============for Restricted Time ============
                 Obx(
-                      () => MYCheckBoxWidget(
+                  () => MYCheckBoxWidget(
                       title: "Restricted Time",
                       checkBool: controller.restrictedTime.value,
                       onChanged: (value) {
@@ -123,54 +122,50 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                 // =======for checking a condition ===========
                 Obx(() => (controller.restrictedTime.value)
                     ? Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: MyTextFormWedgit(
-                        textKeyBoard: TextInputType.number,
-                        controller:
-                        controller.restrictedController.value,
-                        hintText: "Enter at time",
-                        lableText: "Time",
-                        isDense: true,
-                        isCollapsed: true,
-                        borderRadius: BorderRadius.zero,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 5, horizontal: 15),
-                      ),
-                    ))
+                        child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: MyTextFormWedgit(
+                          textKeyBoard: TextInputType.number,
+                          controller: controller.restrictedController.value,
+                          hintText: "Enter at time",
+                          lableText: "Time",
+                          isDense: true,
+                          isCollapsed: true,
+                          borderRadius: BorderRadius.zero,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                        ),
+                      ))
                     : const Text(""))
               ],
             ),
-            //=============for fexible time ============
+            //=============for flexible time ============
             Obx(
-                  () => MYCheckBoxWidget(
-                  title: "Fexible time",
+              () => MYCheckBoxWidget(
+                  title: "Flexible time",
                   checkBool: controller.fexibleTime.value,
                   onChanged: (value) {
                     controller.fexibleTimeCondition(value);
                   }),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
 
-            SizedBox(
-              height: 40,
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {
-
-                    controller.EditAdditionalChargesAndDoor().then((value) {
-                      Get.back();
-                      Get.back();
-
-                    }).onError((error, stackTrace) {
-
-                      Get.snackbar("error", "error");
-                    });
-
-                  }, child: Text("Update")),
+            Obx(
+              () => SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      controller.onEditAdditionalChargesAndDoor();
+                    },
+                    child: (controller.loading.value)
+                        ? const CircularProgressIndicator(
+                            strokeWidth: 3.0,
+                          )
+                        : const Text("Update")),
+              ),
             )
           ],
         ),
