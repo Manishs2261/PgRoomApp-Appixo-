@@ -58,7 +58,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                   width: AppHelperFunction.screenWidth() * 0.9,
                   child: ElevatedButton(
                     onPressed: () {
-                      ApisClass.deleteData(itemId, imageUrl).then((value) {
+                      ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
                         const CircularProgressIndicator(
                           color: Colors.blue,
                         );

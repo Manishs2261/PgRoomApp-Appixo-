@@ -196,7 +196,7 @@ class EditFormScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
-        ApisClass.updateItemImage(File(image!.path), itemId).then((value) {
+        ApisClass.updateCoverItemImage(File(image!.path), itemId).then((value) {
           Get.snackbar("Image Update ", "Successfully");
           loading.value = false;
           Navigator.pop(Get.context!);
@@ -265,7 +265,7 @@ class EditFormScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
-        ApisClass.updateProvideFacilitesData(
+        ApisClass.updateProvideFacilitiesData(
           itemId,
           wifi.value,
           bed.value,
@@ -298,7 +298,7 @@ class EditFormScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
-        ApisClass.updateAdditionalCharesAndDoorDate(
+        ApisClass.updateAdditionalChargesAndDoorDate(
                 itemId, electricityBill.value, waterBill.value, restrictedController.value.text, flexibleTime.value)
             .then((value) {
           loading.value = false;

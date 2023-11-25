@@ -46,7 +46,7 @@ class EditOtherImageController extends GetxController {
   onDeleteButton(String imageId, String itemId, String imageUrl) async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        ApisClass.deleteotherImage(imageId, itemId, imageUrl).then((value) {
+        ApisClass.deleteOtherImage(imageId, itemId, imageUrl).then((value) {
           AppHelperFunction.showSnackBar("Image Deleted");
         });
       }

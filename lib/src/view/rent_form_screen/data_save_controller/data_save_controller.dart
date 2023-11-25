@@ -22,7 +22,7 @@ class DataSaveController extends GetxController {
 
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
-            ApisClass.download,
+            ApisClass.CoverImagedownloadUrl,
             rentController.houseNameController.value.text,
             rentController.houseAddressController.value.text,
             rentController.cityNameController.value.text,
@@ -76,7 +76,7 @@ class DataSaveController extends GetxController {
 
   saveUserRentDetails() {
     ApisClass.rentDetailsUser(
-            ApisClass.download,
+            ApisClass.CoverImagedownloadUrl,
             rentController.houseNameController.value.text,
             rentController.houseAddressController.value.text,
             rentController.cityNameController.value.text,

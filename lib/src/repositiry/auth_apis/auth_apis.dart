@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:email_otp/email_otp.dart';
@@ -8,14 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:http/http.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../view/home/home_screen.dart';
 
 class AuthApisClass {
   static EmailOTP emailOtp = EmailOTP();
@@ -23,17 +20,17 @@ class AuthApisClass {
   static bool otpSend = false;
 
   // =======google sing =============
-  static handleGoogleButttonClicke(BuildContext context) async {
+  static handleGoogleButtonClick(BuildContext context) async {
     await connectivity.checkConnectivity().then((value) {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar('Please Check Your Internet Connection');
       } else {
         signInWithGoogle().then((value) async {
-          // sharedPrefrences code
+          // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
-          //upload user uid data in SharedPreferenses
+          //upload user uid data in SharedPreferences
           preferences.setString('userUid', value.user!.uid);
-          // initializ varible
+          // initialize variable
           finalUserUidGloble = preferences.getString('userUid');
           log('\nUser :${value.user}');
           Get.offAllNamed(RoutesName.homeScreen);
@@ -63,10 +60,6 @@ class AuthApisClass {
 
   static Future<bool> singEmailIdAndPassword(String email, String pass) async {
     try {
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: pass,
-      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar(
@@ -74,11 +67,12 @@ class AuthApisClass {
             "This password is weak use Number,"
                 "Character");
       } else if (e.code == 'email-already-in-use') {
-        Get.snackbar("Email-already-in-use", "This email id is alreday exist", backgroundColor: Colors.redAccent);
+        Get.snackbar("Email-already-in-use", "This email id is already exist");
         return false;
       }
     } catch (e) {
-      Get.snackbar(" sing error", "$e");
+      Get.snackbar(" InValid", "Sign");
+      AppLoggerHelper.info("$e");
     }
 
     return true;
@@ -89,24 +83,20 @@ class AuthApisClass {
   static Future<bool> loginEmailAndPassword(String email, String pass) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
-
-      print("data lodin 🧧${credential.user}");
+      AppLoggerHelper.info("${credential.user}");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Get.snackbar("NO user found", "No user found for that email.");
+        Get.snackbar("NO User found", "User are not registered.");
 
         return false;
       } else if (e.code == 'wrong-password') {
         Get.snackbar(
-            "Worng password",
-            "Wrong password provided for that user"
-                ".",
-            backgroundColor: Colors.redAccent);
+          "InValid", "password");
 
         return false;
       } else {
-        Get.snackbar("Error", "In valid Email id and password");
-        print(e.code);
+        Get.snackbar("Invalid", "Email id and password");
+        AppLoggerHelper.info(e.code);
         return false;
       }
     }
@@ -114,27 +104,12 @@ class AuthApisClass {
     return true;
   }
 
-// phone number verification code
-
-  static phoneNUmberVerification() async {
-    await FirebaseAuth.instance.verifyPhoneNumber(
-      phoneNumber: "+91",
-      verificationCompleted: (PhoneAuthCredential credential) {},
-      verificationFailed: (FirebaseAuthException e) {},
-      codeSent: (String verificationId, int? resendToken) {
-        //  ForgetPasswordPhoneNumberScreen.verify = verificationId;
-        // Navigator.push(context, MaterialPageRoute(builder: (context)=> OtpPhoneNumberScreen()));
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {},
-    );
-  }
-
   //===========send opt email verification ===============
   static Future<bool> sendEmailOtpVerification(String email) async {
     //====send otp code ==========
     emailOtp.setConfig(
       appEmail: "sahusanju138@gmail.com",
-      appName: "Email OTP by manish",
+      appName: "~ By Pg Room App",
       userEmail: email,
       otpLength: 6,
       otpType: OTPType.digitsOnly,
@@ -152,32 +127,11 @@ class AuthApisClass {
 
   static Future<bool> otpSubmitVerification(String otp) async {
     if (await emailOtp.verifyOTP(otp: otp) == true) {
-      Get.snackbar('OTP', 'Successfully  verify', snackPosition: SnackPosition.TOP);
+      Get.snackbar('OTP verify', 'Successfully', snackPosition: SnackPosition.TOP);
       return true;
     } else {
-      Get.snackbar('OTP', 'faield verification', snackPosition: SnackPosition.TOP);
+      Get.snackbar('OTP verify', 'field', snackPosition: SnackPosition.TOP);
       return false;
     }
-  }
-
-  static phoneOtpVerification() {
-    //   try{
-    //
-    //
-    //     // Create a PhoneAuthCredential with the code
-    //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-    //         verificationId: ForgetPasswordPhoneNumberScreen.verify,
-    //         smsCode: Scode);
-    //
-    //     // Sign the user in (or link) with the credential
-    //     await auth.signInWithCredential(credential).then((value) {
-    //
-    //       print("login susscefule");
-    //       Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
-    //     });
-    //   }
-    //       catch(e){
-    //     print("error otp : $e");
-    //       }
   }
 }

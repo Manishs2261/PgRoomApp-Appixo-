@@ -1,11 +1,8 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,18 +19,17 @@ class ApisClass {
   // for storing Image  information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
+  //current date and time
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
 
-
-  static var download;
+  static var CoverImagedownloadUrl;
   static var userRentId = "";
   static var userName;
-
-  static var otherDownload;
+  static var otherDownloadUrl;
   static var userEmail;
   static var userCity;
-  static var houseNameMap;
-  static var demoImage;
+
+  // static var houseNameMap;
 
   static UserRentModel model = UserRentModel();
   static List<UserRentModel> allDataList = [];
@@ -115,10 +111,7 @@ class ApisClass {
         like: like,
         restrictedTime: restrictedTime,
         userRentId: time);
-    return await firestore
-        .collection("rentCollection")
-        .doc(userRentId)
-        .set(userHomeList.toJson());
+    return await firestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
   }
 
   // this data store in data in user profile specific
@@ -200,27 +193,23 @@ class ApisClass {
     return await firestore
         .collection("userRentDetails")
         .doc(user.uid)
-        .collection("${user.uid}")
+        .collection(user.uid)
         .add(userHomeList.toJson())
         .then((value) {
-      print(value.id);
+     AppLoggerHelper.info(value.id);
       userRentId = value.id;
       return null;
     });
   }
 
   // delete cover image  data code
-  static Future<void> deleteData(String deleteId, String imageUrl) async {
+  static Future<void> deleteCoverImageData(String deleteId, String imageUrl) async {
     try {
       //delete a firebasestore
-      DocumentReference documentReference = firestore
-          .collection('userRentDetails')
-          .doc(user.uid)
-          .collection("${user.uid}")
-          .doc(deleteId);
+      DocumentReference documentReference =
+          firestore.collection('userRentDetails').doc(user.uid).collection(user.uid).doc(deleteId);
 
-      DocumentReference documentReference1 =
-          firestore.collection('rentCollection').doc(deleteId);
+      DocumentReference documentReference1 = firestore.collection('rentCollection').doc(deleteId);
 
       // Delete the document.
       await documentReference.delete();
@@ -229,28 +218,19 @@ class ApisClass {
       // delete a firestorege image data
       final reff = storage.refFromURL(imageUrl);
       await reff.delete();
-
-      print("deleted");
     } catch (e) {
-      print("data in not delete $e");
+      AppLoggerHelper.info("data in not delete $e");
     }
   }
 
   //delete Other image data
-  static Future<void> deleteotherImage(
-      String deleteOtherIMageId, String ItemId, String imageUrl) async {
+  static Future<void> deleteOtherImage(String deleteOtherIMageId, String itemId, String imageUrl) async {
     try {
-      DocumentReference documentReference = firestore
-          .collection("OtherImageUserList")
-          .doc(ItemId)
-          .collection("$ItemId")
-          .doc(deleteOtherIMageId);
+      DocumentReference documentReference =
+          firestore.collection("OtherImageUserList").doc(itemId).collection(itemId).doc(deleteOtherIMageId);
 
-      DocumentReference documentReference1 = firestore
-          .collection("OtherImageList")
-          .doc(ItemId)
-          .collection(ItemId)
-          .doc(deleteOtherIMageId);
+      DocumentReference documentReference1 =
+          firestore.collection("OtherImageList").doc(itemId).collection(itemId).doc(deleteOtherIMageId);
 
       await documentReference.delete();
       await documentReference1.delete();
@@ -258,116 +238,100 @@ class ApisClass {
       // delete a firestorege image data
       final reff = storage.refFromURL(imageUrl);
       await reff.delete();
-
-      print("deleted");
     } catch (e) {
-      print("data in not delete $e");
+      AppLoggerHelper.info("data in not delete $e");
     }
   }
 
-// uplaoad  Cover image data in firestorev database
+// uplaoad  Cover image data in firestorm database
   static Future uploadCoverImage(File imageFile) async {
     try {
-      final reference =
-          storage.ref().child('coverimage/${user.uid}/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('coverimage/${user.uid}/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
-      download = await snapshot.ref.getDownloadURL();
+      CoverImagedownloadUrl = await snapshot.ref.getDownloadURL();
     } catch (e) {
-      print("image is not uploaded ; $e");
+      AppLoggerHelper.info("image is not uploaded ; $e");
     }
   }
 
-  //upload other images in firestore databse
+  //upload other images in firestorm databse
   static Future uploadOtherImage(File imageFile, itemid) async {
     try {
       final reference = storage.ref().child('otherimage/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
-      otherDownload = await snapshot.ref.getDownloadURL();
-
+      otherDownloadUrl = await snapshot.ref.getDownloadURL();
+      //rent collection data base
       await firestore
           .collection("OtherImageUserList")
           .doc(itemid)
           .collection("$itemid")
-          .add({'OtherImage': otherDownload}).then((value) async {
-        print(value.id);
+          .add({'OtherImage': otherDownloadUrl}).then((value) async {
+         AppLoggerHelper.info(value.id);
         userRentId = value.id;
-
+//user personal collection data base
         await firestore
             .collection("OtherImageList")
             .doc(itemid)
             .collection("$itemid")
             .doc(userRentId)
-            .set({'OtherImage': otherDownload});
+            .set({'OtherImage': otherDownloadUrl});
 
         return null;
       });
-      print("url : $otherDownload");
     } catch (e) {
-      print("image is not uploaded ; $e");
+      AppLoggerHelper.info("image is not uploaded ; $e");
     }
   }
 
-  static Future<void> updateItemImage(File file, String itmeId) async {
+  static Future<void> updateCoverItemImage(File file, String itmeId) async {
     //getting image file extenstion
     final ext = file.path.split('.').last;
-    log('Extension :$ext');
+    AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
     final ref = storage.ref().child('coverimage/${user.uid}.$ext');
 
     // uploading image
-    await ref
-        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
-        .then((p0) {
-      log('Data Transferred :${p0.bytesTransferred / 1000} kb');
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
+      AppLoggerHelper.info('Data Transferred :${p0.bytesTransferred / 1000} kb');
     });
 
     // updating image in firestore database
     model.coverImage = await ref.getDownloadURL();
-    await firestore
-        .collection('rentCollection')
-        .doc(itmeId)
-        .update({'coverImage': model.coverImage});
 
+    //rent collection data base
+    await firestore.collection('rentCollection').doc(itmeId).update({'coverImage': model.coverImage});
+//user personal collection data base
     await firestore
         .collection("userRentDetails")
         .doc(user.uid)
-        .collection("${user.uid}")
+        .collection(user.uid)
         .doc(itmeId)
         .update({'coverImage': model.coverImage});
   }
 
   //update Rent Details data
-  static Future<void> updateRentDetilaData(
-      name, address, city, landMark, number, itemID) async {
-    await firestore.collection("rentCollection").doc(itemID).update({
-      'houseName': name,
-      'contactNumber': number,
-      'landMark': landMark,
-      'city': city,
-      'addres': address
-    });
-
+  static Future<void> updateRentDetilaData(name, address, city, landMark, number, itemID) async {
+    //rent collection data base
+    await firestore
+        .collection("rentCollection")
+        .doc(itemID)
+        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'addres': address});
+//user personal collection data base
     await firestore
         .collection("userRentDetails")
         .doc(user.uid)
-        .collection("${user.uid}")
+        .collection(user.uid)
         .doc(itemID)
-        .update({
-      'houseName': name,
-      'contactNumber': number,
-      'landMark': landMark,
-      'city': city,
-      'addres': address
-    });
+        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'addres': address});
   }
 
   // update Room type And Price Data
 
-  static Future<void> updateRoomTypeAndPrice(
-      itemId, single, double, triple, four, faimly) async {
+  static Future<void> updateRoomTypeAndPrice(itemId, single, double, triple, four, faimly) async {
+    //rent collection data base
     await firestore.collection("rentCollection").doc(itemId).update({
       'doublePersionPrice': double,
       'triplePersionPrice': triple,
@@ -375,13 +339,8 @@ class ApisClass {
       'fourPersionPrice': four,
       'singlePersonPrice': single
     });
-
-    await firestore
-        .collection("userRentDetails")
-        .doc(user.uid)
-        .collection("${user.uid}")
-        .doc(itemId)
-        .update({
+//user personal collection data base
+    await firestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
       'doublePersionPrice': double,
       'triplePersionPrice': triple,
       'faimlyPrice': faimly,
@@ -390,21 +349,11 @@ class ApisClass {
     });
   }
 
-// update provide Facilites Data
+// update provide Facilities Data
 
-  static Future<void> updateProvideFacilitesData(
-      itemId,
-      wifi,
-      bed,
-      chair,
-      table,
-      fan,
-      gadda,
-      light,
-      locker,
-      bedSheet,
-      washingMachine,
-      parking) async {
+  static Future<void> updateProvideFacilitiesData(
+      itemId, wifi, bed, chair, table, fan, gadda, light, locker, bedSheet, washingMachine, parking) async {
+    //rent collection data base
     await firestore.collection("rentCollection").doc(itemId).update({
       'parking': parking,
       'bed': bed,
@@ -418,13 +367,8 @@ class ApisClass {
       'bedSheet': bedSheet,
       'light': light,
     });
-
-    await firestore
-        .collection("userRentDetails")
-        .doc(user.uid)
-        .collection("${user.uid}")
-        .doc(itemId)
-        .update({
+//user personal collection data base
+    await firestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
       'parking': parking,
       'bed': bed,
       'washingMachin': washingMachine,
@@ -439,78 +383,56 @@ class ApisClass {
     });
   }
 
-  // update Additional Chages And Door closing time
-  static Future<void> updateAdditionalCharesAndDoorDate(
-      itemId, electricity, water, restrictTime, fexibleTime) async {
+  // update Additional Charges And Door closing time
+  static Future<void> updateAdditionalChargesAndDoorDate(itemId, electricity, water, restrictTime, flexibleTime) async {
+    //rent collection data base
     await firestore.collection("rentCollection").doc(itemId).update({
-      'fexibleTime': fexibleTime,
+      'fexibleTime': flexibleTime,
       'restrictedTime': restrictTime,
       'waterBill': water,
       'electricityBill': electricity,
     });
-
-    await firestore
-        .collection("userRentDetails")
-        .doc(user.uid)
-        .collection("${user.uid}")
-        .doc(itemId)
-        .update({
-      'fexibleTime': fexibleTime,
+//user personal collection data base
+    await firestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+      'fexibleTime': flexibleTime,
       'restrictedTime': restrictTime,
       'waterBill': water,
       'electricityBill': electricity,
     });
   }
 
-  //update Permmission
-  static Future<void> updatePermissionData(
-      itemId, cookinType, cooking, boy, girl, faimlyMember) async {
-    await firestore.collection("rentCollection").doc(itemId).update({
-      'girls': girl,
-      'boy': boy,
-      'cooking': cooking,
-      'cookingType': cookinType,
-      'faimlyMember': faimlyMember
-    });
-
-    await firestore
-        .collection("userRentDetails")
-        .doc(user.uid)
-        .collection("${user.uid}")
-        .doc(itemId)
-        .update({
-      'girls': girl,
-      'boy': boy,
-      'cooking': cooking,
-      'cookingType': cookinType,
-      'faimlyMember': faimlyMember
-    });
+  //update Permission
+  static Future<void> updatePermissionData(itemId, cookingType, cooking, boy, girl, familyMember) async {
+    //rent collection data base
+    await firestore.collection("rentCollection").doc(itemId).update(
+        {'girls': girl, 'boy': boy, 'cooking': cooking, 'cookingType': cookingType, 'faimlyMember': familyMember});
+//user personal collection data base
+    await firestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update(
+        {'girls': girl, 'boy': boy, 'cooking': cooking, 'cookingType': cookingType, 'faimlyMember': familyMember});
   }
+
+  // //fetch all item data
+  // static Future<void> getAllItemData() async {
+  //   var collection = firestorm.collection('rentCollection');
+  //   var querySnapshot = await collection.get();
+  //   Map<String, dynamic> data;
+  //   for (var queryDocumentSnapshot in querySnapshot.docs) {
+  //     data = queryDocumentSnapshot.data();
+  //     houseNameMap = data['houseName'];
+  //   }
+  // }
 
   //Get all data in list
-
   static Future<void> getUserData() async {
     var collection = firestore.collection('loginUser').doc(user.uid);
     var querySnapshot = await collection.get();
-
     Map<String, dynamic>? data = querySnapshot.data();
     userName = data?['Name'];
     userCity = data?['city'];
     userEmail = data?['email'];
   }
 
-  static Future<void> getAllItemData() async {
-    var collection = firestore.collection('rentCollection');
-    var querySnapshot = await collection.get();
-    Map<String, dynamic> data;
-    for (var queryDocumentSnapshot in querySnapshot.docs) {
-      data = queryDocumentSnapshot.data();
-      var name = data['city'];
-      houseNameMap = data['houseName'];
-    }
-  }
-
-  // store a user data
+  // save a user data
   static Future<void> saveUserData(name, city, email) async {
     await firestore.collection("loginUser").doc(user.uid).set({
       'city': city,
@@ -519,22 +441,18 @@ class ApisClass {
     });
   }
 
-  /// Rating and review create apies
+  /// Rating and review create api
   static Future<void> ratingAndReviewCreateData(rating, review, itemId) async {
-    await firestore
-        .collection("userReview")
-        .doc("reviewCollection")
-        .collection("$itemId")
-        .add({
+    await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
       'rating': rating,
       'title': review,
     });
   }
 
+  //Remove user in share preferences
   static Future<bool> removeUser() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
-
     return true;
   }
 }

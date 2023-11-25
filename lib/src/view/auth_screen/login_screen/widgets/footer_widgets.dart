@@ -17,7 +17,7 @@ class FooterWidgets extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           //google sing code
-          AuthApisClass.handleGoogleButttonClicke(context);
+          AuthApisClass.handleGoogleButtonClick(context);
         },
         child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
