@@ -107,9 +107,9 @@ class EditPermissiionScreen extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Family member  allow",
-                    checkBool: controller.faimlyMamber.value,
+                    checkBool: controller.familyMember.value,
                     onChanged: (value) {
-                      controller.faimlyMamber.value = value!;
+                      controller.familyMember.value = value!;
                     }),
               ),
 

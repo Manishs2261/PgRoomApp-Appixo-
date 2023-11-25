@@ -54,9 +54,9 @@ class EditProvideFacilites extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Chair",
-                    checkBool: controller.chari.value,
+                    checkBool: controller.chair.value,
                     onChanged: (value) {
-                      controller.chari.value = value!;
+                      controller.chair.value = value!;
                     }),
               ),
 
@@ -118,9 +118,9 @@ class EditProvideFacilites extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Washing Machine",
-                    checkBool: controller.washingMachin.value,
+                    checkBool: controller.washingMachine.value,
                     onChanged: (value) {
-                      controller.washingMachin.value = value!;
+                      controller.washingMachine.value = value!;
                     }),
               ),
               //======for parking==========
@@ -143,7 +143,7 @@ class EditProvideFacilites extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        controller.onEditProviderFacilitesData();
+                        controller.onEditProviderFacilitiesData();
                       },
                       child: (controller.loading.value)
                           ? const CircularProgressIndicator(

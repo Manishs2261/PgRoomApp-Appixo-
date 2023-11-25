@@ -24,7 +24,7 @@ class AppTextFormFieldTheme {
       errorMaxLines: 3,
       prefixIconColor: Colors.grey,
       suffixIconColor: Colors.grey,
-      labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white),
+      labelStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.white30),
       hintStyle: const TextStyle().copyWith(fontSize: 14, color: Colors.black54),
       errorStyle: const TextStyle().copyWith(fontStyle: FontStyle.normal),
       floatingLabelStyle: const TextStyle().copyWith(color: Colors.white.withOpacity(0.8)),

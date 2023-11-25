@@ -1,41 +1,34 @@
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/get_instance.dart';
-import 'package:get/state_manager.dart';
- import 'package:pgroom/src/view/rent_form_screen/rent_details/controller'
-     '/controller.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/view/rent_form_screen/rent_details/controller'
+    '/controller.dart';
 import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
-import 'package:pinput/pinput.dart';
 
-import '../../../res/route_name/routes_name.dart';
 import '../../../uitels/validator/text_field_validator.dart';
-import '../hostel_and_room_type/hostel_and_room_type_screen.dart';
 
 class RentDetailsScsreen extends StatelessWidget {
   RentDetailsScsreen({super.key});
 
-  final _globlekey = GlobalKey<FormState>();
+  final _globalKey = GlobalKey<FormState>();
 
   final controller = Get.put(RentDetailsController());
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("build scren => rent Details 🔴");
-    }
+    AppLoggerHelper.debug("Build - RentDetailScreen");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Rent Details"),
       ),
       body: GestureDetector(
-        onTap: ()=>FocusScope.of(context).unfocus(),
+        onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
             child: Form(
-              key: _globlekey,
+              key: _globalKey,
               child: Column(
                 children: [
                   // =================Home Name================
@@ -59,7 +52,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     textKeyBoard: TextInputType.text,
                     controller: controller.houseAddressController.value,
                     hintText: "House Address",
-                    lableText: 'House addsress',
+                    lableText: 'House address',
                     icon: const Icon(Icons.location_city_outlined),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
@@ -85,9 +78,9 @@ class RentDetailsScsreen extends StatelessWidget {
                   //============Land Mark address=================
                   MyTextFormWedgit(
                     textKeyBoard: TextInputType.text,
-                    controller: controller.landdMarkController.value,
+                    controller: controller.landMarkController.value,
                     hintText: "Land Mark address",
-                    lableText: 'Land Makr address',
+                    lableText: 'Land Mark address',
                     icon: const Icon(Icons.home),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
@@ -97,7 +90,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     height: 15,
                   ),
 
-                  //==========Contuct Number================
+                  //==========Contact Number================
                   MyTextFormWedgit(
                     textKeyBoard: TextInputType.phone,
                     maxLength: 10,
@@ -108,7 +101,6 @@ class RentDetailsScsreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: ContactNumberValidator.validate,
-
                   ),
 
                   const SizedBox(
@@ -120,12 +112,9 @@ class RentDetailsScsreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (_globlekey.currentState!.validate()) {
-                          //controller.onSubmitButton();
-
+                        if (_globalKey.currentState!.validate()) {
                           controller.onSubmitButton();
                         }
-
                       },
                       child: Obx(
                         () => (controller.loading.value)

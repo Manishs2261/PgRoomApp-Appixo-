@@ -142,9 +142,9 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
             Obx(
               () => MYCheckBoxWidget(
                   title: "Flexible time",
-                  checkBool: controller.fexibleTime.value,
+                  checkBool: controller.flexibleTime.value,
                   onChanged: (value) {
-                    controller.fexibleTimeCondition(value);
+                    controller.flexibleTimeCondition(value);
                   }),
             ),
 

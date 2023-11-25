@@ -1,37 +1,30 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
-import '../../../../repositiry/apis/apis.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import '../../../../res/route_name/routes_name.dart';
 
-class ProvideFacilitesController extends GetxController{
-
-
+class ProvideFacilitesController extends GetxController {
   RxBool wifi = false.obs;
   RxBool bed = false.obs;
-  RxBool chari = false.obs;
+  RxBool chair = false.obs;
   RxBool table = false.obs;
   RxBool fan = false.obs;
   RxBool gadda = false.obs;
   RxBool light = false.obs;
   RxBool locker = false.obs;
   RxBool bedSheet = false.obs;
-  RxBool washingMachin = false.obs;
+  RxBool washingMachine = false.obs;
   RxBool parking = false.obs;
   RxBool loading = false.obs;
 
-
-  onSubmitButton(){
-
+  onSubmitButton() {
     loading.value = true;
 
     Get.toNamed(RoutesName.chargeAndDoorTimingScreen)?.then((value) {
       loading.value = false;
     }).onError((error, stackTrace) {
-
+      AppLoggerHelper.error("provide facilities Error ", error);
+      AppLoggerHelper.error("provide facilities Error ", stackTrace);
       loading.value = false;
     });
   }
-
-
 }

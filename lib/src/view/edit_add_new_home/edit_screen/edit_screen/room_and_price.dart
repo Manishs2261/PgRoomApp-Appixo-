@@ -81,22 +81,23 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                           controller.checkboxSingle1.value = value!;
                         }),
                     Obx(
-                      () => (controller.checkboxSingle1.value)
-                          ? Flexible(
-                              child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: MyTextFormWedgit(
-                                textKeyBoard: TextInputType.number,
-                                controller: controller.singlePersonContrller.value,
-                                hintText: "Price",
-                                lableText: "Price",
-                                isCollapsed: true,
-                                isDense: true,
-                                borderRadius: BorderRadius.circular(11),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              ),
-                            ))
-                          : const Text(""),
+                      () => Visibility(
+                        visible: (controller.checkboxSingle1.value),
+                        child: Flexible(
+                            child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: MyTextFormWedgit(
+                            textKeyBoard: TextInputType.number,
+                            controller: controller.singlePersonController.value,
+                            hintText: "Price",
+                            lableText: "Price",
+                            isCollapsed: true,
+                            isDense: true,
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          ),
+                        )),
+                      ),
                     )
                   ],
                 ),
@@ -108,28 +109,27 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                   children: [
                     MYCheckBoxWidget(
                         title: "Doble Person",
-                        checkBool: controller.checkboxDoble2.value,
+                        checkBool: controller.checkboxDouble2.value,
                         onChanged: (value) {
-                          controller.checkboxDoble2.value = value!;
+                          controller.checkboxDouble2.value = value!;
                         }),
-                    Obx(
-                      () => (controller.checkboxDoble2.value)
-                          ? Flexible(
+                    Obx(() => Visibility(
+                          visible: (controller.checkboxDouble2.value),
+                          child: Flexible(
                               child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: MyTextFormWedgit(
-                                textKeyBoard: TextInputType.number,
-                                controller: controller.doublePersonContrller.value,
-                                hintText: "Price",
-                                lableText: "Price",
-                                isCollapsed: true,
-                                isDense: true,
-                                borderRadius: BorderRadius.circular(11),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              ),
-                            ))
-                          : const Text(""),
-                    )
+                            padding: const EdgeInsets.all(10.0),
+                            child: MyTextFormWedgit(
+                              textKeyBoard: TextInputType.number,
+                              controller: controller.doublePersonController.value,
+                              hintText: "Price",
+                              lableText: "Price",
+                              isCollapsed: true,
+                              isDense: true,
+                              borderRadius: BorderRadius.circular(11),
+                              contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            ),
+                          )),
+                        ))
                   ],
                 ),
               ),
@@ -144,22 +144,23 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                           controller.checkboxTriple3.value = value!;
                         }),
                     Obx(
-                      () => (controller.checkboxTriple3.value)
-                          ? Flexible(
-                              child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: MyTextFormWedgit(
-                                textKeyBoard: TextInputType.number,
-                                controller: controller.triplePersonContrller.value,
-                                hintText: "Price",
-                                lableText: "Price",
-                                isCollapsed: true,
-                                isDense: true,
-                                borderRadius: BorderRadius.circular(11),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              ),
-                            ))
-                          : const Text(""),
+                      () => Visibility(
+                        visible: (controller.checkboxTriple3.value),
+                        child: Flexible(
+                            child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: MyTextFormWedgit(
+                            textKeyBoard: TextInputType.number,
+                            controller: controller.triplePersonController.value,
+                            hintText: "Price",
+                            lableText: "Price",
+                            isCollapsed: true,
+                            isDense: true,
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          ),
+                        )),
+                      ),
                     )
                   ],
                 ),
@@ -175,22 +176,23 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                           controller.checkboxFour4.value = value!;
                         }),
                     Obx(
-                      () => (controller.checkboxFour4.value)
-                          ? Flexible(
-                              child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: MyTextFormWedgit(
-                                textKeyBoard: TextInputType.number,
-                                controller: controller.fourPersonContrller.value,
-                                hintText: "Price",
-                                lableText: "Price",
-                                isCollapsed: true,
-                                isDense: true,
-                                borderRadius: BorderRadius.circular(11),
-                                contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              ),
-                            ))
-                          : const Text(""),
+                      () => Visibility(
+                        visible: (controller.checkboxFour4.value),
+                        child: Flexible(
+                            child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: MyTextFormWedgit(
+                            textKeyBoard: TextInputType.number,
+                            controller: controller.fourPersonController.value,
+                            hintText: "Price",
+                            lableText: "Price",
+                            isCollapsed: true,
+                            isDense: true,
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          ),
+                        )),
+                      ),
                     )
                   ],
                 ),
@@ -202,26 +204,29 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                   children: [
                     MYCheckBoxWidget(
                         title: "Faimaly Room / Flat",
-                        checkBool: controller.checkboxFaimalyRoom.value,
+                        checkBool: controller.checkboxFamilyRoom.value,
                         onChanged: (value) {
-                          controller.checkboxFaimalyRoom.value = value!;
+                          controller.checkboxFamilyRoom.value = value!;
                         }),
-                    Obx(() => (controller.checkboxFaimalyRoom.value)
-                        ? Flexible(
+                    Obx(
+                      () => Visibility(
+                        visible: (controller.checkboxFamilyRoom.value),
+                        child: Flexible(
                             child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: MyTextFormWedgit(
-                              textKeyBoard: TextInputType.number,
-                              controller: controller.faimlyPersonContrller.value,
-                              hintText: "Price",
-                              lableText: "Price",
-                              isCollapsed: true,
-                              isDense: true,
-                              borderRadius: BorderRadius.circular(11),
-                              contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                            ),
-                          ))
-                        : const Text(""))
+                          padding: const EdgeInsets.all(10.0),
+                          child: MyTextFormWedgit(
+                            textKeyBoard: TextInputType.number,
+                            controller: controller.familyPersonController.value,
+                            hintText: "Price",
+                            lableText: "Price",
+                            isCollapsed: true,
+                            isDense: true,
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          ),
+                        )),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -230,19 +235,20 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                 height: 50,
               ),
 
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.EditRoomTypeAndPriceData().then((value) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      }).onError((error, stackTrace) {
-                        Get.snackbar("error", "error");
-                      });
-                    },
-                    child: Text("Update")),
+              Obx(
+                () => SizedBox(
+                  height: 40,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        controller.onEditRoomTypeAndPriceData();
+                      },
+                      child: (controller.loading.value)
+                          ? CircularProgressIndicator(
+                              strokeWidth: 3.0,
+                            )
+                          : Text("Update")),
+                ),
               )
             ],
           ),

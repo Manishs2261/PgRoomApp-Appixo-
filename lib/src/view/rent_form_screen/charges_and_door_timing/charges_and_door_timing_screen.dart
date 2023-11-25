@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
- import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
+import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
 import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
-
-import '../../../res/route_name/routes_name.dart';
 
 class ChargesAndDoorTime extends StatelessWidget {
   ChargesAndDoorTime({super.key});
@@ -14,26 +12,24 @@ class ChargesAndDoorTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("Build +> charges Scren 🔴");
-    }
+    AppLoggerHelper.debug("Build - ChargesAndDoorTime ");
     return GestureDetector(
-      onTap: ()=>FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 25, right: 15, top: 10),
+            padding: const EdgeInsets.only(left: 25, right: 15, top: 20),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Additional charges :- ",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const Text(
-                    "In this chargs include your roon rent or not",
+                    "In this charges include your room rent or not",
                     style: TextStyle(color: Colors.orange),
                   ),
                   const SizedBox(
@@ -77,8 +73,7 @@ class ChargesAndDoorTime extends StatelessWidget {
                         children: [
                           Obx(
                             () => MYCheckBoxWidget(
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
+                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 title: "Water Bill",
                                 checkBool: controller.waterBill.value,
                                 onChanged: (value) {
@@ -105,9 +100,9 @@ class ChargesAndDoorTime extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
+                  Text(
                     "Door Closing Time :- ",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   Row(
                     children: [
@@ -117,37 +112,38 @@ class ChargesAndDoorTime extends StatelessWidget {
                             title: "Restricted Time",
                             checkBool: controller.restrictedTime.value,
                             onChanged: (value) {
-
                               controller.restrictedTimeCondition(value);
                             }),
                       ),
                       // =======for checking a condition ===========
-                      Obx(() => (controller.restrictedTime.value)
-                          ? Flexible(
+                      Obx(
+                        () => Visibility(
+                          visible: (controller.restrictedTime.value),
+                          child: Flexible(
                               child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: MyTextFormWedgit(
-                                textKeyBoard: TextInputType.text,
-                                controller: controller.restrictedController.value,
-                                hintText: "Enter at time",
-                                lableText: "Time",
-                                isDense: true,
-                                isCollapsed: true,
-                                borderRadius: BorderRadius.zero,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 15),
-                              ),
-                            ))
-                          : const Text(""))
+                            padding: const EdgeInsets.all(10.0),
+                            child: MyTextFormWedgit(
+                              textKeyBoard: TextInputType.text,
+                              controller: controller.restrictedController.value,
+                              hintText: "Enter at time",
+                              lableText: "Time",
+                              isDense: true,
+                              isCollapsed: true,
+                              borderRadius: BorderRadius.zero,
+                              contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            ),
+                          )),
+                        ),
+                      ),
                     ],
                   ),
-                  //=============for fexible time ============
+                  //=============for flexible time ============
                   Obx(
                     () => MYCheckBoxWidget(
-                        title: "Fexible time",
-                        checkBool: controller.fexibleTime.value,
+                        title: "Flexible time",
+                        checkBool: controller.flexibleTime.value,
                         onChanged: (value) {
-                       controller.fexibleTimeCondition(value);
+                          controller.flexibleTimeCondition(value);
                         }),
                   ),
 
@@ -160,15 +156,15 @@ class ChargesAndDoorTime extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                         onPressed: () {
-
                           //routes code
-                        controller.onSubmitButton();
-
+                          controller.onSubmitButton();
                         },
                         child: Obx(
-                          ()=> (controller.loading.value)
-                          ? const CircularProgressIndicator(color: Colors.blue,)
-                       : const Text("next"),
+                          () => (controller.loading.value)
+                              ? const CircularProgressIndicator(
+                                  strokeWidth: 3.0,
+                                )
+                              : const Text("Next"),
                         )),
                   )
                 ],

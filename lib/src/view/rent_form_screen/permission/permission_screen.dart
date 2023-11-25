@@ -1,16 +1,10 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/data_save_controller/data_save_controller.dart';
 
 import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
 
-import '../../../res/route_name/routes_name.dart';
-import '../add_image_/controller/controller.dart';
-import '../hostel_and_room_type/controller/controller.dart';
-import '../rent_details/controller/controller.dart';
 import 'controller/permission_controller.dart';
 
 class PermissioinScreen extends StatelessWidget {
@@ -21,24 +15,22 @@ class PermissioinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("build screen => permission 🔴");
-    }
+    AppLoggerHelper.debug("Build - PermissionScreen ");
 
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 15),
+        padding: const EdgeInsets.only(left: 25, right: 15, top: 25),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 "Permission :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
 
-              //=======PErmission ===============
+              //=======Permission ===============
               Column(
                 children: [
                   //=============for cooking ============
@@ -52,40 +44,40 @@ class PermissioinScreen extends StatelessWidget {
                         }),
                   ),
 
-                  // ===========for coocking conditions  ===============
+                  // ===========for cooking conditions  ===============
                   Obx(
-                    () => (controller.cookingAllow.value)
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 25),
-                            child: Column(
-                              children: [
-                                //=============for veg allows============
-                                Obx(
-                                  () => MYCheckBoxWidget(
-                                      title: "veg only ",
-                                      checkBool: controller.veg.value,
-                                      onChanged: (value) {
-                                        // controller method
-                                        controller.vegOnlyCondition(value);
-                                      }),
-                                ),
-
-                                //=============for Non-veg allows============
-
-                                //=============for Both allows============
-                                Obx(
-                                  () => MYCheckBoxWidget(
-                                      title: "veg and non-veg both allow",
-                                      checkBool:
-                                          controller.bothVegAndNonVeg.value,
-                                      onChanged: (value) {
-                                        controller.vegAndNonVegCondition(value);
-                                      }),
-                                ),
-                              ],
+                    () => Visibility(
+                      visible: (controller.cookingAllow.value),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 25),
+                        child: Column(
+                          children: [
+                            //=============for veg allows============
+                            Obx(
+                              () => MYCheckBoxWidget(
+                                  title: "veg only ",
+                                  checkBool: controller.veg.value,
+                                  onChanged: (value) {
+                                    // controller method
+                                    controller.vegOnlyCondition(value);
+                                  }),
                             ),
-                          )
-                        : const Text(""),
+
+                            //=============for Non-veg allows============
+
+                            //=============for Both allows============
+                            Obx(
+                              () => MYCheckBoxWidget(
+                                  title: "veg and non-veg both allow",
+                                  checkBool: controller.bothVegAndNonVeg.value,
+                                  onChanged: (value) {
+                                    controller.vegAndNonVegCondition(value);
+                                  }),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -115,9 +107,9 @@ class PermissioinScreen extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Family member  allow",
-                    checkBool: controller.faimlyMamber.value,
+                    checkBool: controller.familyMember.value,
                     onChanged: (value) {
-                      controller.faimlyMamber.value = value!;
+                      controller.familyMember.value = value!;
                     }),
               ),
 
@@ -130,28 +122,12 @@ class PermissioinScreen extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () async {
                       //call controller method
-
-                      await saveController.connectivity
-                          .checkConnectivity()
-                          .then((value) {
-                        if (value == ConnectivityResult.none) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: const Text(
-                                  'Please Check Your Internet Connection '),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        } else {
-                          saveController.uploadData();
-                        }
-
-                      });
+                      saveController.uploadData();
                     },
                     child: Obx(
                       () => (saveController.loading.value)
                           ? const CircularProgressIndicator(
-                              color: Colors.blue,
+                              strokeWidth: 3.0,
                             )
                           : const Text("Save "),
                     )),

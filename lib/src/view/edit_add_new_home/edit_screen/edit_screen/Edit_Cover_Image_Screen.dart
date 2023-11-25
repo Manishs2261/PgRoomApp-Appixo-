@@ -130,7 +130,7 @@ class EditCoverImageScreen extends StatelessWidget {
                               right: 7,
                               child: InkWell(
                                 onTap: () {
-                                  controller.addimage.value = true;
+                                  controller.addImage.value = true;
                                   controller.selectedCoverImage.value = "";
                                   controller.selectedImage.value = false;
                                 },
@@ -155,7 +155,7 @@ class EditCoverImageScreen extends StatelessWidget {
               //=========save & next button ===============
               Obx(
                 () => Visibility(
-                  visible: controller.addimage.value,
+                  visible: controller.addImage.value,
                   child: Opacity(
                     opacity: (controller.selectedCoverImage.value != "") ? 1 : 0.5,
                     child: IgnorePointer(

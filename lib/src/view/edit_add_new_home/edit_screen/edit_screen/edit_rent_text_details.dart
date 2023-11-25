@@ -83,7 +83,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                       //============Land Mark address=================
                       MyTextFormWedgit(
                         textKeyBoard: TextInputType.text,
-                        controller: controller.landdMarkController.value,
+                        controller: controller.landMarkController.value,
                         hintText: "Land Mark address",
                         lableText: 'Land Mark address',
                         icon: const Icon(Icons.home),

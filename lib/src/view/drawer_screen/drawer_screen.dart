@@ -5,9 +5,10 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/Constants/colors.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
-import '../add_new_home/add_your_home.dart';
-import '../auth_screen/login_screen/login_screen.dart';
 import '../splash/controller/splash_controller.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -17,7 +18,8 @@ class DrawerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("build drawer screen = 🍎🍎🍎");
+    AppLoggerHelper.debug("Build -DrawerScreen ");
+    final dark = AppHelperFunction.isDarkMode(context);
 
     ApisClass.getUserData();
 
@@ -33,18 +35,17 @@ class DrawerScreen extends StatelessWidget {
             height: 150,
             width: double.infinity,
             child: DrawerHeader(
-              decoration:
-                  BoxDecoration(color: Colors.blueGrey.shade100, boxShadow: [
-                const BoxShadow(
-                  blurRadius: 3,
+              decoration: BoxDecoration(color: dark ? null : AppColors.primary, boxShadow: const [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.white30,
                   blurStyle: BlurStyle.outer,
                   offset: Offset.zero,
                 )
               ]),
               child: ApisClass.auth.currentUser?.uid == null
                   ? Padding(
-                      padding: const EdgeInsets.only(
-                          top: 25, bottom: 25, left: 30, right: 30),
+                      padding: const EdgeInsets.only(top: 25, bottom: 25, left: 30, right: 30),
                       child: ElevatedButton(
                           onPressed: () {
                             Get.offAllNamed(RoutesName.loginScreen);
@@ -68,30 +69,25 @@ class DrawerScreen extends StatelessWidget {
                                     )
 
                                   // if user login google email id
-                                   :  (ApisClass.auth.currentUser?.displayName ==
-                                  '')
-                              ?CircleAvatar(
-                                maxRadius: 30,
-                                child: Icon(
-                                  Icons.home,
-                                  size: 35,
-                                ),
-                              )
-                              :ClipRRect(
-                                      borderRadius: BorderRadius.circular(50),
-                                      child: CachedNetworkImage(
-                                        width: 60,
-                                        height: 60,
-                                        fit: BoxFit.cover,
-                                        imageUrl: ApisClass
-                                            .auth.currentUser!.photoURL
-                                            .toString(),
-                                        errorWidget: (context, url, error) =>
-                                            const CircleAvatar(
-                                                child: Icon(
-                                                    CupertinoIcons.circle)),
-                                      ),
-                                    ),
+                                  : (ApisClass.auth.currentUser?.displayName == '')
+                                      ? const CircleAvatar(
+                                          maxRadius: 30,
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 35,
+                                          ),
+                                        )
+                                      : ClipRRect(
+                                          borderRadius: BorderRadius.circular(50),
+                                          child: CachedNetworkImage(
+                                            width: 60,
+                                            height: 60,
+                                            fit: BoxFit.cover,
+                                            imageUrl: ApisClass.auth.currentUser!.photoURL.toString(),
+                                            errorWidget: (context, url, error) =>
+                                                const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                          ),
+                                        ),
                               const SizedBox(
                                 width: 15,
                               ),
@@ -101,8 +97,7 @@ class DrawerScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     // in this condition
-                                    (ApisClass.auth.currentUser?.displayName ==
-                                            '')
+                                    (ApisClass.auth.currentUser?.displayName == '')
                                         // if user is sign in Email id and password
                                         //than show show first condition
                                         ? Flexible(
@@ -150,9 +145,6 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
-
-              print(ApisClass.auth.currentUser?.uid);
-
               (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
                   ? Get.toNamed(RoutesName.addYourHomeScreen)
                   : Get.snackbar("Login", "Your not login ");
@@ -160,8 +152,6 @@ class DrawerScreen extends StatelessWidget {
               // ...
             },
           ),
-
-
         ],
       ),
     );

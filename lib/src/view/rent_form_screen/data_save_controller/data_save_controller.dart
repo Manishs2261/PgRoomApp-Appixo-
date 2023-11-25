@@ -1,141 +1,138 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 
-import '../../../res/route_name/routes_name.dart';
 import '../add_image_/controller/controller.dart';
 import '../hostel_and_room_type/controller/controller.dart';
 import '../permission/controller/permission_controller.dart';
 import '../rent_details/controller/controller.dart';
 
 class DataSaveController extends GetxController {
-  final premissionController = Get.put(PermissionController());
-  final hostleController = Get.put(HostelAndRoomController());
-  final rentControllet = Get.put(RentDetailsController());
+  final permissionController = Get.put(PermissionController());
+  final hostelController = Get.put(HostelAndRoomController());
+  final rentController = Get.put(RentDetailsController());
   final addImageController = Get.put(AddImageController());
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitesController());
   RxBool loading = false.obs;
 
-  Connectivity connectivity = Connectivity();
-
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
             ApisClass.download,
-            rentControllet.houseNameController.value.text,
-            rentControllet.houseAddressController.value.text,
-            rentControllet.cityNameController.value.text,
-            rentControllet.landdMarkController.value.text,
-            rentControllet.contactNumberController.value.text,
-            hostleController.bhk.value,
-            hostleController.roomType.value,
-            hostleController.singlePersonContrller.value.text,
-            hostleController.doublePersonContrller.value.text,
-            hostleController.triplePersonContrller.value.text,
-            hostleController.fourPersonContrller.value.text,
-            hostleController.faimlyPersonContrller.value.text,
+            rentController.houseNameController.value.text,
+            rentController.houseAddressController.value.text,
+            rentController.cityNameController.value.text,
+            rentController.landMarkController.value.text,
+            rentController.contactNumberController.value.text,
+            hostelController.bhk.value,
+            hostelController.roomType.value,
+            hostelController.singlePersonContrller.value.text,
+            hostelController.doublePersonContrller.value.text,
+            hostelController.triplePersonContrller.value.text,
+            hostelController.fourPersonContrller.value.text,
+            hostelController.faimlyPersonContrller.value.text,
             chargeAndDoorController.restrictedController.value.text,
             "4.2",
             providerController.wifi.value,
             providerController.bed.value,
-            providerController.chari.value,
+            providerController.chair.value,
             providerController.table.value,
             providerController.fan.value,
             providerController.gadda.value,
             providerController.light.value,
             providerController.locker.value,
             providerController.bedSheet.value,
-            providerController.washingMachin.value,
+            providerController.washingMachine.value,
             providerController.parking.value,
             chargeAndDoorController.electricityBill.value,
             chargeAndDoorController.waterBill.value,
-            chargeAndDoorController.fexibleTime.value,
-            premissionController.cookingAllow.value,
-            premissionController.cookingType.value,
-            premissionController.boy.value,
-            premissionController.girl.value,
-            premissionController.faimlyMamber.value,
+            chargeAndDoorController.flexibleTime.value,
+            permissionController.cookingAllow.value,
+            permissionController.cookingType.value,
+            permissionController.boy.value,
+            permissionController.girl.value,
+            permissionController.familyMember.value,
             false)
         .then((value) {
-      Get.snackbar("save", "details");
+      Get.snackbar("Data Upload", "Successfully");
       loading.value = false;
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
     }).onError((error, stackTrace) {
-      Get.snackbar("Error", "details");
-      if (kDebugMode) {
-        print("save Error => $error");
-      }
-      if (kDebugMode) {
-        print("save Error => $stackTrace");
-      }
+      loading.value = false;
+      Get.snackbar("Data Upload", "Failed");
+      AppLoggerHelper.error("Save Rent Data Error", stackTrace);
+      AppLoggerHelper.error("Save Rent Data Error", error);
     });
   }
 
-  saveUserRentDetaitls() {
+  saveUserRentDetails() {
     ApisClass.rentDetailsUser(
             ApisClass.download,
-            rentControllet.houseNameController.value.text,
-            rentControllet.houseAddressController.value.text,
-            rentControllet.cityNameController.value.text,
-            rentControllet.landdMarkController.value.text,
-            rentControllet.contactNumberController.value.text,
-            hostleController.bhk.value,
-            hostleController.roomType.value,
-            hostleController.singlePersonContrller.value.text,
-            hostleController.doublePersonContrller.value.text,
-            hostleController.triplePersonContrller.value.text,
-            hostleController.fourPersonContrller.value.text,
-            hostleController.faimlyPersonContrller.value.text,
+            rentController.houseNameController.value.text,
+            rentController.houseAddressController.value.text,
+            rentController.cityNameController.value.text,
+            rentController.landMarkController.value.text,
+            rentController.contactNumberController.value.text,
+            hostelController.bhk.value,
+            hostelController.roomType.value,
+            hostelController.singlePersonContrller.value.text,
+            hostelController.doublePersonContrller.value.text,
+            hostelController.triplePersonContrller.value.text,
+            hostelController.fourPersonContrller.value.text,
+            hostelController.faimlyPersonContrller.value.text,
             chargeAndDoorController.restrictedController.value.text,
             "4.2",
             providerController.wifi.value,
             providerController.bed.value,
-            providerController.chari.value,
+            providerController.chair.value,
             providerController.table.value,
             providerController.fan.value,
             providerController.gadda.value,
             providerController.light.value,
             providerController.locker.value,
             providerController.bedSheet.value,
-            providerController.washingMachin.value,
+            providerController.washingMachine.value,
             providerController.parking.value,
             chargeAndDoorController.electricityBill.value,
             chargeAndDoorController.waterBill.value,
-            chargeAndDoorController.fexibleTime.value,
-            premissionController.cookingAllow.value,
-            premissionController.cookingType.value,
-            premissionController.boy.value,
-            premissionController.girl.value,
-            premissionController.faimlyMamber.value,
+            chargeAndDoorController.flexibleTime.value,
+            permissionController.cookingAllow.value,
+            permissionController.cookingType.value,
+            permissionController.boy.value,
+            permissionController.girl.value,
+            permissionController.familyMember.value,
             false)
         .then((value) {
-      //seva home list data
+      //save home list data
       saveRentDetails();
-      loading.value = false;
-      Get.snackbar("save", "details", backgroundColor: Colors.red);
-      Get.offAllNamed(RoutesName.homeScreen);
     }).onError((error, stackTrace) {
-      Get.snackbar("Error", "details", backgroundColor: Colors.blue);
-      if (kDebugMode) {
-        print("save Error => $error");
-      }
-      if (kDebugMode) {
-        print("save Error => $stackTrace");
-      }
+      AppLoggerHelper.error("Save UserRent Data Error", error);
+      AppLoggerHelper.error("Save UserRent Data Error", stackTrace);
     });
   }
 
-  uploadData() async {
-    loading.value = true;
-    addImageController.uploadCoverImage().then((value) {
-      loading.value = true;
-      saveUserRentDetaitls();
-    }).onError((error, stackTrace) {
-      loading.value = false;
-      Get.snackbar("Error", "image upload error");
+  uploadData() {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        addImageController.uploadCoverImage().then((value) {
+          loading.value = true;
+          saveUserRentDetails();
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          AppLoggerHelper.error("Cover image Error", error);
+          AppLoggerHelper.error("Cover image Error", stackTrace);
+        });
+      }
     });
   }
 }

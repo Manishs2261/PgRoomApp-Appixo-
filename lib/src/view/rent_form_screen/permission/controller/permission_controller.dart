@@ -1,11 +1,4 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
-
-import '../../../../repositiry/apis/apis.dart';
-import '../../hostel_and_room_type/controller/controller.dart';
-import '../../rent_details/controller/controller.dart';
 
 class PermissionController extends GetxController {
   RxBool cookingAllow = false.obs;
@@ -13,11 +6,9 @@ class PermissionController extends GetxController {
   RxBool bothVegAndNonVeg = false.obs;
   RxBool girl = false.obs;
   RxBool boy = false.obs;
-  RxBool faimlyMamber = false.obs;
+  RxBool familyMember = false.obs;
   RxBool loading = false.obs;
   var cookingType = "".obs;
-
-
 
   cookingAllowCondition(value) {
     cookingAllow.value = value;

@@ -1,43 +1,39 @@
 import 'dart:io';
-
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-
-import '../../rent_details/rent_details_screen.dart';
+import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 
 class AddImageController extends GetxController {
   // for bool value false not show a image
   RxBool isBool = false.obs;
-  RxBool addimage = false.obs;
   RxBool isSelected = false.obs;
   XFile? image;
-  XFile? otherImage;
+
   RxBool loading = false.obs;
 
   // for storing a more image in list
   RxList imageFileList = [].obs;
 
-  // image picker form Gallary
+  // image picker form Gallery
   RxString selectedCoverImage = "".obs;
 
-
   //===========================================
-  Future pickeCoverImageFromGallery() async {
-    image = await ImagePicker()
-        .pickImage(source: ImageSource.gallery, imageQuality: 70);
+  Future pickCoverImageFromGallery() async {
+    image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
     selectedCoverImage.value = image!.path.toString();
   }
 
   Future uploadCoverImage() async {
     await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
-      Get.snackbar("upload ", "cover  image");
+      Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
-      Get.snackbar("error", "error");
-      print("errror => $error");
+      Get.snackbar("Image Upload", "Failed");
+      AppLoggerHelper.error("image upload error", error);
+      AppLoggerHelper.error("image upload error", stackTrace);
     });
   }
 
@@ -46,19 +42,12 @@ class AddImageController extends GetxController {
   // om submit button
   onSubmitButton() {
     if (selectedCoverImage.isEmpty) {
-      Get.snackbar("cover image", "not emplty");
+      AppHelperFunction.showSnackBar("Cover Image can't be empty.");
     } else {
       loading.value = true;
       Get.toNamed(RoutesName.rentDetailsFormScreen)?.then((value) {
-
-        loading.value = false;
-      }).onError((error, stackTrace){
         loading.value = false;
       });
     }
-  }
-
-  onPrint(){
-    print(imageFileList);
   }
 }

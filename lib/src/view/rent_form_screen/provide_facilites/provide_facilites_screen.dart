@@ -1,11 +1,8 @@
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/uitels/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
-
 
 class ProvideFacilitesScreen extends StatelessWidget {
   ProvideFacilitesScreen({super.key});
@@ -14,21 +11,16 @@ class ProvideFacilitesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kDebugMode) {
-      print("builed => provider facilites screen 🍎");
-    }
+    AppLoggerHelper.debug('Build - ProvideFacilitiesScreen');
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 25, right: 15, top: 10),
+          padding: const EdgeInsets.only(left: 25, right: 15, top: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Provide a Facilities :- ",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
+              Text("Provide a Facilities :- ", style: Theme.of(context).textTheme.headlineSmall),
 
               //======for Wi-fi==========
               Obx(
@@ -53,9 +45,9 @@ class ProvideFacilitesScreen extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Chair",
-                    checkBool: controller.chari.value,
+                    checkBool: controller.chair.value,
                     onChanged: (value) {
-                      controller.chari.value = value!;
+                      controller.chair.value = value!;
                     }),
               ),
 
@@ -117,9 +109,9 @@ class ProvideFacilitesScreen extends StatelessWidget {
               Obx(
                 () => MYCheckBoxWidget(
                     title: "Washing Machine",
-                    checkBool: controller.washingMachin.value,
+                    checkBool: controller.washingMachine.value,
                     onChanged: (value) {
-                      controller.washingMachin.value = value!;
+                      controller.washingMachine.value = value!;
                     }),
               ),
               //======for parking==========
@@ -141,14 +133,13 @@ class ProvideFacilitesScreen extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () {
                       controller.onSubmitButton();
-
                     },
                     child: Obx(
                       () => (controller.loading.value)
                           ? const CircularProgressIndicator(
-                              color: Colors.blue,
+                              strokeWidth: 3.0,
                             )
-                          : const Text("next"),
+                          : const Text("Next"),
                     )),
               )
             ],

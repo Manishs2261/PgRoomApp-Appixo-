@@ -18,25 +18,25 @@ class EditFormScreenController extends GetxController {
   Rx<TextEditingController> houseNameController = TextEditingController().obs;
   Rx<TextEditingController> houseAddressController = TextEditingController().obs;
   Rx<TextEditingController> cityNameController = TextEditingController().obs;
-  Rx<TextEditingController> landdMarkController = TextEditingController().obs;
+  Rx<TextEditingController> landMarkController = TextEditingController().obs;
   Rx<TextEditingController> contactNumberController = TextEditingController().obs;
 
-  Rx<TextEditingController> singlePersonContrller = TextEditingController().obs;
-  Rx<TextEditingController> doublePersonContrller = TextEditingController().obs;
-  Rx<TextEditingController> triplePersonContrller = TextEditingController().obs;
-  Rx<TextEditingController> fourPersonContrller = TextEditingController().obs;
-  Rx<TextEditingController> faimlyPersonContrller = TextEditingController().obs;
+  Rx<TextEditingController> singlePersonController = TextEditingController().obs;
+  Rx<TextEditingController> doublePersonController = TextEditingController().obs;
+  Rx<TextEditingController> triplePersonController = TextEditingController().obs;
+  Rx<TextEditingController> fourPersonController = TextEditingController().obs;
+  Rx<TextEditingController> familyPersonController = TextEditingController().obs;
 
   Rx<TextEditingController> restrictedController = TextEditingController(text: "").obs;
 
   RxBool checkboxSingle1 = false.obs;
-  RxBool checkboxDoble2 = false.obs;
+  RxBool checkboxDouble2 = false.obs;
   RxBool checkboxTriple3 = false.obs;
   RxBool checkboxFour4 = false.obs;
-  RxBool checkboxFaimalyRoom = false.obs;
+  RxBool checkboxFamilyRoom = false.obs;
 
-  // choose any one for initialize Enum verible not all
-  var faltTypeEnum = FaltTypeEnum.OneBhk.obs;
+  // choose any one for initialize Enum variable not all
+  var flatTypeEnum = FaltTypeEnum.OneBhk.obs;
   var hostelTypeEnum = HostelTypeEnum.BoysH.obs;
 
   RxString roomType = ''.obs;
@@ -44,20 +44,20 @@ class EditFormScreenController extends GetxController {
 
   RxBool wifi = false.obs;
   RxBool bed = false.obs;
-  RxBool chari = false.obs;
+  RxBool chair = false.obs;
   RxBool table = false.obs;
   RxBool fan = false.obs;
   RxBool gadda = false.obs;
   RxBool light = false.obs;
   RxBool locker = false.obs;
   RxBool bedSheet = false.obs;
-  RxBool washingMachin = false.obs;
+  RxBool washingMachine = false.obs;
   RxBool parking = false.obs;
   RxBool loading = false.obs;
 
   RxBool electricityBill = false.obs;
   RxBool waterBill = false.obs;
-  RxBool fexibleTime = false.obs;
+  RxBool flexibleTime = false.obs;
   RxBool restrictedTime = false.obs;
 
   RxBool cookingAllow = false.obs;
@@ -65,12 +65,12 @@ class EditFormScreenController extends GetxController {
   RxBool bothVegAndNonVeg = false.obs;
   RxBool girl = false.obs;
   RxBool boy = false.obs;
-  RxBool faimlyMamber = false.obs;
+  RxBool familyMember = false.obs;
 
   var cookingType = "".obs;
   XFile? image;
 
-  // image picker form Gallary
+  // image picker form Gallery
   RxString selectedCoverImage = "".obs;
 
   RxBool selectedImage = false.obs;
@@ -82,53 +82,53 @@ class EditFormScreenController extends GetxController {
     houseNameController = TextEditingController(text: data.houseName).obs;
     houseAddressController = TextEditingController(text: data.addres).obs;
     cityNameController = TextEditingController(text: data.city).obs;
-    landdMarkController = TextEditingController(text: data.landMark).obs;
+    landMarkController = TextEditingController(text: data.landMark).obs;
     contactNumberController = TextEditingController(text: data.contactNumber).obs;
 
-    singlePersonContrller = TextEditingController(text: data.singlePersonPrice).obs;
-    doublePersonContrller = TextEditingController(text: data.doublePersionPrice).obs;
-    triplePersonContrller = TextEditingController(text: data.triplePersionPrice).obs;
-    fourPersonContrller = TextEditingController(text: data.fourPersionPrice).obs;
-    faimlyPersonContrller = TextEditingController(text: data.faimlyPrice).obs;
+    singlePersonController = TextEditingController(text: data.singlePersonPrice).obs;
+    doublePersonController = TextEditingController(text: data.doublePersionPrice).obs;
+    triplePersonController = TextEditingController(text: data.triplePersionPrice).obs;
+    fourPersonController = TextEditingController(text: data.fourPersionPrice).obs;
+    familyPersonController = TextEditingController(text: data.faimlyPrice).obs;
 
     restrictedController = TextEditingController(text: data.restrictedTime).obs;
 
     checkboxSingle1 = (data.singlePersonPrice != null).obs;
-    checkboxDoble2 = (data.doublePersionPrice != null).obs;
+    checkboxDouble2 = (data.doublePersionPrice != null).obs;
     checkboxTriple3 = (data.triplePersionPrice != null).obs;
     checkboxFour4 = (data.fourPersionPrice != null).obs;
-    checkboxFaimalyRoom = (data.faimlyPrice != null).obs;
+    checkboxFamilyRoom = (data.faimlyPrice != null).obs;
 
     roomType = '${data.roomType}'.obs;
     bhk = '${data.bhkType}'.obs;
 
     wifi = data.wifi!.obs;
     bed = data.bed!.obs;
-    chari = data.chair!.obs;
+    chair = data.chair!.obs;
     table = data.table!.obs;
     fan = data.fan!.obs;
     gadda = data.gadda!.obs;
     light = data.light!.obs;
     locker = data.locker!.obs;
     bedSheet = data.bedSheet!.obs;
-    washingMachin = data.washingMachin!.obs;
+    washingMachine = data.washingMachin!.obs;
     parking = data.parking!.obs;
 
     electricityBill = data.electricityBill!.obs;
     waterBill = data.waterBill!.obs;
-    fexibleTime = data.fexibleTime!.obs;
+    flexibleTime = data.fexibleTime!.obs;
 
     cookingAllow = data.cooking!.obs;
     veg = (data.cookingType == 'veg Only').obs;
     bothVegAndNonVeg = (data.cookingType == 'veg and non-veg both allow').obs;
     girl = data.girls!.obs;
     boy = data.boy!.obs;
-    faimlyMamber = data.faimlyMember!.obs;
+    familyMember = data.faimlyMember!.obs;
     restrictedTime = (data.restrictedTime != null).obs;
 
     cookingType = "${data.cookingType}".obs;
 
-    // image picker form Gallary
+    // image picker form Gallery
     selectedCoverImage = "${data.coverImage}".obs;
     selectedImage = (data.coverImage != '').obs;
 
@@ -137,7 +137,7 @@ class EditFormScreenController extends GetxController {
 
   // for bool value false not show a image
   RxBool isBool = false.obs;
-  RxBool addimage = false.obs;
+  RxBool addImage = false.obs;
   RxBool isSelected = false.obs;
 
   // for storing a more image in list
@@ -171,25 +171,25 @@ class EditFormScreenController extends GetxController {
     cookingType.value = "veg and non-veg both allow";
   }
 
-  fexibleTimeCondition(value) {
-    fexibleTime.value = value!;
+  flexibleTimeCondition(value) {
+    flexibleTime.value = value!;
     restrictedTime.value = false;
     restrictedController.value.clear();
   }
 
   restrictedTimeCondition(value) {
     restrictedTime.value = value!;
-    fexibleTime.value = false;
+    flexibleTime.value = false;
   }
 
-  // for Obsever the Enum class
+  // for Observer the Enum class
 
   void updateHostelType(HostelTypeEnum? newHostelTypeEnum) {
     hostelTypeEnum.value = newHostelTypeEnum!;
   }
 
   void updateFlatType(FaltTypeEnum? newFlatTypeEnum) {
-    faltTypeEnum.value = newFlatTypeEnum!;
+    flatTypeEnum.value = newFlatTypeEnum!;
   }
 
   Future<void> onEditCoverImageSaveButton() async {
@@ -220,7 +220,7 @@ class EditFormScreenController extends GetxController {
                 houseNameController.value.text,
                 houseAddressController.value.text,
                 cityNameController.value.text,
-                landdMarkController.value.text,
+                landMarkController.value.text,
                 contactNumberController.value.text,
                 itemId)
             .then((value) {
@@ -239,19 +239,29 @@ class EditFormScreenController extends GetxController {
     });
   }
 
-  Future<void> EditRoomTypeAndPriceData() async {
-    ApisClass.updateRoomTypeAndPrice(itemId, singlePersonContrller.value.text, doublePersonContrller.value.text,
-            triplePersonContrller.value.text, fourPersonContrller.value.text, faimlyPersonContrller.value.text)
-        .then((value) {
-      Get.snackbar("Upload", "data");
-    }).onError((error, stackTrace) {
-      Get.snackbar("Error", "update");
-      print(error);
-      print(stackTrace);
+  Future<void> onEditRoomTypeAndPriceData() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        loading.value = true;
+        ApisClass.updateRoomTypeAndPrice(itemId, singlePersonController.value.text, doublePersonController.value.text,
+                triplePersonController.value.text, fourPersonController.value.text, familyPersonController.value.text)
+            .then((value) {
+          loading.value = false;
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload Room type and price Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
     });
   }
 
-  Future<void> onEditProviderFacilitesData() async {
+  Future<void> onEditProviderFacilitiesData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
@@ -259,14 +269,14 @@ class EditFormScreenController extends GetxController {
           itemId,
           wifi.value,
           bed.value,
-          chari.value,
+          chair.value,
           table.value,
           fan.value,
           gadda.value,
           light.value,
           locker.value,
           bedSheet.value,
-          washingMachin.value,
+          washingMachine.value,
           parking.value,
         ).then((value) {
           loading.value = false;
@@ -277,7 +287,7 @@ class EditFormScreenController extends GetxController {
         }).onError((error, stackTrace) {
           loading.value = false;
           Get.snackbar("Update", "Failed");
-          AppLoggerHelper.error("Upload Provider Facilite Error", error);
+          AppLoggerHelper.error("Upload Provider Facilities Error", error);
           AppLoggerHelper.error('$stackTrace');
         });
       }
@@ -289,7 +299,7 @@ class EditFormScreenController extends GetxController {
       if (value) {
         loading.value = true;
         ApisClass.updateAdditionalCharesAndDoorDate(
-                itemId, electricityBill.value, waterBill.value, restrictedController.value.text, fexibleTime.value)
+                itemId, electricityBill.value, waterBill.value, restrictedController.value.text, flexibleTime.value)
             .then((value) {
           loading.value = false;
           Get.snackbar("Update", "Successfully");
@@ -311,7 +321,7 @@ class EditFormScreenController extends GetxController {
       if (value) {
         loading.value = true;
         ApisClass.updatePermissionData(
-                itemId, cookingType.value, cookingAllow.value, boy.value, girl.value, faimlyMamber.value)
+                itemId, cookingType.value, cookingAllow.value, boy.value, girl.value, familyMember.value)
             .then((value) {
           loading.value = false;
           Get.snackbar("Update", "Successfully");
