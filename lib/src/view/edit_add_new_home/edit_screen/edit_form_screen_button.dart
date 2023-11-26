@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/edit_add_new_home/edit_screen/controller/controller.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 

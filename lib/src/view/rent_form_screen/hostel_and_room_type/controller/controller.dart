@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
-import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
+import '../../../../utils/widgets/flat_radio_button_wedget.dart';
+import '../../../../utils/widgets/hostel_radio_button_widget.dart';
 
 class HostelAndRoomController extends GetxController {
   // choose any one for initialize Enum verible not all

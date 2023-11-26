@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pgroom/src/uitels/Constants/colors.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 
 class CustomeBottomSheetTheme{
 

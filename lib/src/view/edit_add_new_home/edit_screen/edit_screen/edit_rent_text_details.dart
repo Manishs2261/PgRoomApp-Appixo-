@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/validator/text_field_validator.dart';
-import '../../../../uitels/widgets/my_text_form_field.dart';
+import '../../../../utils/validator/text_field_validator.dart';
+import '../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
 class EditRentTextDetailsScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../uitels/helpers/heiper_function.dart';
+import '../../../utils/helpers/helper_function.dart';
 import 'circle_Container_widgets.dart';
 
 class ContactAndShareWidgets extends StatelessWidget {

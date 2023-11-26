@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../repositiry/auth_apis/auth_apis.dart';
-import '../../../../uitels/Constants/image_string.dart';
-import '../../../../uitels/Constants/sizes.dart';
+import '../../../../utils/Constants/image_string.dart';
+import '../../../../utils/Constants/sizes.dart';
 
 class FooterWidgets extends StatelessWidget {
   const FooterWidgets({

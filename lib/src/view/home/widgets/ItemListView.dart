@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/colors.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 import '../../../res/route_name/routes_name.dart';
-import '../../../uitels/helpers/heiper_function.dart';
+import '../../../utils/helpers/helper_function.dart';
 
 class ItemListView extends StatelessWidget {
   const ItemListView({

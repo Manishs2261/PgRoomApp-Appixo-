@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../res/route_name/routes_name.dart';
-import '../../../uitels/Constants/colors.dart';
-import '../../../uitels/Constants/sizes.dart';
-import '../../../uitels/device/device_utility.dart';
-import '../../../uitels/helpers/heiper_function.dart';
+import '../../../utils/Constants/colors.dart';
+import '../../../utils/Constants/sizes.dart';
+import '../../../utils/device/device_utility.dart';
+import '../../../utils/helpers/helper_function.dart';
 
 class StartButtonWidget extends StatelessWidget {
   const StartButtonWidget({

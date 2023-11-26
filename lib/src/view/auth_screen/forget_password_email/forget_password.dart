@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/view/auth_screen/otp_email_screen/otp_email_screen.dart';
 
-import '../../../uitels/Constants/image_string.dart';
+import '../../../utils/Constants/image_string.dart';
 
 class ForgetPasswordEmailScreen extends StatefulWidget {
   const ForgetPasswordEmailScreen({super.key});

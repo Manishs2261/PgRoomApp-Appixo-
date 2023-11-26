@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

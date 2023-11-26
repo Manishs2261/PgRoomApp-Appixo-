@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../uitels/Constants/image_string.dart';
+import '../../../../utils/Constants/image_string.dart';
 
 class HederWidgets extends StatelessWidget {
   const HederWidgets({

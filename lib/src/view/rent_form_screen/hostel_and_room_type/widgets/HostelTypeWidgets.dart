@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
-import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
+import '../../../../utils/widgets/flat_radio_button_wedget.dart';
+import '../../../../utils/widgets/hostel_radio_button_widget.dart';
 import '../controller/controller.dart';
 
 class HostelTypeWidgets extends StatelessWidget {

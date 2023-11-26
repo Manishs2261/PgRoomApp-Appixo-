@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 
 class EditOtherImageController extends GetxController {
   var itemid;

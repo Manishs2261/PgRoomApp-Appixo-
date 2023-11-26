@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../model/other_image_model.dart';
-import '../../uitels/Constants/colors.dart';
+import '../../utils/Constants/colors.dart';
 
 class ViewAllImage extends StatelessWidget {
   ViewAllImage({super.key});

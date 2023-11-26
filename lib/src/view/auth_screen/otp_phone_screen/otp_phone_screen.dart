@@ -5,7 +5,7 @@ import 'package:pgroom/src/view/auth_screen/forget_password_phone_number/forget_
 import 'package:pgroom/src/view/home/home_screen.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../uitels/Constants/image_string.dart';
+import '../../../utils/Constants/image_string.dart';
 
 class OtpPhoneNumberScreen extends StatefulWidget {
   const OtpPhoneNumberScreen({super.key});

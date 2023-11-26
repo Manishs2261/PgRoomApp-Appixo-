@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-import '../../../../uitels/Constants/sizes.dart';
-import '../../../../uitels/validator/text_field_validator.dart';
+import '../../../../utils/Constants/sizes.dart';
+import '../../../../utils/validator/text_field_validator.dart';
 import '../sing_screen_controller/sing_screen_controller.dart';
 
 class SignFormWidget extends StatelessWidget {

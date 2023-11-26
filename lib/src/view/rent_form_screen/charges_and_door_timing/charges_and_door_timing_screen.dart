@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
-import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
-import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
+import 'package:pgroom/src/utils/widgets/my_check_boxwidget.dart';
+import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
 
 class ChargesAndDoorTime extends StatelessWidget {
   ChargesAndDoorTime({super.key});

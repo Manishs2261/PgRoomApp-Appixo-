@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/image_string.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/view/on_boarding_screen/controller/on_boarding_controller.dart';
 import 'package:pgroom/src/view/on_boarding_screen/widget/on_boarding_widget.dart';
 import 'package:pgroom/src/view/on_boarding_screen/widget/smooth_page_indicator.dart';

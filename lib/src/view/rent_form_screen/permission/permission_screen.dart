@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/data_save_controller/data_save_controller.dart';
 
-import 'package:pgroom/src/uitels/widgets/my_check_boxwidget.dart';
+import 'package:pgroom/src/utils/widgets/my_check_boxwidget.dart';
 
 import 'controller/permission_controller.dart';
 

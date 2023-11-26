@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/widgets/my_check_boxwidget.dart';
-import '../../../../uitels/widgets/my_text_form_field.dart';
+import '../../../../utils/widgets/my_check_boxwidget.dart';
+import '../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
 class EditAdditionalChargesAndDoorTime extends StatelessWidget {

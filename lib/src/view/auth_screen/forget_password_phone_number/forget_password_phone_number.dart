@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/view/auth_screen/otp_phone_screen/otp_phone_screen.dart';
 
-import '../../../uitels/Constants/image_string.dart';
+import '../../../utils/Constants/image_string.dart';
 
 class ForgetPasswordPhoneNumberScreen extends StatefulWidget {
   const ForgetPasswordPhoneNumberScreen({super.key});

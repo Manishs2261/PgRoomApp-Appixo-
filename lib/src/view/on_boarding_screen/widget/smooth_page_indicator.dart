@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../uitels/Constants/colors.dart';
+import '../../../utils/Constants/colors.dart';
 import '../controller/on_boarding_controller.dart';
 
 class SmootPageIndicatorWidget extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 class onBoardingWidget extends StatelessWidget {
   onBoardingWidget({

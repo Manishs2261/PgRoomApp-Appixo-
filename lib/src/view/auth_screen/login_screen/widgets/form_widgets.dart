@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../res/route_name/routes_name.dart';
-import '../../../../uitels/Constants/sizes.dart';
-import '../../../../uitels/validator/text_field_validator.dart';
+import '../../../../utils/Constants/sizes.dart';
+import '../../../../utils/validator/text_field_validator.dart';
 import '../login_screen_controller/login_controller.dart';
 
 class FormWidgets extends StatelessWidget {

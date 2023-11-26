@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../../model/other_image_model.dart';
 import '../../../../../repositiry/apis/apis.dart';
-import '../../../../../uitels/Constants/colors.dart';
+import '../../../../../utils/Constants/colors.dart';
 import 'controller/controller.dart';
 
 class EditOtherImageScreen extends StatelessWidget {

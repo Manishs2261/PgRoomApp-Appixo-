@@ -6,9 +6,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/main.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/Constants/colors.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../repositiry/apis/apis.dart';
 

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../repositiry/apis/apis.dart';
 import '../../../res/route_name/routes_name.dart';
-import '../../../uitels/Constants/sizes.dart';
-import '../../../uitels/helpers/heiper_function.dart';
+import '../../../utils/Constants/sizes.dart';
+import '../../../utils/helpers/helper_function.dart';
 import '../controller/details_screen_controller.dart';
 
 class RatingAndReviewWidgets extends StatelessWidget {

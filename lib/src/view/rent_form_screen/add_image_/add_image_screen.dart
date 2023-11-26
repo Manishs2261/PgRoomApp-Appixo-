@@ -2,10 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/model/other_image_model.dart';
-import 'package:pgroom/src/uitels/Constants/image_string.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/add_image_/controller/controller.dart';
 
 class AddImageScreen extends StatelessWidget {

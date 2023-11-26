@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/charges_and_door_timing/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/provide_facilites/controller/controller.dart';
 

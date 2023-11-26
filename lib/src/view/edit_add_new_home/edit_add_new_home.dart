@@ -4,12 +4,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
-import '../../uitels/Constants/colors.dart';
-import '../../uitels/helpers/heiper_function.dart';
-import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
+import '../../utils/Constants/colors.dart';
+import '../../utils/helpers/helper_function.dart';
+import '../../utils/icon_and_name_widgets/detaails_row_widgets.dart';
 
 class EditAddNewHomeScreen extends StatelessWidget {
   EditAddNewHomeScreen({super.key});

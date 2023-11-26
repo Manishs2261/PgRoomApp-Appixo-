@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../res/route_name/routes_name.dart';
 
 class ProvideFacilitesController extends GetxController {

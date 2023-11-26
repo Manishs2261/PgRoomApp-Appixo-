@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/controller/controller.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/widgets/HostelTypeWidgets.dart';
 import 'package:pgroom/src/view/rent_form_screen/hostel_and_room_type/widgets/RoomPriceWidgets.dart';

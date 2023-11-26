@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';

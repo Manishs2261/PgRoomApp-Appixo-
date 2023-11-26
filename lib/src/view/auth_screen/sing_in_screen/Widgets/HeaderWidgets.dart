@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-import '../../../../uitels/Constants/image_string.dart';
-import '../../../../uitels/Constants/sizes.dart';
+import '../../../../utils/Constants/image_string.dart';
+import '../../../../utils/Constants/sizes.dart';
 
 class HeaderWidgets extends StatelessWidget {
   const HeaderWidgets({

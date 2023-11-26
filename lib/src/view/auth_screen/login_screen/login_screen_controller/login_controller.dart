@@ -2,7 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../repositiry/apis/apis.dart';

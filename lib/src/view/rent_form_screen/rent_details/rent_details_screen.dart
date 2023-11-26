@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/rent_form_screen/rent_details/controller'
     '/controller.dart';
-import 'package:pgroom/src/uitels/widgets/my_text_form_field.dart';
+import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
 
-import '../../../uitels/validator/text_field_validator.dart';
+import '../../../utils/validator/text_field_validator.dart';
 
 class RentDetailsScsreen extends StatelessWidget {
   RentDetailsScsreen({super.key});

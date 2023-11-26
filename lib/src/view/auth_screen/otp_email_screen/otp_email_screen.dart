@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../uitels/Constants/image_string.dart';
+import '../../../utils/Constants/image_string.dart';
 
 class OtpEmailScreen extends StatefulWidget {
   const OtpEmailScreen({super.key});

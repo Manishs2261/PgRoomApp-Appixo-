@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
-import '../../../../uitels/widgets/flat_radio_button_wedget.dart';
-import '../../../../uitels/widgets/hostel_radio_button_widget.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
+import '../../../../utils/widgets/flat_radio_button_wedget.dart';
+import '../../../../utils/widgets/hostel_radio_button_widget.dart';
 
 class EditFormScreenController extends GetxController {
   UserRentModel data = UserRentModel();

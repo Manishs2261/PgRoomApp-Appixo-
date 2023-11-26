@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/Constants/colors.dart';
-import '../../../../uitels/Constants/image_string.dart';
+import '../../../../utils/Constants/colors.dart';
+import '../../../../utils/Constants/image_string.dart';
 import '../controller/controller.dart';
 
 class EditCoverImageScreen extends StatelessWidget {

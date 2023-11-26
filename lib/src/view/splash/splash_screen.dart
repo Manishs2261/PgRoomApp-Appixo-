@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/main.dart';
-import 'package:pgroom/src/uitels/Constants/image_string.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/view/splash/controller/splash_controller.dart';
 
 class SplashScreen extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
-import '../../../../uitels/widgets/my_check_boxwidget.dart';
+import '../../../../utils/widgets/my_check_boxwidget.dart';
 import '../controller/controller.dart';
 
 class EditProvideFacilites extends StatelessWidget {

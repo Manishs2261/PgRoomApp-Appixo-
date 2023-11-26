@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/sizes.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/login_screen_controller/login_controller.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/view/auth_screen/login_screen/widgets/form_widgets.dart';

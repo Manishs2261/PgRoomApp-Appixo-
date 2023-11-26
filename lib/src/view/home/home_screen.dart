@@ -4,8 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/repositiry/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/Constants/colors.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/view/home/widgets/AppBarWIdgets.dart';
 import 'package:pgroom/src/view/home/widgets/ItemListView.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
@@ -57,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                         filled: true,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                         hintText: "Enter Locality / Landmark / Colony",
+                        hintStyle: const TextStyle(color: Colors.black54),
                         prefixIcon: const Icon(Icons.search_rounded),
                         suffixIcon: const Icon(Icons.mic),
                         isDense: false,

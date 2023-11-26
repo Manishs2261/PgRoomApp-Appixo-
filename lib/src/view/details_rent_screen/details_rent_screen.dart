@@ -3,20 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/Constants/sizes.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
-import 'package:pgroom/src/uitels/logger/logger.dart';
+
 import 'package:pgroom/src/view/details_rent_screen/controller/details_screen_controller.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/ContactAndShareWidgets.dart';
 import 'package:pgroom/src/view/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../uitels/Constants/colors.dart';
-import '../../uitels/icon_and_name_widgets/detaails_row_widgets.dart';
+
+import '../../utils/Constants/colors.dart';
+import '../../utils/Constants/sizes.dart';
+import '../../utils/helpers/helper_function.dart';
+import '../../utils/icon_and_name_widgets/detaails_row_widgets.dart';
+import '../../utils/logger/logger.dart';
+
+
 
 class DetailsRentInfoScreen extends StatelessWidget {
   DetailsRentInfoScreen({super.key});
 
-  // Getx Controller controller for business code
+  // Getx Controller  for business code
   final controller = Get.put(DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
   final itemId = Get.arguments['id'];
 
@@ -120,7 +124,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   child: SmoothPageIndicator(
                       controller: controller.imageIndecterController.value,
                       count: 2,
-                      effect: const WormEffect(dotHeight: 4, dotWidth: 30, activeDotColor: AppColors.primary)),
+                      effect: const ExpandingDotsEffect(dotHeight: 6,activeDotColor: AppColors.primary)),
                 ),
                 //=================
 
@@ -351,17 +355,17 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 60, top: 15),
                   child: Column(
                     children: [
-                      if (controller.data.girls != "")
+                      if (controller.data.girls!)
                         DetailsRowWidgets(
                           title: "Girl Allow",
                           isIcon: controller.data.girls!,
                         ),
-                      if (controller.data.boy != "")
+                      if (controller.data.boy!)
                         DetailsRowWidgets(
                           title: "Boy Allow",
                           isIcon: controller.data.boy!,
                         ),
-                      if (controller.data.faimlyMember != "")
+                      if (controller.data.faimlyMember!)
                         DetailsRowWidgets(
                           title: "family member Allow",
                           isIcon: controller.data.faimlyMember!,

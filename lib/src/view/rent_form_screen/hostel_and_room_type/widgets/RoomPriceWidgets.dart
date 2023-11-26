@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
-import '../../../../uitels/widgets/my_check_boxwidget.dart';
-import '../../../../uitels/widgets/my_text_form_field.dart';
+import '../../../../utils/widgets/my_check_boxwidget.dart';
+import '../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
 class RoomPriceWidgets extends StatelessWidget {

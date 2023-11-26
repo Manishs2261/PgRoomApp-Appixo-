@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../res/route_name/routes_name.dart';
-import '../../../../uitels/Constants/sizes.dart';
+import '../../../../utils/Constants/sizes.dart';
 
 class SkipTextButtonWidgets extends StatelessWidget {
   const SkipTextButtonWidgets({

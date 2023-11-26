@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/uitels/helpers/heiper_function.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pinput/pinput.dart';
 
 class RentDetailsController extends GetxController {
