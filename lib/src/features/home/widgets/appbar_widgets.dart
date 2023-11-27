@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../splash/controller/splash_controller.dart';
@@ -18,18 +19,8 @@ class AppBarWidgets extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: InkWell(
             onTap: () {
-              (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
-                  ? Get.toNamed(RoutesName.addYourHomeScreen)
-                  : Get.defaultDialog(
-                      title: "Login please",
-                      middleText: "Without login your are not post home",
-                      actions: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Get.offAllNamed(RoutesName.loginScreen);
-                              },
-                              child: const Text("Login"))
-                        ]);
+              AuthApisClass.checkUserLogin(RoutesName.addYourHomeScreen);
+
             },
             child: Container(
               alignment: Alignment.center,

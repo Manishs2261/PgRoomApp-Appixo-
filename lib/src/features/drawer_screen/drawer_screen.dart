@@ -145,7 +145,7 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
-              (ApisClass.auth.currentUser?.uid == finalUserUidGloble)
+              (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
                   ? Get.toNamed(RoutesName.addYourHomeScreen)
                   : Get.snackbar("Login", "Your not login ");
               // Update the state of the app.

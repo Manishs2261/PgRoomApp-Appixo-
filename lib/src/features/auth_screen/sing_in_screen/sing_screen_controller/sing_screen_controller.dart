@@ -78,7 +78,7 @@ class SingScreenController extends GetxController {
           // store a data in   SharedPreferences
           preference.setString('userUid', ApisClass.user.uid);
           //initialize  a variable
-          finalUserUidGloble = preference.getString('userUid');
+          finalUserUidGlobal = preference.getString('userUid');
           //========================
           alreadyExistUser.value = value;
           loading.value = false;

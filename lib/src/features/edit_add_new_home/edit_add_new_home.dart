@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
@@ -34,21 +35,14 @@ class EditAddNewHomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: SizedBox(
-                  height: 40,
-                  width: AppHelperFunction.screenWidth() * 0.9,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(RoutesName.editFormScreen, arguments: {
+
+              //Button
+              ComReuseElevButton(
+                  onPressed: () => Get.toNamed(RoutesName.editFormScreen, arguments: {
                         'list': data,
                         'id': itemId,
-                      });
-                    },
-                    child: const Text("Edit"),
-                  ),
-                ),
-              ),
+                      }),
+                  title: "Edit"),
               const SizedBox(
                 height: AppSizes.spaceBtwItems,
               ),
@@ -60,9 +54,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
-                        const CircularProgressIndicator(
-                          color: Colors.blue,
-                        );
+
                         Navigator.pop(context);
                       });
                     },
@@ -334,17 +326,17 @@ class EditAddNewHomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 60, top: 15),
                 child: Column(
                   children: [
-                    if (data.girls != "")
+                    if (data.girls!)
                       IconWriteAndWrongWidgets(
                         title: "Girl Allow",
                         isIcon: data.girls!,
                       ),
-                    if (data.boy != "")
+                    if (data.boy!)
                       IconWriteAndWrongWidgets(
                         title: "Boy Allow",
                         isIcon: data.boy!,
                       ),
-                    if (data.faimlyMember != "")
+                    if (data.faimlyMember!)
                       IconWriteAndWrongWidgets(
                         title: "family member Allow",
                         isIcon: data.faimlyMember!,

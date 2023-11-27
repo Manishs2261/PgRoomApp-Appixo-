@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/splash/controller/splash_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../res/route_name/routes_name.dart';
@@ -18,6 +19,7 @@ class SkipTextButtonWidgets extends StatelessWidget {
           onTap: () async {
             SharedPreferences preference = await SharedPreferences.getInstance();
             preference.setString("userUid", "value");
+            finalUserUidGlobal = "value";
 
             Get.offAllNamed(RoutesName.homeScreen);
           },

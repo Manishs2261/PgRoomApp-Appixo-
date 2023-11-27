@@ -39,7 +39,7 @@ class LoginScreenController extends GetxController {
             // store a data in sharedPrefrence
             prefrence.setString('userUid', ApisClass.user.uid);
             //initialize  a varible
-            finalUserUidGloble = prefrence.getString('userUid');
+            finalUserUidGlobal = prefrence.getString('userUid');
             //========================
             Get.offAllNamed(RoutesName.homeScreen);
           }

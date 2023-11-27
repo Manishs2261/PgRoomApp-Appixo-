@@ -61,7 +61,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   width: double.infinity,
                   color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
                   child: PageView(
-                    controller: controller.imageIndecterController.value,
+                    controller: controller.imageIndicatorController.value,
                     children: [
                       //show cover image
                       CachedNetworkImage(
@@ -123,7 +123,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: SmoothPageIndicator(
-                      controller: controller.imageIndecterController.value,
+                      controller: controller.imageIndicatorController.value,
                       count: 2,
                       effect: const ExpandingDotsEffect(dotHeight: 6,activeDotColor: AppColors.primary)),
                 ),
@@ -387,7 +387,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
 
                 //======================================================
 
-                RatingAndReviewWidgets(controller: controller, dark: dark),
+                RatingAndReviewWidgets(controller: controller),
 
                 const SizedBox(
                   height: 50,

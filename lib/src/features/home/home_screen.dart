@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/src/features/home/widgets/AppBarWidgets.dart';
+
 
 import 'package:pgroom/src/features/home/widgets/ItemListView.dart';
+import 'package:pgroom/src/features/home/widgets/appbar_widgets.dart';
 
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
@@ -26,7 +27,12 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(RoutesName.loginScreen);
+          ApisClass.removeUser().then((value) {
+            if(value){
+              Get.toNamed(RoutesName.loginScreen);
+            }
+          });
+
         },
       ),
       //==PreferredSize provide a maximum appbar length

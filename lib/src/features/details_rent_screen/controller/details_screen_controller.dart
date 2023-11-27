@@ -11,37 +11,38 @@ class DetailsScreenController extends GetxController {
   var itemId;
   UserRentModel data = UserRentModel();
 
-//constouctor
+//constructor
   DetailsScreenController(this.itemId, this.data);
 
   RxBool isView = false.obs;
   final reviewController = TextEditingController().obs;
 
   //page view controller
-  final imageIndecterController = PageController().obs;
+  final imageIndicatorController = PageController().obs;
 
   List<RatingAndReviewModel> ratingList = [];
-  var raingNow;
+  var ratingNow = 0.0.obs;
 
   onSubmitReviewButton() {
    AppHelperFunction.checkInternetAvailability().then((value) {
-
      if(value){
-
-       ApisClass.ratingAndReviewCreateData(raingNow, reviewController.value.text, itemId).then((value) {
-         reviewController.value.text = '';
-         Get.snackbar("Rating Submit", "Successfully");
-       }).onError((error, stackTrace) {
-         Get.snackbar("Rating Submit", "Faild");
-         AppLoggerHelper.error("Rating submit error",error);
-         AppLoggerHelper.error("Rating submit error",stackTrace);
-
-       });
+       //rating is empty, not click a button
+       if(ratingNow.value !=0.0) {
+         ApisClass.ratingAndReviewCreateData(ratingNow.value, reviewController.value.text, itemId).then((value) {
+           reviewController.value.text = '';
+           Get.snackbar("Rating Submit", "Successfully");
+           ratingNow.value = 0.0;
+         }).onError((error, stackTrace) {
+           Get.snackbar("Rating Submit", "Failed");
+           AppLoggerHelper.error("Rating submit error", error);
+           AppLoggerHelper.error("Rating submit error", stackTrace);
+         });
+       }else{
+         AppHelperFunction.showSnackBar("Rating can't be empty.");
+       }
      }
    });
   }
 
-  onbutton() {
-    print(data.houseName);
-  }
+
 }

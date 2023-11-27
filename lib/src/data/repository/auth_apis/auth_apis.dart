@@ -13,6 +13,7 @@ import 'package:pgroom/src/utils/logger/logger.dart';
  import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../features/splash/controller/splash_controller.dart';
+import '../apis/apis.dart';
 
 
 class AuthApisClass {
@@ -32,13 +33,32 @@ class AuthApisClass {
           //upload user uid data in SharedPreferences
           preferences.setString('userUid', value.user!.uid);
           // initialize variable
-          finalUserUidGloble = preferences.getString('userUid');
+          finalUserUidGlobal = preferences.getString('userUid');
           log('\nUser :${value.user}');
           Get.offAllNamed(RoutesName.homeScreen);
         });
       }
     });
   }
+
+  //check for user login or not
+  static Future<void>checkUserLogin(routesName)async{
+    (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
+        ? Get.toNamed(routesName)
+        : Get.defaultDialog(
+        title: "Login please",
+        middleText: "Without login your are not post home",
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                Get.offAllNamed(RoutesName.loginScreen);
+              },
+              child: const Text("Login"))
+        ]);
+  }
+
+
+
 
   static Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow

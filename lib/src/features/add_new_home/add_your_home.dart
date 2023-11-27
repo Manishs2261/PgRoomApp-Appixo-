@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/main.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -31,16 +31,10 @@ class _AddYourHomeState extends State<AddYourHome> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Padding(padding: EdgeInsets.only(top: 15)),
-          SizedBox(
-            height: 40,
-            width: mediaQuery.width * .8,
-            child: ElevatedButton(
-              onPressed: () {
-                Get.toNamed(RoutesName.addImageScreen);
-              },
-              child: const Text("Add New "),
-            ),
-          ),
+
+            //Button
+            ComReuseElevButton(onPressed:  ()=>Get.toNamed(RoutesName.addImageScreen), title: "Add New "),
+          
           const SizedBox(
             height: 15,
           ),

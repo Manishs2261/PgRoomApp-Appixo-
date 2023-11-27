@@ -5,15 +5,15 @@ import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 import 'firebase_options.dart';
 
-//globel object for accessing device scren size
+//global object for accessing device screen size
 late Size mediaQuery;
 
 Future<void> main() async {
-  // for initilazerfirebase on open a app
+  // for initializer  firebase on open a app
   _initializerFirebase();
 
   runApp(const MyApp());

@@ -13,7 +13,7 @@ class ApisClass {
   //to return current user info
   static User get user => auth.currentUser!;
 
-  // for accessing cloud firestore database
+  // for accessing cloud firestorm database
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   // for storing Image  information

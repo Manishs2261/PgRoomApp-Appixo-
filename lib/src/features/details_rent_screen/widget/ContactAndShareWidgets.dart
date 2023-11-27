@@ -18,7 +18,7 @@ class ContactAndShareWidgets extends StatelessWidget {
             width: AppHelperFunction.screenWidth() * 0.9,
             child: ElevatedButton(
               onPressed: () {},
-              child: const Text("contact now"),
+              child: const Text("Contact Now"),
             ),
           ),
         ),
