@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_ratingbar_widgets.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../data/repository/apis/apis.dart';
@@ -68,19 +69,16 @@ class ViewAllReviewScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              RatingBar.builder(
-                                ignoreGestures: true,
-                                itemSize: 17,
-                                initialRating: ratingList[index].rating!,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (double value) {},
+                              Row(
+                                children: [
+
+                                ComRatingBarWidgets(initialRating: ratingList[index].rating!,ignoreGestures: true,
+                                itemSize: 17,),
+
+                                  SizedBox(width: 10,),
+                                  Text("${ratingList[index].currentDate}",style: TextStyle(fontSize: 13,color: Colors
+                                      .white70),)
+                                ],
                               ),
                               Container(
                                 margin: const EdgeInsets.only(top: 10, bottom: 20),

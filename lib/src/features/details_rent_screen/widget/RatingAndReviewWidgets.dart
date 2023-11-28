@@ -1,11 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-
+import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
@@ -21,7 +18,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
   });
 
   final DetailsScreenController controller;
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,48 +35,32 @@ class RatingAndReviewWidgets extends StatelessWidget {
           ),
         ),
 
-        //rating stars
+        //rating Now
         Obx(
-    ()=> Align(
+          () => Align(
             alignment: Alignment.center,
-            child: RatingBar.builder(
+            child: ComRatingBarWidgets(
+              controller: controller,
               initialRating: controller.ratingNow.value,
-              minRating: 1,
-              glow: true,
-              glowColor: Colors.blueAccent,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              updateOnDrag: true,
-              itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {
-                controller.ratingNow.value = rating;
-
-              },
+              horizontal: 3.0,
             ),
           ),
         ),
 
-
         Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0,top: 14.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
           child: TextFormField(
             style: const TextStyle(color: Colors.black),
             controller: controller.reviewController.value,
             maxLines: 3,
             cursorColor: Colors.grey,
             decoration: InputDecoration(
-                filled: true,
-                isDense: false,
-                fillColor: Colors.yellow.shade50,
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                hintText: "Write Your Review...",
-                hintStyle: TextStyle(color: Colors.black38),
-
+              filled: true,
+              isDense: false,
+              fillColor: Colors.yellow.shade50,
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              hintText: "Write Your Review...",
+              hintStyle: const TextStyle(color: Colors.black38),
             ),
           ),
         ),
@@ -88,7 +69,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
         ),
 
         ComReuseElevButton(
-          onPressed: ()=>  controller.onSubmitReviewButton(),
+          onPressed: () => controller.onSubmitReviewButton(),
           title: 'Submit',
         ),
 
@@ -124,6 +105,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
                       .collection("userReview")
                       .doc("reviewCollection")
                       .collection("${controller.itemId}")
+                      .limit(5)
                       .snapshots(),
                   builder: (context, snapshot) {
                     final snapshotData = snapshot.data?.docs;
@@ -181,26 +163,30 @@ class RatingAndReviewWidgets extends StatelessWidget {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                RatingBar.builder(
-                                  ignoreGestures: true,
-                                  itemSize: 17,
-                                  initialRating: controller.ratingList[index].rating!,
-                                  direction: Axis.horizontal,
-                                  allowHalfRating: true,
-                                  itemCount: 5,
-                                  itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                                  itemBuilder: (context, _) => const Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                  ),
-                                  onRatingUpdate: (double value) {},
+                                Row(
+                                  children: [
+                                    ComRatingBarWidgets(
+                                      initialRating: controller.ratingList[index].rating!,
+                                      itemSize: 17.0,
+                                      ignoreGestures: true,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "${controller.ratingList[index].currentDate}",
+                                      style: const TextStyle(fontSize: 13, color: Colors.white70),
+                                    )
+                                  ],
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(top: 10, bottom: 20),
                                   padding: const EdgeInsets.all(10.0),
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                      color: AppHelperFunction.isDarkMode(context) ? Colors.blueGrey.shade900 : Colors.grey.shade50,
+                                      color: AppHelperFunction.isDarkMode(context)
+                                          ? Colors.blueGrey.shade900
+                                          : Colors.grey.shade50,
                                       borderRadius: BorderRadius.circular(8)),
                                   child: Text("${controller.ratingList[index].title}"),
                                 ),

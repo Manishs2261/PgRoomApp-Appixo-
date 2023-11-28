@@ -10,11 +10,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
- import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../features/splash/controller/splash_controller.dart';
 import '../apis/apis.dart';
-
 
 class AuthApisClass {
   static EmailOTP emailOtp = EmailOTP();
@@ -42,23 +41,28 @@ class AuthApisClass {
   }
 
   //check for user login or not
-  static Future<void>checkUserLogin(routesName)async{
-    (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
-        ? Get.toNamed(routesName)
-        : Get.defaultDialog(
-        title: "Login please",
-        middleText: "Without login your are not post home",
-        actions: [
-          ElevatedButton(
-              onPressed: () {
-                Get.offAllNamed(RoutesName.loginScreen);
-              },
-              child: const Text("Login"))
-        ]);
+  static Future<bool> checkUserLogin() async {
+    if (ApisClass.auth.currentUser?.uid == finalUserUidGlobal) {
+      return true;
+    } else {
+      Get.defaultDialog(
+          title: "Login please",
+          titleStyle: Theme.of(Get.context!).textTheme.headlineMedium,
+          middleText: "You are not login?.",
+          actions: [
+            SizedBox(
+              height: 40,
+              width: AppHelperFunction.screenWidth() * 0.4,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Get.offAllNamed(RoutesName.loginScreen);
+                  },
+                  child: const Text("Login")),
+            )
+          ]);
+      return false;
+    }
   }
-
-
-
 
   static Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -80,8 +84,7 @@ class AuthApisClass {
   //====sing with email and password==========
 
   static Future<bool> singEmailIdAndPassword(String email, String pass) async {
-    try {
-    } on FirebaseAuthException catch (e) {
+    try {} on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar(
             "Weak Password",
@@ -111,8 +114,7 @@ class AuthApisClass {
 
         return false;
       } else if (e.code == 'wrong-password') {
-        Get.snackbar(
-          "InValid", "password");
+        Get.snackbar("InValid", "password");
 
         return false;
       } else {

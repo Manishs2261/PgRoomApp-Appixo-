@@ -6,6 +6,8 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../utils/helpers/helper_function.dart';
+
 class ApisClass {
   // for authentication
   static FirebaseAuth auth = FirebaseAuth.instance;
@@ -446,6 +448,7 @@ class ApisClass {
     await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
       'rating': rating,
       'title': review,
+      'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
     });
   }
 

@@ -19,7 +19,12 @@ class AppBarWidgets extends StatelessWidget {
           padding: const EdgeInsets.only(right: 10),
           child: InkWell(
             onTap: () {
-              AuthApisClass.checkUserLogin(RoutesName.addYourHomeScreen);
+              AuthApisClass.checkUserLogin().then((value) {
+                if(value)
+                  {
+                    Get.toNamed(RoutesName.addYourHomeScreen);
+                  }
+              });
 
             },
             child: Container(
