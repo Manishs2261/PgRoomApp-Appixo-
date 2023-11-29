@@ -19,8 +19,6 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build -DrawerScreen ");
-    final dark = AppHelperFunction.isDarkMode(context);
-
     ApisClass.getUserData();
 
     return Drawer(
@@ -35,7 +33,7 @@ class DrawerScreen extends StatelessWidget {
             height: 150,
             width: double.infinity,
             child: DrawerHeader(
-              decoration: BoxDecoration(color: dark ? null : AppColors.primary, boxShadow: const [
+              decoration: BoxDecoration(color: AppHelperFunction.isDarkMode(context) ? null : AppColors.primary, boxShadow: const [
                 BoxShadow(
                   blurRadius: 5,
                   color: Colors.white30,
@@ -106,6 +104,7 @@ class DrawerScreen extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: false,
                                               maxLines: 1,
+                                              style: TextStyle(color:Colors.white,fontSize: 18),
                                             ),
                                           )
                                         //if user is sign google email
@@ -116,16 +115,18 @@ class DrawerScreen extends StatelessWidget {
                                               overflow: TextOverflow.ellipsis,
                                               softWrap: false,
                                               maxLines: 1,
+                                              style: TextStyle(color:Colors.white,fontSize: 18),
                                             ),
                                           ),
                                     // in  this email both are same
                                     Flexible(
                                       child: Text(
                                         "${ApisClass.auth.currentUser?.email}",
-                                        style: const TextStyle(fontSize: 12),
+                                        style: const TextStyle(fontSize: 14,color: Colors.white),
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 1,
+
                                       ),
                                     ),
                                   ],

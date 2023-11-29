@@ -2,13 +2,15 @@ class RatingAndReviewModel {
   double? rating;
   String? title;
   String? currentDate;
+  String? userId;
 
-  RatingAndReviewModel({this.rating, this.title,this.currentDate});
+  RatingAndReviewModel({this.rating, this.title,this.currentDate,this.userId});
 
   RatingAndReviewModel.fromJson(Map<String, dynamic> json) {
     rating = json['rating'];
     title = json['title'];
     currentDate = json['currentDate'];
+    userId = json['userId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -16,6 +18,7 @@ class RatingAndReviewModel {
     data['rating'] = this.rating;
     data['title'] = this.title;
     data['currentDate'] = this.currentDate;
+    data['userId'] = this.userId;
     return data;
   }
 }

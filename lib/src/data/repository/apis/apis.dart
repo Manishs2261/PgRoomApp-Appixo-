@@ -30,6 +30,7 @@ class ApisClass {
   static var otherDownloadUrl;
   static var userEmail;
   static var userCity;
+  static var reviewId = "" ;
 
   // static var houseNameMap;
 
@@ -207,7 +208,7 @@ class ApisClass {
   // delete cover image  data code
   static Future<void> deleteCoverImageData(String deleteId, String imageUrl) async {
     try {
-      //delete a firebasestore
+      //delete a Firestorm
       DocumentReference documentReference =
           firestore.collection('userRentDetails').doc(user.uid).collection(user.uid).doc(deleteId);
 
@@ -217,7 +218,7 @@ class ApisClass {
       await documentReference.delete();
       await documentReference1.delete();
 
-      // delete a firestorege image data
+      // delete a firestorm image data
       final reff = storage.refFromURL(imageUrl);
       await reff.delete();
     } catch (e) {
@@ -443,14 +444,55 @@ class ApisClass {
     });
   }
 
+  // save a user review  data
+  // static Future<void> saveUserReviewData(rating, review, itemId) async {
+  //   //this data save in user account
+  //   await firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+  //     'itemId': itemId,
+  //     'rating': rating,
+  //     'title': review,
+  //     'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
+  //
+  //   });
+  //
+  // }
+
+
+  //Get in review user id  data
+  static Future<String> getReviewData(itemId) async {
+    var collection = firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
+    var querySnapshot = await collection.get();
+    Map<String, dynamic>? data = querySnapshot.data();
+    reviewId = data?['itemId'] ?? '';
+    return reviewId;
+
+  }
+
+
   /// Rating and review create api
   static Future<void> ratingAndReviewCreateData(rating, review, itemId) async {
+
+    //This data save in all viewer
     await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
       'rating': rating,
       'title': review,
       'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
+
     });
+
+    //This data save in user account only
+    await firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+      'itemId': itemId,
+      'rating': rating,
+      'title': review,
+      'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
+
+    });
+
+
   }
+
+
 
   //Remove user in share preferences
   static Future<bool> removeUser() async {

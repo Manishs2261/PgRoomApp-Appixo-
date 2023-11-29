@@ -22,34 +22,64 @@ class DetailsScreenController extends GetxController {
   final imageIndicatorController = PageController().obs;
 
   List<RatingAndReviewModel> ratingList = [];
-  var ratingNow = 0.0.obs;
 
-  onSubmitReviewButton() {
-    //check internet connection
-   AppHelperFunction.checkInternetAvailability().then((value) {
-     if(value){
-       //check user are login or not
-       AuthApisClass.checkUserLogin().then((loginValue) {
-         if (loginValue) {
-           //rating is empty, not click a button
-           if (ratingNow.value != 0.0) {
-             ApisClass.ratingAndReviewCreateData(ratingNow.value, reviewController.value.text, itemId).then((value) {
-               reviewController.value.text = '';
-               Get.snackbar("Rating Submit", "Successfully");
-               ratingNow.value = 0.0;
-             }).onError((error, stackTrace) {
-               Get.snackbar("Rating Submit", "Failed");
-               AppLoggerHelper.error("Rating submit error", error);
-               AppLoggerHelper.error("Rating submit error", stackTrace);
-             });
-           } else {
-             AppHelperFunction.showSnackBar("Rating can't be empty.");
-           }
-         }
-       });
-     }
-   });
+  //Rating update value, like 3 - star
+  RxDouble ratingNow = 0.0.obs;
+  //circular Indicator progress bar
+  RxBool loading = false.obs;
+  //calculate a total number of user give review
+  RxInt totalReview = 0.obs;
+
+
+ RxString reviewSubmissionId = "".obs;
+ //for use current time update a screen
+ RxBool  checkReviewSubmission = true.obs;
+
+
+  @override
+  Future<void>onInit() async {
+
+    await ApisClass.getReviewData(itemId).then((value) {
+      reviewSubmissionId.value = value;
+    });
+    super.onInit();
+
   }
 
+  onSubmitReviewButton() {
 
+    //check internet connection
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        //check user are login or not
+        AuthApisClass.checkUserLogin().then((loginValue) {
+          if (loginValue) {
+            //rating is empty, not click a button
+            if (ratingNow.value != 0.0) {
+              loading.value = true;
+              ApisClass.ratingAndReviewCreateData(ratingNow.value, reviewController.value.text, itemId).then((value) {
+                reviewController.value.text = '';
+                Get.snackbar("Rating Submit", "Successfully");
+                ratingNow.value = 0.0;
+                checkReviewSubmission.value  = false;
+
+                FocusScope.of(Get.context!).unfocus();
+                loading.value = false;
+              }).onError((error, stackTrace) {
+                loading.value = false;
+                Get.snackbar("Rating Submit", "Failed");
+                FocusScope.of(Get.context!).unfocus();
+                AppLoggerHelper.error("Rating submit error", error);
+                AppLoggerHelper.error("Rating submit error", stackTrace);
+              });
+            } else {
+              loading.value = false;
+              AppHelperFunction.showSnackBar("Rating can't be empty.");
+            }
+          }
+        });
+      }
+    });
+
+  }
 }

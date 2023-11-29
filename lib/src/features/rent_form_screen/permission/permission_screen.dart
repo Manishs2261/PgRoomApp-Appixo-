@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 
 import '../../../utils/widgets/my_check_box_widget.dart';
 import '../data_save_controller/data_save_controller.dart';
@@ -116,21 +116,13 @@ class PermissioinScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      //call controller method
-                      saveController.uploadData();
-                    },
-                    child: Obx(
-                      () => (saveController.loading.value)
-                          ? const CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            )
-                          : const Text("Save "),
-                    )),
+
+              Obx(
+                () => ComReuseElevButton(
+                  onPressed: () => saveController.uploadData(),
+                  title: "Save",
+                  loading: saveController.loading.value,
+                ),
               )
             ],
           ),

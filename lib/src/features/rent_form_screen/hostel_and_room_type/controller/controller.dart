@@ -74,11 +74,9 @@ class HostelAndRoomController extends GetxController {
   }
 
   onSubimitButton() {
-    loading.value = true;
-    Get.toNamed(RoutesName.providsFacilitesScreen)?.then((value) {
-      loading.value = false;
-    }).onError((error, stackTrace) {
-      loading.value = false;
-    });
+
+    Get.toNamed(RoutesName.provideFacilitiesScreen);
+
+
   }
 }

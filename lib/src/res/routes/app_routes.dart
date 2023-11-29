@@ -2,6 +2,7 @@
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
 
 
 import '../../features/add_new_home/add_your_home.dart';
@@ -111,9 +112,9 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  // GetPage(name: RoutesName.providsFacilitesScreen, page:()=> ProvideFacilitesScreen(),
-  //     transitionDuration: const Duration(milliseconds: 250),
-  //     transition: Transition.leftToRightWithFade),
+  GetPage(name: RoutesName.provideFacilitiesScreen, page:()=> ProvideFacilitiesScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
 
 
   GetPage(name: RoutesName.rentDetailsFormScreen, page:()=> RentDetailsScsreen(),
@@ -179,4 +180,5 @@ static appRoutes()=>[
 ];
 
 }
+
 

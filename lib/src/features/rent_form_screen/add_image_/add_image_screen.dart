@@ -125,6 +125,7 @@ class AddImageScreen extends StatelessWidget {
                 ),
 
                 //=========save & next button ===============
+
                 Obx(
                   () => SizedBox(
                       width: AppHelperFunction.screenWidth() * 0.9,

@@ -14,7 +14,7 @@ import 'login_screen_controller/login_controller.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final globleKey = GlobalKey<FormState>();
+  final globalKey = GlobalKey<FormState>();
   final _controller = Get.put(LoginScreenController());
 
   @override
@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                   height: AppSizes.spaceBtwSSections,
                 ),
 
-                FormWidgets(globleKey: globleKey, controller: _controller),
+                FormWidgets(globleKey: globalKey, controller: _controller),
 
                 const SizedBox(
                   height: AppSizes.spaceBtwItems,

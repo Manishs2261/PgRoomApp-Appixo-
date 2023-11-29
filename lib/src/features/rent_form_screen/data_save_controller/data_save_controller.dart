@@ -126,7 +126,7 @@ class DataSaveController extends GetxController {
       if (value) {
         loading.value = true;
         addImageController.uploadCoverImage().then((value) {
-          loading.value = true;
+          loading.value = false;
           saveUserRentDetails();
         }).onError((error, stackTrace) {
           loading.value = false;

@@ -17,16 +17,17 @@ import '../apis/apis.dart';
 
 class AuthApisClass {
   static EmailOTP emailOtp = EmailOTP();
-  static Connectivity connectivity = Connectivity();
+
   static bool otpSend = false;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
   // =======google sing =============
   static handleGoogleButtonClick(BuildContext context) async {
-    await connectivity.checkConnectivity().then((value) {
-      if (value == ConnectivityResult.none) {
-        AppHelperFunction.showSnackBar('Please Check Your Internet Connection');
-      } else {
+
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if(value){
         signInWithGoogle().then((value) async {
+         await ApisClass.saveUserData(auth.currentUser?.displayName,"Bilspur",auth.currentUser?.email);
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
           //upload user uid data in SharedPreferences

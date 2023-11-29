@@ -33,7 +33,7 @@ class _AddYourHomeState extends State<AddYourHome> {
           const Padding(padding: EdgeInsets.only(top: 15)),
 
             //Button
-            ComReuseElevButton(onPressed:  ()=>Get.toNamed(RoutesName.addImageScreen), title: "Add New "),
+            ComReuseElevButton(onPressed:()=>Get.toNamed(RoutesName.addImageScreen), title: "Add New",loading: false,),
           
           const SizedBox(
             height: 15,

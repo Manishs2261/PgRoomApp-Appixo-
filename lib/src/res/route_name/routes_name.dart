@@ -26,7 +26,7 @@ class RoutesName{
       "en";
   static const String hostelAndRoomTypeScreen = "/HostelAndRoom_Type_screen";
   static const String perimissionScreen = "/permission_screen";
-  static const String providsFacilitesScreen = "/provides_facilites_screen";
+  static const String provideFacilitiesScreen = "/provides_facilites_screen";
   static const String rentDetailsFormScreen = "/rent_Details_Form_screen";
 
   static const String editFormScreen = "/editDorm_screen";

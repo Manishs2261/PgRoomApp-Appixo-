@@ -117,7 +117,8 @@ class ItemListView extends StatelessWidget {
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               TextSpan(
-                                  text: '${rentList[index].singlePersonPrice}',
+                                  text: (rentList[index].singlePersonPrice!.isNotEmpty) ?'${rentList[index]
+                                      .singlePersonPrice}' : '${rentList[index].faimlyPrice}',
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                               const TextSpan(text: ' /- monthly'),
                             ],

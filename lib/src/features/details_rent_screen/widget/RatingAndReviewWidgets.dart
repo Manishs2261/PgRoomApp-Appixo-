@@ -25,52 +25,68 @@ class RatingAndReviewWidgets extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //Rating Now
-        Padding(
-          padding: const EdgeInsets.only(
-              left: AppSizes.sizeBoxSpace * 3, top: AppSizes.sizeBoxSpace * 10, bottom: AppSizes.sizeBoxSpace * 2),
-          child: Text(
-            "Rating now :-",
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ),
 
-        //rating Now
         Obx(
-          () => Align(
-            alignment: Alignment.center,
-            child: ComRatingBarWidgets(
-              controller: controller,
-              initialRating: controller.ratingNow.value,
-              horizontal: 3.0,
-            ),
-          ),
-        ),
+        ()=> Visibility(
+            // checkReviewSubmission  for use current time update a screen
+          //Because reviewSubmissionId  not initialize after Rating submit
+            visible:  (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //Rating Now
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppSizes.sizeBoxSpace * 3, top: AppSizes.sizeBoxSpace * 10, bottom: AppSizes.sizeBoxSpace * 2),
+                child: Text(
+                  "Rating now :-",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
 
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
-          child: TextFormField(
-            style: const TextStyle(color: Colors.black),
-            controller: controller.reviewController.value,
-            maxLines: 3,
-            cursorColor: Colors.grey,
-            decoration: InputDecoration(
-              filled: true,
-              isDense: false,
-              fillColor: Colors.yellow.shade50,
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-              hintText: "Write Your Review...",
-              hintStyle: const TextStyle(color: Colors.black38),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: AppSizes.defaultSpace,
-        ),
+              //rating Now
+              Obx(
+                () => Align(
+                  alignment: Alignment.center,
+                  child: ComRatingBarWidgets(
+                    controller: controller,
+                    initialRating: controller.ratingNow.value,
+                    horizontal: 3.0,
+                  ),
+                ),
+              ),
 
-        ComReuseElevButton(
-          onPressed: () => controller.onSubmitReviewButton(),
-          title: 'Submit',
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
+                child: TextFormField(
+                  style: const TextStyle(color: Colors.black),
+                  controller: controller.reviewController.value,
+                  maxLines: 3,
+                  cursorColor: Colors.grey,
+                  decoration: InputDecoration(
+                    filled: true,
+                    isDense: false,
+                    fillColor: Colors.yellow.shade50,
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    hintText: "Write Your Review...",
+                    hintStyle: const TextStyle(color: Colors.black38),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: AppSizes.defaultSpace,
+              ),
+
+              //Rating submit button
+              Obx(
+                () => ComReuseElevButton(
+                  onPressed: () => controller.onSubmitReviewButton(),
+                  title: 'Submit',
+                  loading: controller.loading.value,
+                ),
+              ),
+            ],
+          )),
         ),
 
         Padding(
@@ -78,9 +94,11 @@ class RatingAndReviewWidgets extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "Review :-",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+              Obx(
+                () => Text(
+                  "Review (${controller.totalReview.value}) :-",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                ),
               ),
               InkWell(
                   onTap: () {
@@ -105,7 +123,6 @@ class RatingAndReviewWidgets extends StatelessWidget {
                       .collection("userReview")
                       .doc("reviewCollection")
                       .collection("${controller.itemId}")
-                      .limit(5)
                       .snapshots(),
                   builder: (context, snapshot) {
                     final snapshotData = snapshot.data?.docs;
@@ -113,6 +130,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
                     controller.ratingList =
                         snapshotData?.map((e) => RatingAndReviewModel.fromJson(e.data())).toList() ?? [];
 
+                    //if review list empty than show
                     if (controller.ratingList.isEmpty) {
                       controller.isView.value = false;
                       return const Center(
@@ -127,9 +145,11 @@ class RatingAndReviewWidgets extends StatelessWidget {
                         ],
                       ));
                     } else {
+                      //for some time delay a code
                       Future.delayed(Duration.zero, () {
                         //your code goes here
                         controller.isView.value = true;
+                        controller.totalReview.value = controller.ratingList.length;
                       });
 
                       return ListView.builder(
@@ -137,7 +157,8 @@ class RatingAndReviewWidgets extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           addRepaintBoundaries: true,
                           physics: const ScrollPhysics(),
-                          itemCount: controller.ratingList.length,
+                          //i want to show 5 item only
+                          itemCount: (controller.ratingList.length < 5) ? controller.ratingList.length : 5,
                           itemBuilder: (context, index) {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.start,
