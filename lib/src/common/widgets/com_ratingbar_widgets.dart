@@ -27,7 +27,7 @@ class ComRatingBarWidgets extends StatelessWidget {
       itemSize: itemSize,
       glowColor: Colors.blueAccent,
       direction: Axis.horizontal,
-      allowHalfRating: true,
+
       itemCount: 5,
       updateOnDrag: true,
       itemPadding:  EdgeInsets.symmetric(horizontal: horizontal),

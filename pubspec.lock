@@ -792,6 +792,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  rating_summary:
+    dependency: "direct main"
+    description:
+      name: rating_summary
+      sha256: "42f8e030435d3f84686dbe4e4a6f9a41fe281eb7a5290f8f830b59d35d6cb713"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2+1"
   rxdart:
     dependency: transitive
     description:

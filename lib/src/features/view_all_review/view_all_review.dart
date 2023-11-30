@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_ratingbar_widgets.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:rating_summary/rating_summary.dart';
 import '../../data/repository/apis/apis.dart';
 import '../../model/rating_and_review_Model/rating_and_review_Model.dart';
-
 
 class ViewAllReviewScreen extends StatelessWidget {
   ViewAllReviewScreen({super.key});
@@ -24,11 +23,28 @@ class ViewAllReviewScreen extends StatelessWidget {
         title: const Text("All Review"),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 15, right: 15,top: 10),
+        padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+
+              //Rating summary
+              Container(
+                padding: const EdgeInsets.all(15),
+                height: 200,
+                width: double.infinity,
+                child: const RatingSummary(
+                  counter: 13,
+                  average: 3.846,
+                  showAverage: true,
+                  counterFiveStars: 5,
+                  counterFourStars: 4,
+                  counterThreeStars: 2,
+                  counterTwoStars: 1,
+                  counterOneStars: 1,
+                ),
+              ),
               StreamBuilder(
                   stream: ApisClass.firestore
                       .collection("userReview")
@@ -71,13 +87,18 @@ class ViewAllReviewScreen extends StatelessWidget {
                               ),
                               Row(
                                 children: [
-
-                                ComRatingBarWidgets(initialRating: ratingList[index].rating!,ignoreGestures: true,
-                                itemSize: 17,),
-
-                                  SizedBox(width: 10,),
-                                  Text("${ratingList[index].currentDate}",style: TextStyle(fontSize: 13,color: Colors
-                                      .white70),)
+                                  ComRatingBarWidgets(
+                                    initialRating: ratingList[index].rating!,
+                                    ignoreGestures: true,
+                                    itemSize: 17,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "${ratingList[index].currentDate}",
+                                    style: const TextStyle(fontSize: 13, color: Colors.white70),
+                                  )
                                 ],
                               ),
                               Container(
