@@ -6,7 +6,6 @@ import 'package:pgroom/src/features/details_rent_screen/widget/ContactAndShareWi
 import 'package:pgroom/src/features/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/Constants/colors.dart';
@@ -15,8 +14,6 @@ import '../../utils/helpers/helper_function.dart';
 import '../../utils/icon_and_name_widgets/Icon_Write_And_Wrong_Widgets.dart';
 import '../../utils/logger/logger.dart';
 import 'controller/details_screen_controller.dart';
-
-
 
 class DetailsRentInfoScreen extends StatelessWidget {
   DetailsRentInfoScreen({super.key});
@@ -125,7 +122,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   child: SmoothPageIndicator(
                       controller: controller.imageIndicatorController.value,
                       count: 2,
-                      effect: const ExpandingDotsEffect(dotHeight: 6,activeDotColor: AppColors.primary)),
+                      effect: const ExpandingDotsEffect(dotHeight: 6, activeDotColor: AppColors.primary)),
                 ),
                 //=================
 

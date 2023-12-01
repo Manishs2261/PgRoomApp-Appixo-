@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -25,69 +26,70 @@ class RatingAndReviewWidgets extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         Obx(
-        ()=> Visibility(
-            // checkReviewSubmission  for use current time update a screen
-          //Because reviewSubmissionId  not initialize after Rating submit
-          //(controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
-            visible:   true,
+          () => Visibility(
+              // checkReviewSubmission  for use current time update a screen
+              //Because reviewSubmissionId  not initialize after Rating submit
+
+              visible: (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //Rating Now
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: AppSizes.sizeBoxSpace * 3, top: AppSizes.sizeBoxSpace * 10, bottom: AppSizes.sizeBoxSpace * 2),
-                child: Text(
-                  "Rating now :-",
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-              ),
-
-              //rating Now
-              Obx(
-                () => Align(
-                  alignment: Alignment.center,
-                  child: ComRatingBarWidgets(
-                    controller: controller,
-                    initialRating: controller.ratingNow.value,
-                    horizontal: 3.0,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //Rating Now
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: AppSizes.sizeBoxSpace * 3,
+                        top: AppSizes.sizeBoxSpace * 10,
+                        bottom: AppSizes.sizeBoxSpace * 2),
+                    child: Text(
+                      "Rating now :-",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ),
-                ),
-              ),
 
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
-                child: TextFormField(
-                  style: const TextStyle(color: Colors.black),
-                  controller: controller.reviewController.value,
-                  maxLines: 3,
-                  cursorColor: Colors.grey,
-                  decoration: InputDecoration(
-                    filled: true,
-                    isDense: false,
-                    fillColor: Colors.yellow.shade50,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    hintText: "Write Your Review...",
-                    hintStyle: const TextStyle(color: Colors.black38),
+                  //rating Now
+                  Obx(
+                    () => Align(
+                      alignment: Alignment.center,
+                      child: ComRatingBarWidgets(
+                        controller: controller,
+                        initialRating: controller.ratingNow.value,
+                        horizontal: 3.0,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: AppSizes.defaultSpace,
-              ),
 
-              //Rating submit button
-              Obx(
-                () => ComReuseElevButton(
-                  onPressed: () => controller.onSubmitReviewButton(),
-                  title: 'Submit',
-                  loading: controller.loading.value,
-                ),
-              ),
-            ],
-          )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 14.0),
+                    child: TextFormField(
+                      style: const TextStyle(color: Colors.black),
+                      controller: controller.reviewController.value,
+                      maxLines: 3,
+                      cursorColor: Colors.grey,
+                      decoration: InputDecoration(
+                        filled: true,
+                        isDense: false,
+                        fillColor: Colors.yellow.shade50,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        hintText: "Write Your Review...",
+                        hintStyle: const TextStyle(color: Colors.black38),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: AppSizes.defaultSpace,
+                  ),
+
+                  //Rating submit button
+                  Obx(
+                    () => ComReuseElevButton(
+                      onPressed: () => controller.onSubmitReviewButton(),
+                      title: 'Submit',
+                      loading: controller.loading.value,
+                    ),
+                  ),
+                ],
+              )),
         ),
 
         Padding(
@@ -98,7 +100,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
               Obx(
                 () => Text(
                   "Review (${controller.totalReview.value}) :-",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                 ),
               ),
               InkWell(
@@ -147,7 +149,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
                       ));
                     } else {
                       //for some time delay a code
-                      Future.delayed(Duration.zero, () {
+                      Future.delayed(const Duration(seconds: 2), () async {
                         //your code goes here
                         controller.isView.value = true;
                         controller.totalReview.value = controller.ratingList.length;

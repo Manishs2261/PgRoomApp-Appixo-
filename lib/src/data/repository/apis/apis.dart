@@ -30,12 +30,20 @@ class ApisClass {
   static var otherDownloadUrl;
   static var userEmail;
   static var userCity;
-  static var reviewId = "" ;
-  static var starOne ;
-  static var starTwo ;
-  static var starThree ;
-  static var starFour ;
-  static var starFive ;
+  static var reviewId = "";
+
+  static var starOne;
+
+  static var starTwo;
+
+  static var starThree;
+
+  static var starFour;
+
+  static var starFive;
+
+  static var averageRating;
+  static var totalNumberOfStar;
 
   // static var houseNameMap;
 
@@ -204,7 +212,7 @@ class ApisClass {
         .collection(user.uid)
         .add(userHomeList.toJson())
         .then((value) {
-     AppLoggerHelper.info(value.id);
+      AppLoggerHelper.info(value.id);
       userRentId = value.id;
       return null;
     });
@@ -276,7 +284,7 @@ class ApisClass {
           .doc(itemid)
           .collection("$itemid")
           .add({'OtherImage': otherDownloadUrl}).then((value) async {
-         AppLoggerHelper.info(value.id);
+        AppLoggerHelper.info(value.id);
         userRentId = value.id;
 //user personal collection data base
         await firestore
@@ -462,7 +470,6 @@ class ApisClass {
   //
   // }
 
-
   //Get in review user id  data
   static Future<String> getReviewData(itemId) async {
     var collection = firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
@@ -470,65 +477,86 @@ class ApisClass {
     Map<String, dynamic>? data = querySnapshot.data();
     reviewId = data?['itemId'] ?? '';
     return reviewId;
-
   }
-
 
   /// Rating and review create api
   static Future<void> ratingAndReviewCreateData(ratingStar, review, itemId) async {
-
     //This review data save in all viewer user
-    // await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
-    //   'rating': ratingStar,
-    //   'title': review,
-    //   'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
-    //
-    // });
+    await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
+      'rating': ratingStar,
+      'title': review,
+      'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
+    });
 
-
-
-    //This review  data save in user account only
-    // await firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
-    //   'itemId': itemId,
-    //   'rating': ratingStar,
-    //   'title': review,
-    //   'currentDate':AppHelperFunction.getFormattedDate(DateTime.now()),
-    // });
+    // This review  data save in user account only
+    await firestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+      'itemId': itemId,
+      'rating': ratingStar,
+      'title': review,
+      'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
+    });
   }
 
-
-  //Get in user rating bar  data
-  static Future<void> getRatingBarData(itemId) async {
-    var collection =  firestore.collection("userReview").doc("reviewCollection").collection("$itemId").doc(itemId).collection
-      ("reviewSummary").doc(itemId);
+  //Get in user rating bar summary data
+  static Future<void> getRatingBarSummaryData(itemId) async {
+    var collection = firestore
+        .collection("userReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId);
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
-
     starOne = data?['ratingStar01'] ?? 0;
-    starTwo = data?['ratingStar02']??0;
-    starThree = data?['ratingStar03']??0;
-    starFour = data?['ratingStar04']??0;
-    starFive = data?['ratingStar05']??0;
+    starTwo = data?['ratingStar02'] ?? 0;
+    starThree = data?['ratingStar03'] ?? 0;
+    starFour = data?['ratingStar04'] ?? 0;
+    starFive = data?['ratingStar05'] ?? 0;
+    totalNumberOfStar = data?['totalNumberOfStar'] ?? 0;
+    averageRating = data?['averageRating'] ?? 0.0;
   }
 
-
-  static Future<void>saveRatingBarStarData(itemId,one,two,three,four,five)async{
-
+  //save Rating Summary data
+  static Future<void> saveRatingBarSummaryData(itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
     //Rating Summary data
-    await firestore.collection("userReview").doc("reviewCollection").collection("$itemId").doc(itemId).collection
-      ("reviewSummary").doc(itemId).set({
-
+    await firestore
+        .collection("userReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId)
+        .set({
       'ratingStar01': one,
       'ratingStar02': two,
       'ratingStar03': three,
       'ratingStar04': four,
       'ratingStar05': five,
-
+      'totalNumberOfStar': totalNumberOfStar,
+      'averageRating': avg,
     });
-
   }
 
-
+  //update Rating bar summary data
+  static Future<void> updateRatingBarStarSummaryData(itemId, avg, totalNumberOfStar) async {
+    //Rating Summary data
+    await firestore
+        .collection("userReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId)
+        .update({
+      'totalNumberOfStar': totalNumberOfStar,
+      'averageRating': avg,
+    }).then((value) {
+      AppLoggerHelper.info("Update Rating bar avarage successfully");
+    }).onError((error, stackTrace) {
+      AppLoggerHelper.error("Update Rating bar avarage successfully");
+    });
+  }
 
   //Remove user in share preferences
   static Future<bool> removeUser() async {

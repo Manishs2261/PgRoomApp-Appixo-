@@ -16,6 +16,7 @@ class ViewAllReviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApisClass.getRatingBarSummaryData(itemId);
     AppLoggerHelper.debug("Build - ViewAllReviewScreen  ");
     final dark = AppHelperFunction.isDarkMode(context);
     return Scaffold(
@@ -28,23 +29,23 @@ class ViewAllReviewScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-
               //Rating summary
               Container(
                 padding: const EdgeInsets.all(15),
                 height: 200,
                 width: double.infinity,
-                child: const RatingSummary(
-                  counter: 13,
-                  average: 3.846,
+                child: RatingSummary(
+                  counter: (ApisClass.totalNumberOfStar == 0) ? 1 : ApisClass.totalNumberOfStar,
+                  average: (ApisClass.averageRating.toString() == 'NaN') ? 0.0 : ApisClass.averageRating,
                   showAverage: true,
-                  counterFiveStars: 5,
-                  counterFourStars: 4,
-                  counterThreeStars: 2,
-                  counterTwoStars: 1,
-                  counterOneStars: 1,
+                  counterFiveStars: ApisClass.starFive,
+                  counterFourStars: ApisClass.starFour,
+                  counterThreeStars: ApisClass.starThree,
+                  counterTwoStars: ApisClass.starTwo,
+                  counterOneStars: ApisClass.starOne,
                 ),
               ),
+
               StreamBuilder(
                   stream: ApisClass.firestore
                       .collection("userReview")
