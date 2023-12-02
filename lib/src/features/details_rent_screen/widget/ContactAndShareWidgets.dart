@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/helpers/helper_function.dart';
 import 'circle_Container_widgets.dart';
@@ -17,7 +18,12 @@ class ContactAndShareWidgets extends StatelessWidget {
             height: 40,
             width: AppHelperFunction.screenWidth() * 0.9,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                launchUrl( Uri(
+                  scheme: 'tel',
+                  path: "7389523175",
+                ));
+              },
               child: const Text("Contact Now"),
             ),
           ),

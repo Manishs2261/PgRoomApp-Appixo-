@@ -23,6 +23,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         //=======skip buttton ========
+         backgroundColor: Colors.transparent,
         actions: const [
           SkipTextButtonWidgets(),
         ],

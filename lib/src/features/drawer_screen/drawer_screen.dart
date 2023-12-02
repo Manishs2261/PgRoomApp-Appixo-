@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
  import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -153,6 +154,18 @@ class DrawerScreen extends StatelessWidget {
               // ...
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: Text("Profile"),
+            trailing: Icon(Icons.arrow_forward_ios,
+            size: 16,
+            ),
+            onTap: (){
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfileScreen()));
+            },
+
+          )
         ],
       ),
     );

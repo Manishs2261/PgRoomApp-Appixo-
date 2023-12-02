@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
- import 'Widgets/HeaderWidgets.dart';
+ import '../otp_phone_screen/otp_phone_screen.dart';
+import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';
 
 class SingInScreen extends StatelessWidget {
@@ -17,7 +18,10 @@ class SingInScreen extends StatelessWidget {
     AppLoggerHelper.debug("rebuild => sing screen ");
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
+      ),
       body: GestureDetector(
         // ======on tab off the keyboard screen
         onTap: () => FocusScope.of(context).unfocus(),
@@ -31,7 +35,11 @@ class SingInScreen extends StatelessWidget {
                 const SizedBox(
                   height: AppSizes.defaultSpace,
                 ),
-                SignFormWidget(globalKey: globalKey, controller: _controller)
+                SignFormWidget(globalKey: globalKey, controller: _controller),
+
+                ElevatedButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpPhoneNumberScreen()));
+                }, child: Text("opt"))
               ],
             ),
           ),

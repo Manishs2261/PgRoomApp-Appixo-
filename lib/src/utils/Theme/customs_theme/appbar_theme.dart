@@ -3,10 +3,11 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 
 class CustomeAppBarTheme{
   CustomeAppBarTheme._();
-  static const lightAppBarTheme = AppBarTheme(
+  static  AppBarTheme lightAppBarTheme = AppBarTheme(
     elevation: 0,
     centerTitle: false,
     scrolledUnderElevation: 0,
+
     backgroundColor: AppColors.primary,
     surfaceTintColor: AppColors.primary,
     iconTheme: IconThemeData(color: AppColors.white,size: 24),

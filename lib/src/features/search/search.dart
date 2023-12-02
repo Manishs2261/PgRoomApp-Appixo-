@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 10, right: 10,top: 15),
             child: TextField(
                 controller: searchController,
                 maxLines: 1,
@@ -53,11 +53,14 @@ class _SearchScreenState extends State<SearchScreen> {
                 keyboardType: TextInputType.text,
                 onChanged: (value) => updateList(value),
                 onSubmitted: (value) {},
+                style: TextStyle(color: Colors.black87),
+
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   fillColor: Colors.white,
                   filled: true,
                   hintText: "Enter Locality / Landmark / Colony",
+                  hintStyle: TextStyle(color: Colors.black54),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
                     size: 25,

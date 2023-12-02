@@ -30,12 +30,17 @@ class SignFormWidget extends StatelessWidget {
                     controller: _controller.emailController.value,
                     keyboardType: TextInputType.text,
                     autofocus: true,
+                    //enableInteractiveSelection: true,
+
+
+
                     validator: EmailValidator.validate,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                         hintText: "Enter Email id ",
                         prefixIcon: const Icon(Icons.email_outlined),
                         contentPadding: const EdgeInsets.only(top: 5),
+
                         //=====send the otp text button ==========
                         suffix:
 
@@ -276,15 +281,13 @@ class SignFormWidget extends StatelessWidget {
                           Get.toNamed(RoutesName.loginScreen);
                         },
                         child: const Text(
-                          "Sign-in",
+                          " Login-in",
                           style: TextStyle(color: Colors.blue),
                         ))
                   ],
                 ),
 
-                const SizedBox(
-                  height:  AppSizes.spaceBtwItems * 3,
-                )
+
               ],
             )),
       ],

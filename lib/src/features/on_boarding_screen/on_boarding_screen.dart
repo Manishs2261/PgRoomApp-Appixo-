@@ -16,7 +16,7 @@ class OnBoardingOneScreen extends StatelessWidget {
     AppLoggerHelper.debug("Build - OnBoardingOneScreen");
 
     // on boarding controller ==========
-    final onBoarding = onBoardingConlroller();
+    final controller = onBoardingConlroller();
     //===============
 
     return Scaffold(
@@ -26,8 +26,8 @@ class OnBoardingOneScreen extends StatelessWidget {
           children: [
             //=======Page view======
             PageView(
-              controller: onBoarding.pageController,
-              onPageChanged: (value) => onBoarding.onChange(value),
+              controller: controller.pageController,
+              onPageChanged: (value) => controller.onChange(value),
               children: [
                 //========screen one ===============
                 onBoardingWidget(
@@ -50,12 +50,12 @@ class OnBoardingOneScreen extends StatelessWidget {
 
             // ========controller a screen ==========
             Obx(
-              () => onBoarding.onPageChange.value
+              () => controller.onPageChange.value
                   //========start button ========
                   ? const StartButtonWidget()
 
                   //=========smooth indicator===============
-                  : SmootPageIndicatorWidget(onBoaeding: onBoarding),
+                  : SmootPageIndicatorWidget(onBoaeding: controller),
             ),
           ],
         ),

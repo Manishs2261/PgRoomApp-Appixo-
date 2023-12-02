@@ -216,7 +216,7 @@ class EditFormScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
-        ApisClass.updateRentDetilaData(
+        ApisClass.updateRentDetailsData(
                 houseNameController.value.text,
                 houseAddressController.value.text,
                 cityNameController.value.text,

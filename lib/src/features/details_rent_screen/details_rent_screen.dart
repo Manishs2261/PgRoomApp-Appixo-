@@ -81,7 +81,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
                                   Icons.image_outlined,
                                   size: 50,
                                 ),
-                              )),
+                              )
+                      ),
 
                       //view all image Page
                       Container(

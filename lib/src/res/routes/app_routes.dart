@@ -73,11 +73,11 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.otpPhoneforgetPassScreen, page:()=> const OtpPhoneNumberScreen(),
+  GetPage(name: RoutesName.otpPhoneforgetPassScreen, page:()=>  OtpPhoneNumberScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.otpEmailforgetPassScreen, page:()=> const OtpEmailScreen(),
+  GetPage(name: RoutesName.otpEmailforgetPassScreen, page:()=>  OtpEmailScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 

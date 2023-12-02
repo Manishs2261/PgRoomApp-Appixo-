@@ -6,14 +6,8 @@ import 'package:pinput/pinput.dart';
 
 import '../../../utils/Constants/image_string.dart';
 
-class OtpPhoneNumberScreen extends StatefulWidget {
-  const OtpPhoneNumberScreen({super.key});
-
-  @override
-  State<OtpPhoneNumberScreen> createState() => _OtpPhoneNumberScreenState();
-}
-
-class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
+class OtpPhoneNumberScreen extends StatelessWidget {
+   OtpPhoneNumberScreen({super.key});
 
   FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -22,7 +16,8 @@ class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false),
       body: Padding(
         padding: const EdgeInsets.only(left: 15,right: 15),
         child: Column(
@@ -37,17 +32,19 @@ class _OtpPhoneNumberScreenState extends State<OtpPhoneNumberScreen> {
             SizedBox(height: 50,),
 
 
-         Pinput(
-
-
-           length: 6,
+         Padding(
+           padding: const EdgeInsets.all(20.0),
+           child: Pinput(
+             length: 6,
       // pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
         showCursor: true,
-           onChanged: (value){
-             code = value;
-           },
+
+             onChanged: (value){
+               code = value;
+             },
 
       ),
+         ),
             SizedBox(height: 50,),
             SizedBox(
               height: 50,
