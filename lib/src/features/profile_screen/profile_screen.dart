@@ -98,6 +98,7 @@ class ProfileScreen extends StatelessWidget {
                                     print("reetu");
                                     controller.pickCoverImageFromGallery();
                                     Navigator.pop(context);
+
                                   },
                                 ),
 

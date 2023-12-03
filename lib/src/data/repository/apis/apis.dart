@@ -45,7 +45,7 @@ class ApisClass {
 
   static var averageRating;
   static var totalNumberOfStar;
-  static var userImageDownloadUrl;
+  static var userImageDownloadUrl = '';
 
   static UserRentModel model = UserRentModel();
   static List<UserRentModel> allDataList = [];
@@ -405,14 +405,14 @@ class ApisClass {
   }
 
   // save a user data
-  static Future<void> saveUserData(name, city, email) async {
+  static Future<void> saveUserData(name, city, email,image) async {
     await firestore.collection("loginUser").doc(user.uid).set({
       'city': city,
       'email': email,
       'Name': name,
+      'userImage': userImageDownloadUrl,
     });
   }
-
 
   static Future<void> updateUserData(name, city) async {
     await firestore.collection("loginUser").doc(user.uid).set({
@@ -422,26 +422,49 @@ class ApisClass {
   }
 
   //upload user images in firebase database
-  static Future uploadUserImage(File imageFile) async {
+  static Future<String> uploadUserImage(File imageFile) async {
     try {
       final reference = storage.ref().child('userImage/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       userImageDownloadUrl = await snapshot.ref.getDownloadURL();
 
-      await firestore.collection('loginUser').doc(user.uid).update({
-        'userImage':userImageDownloadUrl
-      });
-
+      await firestore.collection('loginUser').doc(user.uid).update({'userImage': userImageDownloadUrl});
     } catch (e) {
       AppLoggerHelper.info("image is not uploaded ; $e");
     }
+    return userImageDownloadUrl;
+  }
+
+
+
+  // update user Image data
+  static Future<void> updateUserImage(File file) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    AppLoggerHelper.info('Extension :$ext');
+
+    // storage file ref with path
+    final ref = storage.ref().child('userImage/${user.uid}.$ext');
+
+    // uploading image
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
+      AppLoggerHelper.info('Data Transferred :${p0.bytesTransferred / 1000} kb');
+    });
+
+    // updating image in firebase  database
+     var updateUserImage = await ref.getDownloadURL();
+
+    await firestore.collection('loginUser').doc(user.uid).update({'userImage': updateUserImage});
+
+    //rent collection data base
+
+
   }
 
 //=========================================================
 
   //============= Rating bar Summary Apis===================
-
 
   //Get in user rating bar summary data
   static Future<void> getRatingBarSummaryData(itemId) async {
@@ -547,7 +570,6 @@ class ApisClass {
   }
 
 //=========================================================
-
 
 //============== Deletes data apis =========================
 

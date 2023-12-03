@@ -22,8 +22,7 @@ class ProfileController extends GetxController{
   Future pickCoverImageFromGallery() async {
     image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (image == null) return;
-
-    ApisClass.uploadUserImage(File(image!.path));
+    ApisClass.updateUserImage(File(image!.path));
   }
 
 
@@ -31,7 +30,7 @@ class ProfileController extends GetxController{
     image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
     if (image == null) return;
 
-    ApisClass.uploadUserImage(File(image!.path));
+    ApisClass.updateUserImage(File(image!.path));
   }
 
 }

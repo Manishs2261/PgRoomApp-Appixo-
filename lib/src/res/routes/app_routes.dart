@@ -2,6 +2,7 @@
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
 
 
@@ -59,7 +60,7 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.emailForgetPassScreen, page:()=> const ForgetPasswordEmailScreen(),
+  GetPage(name: RoutesName.emailForgetPassScreen, page:()=>  ForgetPasswordEmailScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
@@ -173,6 +174,10 @@ static appRoutes()=>[
       transition: Transition.leftToRightWithFade),
 
   GetPage(name: RoutesName.editOtherImageScareen, page:()=> EditOtherImageScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+  GetPage(name: RoutesName.signProfileScreen, page:()=> SignProfileScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 

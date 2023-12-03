@@ -27,7 +27,9 @@ class AuthApisClass {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if(value){
         signInWithGoogle().then((value) async {
-         await ApisClass.saveUserData(auth.currentUser?.displayName,"Bilspur",auth.currentUser?.email);
+         await ApisClass.saveUserData(auth.currentUser?.displayName,"",auth.currentUser?.email,auth
+             .currentUser!.photoURL);
+         print("😀 ${auth.currentUser!.photoURL}");
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
           //upload user uid data in SharedPreferences
@@ -85,7 +87,14 @@ class AuthApisClass {
   //====sing with email and password==========
 
   static Future<bool> singEmailIdAndPassword(String email, String pass) async {
-    try {} on FirebaseAuthException catch (e) {
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+
+      AppLoggerHelper.info("${credential.user}");
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Get.snackbar(
             "Weak Password",

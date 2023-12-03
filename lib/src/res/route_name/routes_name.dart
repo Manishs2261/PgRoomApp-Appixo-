@@ -45,4 +45,6 @@ class RoutesName{
 
   static const String viewAllReview = '/viewallreview_screen';
   static const String viewALlImage = '/viewAllIMage_screen';
+
+  static const String signProfileScreen = '/signProfileSCreen';
 }

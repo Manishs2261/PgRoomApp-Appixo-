@@ -15,10 +15,8 @@ import '../../../splash/controller/splash_controller.dart';
 
 class SingScreenController extends GetxController {
   final emailController = TextEditingController().obs;
-  final passwordController = TextEditingController().obs;
+
   final otpController = TextEditingController().obs;
-  final nameController = TextEditingController().obs;
-  final cityNameController = TextEditingController().obs;
 
   Connectivity connectivity = Connectivity();
 
@@ -27,9 +25,11 @@ class SingScreenController extends GetxController {
   RxBool isVerify = false.obs;
   RxBool alreadyExistUser = false.obs;
   RxBool loading = false.obs;
-  RxBool otpLoading = false.obs;
+  RxBool otpSendLoading = false.obs;
+  RxBool otpReSendLoading = false.obs;
+  RxBool emailReading = false.obs;
 
-  RxInt counter = 120.obs;
+  RxInt counter = 90.obs;
   late Timer timer;
 
   onOtpSubmitVerifyButton() async {
@@ -44,6 +44,8 @@ class SingScreenController extends GetxController {
             AuthApisClass.otpSubmitVerification(otpController.value.text).then((value) {
               isOtp.value = value;
               isVerify.value = value;
+              isSend.value = false;
+              Get.toNamed(RoutesName.signProfileScreen);
               timer.cancel();
             }).onError((error, stackTrace) {});
           } else {
@@ -54,40 +56,7 @@ class SingScreenController extends GetxController {
     });
   }
 
-  onSubmitButton() {
-    //check the internet connection
-    AppHelperFunction.checkInternetAvailability().then((value) {
-      if (value) {
-        loading.value = true;
-        AuthApisClass.singEmailIdAndPassword(emailController.value.text, passwordController.value.text)
-            .then((value) async {
-          //in this condition
-          //if email is already exist not sing
 
-          ApisClass.saveUserData(nameController.value.text, cityNameController.value.text, emailController.value.text)
-              .then((value) {
-            Get.snackbar("Save", "successfully");
-          }).onError((error, stackTrace) {
-            AppLoggerHelper.error("Email save Error");
-            AppLoggerHelper.error(error.toString());
-            AppLoggerHelper.error(stackTrace.toString());
-          });
-
-          // Login sharedPreference code +++++++++
-          SharedPreferences preference = await SharedPreferences.getInstance();
-          // store a data in   SharedPreferences
-          preference.setString('userUid', ApisClass.user.uid);
-          //initialize  a variable
-          finalUserUidGlobal = preference.getString('userUid');
-          //========================
-          alreadyExistUser.value = value;
-          loading.value = false;
-
-          if (alreadyExistUser.value) Get.offAllNamed(RoutesName.homeScreen);
-        });
-      }
-    });
-  }
 
   /// send otp button
   onSendOtpButton() async {
@@ -99,17 +68,24 @@ class SingScreenController extends GetxController {
           return null;
         } else {
           //loading indicator
-          otpLoading.value = true;
+          otpSendLoading.value = true;
+
           AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
             if (AuthApisClass.otpSend) {
               // isSend is true than ReSend Button Visible
               isSend.value = value;
               //count down timer
               startOtpTimer();
+              emailReading.value = true;
+              otpSendLoading.value = false;
+
+              FocusScope.of(Get.context!).unfocus();
               Get.snackbar('Send OTP', 'Successfully ', snackPosition: SnackPosition.TOP);
             } else {
               Get.snackbar('Failed', 'wrong Email id ', snackPosition: SnackPosition.TOP);
-              otpLoading.value = false;
+              otpSendLoading.value = false;
+
+              timer.cancel();
             }
           }).onError((error, stackTrace) {});
         }
@@ -127,13 +103,15 @@ class SingScreenController extends GetxController {
           AppHelperFunction.showFlashbar("Email can't be empty");
           return null;
         } else {
-          otpLoading.value = true;
-          counter.value = 120;
+          counter.value = 90;
           isSend.value = true;
           startOtpTimer();
-          AuthApisClass.sendEmailOtpVerification(emailController.value.text)
-              .then((value) {})
-              .onError((error, stackTrace) {});
+          otpReSendLoading.value = true;
+          AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
+            otpReSendLoading.value = false;
+          }).onError((error, stackTrace) {
+            otpReSendLoading.value = false;
+          });
         }
       }
     });
@@ -141,7 +119,7 @@ class SingScreenController extends GetxController {
 
   startOtpTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      otpLoading.value = false;
+      otpSendLoading.value = false;
       if (kDebugMode) {
         print(timer.tick);
       }
