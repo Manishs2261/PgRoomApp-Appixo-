@@ -398,24 +398,24 @@ class ApisClass {
     var collection = firestore.collection('loginUser').doc(user.uid);
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
-    userName = data?['Name'];
-    userCity = data?['city'];
-    userEmail = data?['email'];
-    userImage = data?['userImage'];
+    userName = data?['Name'] ?? '';
+    userCity = data?['city'] ?? '';
+    userEmail = data?['email'] ?? '';
+    userImage = data?['userImage'] ?? '';
   }
 
   // save a user data
-  static Future<void> saveUserData(name, city, email,image) async {
+  static Future<void> saveUserData(name, city, email, image) async {
     await firestore.collection("loginUser").doc(user.uid).set({
       'city': city,
       'email': email,
       'Name': name,
-      'userImage': userImageDownloadUrl,
+      'userImage': image,
     });
   }
 
   static Future<void> updateUserData(name, city) async {
-    await firestore.collection("loginUser").doc(user.uid).set({
+    await firestore.collection("loginUser").doc(user.uid).update({
       'city': city,
       'Name': name,
     });
@@ -424,7 +424,7 @@ class ApisClass {
   //upload user images in firebase database
   static Future<String> uploadUserImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('userImage/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('userImage/${user.uid}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       userImageDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -435,8 +435,6 @@ class ApisClass {
     }
     return userImageDownloadUrl;
   }
-
-
 
   // update user Image data
   static Future<void> updateUserImage(File file) async {
@@ -453,13 +451,11 @@ class ApisClass {
     });
 
     // updating image in firebase  database
-     var updateUserImage = await ref.getDownloadURL();
+    var updateUserImage = await ref.getDownloadURL();
 
     await firestore.collection('loginUser').doc(user.uid).update({'userImage': updateUserImage});
 
     //rent collection data base
-
-
   }
 
 //=========================================================

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
@@ -45,7 +47,8 @@ class DrawerScreen extends StatelessWidget {
                       offset: Offset.zero,
                     )
                   ]),
-              child: ApisClass.auth.currentUser?.uid == null
+              child:
+              ApisClass.auth.currentUser?.uid != finalUserUidGlobal
                   ? Padding(
                       padding: const EdgeInsets.only(top: 25, bottom: 25, left: 30, right: 30),
                       child: ElevatedButton(
@@ -144,9 +147,45 @@ class DrawerScreen extends StatelessWidget {
               size: 16,
             ),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen()));
-            },
-          )
+            AuthApisClass.checkUserLogin().then((value) {
+              if(value){
+                Get.toNamed(RoutesName.profileSCreen);
+              }
+            });
+            }
+          ),
+
+
+
+          Visibility(
+            visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
+            child: ListTile(
+                leading: const Icon(Icons.logout),
+                title: Text("Logout"),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+                onTap: () {
+                  Get.defaultDialog(
+                    title: "Logout",
+                    middleText: "Are you confirming logout?.",
+                     cancel: ElevatedButton(onPressed: (){
+                       Navigator.pop(context);
+                     }, child:Text("NO")),
+                      confirm: ElevatedButton(onPressed: (){
+                        ApisClass.removeUser().then((value) {
+                          if(value){
+                            Get.toNamed(RoutesName.loginScreen);
+                          }
+                        });
+                      }, child: Text("YES")),
+
+
+                  );
+                }
+            ),
+          ),
         ],
       ),
     );

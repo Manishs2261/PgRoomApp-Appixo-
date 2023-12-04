@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
- import '../../../res/route_name/routes_name.dart';
+import '../../../res/route_name/routes_name.dart';
 import '../otp_phone_screen/otp_phone_screen.dart';
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';
@@ -38,10 +39,6 @@ class SingInScreen extends StatelessWidget {
                   height: AppSizes.defaultSpace,
                 ),
                 SignFormWidget(globalKey: globalKey, controller: _controller),
-
-                ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SignProfileScreen()));
-                }, child: Text("opt"))
               ],
             ),
           ),

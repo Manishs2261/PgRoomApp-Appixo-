@@ -3,6 +3,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
+import 'package:pgroom/src/features/profile_screen/edit_profile_screen.dart';
+import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
 import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
 
 
@@ -178,6 +180,16 @@ static appRoutes()=>[
       transition: Transition.leftToRightWithFade),
 
   GetPage(name: RoutesName.signProfileScreen, page:()=> SignProfileScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+
+  GetPage(name: RoutesName.editPofileScreen, page:()=> EditProfileScreen(),
+      transitionDuration: const Duration(milliseconds: 250),
+      transition: Transition.leftToRightWithFade),
+
+
+  GetPage(name: RoutesName.profileSCreen, page:()=> ProfileScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 

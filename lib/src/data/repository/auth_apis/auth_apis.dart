@@ -23,13 +23,12 @@ class AuthApisClass {
 
   // =======google sing =============
   static handleGoogleButtonClick(BuildContext context) async {
-
     AppHelperFunction.checkInternetAvailability().then((value) {
-      if(value){
+      if (value) {
         signInWithGoogle().then((value) async {
-         await ApisClass.saveUserData(auth.currentUser?.displayName,"",auth.currentUser?.email,auth
-             .currentUser!.photoURL);
-         print("😀 ${auth.currentUser!.photoURL}");
+          await ApisClass.saveUserData(
+              auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
+          print("😀 ${auth.currentUser!.photoURL}");
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
           //upload user uid data in SharedPreferences
@@ -48,21 +47,17 @@ class AuthApisClass {
     if (ApisClass.auth.currentUser?.uid == finalUserUidGlobal) {
       return true;
     } else {
-      Get.defaultDialog(
-          title: "Login please",
-          titleStyle: Theme.of(Get.context!).textTheme.headlineMedium,
-          middleText: "You are not login?.",
-          actions: [
-            SizedBox(
-              height: 40,
-              width: AppHelperFunction.screenWidth() * 0.4,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Get.offAllNamed(RoutesName.loginScreen);
-                  },
-                  child: const Text("Login")),
-            )
-          ]);
+      Get.defaultDialog(title: "Login please", middleText: "You are not login?.", actions: [
+        SizedBox(
+          height: 40,
+          width: AppHelperFunction.screenWidth() * 0.4,
+          child: ElevatedButton(
+              onPressed: () {
+                Get.offAllNamed(RoutesName.loginScreen);
+              },
+              child: const Text("Login")),
+        )
+      ]);
       return false;
     }
   }

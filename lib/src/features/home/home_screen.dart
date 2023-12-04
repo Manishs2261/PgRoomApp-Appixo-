@@ -19,15 +19,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ApisClass.getUserData();
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ApisClass.removeUser().then((value) {
-            if(value){
-              Get.toNamed(RoutesName.loginScreen);
-            }
-          });
+
 
         },
       ),

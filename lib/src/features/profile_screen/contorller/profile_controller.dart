@@ -1,36 +1,60 @@
+
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-class ProfileController extends GetxController{
+import '../../../utils/helpers/helper_function.dart';
 
+class ProfileController extends GetxController {
+  RxString image = ''.obs;
 
-  XFile? image;
+  RxBool loading = false.obs;
+
+  final updateNameController = TextEditingController(text: ApisClass.userName).obs;
+  final updateCityController = TextEditingController(text: ApisClass.userCity).obs;
 
 
   @override
   void onInit() {
-
     ApisClass.getUserData();
     super.onInit();
-
-
   }
 
-  Future pickCoverImageFromGallery() async {
-    image = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (image == null) return;
-    ApisClass.updateUserImage(File(image!.path));
+  Future pickImageFromGallery(ImageSource imageSource) async {
+    final pickFile = await ImagePicker().pickImage(source: imageSource, imageQuality: 70);
+    if (pickFile == null) {
+      AppHelperFunction.showFlashbar("Image not selected.");
+    } else {
+      image.value = pickFile.path.toString();
+    }
+    ApisClass.updateUserImage(File(image.value)).then((value){
+      AppHelperFunction.showFlashbar("Image Successfully upload.");
+    }).onError((error, stackTrace) {
+      AppHelperFunction.showFlashbar("Image uploading Failed");
+    });
   }
 
+  updateProfileData(){
 
-  Future pickCoverImageFromCamera() async {
-    image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 70);
-    if (image == null) return;
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if(value){
+        loading.value = true;
+        ApisClass.updateUserData(updateNameController.value.text, updateCityController.value.text).then((value) {
 
-    ApisClass.updateUserImage(File(image!.path));
+          Get.snackbar("Update Profile", "Successfully");
+          loading.value = false;
+       Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          loading.value = false;
+          Get.snackbar("Update Profile", "Failed");
+        });
+
+      }
+    });
+
   }
-
 }

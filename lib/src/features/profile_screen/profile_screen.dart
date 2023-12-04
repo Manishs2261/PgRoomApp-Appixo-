@@ -4,8 +4,10 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/profile_screen/contorller/profile_controller.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 
@@ -26,18 +28,24 @@ class ProfileScreen extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.centerRight,
-              child: Container(
-                  height: 30,
-                  width: 30,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: AppColors.primary, width: 2)),
-                  child: Icon(
-                    Icons.edit,
-                    size: 20,
-                    color: AppColors.primary,
-                  )),
+              child: InkWell(
+                onTap: (){
+                  print("sdfdsf");
+                  Get.toNamed(RoutesName.editPofileScreen);
+                },
+                child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: AppColors.primary, width: 2)),
+                    child: Icon(
+                      Icons.edit,
+                      size: 20,
+                      color: AppColors.primary,
+                    )),
+              ),
             ),
             Stack(
               children: [
@@ -54,7 +62,6 @@ class ProfileScreen extends StatelessWidget {
                               color: Colors.transparent,
                               height: 200,
                               width: 200,
-
                               child: const SpinKitFadingCircle(
                                 color: AppColors.primary,
                                 size: 35,
@@ -95,8 +102,8 @@ class ProfileScreen extends StatelessWidget {
                                     radius: 40,
                                   ),
                                   onTap: (){
-                                    print("reetu");
-                                    controller.pickCoverImageFromGallery();
+                                    
+                                    controller.pickImageFromGallery(ImageSource.gallery);
                                     Navigator.pop(context);
 
                                   },
@@ -108,8 +115,8 @@ class ProfileScreen extends StatelessWidget {
                                     radius: 40,
                                   ),
                                   onTap: (){
-                                    print("reetu");
-                                  controller.pickCoverImageFromCamera();
+                                     
+                                  controller.pickImageFromGallery(ImageSource.camera);
                                     Navigator.pop(context);
                                   },
                                 ),
