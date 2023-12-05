@@ -6,7 +6,7 @@ import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../res/route_name/routes_name.dart';
-import '../otp_phone_screen/otp_phone_screen.dart';
+
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';
 

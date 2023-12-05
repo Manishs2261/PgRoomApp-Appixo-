@@ -25,8 +25,6 @@ class LoginScreenController extends GetxController {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
       } else {
-
-
         showDialog(
             context: Get.context!,
             builder: (context) {
@@ -43,7 +41,7 @@ class LoginScreenController extends GetxController {
           worngpassword.value = value;
 
           loading.value = false;
-
+          Navigator.pop(Get.context!);
           if (worngpassword.value) {
             // Login sharedPrefrence code +++++++++
             SharedPreferences prefrence = await SharedPreferences.getInstance();
@@ -55,6 +53,7 @@ class LoginScreenController extends GetxController {
             Get.offAllNamed(RoutesName.homeScreen);
           }
         }).onError((error, stackTrace) {
+
           loading.value = false;
           print(error);
           print(stackTrace);

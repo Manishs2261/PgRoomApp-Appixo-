@@ -162,4 +162,19 @@ class AuthApisClass {
       return false;
     }
   }
+
+  // ============Forget Password ==========
+
+static forgetPassword(String email) async {
+    await auth.sendPasswordResetEmail(email: email).then((value) {
+      Get.snackbar("Send Email","check your Email id." );
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+    }).onError((error, stackTrace) {
+      Get.snackbar("Send Email","Failed.");
+      Navigator.pop(Get.context!);
+      print(error);
+      print(stackTrace);
+    });
+}
 }

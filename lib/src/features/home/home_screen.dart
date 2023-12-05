@@ -1,5 +1,6 @@
 
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -27,8 +28,9 @@ class HomeScreen extends StatelessWidget {
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-
+        onPressed: () async {
+          await FirebaseAuth.instance
+              .sendPasswordResetEmail(email: "sahum2261@gmail.com");
         },
       ),
       //==PreferredSize provide a maximum appbar length
