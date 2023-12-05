@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
- import '../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../utils/widgets/my_check_box_widget.dart';
 import '../controller/controller.dart';
 
 class EditProvideFacilites extends StatelessWidget {
@@ -132,26 +133,28 @@ class EditProvideFacilites extends StatelessWidget {
                       controller.parking.value = value!;
                     }),
               ),
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "attach Bathroom",
+                    checkBool: controller.attachBathroom.value,
+                    onChanged: (value) {
+                      controller.attachBathroom.value = value!;
+                    }),
+              ),
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "shareable Bathroom",
+                    checkBool: controller.shareableBathroom.value,
+                    onChanged: (value) {
+                      controller.shareableBathroom.value = value!;
+                    }),
+              ),
 
               const SizedBox(
                 height: 50,
               ),
 
-              Obx(
-                () => SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        controller.onEditProviderFacilitiesData();
-                      },
-                      child: (controller.loading.value)
-                          ? const CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            )
-                          : const Text("Update")),
-                ),
-              )
+              ComReuseElevButton(onPressed: () => controller.onEditProviderFacilitiesData(), title: "Update")
             ],
           ),
         ),

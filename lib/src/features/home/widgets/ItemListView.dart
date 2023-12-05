@@ -52,28 +52,27 @@ class ItemListView extends StatelessWidget {
                     width: 150,
                     height: 280,
                     color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
-                    
                     child: CachedNetworkImage(
-
-                      imageUrl: '${rentList[index].coverImage}',
-                      fit: BoxFit.fill,
-
+                        imageUrl: '${rentList[index].coverImage}',
+                        fit: BoxFit.fill,
                         placeholder: (context, url) => Container(
-                          color:  Colors.transparent,
-                          height: 100,
-                          width: 100,
-                          child: SpinKitFadingCircle(
-                            color: AppColors.primary,
-                            size: 35,
-                          ),
-                        ),
-                      errorWidget: (context, url, error) =>  Container(
-                        width: 150,
-                        height: 280,
-                        alignment: Alignment.center,
-                        child: const Icon(Icons.image_outlined,size: 50,),
-                      )
-                    ),
+                              color: Colors.transparent,
+                              height: 100,
+                              width: 100,
+                              child: const SpinKitFadingCircle(
+                                color: AppColors.primary,
+                                size: 35,
+                              ),
+                            ),
+                        errorWidget: (context, url, error) => Container(
+                              width: 150,
+                              height: 280,
+                              alignment: Alignment.center,
+                              child: const Icon(
+                                Icons.image_outlined,
+                                size: 50,
+                              ),
+                            )),
                   ),
 
                   const SizedBox(
@@ -117,8 +116,9 @@ class ItemListView extends StatelessWidget {
                             style: DefaultTextStyle.of(context).style,
                             children: <TextSpan>[
                               TextSpan(
-                                  text: (rentList[index].singlePersonPrice!.isNotEmpty) ?'${rentList[index]
-                                      .singlePersonPrice}' : '${rentList[index].faimlyPrice}',
+                                  text: (rentList[index].singlePersonPrice!.isNotEmpty)
+                                      ? '${rentList[index].singlePersonPrice}'
+                                      : '${rentList[index].familyPrice}',
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                               const TextSpan(text: ' /- monthly'),
                             ],
@@ -129,7 +129,7 @@ class ItemListView extends StatelessWidget {
                         ),
                         Flexible(
                           child: Text(
-                            "${rentList[index].addres} ",
+                            "Address:-${rentList[index].address} ",
                             overflow: TextOverflow.ellipsis,
                             softWrap: false,
                             maxLines: 2,
@@ -138,8 +138,10 @@ class ItemListView extends StatelessWidget {
                         const SizedBox(
                           height: 3,
                         ),
-                        Text("city - ${rentList[index].city}"),
-                        Text("Room Type - ${rentList[index].roomType}"),
+                        Text("City - ${rentList[index].city}"),
+                        (rentList[index].bhkType!.isEmpty)
+                            ? Text("Room Type - ${rentList[index].roomType}")
+                            : Text("Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}")
                       ],
                     ),
                   ),

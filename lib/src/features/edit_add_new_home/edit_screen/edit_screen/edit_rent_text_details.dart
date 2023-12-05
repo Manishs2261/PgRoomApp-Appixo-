@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../utils/validator/text_field_validator.dart';
@@ -112,23 +111,13 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         height: 50,
                       ),
 
-                      Obx(
-                        () => SizedBox(
-                          height: 40,
-                          width: AppHelperFunction.screenWidth() * 0.9,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (_globalKey.currentState!.validate()) {
-                                  controller.onEditRentDetailsData();
-                                }
-                              },
-                              child: (controller.loading.value)
-                                  ? const CircularProgressIndicator(
-                                      strokeWidth: 3.0,
-                                    )
-                                  : const Text("Update")),
-                        ),
-                      )
+                      ComReuseElevButton(
+                          onPressed: () {
+                            if (_globalKey.currentState!.validate()) {
+                              controller.onEditRentDetailsData();
+                            }
+                          },
+                          title: "Update")
                     ],
                   ),
                 ),

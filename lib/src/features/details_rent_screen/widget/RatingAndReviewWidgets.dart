@@ -1,5 +1,7 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -9,6 +11,7 @@ import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 
 import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/sizes.dart';
 import '../controller/details_screen_controller.dart';
 
@@ -122,7 +125,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               StreamBuilder(
-                  stream: ApisClass.firestore
+                  stream: ApisClass.firebaseFirestore
                       .collection("userReview")
                       .doc("reviewCollection")
                       .collection("${controller.itemId}")
@@ -174,12 +177,30 @@ class RatingAndReviewWidgets extends StatelessWidget {
                                       width: 25,
                                       decoration:
                                           BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
+
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: CachedNetworkImage(
+                                          height: 25,
+                                          width: 25,
+                                          fit: BoxFit.cover,
+                                          imageUrl: controller.ratingList[index].userImage.toString(),
+                                          placeholder: (context,_)=>Center(
+                                            child: SpinKitFadingCircle(
+                                              color: AppColors.primary,
+                                              size: 30,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                          const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                    const Text(
-                                      "Manish sahu",
+                                     Text(
+                                      "${controller.ratingList[index].userName}",
                                       style: TextStyle(fontWeight: FontWeight.w600),
                                     ),
                                   ],
@@ -222,25 +243,28 @@ class RatingAndReviewWidgets extends StatelessWidget {
             ],
           ),
         ),
-        Obx(
-          () => (controller.isView.value)
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 15),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: InkWell(
-                      onTap: () {
-                        Get.toNamed(RoutesName.viewAllReview, arguments: controller.itemId);
-                      },
-                      child: const Text(
-                        "View All",
-                        style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w500),
+          Obx(
+           ()=>Visibility(
+              visible: controller.isView.value,
+              child: Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: InkWell(
+                          onTap: () {
+                            Get.toNamed(RoutesName.viewAllReview, arguments: controller.itemId);
+                          },
+                          child: const Text(
+                            "View All",
+                            style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w500),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                )
-              : const Text(""),
-        ),
+            ),
+          )
+
+
       ],
     );
   }

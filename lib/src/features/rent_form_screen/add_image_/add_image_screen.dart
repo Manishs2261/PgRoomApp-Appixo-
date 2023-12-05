@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/model/other_image_model.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
@@ -126,20 +127,10 @@ class AddImageScreen extends StatelessWidget {
 
                 //=========save & next button ===============
 
-                Obx(
-                  () => SizedBox(
-                      width: AppHelperFunction.screenWidth() * 0.9,
-                      height: 40,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          imageController.onSubmitButton();
-                        },
-                        child: (imageController.loading.value)
-                            ? const CircularProgressIndicator(
-                                strokeWidth: 3.0,
-                              )
-                            : const Text("Next"),
-                      )),
+                ComReuseElevButton(
+                  onPressed: () => imageController.onSubmitButton(),
+                  title: "Next",
+                  loading: imageController.loading.value,
                 ),
 
                 const SizedBox(

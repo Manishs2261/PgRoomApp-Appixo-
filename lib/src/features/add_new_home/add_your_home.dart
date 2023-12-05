@@ -11,14 +11,9 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../data/repository/apis/apis.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
 
-class AddYourHome extends StatefulWidget {
-  const AddYourHome({super.key});
+class AddYourHome extends StatelessWidget {
+   AddYourHome({super.key});
 
-  @override
-  State<AddYourHome> createState() => _AddYourHomeState();
-}
-
-class _AddYourHomeState extends State<AddYourHome> {
   List<UserRentModel> rentList = [];
 
   @override
@@ -34,13 +29,13 @@ class _AddYourHomeState extends State<AddYourHome> {
 
             //Button
             ComReuseElevButton(onPressed:()=>Get.toNamed(RoutesName.addImageScreen), title: "Add New",loading: false,),
-          
+
           const SizedBox(
             height: 15,
           ),
           Expanded(
             child: StreamBuilder(
-                stream: ApisClass.firestore
+                stream: ApisClass.firebaseFirestore
                     .collection('userRentDetails')
                     .doc(ApisClass.user.uid)
                     .collection(ApisClass.user.uid)
@@ -162,7 +157,8 @@ class _AddYourHomeState extends State<AddYourHome> {
                                                   style: DefaultTextStyle.of(context).style,
                                                   children: <TextSpan>[
                                                     TextSpan(
-                                                        text: '${rentList[index].singlePersonPrice}',
+                                                        text: (rentList[index].singlePersonPrice!.isNotEmpty) ?'${rentList[index]
+                                                            .singlePersonPrice}' : '${rentList[index].familyPrice}',
                                                         style: const TextStyle(fontWeight: FontWeight.bold)),
                                                     const TextSpan(text: ' /- monthly'),
                                                   ],
@@ -173,7 +169,7 @@ class _AddYourHomeState extends State<AddYourHome> {
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  "${rentList[index].addres} ",
+                                                  "Adress:- ${rentList[index].address} ",
                                                   overflow: TextOverflow.ellipsis,
                                                   softWrap: false,
                                                   maxLines: 2,
@@ -182,8 +178,11 @@ class _AddYourHomeState extends State<AddYourHome> {
                                               const SizedBox(
                                                 height: 3,
                                               ),
-                                              Text("city - ${rentList[index].city}"),
-                                              Text("Room Type - ${rentList[index].roomType}")
+                                              Text("City - ${rentList[index].city}"),
+                                              (rentList[index].bhkType!.isEmpty)
+                                              ? Text("Room Type - ${rentList[index].roomType}")
+                                                  :  Text("Room Type - ${rentList[index].roomType} - "
+                                                  "${rentList[index].bhkType}")
                                             ],
                                           ),
                                         ),

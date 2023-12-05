@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
- import '../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../utils/widgets/my_check_box_widget.dart';
 import '../controller/controller.dart';
 
 class EditPermissiionScreen extends StatelessWidget {
@@ -116,21 +117,8 @@ class EditPermissiionScreen extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.onEditPermissionData();
-                    },
-                    child: Obx(
-                      () => (controller.loading.value)
-                          ? const CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            )
-                          : const Text("Save "),
-                    )),
-              )
+
+              ComReuseElevButton(onPressed: () => controller.onEditPermissionData(), title: 'Update')
             ],
           ),
         ),

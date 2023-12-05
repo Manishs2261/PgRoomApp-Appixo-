@@ -6,56 +6,56 @@ import '../../../../utils/widgets/flat_radio_button_wedget.dart';
 import '../../../../utils/widgets/hostel_radio_button_widget.dart';
 
 class HostelAndRoomController extends GetxController {
-  // choose any one for initialize Enum verible not all
-  var faltTypeEnum = FaltTypeEnum.OneBhk.obs;
+  // choose any one for initialize Enum veritable not all
+  var flatTypeEnum = FaltTypeEnum.OneBhk.obs;
   var hostelTypeEnum = HostelTypeEnum.BoysH.obs;
 
   RxBool isBool = false.obs;
   RxBool checkboxSingle1 = false.obs;
-  RxBool checkboxDoble2 = false.obs;
+  RxBool checkboxDouble2 = false.obs;
   RxBool checkboxTriple3 = false.obs;
   RxBool checkboxFour4 = false.obs;
-  RxBool checkboxFaimalyRoom = false.obs;
+  RxBool checkboxFamilyRoom = false.obs;
 
-  final singlePersonContrller = TextEditingController().obs;
-  final doublePersonContrller = TextEditingController().obs;
-  final triplePersonContrller = TextEditingController().obs;
-  final fourPersonContrller = TextEditingController().obs;
-  final faimlyPersonContrller = TextEditingController().obs;
+  final singlePersonController = TextEditingController().obs;
+  final doublePersonController = TextEditingController().obs;
+  final triplePersonController = TextEditingController().obs;
+  final fourPersonController = TextEditingController().obs;
+  final familyPersonController = TextEditingController().obs;
 
-  RxString roomType = ''.obs;
+  RxString roomType = 'Boys'.obs;
   RxString bhk = ''.obs;
 
   RxBool loading = false.obs;
 
-  // for Obsever the Enum class
+  // for Observer the Enum class
 
   void updateHostelType(HostelTypeEnum? newHostelTypeEnum) {
     hostelTypeEnum.value = newHostelTypeEnum!;
   }
 
   void updateFlatType(FaltTypeEnum? newFlatTypeEnum) {
-    faltTypeEnum.value = newFlatTypeEnum!;
+    flatTypeEnum.value = newFlatTypeEnum!;
   }
 
-  boysHostelContions(value) {
+  boysHostelConditions(value) {
     updateHostelType(value);
     isBool.value = false;
     roomType.value = "Boys";
     bhk.value = '';
   }
 
-  girlsHostelContions(value) {
+  girlsHostelConditions(value) {
     updateHostelType(value);
     isBool.value = false;
     roomType.value = "Girls";
     bhk.value = '';
   }
 
-  flatTypeContionas(value) {
+  flatTypeConditions(value) {
     updateHostelType(value);
     isBool.value = true;
-    roomType.value = "Faimly";
+    roomType.value = "Family";
   }
 
   oneBhkCondition(value) {
@@ -73,10 +73,7 @@ class HostelAndRoomController extends GetxController {
     bhk.value = '3BHK';
   }
 
-  onSubimitButton() {
-
+  onSubmitButton() {
     Get.toNamed(RoutesName.provideFacilitiesScreen);
-
-
   }
 }

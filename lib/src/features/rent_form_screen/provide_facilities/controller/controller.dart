@@ -14,6 +14,8 @@ class ProvideFacilitiesController extends GetxController {
   RxBool bedSheet = false.obs;
   RxBool washingMachine = false.obs;
   RxBool parking = false.obs;
+  RxBool attachBathRoom = false.obs;
+  RxBool shareAbleBathRoom = false.obs;
   RxBool loading = false.obs;
 
   onSubmitButton() {

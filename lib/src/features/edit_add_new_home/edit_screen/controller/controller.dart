@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
- import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../utils/widgets/flat_radio_button_wedget.dart';
@@ -53,6 +53,8 @@ class EditFormScreenController extends GetxController {
   RxBool bedSheet = false.obs;
   RxBool washingMachine = false.obs;
   RxBool parking = false.obs;
+  RxBool attachBathroom = false.obs;
+  RxBool shareableBathroom = false.obs;
   RxBool loading = false.obs;
 
   RxBool electricityBill = false.obs;
@@ -80,24 +82,24 @@ class EditFormScreenController extends GetxController {
     // TODO: implement onInit
 
     houseNameController = TextEditingController(text: data.houseName).obs;
-    houseAddressController = TextEditingController(text: data.addres).obs;
+    houseAddressController = TextEditingController(text: data.address).obs;
     cityNameController = TextEditingController(text: data.city).obs;
     landMarkController = TextEditingController(text: data.landMark).obs;
     contactNumberController = TextEditingController(text: data.contactNumber).obs;
 
     singlePersonController = TextEditingController(text: data.singlePersonPrice).obs;
-    doublePersonController = TextEditingController(text: data.doublePersionPrice).obs;
-    triplePersonController = TextEditingController(text: data.triplePersionPrice).obs;
-    fourPersonController = TextEditingController(text: data.fourPersionPrice).obs;
-    familyPersonController = TextEditingController(text: data.faimlyPrice).obs;
+    doublePersonController = TextEditingController(text: data.doublePersonPrice).obs;
+    triplePersonController = TextEditingController(text: data.triplePersonPrice).obs;
+    fourPersonController = TextEditingController(text: data.fourPersonPrice).obs;
+    familyPersonController = TextEditingController(text: data.familyPrice).obs;
 
     restrictedController = TextEditingController(text: data.restrictedTime).obs;
 
     checkboxSingle1 = (data.singlePersonPrice != null).obs;
-    checkboxDouble2 = (data.doublePersionPrice != null).obs;
-    checkboxTriple3 = (data.triplePersionPrice != null).obs;
-    checkboxFour4 = (data.fourPersionPrice != null).obs;
-    checkboxFamilyRoom = (data.faimlyPrice != null).obs;
+    checkboxDouble2 = (data.doublePersonPrice != null).obs;
+    checkboxTriple3 = (data.triplePersonPrice != null).obs;
+    checkboxFour4 = (data.fourPersonPrice != null).obs;
+    checkboxFamilyRoom = (data.familyPrice != null).obs;
 
     roomType = '${data.roomType}'.obs;
     bhk = '${data.bhkType}'.obs;
@@ -111,19 +113,21 @@ class EditFormScreenController extends GetxController {
     light = data.light!.obs;
     locker = data.locker!.obs;
     bedSheet = data.bedSheet!.obs;
-    washingMachine = data.washingMachin!.obs;
+    washingMachine = data.washingMachine!.obs;
     parking = data.parking!.obs;
+    attachBathroom = data.attachBathRoom!.obs;
+    shareableBathroom = data.shareAbleBathRoom!.obs;
 
     electricityBill = data.electricityBill!.obs;
     waterBill = data.waterBill!.obs;
-    flexibleTime = data.fexibleTime!.obs;
+    flexibleTime = data.flexibleTime!.obs;
 
     cookingAllow = data.cooking!.obs;
     veg = (data.cookingType == 'veg Only').obs;
     bothVegAndNonVeg = (data.cookingType == 'veg and non-veg both allow').obs;
     girl = data.girls!.obs;
     boy = data.boy!.obs;
-    familyMember = data.faimlyMember!.obs;
+    familyMember = data.familyMember!.obs;
     restrictedTime = (data.restrictedTime != null).obs;
 
     cookingType = "${data.cookingType}".obs;
@@ -195,15 +199,15 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditCoverImageSaveButton() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateCoverItemImage(File(image!.path), itemId).then((value) {
           Get.snackbar("Image Update ", "Successfully");
-          loading.value = false;
+
+          Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Image Update ", "Failed");
           AppLoggerHelper.error("Update cover image Error", error);
           AppLoggerHelper.error("Update cover image Error", stackTrace);
@@ -215,7 +219,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditRentDetailsData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateRentDetailsData(
                 houseNameController.value.text,
                 houseAddressController.value.text,
@@ -224,13 +228,12 @@ class EditFormScreenController extends GetxController {
                 contactNumberController.value.text,
                 itemId)
             .then((value) {
-          loading.value = false;
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Update", "Failed");
           AppLoggerHelper.error("Upload Rent Details Error", error);
           AppLoggerHelper.error('$stackTrace');
@@ -242,17 +245,16 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditRoomTypeAndPriceData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateRoomTypeAndPrice(itemId, singlePersonController.value.text, doublePersonController.value.text,
                 triplePersonController.value.text, fourPersonController.value.text, familyPersonController.value.text)
             .then((value) {
-          loading.value = false;
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Update", "Failed");
           AppLoggerHelper.error("Upload Room type and price Error", error);
           AppLoggerHelper.error('$stackTrace');
@@ -264,28 +266,29 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditProviderFacilitiesData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateProvideFacilitiesData(
-          itemId,
-          wifi.value,
-          bed.value,
-          chair.value,
-          table.value,
-          fan.value,
-          gadda.value,
-          light.value,
-          locker.value,
-          bedSheet.value,
-          washingMachine.value,
-          parking.value,
-        ).then((value) {
-          loading.value = false;
+                itemId,
+                wifi.value,
+                bed.value,
+                chair.value,
+                table.value,
+                fan.value,
+                gadda.value,
+                light.value,
+                locker.value,
+                bedSheet.value,
+                washingMachine.value,
+                parking.value,
+                attachBathroom.value,
+                shareableBathroom.value)
+            .then((value) {
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Update", "Failed");
           AppLoggerHelper.error("Upload Provider Facilities Error", error);
           AppLoggerHelper.error('$stackTrace');
@@ -297,17 +300,16 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditAdditionalChargesAndDoor() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateAdditionalChargesAndDoorDate(
                 itemId, electricityBill.value, waterBill.value, restrictedController.value.text, flexibleTime.value)
             .then((value) {
-          loading.value = false;
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Update", "Failed");
           AppLoggerHelper.error("Upload Additional charges  Error", error);
           AppLoggerHelper.error('$stackTrace');
@@ -319,17 +321,16 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditPermissionData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updatePermissionData(
                 itemId, cookingType.value, cookingAllow.value, boy.value, girl.value, familyMember.value)
             .then((value) {
-          loading.value = false;
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
         }).onError((error, stackTrace) {
-          loading.value = false;
           Get.snackbar("Update", "Failed");
           AppLoggerHelper.error("Upload Permission Error", error);
           AppLoggerHelper.error('$stackTrace');

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../utils/widgets/my_check_box_widget.dart';
@@ -125,23 +126,32 @@ class ProvideFacilitiesScreen extends StatelessWidget {
                     }),
               ),
 
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "Attach BathRoom",
+                    checkBool: controller.attachBathRoom.value,
+                    onChanged: (value) {
+                      controller.attachBathRoom.value = value!;
+                    }),
+              ),
+
+              Obx(
+                () => MYCheckBoxWidget(
+                    title: "ShareAble BathRoom",
+                    checkBool: controller.shareAbleBathRoom.value,
+                    onChanged: (value) {
+                      controller.shareAbleBathRoom.value = value!;
+                    }),
+              ),
+
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.onSubmitButton();
-                    },
-                    child: Obx(
-                      () => (controller.loading.value)
-                          ? const CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            )
-                          : const Text("Next"),
-                    )),
+
+              ComReuseElevButton(
+                onPressed: () => controller.onSubmitButton(),
+                title: "Next",
+                loading: controller.loading.value,
               )
             ],
           ),

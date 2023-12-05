@@ -21,61 +21,58 @@ class EditFormScreenButton extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Edit Page"),
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 60, bottom: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Images",
-                screenName: RoutesName.editImagesScreen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Other image",
-                screenName: RoutesName.editOtherImageScareen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Details ",
-                screenName: RoutesName.editRentDetailScreen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit House Type and Price ",
-                screenName: RoutesName.editRoomTyprAndPriceScreen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Provides Facilities",
-                screenName: RoutesName.editFaciliteProviderScreen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Additional Charges and Time",
-                screenName: RoutesName.editChargesScreen,
-              ),
-              ItemEditButtonWidgets(
-                data: data,
-                itemId: itemId,
-                title: "Edit Permission",
-                screenName: RoutesName.editPermissionScreen,
-              ),
-            ],
-          ),
-        )),
-      ),
+      body: SingleChildScrollView(
+          child: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 60, bottom: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Images",
+              screenName: RoutesName.editImagesScreen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Other image",
+              screenName: RoutesName.editOtherImageScareen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Details ",
+              screenName: RoutesName.editRentDetailScreen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit House Type and Price ",
+              screenName: RoutesName.editRoomTyprAndPriceScreen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Provides Facilities",
+              screenName: RoutesName.editFaciliteProviderScreen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Additional Charges and Time",
+              screenName: RoutesName.editChargesScreen,
+            ),
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Permission",
+              screenName: RoutesName.editPermissionScreen,
+            ),
+          ],
+        ),
+      )),
     );
   }
 }

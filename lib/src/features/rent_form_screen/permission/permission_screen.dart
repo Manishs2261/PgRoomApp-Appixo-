@@ -7,8 +7,8 @@ import '../../../utils/widgets/my_check_box_widget.dart';
 import '../data_save_controller/data_save_controller.dart';
 import 'controller/permission_controller.dart';
 
-class PermissioinScreen extends StatelessWidget {
-  PermissioinScreen({super.key});
+class PermissionScreen extends StatelessWidget {
+  PermissionScreen({super.key});
 
   final controller = Get.put(PermissionController());
   final saveController = Get.put(DataSaveController());

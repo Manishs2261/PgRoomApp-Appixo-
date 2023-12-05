@@ -23,7 +23,7 @@ class DataSaveController extends GetxController {
 
   saveRentDetails() {
     ApisClass.rentDetailsHomeList(
-            ApisClass.CoverImagedownloadUrl,
+            ApisClass.coverImageDownloadUrl,
             rentController.houseNameController.value.text,
             rentController.houseAddressController.value.text,
             rentController.cityNameController.value.text,
@@ -31,13 +31,13 @@ class DataSaveController extends GetxController {
             rentController.contactNumberController.value.text,
             hostelController.bhk.value,
             hostelController.roomType.value,
-            hostelController.singlePersonContrller.value.text,
-            hostelController.doublePersonContrller.value.text,
-            hostelController.triplePersonContrller.value.text,
-            hostelController.fourPersonContrller.value.text,
-            hostelController.faimlyPersonContrller.value.text,
+            hostelController.singlePersonController.value.text,
+            hostelController.doublePersonController.value.text,
+            hostelController.triplePersonController.value.text,
+            hostelController.fourPersonController.value.text,
+            hostelController.familyPersonController.value.text,
             chargeAndDoorController.restrictedController.value.text,
-            "4.2",
+            "0.0",
             providerController.wifi.value,
             providerController.bed.value,
             providerController.chair.value,
@@ -57,10 +57,13 @@ class DataSaveController extends GetxController {
             permissionController.boy.value,
             permissionController.girl.value,
             permissionController.familyMember.value,
+            providerController.attachBathRoom.value,
+            providerController.shareAbleBathRoom.value,
             false)
         .then((value) {
-      Get.snackbar("Data Upload", "Successfully");
+      Get.snackbar("Upload", "Successfully");
       loading.value = false;
+      Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
@@ -69,7 +72,7 @@ class DataSaveController extends GetxController {
       Navigator.pop(Get.context!);
     }).onError((error, stackTrace) {
       loading.value = false;
-      Get.snackbar("Data Upload", "Failed");
+      Get.snackbar("Upload", "Failed");
       AppLoggerHelper.error("Save Rent Data Error", stackTrace);
       AppLoggerHelper.error("Save Rent Data Error", error);
     });
@@ -77,7 +80,7 @@ class DataSaveController extends GetxController {
 
   saveUserRentDetails() {
     ApisClass.rentDetailsUser(
-            ApisClass.CoverImagedownloadUrl,
+            ApisClass.coverImageDownloadUrl,
             rentController.houseNameController.value.text,
             rentController.houseAddressController.value.text,
             rentController.cityNameController.value.text,
@@ -85,13 +88,13 @@ class DataSaveController extends GetxController {
             rentController.contactNumberController.value.text,
             hostelController.bhk.value,
             hostelController.roomType.value,
-            hostelController.singlePersonContrller.value.text,
-            hostelController.doublePersonContrller.value.text,
-            hostelController.triplePersonContrller.value.text,
-            hostelController.fourPersonContrller.value.text,
-            hostelController.faimlyPersonContrller.value.text,
+            hostelController.singlePersonController.value.text,
+            hostelController.doublePersonController.value.text,
+            hostelController.triplePersonController.value.text,
+            hostelController.fourPersonController.value.text,
+            hostelController.familyPersonController.value.text,
             chargeAndDoorController.restrictedController.value.text,
-            "4.2",
+            "0.0",
             providerController.wifi.value,
             providerController.bed.value,
             providerController.chair.value,
@@ -111,6 +114,8 @@ class DataSaveController extends GetxController {
             permissionController.boy.value,
             permissionController.girl.value,
             permissionController.familyMember.value,
+            providerController.attachBathRoom.value,
+            providerController.shareAbleBathRoom.value,
             false)
         .then((value) {
       //save home list data
@@ -124,6 +129,7 @@ class DataSaveController extends GetxController {
   uploadData() {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
+        AppHelperFunction.showDialogCenter(false);
         loading.value = true;
         addImageController.uploadCoverImage().then((value) {
           loading.value = false;

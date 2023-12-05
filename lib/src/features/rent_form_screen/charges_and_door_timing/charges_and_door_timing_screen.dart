@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
@@ -153,21 +154,10 @@ class ChargesAndDoorTime extends StatelessWidget {
                     height: 20,
                   ),
 
-                  SizedBox(
-                    height: 40,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          //routes code
-                          controller.onSubmitButton();
-                        },
-                        child: Obx(
-                          () => (controller.loading.value)
-                              ? const CircularProgressIndicator(
-                                  strokeWidth: 3.0,
-                                )
-                              : const Text("Next"),
-                        )),
+                  ComReuseElevButton(
+                    onPressed: () => controller.onSubmitButton(),
+                    title: "Next",
+                    loading: controller.loading.value,
                   )
                 ],
               ),

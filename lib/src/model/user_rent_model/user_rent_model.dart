@@ -3,15 +3,15 @@ class UserRentModel {
   String? bhkType;
   bool? bed;
   String? city;
-  String? doublePersionPrice;
-  bool? washingMachin;
+  String? doublePersonPrice;
+  bool? washingMachine;
   bool? girls;
-  bool? faimlyMember;
+  bool? familyMember;
   bool? boy;
   bool? waterBill;
   String? landMark;
   bool? locker;
-  String? triplePersionPrice;
+  String? triplePersonPrice;
   String? houseName;
   bool? fan;
   String? review;
@@ -22,72 +22,77 @@ class UserRentModel {
   bool? gadda;
   String? roomType;
   bool? table;
-  String? faimlyPrice;
+  String? familyPrice;
   bool? wifi;
   bool? like;
   bool? chair;
-  String? addres;
+  String? address;
   bool? bedSheet;
   bool? electricityBill;
   bool? light;
-  String? fourPersionPrice;
-  bool? fexibleTime;
+  String? fourPersonPrice;
+  bool? flexibleTime;
   String? singlePersonPrice;
   String? cookingType;
   String? userRentId;
+  bool? attachBathRoom;
+  bool? shareAbleBathRoom;
 
-  UserRentModel(
-      {this.parking,
-        this.bhkType,
-        this.bed,
-        this.city,
-        this.doublePersionPrice,
-        this.washingMachin,
-        this.girls,
-        this.faimlyMember,
-        this.boy,
-        this.waterBill,
-        this.landMark,
-        this.locker,
-        this.triplePersionPrice,
-        this.houseName,
-        this.fan,
-        this.review,
-        this.coverImage,
-        this.contactNumber,
-        this.restrictedTime,
-        this.cooking,
-        this.gadda,
-        this.roomType,
-        this.table,
-        this.faimlyPrice,
-        this.wifi,
-        this.like,
-        this.chair,
-        this.addres,
-        this.bedSheet,
-        this.electricityBill,
-        this.light,
-        this.fourPersionPrice,
-        this.fexibleTime,
-        this.singlePersonPrice,
-        this.cookingType,
-      this.userRentId});
+  UserRentModel({
+    this.parking,
+    this.bhkType,
+    this.bed,
+    this.city,
+    this.doublePersonPrice,
+    this.washingMachine,
+    this.girls,
+    this.familyMember,
+    this.boy,
+    this.waterBill,
+    this.landMark,
+    this.locker,
+    this.triplePersonPrice,
+    this.houseName,
+    this.fan,
+    this.review,
+    this.coverImage,
+    this.contactNumber,
+    this.restrictedTime,
+    this.cooking,
+    this.gadda,
+    this.roomType,
+    this.table,
+    this.familyPrice,
+    this.wifi,
+    this.like,
+    this.chair,
+    this.address,
+    this.bedSheet,
+    this.electricityBill,
+    this.light,
+    this.fourPersonPrice,
+    this.flexibleTime,
+    this.singlePersonPrice,
+    this.cookingType,
+    this.userRentId,
+    this.attachBathRoom,
+    this.shareAbleBathRoom,
+  });
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
     parking = json['parking'];
     bhkType = json['BhkType'];
     bed = json['bed'];
     city = json['city'];
-    doublePersionPrice = json['doublePersionPrice'];
-    washingMachin = json['washingMachin'];
+    doublePersonPrice = json['doublePersonPrice'];
+    washingMachine = json['washingMachine'];
     girls = json['girls'];
-    faimlyMember = json['faimlyMember'];
+    familyMember = json['familyMember'];
     boy = json['boy'];
     waterBill = json['waterBill'];
     landMark = json['landMark'];
     locker = json['locker'];
-    triplePersionPrice = json['triplePersionPrice'];
+    triplePersonPrice = json['triplePersonPrice'];
     houseName = json['houseName'];
     fan = json['fan'];
     review = json['review'];
@@ -98,19 +103,21 @@ class UserRentModel {
     gadda = json['gadda'];
     roomType = json['roomType'];
     table = json['table'];
-    faimlyPrice = json['faimlyPrice'];
+    familyPrice = json['familyPrice'];
     wifi = json['wifi'];
     like = json['like'];
     chair = json['chair'];
-    addres = json['addres'];
+    address = json['address'];
     bedSheet = json['bedSheet'];
     electricityBill = json['electricityBill'];
     light = json['light'];
-    fourPersionPrice = json['fourPersionPrice'];
-    fexibleTime = json['fexibleTime'];
+    fourPersonPrice = json['fourPersonPrice'];
+    flexibleTime = json['flexibleTime'];
     singlePersonPrice = json['singlePersonPrice'];
     cookingType = json['cookingType'];
     userRentId = json['userRentId'];
+    attachBathRoom = json["attachBathRoom"] ?? false;
+    shareAbleBathRoom = json["shareAbleBathRoom"] ?? false;
   }
 
   Map<String, dynamic> toJson() {
@@ -119,15 +126,15 @@ class UserRentModel {
     data['BhkType'] = this.bhkType;
     data['bed'] = this.bed;
     data['city'] = this.city;
-    data['doublePersionPrice'] = this.doublePersionPrice;
-    data['washingMachin'] = this.washingMachin;
+    data['doublePersonPrice'] = this.doublePersonPrice;
+    data['washingMachine'] = this.washingMachine;
     data['girls'] = this.girls;
-    data['faimlyMember'] = this.faimlyMember;
+    data['familyMember'] = this.familyMember;
     data['boy'] = this.boy;
     data['waterBill'] = this.waterBill;
     data['landMark'] = this.landMark;
     data['locker'] = this.locker;
-    data['triplePersionPrice'] = this.triplePersionPrice;
+    data['triplePersonPrice'] = this.triplePersonPrice;
     data['houseName'] = this.houseName;
     data['fan'] = this.fan;
     data['review'] = this.review;
@@ -138,19 +145,21 @@ class UserRentModel {
     data['gadda'] = this.gadda;
     data['roomType'] = this.roomType;
     data['table'] = this.table;
-    data['faimlyPrice'] = this.faimlyPrice;
+    data['familyPrice'] = this.familyPrice;
     data['wifi'] = this.wifi;
     data['like'] = this.like;
     data['chair'] = this.chair;
-    data['addres'] = this.addres;
+    data['address'] = this.address;
     data['bedSheet'] = this.bedSheet;
     data['electricityBill'] = this.electricityBill;
     data['light'] = this.light;
-    data['fourPersionPrice'] = this.fourPersionPrice;
-    data['fexibleTime'] = this.fexibleTime;
+    data['fourPersonPrice'] = this.fourPersonPrice;
+    data['flexibleTime'] = this.flexibleTime;
     data['singlePersonPrice'] = this.singlePersonPrice;
     data['cookingType'] = this.cookingType;
     data['userRentId'] = this.userRentId;
+    data['attachBathRoom'] = this.attachBathRoom;
+    data['shareAbleBathRoom'] = this.shareAbleBathRoom;
     return data;
   }
 }

@@ -1,33 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/device/device_utility.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../utils/helpers/helper_function.dart';
+import '../controller/details_screen_controller.dart';
 import 'circle_Container_widgets.dart';
 
 class ContactAndShareWidgets extends StatelessWidget {
   const ContactAndShareWidgets({
     super.key,
+    required this.controller,
   });
+
+  final DetailsScreenController controller;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(
-          child: SizedBox(
-            height: 40,
-            width: AppHelperFunction.screenWidth() * 0.9,
-            child: ElevatedButton(
-              onPressed: () {
-                launchUrl( Uri(
-                  scheme: 'tel',
-                  path: "7389523175",
-                ));
-              },
-              child: const Text("Contact Now"),
-            ),
-          ),
-        ),
+        ComReuseElevButton(onPressed: () => controller.onCallNow(), title: "Contact Now"),
 
         const SizedBox(
           height: 50,

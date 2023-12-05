@@ -42,7 +42,7 @@ class RoomPriceWidgets extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: MyTextFormWedgit(
                       textKeyBoard: TextInputType.number,
-                      controller: hostelController.singlePersonContrller.value,
+                      controller: hostelController.singlePersonController.value,
                       hintText: "Price",
                       lableText: "Price",
                       isCollapsed: true,
@@ -63,19 +63,19 @@ class RoomPriceWidgets extends StatelessWidget {
             children: [
               MYCheckBoxWidget(
                   title: "Double Person",
-                  checkBool: hostelController.checkboxDoble2.value,
+                  checkBool: hostelController.checkboxDouble2.value,
                   onChanged: (value) {
-                    hostelController.checkboxDoble2.value = value!;
+                    hostelController.checkboxDouble2.value = value!;
                   }),
               Obx(
                 () => Visibility(
-                  visible: (hostelController.checkboxDoble2.value),
+                  visible: (hostelController.checkboxDouble2.value),
                   child: Flexible(
                       child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: MyTextFormWedgit(
                       textKeyBoard: TextInputType.number,
-                      controller: hostelController.doublePersonContrller.value,
+                      controller: hostelController.doublePersonController.value,
                       hintText: "Price",
                       lableText: "Price",
                       isCollapsed: true,
@@ -107,7 +107,7 @@ class RoomPriceWidgets extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: MyTextFormWedgit(
                       textKeyBoard: TextInputType.number,
-                      controller: hostelController.triplePersonContrller.value,
+                      controller: hostelController.triplePersonController.value,
                       hintText: "Price",
                       lableText: "Price",
                       isCollapsed: true,
@@ -139,7 +139,7 @@ class RoomPriceWidgets extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: MyTextFormWedgit(
                       textKeyBoard: TextInputType.number,
-                      controller: hostelController.fourPersonContrller.value,
+                      controller: hostelController.fourPersonController.value,
                       hintText: "Price",
                       lableText: "Price",
                       isCollapsed: true,
@@ -160,19 +160,19 @@ class RoomPriceWidgets extends StatelessWidget {
             children: [
               MYCheckBoxWidget(
                   title: "Family Room / Flat",
-                  checkBool: hostelController.checkboxFaimalyRoom.value,
+                  checkBool: hostelController.checkboxFamilyRoom.value,
                   onChanged: (value) {
-                    hostelController.checkboxFaimalyRoom.value = value!;
+                    hostelController.checkboxFamilyRoom.value = value!;
                   }),
               Obx(
                 () => Visibility(
-                  visible: (hostelController.checkboxFaimalyRoom.value),
+                  visible: (hostelController.checkboxFamilyRoom.value),
                   child: Flexible(
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: MyTextFormWedgit(
                         textKeyBoard: TextInputType.number,
-                        controller: hostelController.faimlyPersonContrller.value,
+                        controller: hostelController.familyPersonController.value,
                         hintText: "Price",
                         lableText: "Price",
                         isCollapsed: true,

@@ -1,7 +1,9 @@
 
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pgroom/src/features/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/home/widgets/appbar_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -17,6 +19,8 @@ class HomeScreen extends StatelessWidget {
   List<UserRentModel> rentList = [];
   var snapData;
 
+
+
   @override
   Widget build(BuildContext context) {
     ApisClass.getUserData();
@@ -24,7 +28,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
 
         },
       ),
@@ -79,57 +82,70 @@ class HomeScreen extends StatelessWidget {
       //======drawer code ===============
       drawer: const DrawerScreen(),
       //=======list view builder code==============
-      body: StreamBuilder(
-          stream: ApisClass.firestore.collection('rentCollection').snapshots(),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return const Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.signal_wifi_connected_no_internet_4),
-                      Text("No Internet Connection"),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      CircularProgressIndicator(
-                        color: Colors.blue,
-                      )
-                    ],
-                  ),
-                );
-              case ConnectionState.none:
-                return const Center(
-                  child: Row(
-                    children: [
-                      Icon(Icons.signal_wifi_connected_no_internet_4),
-                      Text("No Internet Connection"),
-                      CircularProgressIndicator(
-                        color: Colors.blue,
-                      )
-                    ],
-                  ),
-                );
+      body: CustomMaterialIndicator(
 
-              case ConnectionState.active:
-              case ConnectionState.done:
-                final data = snapshot.data?.docs;
+        onRefresh: () async {
+        return await Future.delayed(Duration(seconds: 2));
+        },
+        indicatorBuilder: (BuildContext context, IndicatorController controller) {
+          return Icon(
+            Icons.refresh,
+            color: Colors.blue,
+            size: 30,
+          );
+        },
+        child: StreamBuilder(
+            stream: ApisClass.firebaseFirestore.collection('rentCollection').snapshots(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  );
+                case ConnectionState.none:
+                  return const Center(
+                    child: Row(
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  );
 
-                // for(var i in data!)
-                //   {
-                //     log("Data : ${jsonEncode(i.data())}");
-                //   }
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  final data = snapshot.data?.docs;
 
-                snapData = snapshot;
-                rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
+                  // for(var i in data!)
+                  //   {
+                  //     log("Data : ${jsonEncode(i.data())}");
+                  //   }
 
-                return ItemListView(
-                  rentList: rentList,
-                  snapshot: snapshot,
-                );
-            }
-          }),
+                  snapData = snapshot;
+                  rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
+
+                  return ItemListView(
+                    rentList: rentList,
+                    snapshot: snapshot,
+                  );
+              }
+            }),
+      ),
     );
   }
 }

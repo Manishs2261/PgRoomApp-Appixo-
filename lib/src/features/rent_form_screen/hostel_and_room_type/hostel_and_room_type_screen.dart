@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/rent_form_screen/hostel_and_room_type/widgets/HostelTypeWidgets.dart';
 import 'package:pgroom/src/features/rent_form_screen/hostel_and_room_type/widgets/RoomPriceWidgets.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
@@ -39,20 +40,11 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
               ),
 
               // Next button
-              SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      hostelController.onSubimitButton();
-                    },
-                    child: Obx(
-                      () => (hostelController.loading.value)
-                          ? const CircularProgressIndicator(
-                              color: Colors.blue,
-                            )
-                          : const Text("Next"),
-                    )),
+
+              ComReuseElevButton(
+                onPressed: () => hostelController.onSubmitButton(),
+                title: "Next",
+                loading: hostelController.loading.value,
               )
             ],
           )),

@@ -2,10 +2,11 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
+
 
 import '../../../utils/helpers/helper_function.dart';
 
@@ -31,8 +32,18 @@ class ProfileController extends GetxController {
     } else {
       image.value = pickFile.path.toString();
     }
+
+    showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.white,),
+          );
+        });
     ApisClass.updateUserImage(File(image.value)).then((value){
       AppHelperFunction.showFlashbar("Image Successfully upload.");
+
+
     }).onError((error, stackTrace) {
       AppHelperFunction.showFlashbar("Image uploading Failed");
     });

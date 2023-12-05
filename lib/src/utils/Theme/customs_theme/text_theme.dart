@@ -8,7 +8,7 @@ class AppTextTheme {
   static TextTheme lightTextTheme = TextTheme(
     headlineLarge: TextStyle().copyWith(fontSize: 32.0, fontWeight: FontWeight.bold, color: AppColors.black),
     headlineMedium: TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, color: AppColors.black),
-    headlineSmall: TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w600, color: AppColors.black),
+    headlineSmall: TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w400, color: AppColors.black),
 
     titleLarge: TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w600, color: AppColors.black),
     titleMedium: TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: AppColors.black),

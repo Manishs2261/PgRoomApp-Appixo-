@@ -30,7 +30,7 @@ class HostelTypeWidgets extends StatelessWidget {
               value: HostelTypeEnum.BoysH,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
-                hostelController.boysHostelContions(value);
+                hostelController.boysHostelConditions(value);
               }),
         ),
 
@@ -41,7 +41,7 @@ class HostelTypeWidgets extends StatelessWidget {
               value: HostelTypeEnum.GirlsH,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
-                hostelController.girlsHostelContions(value);
+                hostelController.girlsHostelConditions(value);
               }),
         ),
 
@@ -52,7 +52,7 @@ class HostelTypeWidgets extends StatelessWidget {
               value: HostelTypeEnum.Faimaly,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
-                hostelController.flatTypeContionas(value);
+                hostelController.flatTypeConditions(value);
               }),
         ),
 
@@ -69,7 +69,7 @@ class HostelTypeWidgets extends StatelessWidget {
                     () => MyFlatRadioButtonWidget(
                         titel: "1BHK",
                         value: FaltTypeEnum.OneBhk,
-                        flatTypeEnum: hostelController.faltTypeEnum.value,
+                        flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.oneBhkCondition(value);
                         }),
@@ -79,7 +79,7 @@ class HostelTypeWidgets extends StatelessWidget {
                     () => MyFlatRadioButtonWidget(
                         titel: "2BHK",
                         value: FaltTypeEnum.TwoBhk,
-                        flatTypeEnum: hostelController.faltTypeEnum.value,
+                        flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.twoBhkCondition(value);
                         }),
@@ -89,7 +89,7 @@ class HostelTypeWidgets extends StatelessWidget {
                     () => MyFlatRadioButtonWidget(
                         titel: "3BHK",
                         value: FaltTypeEnum.ThreeBhk,
-                        flatTypeEnum: hostelController.faltTypeEnum.value,
+                        flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.threeBhkCondition(value);
                         }),

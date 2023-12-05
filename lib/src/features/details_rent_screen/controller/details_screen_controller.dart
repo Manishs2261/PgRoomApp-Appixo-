@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
+import '../../../utils/device/device_utility.dart';
 
 class DetailsScreenController extends GetxController {
   var itemId;
@@ -44,6 +46,8 @@ class DetailsScreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
+
+    await ApisClass.getUserData();
     //get a Rating bar summary data
     await ApisClass.getRatingBarSummaryData(itemId);
 
@@ -59,24 +63,59 @@ class DetailsScreenController extends GetxController {
   onRatingSummaryCalculation(ratingValue) async {
     switch (ratingValue) {
       case 5.0:
-        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree,
-            ApisClass.starFour, ApisClass.starFive + 1, ApisClass.averageRating, ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(
+            itemId,
+            ApisClass.starOne,
+            ApisClass.starTwo,
+            ApisClass.starThree,
+            ApisClass.starFour,
+            ApisClass.starFive + 1,
+            ApisClass.averageRating,
+            ApisClass.totalNumberOfStar);
 
       case 4.0:
-        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree,
-            ApisClass.starFour + 1, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(
+            itemId,
+            ApisClass.starOne,
+            ApisClass.starTwo,
+            ApisClass.starThree,
+            ApisClass.starFour + 1,
+            ApisClass.starFive,
+            ApisClass.averageRating,
+            ApisClass.totalNumberOfStar);
 
       case 3.0:
-        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree + 1,
-            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(
+            itemId,
+            ApisClass.starOne,
+            ApisClass.starTwo,
+            ApisClass.starThree + 1,
+            ApisClass.starFour,
+            ApisClass.starFive,
+            ApisClass.averageRating,
+            ApisClass.totalNumberOfStar);
 
       case 2.0:
-        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo + 1, ApisClass.starThree,
-            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(
+            itemId,
+            ApisClass.starOne,
+            ApisClass.starTwo + 1,
+            ApisClass.starThree,
+            ApisClass.starFour,
+            ApisClass.starFive,
+            ApisClass.averageRating,
+            ApisClass.totalNumberOfStar);
 
       case 1.0:
-        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne + 1, ApisClass.starTwo, ApisClass.starThree,
-            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(
+            itemId,
+            ApisClass.starOne + 1,
+            ApisClass.starTwo,
+            ApisClass.starThree,
+            ApisClass.starFour,
+            ApisClass.starFive,
+            ApisClass.averageRating,
+            ApisClass.totalNumberOfStar);
 
       default:
         break;
@@ -137,4 +176,20 @@ class DetailsScreenController extends GetxController {
       }
     });
   }
+
+  onCallNow() {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if(value){
+        AuthApisClass.checkUserLogin().then((value) {
+          if (value) {
+            AppDeviceUtils.launchUrl("${Uri(
+              scheme: 'tel',
+              path: data.contactNumber,
+            )}");
+          }
+        });
+      }
+    });
+  }
+
 }

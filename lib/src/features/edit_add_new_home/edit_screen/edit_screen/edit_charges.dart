@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
- import '../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../utils/widgets/my_check_box_widget.dart';
 import '../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
@@ -120,22 +121,23 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                       }),
                 ),
                 // =======for checking a condition ===========
-                Obx(() => (controller.restrictedTime.value)
-                    ? Flexible(
-                        child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: MyTextFormWedgit(
-                          textKeyBoard: TextInputType.number,
-                          controller: controller.restrictedController.value,
-                          hintText: "Enter at time",
-                          lableText: "Time",
-                          isDense: true,
-                          isCollapsed: true,
-                          borderRadius: BorderRadius.zero,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                        ),
-                      ))
-                    : const Text(""))
+                Visibility(
+                  visible: (controller.restrictedTime.value),
+                  child: Flexible(
+                      child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: MyTextFormWedgit(
+                      textKeyBoard: TextInputType.number,
+                      controller: controller.restrictedController.value,
+                      hintText: "Enter at time",
+                      lableText: "Time",
+                      isDense: true,
+                      isCollapsed: true,
+                      borderRadius: BorderRadius.zero,
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    ),
+                  )),
+                )
               ],
             ),
             //=============for flexible time ============
@@ -152,20 +154,9 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
               height: 50,
             ),
 
-            Obx(
-              () => SizedBox(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      controller.onEditAdditionalChargesAndDoor();
-                    },
-                    child: (controller.loading.value)
-                        ? const CircularProgressIndicator(
-                            strokeWidth: 3.0,
-                          )
-                        : const Text("Update")),
-              ),
+            ComReuseElevButton(
+              onPressed: () => controller.onEditAdditionalChargesAndDoor(),
+              title: "Update",
             )
           ],
         ),

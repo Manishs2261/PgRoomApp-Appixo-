@@ -55,7 +55,7 @@ class AppHelperFunction {
     ).show(Get.context!);
   }
 
-  static void showAlert(String title, String message) {
+  static void showAlert(String title, String message,onPressedYes) {
     showDialog(
         context: Get.context!,
         builder: (BuildContext context) {
@@ -65,7 +65,11 @@ class AppHelperFunction {
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
+                child: const Text('No',style: TextStyle(fontSize: 18),),
+              ),
+              TextButton(
+                onPressed: onPressedYes,
+                child: const Text('Yes',style: TextStyle(fontSize: 18),),
               ),
             ],
           );
@@ -130,6 +134,24 @@ class AppHelperFunction {
   }
 
 
+  static void fieldFocusChange(BuildContext context,FocusNode current,FocusNode nextFocus){
+
+    current.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
+
+  static void showDialogCenter(bool barrier){
+    showDialog(
+      barrierDismissible: barrier,
+        context: Get.context!,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(color: Colors.white,),
+          );
+        });
+  }
+
 
   static Future<bool> checkInternetAvailability() async {
     Connectivity connectivity = Connectivity();
@@ -145,7 +167,6 @@ class AppHelperFunction {
     });
 
     return isValue;
-
 
   }
 }

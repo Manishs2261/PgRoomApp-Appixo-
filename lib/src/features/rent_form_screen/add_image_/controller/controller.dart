@@ -31,9 +31,9 @@ class AddImageController extends GetxController {
 
   Future uploadCoverImage() async {
     await ApisClass.uploadCoverImage(File(image!.path)).then((value) {
-      Get.snackbar("Image uploaded ", "Successfully");
+      //Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
-      Get.snackbar("Image Upload", "Failed");
+     // Get.snackbar("Image Upload", "Failed");
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });

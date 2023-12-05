@@ -24,7 +24,7 @@ class ViewAllImage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(1.0),
         child: StreamBuilder(
-            stream: ApisClass.firestore.collection("OtherImageList").doc(itemId).collection(itemId).snapshots(),
+            stream: ApisClass.firebaseFirestore.collection("OtherImageList").doc(itemId).collection(itemId).snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:

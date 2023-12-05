@@ -1,12 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/user_rent_model/user_rent_model.dart';
- import '../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../utils/widgets/my_check_box_widget.dart';
 import '../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
@@ -30,41 +28,41 @@ class EditRoomTypeAndPrice extends StatelessWidget {
           padding: const EdgeInsets.only(left: 20, right: 20, top: 30),
           child: Column(
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   "Hostel Type :- ",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
 
-              (controller.bhk == "")
+              (controller.bhk.value == "")
                   ? Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(left: 15, top: 80)),
+                        const Padding(padding: EdgeInsets.only(left: 15, top: 80)),
                         Text("${data.roomType}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                             )),
                       ],
                     )
                   : Row(
                       children: [
-                        Padding(padding: EdgeInsets.only(left: 15, top: 80)),
+                        const Padding(padding: EdgeInsets.only(left: 15, top: 80)),
                         Text("${data.roomType}  - ",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                             )),
                         Text("${data.bhkType}",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                             )),
                       ],
                     ),
 
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
-                child: const Text(
+                child: Text(
                   "Room Type & Monthly Price :- ",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -108,7 +106,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                 () => Row(
                   children: [
                     MYCheckBoxWidget(
-                        title: "Doble Person",
+                        title: "Double Person",
                         checkBool: controller.checkboxDouble2.value,
                         onChanged: (value) {
                           controller.checkboxDouble2.value = value!;
@@ -198,12 +196,12 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                 ),
               ),
 
-              //==========faimaly Room ===========
+              //==========family Room ===========
               Obx(
                 () => Row(
                   children: [
                     MYCheckBoxWidget(
-                        title: "Faimaly Room / Flat",
+                        title: "Family Room / Flat",
                         checkBool: controller.checkboxFamilyRoom.value,
                         onChanged: (value) {
                           controller.checkboxFamilyRoom.value = value!;
@@ -235,21 +233,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                 height: 50,
               ),
 
-              Obx(
-                () => SizedBox(
-                  height: 40,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        controller.onEditRoomTypeAndPriceData();
-                      },
-                      child: (controller.loading.value)
-                          ? CircularProgressIndicator(
-                              strokeWidth: 3.0,
-                            )
-                          : Text("Update")),
-                ),
-              )
+              ComReuseElevButton(onPressed: () => controller.onEditRoomTypeAndPriceData(), title: 'Update')
             ],
           ),
         ),

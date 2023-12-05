@@ -132,7 +132,7 @@ class EditOtherImageScreen extends StatelessWidget {
                     width: double.infinity,
                     child: StreamBuilder(
                         stream:
-                            ApisClass.firestore.collection("OtherImageList").doc(itemId).collection(itemId).snapshots(),
+                            ApisClass.firebaseFirestore.collection("OtherImageList").doc(itemId).collection(itemId).snapshots(),
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:

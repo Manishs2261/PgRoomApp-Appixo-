@@ -95,7 +95,7 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.addYourHomeScreen, page:()=>const AddYourHome() ,
+  GetPage(name: RoutesName.addYourHomeScreen, page:()=> AddYourHome() ,
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
@@ -111,7 +111,7 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.perimissionScreen, page:()=> PermissioinScreen(),
+  GetPage(name: RoutesName.perimissionScreen, page:()=> PermissionScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
@@ -128,7 +128,7 @@ static appRoutes()=>[
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
-  GetPage(name: RoutesName.editAddNewHome_Screen, page:()=>  EditAddNewHomeScreen(),
+  GetPage(name: RoutesName.editAddNewHome_Screen, page:()=> EditAddNewHomeScreen(),
       transitionDuration: const Duration(milliseconds: 250),
       transition: Transition.leftToRightWithFade),
 
