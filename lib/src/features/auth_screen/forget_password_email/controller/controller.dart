@@ -3,26 +3,17 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../../res/route_name/routes_name.dart';
-
-class ForgetPasswordController extends GetxController{
-
-
-
+class ForgetPasswordController extends GetxController {
   final globalKey = GlobalKey<FormState>().obs;
 
-  final  emailControlerLogin = TextEditingController().obs;
+  final emailControlerLogin = TextEditingController().obs;
 
-
-  sendEmailForgetPassword(){
-
+  sendEmailForgetPassword() {
     AppHelperFunction.checkInternetAvailability().then((value) {
-      if(value){
-
+      if (value) {
         AppHelperFunction.showDialogCenter(false);
         if (globalKey.value.currentState!.validate()) {
           AuthApisClass.forgetPassword(emailControlerLogin.value.text);
-
         }
       }
     });
