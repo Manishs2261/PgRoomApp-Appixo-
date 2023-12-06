@@ -33,8 +33,8 @@ class RatingAndReviewWidgets extends StatelessWidget {
           () => Visibility(
               // checkReviewSubmission  for use current time update a screen
               //Because reviewSubmissionId  not initialize after Rating submit
-
-              visible: (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
+//(controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value)
+              visible: true ,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -156,6 +156,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
                         //your code goes here
                         controller.isView.value = true;
                         controller.totalReview.value = controller.ratingList.length;
+
                       });
 
                       return ListView.builder(

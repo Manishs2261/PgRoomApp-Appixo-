@@ -37,6 +37,8 @@ class UserRentModel {
   String? userRentId;
   bool? attachBathRoom;
   bool? shareAbleBathRoom;
+  double? average;
+  int? numberOfRating;
 
   UserRentModel({
     this.parking,
@@ -77,6 +79,8 @@ class UserRentModel {
     this.userRentId,
     this.attachBathRoom,
     this.shareAbleBathRoom,
+    this.average,
+    this.numberOfRating
   });
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
@@ -118,6 +122,8 @@ class UserRentModel {
     userRentId = json['userRentId'];
     attachBathRoom = json["attachBathRoom"] ?? false;
     shareAbleBathRoom = json["shareAbleBathRoom"] ?? false;
+    average = json['average']??0.0;
+    numberOfRating = json['numberOfRating']?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -160,6 +166,9 @@ class UserRentModel {
     data['userRentId'] = this.userRentId;
     data['attachBathRoom'] = this.attachBathRoom;
     data['shareAbleBathRoom'] = this.shareAbleBathRoom;
-    return data;
+    data['average'] = this.average;
+    data['numberOfRating'] = this.numberOfRating;
+
+     return data;
   }
 }

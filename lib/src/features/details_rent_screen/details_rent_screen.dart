@@ -102,7 +102,9 @@ class DetailsRentInfoScreen extends StatelessWidget {
                               Get.toNamed(RoutesName.viewALlImage, arguments: itemId);
                             },
                             child: OutlinedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.toNamed(RoutesName.viewALlImage,arguments: itemId);
+                                },
                                 style: OutlinedButton.styleFrom(
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                                     side: const BorderSide(color: Colors.blue)),

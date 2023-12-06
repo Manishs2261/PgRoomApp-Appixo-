@@ -130,6 +130,8 @@ class ApisClass {
         restrictedTime: restrictedTime,
         attachBathRoom: attachBathRoom,
         shareAbleBathRoom: shareAbleBathRoom,
+        average: 0.0,
+        numberOfRating: 0,
         userRentId: time);
     return await firebaseFirestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
   }
@@ -212,6 +214,8 @@ class ApisClass {
         restrictedTime: restrictedTime,
         attachBathRoom: attachBathRoom,
         shareAbleBathRoom: shareAbleBathRoom,
+        average: 0.0,
+        numberOfRating: 0,
         userRentId: time);
 
     return await firebaseFirestore
@@ -556,8 +560,8 @@ class ApisClass {
       'rating': ratingStar,
       'title': review,
       'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
-      'userName':ApisClass.userName,
-      'userImage':ApisClass.userImage
+      'userName': ApisClass.userName,
+      'userImage': ApisClass.userImage
     });
 
     // This review  data save in user account only
@@ -566,9 +570,25 @@ class ApisClass {
       'rating': ratingStar,
       'title': review,
       'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
-      'userName':ApisClass.userName,
-      'userImage':ApisClass.userImage
+      'userName': ApisClass.userName,
+      'userImage': ApisClass.userImage
     });
+  }
+
+  //add ratings in  user collection  and rent list collection
+  static Future<void> addRatingMainList(itemId, average, numberOfRating) async {
+    //rent collection data base
+    await firebaseFirestore
+        .collection("rentCollection")
+        .doc(itemId)
+        .update({'average': average, 'numberOfRating': numberOfRating});
+//user personal collection data base
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({'average': average, 'numberOfRating': numberOfRating});
   }
 
   //=======================================================
@@ -594,6 +614,36 @@ class ApisClass {
           firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).doc(deleteId);
 
       DocumentReference documentReference1 = firebaseFirestore.collection('rentCollection').doc(deleteId);
+
+      //Rating Summary data
+      await firebaseFirestore
+          .collection("userReview")
+          .doc("reviewCollection")
+          .collection("$deleteId")
+          .doc(deleteId)
+          .collection("reviewSummary")
+          .doc(deleteId)
+          .delete();
+
+      // This review  data save in user account only
+      await firebaseFirestore
+          .collection("loginUser")
+          .doc(user.uid)
+          .collection(auth.currentUser!.uid)
+          .doc(deleteId)
+          .delete();
+
+        //delete a review collection data
+
+      final batch = firebaseFirestore.batch();
+      var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+      var snapshots = await collection.get();
+      for (var doc in snapshots.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
+
+
 
       // Delete the document.
       await documentReference.delete();

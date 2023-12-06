@@ -46,7 +46,6 @@ class DetailsScreenController extends GetxController {
 
   @override
   Future<void> onInit() async {
-
     await ApisClass.getUserData();
     //get a Rating bar summary data
     await ApisClass.getRatingBarSummaryData(itemId);
@@ -60,67 +59,34 @@ class DetailsScreenController extends GetxController {
   }
 
   //Rating bar summary calculation
-  onRatingSummaryCalculation(ratingValue) async {
+  onRatingStar(ratingValue) async {
     switch (ratingValue) {
       case 5.0:
-        ApisClass.saveRatingBarSummaryData(
-            itemId,
-            ApisClass.starOne,
-            ApisClass.starTwo,
-            ApisClass.starThree,
-            ApisClass.starFour,
-            ApisClass.starFive + 1,
-            ApisClass.averageRating,
-            ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree,
+            ApisClass.starFour, ApisClass.starFive + 1, ApisClass.averageRating, ApisClass.totalNumberOfStar);
 
       case 4.0:
-        ApisClass.saveRatingBarSummaryData(
-            itemId,
-            ApisClass.starOne,
-            ApisClass.starTwo,
-            ApisClass.starThree,
-            ApisClass.starFour + 1,
-            ApisClass.starFive,
-            ApisClass.averageRating,
-            ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree,
+            ApisClass.starFour + 1, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
 
       case 3.0:
-        ApisClass.saveRatingBarSummaryData(
-            itemId,
-            ApisClass.starOne,
-            ApisClass.starTwo,
-            ApisClass.starThree + 1,
-            ApisClass.starFour,
-            ApisClass.starFive,
-            ApisClass.averageRating,
-            ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo, ApisClass.starThree + 1,
+            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
 
       case 2.0:
-        ApisClass.saveRatingBarSummaryData(
-            itemId,
-            ApisClass.starOne,
-            ApisClass.starTwo + 1,
-            ApisClass.starThree,
-            ApisClass.starFour,
-            ApisClass.starFive,
-            ApisClass.averageRating,
-            ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne, ApisClass.starTwo + 1, ApisClass.starThree,
+            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
 
       case 1.0:
-        ApisClass.saveRatingBarSummaryData(
-            itemId,
-            ApisClass.starOne + 1,
-            ApisClass.starTwo,
-            ApisClass.starThree,
-            ApisClass.starFour,
-            ApisClass.starFive,
-            ApisClass.averageRating,
-            ApisClass.totalNumberOfStar);
+        ApisClass.saveRatingBarSummaryData(itemId, ApisClass.starOne + 1, ApisClass.starTwo, ApisClass.starThree,
+            ApisClass.starFour, ApisClass.starFive, ApisClass.averageRating, ApisClass.totalNumberOfStar);
 
       default:
         break;
     }
+  }
 
+  onRatingSummaryCalculation(ratingOfNumber) {
     //calculation a total number of star
     var totalNumberOfStar = (((ApisClass.starOne * 1) +
         (ApisClass.starTwo * 2) +
@@ -133,10 +99,20 @@ class DetailsScreenController extends GetxController {
         ApisClass.starOne + ApisClass.starTwo + ApisClass.starThree + ApisClass.starFour + ApisClass.starFive;
 
     // calculation a average
-    ratingAverage.value = (totalNumberOfStar / numberOfRating);
+    print(numberOfRating);
+    print(totalNumberOfStar);
+
+    if (totalNumberOfStar == 0 && numberOfRating == 0) {
+      return null;
+    } else if (numberOfRating == 0) {
+      return null;
+    } else {
+      ratingAverage.value = (totalNumberOfStar / ratingOfNumber);
+    }
 
     // update rating summary data base
-    ApisClass.updateRatingBarStarSummaryData(itemId, ratingAverage.value.toDouble(), numberOfRating + 1);
+    ApisClass.updateRatingBarStarSummaryData(itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
+    ApisClass.addRatingMainList(itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
   }
 
   onSubmitReviewButton() {
@@ -153,7 +129,11 @@ class DetailsScreenController extends GetxController {
                 reviewController.value.text = '';
                 Get.snackbar("Rating Submit", "Successfully");
                 //Rating summary calculation method
-                onRatingSummaryCalculation(ratingNow.value);
+                onRatingStar(ratingNow.value);
+
+                Future.delayed(Duration(seconds: 2),(){
+                  onRatingSummaryCalculation(ratingList.length);
+                });
                 //after submit rating than reset value
                 ratingNow.value = 0.0;
                 //check user review submit or not
@@ -179,7 +159,7 @@ class DetailsScreenController extends GetxController {
 
   onCallNow() {
     AppHelperFunction.checkInternetAvailability().then((value) {
-      if(value){
+      if (value) {
         AuthApisClass.checkUserLogin().then((value) {
           if (value) {
             AppDeviceUtils.launchUrl("${Uri(
@@ -191,5 +171,4 @@ class DetailsScreenController extends GetxController {
       }
     });
   }
-
 }

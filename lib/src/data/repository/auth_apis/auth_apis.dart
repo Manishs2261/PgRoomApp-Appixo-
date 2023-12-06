@@ -100,8 +100,9 @@ class AuthApisClass {
         return false;
       }
     } catch (e) {
+
       Get.snackbar(" InValid", "Sign");
-      AppLoggerHelper.info("$e");
+      AppLoggerHelper.info("$e , = $e");
     }
 
     return true;

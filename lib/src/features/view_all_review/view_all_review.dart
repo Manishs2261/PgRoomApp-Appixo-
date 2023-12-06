@@ -47,7 +47,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                     width: double.infinity,
                     child: RatingSummary(
                       counter: (ApisClass.totalNumberOfStar == 0) ? 1 : ApisClass.totalNumberOfStar,
-                      average: (ApisClass.averageRating.toString() == 'NaN') ? 0.0 : ApisClass.averageRating,
+                      average:  ApisClass.averageRating,
                       showAverage: true,
                       counterFiveStars: ApisClass.starFive,
                       counterFourStars: ApisClass.starFour,

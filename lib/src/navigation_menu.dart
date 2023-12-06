@@ -9,7 +9,10 @@ class NavigationMenu extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
         destinations: [
-
+     Container(color: Colors.blue,),
+     Container(color: Colors.red,),
+     Container(color: Colors.grey,),
+     Container(color: Colors.green,),
         ],
       ),
     );
