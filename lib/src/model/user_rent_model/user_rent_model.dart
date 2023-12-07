@@ -14,7 +14,7 @@ class UserRentModel {
   String? triplePersonPrice;
   String? houseName;
   bool? fan;
-  String? review;
+  String? numberOfRooms;
   String? coverImage;
   String? contactNumber;
   String? restrictedTime;
@@ -39,6 +39,7 @@ class UserRentModel {
   bool? shareAbleBathRoom;
   double? average;
   int? numberOfRating;
+  bool? roomAvailable;
 
   UserRentModel({
     this.parking,
@@ -56,7 +57,7 @@ class UserRentModel {
     this.triplePersonPrice,
     this.houseName,
     this.fan,
-    this.review,
+    this.numberOfRooms,
     this.coverImage,
     this.contactNumber,
     this.restrictedTime,
@@ -80,7 +81,8 @@ class UserRentModel {
     this.attachBathRoom,
     this.shareAbleBathRoom,
     this.average,
-    this.numberOfRating
+    this.numberOfRating,
+    this.roomAvailable
   });
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
@@ -99,7 +101,7 @@ class UserRentModel {
     triplePersonPrice = json['triplePersonPrice'];
     houseName = json['houseName'];
     fan = json['fan'];
-    review = json['review'];
+    numberOfRooms = json['numberOfRooms']??'0';
     coverImage = json['coverImage'];
     contactNumber = json['contactNumber'];
     restrictedTime = json['restrictedTime'];
@@ -124,6 +126,7 @@ class UserRentModel {
     shareAbleBathRoom = json["shareAbleBathRoom"] ?? false;
     average = json['average']??0.0;
     numberOfRating = json['numberOfRating']?? 0;
+    roomAvailable = json['roomAvailable'] ?? true;
   }
 
   Map<String, dynamic> toJson() {
@@ -143,7 +146,7 @@ class UserRentModel {
     data['triplePersonPrice'] = this.triplePersonPrice;
     data['houseName'] = this.houseName;
     data['fan'] = this.fan;
-    data['review'] = this.review;
+    data['numberOfRooms'] = this.numberOfRooms;
     data['coverImage'] = this.coverImage;
     data['contactNumber'] = this.contactNumber;
     data['restrictedTime'] = this.restrictedTime;
@@ -168,6 +171,7 @@ class UserRentModel {
     data['shareAbleBathRoom'] = this.shareAbleBathRoom;
     data['average'] = this.average;
     data['numberOfRating'] = this.numberOfRating;
+    data['roomAvailable'] = this.roomAvailable;
 
      return data;
   }

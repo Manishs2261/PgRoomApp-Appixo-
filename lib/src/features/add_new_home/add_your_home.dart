@@ -12,7 +12,7 @@ import '../../data/repository/apis/apis.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
 
 class AddYourHome extends StatelessWidget {
-   AddYourHome({super.key});
+  AddYourHome({super.key});
 
   List<UserRentModel> rentList = [];
 
@@ -27,8 +27,12 @@ class AddYourHome extends StatelessWidget {
         children: [
           const Padding(padding: EdgeInsets.only(top: 15)),
 
-            //Button
-            ComReuseElevButton(onPressed:()=>Get.toNamed(RoutesName.addImageScreen), title: "Add New",loading: false,),
+          //Button
+          ComReuseElevButton(
+            onPressed: () => Get.toNamed(RoutesName.addImageScreen),
+            title: "Add New",
+            loading: false,
+          ),
 
           const SizedBox(
             height: 15,
@@ -145,7 +149,7 @@ class AddYourHome extends StatelessWidget {
                                                     size: 17,
                                                   ),
                                                   Text("${rentList[index].average}"),
-                                                   Text(" (${rentList[index].numberOfRating} Reviews)")
+                                                  Text(" (${rentList[index].numberOfRating} Reviews)")
                                                 ],
                                               ),
                                               const SizedBox(
@@ -157,8 +161,9 @@ class AddYourHome extends StatelessWidget {
                                                   style: DefaultTextStyle.of(context).style,
                                                   children: <TextSpan>[
                                                     TextSpan(
-                                                        text: (rentList[index].singlePersonPrice!.isNotEmpty) ?'${rentList[index]
-                                                            .singlePersonPrice}' : '${rentList[index].familyPrice}',
+                                                        text: (rentList[index].singlePersonPrice!.isNotEmpty)
+                                                            ? '${rentList[index].singlePersonPrice}'
+                                                            : '${rentList[index].familyPrice}',
                                                         style: const TextStyle(fontWeight: FontWeight.bold)),
                                                     const TextSpan(text: ' /- monthly'),
                                                   ],
@@ -180,9 +185,16 @@ class AddYourHome extends StatelessWidget {
                                               ),
                                               Text("City - ${rentList[index].city}"),
                                               (rentList[index].bhkType!.isEmpty)
-                                              ? Text("Room Type - ${rentList[index].roomType}")
-                                                  :  Text("Room Type - ${rentList[index].roomType} - "
-                                                  "${rentList[index].bhkType}")
+                                                  ? Text("Room Type - ${rentList[index].roomType}")
+                                                  : Text("Room Type - ${rentList[index].roomType} - "
+                                                      "${rentList[index].bhkType}"),
+                                              const SizedBox(
+                                                height: 3,
+                                              ),
+
+                                              (rentList[index].roomAvailable!)
+                                                  ?  Text("Available :- ${rentList[index].numberOfRooms}",style: TextStyle(color: Colors.green),)
+                                                  : Text("Not Available",style: TextStyle(color: Colors.red),)
                                             ],
                                           ),
                                         ),

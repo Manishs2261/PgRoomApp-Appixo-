@@ -108,6 +108,23 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                       ),
 
                       const SizedBox(
+                        height: AppSizes.defaultSpace,
+                      ),
+
+                      MyTextFormWedgit(
+                        textKeyBoard: TextInputType.number,
+                        maxLength: 2,
+                        controller: controller.numberOfRoomsController.value,
+                        hintText: "Number of Rooms",
+                        lableText: 'Number of Rooms',
+                        icon: const Icon(Icons.home_work_rounded),
+                        borderRadius: BorderRadius.circular(11),
+                        contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                        validator: CommonUse.validate,
+                      ),
+
+
+                      const SizedBox(
                         height: 50,
                       ),
 

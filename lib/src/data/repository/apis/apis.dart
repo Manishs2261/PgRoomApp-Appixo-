@@ -69,7 +69,7 @@ class ApisClass {
       fourPrice,
       familyPrice,
       restrictedTime,
-      review,
+      numberOfRooms,
       wifi,
       bed,
       chair,
@@ -106,7 +106,7 @@ class ApisClass {
         triplePersonPrice: triplePrice,
         fourPersonPrice: fourPrice,
         familyPrice: familyPrice,
-        review: review,
+        numberOfRooms: numberOfRooms,
         wifi: wifi,
         bed: bed,
         chair: chair,
@@ -132,6 +132,7 @@ class ApisClass {
         shareAbleBathRoom: shareAbleBathRoom,
         average: 0.0,
         numberOfRating: 0,
+        roomAvailable: true,
         userRentId: time);
     return await firebaseFirestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
   }
@@ -153,7 +154,7 @@ class ApisClass {
       fourPrice,
       familyPrice,
       restrictedTime,
-      review,
+      numberOfRooms,
       wifi,
       bed,
       chair,
@@ -190,7 +191,7 @@ class ApisClass {
         triplePersonPrice: triplePrice,
         fourPersonPrice: fourPrice,
         familyPrice: familyPrice,
-        review: review,
+        numberOfRooms: numberOfRooms,
         wifi: wifi,
         bed: bed,
         chair: chair,
@@ -216,6 +217,7 @@ class ApisClass {
         shareAbleBathRoom: shareAbleBathRoom,
         average: 0.0,
         numberOfRating: 0,
+        roomAvailable: true,
         userRentId: time);
 
     return await firebaseFirestore
@@ -370,19 +372,21 @@ class ApisClass {
   }
 
   //update Rent Details data
-  static Future<void> updateRentDetailsData(name, address, city, landMark, number, itemID) async {
+  static Future<void> updateRentDetailsData(name, address, city, landMark, number,numberOfRoom ,itemID) async {
     //rent collection data base
     await firebaseFirestore
         .collection("rentCollection")
         .doc(itemID)
-        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address});
+        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address,
+      'numberOfRooms':numberOfRoom});
 //user personal collection data base
     await firebaseFirestore
         .collection("userRentDetails")
         .doc(user.uid)
         .collection(user.uid)
         .doc(itemID)
-        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address});
+        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address,
+      'numberOfRooms':numberOfRoom});
   }
 
   // update Room type And Price Data
@@ -402,6 +406,16 @@ class ApisClass {
       'familyPrice': family,
       'fourPersonPrice': four,
       'singlePersonPrice': single
+    });
+  }
+
+ static Future<void>updateRoomAvailable(roomAvailable, itemId)async{
+    await firebaseFirestore.collection("rentCollection").doc(itemId).update({
+       'roomAvailable':roomAvailable
+    });
+//user personal collection data base
+    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+      'roomAvailable':roomAvailable
     });
   }
 

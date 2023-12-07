@@ -12,6 +12,7 @@ import '../../model/user_rent_model/user_rent_model.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
 import '../../utils/icon_and_name_widgets/Icon_Write_And_Wrong_Widgets.dart';
+import 'edit_screen/controller/controller.dart';
 
 class EditAddNewHomeScreen extends StatelessWidget {
   EditAddNewHomeScreen({super.key});
@@ -21,6 +22,8 @@ class EditAddNewHomeScreen extends StatelessWidget {
   UserRentModel data = Get.arguments['list'];
 
   final imageUrl = Get.arguments['url'];
+
+  final controller = Get.put(EditFormScreenController(Get.arguments['list'],Get.arguments["id"]));
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +63,40 @@ class EditAddNewHomeScreen extends StatelessWidget {
                     });
                   },
                   title: "Delete"),
+
+              const SizedBox(
+                height: AppSizes.spaceBtwItems,
+              ),
+
+
+
+            Obx(
+                ()=> Align(
+                  alignment: Alignment.center,
+                  child: FilterChip(
+                    label:(controller.available.value)
+                      ? Text("    Room Available    ")
+                    :  Text("Room Not Available "),
+                    selected: controller.available.value,
+                    onSelected: (value){
+                      controller.available.value = value;
+                      controller.onRoomAvailableButton(value);
+                      print(value);
+                    },
+                    backgroundColor: AppColors.primary,
+                    selectedColor: Colors.green,
+
+ 
+                    showCheckmark: false,
+                    padding:  EdgeInsets.symmetric(horizontal: 105,vertical: 10 ),
+
+
+                    ),
+                ),
+            ),
+
+
+
 
               const SizedBox(
                 height: 50,
@@ -110,6 +147,16 @@ class EditAddNewHomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+
+                    Obx(
+                      ()=> (controller.available.value)
+                          ?  Text("Available :- ${data.numberOfRooms}",style: TextStyle(color: Colors.green),)
+                          : Text("Not Available",style: TextStyle(color: Colors.red),),
+                    ),
+                    const SizedBox(
+                      height: AppSizes.sizeBoxSpace * 2,
+                    ),
                     // House Address
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -20,6 +20,7 @@ class EditFormScreenController extends GetxController {
   Rx<TextEditingController> cityNameController = TextEditingController().obs;
   Rx<TextEditingController> landMarkController = TextEditingController().obs;
   Rx<TextEditingController> contactNumberController = TextEditingController().obs;
+  Rx<TextEditingController> numberOfRoomsController = TextEditingController().obs;
 
   Rx<TextEditingController> singlePersonController = TextEditingController().obs;
   Rx<TextEditingController> doublePersonController = TextEditingController().obs;
@@ -28,6 +29,7 @@ class EditFormScreenController extends GetxController {
   Rx<TextEditingController> familyPersonController = TextEditingController().obs;
 
   Rx<TextEditingController> restrictedController = TextEditingController(text: "").obs;
+  RxBool available = true.obs;
 
   RxBool checkboxSingle1 = false.obs;
   RxBool checkboxDouble2 = false.obs;
@@ -86,6 +88,7 @@ class EditFormScreenController extends GetxController {
     cityNameController = TextEditingController(text: data.city).obs;
     landMarkController = TextEditingController(text: data.landMark).obs;
     contactNumberController = TextEditingController(text: data.contactNumber).obs;
+    numberOfRoomsController = TextEditingController(text: data.numberOfRooms).obs;
 
     singlePersonController = TextEditingController(text: data.singlePersonPrice).obs;
     doublePersonController = TextEditingController(text: data.doublePersonPrice).obs;
@@ -94,6 +97,8 @@ class EditFormScreenController extends GetxController {
     familyPersonController = TextEditingController(text: data.familyPrice).obs;
 
     restrictedController = TextEditingController(text: data.restrictedTime).obs;
+
+    available = data.roomAvailable!.obs;
 
     checkboxSingle1 = (data.singlePersonPrice != null).obs;
     checkboxDouble2 = (data.doublePersonPrice != null).obs;
@@ -226,6 +231,7 @@ class EditFormScreenController extends GetxController {
                 cityNameController.value.text,
                 landMarkController.value.text,
                 contactNumberController.value.text,
+                numberOfRoomsController.value.text,
                 itemId)
             .then((value) {
           Get.snackbar("Update", "Successfully");
@@ -338,4 +344,14 @@ class EditFormScreenController extends GetxController {
       }
     });
   }
+
+  onRoomAvailableButton(bool value){
+    ApisClass.updateRoomAvailable(value, itemId).then((value){
+      AppHelperFunction.showFlashbar("change Successfully.");
+    }).onError((error, stackTrace){
+      AppHelperFunction.showFlashbar("Failed to change");
+    });
+  }
+
+
 }

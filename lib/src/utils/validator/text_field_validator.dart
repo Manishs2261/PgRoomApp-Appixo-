@@ -52,3 +52,9 @@ class NameValidator {
     return value==null ||value.isEmpty ? "Name can't be empty" : null;
   }
 }
+
+class CommonUse {
+  static String? validate(String? value) {
+    return value==null ||value.isEmpty ? "Box can't be empty" : null;
+  }
+}

@@ -19,6 +19,12 @@ class AllDetailsWidgets extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+              (controller.data.roomAvailable!)
+                ?  Text("Available :- ${controller.data.numberOfRooms} Rooms",style: TextStyle(color: Colors.green),)
+                : Text("Not Available",style: TextStyle(color: Colors.red),),
+          const SizedBox(
+            height: AppSizes.sizeBoxSpace * 2,
+          ),
           // House Address
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,

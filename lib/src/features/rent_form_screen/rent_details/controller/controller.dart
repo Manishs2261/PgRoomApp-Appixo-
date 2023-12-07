@@ -10,6 +10,7 @@ class RentDetailsController extends GetxController {
   final cityNameController = TextEditingController().obs;
   final landMarkController = TextEditingController().obs;
   final contactNumberController = TextEditingController().obs;
+  final numberOfRoomsController = TextEditingController().obs;
   RxBool loading = false.obs;
 
   onSubmitButton() async {

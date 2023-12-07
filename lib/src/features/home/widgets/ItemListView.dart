@@ -35,8 +35,12 @@ class ItemListView extends StatelessWidget {
               });
             },
             child: Container(
-              height: 180,
+
               width: double.infinity,
+              constraints: BoxConstraints(
+                minHeight: 180,
+                maxHeight: 200
+              ),
               decoration: BoxDecoration(
                   color: dark ? AppColors.dark : const Color.fromRGBO(200, 200, 40, 0.01),
                   boxShadow: const [
@@ -141,7 +145,16 @@ class ItemListView extends StatelessWidget {
                         Text("City - ${rentList[index].city}"),
                         (rentList[index].bhkType!.isEmpty)
                             ? Text("Room Type - ${rentList[index].roomType}")
-                            : Text("Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}")
+                            : Text("Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}"),
+
+                        const SizedBox(
+                          height: 3,
+                        ),
+
+                        (rentList[index].roomAvailable!)
+                        ?  Text("Available :- ${rentList[index].numberOfRooms}",style: TextStyle(color: Colors.green),)
+                            : Text("Not Available",style: TextStyle(color: Colors.red),)
+
                       ],
                     ),
                   ),
