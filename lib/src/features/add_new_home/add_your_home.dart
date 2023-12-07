@@ -144,8 +144,8 @@ class AddYourHome extends StatelessWidget {
                                                     color: Colors.yellow,
                                                     size: 17,
                                                   ),
-                                                  Text("${rentList[index].review}"),
-                                                  const Text(" (28 reviews)")
+                                                  Text("${rentList[index].average}"),
+                                                   Text(" (${rentList[index].numberOfRating} Reviews)")
                                                 ],
                                               ),
                                               const SizedBox(

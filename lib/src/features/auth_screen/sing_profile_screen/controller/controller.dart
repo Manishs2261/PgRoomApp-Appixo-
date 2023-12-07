@@ -39,24 +39,19 @@ class SignProfileScreenControllter extends GetxController {
   }
 
   onSubmitButton() {
-    //check the internet connection
+    //AppHelperFunction.showDialogCenter(false);
+    print(controller.emailController.value.text);
+
+   // check the internet connection
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
+        AppHelperFunction.showDialogCenter(false);
         loading.value = true;
         AuthApisClass.singEmailIdAndPassword(controller.emailController.value.text, passwordController.value.text)
             .then((value) async {
           //in this condition
           //if email is already exist not sing
 
-          ApisClass.saveUserData(
-                  nameController.value.text, cityNameController.value.text, controller.emailController.value.text,imageUrl)
-              .then((value) {
-            Get.snackbar("Save", "successfully");
-          }).onError((error, stackTrace) {
-            AppLoggerHelper.error("Email save Error");
-            AppLoggerHelper.error(error.toString());
-            AppLoggerHelper.error(stackTrace.toString());
-          });
 
           // Login sharedPreference code +++++++++
           SharedPreferences preference = await SharedPreferences.getInstance();
@@ -68,7 +63,26 @@ class SignProfileScreenControllter extends GetxController {
           alreadyExistUser.value = value;
           loading.value = false;
 
-          if (alreadyExistUser.value) Get.offAllNamed(RoutesName.homeScreen);
+          if (alreadyExistUser.value) {
+            Get.offAllNamed(RoutesName.homeScreen);
+            ApisClass.saveUserData(
+                nameController.value.text, cityNameController.value.text, controller.emailController.value.text,
+                imageUrl.value)
+                .then((value) {
+              Get.snackbar("Save", "successfully");
+            }).onError((error, stackTrace) {
+              AppLoggerHelper.error("Email save Error");
+              AppLoggerHelper.error(error.toString());
+              AppLoggerHelper.error(stackTrace.toString());
+            });
+            print("home");
+          }else{
+            Get.offAllNamed(RoutesName.loginScreen);
+
+          }
+
+
+
         });
       }
     });

@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ApisClass.getUserData();
+
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
       floatingActionButton: FloatingActionButton(

@@ -26,25 +26,20 @@ class ProfileController extends GetxController {
   }
 
   Future pickImageFromGallery(ImageSource imageSource) async {
-    final pickFile = await ImagePicker().pickImage(source: imageSource, imageQuality: 70);
+    final pickFile = await ImagePicker().pickImage(source: imageSource, imageQuality: 50);
     if (pickFile == null) {
       AppHelperFunction.showFlashbar("Image not selected.");
     } else {
       image.value = pickFile.path.toString();
     }
 
-    showDialog(
-        context: Get.context!,
-        builder: (context) {
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.white,),
-          );
-        });
+    AppHelperFunction.showDialogCenter(false);
     ApisClass.updateUserImage(File(image.value)).then((value){
+      Navigator.pop(Get.context!);
       AppHelperFunction.showFlashbar("Image Successfully upload.");
 
-
     }).onError((error, stackTrace) {
+      Navigator.pop(Get.context!);
       AppHelperFunction.showFlashbar("Image uploading Failed");
     });
   }
@@ -54,13 +49,18 @@ class ProfileController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if(value){
         loading.value = true;
+        AppHelperFunction.showDialogCenter(false);
         ApisClass.updateUserData(updateNameController.value.text, updateCityController.value.text).then((value) {
+
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
 
           Get.snackbar("Update Profile", "Successfully");
           loading.value = false;
-       Navigator.pop(Get.context!);
+
         }).onError((error, stackTrace) {
           loading.value = false;
+          Navigator.pop(Get.context!);
           Get.snackbar("Update Profile", "Failed");
         });
 

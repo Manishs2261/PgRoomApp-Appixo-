@@ -96,6 +96,7 @@ class AuthApisClass {
             "This password is weak use Number,"
                 "Character");
       } else if (e.code == 'email-already-in-use') {
+        print(e.code);
         Get.snackbar("Email-already-in-use", "This email id is already exist");
         return false;
       }

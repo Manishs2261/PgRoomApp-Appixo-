@@ -184,7 +184,7 @@ class DrawerScreen extends StatelessWidget {
                         confirm: ElevatedButton(onPressed: (){
                           ApisClass.removeUser().then((value) {
                             if(value){
-                              Get.toNamed(RoutesName.loginScreen);
+                              Get.offAllNamed(RoutesName.loginScreen);
                             }
                           });
                         }, child: Text("YES")),

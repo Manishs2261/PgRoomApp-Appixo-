@@ -2,13 +2,15 @@ class UserPersonModel {
   String? city;
   String? email;
   String? name;
+  String? userImage;
 
-  UserPersonModel({this.city, this.email, this.name});
+  UserPersonModel({this.city, this.email, this.name,this.userImage});
 
   UserPersonModel.fromJson(Map<String, dynamic> json) {
-    city = json['city'];
-    email = json['email'];
-    name = json['Name'];
+    city = json['city'] ?? '';
+    email = json['email'] ?? '';
+    name = json['Name'] ?? '';
+    userImage = json['userImage'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -16,6 +18,7 @@ class UserPersonModel {
     data['city'] = this.city;
     data['email'] = this.email;
     data['Name'] = this.name;
+    data['userImage'] = this.userImage;
     return data;
   }
 }

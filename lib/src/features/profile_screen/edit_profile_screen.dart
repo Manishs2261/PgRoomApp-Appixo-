@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/profile_screen/contorller/profile_controller.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../utils/validator/text_field_validator.dart';
 
@@ -14,6 +15,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build -EditProfileScreen ");
     return Scaffold(
       appBar: AppBar(
         title: Text("Edit Profile"),
