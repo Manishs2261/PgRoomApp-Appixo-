@@ -13,6 +13,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../data/repository/apis/apis.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
+import '../../navigation_menu.dart';
 import '../drawer_screen/drawer_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,10 +31,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-
-          var i = 0.25540025450000;
-          var b = i.toStringAsFixed(1);
-          print(double.parse(i.toStringAsFixed(1)));
+ Navigator.push(context, MaterialPageRoute(builder: (context)=> NavigationMenu()));
         },
       ),
       //==PreferredSize provide a maximum appbar length
