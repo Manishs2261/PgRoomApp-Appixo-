@@ -16,8 +16,8 @@ class AddImageController extends GetxController {
 
   RxBool loading = false.obs;
 
-  // for storing a more image in list
-  RxList imageFileList = [].obs;
+  // // for storing a more image in list
+  // RxList imageFileList = [].obs;
 
   // image picker form Gallery
   RxString selectedCoverImage = "".obs;

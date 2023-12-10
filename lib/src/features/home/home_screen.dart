@@ -31,7 +31,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
- Navigator.push(context, MaterialPageRoute(builder: (context)=> NavigationMenu()));
+
+          Get.offAllNamed(RoutesName.navigationScreen);
+ //Navigator.push(context, MaterialPageRoute(builder: (context)=> NavigationMenuScreen()));
         },
       ),
       //==PreferredSize provide a maximum appbar length

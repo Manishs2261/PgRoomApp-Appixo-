@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:pgroom/src/model/tiffin_services_model/tiffen_services_model.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
@@ -26,11 +27,14 @@ class ApisClass {
 
   static var coverImageDownloadUrl;
   static var userRentId = "";
+  static var tiffineServicesId = '';
+  static var tiffineServicesUrl ='';
+  static var foodMenuUrl = '';
   static var userName;
   static var otherDownloadUrl;
   static var userEmail;
   static var userCity;
-  static var userImage;
+  static var userImage = "";
   static var reviewId = "";
 
   static var starOne;
@@ -691,6 +695,92 @@ class ApisClass {
       AppLoggerHelper.info("data in not delete $e");
     }
   }
+
+//=========================================================
+
+
+//==============Tiffine Services Apis =====================
+
+static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,menuImage)async{
+
+    final tiffineList = TiffineServicesModel(
+      address: address,
+      averageRating: "0.0",
+      foodImage: coverImage,
+      foodPrice: price,
+      menuImage: menuImage,
+      numberOfRating: "0",
+      servicesName: servicesName,
+    );
+
+    return await firebaseFirestore.collection("tiffineServicesCollection").doc(tiffineServicesId).set(tiffineList.toJson
+      ());
+
+}
+
+
+  static Future<void>addYourTiffineServicesUserAccount(coverImage,servicesName,address,price,menuImage)async{
+
+    final tiffineList = TiffineServicesModel(
+      address: address,
+      averageRating: "0.0",
+      foodImage: coverImage,
+      foodPrice: price,
+      menuImage: menuImage,
+      numberOfRating: "0",
+      servicesName: servicesName,
+    );
+
+    return await firebaseFirestore
+        .collection("userTiffineCollection")
+        .doc(user.uid)
+        .collection(user.uid)
+        .add(tiffineList.toJson())
+        .then((value) {
+      AppLoggerHelper.info(value.id);
+      tiffineServicesId = value.id;
+      return null;
+    });
+
+  }
+
+
+
+  // upload  Cover image data in firebase database
+  static Future uploadTiffineServicesImage(File imageFile) async {
+    try {
+      final reference = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      tiffineServicesUrl = await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      AppLoggerHelper.info("image is not uploaded ; $e");
+    }
+  }
+
+
+
+
+  // upload  Cover image data in firebase database
+  static Future uploadMenuImage(File imageFile) async {
+    try {
+      final reference = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      foodMenuUrl = await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      AppLoggerHelper.info("image is not uploaded ; $e");
+    }
+  }
+
+//=========================================================
+
+
+
+//==============Edit  Tiffine Services Apis ===============
+
+
+
 
 //=========================================================
 }

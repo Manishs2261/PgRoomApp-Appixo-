@@ -53,7 +53,7 @@ class NameValidator {
   }
 }
 
-class CommonUse {
+class CommonUseValidator {
   static String? validate(String? value) {
     return value==null ||value.isEmpty ? "Box can't be empty" : null;
   }

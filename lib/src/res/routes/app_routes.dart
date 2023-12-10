@@ -4,6 +4,9 @@ import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
 import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/details_of_food_screen/details_of_food_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/tiffinServicesScreen.dart';
+import 'package:pgroom/src/navigation_menu.dart';
 
 import '../../features/add_new_home/add_your_home.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
@@ -185,6 +188,17 @@ class AppRoutes {
         GetPage(
             name: RoutesName.profileSCreen,
             page: () => ProfileScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.navigationScreen,
+            page: () => NavigationMenuScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.tiffinDetailsScreen,
+            page: () => TiffinDetailScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

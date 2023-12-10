@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/features/home/home_screen.dart';
+ import 'package:pgroom/src/utils/Constants/colors.dart';
 
-class NavigationMenu extends StatelessWidget {
-   NavigationMenu({super.key});
+import 'features/tiffinServicesScreen/tiffinServicesScreen.dart';
+
+class NavigationMenuScreen extends StatelessWidget {
+   NavigationMenuScreen({super.key});
 
 
 
@@ -40,6 +43,6 @@ class NavigationMenu extends StatelessWidget {
 class NavigationController extends GetxController{
 
   final RxInt selectedIndex = 0.obs;
-  final screen = [Container(color: Colors.green,),Container(color: Colors.blue,),Container(color: Colors.red,),
+  final screen = [HomeScreen(),TiffineServicesScreen(),Container(color: Colors.red,),
     Container(color: Colors.grey,),];
 }

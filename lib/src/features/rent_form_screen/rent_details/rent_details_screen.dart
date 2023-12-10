@@ -116,7 +116,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     icon: const Icon(Icons.home_work_rounded),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                    validator: CommonUse.validate,
+                    validator: CommonUseValidator.validate,
                   ),
 
                   const SizedBox(

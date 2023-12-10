@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/navigation_menu.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -50,7 +51,13 @@ class LoginScreenController extends GetxController {
             //initialize  a varible
             finalUserUidGlobal = prefrence.getString('userUid');
             //========================
-            Get.offAllNamed(RoutesName.homeScreen);
+          //  Get.offAllNamed(RoutesName.navigationScreen);
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                NavigationMenuScreen()), (Route<dynamic> route) => false);
+
+
+
+
           }
         }).onError((error, stackTrace) {
 

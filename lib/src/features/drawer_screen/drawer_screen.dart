@@ -8,6 +8,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -33,7 +34,7 @@ class DrawerScreen extends StatelessWidget {
       child: LiquidPullToRefresh(
 
         onRefresh: () {
-          return Future.delayed(Duration(seconds: 2),(){
+          return Future.delayed(const Duration(seconds: 2),(){
             ApisClass.getUserData();
           });
         },
@@ -86,7 +87,7 @@ class DrawerScreen extends StatelessWidget {
                                           height: 60,
                                           fit: BoxFit.cover,
                                           imageUrl: ApisClass.userImage,
-                                          placeholder: (context,_)=>SpinKitFadingCircle(
+                                          placeholder: (context,_)=>const SpinKitFadingCircle(
                                             color: AppColors.primary,
                                             size: 35,
                                           ),
@@ -109,7 +110,7 @@ class DrawerScreen extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
                                           maxLines: 1,
-                                          style: TextStyle(color: Colors.white, fontSize: 18),
+                                          style: const TextStyle(color: Colors.white, fontSize: 18),
                                         ),
                                       ),
 
@@ -147,10 +148,26 @@ class DrawerScreen extends StatelessWidget {
                 // ...
               },
             ),
+
+            ListTile(
+              leading: const Icon(Icons.food_bank),
+              title: const Text('Add Your Tiffine Services'),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
+                    ?  Get.to(()=> AddYourTiffineServicesScreen())
+                    : Get.snackbar("Login", "Your not login ");
+                // Update the state of the app.
+                // ...
+              },
+            ),
             ListTile(
               leading: const Icon(Icons.person),
-              title: Text("Profile"),
-              trailing: Icon(
+              title: const Text("Profile"),
+              trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
               ),
@@ -169,8 +186,8 @@ class DrawerScreen extends StatelessWidget {
               visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
               child: ListTile(
                   leading: const Icon(Icons.logout),
-                  title: Text("Logout"),
-                  trailing: Icon(
+                  title: const Text("Logout"),
+                  trailing: const Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
                   ),
@@ -180,14 +197,14 @@ class DrawerScreen extends StatelessWidget {
                       middleText: "Are you confirming logout?.",
                        cancel: ElevatedButton(onPressed: (){
                          Navigator.pop(context);
-                       }, child:Text("NO")),
+                       }, child:const Text("NO")),
                         confirm: ElevatedButton(onPressed: (){
                           ApisClass.removeUser().then((value) {
                             if(value){
                               Get.offAllNamed(RoutesName.loginScreen);
                             }
                           });
-                        }, child: Text("YES")),
+                        }, child: const Text("YES")),
 
 
                     );

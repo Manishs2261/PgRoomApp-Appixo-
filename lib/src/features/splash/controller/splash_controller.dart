@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../navigation_menu.dart';
 
 String? finalUserUidGlobal = '';
 
@@ -23,7 +26,10 @@ class SplashController extends GetxController {
     } else {
       print(finalUserUidGlobal);
       await Future.delayed(Duration(milliseconds: 5000));
-      Get.offNamed(RoutesName.homeScreen);
+    // Get.offNamed(RoutesName.homeScreen);
+      Navigator.of(Get.context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+          NavigationMenuScreen()), (Route<dynamic> route) => false);
+
     }
   }
 }

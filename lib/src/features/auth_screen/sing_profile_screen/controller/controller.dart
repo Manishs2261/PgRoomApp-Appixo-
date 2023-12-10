@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
+import '../../../../navigation_menu.dart';
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/helpers/helper_function.dart';
 import '../../../../utils/logger/logger.dart';
@@ -64,7 +66,10 @@ class SignProfileScreenControllter extends GetxController {
           loading.value = false;
 
           if (alreadyExistUser.value) {
-            Get.offAllNamed(RoutesName.homeScreen);
+            //Get.offAllNamed(RoutesName.homeScreen);
+            Navigator.of(Get.context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                NavigationMenuScreen()), (Route<dynamic> route) => false);
+
             ApisClass.saveUserData(
                 nameController.value.text, cityNameController.value.text, controller.emailController.value.text,
                 imageUrl.value)
