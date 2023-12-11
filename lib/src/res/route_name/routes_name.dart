@@ -51,5 +51,6 @@ class RoutesName{
   static const String profileSCreen = '/profileScreen';
   static const String navigationScreen = '/navigation screen';
   static const String tiffinDetailsScreen = '/tiffenDetailsScreen';
+  static const String etidTiffineScreen = '/editTiffineScreeen';
 
 }

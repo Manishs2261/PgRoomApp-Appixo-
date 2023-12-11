@@ -2,12 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 
 import '../../../utils/Constants/colors.dart';
+import 'controller/controller.dart';
 
-class TiffinDetailScreen extends StatelessWidget {
-  const TiffinDetailScreen({super.key});
+class DetailsTiffineServicesScreen extends StatelessWidget {
+   DetailsTiffineServicesScreen({super.key});
+
+
+  final controller = Get.put(DetailsTiffineController(Get.arguments["id"], Get.arguments['list']));
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +28,8 @@ class TiffinDetailScreen extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: CachedNetworkImage(
-                imageUrl:
-                'https://media.istockphoto.com/id/1372205277/photo/traditional-indian-food-thali-served-in-plate-top-view.jpg?s=612x612&w=0&k=20&c=mufjX4i0bjmNB_9VSrbQ0zLOBH08FWZb5oFcOItclVc=',
+                imageUrl: controller.data.foodImage.toString(),
+
                 width: double.infinity,
                 height: 200,
                 fit: BoxFit.fill,
@@ -54,10 +59,11 @@ class TiffinDetailScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 15,right: 15,top: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
                 Text(
-                  " Name of Food Servises and Deviler  Name of Food Servises and Deviler",
+                  "${controller.data.servicesName}",
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
                   maxLines: 1,
@@ -68,15 +74,15 @@ class TiffinDetailScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.star,color: Colors.yellow,),
                     SizedBox(width: 2,),
-                    Text("3.4",style: TextStyle(fontSize: 17),),
+                    Text("${controller.data.averageRating}",style: TextStyle(fontSize: 17),),
                     SizedBox(width: 5,),
-                    Text("(258 Ratings)"),
+                    Text("(${controller.data.numberOfRating} Ratings)"),
                   ],
                 ),
                 SizedBox(height: 5,),
                 Row(
                   children: [
-                    Text("Price :- 50/- day  ",style: TextStyle(fontSize: 18),)
+                    Text("Price :- ${controller.data.foodPrice}/- day  ",style: TextStyle(fontSize: 18),)
                   ],
                 ),
                 SizedBox(height: 5,),
@@ -84,7 +90,7 @@ class TiffinDetailScreen extends StatelessWidget {
                   children: [
                     Text("Address :- ",style: TextStyle(fontSize: 18),),
                     Flexible(
-                      child: Text("Gour colony yadunandan nager tifra Bilaspur chhattigrh",
+                      child: Text("${controller.data.address}",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         softWrap: false,),

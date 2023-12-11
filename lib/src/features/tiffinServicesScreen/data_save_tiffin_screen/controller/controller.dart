@@ -20,7 +20,7 @@ class AddYourTiffineController extends GetxController {
   final servicesNameController = TextEditingController().obs;
   final priceController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
-   final globalKey = GlobalKey<FormState>();
+  final globalKey = GlobalKey<FormState>();
 
   // image picker form Gallery
   RxString selectedCoverImage = "".obs;
@@ -43,18 +43,14 @@ class AddYourTiffineController extends GetxController {
     });
   }
 
-
-
-
-
   Future pickMenuImageFromGallery() async {
     menuImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if ( menuImage == null) return;
-    selectedMenuImage.value =  menuImage!.path.toString();
+    if (menuImage == null) return;
+    selectedMenuImage.value = menuImage!.path.toString();
   }
 
   Future uploadMenuImage() async {
-    await ApisClass.uploadMenuImage(File( menuImage!.path)).then((value) {
+    await ApisClass.uploadMenuImage(File(menuImage!.path)).then((value) {
       Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
       // Get.snackbar("Image Upload", "Failed");
@@ -65,49 +61,32 @@ class AddYourTiffineController extends GetxController {
 
   //============================================
 
-
-  Future onUserTiffineServicesData()async{
-
-    ApisClass.addYourTiffineServicesUserAccount(
-        ApisClass.tiffineServicesUrl,
-        servicesNameController.value.text,
-        addressController.value.text,
-        priceController.value.text,
-      ApisClass.foodMenuUrl
-    ).then((value) {
+  Future onUserTiffineServicesData() async {
+    ApisClass.addYourTiffineServicesUserAccount(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
+            addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
+        .then((value) {
       print("user data upload");
       onTiffineServicesData();
     }).onError((error, stackTrace) {
-
       print("user data not upload");
       print(error);
     });
   }
 
-
-  Future onTiffineServicesData()async{
-    ApisClass.addYourTiffineServices(
-        ApisClass.tiffineServicesUrl,
-        servicesNameController.value.text,
-        addressController.value.text,
-        priceController.value.text,
-        ApisClass.foodMenuUrl
-    ).
-    then((value) {
+  Future onTiffineServicesData() async {
+    ApisClass.addYourTiffineServices(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
+            addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
+        .then((value) {
       print(" data upload");
     }).onError((error, stackTrace) {
-
       print("data not upload");
       print(error);
     });
   }
 
-
   // om submit button
   onSubmitButton() {
-
-    if(globalKey.currentState!.validate()){
-
+    if (globalKey.currentState!.validate()) {
       if (selectedCoverImage.isEmpty) {
         AppHelperFunction.showSnackBar("Cover Image can't be empty.");
       } else {
@@ -119,10 +98,5 @@ class AddYourTiffineController extends GetxController {
         });
       }
     }
-
   }
-
-
-
-
 }

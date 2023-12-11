@@ -4,7 +4,8 @@ import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
 import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/details_of_food_screen/details_of_food_screen.dart';
+ import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/tiffinServicesScreen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
 
@@ -196,10 +197,20 @@ class AppRoutes {
             page: () => NavigationMenuScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
+
         GetPage(
             name: RoutesName.tiffinDetailsScreen,
-            page: () => TiffinDetailScreen(),
+            page: () => DetailsTiffineServicesScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
+
+
+        GetPage(
+            name: RoutesName.etidTiffineScreen,
+            page: () => EditTiffineScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+
       ];
 }
