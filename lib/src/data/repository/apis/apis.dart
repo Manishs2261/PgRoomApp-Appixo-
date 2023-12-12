@@ -28,7 +28,7 @@ class ApisClass {
   static var coverImageDownloadUrl;
   static var userRentId = "";
   static var tiffineServicesId = '';
-  static var tiffineServicesUrl ='';
+  static var tiffineServicesUrl = '';
   static var foodMenuUrl = '';
   static var userName;
   static var otherDownloadUrl;
@@ -376,21 +376,25 @@ class ApisClass {
   }
 
   //update Rent Details data
-  static Future<void> updateRentDetailsData(name, address, city, landMark, number,numberOfRoom ,itemID) async {
+  static Future<void> updateRentDetailsData(name, address, city, landMark, number, numberOfRoom, itemID) async {
     //rent collection data base
-    await firebaseFirestore
-        .collection("rentCollection")
-        .doc(itemID)
-        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address,
-      'numberOfRooms':numberOfRoom});
+    await firebaseFirestore.collection("rentCollection").doc(itemID).update({
+      'houseName': name,
+      'contactNumber': number,
+      'landMark': landMark,
+      'city': city,
+      'address': address,
+      'numberOfRooms': numberOfRoom
+    });
 //user personal collection data base
-    await firebaseFirestore
-        .collection("userRentDetails")
-        .doc(user.uid)
-        .collection(user.uid)
-        .doc(itemID)
-        .update({'houseName': name, 'contactNumber': number, 'landMark': landMark, 'city': city, 'address': address,
-      'numberOfRooms':numberOfRoom});
+    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemID).update({
+      'houseName': name,
+      'contactNumber': number,
+      'landMark': landMark,
+      'city': city,
+      'address': address,
+      'numberOfRooms': numberOfRoom
+    });
   }
 
   // update Room type And Price Data
@@ -413,14 +417,15 @@ class ApisClass {
     });
   }
 
- static Future<void>updateRoomAvailable(roomAvailable, itemId)async{
-    await firebaseFirestore.collection("rentCollection").doc(itemId).update({
-       'roomAvailable':roomAvailable
-    });
+  static Future<void> updateRoomAvailable(roomAvailable, itemId) async {
+    await firebaseFirestore.collection("rentCollection").doc(itemId).update({'roomAvailable': roomAvailable});
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
-      'roomAvailable':roomAvailable
-    });
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({'roomAvailable': roomAvailable});
   }
 
 //=========================================================
@@ -487,8 +492,12 @@ class ApisClass {
     // updating image in firebase  database
     var updateUserImage = await ref.getDownloadURL();
 
-    await firebaseFirestore.collection('loginUser').doc(user.uid).collection(user.uid).doc(user.uid).update
-      ({'userImage': updateUserImage});
+    await firebaseFirestore
+        .collection('loginUser')
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(user.uid)
+        .update({'userImage': updateUserImage});
 
     //rent collection data base
   }
@@ -652,7 +661,7 @@ class ApisClass {
           .doc(deleteId)
           .delete();
 
-        //delete a review collection data
+      //delete a review collection data
 
       final batch = firebaseFirestore.batch();
       var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
@@ -661,8 +670,6 @@ class ApisClass {
         batch.delete(doc.reference);
       }
       await batch.commit();
-
-
 
       // Delete the document.
       await documentReference.delete();
@@ -696,13 +703,69 @@ class ApisClass {
     }
   }
 
-//=========================================================
 
+
+
+
+
+
+
+
+
+  static Future<void> deleteTiffineServicesData(String deleteId) async {
+    try {
+      //delete a Firestorm
+      DocumentReference documentReference =
+      firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
+
+      DocumentReference documentReference1 = firebaseFirestore.collection('tiffineServicesCollection').doc(deleteId);
+
+      // //Rating Summary data
+      // await firebaseFirestore
+      //     .collection("userReview")
+      //     .doc("reviewCollection")
+      //     .collection("$deleteId")
+      //     .doc(deleteId)
+      //     .collection("reviewSummary")
+      //     .doc(deleteId)
+      //     .delete();
+
+    //   // This review  data save in user account only
+    //   await firebaseFirestore
+    //       .collection("loginUser")
+    //       .doc(user.uid)
+    //       .collection(auth.currentUser!.uid)
+    //       .doc(deleteId)
+    //       .delete();
+    //
+    //   //delete a review collection data
+    //
+    //   final batch = firebaseFirestore.batch();
+    //   var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+    //   var snapshots = await collection.get();
+    //   for (var doc in snapshots.docs) {
+    //     batch.delete(doc.reference);
+    //   }
+    //   await batch.commit();
+    //
+    //   // Delete the document.
+      await documentReference.delete();
+      await documentReference1.delete();
+    //
+    //   // delete a firestorm image data
+    //   final ref = storage.refFromURL(imageUrl);
+    //   await ref.delete();
+    } catch (e) {
+      AppLoggerHelper.info("data in not delete $e");
+     }
+  }
+
+
+//=========================================================
 
 //==============Tiffine Services Apis =====================
 
-static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,menuImage)async{
-
+  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage) async {
     final tiffineList = TiffineServicesModel(
       address: address,
       averageRating: "0.0",
@@ -713,14 +776,13 @@ static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,
       servicesName: servicesName,
     );
 
-    return await firebaseFirestore.collection("tiffineServicesCollection").doc(tiffineServicesId).set(tiffineList.toJson
-      ());
+    return await firebaseFirestore
+        .collection("tiffineServicesCollection")
+        .doc(tiffineServicesId)
+        .set(tiffineList.toJson());
+  }
 
-}
-
-
-  static Future<void>addYourTiffineServicesUserAccount(coverImage,servicesName,address,price,menuImage)async{
-
+  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage) async {
     final tiffineList = TiffineServicesModel(
       address: address,
       averageRating: "0.0",
@@ -741,10 +803,7 @@ static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,
       tiffineServicesId = value.id;
       return null;
     });
-
   }
-
-
 
   // upload  Cover image data in firebase database
   static Future uploadTiffineServicesImage(File imageFile) async {
@@ -757,9 +816,6 @@ static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,
       AppLoggerHelper.info("image is not uploaded ; $e");
     }
   }
-
-
-
 
   // upload  Cover image data in firebase database
   static Future uploadMenuImage(File imageFile) async {
@@ -775,12 +831,100 @@ static Future<void>addYourTiffineServices(coverImage,servicesName,address,price,
 
 //=========================================================
 
-
-
 //==============Edit  Tiffine Services Apis ===============
 
+  //update Rent Details data
+  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId) async {
+    //rent collection data base
+    await firebaseFirestore.collection("tiffineServicesCollection").doc(itemId).update({
+      'foodPrice': price,
+      'address': address,
+      'servicesName': servicesName,
+
+    });
+//user personal collection data base
+    await firebaseFirestore.collection("userTiffineCollection").doc(user.uid).collection(user.uid).doc(itemId).update({
+      'foodPrice': servicesName,
+      'address': address,
+      'servicesName': servicesName,
+
+    });
+  }
 
 
+
+
+
+
+
+  // update cover Image data
+  static Future<void> updateTiffineCoverImage(File file, String itemId) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    AppLoggerHelper.info('Extension :$ext');
+
+    // storage file ref with path
+    final ref = storage.ref().child('tiffineServices/${user.uid}.$ext');
+
+    // uploading image
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
+      AppLoggerHelper.info('Data Transferred :${p0.bytesTransferred / 1000} kb');
+    });
+
+    // updating image in firebase  database
+    final tiffineUrl = await ref.getDownloadURL();
+
+    //rent collection data base
+    await firebaseFirestore.collection('tiffineServicesCollection').doc(itemId).update({''
+         'foodImage': tiffineUrl,});
+//user personal collection data base
+    await firebaseFirestore
+        .collection("userTiffineCollection")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
+      'foodImage': tiffineUrl
+        });
+  }
+
+
+
+
+
+  // update cover Image data
+  static Future<void> updateTiffineMenuImage(File file, String itemId) async {
+    //getting image file extension
+    final ext = file.path.split('.').last;
+    AppLoggerHelper.info('Extension :$ext');
+
+    // storage file ref with path
+    final ref = storage.ref().child('foodMenu/${user.uid}.$ext');
+
+    // uploading image
+    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
+      AppLoggerHelper.info('Data Transferred :${p0.bytesTransferred / 1000} kb');
+    });
+
+    // updating image in firebase  database
+    final tiffineMenuUrl = await ref.getDownloadURL();
+
+    //rent collection data base
+    await firebaseFirestore.collection('tiffineServicesCollection').doc(itemId).update({
+       'menuImage': tiffineMenuUrl,});
+//user personal collection data base
+    await firebaseFirestore
+        .collection("userTiffineCollection")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
+      'menuImage': tiffineMenuUrl
+    });
+  }
 
 //=========================================================
+
+
+
 }

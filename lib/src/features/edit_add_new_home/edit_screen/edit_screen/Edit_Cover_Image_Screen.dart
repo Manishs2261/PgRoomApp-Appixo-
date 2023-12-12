@@ -22,7 +22,7 @@ class EditCoverImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build -EditCoverImageScreen ");
-    final dark = AppHelperFunction.isDarkMode(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Cover Image"),
