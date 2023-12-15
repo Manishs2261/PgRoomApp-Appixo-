@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
@@ -24,17 +25,20 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
         appBar: AppBar(),
         body: Column(
           children: [
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             ComReuseElevButton(
                 onPressed: () {
                   Get.to(() => DataSaveTiffineScreen());
                 },
                 title: "Add your Tiffine Services"),
-
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Expanded(
               child: StreamBuilder(
-                  stream:  ApisClass.firebaseFirestore
+                  stream: ApisClass.firebaseFirestore
                       .collection('userTiffineCollection')
                       .doc(ApisClass.user.uid)
                       .collection(ApisClass.user.uid)
@@ -162,38 +166,47 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                           height: 5,
                                         ),
                                         Row(
-                                          children: [
-                                            Text("Stating Price :- ${tiffineList[index].foodPrice} Ru  day/- ")
-                                          ],
+                                          children: [Text("Stating Price :- ${tiffineList[index].foodPrice} ₹ day/- ")],
                                         ),
-
-
-                                      SizedBox(height: 30,),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: [
-
-                                          OutlinedButton(onPressed: (){
-
-                                            Get.toNamed(RoutesName.etidTiffineScreen,arguments: {
-                                              'list': tiffineList[index],
-                                              'id': snapshot.data?.docs[index].id,
-                                            });
-
-                                          }, child:Text("Edit",style: TextStyle(color:
-                                          Colors.blueAccent),),
-                                         ),
-
-                                          OutlinedButton(onPressed: (){
-                                            ApisClass.deleteTiffineServicesData(snapshot.data!.docs[index].id);
-                                          }, child:Text("Delete",style: TextStyle(color:
-                                          Colors.blueAccent),),
-                                          ),
-
-                                        ],
-                                      )
-
-
+                                        SizedBox(
+                                          height: 30,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            OutlinedButton(
+                                              onPressed: () {
+                                                Get.toNamed(RoutesName.etidTiffineScreen, arguments: {
+                                                  'list': tiffineList[index],
+                                                  'id': snapshot.data?.docs[index].id,
+                                                });
+                                              },
+                                              child: Text(
+                                                "Edit",
+                                                style: TextStyle(color: Colors.blueAccent),
+                                              ),
+                                            ),
+                                            OutlinedButton(
+                                              onPressed: () {
+                                                AppHelperFunction.showAlert(
+                                                    "Delete",
+                                                    "Are you sure delete this item?"
+                                                        ".", () {
+                                                  AppHelperFunction.showDialogCenter(false);
+                                                  ApisClass.deleteTiffineServicesData(snapshot.data!.docs[index].id)
+                                                      .then((value) {
+                                                    Navigator.pop(context);
+                                                    Navigator.pop(context);
+                                                  });
+                                                });
+                                              },
+                                              child: Text(
+                                                "Delete",
+                                                style: TextStyle(color: Colors.blueAccent),
+                                              ),
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ),

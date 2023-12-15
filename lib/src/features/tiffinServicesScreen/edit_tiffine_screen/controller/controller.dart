@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../model/tiffin_services_model/tiffen_services_model.dart';
+import '../../add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 
 class EditTiffineScreenController extends GetxController {
   var itemId;
@@ -56,15 +58,16 @@ class EditTiffineScreenController extends GetxController {
     coverImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (coverImage == null) return;
     selectedCoverImage.value = coverImage!.path.toString();
-  }
 
-  Future uploadCoverImage() async {
-    await ApisClass.uploadTiffineServicesImage(File(coverImage!.path)).then((value) {
-      Get.snackbar("Image uploaded ", "Successfully");
+    await ApisClass.updateTiffineCoverImage(File(coverImage!.path), itemId).then((value) {
+      Get.snackbar("Image upload ", "Successfully");
     }).onError((error, stackTrace) {
-      // Get.snackbar("Image Upload", "Failed");
-      AppLoggerHelper.error("image upload error", error);
-      AppLoggerHelper.error("image upload error", stackTrace);
+      Get.snackbar("Image Upload", "Failed");
+      if (kDebugMode) {
+        print(error);
+        print(stackTrace);
+      }
+
     });
   }
 
@@ -72,52 +75,42 @@ class EditTiffineScreenController extends GetxController {
     menuImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (menuImage == null) return;
     selectedMenuImage.value = menuImage!.path.toString();
+    uploadMenuImage();
   }
 
   Future uploadMenuImage() async {
-    await ApisClass.uploadMenuImage(File(menuImage!.path)).then((value) {
+    await ApisClass.updateTiffineMenuImage(File(menuImage!.path), itemId).then((value) {
       Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
-      // Get.snackbar("Image Upload", "Failed");
+      Get.snackbar("Image Upload", "Failed");
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
   }
 
-  //============================================
-
-  Future onUserEditTiffineServicesData() async {
-    ApisClass.updateTiffineServicesData(
-            servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId)
-        .then((value) {
-      print("user data Edit");
-      AppHelperFunction.showSnackBar("upadte");
-    }).onError((error, stackTrace) {
-      AppHelperFunction.showSnackBar("not upadte");
-      print(error);
-      print(stackTrace);
-    });
-  }
-
-  // om submit button
+  // on submit button
   onSubmitButton() {
-    if (globalKey.currentState!.validate()) {
-      if (selectedCoverImage.isEmpty) {
-        AppHelperFunction.showSnackBar("Cover Image can't be empty.");
-      } else {
-        loading.value = true;
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        if (globalKey.currentState!.validate()) {
+          AppHelperFunction.showDialogCenter(false);
+          ApisClass.updateTiffineServicesData(
+                  servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId)
+              .then((value) {
+            Get.snackbar("Update", "Successfully");
+            Navigator.pop(Get.context!);
+            Navigator.pop(Get.context!);
+          }).onError((error, stackTrace) {
+            Get.snackbar("Update", "Failed");
+            Navigator.pop(Get.context!);
+            if (kDebugMode) {
+              print(error);
+              print(stackTrace);
+            }
 
-
-        ApisClass.updateTiffineCoverImage(File(coverImage!.path),itemId).then((value) {
-          AppHelperFunction.showFlashbar("update");
-
-        }).onError((error, stackTrace) {
-
-          AppHelperFunction.showFlashbar(" not update");
-        });
-
-
+          });
+        }
       }
-    }
+    });
   }
 }

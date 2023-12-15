@@ -34,10 +34,7 @@ class AddYourTiffineController extends GetxController {
   }
 
   Future uploadCoverImage() async {
-    await ApisClass.uploadTiffineServicesImage(File(coverImage!.path)).then((value) {
-      Get.snackbar("Image uploaded ", "Successfully");
-    }).onError((error, stackTrace) {
-      // Get.snackbar("Image Upload", "Failed");
+    await ApisClass.uploadTiffineServicesImage(File(coverImage!.path)).then((value) {}).onError((error, stackTrace) {
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
@@ -50,10 +47,7 @@ class AddYourTiffineController extends GetxController {
   }
 
   Future uploadMenuImage() async {
-    await ApisClass.uploadMenuImage(File(menuImage!.path)).then((value) {
-      Get.snackbar("Image uploaded ", "Successfully");
-    }).onError((error, stackTrace) {
-      // Get.snackbar("Image Upload", "Failed");
+    await ApisClass.uploadMenuImage(File(menuImage!.path)).then((value) {}).onError((error, stackTrace) {
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
@@ -65,7 +59,6 @@ class AddYourTiffineController extends GetxController {
     ApisClass.addYourTiffineServicesUserAccount(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
             addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
         .then((value) {
-      print("user data upload");
       onTiffineServicesData();
     }).onError((error, stackTrace) {
       print("user data not upload");
@@ -77,9 +70,12 @@ class AddYourTiffineController extends GetxController {
     ApisClass.addYourTiffineServices(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
             addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
         .then((value) {
-      print(" data upload");
+ Get.snackbar("Save", "Successfully");
+ Navigator.pop(Get.context!);
+ Navigator.pop(Get.context!);
     }).onError((error, stackTrace) {
-      print("data not upload");
+      Get.snackbar("Save", "Failed");
+        Navigator.pop(Get.context!);
       print(error);
     });
   }
@@ -90,7 +86,8 @@ class AddYourTiffineController extends GetxController {
       if (selectedCoverImage.isEmpty) {
         AppHelperFunction.showSnackBar("Cover Image can't be empty.");
       } else {
-        loading.value = true;
+
+        AppHelperFunction.showDialogCenter(false);
         uploadCoverImage().then((value) {
           uploadMenuImage().then((value) {
             onUserTiffineServicesData();

@@ -1,12 +1,8 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
@@ -17,7 +13,7 @@ import 'controller/controller.dart';
 class EditTiffineScreen extends StatelessWidget {
   EditTiffineScreen({super.key});
 
-  final controller = Get.put(EditTiffineScreenController(Get.arguments['id'],Get.arguments['list']));
+  final controller = Get.put(EditTiffineScreenController(Get.arguments['id'], Get.arguments['list']));
 
   final data = Get.arguments['list'];
 
@@ -25,7 +21,7 @@ class EditTiffineScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Edit tiffine services"),
+        title: const Text("Edit Tiffine Services"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,13 +29,12 @@ class EditTiffineScreen extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
                   children: [
                     const Text(
                       "This Image show in your Cover page",
-                      style: TextStyle(color: Colors.green),
+                      style: TextStyle(color: Colors.green, fontSize: 18),
                     ),
                     const SizedBox(
                       height: 15,
@@ -58,56 +53,54 @@ class EditTiffineScreen extends StatelessWidget {
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
-                            ()=> (controller.isSelectedCoverImage.value)
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  imageUrl: controller.selectedCoverImage.toString(),
-                                  fit: BoxFit.fill,
-                                  placeholder: (context, url) => Container(
-                                    color: Colors.transparent,
-                                    height: 100,
-                                    width: 100,
-                                    child:  SpinKitFadingCircle(
-                                      color: AppColors.primary,
-                                      size: 35,
-                                    ),
+                            () => (controller.isSelectedCoverImage.value)
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        imageUrl: controller.selectedCoverImage.toString(),
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) => Container(
+                                              color: Colors.transparent,
+                                              height: 100,
+                                              width: 100,
+                                              child: const SpinKitFadingCircle(
+                                                color: AppColors.primary,
+                                                size: 35,
+                                              ),
+                                            ),
+                                        errorWidget: (context, url, error) => Container(
+                                              width: 150,
+                                              height: 280,
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.image_outlined,
+                                                size: 50,
+                                              ),
+                                            )),
+                                  )
+                                : Obx(
+                                    () => controller.selectedCoverImage.value != ""
+                                        ? Image(
+                                            image: FileImage(File(controller.selectedCoverImage.value.toString())),
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : const Image(
+                                            image: AssetImage(AppImage.roomImage),
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
-                                  errorWidget: (context, url, error) => Container(
-                                    width: 150,
-                                    height: 280,
-                                    alignment: Alignment.center,
-                                    child: const Icon(
-                                      Icons.image_outlined,
-                                      size: 50,
-                                    ),
-                                  )),
-                            )
-
-
-                         : Obx(
-                                  () => controller.selectedCoverImage.value != ""
-                                  ? Image(
-                                image: FileImage(File(controller.selectedCoverImage.value.toString())),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                                  : const Image(
-                                image: AssetImage(AppImage.roomImage),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
                           ),
 
                           // ========for add a image button=========
 
                           Obx(
-                                () => Visibility(
+                            () => Visibility(
                               visible: (controller.selectedCoverImage.value == ""),
                               child: Positioned(
                                 top: 60,
@@ -133,25 +126,25 @@ class EditTiffineScreen extends StatelessWidget {
 
                           //==========for delete  Cover image a image===========
                           Obx(() => Visibility(
-                            visible: (controller.selectedCoverImage.value != ""),
-                            child: Positioned(
-                                right: 7,
-                                top: 7,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.selectedCoverImage.value = "";
-                                    controller.isSelectedCoverImage.value = false;
-                                  },
-                                  child: const CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: Colors.black26,
-                                    child: Text(
-                                      "X",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                )),
-                          ))
+                                visible: (controller.selectedCoverImage.value != ""),
+                                child: Positioned(
+                                    right: 7,
+                                    top: 7,
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.selectedCoverImage.value = "";
+                                        controller.isSelectedCoverImage.value = false;
+                                      },
+                                      child: const CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor: Colors.black26,
+                                        child: Text(
+                                          "X",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    )),
+                              ))
                         ],
                       ),
                     ),
@@ -162,8 +155,8 @@ class EditTiffineScreen extends StatelessWidget {
 
                     //=============================================================
                     const Text(
-                      "Choose the menu Image",
-                      style: TextStyle(color: Colors.green),
+                      "Choose the Menu Image",
+                      style: TextStyle(color: Colors.green, fontSize: 18),
                     ),
 
                     const SizedBox(
@@ -173,8 +166,8 @@ class EditTiffineScreen extends StatelessWidget {
                     //========stack container ============
                     Container(
                       alignment: Alignment.center,
-                      height: 200,
-                      width: double.infinity,
+                      height: 180,
+                      width: 300,
 
                       //======== cover image=================
                       child: Stack(
@@ -182,61 +175,58 @@ class EditTiffineScreen extends StatelessWidget {
                           // =====for initial image when your don't choose image============
 
                           Obx(
-                            ()=> (controller.isSelectedMenuImage.value)
-                            ?
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: CachedNetworkImage(
-                                  height: double.infinity,
-                                  width: double.infinity,
-                                  imageUrl: controller.selectedMenuImage.value,
-                                  fit: BoxFit.fill,
-                                  placeholder: (context, url) => Container(
-                                    color: Colors.transparent,
-                                    height: 100,
-                                    width: 100,
-                                    child: const SpinKitFadingCircle(
-                                      color: AppColors.primary,
-                                      size: 35,
-                                    ),
+                            () => (controller.isSelectedMenuImage.value)
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: CachedNetworkImage(
+                                        height: double.infinity,
+                                        width: double.infinity,
+                                        imageUrl: controller.selectedMenuImage.value,
+                                        fit: BoxFit.fill,
+                                        placeholder: (context, url) => Container(
+                                              color: Colors.transparent,
+                                              height: 100,
+                                              width: 100,
+                                              child: const SpinKitFadingCircle(
+                                                color: AppColors.primary,
+                                                size: 35,
+                                              ),
+                                            ),
+                                        errorWidget: (context, url, error) => Container(
+                                              width: 150,
+                                              height: 280,
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.image_outlined,
+                                                size: 50,
+                                              ),
+                                            )),
+                                  )
+                                : Obx(
+                                    () => controller.selectedMenuImage.value != ""
+                                        ? Image(
+                                            image: FileImage(File(controller.selectedMenuImage.value.toString())),
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : const Image(
+                                            image: AssetImage(AppImage.roomImage),
+                                            height: double.infinity,
+                                            width: double.infinity,
+                                            fit: BoxFit.cover,
+                                          ),
                                   ),
-                                  errorWidget: (context, url, error) => Container(
-                                    width: 150,
-                                    height: 280,
-                                    alignment: Alignment.center,
-                                    child: const Icon(
-                                      Icons.image_outlined,
-                                      size: 50,
-                                    ),
-                                  )),
-                            )
-
-
-                        :  Obx(
-                                  () => controller.selectedMenuImage.value != ""
-                                  ? Image(
-                                image: FileImage(File(controller.selectedMenuImage.value.toString())),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                                  : const Image(
-                                image: AssetImage(AppImage.roomImage),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
                           ),
 
                           // ========for add a image button=========
 
                           Obx(
-                                () => Visibility(
+                            () => Visibility(
                               visible: (controller.selectedMenuImage.value == ""),
                               child: Positioned(
                                 top: 60,
-                                left: 80,
+                                left: 50,
                                 child: InkWell(
                                   onTap: () {
                                     controller.pickMenuImageFromGallery();
@@ -258,25 +248,25 @@ class EditTiffineScreen extends StatelessWidget {
 
                           //==========for delete  Cover image a image===========
                           Obx(() => Visibility(
-                            visible: (controller.selectedMenuImage.value != ""),
-                            child: Positioned(
-                                right: 7,
-                                top: 7,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.selectedMenuImage.value = "";
-                                    controller.isSelectedMenuImage.value = false;
-                                  },
-                                  child: const CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: Colors.black26,
-                                    child: Text(
-                                      "X",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                )),
-                          ))
+                                visible: (controller.selectedMenuImage.value != ""),
+                                child: Positioned(
+                                    right: 7,
+                                    top: 7,
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.selectedMenuImage.value = "";
+                                        controller.isSelectedMenuImage.value = false;
+                                      },
+                                      child: const CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor: Colors.black26,
+                                        child: Text(
+                                          "X",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    )),
+                              ))
                         ],
                       ),
                     ),
@@ -325,7 +315,7 @@ class EditTiffineScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.text,
+                          textKeyBoard: TextInputType.number,
                         ),
                       ],
                     )),
@@ -339,7 +329,6 @@ class EditTiffineScreen extends StatelessWidget {
                 ComReuseElevButton(
                   onPressed: () => controller.onSubmitButton(),
                   title: "Update",
-                  loading: controller.loading.value,
                 ),
 
                 const SizedBox(

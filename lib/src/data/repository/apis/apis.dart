@@ -703,20 +703,11 @@ class ApisClass {
     }
   }
 
-
-
-
-
-
-
-
-
-
   static Future<void> deleteTiffineServicesData(String deleteId) async {
     try {
       //delete a Firestorm
       DocumentReference documentReference =
-      firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
+          firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
 
       DocumentReference documentReference1 = firebaseFirestore.collection('tiffineServicesCollection').doc(deleteId);
 
@@ -730,36 +721,35 @@ class ApisClass {
       //     .doc(deleteId)
       //     .delete();
 
-    //   // This review  data save in user account only
-    //   await firebaseFirestore
-    //       .collection("loginUser")
-    //       .doc(user.uid)
-    //       .collection(auth.currentUser!.uid)
-    //       .doc(deleteId)
-    //       .delete();
-    //
-    //   //delete a review collection data
-    //
-    //   final batch = firebaseFirestore.batch();
-    //   var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
-    //   var snapshots = await collection.get();
-    //   for (var doc in snapshots.docs) {
-    //     batch.delete(doc.reference);
-    //   }
-    //   await batch.commit();
-    //
-    //   // Delete the document.
+      //   // This review  data save in user account only
+      //   await firebaseFirestore
+      //       .collection("loginUser")
+      //       .doc(user.uid)
+      //       .collection(auth.currentUser!.uid)
+      //       .doc(deleteId)
+      //       .delete();
+      //
+      //   //delete a review collection data
+      //
+      //   final batch = firebaseFirestore.batch();
+      //   var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+      //   var snapshots = await collection.get();
+      //   for (var doc in snapshots.docs) {
+      //     batch.delete(doc.reference);
+      //   }
+      //   await batch.commit();
+      //
+      //   // Delete the document.
       await documentReference.delete();
       await documentReference1.delete();
-    //
-    //   // delete a firestorm image data
-    //   final ref = storage.refFromURL(imageUrl);
-    //   await ref.delete();
+      //
+      //   // delete a firestorm image data
+      //   final ref = storage.refFromURL(imageUrl);
+      //   await ref.delete();
     } catch (e) {
       AppLoggerHelper.info("data in not delete $e");
-     }
+    }
   }
-
 
 //=========================================================
 
@@ -840,20 +830,16 @@ class ApisClass {
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-
     });
 //user personal collection data base
     await firebaseFirestore.collection("userTiffineCollection").doc(user.uid).collection(user.uid).doc(itemId).update({
-      'foodPrice': servicesName,
+      'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-
     });
   }
 
-
-
-
+  // update cover Image data
 
 
 
@@ -875,20 +861,17 @@ class ApisClass {
     final tiffineUrl = await ref.getDownloadURL();
 
     //rent collection data base
-    await firebaseFirestore.collection('tiffineServicesCollection').doc(itemId).update({''
-         'foodImage': tiffineUrl,});
+    await firebaseFirestore.collection('tiffineServicesCollection').doc(itemId).update({
+      'foodImage': tiffineUrl,
+    });
 //user personal collection data base
     await firebaseFirestore
         .collection("userTiffineCollection")
         .doc(user.uid)
         .collection(user.uid)
         .doc(itemId)
-        .update({
-      'foodImage': tiffineUrl
-        });
+        .update({'foodImage': tiffineUrl});
   }
-
-
 
 
 
@@ -911,20 +894,16 @@ class ApisClass {
 
     //rent collection data base
     await firebaseFirestore.collection('tiffineServicesCollection').doc(itemId).update({
-       'menuImage': tiffineMenuUrl,});
+      'menuImage': tiffineMenuUrl,
+    });
 //user personal collection data base
     await firebaseFirestore
         .collection("userTiffineCollection")
         .doc(user.uid)
         .collection(user.uid)
         .doc(itemId)
-        .update({
-      'menuImage': tiffineMenuUrl
-    });
+        .update({'menuImage': tiffineMenuUrl});
   }
 
 //=========================================================
-
-
-
 }

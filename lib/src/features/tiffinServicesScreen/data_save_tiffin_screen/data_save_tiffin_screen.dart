@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
- import 'package:pgroom/src/utils/logger/logger.dart';
-
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/validator/text_field_validator.dart';
@@ -17,7 +15,6 @@ class DataSaveTiffineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     AppLoggerHelper.debug("Build - AddTiffineScreen");
     final controller = Get.put(AddYourTiffineController());
 
@@ -257,7 +254,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.text,
+                          textKeyBoard: TextInputType.number,
                         ),
                       ],
                     )),
@@ -271,7 +268,6 @@ class DataSaveTiffineScreen extends StatelessWidget {
                 ComReuseElevButton(
                   onPressed: () => controller.onSubmitButton(),
                   title: "Save",
-                  loading: controller.loading.value,
                 ),
 
                 const SizedBox(
