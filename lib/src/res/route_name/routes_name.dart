@@ -53,5 +53,7 @@ class RoutesName{
   static const String tiffinDetailsScreen = '/tiffenDetailsScreen';
   static const String etidTiffineScreen = '/editTiffineScreeen';
   static const String addYourTiffineScreen = '/addYourTiffineScreen';
+  static const String viewAllReviewTiffineScreen = '/viewAllReviewTiffine_Screen';
+  static const String searchTiffineScreen = '/searchTiffine_Screen';
 
 }

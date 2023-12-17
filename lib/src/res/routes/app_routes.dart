@@ -33,9 +33,11 @@ import '../../features/rent_form_screen/charges_and_door_timing/charges_and_door
 import '../../features/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
 import '../../features/rent_form_screen/permission/permission_screen.dart';
 import '../../features/rent_form_screen/rent_details/rent_details_screen.dart';
+import '../../features/rent_form_screen/search/search.dart';
 import '../../features/search/search.dart';
 import '../../features/splash/splash_screen.dart';
 
+import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
 import '../../features/view_all_image/view_all_image.dart';
 import '../../features/view_all_review/view_all_review.dart';
 import '../route_name/routes_name.dart';
@@ -216,6 +218,18 @@ class AppRoutes {
         GetPage(
             name: RoutesName.addYourTiffineScreen,
             page: () => AddYourTiffineServicesScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.viewAllReviewTiffineScreen ,
+            page: () => ViewAllReviewTiffineScreen (),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.searchTiffineScreen,
+            page: () => SearchTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 

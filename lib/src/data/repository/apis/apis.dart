@@ -36,6 +36,7 @@ class ApisClass {
   static var userCity;
   static var userImage = "";
   static var reviewId = "";
+  static var tiffineReviewId = "";
 
   static var starOne;
 
@@ -46,6 +47,19 @@ class ApisClass {
   static var starFour;
 
   static var starFive;
+
+  static var starOneTiffine;
+
+  static var starTwoTiffine;
+
+  static var starThreeTiffine;
+
+  static var starFourTiffine;
+
+  static var starFiveTiffine;
+
+  static var averageRatingTiffine;
+  static var totalNumberOfStarTiffine;
 
   static var averageRating;
   static var totalNumberOfStar;
@@ -758,11 +772,11 @@ class ApisClass {
   static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage) async {
     final tiffineList = TiffineServicesModel(
       address: address,
-      averageRating: "0.0",
+      averageRating: 0.0,
       foodImage: coverImage,
       foodPrice: price,
       menuImage: menuImage,
-      numberOfRating: "0",
+      numberOfRating: 0,
       servicesName: servicesName,
     );
 
@@ -775,11 +789,11 @@ class ApisClass {
   static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage) async {
     final tiffineList = TiffineServicesModel(
       address: address,
-      averageRating: "0.0",
+      averageRating: 0.0,
       foodImage: coverImage,
       foodPrice: price,
       menuImage: menuImage,
-      numberOfRating: "0",
+      numberOfRating: 0,
       servicesName: servicesName,
     );
 
@@ -841,8 +855,6 @@ class ApisClass {
 
   // update cover Image data
 
-
-
   // update cover Image data
   static Future<void> updateTiffineCoverImage(File file, String itemId) async {
     //getting image file extension
@@ -872,8 +884,6 @@ class ApisClass {
         .doc(itemId)
         .update({'foodImage': tiffineUrl});
   }
-
-
 
   // update cover Image data
   static Future<void> updateTiffineMenuImage(File file, String itemId) async {
@@ -906,4 +916,131 @@ class ApisClass {
   }
 
 //=========================================================
+
+
+
+
+
+//============== Review Apis ==============================
+
+  //get review id for check user a review submit or not
+  static Future<String> getReviewTiffineData(itemId) async {
+    var collection =
+    firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
+    var querySnapshot = await collection.get();
+    Map<String, dynamic>? data = querySnapshot.data();
+    tiffineReviewId = data?['tiffineUserId']??'';
+
+    return tiffineReviewId;
+  }
+
+  /// Rating and review create api
+  static Future<void> ratingAndReviewCreateTiffineData(ratingStar, review, itemId) async {
+    //This review data save in all viewer user
+    await firebaseFirestore.collection("TiffineReview").doc("reviewCollection").collection("$itemId").add({
+      'rating': ratingStar,
+      'title': review,
+      'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
+      'userName': ApisClass.userName,
+      'userImage': ApisClass.userImage
+    });
+
+    // This review  data save in user account only
+    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+      'tiffineUserId': itemId,
+      'tiffineRating': ratingStar,
+      'tiffineTitle': review,
+      'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
+      'userName': ApisClass.userName,
+      'userImage': ApisClass.userImage
+    });
+  }
+
+  //add ratings in  user collection  and Tiffine list collection
+  static Future<void> addRatingMainTiffineList(itemId, average, numberOfRating) async {
+    //rent collection data base
+    await firebaseFirestore
+        .collection("tiffineServicesCollection")
+        .doc(itemId)
+        .update({'averageRating': average, 'NumberOfRating': numberOfRating});
+//user personal collection data base
+    await firebaseFirestore
+        .collection("userTiffineCollection")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({'averageRating': average, 'NumberOfRating': numberOfRating});
+  }
+
+
+
+
+
+
+  //============= Rating bar Summary Apis===================
+
+  //Get in user rating bar summary data
+  static Future<void> getRatingBarSummaryTiffineData(itemId) async {
+    var collection = firebaseFirestore
+        .collection("TiffineReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId);
+    var querySnapshot = await collection.get();
+    Map<String, dynamic>? data = querySnapshot.data();
+    starOneTiffine = data?['ratingStar01'] ?? 0;
+    starTwoTiffine = data?['ratingStar02'] ?? 0;
+    starThreeTiffine = data?['ratingStar03'] ?? 0;
+    starFourTiffine = data?['ratingStar04'] ?? 0;
+    starFiveTiffine = data?['ratingStar05'] ?? 0;
+    totalNumberOfStarTiffine = data?['totalNumberOfStar'] ?? 0;
+    averageRatingTiffine = data?['averageRating'] ?? 0.0;
+  }
+
+  //save Rating Summary data
+  static Future<void> saveRatingBarSummaryTiffineData(itemId, one, two, three, four, five, avg, totalNumberOfStar)
+  async {
+    //Rating Summary data
+    await firebaseFirestore
+        .collection("TiffineReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId)
+        .set({
+      'ratingStar01': one,
+      'ratingStar02': two,
+      'ratingStar03': three,
+      'ratingStar04': four,
+      'ratingStar05': five,
+      'totalNumberOfStar': totalNumberOfStar,
+      'averageRating': avg,
+    });
+  }
+
+  //update Rating bar summary data
+  static Future<void> updateRatingBarStarSummaryTiffineData(itemId, avg, totalNumberOfStar) async {
+    //Rating Summary data
+    await firebaseFirestore
+        .collection("TiffineReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .doc(itemId)
+        .collection("reviewSummary")
+        .doc(itemId)
+        .update({
+      'totalNumberOfStar': totalNumberOfStar,
+      'averageRating': avg,
+    }).then((value) {
+      AppLoggerHelper.info("Update Rating bar average successfully");
+    }).onError((error, stackTrace) {
+      AppLoggerHelper.error("Update Rating bar average successfully");
+    });
+  }
+
+
+
 }

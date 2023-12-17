@@ -1,8 +1,8 @@
 class TiffineServicesModel {
   String? foodPrice;
-  String? averageRating;
+  double? averageRating;
   String? address;
-  String? numberOfRating;
+  int? numberOfRating;
   String? servicesName;
   String? menuImage;
   String? foodImage;
@@ -18,7 +18,7 @@ class TiffineServicesModel {
 
   TiffineServicesModel.fromJson(Map<String, dynamic> json) {
     foodPrice = json['foodPrice'];
-    averageRating = json['averageRaing '];
+    averageRating = json['averageRating'];
     address = json['address'];
     numberOfRating = json['NumberOfRating'];
     servicesName = json['servicesName'];
@@ -29,7 +29,7 @@ class TiffineServicesModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['foodPrice'] = this.foodPrice;
-    data['averageRaing '] = this.averageRating;
+    data['averageRating'] = this.averageRating;
     data['address'] = this.address;
     data['NumberOfRating'] = this.numberOfRating;
     data['servicesName'] = this.servicesName;

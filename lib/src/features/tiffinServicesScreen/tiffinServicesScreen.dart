@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/widgets/app_bar.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../model/tiffin_services_model/tiffen_services_model.dart';
@@ -18,8 +19,47 @@ class TiffineServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("food main screen"),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(120),
+          child: Column(
+            children: [
+              AppBarTiffineWidgets(),
+
+
+              Container(
+                color: AppColors.primary,
+                height: 62,
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 5,
+                  ),
+                  child: TextFormField(
+                    onTap: () {
+                      Get.toNamed(RoutesName.searchTiffineScreen, arguments: {
+                        'list':  tiffineList,
+                        'id': snapData,
+                      });
+                    },
+                    autofocus: false,
+                    keyboardType: TextInputType.none,
+                    decoration: InputDecoration(
+                      fillColor: Colors.yellow[50],
+                      filled: true,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      hintText: "Enter Locality / Landmark / Colony",
+                      hintStyle: const TextStyle(color: Colors.black54),
+                      prefixIcon: const Icon(Icons.search_rounded),
+                      suffixIcon: const Icon(Icons.mic),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.only(bottom: 5),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
         body: StreamBuilder(
             stream: ApisClass.firebaseFirestore.collection('tiffineServicesCollection').snapshots(),
