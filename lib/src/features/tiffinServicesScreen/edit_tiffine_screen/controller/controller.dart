@@ -3,14 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
-import '../../../../data/repository/apis/apis.dart';
 import '../../../../model/tiffin_services_model/tiffen_services_model.dart';
-import '../../add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 
 class EditTiffineScreenController extends GetxController {
   var itemId;
@@ -59,7 +57,7 @@ class EditTiffineScreenController extends GetxController {
     if (coverImage == null) return;
     selectedCoverImage.value = coverImage!.path.toString();
 
-    await ApisClass.updateTiffineCoverImage(File(coverImage!.path), itemId).then((value) {
+    await TiffineServicesApis.updateTiffineCoverImage(File(coverImage!.path), itemId).then((value) {
       Get.snackbar("Image upload ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");
@@ -67,7 +65,6 @@ class EditTiffineScreenController extends GetxController {
         print(error);
         print(stackTrace);
       }
-
     });
   }
 
@@ -75,11 +72,11 @@ class EditTiffineScreenController extends GetxController {
     menuImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
     if (menuImage == null) return;
     selectedMenuImage.value = menuImage!.path.toString();
-    uploadMenuImage();
+    updateMenuImage();
   }
 
-  Future uploadMenuImage() async {
-    await ApisClass.updateTiffineMenuImage(File(menuImage!.path), itemId).then((value) {
+  Future updateMenuImage() async {
+    await TiffineServicesApis.updateTiffineMenuImage(File(menuImage!.path), itemId).then((value) {
       Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");
@@ -94,7 +91,7 @@ class EditTiffineScreenController extends GetxController {
       if (value) {
         if (globalKey.currentState!.validate()) {
           AppHelperFunction.showDialogCenter(false);
-          ApisClass.updateTiffineServicesData(
+          TiffineServicesApis.updateTiffineServicesData(
                   servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId)
               .then((value) {
             Get.snackbar("Update", "Successfully");
@@ -107,7 +104,6 @@ class EditTiffineScreenController extends GetxController {
               print(error);
               print(stackTrace);
             }
-
           });
         }
       }

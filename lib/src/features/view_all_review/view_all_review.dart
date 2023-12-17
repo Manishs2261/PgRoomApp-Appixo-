@@ -29,7 +29,7 @@ class ViewAllReviewScreen extends StatelessWidget {
         title: const Text("All Review"),
       ),
       body: LiquidPullToRefresh(
-          color: Colors.white,
+        color: Colors.white,
         onRefresh: () {
           return Future.delayed(Duration(seconds: 2));
         },
@@ -47,7 +47,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                     width: double.infinity,
                     child: RatingSummary(
                       counter: (ApisClass.totalNumberOfStar == 0) ? 1 : ApisClass.totalNumberOfStar,
-                      average:  ApisClass.averageRating,
+                      average: ApisClass.averageRating,
                       showAverage: true,
                       counterFiveStars: ApisClass.starFive,
                       counterFourStars: ApisClass.starFour,
@@ -83,8 +83,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                                         height: 25,
                                         width: 25,
                                         decoration:
-                                        BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
-
+                                            BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(50),
                                           child: CachedNetworkImage(
@@ -92,21 +91,21 @@ class ViewAllReviewScreen extends StatelessWidget {
                                             width: 25,
                                             fit: BoxFit.cover,
                                             imageUrl: ratingList[index].userImage.toString(),
-                                            placeholder: (context,_)=>Center(
+                                            placeholder: (context, _) => Center(
                                               child: SpinKitFadingCircle(
                                                 color: AppColors.primary,
                                                 size: 30,
                                               ),
                                             ),
                                             errorWidget: (context, url, error) =>
-                                            const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                                const CircleAvatar(child: Icon(CupertinoIcons.person)),
                                           ),
                                         ),
                                       ),
                                       const SizedBox(
                                         width: 10,
                                       ),
-                                       Text(
+                                      Text(
                                         "${ratingList[index].userName}",
                                         style: TextStyle(fontWeight: FontWeight.w600),
                                       ),
@@ -135,7 +134,8 @@ class ViewAllReviewScreen extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10, bottom: 20),
                                     padding: const EdgeInsets.all(10.0),
                                     width: double.infinity,
-                                    decoration: BoxDecoration(color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade50),
+                                    decoration:
+                                        BoxDecoration(color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade50),
                                     child: Text("${ratingList[index].title}"),
                                   )
                                 ],

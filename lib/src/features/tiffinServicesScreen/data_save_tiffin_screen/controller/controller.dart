@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -34,7 +35,9 @@ class AddYourTiffineController extends GetxController {
   }
 
   Future uploadCoverImage() async {
-    await ApisClass.uploadTiffineServicesImage(File(coverImage!.path)).then((value) {}).onError((error, stackTrace) {
+    await TiffineServicesApis.uploadTiffineServicesCoverImage(File(coverImage!.path))
+        .then((value) {})
+        .onError((error, stackTrace) {
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
@@ -47,7 +50,7 @@ class AddYourTiffineController extends GetxController {
   }
 
   Future uploadMenuImage() async {
-    await ApisClass.uploadMenuImage(File(menuImage!.path)).then((value) {}).onError((error, stackTrace) {
+    await TiffineServicesApis.uploadMenuImage(File(menuImage!.path)).then((value) {}).onError((error, stackTrace) {
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
@@ -56,8 +59,12 @@ class AddYourTiffineController extends GetxController {
   //============================================
 
   Future onUserTiffineServicesData() async {
-    ApisClass.addYourTiffineServicesUserAccount(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
-            addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
+    TiffineServicesApis.addYourTiffineServicesUserAccount(
+            TiffineServicesApis.tiffineServicesCoverImageUrl,
+            servicesNameController.value.text,
+            addressController.value.text,
+            priceController.value.text,
+            TiffineServicesApis.foodMenuImageUrl)
         .then((value) {
       onTiffineServicesData();
     }).onError((error, stackTrace) {
@@ -67,15 +74,19 @@ class AddYourTiffineController extends GetxController {
   }
 
   Future onTiffineServicesData() async {
-    ApisClass.addYourTiffineServices(ApisClass.tiffineServicesUrl, servicesNameController.value.text,
-            addressController.value.text, priceController.value.text, ApisClass.foodMenuUrl)
+    TiffineServicesApis.addYourTiffineServices(
+            TiffineServicesApis.tiffineServicesCoverImageUrl,
+            servicesNameController.value.text,
+            addressController.value.text,
+            priceController.value.text,
+            TiffineServicesApis.foodMenuImageUrl)
         .then((value) {
- Get.snackbar("Save", "Successfully");
- Navigator.pop(Get.context!);
- Navigator.pop(Get.context!);
+      Get.snackbar("Save", "Successfully");
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
     }).onError((error, stackTrace) {
       Get.snackbar("Save", "Failed");
-        Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
       print(error);
     });
   }
@@ -86,7 +97,6 @@ class AddYourTiffineController extends GetxController {
       if (selectedCoverImage.isEmpty) {
         AppHelperFunction.showSnackBar("Cover Image can't be empty.");
       } else {
-
         AppHelperFunction.showDialogCenter(false);
         uploadCoverImage().then((value) {
           uploadMenuImage().then((value) {

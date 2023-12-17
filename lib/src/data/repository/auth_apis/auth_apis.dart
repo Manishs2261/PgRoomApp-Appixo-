@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../features/splash/controller/splash_controller.dart';
 import '../apis/apis.dart';
+import '../apis/user_apis.dart';
 
 class AuthApisClass {
   static EmailOTP emailOtp = EmailOTP();
@@ -26,7 +27,7 @@ class AuthApisClass {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         signInWithGoogle().then((value) async {
-          await ApisClass.saveUserData(
+          await UserApis.saveUserData(
               auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
           print("😀 ${auth.currentUser!.photoURL}");
           // sharedPreferences code

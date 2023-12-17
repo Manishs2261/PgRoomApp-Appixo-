@@ -3,43 +3,44 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
-import 'package:pgroom/src/features/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
- import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
+    '/add_your_tiffine_services_screen.dart';
+import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/tiffinServicesScreen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
 
-import '../../features/add_new_home/add_your_home.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
 
 import '../../features/auth_screen/sing_in_screen/sing_in_screen.dart';
-import '../../features/details_rent_screen/details_rent_screen.dart';
-import '../../features/edit_add_new_home/edit_add_new_home.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_form_screen_button.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/Edit_Cover_Image_Screen.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/edit_charges.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
-
-import '../../features/edit_add_new_home/edit_screen/edit_screen/edit_provid_facilities.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
-import '../../features/edit_add_new_home/edit_screen/edit_screen/room_and_price.dart';
-import '../../features/home/home_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
-import '../../features/rent_form_screen/add_image_/add_image_screen.dart';
-import '../../features/rent_form_screen/charges_and_door_timing/charges_and_door_timing_screen.dart';
-import '../../features/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
-import '../../features/rent_form_screen/permission/permission_screen.dart';
-import '../../features/rent_form_screen/rent_details/rent_details_screen.dart';
-import '../../features/rent_form_screen/search/search.dart';
-import '../../features/search/search.dart';
+
+import '../../features/room_rent_all_screen/add_new_home/add_your_home.dart';
+import '../../features/room_rent_all_screen/details_rent_screen/details_rent_screen.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_add_new_home.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_form_screen_button.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/Edit_Cover_Image_Screen.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_charges.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_provid_facilities.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/room_and_price.dart';
+import '../../features/room_rent_all_screen/home/home_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/add_image_/add_image_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/charges_and_door_timing/charges_and_door_timing_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/permission/permission_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_details_screen.dart';
+import '../../features/room_rent_all_screen/search/search.dart';
+import '../../features/room_rent_all_screen/view_all_image/view_all_image.dart';
 import '../../features/splash/splash_screen.dart';
 
+import '../../features/tiffinServicesScreen/search/search.dart';
 import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
-import '../../features/view_all_image/view_all_image.dart';
-import '../../features/view_all_review/view_all_review.dart';
+ import '../../features/view_all_review/view_all_review.dart';
 import '../route_name/routes_name.dart';
 
 class AppRoutes {
@@ -194,45 +195,35 @@ class AppRoutes {
             page: () => ProfileScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.navigationScreen,
             page: () => NavigationMenuScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.tiffinDetailsScreen,
             page: () => DetailsTiffineServicesScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
-
         GetPage(
             name: RoutesName.etidTiffineScreen,
             page: () => EditTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
-
         GetPage(
             name: RoutesName.addYourTiffineScreen,
             page: () => AddYourTiffineServicesScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
-            name: RoutesName.viewAllReviewTiffineScreen ,
-            page: () => ViewAllReviewTiffineScreen (),
+            name: RoutesName.viewAllReviewTiffineScreen,
+            page: () => ViewAllReviewTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.searchTiffineScreen,
             page: () => SearchTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
-
       ];
 }

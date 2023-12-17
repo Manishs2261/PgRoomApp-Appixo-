@@ -8,7 +8,7 @@ import 'package:pgroom/src/common/widgets/com_ratingbar_widgets.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:rating_summary/rating_summary.dart';
-import '../../../data/repository/apis/apis.dart';
+import '../../../data/repository/apis/tiffine_services_api.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../utils/Constants/colors.dart';
 
@@ -21,7 +21,7 @@ class ViewAllReviewTiffineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ApisClass.getRatingBarSummaryData(itemId);
+    TiffineServicesApis.getTiffineRatingSubmitIdData(itemId);
     AppLoggerHelper.debug("Build - ViewAllReviewScreen  ");
     final dark = AppHelperFunction.isDarkMode(context);
     return Scaffold(
@@ -46,19 +46,21 @@ class ViewAllReviewTiffineScreen extends StatelessWidget {
                     height: 200,
                     width: double.infinity,
                     child: RatingSummary(
-                      counter: (ApisClass.totalNumberOfStarTiffine == 0) ? 1 : ApisClass.totalNumberOfStarTiffine,
-                      average:  ApisClass.averageRatingTiffine,
+                      counter: (TiffineServicesApis.totalNumberOfStarTiffine == 0)
+                          ? 1
+                          : TiffineServicesApis.totalNumberOfStarTiffine,
+                      average: TiffineServicesApis.averageRatingTiffine,
                       showAverage: true,
-                      counterFiveStars: ApisClass.starFiveTiffine,
-                      counterFourStars: ApisClass.starFourTiffine,
-                      counterThreeStars: ApisClass.starThreeTiffine,
-                      counterTwoStars: ApisClass.starTwoTiffine,
-                      counterOneStars: ApisClass.starOneTiffine,
+                      counterFiveStars: TiffineServicesApis.starFiveTiffine,
+                      counterFourStars: TiffineServicesApis.starFourTiffine,
+                      counterThreeStars: TiffineServicesApis.starThreeTiffine,
+                      counterTwoStars: TiffineServicesApis.starTwoTiffine,
+                      counterOneStars: TiffineServicesApis.starOneTiffine,
                     ),
                   ),
 
                   StreamBuilder(
-                      stream: ApisClass.firebaseFirestore
+                      stream: TiffineServicesApis.firebaseFirestore
                           .collection("TiffineReview")
                           .doc("reviewCollection")
                           .collection("$itemId")
@@ -83,8 +85,7 @@ class ViewAllReviewTiffineScreen extends StatelessWidget {
                                         height: 25,
                                         width: 25,
                                         decoration:
-                                        BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
-
+                                            BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
                                         child: ClipRRect(
                                           borderRadius: BorderRadius.circular(50),
                                           child: CachedNetworkImage(
@@ -92,14 +93,14 @@ class ViewAllReviewTiffineScreen extends StatelessWidget {
                                             width: 25,
                                             fit: BoxFit.cover,
                                             imageUrl: ratingList[index].userImage.toString(),
-                                            placeholder: (context,_)=>Center(
+                                            placeholder: (context, _) => Center(
                                               child: SpinKitFadingCircle(
                                                 color: AppColors.primary,
                                                 size: 30,
                                               ),
                                             ),
                                             errorWidget: (context, url, error) =>
-                                            const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                                const CircleAvatar(child: Icon(CupertinoIcons.person)),
                                           ),
                                         ),
                                       ),
@@ -135,7 +136,8 @@ class ViewAllReviewTiffineScreen extends StatelessWidget {
                                     margin: const EdgeInsets.only(top: 10, bottom: 20),
                                     padding: const EdgeInsets.all(10.0),
                                     width: double.infinity,
-                                    decoration: BoxDecoration(color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade50),
+                                    decoration:
+                                        BoxDecoration(color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade50),
                                     child: Text("${ratingList[index].title}"),
                                   )
                                 ],

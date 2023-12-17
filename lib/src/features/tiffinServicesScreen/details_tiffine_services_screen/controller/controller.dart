@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/model/tiffin_services_model/tiffen_services_model.dart';
 
 import '../../../../data/repository/apis/apis.dart';
+import '../../../../data/repository/apis/user_apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/helper_function.dart';
 import '../../../../utils/logger/logger.dart';
 
-class DetailsTiffineController extends GetxController{
+class DetailsTiffineController extends GetxController {
+  var itemId;
 
-  var itemId ;
   TiffineServicesModel data = TiffineServicesModel();
 
   DetailsTiffineController(this.itemId, this.data);
 
-
   RxBool isView = false.obs;
   final reviewController = TextEditingController().obs;
-
 
   List<RatingAndReviewModel> ratingList = [];
 
@@ -41,58 +41,77 @@ class DetailsTiffineController extends GetxController{
   // calculate average rating summary
   RxDouble ratingAverage = 0.0.obs;
 
-
-
   @override
   Future<void> onInit() async {
-    await ApisClass.getUserData();
+    await UserApis.getUserData();
     //get a Rating bar summary data
-    await ApisClass.getRatingBarSummaryTiffineData(itemId);
+    await TiffineServicesApis.getRatingBarSummaryTiffineData(itemId);
 
     //check the user Review submit or  not id data
-    await ApisClass.getReviewTiffineData(itemId).then((value) {
+    await TiffineServicesApis.getTiffineRatingSubmitIdData(itemId).then((value) {
       reviewSubmissionId.value = value;
     });
 
     super.onInit();
   }
 
-
   //Rating bar summary calculation
   onRatingStar(ratingValue) async {
     switch (ratingValue) {
       case 5.0:
-        ApisClass.saveRatingBarSummaryTiffineData(itemId, ApisClass.starOneTiffine, ApisClass.starTwoTiffine, ApisClass
-            .starThreeTiffine,
-            ApisClass.starFourTiffine, ApisClass.starFiveTiffine + 1, ApisClass.averageRatingTiffine, ApisClass
-                .totalNumberOfStarTiffine);
+        TiffineServicesApis.saveRatingBarSummaryTiffineData(
+            itemId,
+            TiffineServicesApis.starOneTiffine,
+            TiffineServicesApis.starTwoTiffine,
+            TiffineServicesApis.starThreeTiffine,
+            TiffineServicesApis.starFourTiffine,
+            TiffineServicesApis.starFiveTiffine + 1,
+            TiffineServicesApis.averageRatingTiffine,
+            TiffineServicesApis.totalNumberOfStarTiffine);
 
       case 4.0:
-        ApisClass.saveRatingBarSummaryTiffineData(itemId, ApisClass.starOneTiffine, ApisClass.starTwoTiffine, ApisClass
-            .starThreeTiffine,
-            ApisClass.starFourTiffine + 1, ApisClass.starFiveTiffine, ApisClass.averageRatingTiffine, ApisClass
-                .totalNumberOfStarTiffine);
+        TiffineServicesApis.saveRatingBarSummaryTiffineData(
+            itemId,
+            TiffineServicesApis.starOneTiffine,
+            TiffineServicesApis.starTwoTiffine,
+            TiffineServicesApis.starThreeTiffine,
+            TiffineServicesApis.starFourTiffine + 1,
+            TiffineServicesApis.starFiveTiffine,
+            TiffineServicesApis.averageRatingTiffine,
+            TiffineServicesApis.totalNumberOfStarTiffine);
 
       case 3.0:
-        ApisClass.saveRatingBarSummaryTiffineData(itemId, ApisClass.starOneTiffine, ApisClass.starTwoTiffine, ApisClass
-            .starThreeTiffine
-            + 1,
-            ApisClass.starFourTiffine, ApisClass.starFiveTiffine, ApisClass.averageRatingTiffine, ApisClass
-                .totalNumberOfStarTiffine);
+        TiffineServicesApis.saveRatingBarSummaryTiffineData(
+            itemId,
+            TiffineServicesApis.starOneTiffine,
+            TiffineServicesApis.starTwoTiffine,
+            TiffineServicesApis.starThreeTiffine + 1,
+            TiffineServicesApis.starFourTiffine,
+            TiffineServicesApis.starFiveTiffine,
+            TiffineServicesApis.averageRatingTiffine,
+            TiffineServicesApis.totalNumberOfStarTiffine);
 
       case 2.0:
-        ApisClass.saveRatingBarSummaryTiffineData(itemId, ApisClass.starOneTiffine, ApisClass.starTwoTiffine + 1,
-            ApisClass
-            .starThreeTiffine,
-            ApisClass.starFourTiffine, ApisClass.starFiveTiffine, ApisClass.averageRatingTiffine, ApisClass
-                .totalNumberOfStarTiffine);
+        TiffineServicesApis.saveRatingBarSummaryTiffineData(
+            itemId,
+            TiffineServicesApis.starOneTiffine,
+            TiffineServicesApis.starTwoTiffine + 1,
+            TiffineServicesApis.starThreeTiffine,
+            TiffineServicesApis.starFourTiffine,
+            TiffineServicesApis.starFiveTiffine,
+            TiffineServicesApis.averageRatingTiffine,
+            TiffineServicesApis.totalNumberOfStarTiffine);
 
       case 1.0:
-        ApisClass.saveRatingBarSummaryTiffineData(itemId, ApisClass.starOneTiffine + 1, ApisClass.starTwoTiffine,
-            ApisClass
-            .starThreeTiffine,
-            ApisClass.starFourTiffine, ApisClass.starFiveTiffine, ApisClass.averageRatingTiffine, ApisClass
-                .totalNumberOfStarTiffine);
+        TiffineServicesApis.saveRatingBarSummaryTiffineData(
+            itemId,
+            TiffineServicesApis.starOneTiffine + 1,
+            TiffineServicesApis.starTwoTiffine,
+            TiffineServicesApis.starThreeTiffine,
+            TiffineServicesApis.starFourTiffine,
+            TiffineServicesApis.starFiveTiffine,
+            TiffineServicesApis.averageRatingTiffine,
+            TiffineServicesApis.totalNumberOfStarTiffine);
 
       default:
         break;
@@ -101,17 +120,18 @@ class DetailsTiffineController extends GetxController{
 
   onRatingSummaryCalculation(ratingOfNumber) {
     //calculation a total number of star
-    var totalNumberOfStar = (((ApisClass.starOneTiffine * 1) +
-        (ApisClass.starTwoTiffine * 2) +
-        (ApisClass.starThreeTiffine * 3) +
-        (ApisClass.starFourTiffine * 4) +
-        (ApisClass.starFiveTiffine * 5)));
+    var totalNumberOfStar = (((TiffineServicesApis.starOneTiffine * 1) +
+        (TiffineServicesApis.starTwoTiffine * 2) +
+        (TiffineServicesApis.starThreeTiffine * 3) +
+        (TiffineServicesApis.starFourTiffine * 4) +
+        (TiffineServicesApis.starFiveTiffine * 5)));
 
     //calculation a total number of user rating
-    var numberOfRating =
-        ApisClass.starOneTiffine + ApisClass.starTwoTiffine + ApisClass.starThreeTiffine + ApisClass.starFourTiffine +
-            ApisClass
-            .starFiveTiffine;
+    var numberOfRating = TiffineServicesApis.starOneTiffine +
+        TiffineServicesApis.starTwoTiffine +
+        TiffineServicesApis.starThreeTiffine +
+        TiffineServicesApis.starFourTiffine +
+        TiffineServicesApis.starFiveTiffine;
 
     // calculation a average
     print(numberOfRating);
@@ -126,8 +146,10 @@ class DetailsTiffineController extends GetxController{
     }
 
     // update rating summary data base
-    ApisClass.updateRatingBarStarSummaryTiffineData(itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
-    ApisClass.addRatingMainTiffineList(itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
+    TiffineServicesApis.updateRatingBarStarSummaryTiffineData(
+        itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
+    TiffineServicesApis.addRatingMainTiffineList(
+        itemId, double.parse(ratingAverage.toStringAsFixed(1)), ratingOfNumber);
   }
 
   onSubmitReviewButton() {
@@ -140,15 +162,15 @@ class DetailsTiffineController extends GetxController{
             //rating is empty, not click a button
             if (ratingNow.value != 0.0) {
               loading.value = true;
-              ApisClass.ratingAndReviewCreateTiffineData(ratingNow.value, reviewController.value.text, itemId).then(
-                      (value) {
+              TiffineServicesApis.createTiffineRatingAndReviewData(ratingNow.value, reviewController.value.text, itemId)
+                  .then((value) {
                 reviewController.value.text = '';
                 Get.snackbar("Rating Submit", "Successfully");
                 //Rating summary calculation method
-               onRatingStar(ratingNow.value);
+                onRatingStar(ratingNow.value);
 
-                Future.delayed(Duration(seconds: 2),(){
-                 onRatingSummaryCalculation(ratingList.length);
+                Future.delayed(Duration(seconds: 2), () {
+                  onRatingSummaryCalculation(ratingList.length);
                 });
                 //after submit rating than reset value
                 ratingNow.value = 0.0;
@@ -180,7 +202,7 @@ class DetailsTiffineController extends GetxController{
           if (value) {
             AppDeviceUtils.launchUrl("${Uri(
               scheme: 'tel',
-             // path: data.contactNumber,
+              // path: data.contactNumber,
             )}");
           }
         });
@@ -188,6 +210,3 @@ class DetailsTiffineController extends GetxController{
     });
   }
 }
-
-
-

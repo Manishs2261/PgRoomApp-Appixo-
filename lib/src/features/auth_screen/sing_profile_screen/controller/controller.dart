@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data/repository/apis/apis.dart';
+import '../../../../data/repository/apis/user_apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../res/route_name/routes_name.dart';
@@ -34,7 +35,7 @@ class SignProfileScreenControllter extends GetxController {
       image.value = pickFile.path.toString();
     }
 
-    ApisClass.uploadUserImage(File(image.value)).then((value) {
+    UserApis.uploadUserImage(File(image.value)).then((value) {
       imageUrl.value = value;
       print("image url = $value");
     });
@@ -70,7 +71,7 @@ class SignProfileScreenControllter extends GetxController {
             Navigator.of(Get.context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
                 NavigationMenuScreen()), (Route<dynamic> route) => false);
 
-            ApisClass.saveUserData(
+            UserApis.saveUserData(
                 nameController.value.text, cityNameController.value.text, controller.emailController.value.text,
                 imageUrl.value)
                 .then((value) {

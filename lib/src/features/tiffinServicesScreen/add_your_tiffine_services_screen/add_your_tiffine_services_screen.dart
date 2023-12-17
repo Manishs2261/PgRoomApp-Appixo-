@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -193,7 +194,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                                     "Are you sure delete this item?"
                                                         ".", () {
                                                   AppHelperFunction.showDialogCenter(false);
-                                                  ApisClass.deleteTiffineServicesData(snapshot.data!.docs[index].id)
+                                                  TiffineServicesApis.deleteTiffineServicesData(snapshot.data!.docs[index].id)
                                                       .then((value) {
                                                     Navigator.pop(context);
                                                     Navigator.pop(context);

@@ -15,6 +15,7 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../data/repository/apis/apis.dart';
+import '../../data/repository/apis/user_apis.dart';
 import '../splash/controller/splash_controller.dart';
 
 class DrawerScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build -DrawerScreen ");
-    ApisClass.getUserData();
+    UserApis.getUserData();
 
     return Drawer(
       // Add a ListView to the drawer. This ensures the user can scroll
@@ -35,7 +36,7 @@ class DrawerScreen extends StatelessWidget {
 
         onRefresh: () {
           return Future.delayed(const Duration(seconds: 2),(){
-            ApisClass.getUserData();
+            UserApis.getUserData();
           });
         },
         child: ListView(
@@ -72,7 +73,7 @@ class DrawerScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                (ApisClass.userImage == "")
+                                (UserApis.userImage == "")
                                     ? const CircleAvatar(
                                         maxRadius: 30,
                                         child: Icon(
@@ -86,7 +87,7 @@ class DrawerScreen extends StatelessWidget {
                                           width: 60,
                                           height: 60,
                                           fit: BoxFit.cover,
-                                          imageUrl: ApisClass.userImage,
+                                          imageUrl: UserApis.userImage,
                                           placeholder: (context,_)=>const SpinKitFadingCircle(
                                             color: AppColors.primary,
                                             size: 35,
@@ -106,7 +107,7 @@ class DrawerScreen extends StatelessWidget {
                                       // in this condition
                                       Flexible(
                                         child: Text(
-                                          "${ApisClass.userName}",
+                                          "${UserApis.userName}",
                                           overflow: TextOverflow.ellipsis,
                                           softWrap: false,
                                           maxLines: 1,
@@ -199,7 +200,7 @@ class DrawerScreen extends StatelessWidget {
                          Navigator.pop(context);
                        }, child:const Text("NO")),
                         confirm: ElevatedButton(onPressed: (){
-                          ApisClass.removeUser().then((value) {
+                          UserApis.removeUser().then((value) {
                             if(value){
                               Get.offAllNamed(RoutesName.loginScreen);
                             }
