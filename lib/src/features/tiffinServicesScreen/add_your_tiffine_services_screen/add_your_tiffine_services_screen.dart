@@ -194,7 +194,8 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                                     "Are you sure delete this item?"
                                                         ".", () {
                                                   AppHelperFunction.showDialogCenter(false);
-                                                  TiffineServicesApis.deleteTiffineServicesData(snapshot.data!.docs[index].id)
+                                                  TiffineServicesApis.deleteTiffineServicesData(snapshot.data!
+                                                      .docs[index].id,tiffineList[index].foodImage,tiffineList[index].menuImage)
                                                       .then((value) {
                                                     Navigator.pop(context);
                                                     Navigator.pop(context);

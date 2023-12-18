@@ -5,7 +5,6 @@ import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class ApisClass {
@@ -223,7 +222,7 @@ class ApisClass {
   // upload  Cover image data in firebase database
   static Future uploadCoverImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('coverImage/${user.uid}/${user.uid}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       coverImageDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -273,7 +272,7 @@ class ApisClass {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('coverImage/${user.uid}.$ext');
+    final ref = storage.ref().child('coverImage/${user.uid}/${user.uid}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -530,8 +529,6 @@ class ApisClass {
   }
 
   //=======================================================
-
-
 
 //=========================================================
 

@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
       ),
 
       //======drawer code ===============
-      drawer: const DrawerScreen(),
+      drawer:  DrawerScreen(),
       //=======list view builder code==============
       body: CustomMaterialIndicator(
         onRefresh: () async {

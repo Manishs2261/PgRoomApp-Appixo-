@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
@@ -20,6 +21,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - DetailsTiffineServicesScreen ");
     return Scaffold(
       appBar: AppBar(
         title: Text("Details food"),
@@ -185,17 +187,16 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                 ],
               ),
             ),
-
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Obx(
-                      () => Visibility(
-                    // checkReviewSubmission  for use current time update a screen
-                    //Because reviewSubmissionId  not initialize after Rating submit
+                  () => Visibility(
+                      // checkReviewSubmission  for use current time update a screen
+                      //Because reviewSubmissionId  not initialize after Rating submit
 //(controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value)
-                      visible: true ,
+                      visible: true,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -213,7 +214,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
 
                           //rating Now
                           Obx(
-                                () => Align(
+                            () => Align(
                               alignment: Alignment.center,
                               child: ComRatingBarWidgets(
                                 controller: controller,
@@ -246,7 +247,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
 
                           //Rating submit button
                           Obx(
-                                () => ComReuseElevButton(
+                            () => ComReuseElevButton(
                               onPressed: () => controller.onSubmitReviewButton(),
                               title: 'Submit',
                               loading: controller.loading.value,
@@ -262,14 +263,14 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Obx(
-                            () => Text(
+                        () => Text(
                           "Review (${controller.totalReview.value}) :-",
                           style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                         ),
                       ),
                       InkWell(
                           onTap: () {
-                            Get.toNamed(RoutesName.viewAllReviewTiffineScreen , arguments: controller.itemId);
+                            Get.toNamed(RoutesName.viewAllReviewTiffineScreen, arguments: controller.itemId);
                           },
                           child: const Text(
                             "view all",
@@ -302,22 +303,21 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                               controller.isView.value = false;
                               return const Center(
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.reviews_outlined),
-                                      SizedBox(
-                                        width: 3,
-                                      ),
-                                      Text("No Review"),
-                                    ],
-                                  ));
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.reviews_outlined),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text("No Review"),
+                                ],
+                              ));
                             } else {
                               //for some time delay a code
                               Future.delayed(const Duration(seconds: 2), () async {
                                 //your code goes here
                                 controller.isView.value = true;
                                 controller.totalReview.value = controller.ratingList.length;
-
                               });
 
                               return ListView.builder(
@@ -337,9 +337,8 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                             Container(
                                               height: 25,
                                               width: 25,
-                                              decoration:
-                                              BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
-
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(50), color: Colors.blue),
                                               child: ClipRRect(
                                                 borderRadius: BorderRadius.circular(50),
                                                 child: CachedNetworkImage(
@@ -347,14 +346,14 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                                   width: 25,
                                                   fit: BoxFit.cover,
                                                   imageUrl: controller.ratingList[index].userImage.toString(),
-                                                  placeholder: (context,_)=>Center(
+                                                  placeholder: (context, _) => Center(
                                                     child: SpinKitFadingCircle(
                                                       color: AppColors.primary,
                                                       size: 30,
                                                     ),
                                                   ),
                                                   errorWidget: (context, url, error) =>
-                                                  const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                                      const CircleAvatar(child: Icon(CupertinoIcons.person)),
                                                 ),
                                               ),
                                             ),
@@ -406,7 +405,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                      ()=>Visibility(
+                  () => Visibility(
                     visible: controller.isView.value,
                     child: Padding(
                       padding: const EdgeInsets.only(right: 15),
@@ -414,7 +413,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: InkWell(
                           onTap: () {
-                            Get.toNamed(RoutesName.viewAllReviewTiffineScreen , arguments: controller.itemId);
+                            Get.toNamed(RoutesName.viewAllReviewTiffineScreen, arguments: controller.itemId);
                           },
                           child: const Text(
                             "View All",
@@ -425,15 +424,8 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                     ),
                   ),
                 )
-
-
               ],
             )
-
-
-
-
-
           ],
         ),
       ),

@@ -8,7 +8,6 @@ import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
-import 'apis.dart';
 
 class TiffineServicesApis {
   // for authentication
@@ -95,7 +94,7 @@ class TiffineServicesApis {
   // upload Cover image data in firebase database
   static Future uploadTiffineServicesCoverImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('tiffineServices/${user.uid}/${user.uid}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       tiffineServicesCoverImageUrl = await snapshot.ref.getDownloadURL();
@@ -107,7 +106,7 @@ class TiffineServicesApis {
   // upload  Menu image data in firebase database
   static Future uploadMenuImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('foodMenu/${user.uid}/${user.uid}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       foodMenuImageUrl = await snapshot.ref.getDownloadURL();
@@ -143,7 +142,7 @@ class TiffineServicesApis {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('tiffineServices/${user.uid}.$ext');
+    final ref = storage.ref().child('tiffineServices/${user.uid}/${user.uid}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -173,7 +172,7 @@ class TiffineServicesApis {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('foodMenu/${user.uid}.$ext');
+    final ref = storage.ref().child('foodMenu/${user.uid}/${user.uid}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -313,53 +312,54 @@ class TiffineServicesApis {
     });
   }
 
-
-
   //delete a data
 
-  static Future<void> deleteTiffineServicesData(String deleteId) async {
+  static Future<void> deleteTiffineServicesData(String deleteId, coverImageUrl, menuImageUrl) async {
     try {
       //delete a Firestorm
       DocumentReference documentReference =
-      firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
+          firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
 
       DocumentReference documentReference1 = firebaseFirestore.collection('tiffineServicesCollection').doc(deleteId);
 
-      // //Rating Summary data
-      // await firebaseFirestore
-      //     .collection("userReview")
-      //     .doc("reviewCollection")
-      //     .collection("$deleteId")
-      //     .doc(deleteId)
-      //     .collection("reviewSummary")
-      //     .doc(deleteId)
-      //     .delete();
+      //Rating Summary data
+      await firebaseFirestore
+          .collection("TiffineReview")
+          .doc("reviewCollection")
+          .collection(deleteId)
+          .doc(deleteId)
+          .collection("reviewSummary")
+          .doc(deleteId)
+          .delete();
 
       //   // This review  data save in user account only
-      //   await firebaseFirestore
-      //       .collection("loginUser")
-      //       .doc(user.uid)
-      //       .collection(auth.currentUser!.uid)
-      //       .doc(deleteId)
-      //       .delete();
+      await firebaseFirestore
+          .collection("loginUser")
+          .doc(user.uid)
+          .collection(auth.currentUser!.uid)
+          .doc(deleteId)
+          .delete();
       //
       //   //delete a review collection data
       //
-      //   final batch = firebaseFirestore.batch();
-      //   var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
-      //   var snapshots = await collection.get();
-      //   for (var doc in snapshots.docs) {
-      //     batch.delete(doc.reference);
-      //   }
-      //   await batch.commit();
+      final batch = firebaseFirestore.batch();
+      var collection = firebaseFirestore.collection("TiffineReview").doc("reviewCollection").collection(deleteId);
+      var snapshots = await collection.get();
+      for (var doc in snapshots.docs) {
+        batch.delete(doc.reference);
+      }
+      await batch.commit();
       //
       //   // Delete the document.
       await documentReference.delete();
       await documentReference1.delete();
       //
       //   // delete a firestorm image data
-      //   final ref = storage.refFromURL(imageUrl);
-      //   await ref.delete();
+      final refCoverImage = storage.refFromURL(coverImageUrl);
+      await refCoverImage.delete();
+
+      final refMenuImage = storage.refFromURL(menuImageUrl);
+      await refMenuImage.delete();
     } catch (e) {
       AppLoggerHelper.info("data in not delete $e");
     }

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
-import 'package:pgroom/src/features/profile_screen/contorller/profile_controller.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
-import '../../utils/validator/text_field_validator.dart';
+import '../../../utils/validator/text_field_validator.dart';
+import 'contorller/profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
 
   final globalKey = GlobalKey<FormState>();
-  final controller  = Get.put(ProfileController());
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +28,6 @@ class EditProfileScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
-
                       controller: controller.updateNameController.value,
                       keyboardType: TextInputType.text,
                       validator: NameValidator.validate,
@@ -41,12 +38,10 @@ class EditProfileScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5),
                       ),
                     ),
-
                     SizedBox(
                       height: Get.height * 0.03,
                     ),
                     TextFormField(
-
                       controller: controller.updateCityController.value,
                       keyboardType: TextInputType.text,
                       validator: NameValidator.validate,
@@ -60,17 +55,18 @@ class EditProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-
               SizedBox(
                 height: Get.height * 0.1,
               ),
-
-              ComReuseElevButton(onPressed: (){
-                if(globalKey.currentState!.validate()){
-
-                  controller.updateProfileData();
-                }
-              }, title: "Update",loading: controller.loading.value,)
+              ComReuseElevButton(
+                onPressed: () {
+                  if (globalKey.currentState!.validate()) {
+                    controller.updateProfileData();
+                  }
+                },
+                title: "Update",
+                loading: controller.loading.value,
+              )
             ],
           ),
         ),

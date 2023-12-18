@@ -6,21 +6,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
-import 'package:pgroom/src/features/profile_screen/contorller/profile_controller.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/Constants/image_string.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../model/user_model/user_model.dart';
+import '../../../model/user_model/user_model.dart';
+import 'contorller/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
   final controller = Get.put(ProfileController());
-  List<UserPersonModel>userList = [];
+  List<UserPersonModel> userList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +25,7 @@ class ProfileScreen extends StatelessWidget {
         child: Scaffold(
       body: CustomMaterialIndicator(
           onRefresh: () async {
-
             return await Future.delayed(Duration(seconds: 2));
-
           },
           indicatorBuilder: (BuildContext context, IndicatorController controller) {
             return Icon(
@@ -39,14 +34,13 @@ class ProfileScreen extends StatelessWidget {
               size: 30,
             );
           },
-
           child: StreamBuilder(
             stream: ApisClass.firebaseFirestore
                 .collection("loginUser")
                 .doc(ApisClass.user.uid)
                 .collection(ApisClass.user.uid)
                 .snapshots(includeMetadataChanges: true),
-            builder: (BuildContext context,  snapshot) {
+            builder: (BuildContext context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                 case ConnectionState.none:
@@ -56,11 +50,11 @@ class ProfileScreen extends StatelessWidget {
                 case ConnectionState.done:
                   // TODO: Handle this case.
 
-                final data = snapshot.data?.docs;
+                  final data = snapshot.data?.docs;
 
-                userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
+                  userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
 
-                  return   ListView(
+                  return ListView(
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 15, right: 15, top: 20),
@@ -71,7 +65,6 @@ class ProfileScreen extends StatelessWidget {
                               alignment: Alignment.centerRight,
                               child: InkWell(
                                 onTap: () {
-
                                   Get.toNamed(RoutesName.editPofileScreen);
                                 },
                                 child: Container(
@@ -100,25 +93,25 @@ class ProfileScreen extends StatelessWidget {
                                         imageUrl: userList[0].userImage.toString(),
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) => Container(
-                                          color: Colors.transparent,
-                                          height: 200,
-                                          width: 200,
-                                          child: const SpinKitFadingCircle(
-                                            color: AppColors.primary,
-                                            size: 35,
-                                          ),
-                                        ),
+                                              color: Colors.transparent,
+                                              height: 200,
+                                              width: 200,
+                                              child: const SpinKitFadingCircle(
+                                                color: AppColors.primary,
+                                                size: 35,
+                                              ),
+                                            ),
                                         errorWidget: (context, url, error) => Container(
-                                          width: 200,
-                                          height: 200,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(50), color: Colors.grey),
-                                          alignment: Alignment.center,
-                                          child: Icon(
-                                            Icons.person,
-                                            size: 100,
-                                          ),
-                                        )),
+                                              width: 200,
+                                              height: 200,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(50), color: Colors.grey),
+                                              alignment: Alignment.center,
+                                              child: Icon(
+                                                Icons.person,
+                                                size: 100,
+                                              ),
+                                            )),
                                   ),
                                 ),
                                 Positioned(

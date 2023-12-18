@@ -4,10 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
 
-import '../../../data/repository/apis/user_apis.dart';
-import '../../../utils/helpers/helper_function.dart';
+import '../../../../data/repository/apis/user_apis.dart';
+import '../../../../utils/helpers/helper_function.dart';
 
 class ProfileController extends GetxController {
   RxString image = ''.obs;

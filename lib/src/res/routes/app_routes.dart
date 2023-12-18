@@ -1,8 +1,8 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
-import 'package:pgroom/src/features/profile_screen/edit_profile_screen.dart';
-import 'package:pgroom/src/features/profile_screen/profile_screen.dart';
+import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
+import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
