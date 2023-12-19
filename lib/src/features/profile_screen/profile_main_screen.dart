@@ -17,18 +17,15 @@ import '../splash/controller/splash_controller.dart';
 import '../tiffinServicesScreen/add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 
 class ProfileDetailsScreen extends StatelessWidget {
-   ProfileDetailsScreen({super.key});
-
+  ProfileDetailsScreen({super.key});
 
   List<UserPersonModel> userList = [];
 
   @override
   Widget build(BuildContext context) {
-
     AppLoggerHelper.debug("Build - ProfileDetailsScreen");
     UserApis.getUserData();
     return Scaffold(
-
       body: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
@@ -37,111 +34,111 @@ class ProfileDetailsScreen extends StatelessWidget {
             height: 150,
             width: double.infinity,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: Colors.white30,
-                      blurStyle: BlurStyle.outer,
-                      offset: Offset.zero,
-                    )
-                  ]),
+              decoration: BoxDecoration(boxShadow: const [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.white30,
+                  blurStyle: BlurStyle.outer,
+                  offset: Offset.zero,
+                )
+              ]),
               child: ApisClass.auth.currentUser?.uid != finalUserUidGlobal
                   ? Padding(
-                padding: const EdgeInsets.only(top: 25, bottom: 25, left: 30, right: 30),
-                child: ElevatedButton(
-                    onPressed: () {
-                      Get.offAllNamed(RoutesName.loginScreen);
-                    },
-                    child: const Text("Login")),
-              )
+                      padding: const EdgeInsets.only(top: 25, bottom: 25, left: 30, right: 30),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Get.offAllNamed(RoutesName.loginScreen);
+                          },
+                          child: const Text("Login")),
+                    )
                   : Container(
-                  padding: EdgeInsets.zero,
-                  child: StreamBuilder(
-                    stream: UserApis.firebaseFirestore
-                        .collection('loginUser')
-                        .doc(UserApis.user.uid)
-                        .collection(UserApis.user.uid)
-                        .snapshots(includeMetadataChanges: true),
-                    builder: (BuildContext context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.waiting:
-                        case ConnectionState.none:
-                          return Center(child: CircularProgressIndicator());
+                      padding: EdgeInsets.zero,
+                      child: StreamBuilder(
+                        stream: UserApis.firebaseFirestore
+                            .collection('loginUser')
+                            .doc(UserApis.user.uid)
+                            .collection(UserApis.user.uid)
+                            .snapshots(includeMetadataChanges: true),
+                        builder: (BuildContext context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                            case ConnectionState.none:
+                              return Center(child: CircularProgressIndicator());
 
-                        case ConnectionState.active:
-                        case ConnectionState.done:
-                          final data = snapshot.data?.docs;
+                            case ConnectionState.active:
+                            case ConnectionState.done:
+                              final data = snapshot.data?.docs;
 
-                          userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
+                              userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
 
-                          return Stack(
-                            children: [
-                              Row(
+                              return Stack(
                                 children: [
-                                  (UserApis.userImage == "")
-                                      ? const CircleAvatar(
-                                    maxRadius: 30,
-                                    child: Icon(
-                                      Icons.person,
-                                      size: 35,
-                                    ),
-                                  )
-                                      : ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: CachedNetworkImage(
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                      imageUrl: userList[0].userImage.toString(),
-                                      placeholder: (context, _) => const SpinKitFadingCircle(
-                                        color: AppColors.primary,
-                                        size: 35,
+                                  Row(
+                                    children: [
+                                      (UserApis.userImage == "")
+                                          ? const CircleAvatar(
+                                              maxRadius: 30,
+                                              child: Icon(
+                                                Icons.person,
+                                                size: 35,
+                                              ),
+                                            )
+                                          : ClipRRect(
+                                              borderRadius: BorderRadius.circular(50),
+                                              child: CachedNetworkImage(
+                                                width: 60,
+                                                height: 60,
+                                                fit: BoxFit.cover,
+                                                imageUrl: userList[0].userImage.toString(),
+                                                placeholder: (context, _) => const SpinKitFadingCircle(
+                                                  color: AppColors.primary,
+                                                  size: 35,
+                                                ),
+                                                errorWidget: (context, url, error) =>
+                                                    const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                              ),
+                                            ),
+                                      const SizedBox(
+                                        width: 15,
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                      const CircleAvatar(child: Icon(CupertinoIcons.person)),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        // in this condition
-                                        Flexible(
-                                          child: Text(
-                                            "${userList[0].name}",
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: false,
-                                            maxLines: 1,
-                                            style: const TextStyle( fontSize: 18),
-                                          ),
-                                        ),
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            // in this condition
+                                            Flexible(
+                                              child: Text(
+                                                "${userList[0].name}",
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: false,
+                                                maxLines: 1,
+                                                style: const TextStyle(fontSize: 18),
+                                              ),
+                                            ),
 
-                                        // in  this email both are same
-                                        Flexible(
-                                          child: Text(
-                                            "${ApisClass.auth.currentUser?.email}",
-                                            style: const TextStyle(fontSize: 14, ),
-                                            overflow: TextOverflow.ellipsis,
-                                            softWrap: false,
-                                            maxLines: 1,
-                                          ),
+                                            // in  this email both are same
+                                            Flexible(
+                                              child: Text(
+                                                "${ApisClass.auth.currentUser?.email}",
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                softWrap: false,
+                                                maxLines: 1,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
+                                      )
+                                    ],
+                                  ),
                                 ],
-                              ),
-                            ],
-                          );
-                      }
-                    },
-                  )),
+                              );
+                          }
+                        },
+                      )),
             ),
           ),
           ListTile(
@@ -198,24 +195,29 @@ class ProfileDetailsScreen extends StatelessWidget {
                   size: 16,
                 ),
                 onTap: () {
-                  Get.defaultDialog(
-                    title: "Logout",
-                    middleText: "Are you confirming logout?.",
-                    cancel: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text("NO")),
-                    confirm: ElevatedButton(
-                        onPressed: () {
-                          UserApis.removeUser().then((value) {
-                            if (value) {
-                              Get.offAllNamed(RoutesName.loginScreen);
-                            }
-                          });
-                        },
-                        child: const Text("YES")),
-                  );
+                  AppHelperFunction.showAlert("Logout", "Are you confirming logout?.", () {
+                    UserApis.removeUser().then((value) {
+                      if (value) {
+                        Get.offAllNamed(RoutesName.loginScreen);
+                      }
+                    });
+                  });
+                }),
+          ),
+          Visibility(
+            visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
+            child: ListTile(
+                leading: const Icon(Icons.delete_outline_sharp),
+                title: const Text("Delete Account"),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+                onTap: () {
+                  AppHelperFunction.showAlert("Delete", "Are you confirming the deletion of your account?", () {
+                    Navigator.pop(context);
+                    UserApis.deleteUserAccount();
+                  });
                 }),
           ),
         ],

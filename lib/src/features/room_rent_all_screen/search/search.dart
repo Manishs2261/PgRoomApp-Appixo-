@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../model/user_rent_model/user_rent_model.dart';
- import '../home/widgets/ItemListView.dart';
+import '../home/widgets/ItemListView.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -22,9 +22,14 @@ class _SearchScreenState extends State<SearchScreen> {
   void updateList(String value) {
     setState(() {
       displayList = data
+      //search different way
           .where((element) =>
               element.houseName!.toLowerCase().contains(value.toLowerCase()) ||
-              element.city!.toLowerCase().contains(value.toLowerCase()))
+              element.city!.toLowerCase().contains(value.toLowerCase()) ||
+              element.address!.toLowerCase().contains(value.toLowerCase()) ||
+              element.landMark!.toLowerCase().contains(value.toLowerCase()) ||
+              element.singlePersonPrice!.toLowerCase().contains(value.toLowerCase()) ||
+              element.familyPrice!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
 
@@ -44,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10,top: 15),
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 15),
             child: TextField(
                 controller: searchController,
                 maxLines: 1,
@@ -53,14 +58,13 @@ class _SearchScreenState extends State<SearchScreen> {
                 keyboardType: TextInputType.text,
                 onChanged: (value) => updateList(value),
                 onSubmitted: (value) {},
-                style: TextStyle(color: Colors.black87),
-
+                style: const TextStyle(color: Colors.black87),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                   fillColor: Colors.white,
                   filled: true,
                   hintText: "Enter Locality / Landmark / Colony",
-                  hintStyle: TextStyle(color: Colors.black54),
+                  hintStyle: const TextStyle(color: Colors.black54),
                   prefixIcon: const Icon(
                     Icons.search_rounded,
                     size: 25,

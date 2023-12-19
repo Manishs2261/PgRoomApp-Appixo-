@@ -20,7 +20,7 @@ class TiffineServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(120),
+          preferredSize: const Size.fromHeight(108),
           child: Column(
             children: [
               AppBarTiffineWidgets(),
@@ -28,12 +28,12 @@ class TiffineServicesScreen extends StatelessWidget {
 
               Container(
                 color: AppColors.primary,
-                height: 62,
+                height: 50,
                 child: Padding(
                   padding: const EdgeInsets.only(
                     left: 20,
                     right: 20,
-                    top: 5,
+                    bottom: 5,
                   ),
                   child: TextFormField(
                     onTap: () {
@@ -48,7 +48,7 @@ class TiffineServicesScreen extends StatelessWidget {
                       fillColor: Colors.yellow[50],
                       filled: true,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintText: "Enter Locality / Landmark / Colony",
+                      hintText: "Enter Service / Landmark / Colony",
                       hintStyle: const TextStyle(color: Colors.black54),
                       prefixIcon: const Icon(Icons.search_rounded),
                       suffixIcon: const Icon(Icons.mic),

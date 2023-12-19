@@ -56,7 +56,8 @@ class AppBarTiffineWidgets extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
+        IconButton(onPressed: (){}, icon: Icon(Icons.notifications))
       ],
     );
   }

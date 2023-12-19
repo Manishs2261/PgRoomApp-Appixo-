@@ -49,7 +49,7 @@ class RoutesName{
   static const String signProfileScreen = '/signProfileSCreen';
   static const String editPofileScreen = '/editProfileScreen';
   static const String profileSCreen = '/profileScreen';
-  static const String navigationScreen = '/navigation screen';
+  static const String navigationScreen = '/navigation_screen';
   static const String tiffinDetailsScreen = '/tiffenDetailsScreen';
   static const String etidTiffineScreen = '/editTiffineScreeen';
   static const String addYourTiffineScreen = '/addYourTiffineScreen';

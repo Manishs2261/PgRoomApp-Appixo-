@@ -24,13 +24,13 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
     AppLoggerHelper.debug("Build - DetailsTiffineServicesScreen ");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Details food"),
+        title: const Text("Details food"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Card(
-              margin: EdgeInsets.all(5),
+              margin: const EdgeInsets.all(5),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: CachedNetworkImage(
@@ -42,7 +42,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                     color: Colors.transparent,
                     width: double.infinity,
                     height: 200,
-                    child: SpinKitFadingCircle(
+                    child: const SpinKitFadingCircle(
                       color: AppColors.primary,
                       size: 35,
                     ),
@@ -71,45 +71,45 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                     maxLines: 1,
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.star,
                         color: Colors.yellow,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 2,
                       ),
                       Text(
                         "${controller.data.averageRating}",
-                        style: TextStyle(fontSize: 17),
+                        style: const TextStyle(fontSize: 17),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       Text("(${controller.data.numberOfRating} Ratings)"),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
                     children: [
                       Text(
                         "Price :- ${controller.data.foodPrice} ₹/- day  ",
-                        style: TextStyle(fontSize: 18),
+                        style: const TextStyle(fontSize: 18),
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         "Address :- ",
                         style: TextStyle(fontSize: 18),
                       ),
@@ -123,7 +123,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   InkWell(
@@ -146,7 +146,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                         color: Colors.transparent,
                                         width: double.infinity,
                                         height: 200,
-                                        child: SpinKitFadingCircle(
+                                        child: const SpinKitFadingCircle(
                                           color: AppColors.primary,
                                           size: 35,
                                         ),
@@ -167,7 +167,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                             );
                           });
                     },
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text(
                           "View Menu",
@@ -180,7 +180,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   ComReuseElevButton(onPressed: () {}, title: "Contact now"),
@@ -346,7 +346,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                                   width: 25,
                                                   fit: BoxFit.cover,
                                                   imageUrl: controller.ratingList[index].userImage.toString(),
-                                                  placeholder: (context, _) => Center(
+                                                  placeholder: (context, _) => const Center(
                                                     child: SpinKitFadingCircle(
                                                       color: AppColors.primary,
                                                       size: 30,
@@ -362,7 +362,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                             ),
                                             Text(
                                               "${controller.ratingList[index].userName}",
-                                              style: TextStyle(fontWeight: FontWeight.w600),
+                                              style: const TextStyle(fontWeight: FontWeight.w600),
                                             ),
                                           ],
                                         ),
@@ -423,6 +423,10 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+
+                const SizedBox(
+                  height: 50,
                 )
               ],
             )

@@ -37,7 +37,7 @@ class AuthApisClass {
           // initialize variable
           finalUserUidGlobal = preferences.getString('userUid');
           log('\nUser :${value.user}');
-          Get.offAllNamed(RoutesName.homeScreen);
+          Get.offAllNamed(RoutesName.navigationScreen);
         });
       }
     });

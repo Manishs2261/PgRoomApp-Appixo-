@@ -1,8 +1,13 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/logger/logger.dart';
@@ -102,9 +107,6 @@ class UserApis {
   }
 
 //=========================================================
-
-
-
 //============== Share preference =========================
 
   //Remove user in share preferences
@@ -112,5 +114,43 @@ class UserApis {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.clear();
     return true;
+  }
+
+  static Future<void> deleteUserAccount() async {
+
+ AppHelperFunction.checkInternetAvailability().then((value) async {
+
+   if(value){
+     final snapshots =
+     firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
+
+     var numberOfDocuments1;
+     snapshots.listen((QuerySnapshot querySnapshot) {
+       // Get the number of documents in the collection
+       numberOfDocuments1 = querySnapshot.docs.length;
+       print('Number of documents: $numberOfDocuments1');
+     });
+
+     final snapshots1 = firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).snapshots();
+
+     var numberOfDocuments2;
+     snapshots1.listen((QuerySnapshot querySnapshot) {
+       // Get the number of documents in the collection
+       numberOfDocuments2 = querySnapshot.docs.length;
+       print('Number of documents: $numberOfDocuments2');
+     });
+
+     if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0) {
+       await user.delete().then((value) {
+         Get.offAllNamed(RoutesName.loginScreen);
+         Get.snackbar("Delete", "Successfully");
+       }).onError((error, stackTrace) {
+         Get.snackbar("Delete", "Failed");
+       });
+     } else {
+       Get.snackbar("Alert", "Please delete all your posted items first.");
+     }
+   }
+ });
   }
 }

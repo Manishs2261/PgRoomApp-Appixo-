@@ -51,9 +51,9 @@ class LoginScreenController extends GetxController {
             //initialize  a varible
             finalUserUidGlobal = prefrence.getString('userUid');
             //========================
-          //  Get.offAllNamed(RoutesName.navigationScreen);
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                NavigationMenuScreen()), (Route<dynamic> route) => false);
+            Get.offAllNamed(RoutesName.navigationScreen);
+          //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+          //       NavigationMenuScreen()), (Route<dynamic> route) => false);
 
 
 

@@ -1,12 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../data/repository/apis/apis.dart';
@@ -26,15 +23,15 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
         appBar: AppBar(),
         body: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             ComReuseElevButton(
                 onPressed: () {
-                  Get.to(() => DataSaveTiffineScreen());
+                  Get.to(() => const DataSaveTiffineScreen());
                 },
                 title: "Add your Tiffine Services"),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Expanded(
@@ -102,7 +99,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                       color: Colors.transparent,
                                       width: double.infinity,
                                       height: 200,
-                                      child: SpinKitFadingCircle(
+                                      child: const SpinKitFadingCircle(
                                         color: AppColors.primary,
                                         size: 35,
                                       ),
@@ -131,24 +128,24 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                         ),
                                         Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.star,
                                               color: Colors.yellow,
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 2,
                                             ),
                                             Text(
                                               "${tiffineList[index].averageRating}",
-                                              style: TextStyle(fontSize: 17),
+                                              style: const TextStyle(fontSize: 17),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 5,
                                             ),
                                             Text("(${tiffineList[index].numberOfRating} Ratings)"),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
@@ -163,13 +160,13 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 5,
                                         ),
                                         Row(
                                           children: [Text("Stating Price :- ${tiffineList[index].foodPrice} ₹ day/- ")],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 30,
                                         ),
                                         Row(
@@ -182,7 +179,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                                   'id': snapshot.data?.docs[index].id,
                                                 });
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "Edit",
                                                 style: TextStyle(color: Colors.blueAccent),
                                               ),
@@ -193,16 +190,22 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                                     "Delete",
                                                     "Are you sure delete this item?"
                                                         ".", () {
-                                                  AppHelperFunction.showDialogCenter(false);
-                                                  TiffineServicesApis.deleteTiffineServicesData(snapshot.data!
-                                                      .docs[index].id,tiffineList[index].foodImage,tiffineList[index].menuImage)
-                                                      .then((value) {
-                                                    Navigator.pop(context);
-                                                    Navigator.pop(context);
+                                                  AppHelperFunction.checkInternetAvailability().then((value) {
+                                                    if (value) {
+                                                      AppHelperFunction.showDialogCenter(false);
+                                                      TiffineServicesApis.deleteTiffineServicesData(
+                                                              snapshot.data!.docs[index].id,
+                                                              tiffineList[index].foodImage,
+                                                              tiffineList[index].menuImage)
+                                                          .then((value) {
+                                                        Navigator.pop(context);
+                                                        Navigator.pop(context);
+                                                      });
+                                                    }
                                                   });
                                                 });
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "Delete",
                                                 style: TextStyle(color: Colors.blueAccent),
                                               ),
@@ -212,7 +215,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 20,
                                   ),
                                 ],

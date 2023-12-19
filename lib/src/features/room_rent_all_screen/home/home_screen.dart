@@ -23,13 +23,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Get.offAllNamed(RoutesName.navigationScreen);
+      //    Get.offAllNamed(RoutesName.navigationScreen);
           //Navigator.push(context, MaterialPageRoute(builder: (context)=> NavigationMenuScreen()));
         },
       ),
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120),
+        preferredSize: const Size.fromHeight(108),
         child: Column(
           children: [
             //=======App bar code ====================
@@ -37,12 +37,12 @@ class HomeScreen extends StatelessWidget {
             //========search field code ==============
             Container(
               color: AppColors.primary,
-              height: 62,
+              height: 50,
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 20,
                   right: 20,
-                  top: 5,
+                  bottom: 5,
                 ),
                 child: TextFormField(
                   onTap: () {
@@ -72,7 +72,7 @@ class HomeScreen extends StatelessWidget {
       ),
 
       //======drawer code ===============
-      drawer:  DrawerScreen(),
+      // drawer:  DrawerScreen(),
       //=======list view builder code==============
       body: CustomMaterialIndicator(
         onRefresh: () async {

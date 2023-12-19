@@ -54,13 +54,18 @@ class EditAddNewHomeScreen extends StatelessWidget {
               ComReuseElevButton(
                   onPressed: () {
                     AppHelperFunction.showAlert("Delete", "Aru you sure delete this room.", () {
-                      AppHelperFunction.showDialogCenter(false);
 
-                      ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      });
+
+                    AppHelperFunction.checkInternetAvailability().then((value) {
+                      if(value){
+                        AppHelperFunction.showDialogCenter(false);
+                        ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        });
+                      }
+                    });
                     });
                   },
                   title: "Delete"),

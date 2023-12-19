@@ -93,17 +93,21 @@ class AddYourTiffineController extends GetxController {
 
   // om submit button
   onSubmitButton() {
-    if (globalKey.currentState!.validate()) {
-      if (selectedCoverImage.isEmpty) {
-        AppHelperFunction.showSnackBar("Cover Image can't be empty.");
-      } else {
-        AppHelperFunction.showDialogCenter(false);
-        uploadCoverImage().then((value) {
-          uploadMenuImage().then((value) {
-            onUserTiffineServicesData();
-          });
-        });
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        if (globalKey.currentState!.validate()) {
+          if (selectedCoverImage.isEmpty) {
+            AppHelperFunction.showSnackBar("Cover Image can't be empty.");
+          } else {
+            AppHelperFunction.showDialogCenter(false);
+            uploadCoverImage().then((value) {
+              uploadMenuImage().then((value) {
+                onUserTiffineServicesData();
+              });
+            });
+          }
+        }
       }
-    }
+    });
   }
 }

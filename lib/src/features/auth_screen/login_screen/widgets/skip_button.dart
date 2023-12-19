@@ -21,7 +21,7 @@ class SkipTextButtonWidgets extends StatelessWidget {
             preference.setString("userUid", "value");
             finalUserUidGlobal = "value";
 
-            Get.offAllNamed(RoutesName.homeScreen);
+            Get.offAllNamed(RoutesName.navigationScreen);
           },
           child: const Text(
             "Skip",

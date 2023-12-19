@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
@@ -107,7 +108,11 @@ class EditTiffineScreen extends StatelessWidget {
                                 left: 80,
                                 child: InkWell(
                                   onTap: () {
-                                    controller.pickCoverImageFromGallery();
+                                    AppHelperFunction.checkInternetAvailability().then((value) {
+                                      if (value) {
+                                        controller.pickCoverImageFromGallery();
+                                      }
+                                    });
                                   },
                                   child: Container(
                                     height: 60,
@@ -229,7 +234,11 @@ class EditTiffineScreen extends StatelessWidget {
                                 left: 50,
                                 child: InkWell(
                                   onTap: () {
-                                    controller.pickMenuImageFromGallery();
+                                    AppHelperFunction.checkInternetAvailability().then((value) {
+                                      if (value) {
+                                        controller.pickMenuImageFromGallery();
+                                      }
+                                    });
                                   },
                                   child: Container(
                                     height: 60,

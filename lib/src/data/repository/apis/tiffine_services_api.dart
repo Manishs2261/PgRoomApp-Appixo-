@@ -23,7 +23,10 @@ class TiffineServicesApis {
   static FirebaseStorage storage = FirebaseStorage.instance;
 
   //current date and time
-  static final time = DateTime.now().microsecondsSinceEpoch.toString();
+  static final time = DateTime
+      .now()
+      .microsecondsSinceEpoch
+      .toString();
 
   static var tiffineServicesId = '';
   static var tiffineServicesCoverImageUrl = '';
@@ -138,7 +141,9 @@ class TiffineServicesApis {
   // update cover Image data
   static Future<void> updateTiffineCoverImage(File file, String itemId) async {
     //getting image file extension
-    final ext = file.path.split('.').last;
+    final ext = file.path
+        .split('.')
+        .last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
@@ -168,7 +173,9 @@ class TiffineServicesApis {
   // update cover Image data
   static Future<void> updateTiffineMenuImage(File file, String itemId) async {
     //getting image file extension
-    final ext = file.path.split('.').last;
+    final ext = file.path
+        .split('.')
+        .last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
@@ -202,7 +209,7 @@ class TiffineServicesApis {
   //get review id for check user a review submit or not
   static Future<String> getTiffineRatingSubmitIdData(itemId) async {
     var collection =
-        firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
+    firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     tiffineReviewSubmitId = data?['tiffineUserId'] ?? '';
@@ -271,8 +278,8 @@ class TiffineServicesApis {
   }
 
   //save Rating Summary data
-  static Future<void> saveRatingBarSummaryTiffineData(
-      itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
+  static Future<void> saveRatingBarSummaryTiffineData(itemId, one, two, three, four, five, avg,
+      totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("TiffineReview")
@@ -318,7 +325,7 @@ class TiffineServicesApis {
     try {
       //delete a Firestorm
       DocumentReference documentReference =
-          firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
+      firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
 
       DocumentReference documentReference1 = firebaseFirestore.collection('tiffineServicesCollection').doc(deleteId);
 
@@ -336,8 +343,6 @@ class TiffineServicesApis {
       await firebaseFirestore
           .collection("loginUser")
           .doc(user.uid)
-          .collection(auth.currentUser!.uid)
-          .doc(deleteId)
           .delete();
       //
       //   //delete a review collection data
@@ -364,4 +369,7 @@ class TiffineServicesApis {
       AppLoggerHelper.info("data in not delete $e");
     }
   }
+
+
+
 }
