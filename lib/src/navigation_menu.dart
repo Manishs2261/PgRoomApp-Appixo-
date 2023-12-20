@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import 'features/room_rent_all_screen/home/home_screen.dart';
 import 'features/tiffinServicesScreen/tiffinServicesScreen.dart';
 
 class NavigationMenuScreen extends StatelessWidget {
-  NavigationMenuScreen({super.key});
+  const NavigationMenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,30 +15,33 @@ class NavigationMenuScreen extends StatelessWidget {
 
     //on back press open alert dilog box
     return WillPopScope(
-      onWillPop: () async{
+      onWillPop: () async {
         final value = await showDialog<bool>(
             context: context,
-            builder: (context){
+            builder: (context) {
               return AlertDialog(
-                title: Text("Alert"),
-                content: Text("Do you want to Exit ?."),
+                title: const Text("Alert"),
+                content: const Text("Do you want to Exit ?."),
                 actions: [
-                  TextButton(onPressed: (){
-                    Navigator.of(context).pop(false);
-                  }, child: Text("No")),
-                  TextButton(onPressed: (){
-                    Navigator.of(context).pop(true);
-                  }, child: Text("Yes")),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(false);
+                      },
+                      child: const Text("No")),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: const Text("Yes")),
                 ],
               );
             });
 
-        if(value != null){
+        if (value != null) {
           return Future.value(value);
-        }else{
-         return Future.value(false);
+        } else {
+          return Future.value(false);
         }
-
       },
       child: Scaffold(
         bottomNavigationBar: Obx(
@@ -51,9 +52,9 @@ class NavigationMenuScreen extends StatelessWidget {
             indicatorColor: AppColors.primary,
             onDestinationSelected: (index) => controller.selectedIndex.value = index,
             destinations: [
-              NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-              NavigationDestination(icon: Icon(Icons.food_bank_sharp), label: "Food"),
-              NavigationDestination(icon: Icon(Icons.person_2_outlined), label: "Profile"),
+              const NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+              const NavigationDestination(icon: Icon(Icons.food_bank_sharp), label: "Food"),
+              const NavigationDestination(icon: Icon(Icons.person_2_outlined), label: "Profile"),
             ],
           ),
         ),

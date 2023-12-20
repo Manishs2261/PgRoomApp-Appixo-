@@ -5,8 +5,6 @@ import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
 
-
-
 import 'firebase_options.dart';
 
 //global object for accessing device screen size
@@ -29,10 +27,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         themeMode: ThemeMode.system,
-         darkTheme: AppTheme.darkTheme,
-         theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        theme: AppTheme.lightTheme,
 
-         //theme: ThemeData(
+        //theme: ThemeData(
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
