@@ -160,6 +160,22 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
+
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                "Contact Number :- ${tiffineList[index].contactNumber}",
+                                                softWrap: false,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         const SizedBox(
                                           height: 5,
                                         ),

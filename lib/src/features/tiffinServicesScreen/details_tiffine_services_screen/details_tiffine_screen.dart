@@ -183,7 +183,10 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  ComReuseElevButton(onPressed: () {}, title: "Contact now"),
+                  ComReuseElevButton(onPressed: () {
+
+                    controller.onCallNow();
+                  }, title: "Contact now"),
                 ],
               ),
             ),

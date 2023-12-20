@@ -49,7 +49,7 @@ class TiffineServicesApis {
 //==============Tiffine Services Apis =====================
 
   // create a tiffine services data base for main home collection
-  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage) async {
+  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage,contactNumber) async {
     // model class
     final tiffineList = TiffineServicesModel(
       address: address,
@@ -59,6 +59,7 @@ class TiffineServicesApis {
       menuImage: menuImage,
       numberOfRating: 0,
       servicesName: servicesName,
+      contactNumber: contactNumber
     );
 
     // store main list data
@@ -69,7 +70,7 @@ class TiffineServicesApis {
   }
 
   // create a tiffine services data base for user data base
-  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage) async {
+  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage,contactNumber) async {
     // model class
     final tiffineList = TiffineServicesModel(
       address: address,
@@ -79,6 +80,7 @@ class TiffineServicesApis {
       menuImage: menuImage,
       numberOfRating: 0,
       servicesName: servicesName,
+        contactNumber: contactNumber
     );
     // user list collection
     return await firebaseFirestore
@@ -123,18 +125,20 @@ class TiffineServicesApis {
 //==============Edit  Tiffine Services Apis ===============
 
   //update tiffine service  data
-  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId) async {
+  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId,contactNumber) async {
     //home list collection data base
     await firebaseFirestore.collection("tiffineServicesCollection").doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
+      'contactNumber':contactNumber
     });
 //user personal collection data base
     await firebaseFirestore.collection("userTiffineCollection").doc(user.uid).collection(user.uid).doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
+      'contactNumber':contactNumber
     });
   }
 

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/model/tiffin_services_model/tiffen_services_model.dart';
 
-import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/apis/user_apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../model/rating_and_review_Model/rating_and_review_Model.dart';
@@ -133,9 +132,7 @@ class DetailsTiffineController extends GetxController {
         TiffineServicesApis.starFourTiffine +
         TiffineServicesApis.starFiveTiffine;
 
-    // calculation a average
-    print(numberOfRating);
-    print(totalNumberOfStar);
+
 
     if (totalNumberOfStar == 0 && numberOfRating == 0) {
       return null;
@@ -169,7 +166,7 @@ class DetailsTiffineController extends GetxController {
                 //Rating summary calculation method
                 onRatingStar(ratingNow.value);
 
-                Future.delayed(Duration(seconds: 2), () {
+                Future.delayed(const Duration(seconds: 2), () {
                   onRatingSummaryCalculation(ratingList.length);
                 });
                 //after submit rating than reset value
@@ -202,7 +199,7 @@ class DetailsTiffineController extends GetxController {
           if (value) {
             AppDeviceUtils.launchUrl("${Uri(
               scheme: 'tel',
-              // path: data.contactNumber,
+               path: data.contactNumber,
             )}");
           }
         });

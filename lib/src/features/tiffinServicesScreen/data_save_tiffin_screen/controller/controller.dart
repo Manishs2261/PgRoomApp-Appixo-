@@ -21,6 +21,7 @@ class AddYourTiffineController extends GetxController {
   final servicesNameController = TextEditingController().obs;
   final priceController = TextEditingController().obs;
   final addressController = TextEditingController().obs;
+  final numberController = TextEditingController().obs;
   final globalKey = GlobalKey<FormState>();
 
   // image picker form Gallery
@@ -64,7 +65,8 @@ class AddYourTiffineController extends GetxController {
             servicesNameController.value.text,
             addressController.value.text,
             priceController.value.text,
-            TiffineServicesApis.foodMenuImageUrl)
+            TiffineServicesApis.foodMenuImageUrl,
+            numberController.value.text)
         .then((value) {
       onTiffineServicesData();
     }).onError((error, stackTrace) {
@@ -79,7 +81,8 @@ class AddYourTiffineController extends GetxController {
             servicesNameController.value.text,
             addressController.value.text,
             priceController.value.text,
-            TiffineServicesApis.foodMenuImageUrl)
+            TiffineServicesApis.foodMenuImageUrl,
+            numberController.value.text)
         .then((value) {
       Get.snackbar("Save", "Successfully");
       Navigator.pop(Get.context!);

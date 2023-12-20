@@ -6,6 +6,7 @@ class TiffineServicesModel {
   String? servicesName;
   String? menuImage;
   String? foodImage;
+  String? contactNumber;
 
   TiffineServicesModel(
       {this.foodPrice,
@@ -14,7 +15,8 @@ class TiffineServicesModel {
         this.numberOfRating,
         this.servicesName,
         this.menuImage,
-        this.foodImage});
+        this.foodImage,
+      this.contactNumber});
 
   TiffineServicesModel.fromJson(Map<String, dynamic> json) {
     foodPrice = json['foodPrice'];
@@ -24,6 +26,7 @@ class TiffineServicesModel {
     servicesName = json['servicesName'];
     menuImage = json['menuImage'];
     foodImage = json['foodImage'];
+    contactNumber = json['contactNumber'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class TiffineServicesModel {
     data['servicesName'] = this.servicesName;
     data['menuImage'] = this.menuImage;
     data['foodImage'] = this.foodImage;
+    data['contactNumber'] = this.contactNumber;
     return data;
   }
 }

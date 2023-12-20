@@ -316,6 +316,23 @@ class EditTiffineScreen extends StatelessWidget {
                         const SizedBox(
                           height: 15,
                         ),
+
+                        //==========Contact Number================
+                        MyTextFormWedgit(
+                          textKeyBoard: TextInputType.phone,
+                          maxLength: 10,
+                          controller: controller.numberController.value,
+                          hintText: "Contact Number",
+                          lableText: 'Contact Number',
+                          icon: const Icon(Icons.phone),
+                          borderRadius: BorderRadius.circular(11),
+                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                          validator: ContactNumberValidator.validate,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+
                         MyTextFormWedgit(
                           controller: controller.priceController.value,
                           hintText: "Enter Price according day  ",

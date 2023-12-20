@@ -27,6 +27,7 @@ class EditTiffineScreenController extends GetxController {
   Rx<TextEditingController> servicesNameController = TextEditingController().obs;
   Rx<TextEditingController> priceController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
+  Rx<TextEditingController> numberController = TextEditingController().obs;
   final globalKey = GlobalKey<FormState>();
 
   // image picker form Gallery
@@ -42,6 +43,7 @@ class EditTiffineScreenController extends GetxController {
     servicesNameController = TextEditingController(text: data.servicesName).obs;
     priceController = TextEditingController(text: data.foodPrice).obs;
     addressController = TextEditingController(text: data.address).obs;
+    numberController = TextEditingController(text: data.contactNumber).obs;
 
     selectedCoverImage = "${data.foodImage}".obs;
     selectedMenuImage = "${data.menuImage}".obs;
@@ -92,7 +94,8 @@ class EditTiffineScreenController extends GetxController {
         if (globalKey.currentState!.validate()) {
           AppHelperFunction.showDialogCenter(false);
           TiffineServicesApis.updateTiffineServicesData(
-                  servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId)
+                  servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId,
+          numberController.value.text)
               .then((value) {
             Get.snackbar("Update", "Successfully");
             Navigator.pop(Get.context!);
