@@ -1,16 +1,11 @@
 import 'dart:io';
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/controller/controller.dart';
 
-import '../../../data/repository/apis/apis.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/validator/text_field_validator.dart';
 
@@ -25,7 +20,7 @@ class SignProfileScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 80, left: 15, right: 15,bottom: 30),
+          padding: const EdgeInsets.only(top: 80, left: 15, right: 15, bottom: 30),
           child: Column(
             children: [
               Stack(
@@ -42,14 +37,14 @@ class SignProfileScreen extends StatelessWidget {
                                     image: DecorationImage(
                                         fit: BoxFit.fill, image: FileImage(File(controller.image.value))))),
                           )
-                        : Align(
+                        : const Align(
                             alignment: Alignment.topCenter,
                             child: CircleAvatar(
+                              radius: 85,
                               child: Icon(
                                 Icons.person,
                                 size: 70,
                               ),
-                              radius: 85,
                             ),
                           ),
                   ),
@@ -70,12 +65,12 @@ class SignProfileScreen extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: [
                                         InkWell(
-                                          child: CircleAvatar(
+                                          child: const CircleAvatar(
+                                            radius: 40,
                                             child: Icon(
                                               Icons.image,
                                               size: 40,
                                             ),
-                                            radius: 40,
                                           ),
                                           onTap: () {
                                             controller.getImageFromImagePicker(ImageSource.gallery);
@@ -83,12 +78,12 @@ class SignProfileScreen extends StatelessWidget {
                                           },
                                         ),
                                         InkWell(
-                                          child: CircleAvatar(
+                                          child: const CircleAvatar(
+                                            radius: 40,
                                             child: Icon(
                                               Icons.camera_alt,
                                               size: 40,
                                             ),
-                                            radius: 40,
                                           ),
                                           onTap: () {
                                             controller.getImageFromImagePicker(ImageSource.camera);
@@ -108,7 +103,7 @@ class SignProfileScreen extends StatelessWidget {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(50),
                                 border: Border.all(color: AppColors.primary, width: 2)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.camera_alt,
                               color: AppColors.primary,
                             )),
@@ -119,7 +114,7 @@ class SignProfileScreen extends StatelessWidget {
                   key: globalKey,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 100,
                       ),
                       TextFormField(
@@ -133,7 +128,7 @@ class SignProfileScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       TextFormField(
@@ -147,7 +142,7 @@ class SignProfileScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       TextFormField(

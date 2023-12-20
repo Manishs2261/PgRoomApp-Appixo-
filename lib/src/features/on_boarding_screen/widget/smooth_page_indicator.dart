@@ -8,10 +8,10 @@ import '../controller/on_boarding_controller.dart';
 class SmootPageIndicatorWidget extends StatelessWidget {
   const SmootPageIndicatorWidget({
     super.key,
-    required onBoardingConlroller onBoaeding,
+    required OnBoardingController onBoaeding,
   }) : _onBoaeding = onBoaeding;
 
-  final onBoardingConlroller _onBoaeding;
+  final OnBoardingController _onBoaeding;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class SmootPageIndicatorWidget extends StatelessWidget {
 
           //========== for Next page===========
           TextButton(
-              onPressed: () => _onBoaeding.Next(),
+              onPressed: () => _onBoaeding.nextPage(),
               child: const Icon(
                 Iconsax.arrow_right_3,
                 size: 30,

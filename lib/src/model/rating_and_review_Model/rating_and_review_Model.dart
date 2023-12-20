@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class RatingAndReviewModel {
   double? rating;
   String? title;
@@ -11,8 +9,16 @@ class RatingAndReviewModel {
   String? tiffineTitle;
   String? tiffineUserId;
 
-  RatingAndReviewModel({this.rating, this.title,this.currentDate,this.userId,this.userName,this.userImage,this
-      .tiffineRating,this.tiffineTitle,this.tiffineUserId});
+  RatingAndReviewModel(
+      {this.rating,
+      this.title,
+      this.currentDate,
+      this.userId,
+      this.userName,
+      this.userImage,
+      this.tiffineRating,
+      this.tiffineTitle,
+      this.tiffineUserId});
 
   RatingAndReviewModel.fromJson(Map<String, dynamic> json) {
     rating = json['rating'];
@@ -32,7 +38,7 @@ class RatingAndReviewModel {
     data['title'] = this.title;
     data['currentDate'] = this.currentDate;
     data['userId'] = this.userId;
-    data['userName']= this.userName;
+    data['userName'] = this.userName;
     data['userImage'] = this.userImage;
     data['tiffineRating'] = this.tiffineRating;
     data['tiffineTitle'] = this.tiffineTitle;

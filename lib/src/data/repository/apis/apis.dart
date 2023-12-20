@@ -381,10 +381,10 @@ class ApisClass {
   }
 
   // update Room type And Price Data
-  static Future<void> updateRoomTypeAndPrice(itemId, single, double, triple, four, family) async {
+  static Future<void> updateRoomTypeAndPrice(itemId, single, doublePerson, triple, four, family) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
-      'doublePersonPrice': double,
+      'doublePersonPrice': doublePerson,
       'triplePersonPrice': triple,
       'familyPrice': family,
       'fourPersonPrice': four,
@@ -392,7 +392,7 @@ class ApisClass {
     });
 //user personal collection data base
     await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
-      'doublePeronPrice': double,
+      'doublePeronPrice': doublePerson,
       'triplePersonPrice': triple,
       'familyPrice': family,
       'fourPersonPrice': four,
@@ -547,7 +547,7 @@ class ApisClass {
       await firebaseFirestore
           .collection("userReview")
           .doc("reviewCollection")
-          .collection("$deleteId")
+          .collection(deleteId)
           .doc(deleteId)
           .collection("reviewSummary")
           .doc(deleteId)

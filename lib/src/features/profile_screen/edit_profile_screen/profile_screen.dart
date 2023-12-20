@@ -3,8 +3,6 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -25,10 +23,10 @@ class ProfileScreen extends StatelessWidget {
         child: Scaffold(
       body: CustomMaterialIndicator(
           onRefresh: () async {
-            return await Future.delayed(Duration(seconds: 2));
+            return await Future.delayed(const Duration(seconds: 2));
           },
           indicatorBuilder: (BuildContext context, IndicatorController controller) {
-            return Icon(
+            return const Icon(
               Icons.refresh,
               color: Colors.blue,
               size: 30,
@@ -44,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
                 case ConnectionState.none:
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
 
                 case ConnectionState.active:
                 case ConnectionState.done:
@@ -57,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
                   return ListView(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 15, right: 15, top: 20),
+                        padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -74,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(50),
                                         border: Border.all(color: AppColors.primary, width: 2)),
-                                    child: Icon(
+                                    child: const Icon(
                                       Icons.edit,
                                       size: 20,
                                       color: AppColors.primary,
@@ -107,7 +105,7 @@ class ProfileScreen extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(50), color: Colors.grey),
                                               alignment: Alignment.center,
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.person,
                                                 size: 100,
                                               ),
@@ -131,12 +129,12 @@ class ProfileScreen extends StatelessWidget {
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
                                                       InkWell(
-                                                        child: CircleAvatar(
+                                                        child: const CircleAvatar(
+                                                          radius: 40,
                                                           child: Icon(
                                                             Icons.image,
                                                             size: 40,
                                                           ),
-                                                          radius: 40,
                                                         ),
                                                         onTap: () {
                                                           controller.pickImageFromGallery(ImageSource.gallery);
@@ -144,12 +142,12 @@ class ProfileScreen extends StatelessWidget {
                                                         },
                                                       ),
                                                       InkWell(
-                                                        child: CircleAvatar(
+                                                        child: const CircleAvatar(
+                                                          radius: 40,
                                                           child: Icon(
                                                             Icons.camera_alt,
                                                             size: 40,
                                                           ),
-                                                          radius: 40,
                                                         ),
                                                         onTap: () {
                                                           controller.pickImageFromGallery(ImageSource.camera);
@@ -169,14 +167,14 @@ class ProfileScreen extends StatelessWidget {
                                               color: Colors.white,
                                               borderRadius: BorderRadius.circular(50),
                                               border: Border.all(color: AppColors.primary, width: 2)),
-                                          child: Icon(
+                                          child: const Icon(
                                             Icons.camera_alt,
                                             color: AppColors.primary,
                                           )),
                                     )),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 50,
                             ),
                             ProfileTextFormWidgets(
@@ -227,19 +225,19 @@ class ProfileTextFormWidgets extends StatelessWidget {
         children: [
           Text(
             name,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
           ),
           TextFormField(
             initialValue: initialValue,
             readOnly: true,
             decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
+              enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              focusedBorder: UnderlineInputBorder(
+              focusedBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
-              border: UnderlineInputBorder(
+              border: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
               ),
               prefixIcon: Icon(icon),

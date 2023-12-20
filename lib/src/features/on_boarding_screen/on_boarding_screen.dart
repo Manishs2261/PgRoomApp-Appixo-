@@ -16,7 +16,7 @@ class OnBoardingOneScreen extends StatelessWidget {
     AppLoggerHelper.debug("Build - OnBoardingOneScreen");
 
     // on boarding controller ==========
-    final controller = onBoardingConlroller();
+    final controller = OnBoardingController();
     //===============
 
     return Scaffold(

@@ -1,9 +1,9 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -28,9 +28,9 @@ class UserApis {
   //current date and time
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
 
-  static var userEmail;
-  static var userCity;
-  static var userName;
+  static var userEmail = "";
+  static var userCity = "";
+  static var userName = "";
   static var userImage = "";
   static var userImageDownloadUrl = '';
 
@@ -119,51 +119,46 @@ class UserApis {
   static Future<void> deleteUserAccount() async {
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
-
         final snapshots =
-            await firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
+            firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
 
         var numberOfDocuments1;
         snapshots.listen((QuerySnapshot querySnapshot) {
           // Get the number of documents in the collection
           numberOfDocuments1 = querySnapshot.docs.length;
-          print('Number of documents: $numberOfDocuments1');
+
         });
 
         final snapshots1 =
-           await firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).snapshots();
+            firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).snapshots();
 
         var numberOfDocuments2;
         snapshots1.listen((QuerySnapshot querySnapshot) {
           // Get the number of documents in the collection
           numberOfDocuments2 = querySnapshot.docs.length;
-          print('Number of documents: $numberOfDocuments2');
-          print(numberOfDocuments2.runtimeType);
+
+          if (kDebugMode) {
+            print(numberOfDocuments2.runtimeType);
+          }
         });
 
-        Future.delayed(Duration(seconds: 1),() async {
-
+        Future.delayed(const Duration(seconds: 1), () async {
           if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0) {
+            await user.delete().then((value) {
+              Get.offAllNamed(RoutesName.loginScreen);
+              Get.snackbar("Delete", "Successfully");
+            }).onError((error, stackTrace) {
+              Get.snackbar("Delete", "Failed");
+              if (kDebugMode) {
+                print(error);
+                print(stackTrace);
+              }
 
-
-             await user.delete().then((value) {
-               Get.offAllNamed(RoutesName.loginScreen);
-               Get.snackbar("Delete", "Successfully");
-             }).onError((error, stackTrace) {
-               Get.snackbar("Delete", "Failed");
-               print(error);
-               print(stackTrace);
-             });
-
-
+            });
           } else {
             Get.snackbar("Alert", "Please delete all your posted items first.");
-
           }
-
-
         });
-
       }
     });
   }
