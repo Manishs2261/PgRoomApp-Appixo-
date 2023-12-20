@@ -14,6 +14,8 @@ class AppImage {
 
 //rent details image
   static const String roomImage = 'assets/images/room.jpg';
-  static const String room2Image = 'assets/images/rooma.jpg';
-  static const String room3Image = 'assets/images/romb.jpg';
+  static const String foodImage = 'assets/images/food.png';
+  static const String menuImage = 'assets/images/menu.png';
+
+
 }

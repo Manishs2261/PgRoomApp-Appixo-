@@ -161,7 +161,13 @@ class AppHelperFunction {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
         isValue = false ;
-      }else{
+      }else if (value == ConnectivityResult.mobile){
+        isValue = true;
+      } else if (value == ConnectivityResult.wifi){
+        isValue = true;
+      }else if (value == ConnectivityResult.vpn){
+        isValue = true;
+      }else if (value == ConnectivityResult.bluetooth){
         isValue = true;
       }
     });

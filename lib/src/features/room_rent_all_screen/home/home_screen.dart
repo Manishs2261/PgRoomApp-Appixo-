@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,8 +24,9 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-      //    Get.offAllNamed(RoutesName.navigationScreen);
-          //Navigator.push(context, MaterialPageRoute(builder: (context)=> NavigationMenuScreen()));
+
+
+
         },
       ),
       //==PreferredSize provide a maximum appbar length

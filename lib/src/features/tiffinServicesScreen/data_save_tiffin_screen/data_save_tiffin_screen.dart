@@ -61,7 +61,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   )
                                 : const Image(
-                                    image: AssetImage(AppImage.roomImage),
+                                    image: AssetImage(AppImage.foodImage),
                                     height: double.infinity,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
@@ -84,7 +84,9 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                     height: 60,
                                     width: 200,
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                                    decoration: BoxDecoration(border: Border.all(color: Colors.white),
+                                        color: Colors.black26
+                                    ),
                                     child: const Text(
                                       "Choose cover Image",
                                       style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
@@ -152,10 +154,10 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   )
                                 : const Image(
-                                    image: AssetImage(AppImage.roomImage),
+                                    image: AssetImage(AppImage.menuImage),
                                     height: double.infinity,
                                     width: double.infinity,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                   ),
                           ),
 
@@ -175,10 +177,13 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                     height: 60,
                                     width: 200,
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                                    decoration: BoxDecoration(border: Border.all(color: Colors.white),
+                                      color: Colors.black26
+
+                                    ),
                                     child: const Text(
                                       "Choose Menu Image",
-                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
+                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),

@@ -195,8 +195,8 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   () => Visibility(
                       // checkReviewSubmission  for use current time update a screen
                       //Because reviewSubmissionId  not initialize after Rating submit
-//(controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value)
-                      visible: true,
+
+                      visible: (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
