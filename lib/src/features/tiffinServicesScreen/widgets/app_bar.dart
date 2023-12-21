@@ -12,7 +12,6 @@ class AppBarTiffineWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text("Tiffine Srvices"),
-
       actions: [
         //   ===post room free   ==================
         Padding(
@@ -29,7 +28,12 @@ class AppBarTiffineWidgets extends StatelessWidget {
               alignment: Alignment.center,
               height: 25,
               width: 135,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all()),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(), boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 5.0,
+                ),
+              ]),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +61,7 @@ class AppBarTiffineWidgets extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(onPressed: (){}, icon: Icon(Icons.notifications))
+        IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
       ],
     );
   }

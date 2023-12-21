@@ -27,12 +27,12 @@ class NavigationMenuScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       },
-                      child: const Text("No")),
+                      child: const Text("No",style: TextStyle(fontSize: 18),)),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(true);
                       },
-                      child: const Text("Yes")),
+                      child: const Text("Yes",style: TextStyle(fontSize: 18),)),
                 ],
               );
             });

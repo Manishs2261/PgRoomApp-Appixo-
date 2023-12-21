@@ -12,9 +12,8 @@ class AppBarWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Rooms"),
+      title: const Text("Rooms"),
       actions: [
-
         //   ===post room free   ==================
         Padding(
           padding: const EdgeInsets.only(right: 10),
@@ -30,7 +29,12 @@ class AppBarWidgets extends StatelessWidget {
               alignment: Alignment.center,
               height: 25,
               width: 135,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all()),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(), boxShadow: [
+                BoxShadow(
+                  color: Colors.grey,
+                  blurRadius: 5.0,
+                ),
+              ]),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

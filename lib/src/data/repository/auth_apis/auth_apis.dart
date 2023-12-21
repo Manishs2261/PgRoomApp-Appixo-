@@ -28,7 +28,7 @@ class AuthApisClass {
       if (value) {
         signInWithGoogle().then((value) async {
           await UserApis.saveUserData(
-              auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
+              auth.currentUser?.displayName,"", auth.currentUser?.email, auth.currentUser!.photoURL);
           print("😀 ${auth.currentUser!.photoURL}");
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();

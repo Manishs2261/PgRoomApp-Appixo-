@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
-  import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
@@ -23,11 +23,7 @@ class HomeScreen extends StatelessWidget {
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-
-
-
-        },
+        onPressed: () async {},
       ),
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
