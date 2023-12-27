@@ -39,10 +39,9 @@ class OnBoardingOneScreen extends StatelessWidget {
 
                 //=============screen two===============
                 onBoardingWidget(
-                  image: AppImage.onBoardingTwoImage,
-                  title: 'Discover Your Ideal PG Room',
-                  subtitle: '"Find your perfect PG room with ease on PgROOM. Simplifying your search for comfortable '
-                      'living."',
+                  image: AppImage.onBoardingFoodImage,
+                  title: '"Discover Comfort and Flavor: Foods."',
+                  subtitle: '"Indulge in culinary excellence with our streamlined food services."',
                 )
               ],
             ),

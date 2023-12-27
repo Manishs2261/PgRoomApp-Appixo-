@@ -222,7 +222,7 @@ class ApisClass {
   // upload  Cover image data in firebase database
   static Future uploadCoverImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('coverImage/${user.uid}/${user.uid}.jpg');
+      final reference = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       coverImageDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -272,7 +272,7 @@ class ApisClass {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('coverImage/${user.uid}/${user.uid}.$ext');
+    final ref = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -502,7 +502,14 @@ class ApisClass {
     });
 
     // This review  data save in user account only
-    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+    await firebaseFirestore
+        .collection("loginUser")
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(itemId)
+        .set({
       'itemId': itemId,
       'rating': ratingStar,
       'title': review,

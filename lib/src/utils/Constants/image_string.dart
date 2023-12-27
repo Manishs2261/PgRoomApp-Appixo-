@@ -6,7 +6,7 @@ class AppImage {
 
 // on Boarding screen
   static const String onBoardingOneImage = 'assets/images/on_boarding_one.png';
-  static const String onBoardingTwoImage = 'assets/images/on_boarding_two.png';
+  static const String onBoardingFoodImage = 'assets/images/foodimage.png';
 
 // login image
   static const String loginGoogleImage = 'assets/images/google.png';

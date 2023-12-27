@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,10 +6,8 @@ import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_wid
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
-import '../../drawer_screen/drawer_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -22,9 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-      ),
+
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(108),

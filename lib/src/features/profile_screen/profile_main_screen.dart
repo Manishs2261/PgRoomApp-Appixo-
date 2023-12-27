@@ -54,19 +54,21 @@ class ProfileDetailsScreen extends StatelessWidget {
                   : Container(
                       padding: EdgeInsets.zero,
                       child: StreamBuilder(
-                        stream: UserApis.firebaseFirestore
-                            .collection('loginUser')
-                            .doc(UserApis.user.uid)
-                            .collection(UserApis.user.uid)
+                        stream: ApisClass.firebaseFirestore
+                            .collection("loginUser")
+                            .doc(ApisClass.user.uid)
+                            .collection(ApisClass.user.uid)
                             .snapshots(includeMetadataChanges: true),
                         builder: (BuildContext context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
                             case ConnectionState.none:
-                              return Center(child: CircularProgressIndicator());
+                              return const Center(child: CircularProgressIndicator());
 
                             case ConnectionState.active:
                             case ConnectionState.done:
+                              // TODO: Handle this case.
+
                               final data = snapshot.data?.docs;
 
                               userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
@@ -109,7 +111,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                                             // in this condition
                                             Flexible(
                                               child: Text(
-                                                "${userList[0].name}",
+                                                 "${userList[0].name}",
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: false,
                                                 maxLines: 1,

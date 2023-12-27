@@ -151,7 +151,8 @@ class TiffineServicesApis {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('tiffineServices/${user.uid}/${user.uid}.$ext');
+    final ref = storage.ref().child('tiffineServices/${user.uid}/${DateTime
+        .now()}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -183,7 +184,8 @@ class TiffineServicesApis {
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('foodMenu/${user.uid}/${user.uid}.$ext');
+    final ref = storage.ref().child('foodMenu/${user.uid}/${DateTime
+        .now()}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -233,7 +235,8 @@ class TiffineServicesApis {
     });
 
     // This review  data save in user account only
-    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId).set({
+    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(user.uid)
+        .collection(auth.currentUser!.uid).doc(itemId).set({
       'tiffineUserId': itemId,
       'tiffineRating': ratingStar,
       'tiffineTitle': review,
@@ -344,9 +347,12 @@ class TiffineServicesApis {
           .delete();
 
       //   // This review  data save in user account only
+      // This review  data save in user account only
       await firebaseFirestore
           .collection("loginUser")
           .doc(user.uid)
+          .collection(auth.currentUser!.uid)
+          .doc(deleteId)
           .delete();
       //
       //   //delete a review collection data

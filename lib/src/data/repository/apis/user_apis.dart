@@ -28,11 +28,11 @@ class UserApis {
   //current date and time
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
 
-  static var userEmail = "";
-  static var userCity = "";
-  static var userName = "";
-  static var userImage = "";
-  static var userImageDownloadUrl = '';
+  static var userEmail;
+  static var userCity ;
+  static var userName ;
+  static var userImage ;
+  static var userImageDownloadUrl ;
 
   //============== User Data  Apis ===========================
 
