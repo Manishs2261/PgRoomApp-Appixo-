@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:pgroom/src/features/add_to_card/add_to_card.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
@@ -223,6 +224,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.searchTiffineScreen,
             page: () => SearchTiffineScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.addToCardScreen,
+            page: () => AddToCard(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

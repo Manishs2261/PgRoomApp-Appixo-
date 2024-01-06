@@ -46,6 +46,10 @@ class DetailsScreenController extends GetxController {
   // calculate average rating summary
   RxDouble ratingAverage = 0.0.obs;
 
+
+
+
+
   @override
   Future<void> onInit() async {
     await UserApis.getUserData();

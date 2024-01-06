@@ -411,6 +411,19 @@ class ApisClass {
         .update({'roomAvailable': roomAvailable});
   }
 
+  // update Add to cart data
+  static Future<void> updateAddToCart(itemId, like) async {
+    //rent collection data base
+    await firebaseFirestore.collection("rentCollection").doc(itemId).update({
+      'like': like,
+    });
+//user personal collection data base
+//     await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+//       'like':like,
+//
+//     });
+  }
+
 //=========================================================
 
   //============= Rating bar Summary Apis===================

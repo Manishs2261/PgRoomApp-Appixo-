@@ -144,7 +144,7 @@ class ProfileDetailsScreen extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.home),
+            leading: const Icon(Icons.home_outlined),
             title: const Text('Add Your Room'),
             trailing: const Icon(
               Icons.arrow_forward_ios,
@@ -159,7 +159,7 @@ class ProfileDetailsScreen extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.food_bank),
+            leading: const Icon(Icons.food_bank_outlined),
             title: const Text('Add Your Tiffine Services'),
             trailing: const Icon(
               Icons.arrow_forward_ios,
@@ -174,7 +174,7 @@ class ProfileDetailsScreen extends StatelessWidget {
             },
           ),
           ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.person_outline_outlined),
               title: const Text("Profile"),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
@@ -184,6 +184,21 @@ class ProfileDetailsScreen extends StatelessWidget {
                 AuthApisClass.checkUserLogin().then((value) {
                   if (value) {
                     Get.toNamed(RoutesName.profileSCreen);
+                  }
+                });
+              }),
+
+          ListTile(
+              leading: const Icon(Icons.shopping_basket_outlined),
+              title: const Text("Add To Cart"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCardScreen);
                   }
                 });
               }),

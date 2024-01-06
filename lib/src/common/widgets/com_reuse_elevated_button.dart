@@ -27,6 +27,7 @@ class ComReuseElevButton extends StatelessWidget {
         height: height,
         width: AppHelperFunction.screenWidth() * width,
         child: ElevatedButton(
+
           onPressed: onPressed,
           child:  (loading)
                 ? const CircularProgressIndicator(

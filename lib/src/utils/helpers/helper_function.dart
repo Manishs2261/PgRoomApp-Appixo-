@@ -43,6 +43,8 @@ class AppHelperFunction {
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       SnackBar(
         content: Text(message),
+
+
       ),
     );
   }
