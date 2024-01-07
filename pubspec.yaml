@@ -86,6 +86,8 @@ dependencies:
 
   liquid_pull_to_refresh: ^3.0.1
   custom_refresh_indicator: ^3.0.0
+  firebase_crashlytics: ^3.4.9
+
 
 
 
