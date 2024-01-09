@@ -64,7 +64,7 @@ class AddToCard extends StatelessWidget {
                 snapData = snapshot;
                 rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
                 // Filter the rentList based on the 'like' field being true
-                final likedRentList = rentList.where((rent) => rent.like == true).toList();
+                final likedRentList = rentList.where((rent) => rent.like == true,).toList();
                 return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(left: 0.2, right: 0.2),
@@ -75,6 +75,7 @@ class AddToCard extends StatelessWidget {
                           final itemId = snapshot.data?.docs[index].id;
 
                           print(snapshot.data?.docs[index].id);
+                          print("manish");
                           Get.toNamed(RoutesName.detailsRentInfoScreen, arguments: {
                             'list': likedRentList[index],
                             'id': itemId,
@@ -129,8 +130,9 @@ class AddToCard extends StatelessWidget {
                                         onTap: () {
 
                                           final itemId = snapshot.data?.docs[index].id;
-                                          ApisClass.updateAddToCart(itemId, false);
+                                          ApisClass.updateAddToCart(likedRentList[index].userRentId, false);
                                           print(itemId);
+                                          print(likedRentList[index].userRentId);
 
                                         },
                                         child: CircleAvatar(

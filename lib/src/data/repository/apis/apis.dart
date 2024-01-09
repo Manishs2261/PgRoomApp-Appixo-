@@ -417,11 +417,7 @@ class ApisClass {
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'like': like,
     });
-//user personal collection data base
-//     await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
-//       'like':like,
-//
-//     });
+
   }
 
 //=========================================================
