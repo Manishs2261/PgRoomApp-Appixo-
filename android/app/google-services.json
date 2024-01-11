@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "482025845866",
+    "firebase_url": "https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pgroomapp-e7b8c",
+    "storage_bucket": "pgroomapp-e7b8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482025845866:android:cbc0422a8f6f58bc5d8613",
+        "android_client_info": {
+          "package_name": "com.example.sahumanish.pgroom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482025845866-hst64ut2u3jn7ib0thne9qa05vkrqmab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sahumanish.pgroom",
+            "certificate_hash": "e2df6c3f7464d00f749c687d4b5e0cbe968781e7"
+          }
+        },
+        {
+          "client_id": "482025845866-1dumfep94tuvllpgrbscbnm2bmuoji68.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXBOo5c-xvnlW2xRWRGayAnksSCSILFMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482025845866-1dumfep94tuvllpgrbscbnm2bmuoji68.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "482025845866-3m64h5vb05n2j489h5d747jt2tv25k92.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sahumanish.pgroom"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
