@@ -2,11 +2,11 @@ class AppImage {
 
 
   // splash screen image
-  static const String splashImage = 'assets/images/splash_screen.png';
+  static const String splashImage = 'assets/images/splash.jpg';
 
 // on Boarding screen
-  static const String onBoardingOneImage = 'assets/images/on_boarding_one.png';
-  static const String onBoardingFoodImage = 'assets/images/foodimage.png';
+  static const String onBoardingOneImage = 'assets/images/house.json';
+  static const String onBoardingFoodImage = 'assets/images/fooddeliver.json';
 
 // login image
   static const String loginGoogleImage = 'assets/images/google.png';

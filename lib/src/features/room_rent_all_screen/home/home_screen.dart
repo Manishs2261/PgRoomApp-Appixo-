@@ -19,9 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: (){
-         throw Exception();
-      },),
+
 
 
       //==PreferredSize provide a maximum appbar length

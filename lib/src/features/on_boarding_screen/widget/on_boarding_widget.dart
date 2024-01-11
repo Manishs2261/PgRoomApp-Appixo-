@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -21,11 +22,12 @@ class onBoardingWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(
-            image: AssetImage(image),
-            height: AppHelperFunction.screenHeight() * 0.3,
-            width: AppHelperFunction.screenWidth() * 0.7,
-          ),
+          // Image(
+          //   image: AssetImage(image),
+          //   height: AppHelperFunction.screenHeight() * 0.3,
+          //   width: AppHelperFunction.screenWidth() * 0.7,
+          // ),
+          Lottie.asset(image),
           SizedBox(height: 10,),
           Text(
             title,
