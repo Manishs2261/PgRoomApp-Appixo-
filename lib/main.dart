@@ -18,7 +18,7 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.android,
   );
   //_initializerFirebase();
 
@@ -57,10 +57,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// ===for initialize firebase method ===
-_initializerFirebase() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-}
+
