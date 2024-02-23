@@ -8,6 +8,8 @@ import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
 
+import 'firebase_options.dart';
+
 
 //global object for accessing device screen size
 late Size mediaQuery;
@@ -16,7 +18,9 @@ Future<void> main() async {
   // for initializer  firebase on open a app
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   //_initializerFirebase();
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
@@ -53,5 +57,3 @@ class MyApp extends StatelessWidget {
         getPages: AppRoutes.appRoutes());
   }
 }
-
-
