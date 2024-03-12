@@ -122,83 +122,98 @@ class AllDetailsWidgets extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconWriteAndWrongWidgets(
-                title: "Wi-Fi",
-                isIcon: controller.data.wifi!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "Fan",
-                isIcon: controller.data.fan!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "Light",
-                isIcon: controller.data.light!,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconWriteAndWrongWidgets(
-                title: "table",
-                isIcon: controller.data.table!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "chair",
-                isIcon: controller.data.chair!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "locker",
-                isIcon: controller.data.locker!,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconWriteAndWrongWidgets(
-                title: "Bed",
-                isIcon: controller.data.bed!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "gadda",
-                isIcon: controller.data.gadda!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "bed sheet",
-                isIcon: controller.data.bedSheet!,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconWriteAndWrongWidgets(
-                title: "parking",
-                isIcon: controller.data.parking!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "Attach \n Bathroom",
-                isIcon: controller.data.attachBathRoom!,
-              ),
-              IconWriteAndWrongWidgets(
-                title: "Shareable \n Bathroom",
-                isIcon: controller.data.shareAbleBathRoom!,
-              ),
-            ],
-          ),
+
+
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+
+           children: [
+             SizedBox(width: 20,),
+             IconWriteAndWrongWidgets(
+               title: "Wi-Fi",
+               isIcon: controller.data.wifi!,
+             ),
+             SizedBox(width: 30,),
+             IconWriteAndWrongWidgets(
+               title: "Fan",
+               isIcon: controller.data.fan!,
+             ),
+             SizedBox(width: 45,),
+             IconWriteAndWrongWidgets(
+               title: "Light",
+               isIcon: controller.data.light!,
+             ),
+           ],
+         ),
+         const SizedBox(
+           height: 5,
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: [
+             SizedBox(width: 20,),
+             IconWriteAndWrongWidgets(
+               title: "table",
+               isIcon: controller.data.table!,
+             ),
+             SizedBox(width: 30,),
+             IconWriteAndWrongWidgets(
+               title: "chair",
+               isIcon: controller.data.chair!,
+             ),
+             SizedBox(width: 38,),
+             IconWriteAndWrongWidgets(
+               title: "locker",
+               isIcon: controller.data.locker!,
+             ),
+           ],
+         ),
+         const SizedBox(
+           height: 5,
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: [
+             SizedBox(width: 20,),
+             IconWriteAndWrongWidgets(
+               title: "Bed",
+               isIcon: controller.data.bed!,
+             ),
+             SizedBox(width: 37,),
+             IconWriteAndWrongWidgets(
+               title: "gadda",
+               isIcon: controller.data.gadda!,
+             ),
+             SizedBox(width: 32,),
+             IconWriteAndWrongWidgets(
+               title: "bed sheet",
+               isIcon: controller.data.bedSheet!,
+             ),
+           ],
+         ),
+         const SizedBox(
+           height: 5,
+         ),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.start,
+           children: [
+             SizedBox(width: 20,),
+             IconWriteAndWrongWidgets(
+               title: "parking",
+               isIcon: controller.data.parking!,
+             ),
+             SizedBox(width: 17,),
+             IconWriteAndWrongWidgets(
+               title: "Attach \n Bathroom",
+               isIcon: controller.data.attachBathRoom!,
+             ),
+             SizedBox(width: 5,),
+             IconWriteAndWrongWidgets(
+               title: "Shareable \n Bathroom",
+               isIcon: controller.data.shareAbleBathRoom!,
+             ),
+           ],
+         ),
 
           const SizedBox(
             height: 10,

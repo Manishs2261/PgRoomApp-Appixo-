@@ -22,8 +22,9 @@ class _SearchScreenState extends State<SearchScreen> {
   void updateList(String value) {
     setState(() {
       displayList = data
-      //search different way
+          //search different way
           .where((element) =>
+
               element.houseName!.toLowerCase().contains(value.toLowerCase()) ||
               element.city!.toLowerCase().contains(value.toLowerCase()) ||
               element.address!.toLowerCase().contains(value.toLowerCase()) ||
@@ -47,19 +48,17 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: (){
-            showDialog(context: context,
-                builder: (context){
-
-              return Container(
-                color: Colors.red,
-
-              );
-
-                });
-
-
-          }, icon: Icon(Icons.filter_alt))
+          IconButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        color: Colors.red,
+                      );
+                    });
+              },
+              icon: Icon(Icons.filter_alt))
         ],
       ),
       body: Column(

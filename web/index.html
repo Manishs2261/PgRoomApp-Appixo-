@@ -32,6 +32,34 @@
   <title>pgroom</title>
   <link rel="manifest" href="manifest.json">
 
+
+  <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDbOPMm6_yzLJNCvSYwKbi3Ajby1wadkH0",
+  authDomain: "pgroomapp-e7b8c.firebaseapp.com",
+  databaseURL: "https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "pgroomapp-e7b8c",
+  storageBucket: "pgroomapp-e7b8c.appspot.com",
+  messagingSenderId: "482025845866",
+  appId: "1:482025845866:web:1a32fd93682fe4d75d8613",
+  measurementId: "G-BXYHY78C24"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+</script>
+
+
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;

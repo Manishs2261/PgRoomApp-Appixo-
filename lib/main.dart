@@ -19,7 +19,17 @@ Future<void> main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: FirebaseOptions(
+        apiKey: "AIzaSyDbOPMm6_yzLJNCvSYwKbi3Ajby1wadkH0",
+        authDomain: "pgroomapp-e7b8c.firebaseapp.com",
+        databaseURL: "https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "pgroomapp-e7b8c",
+        storageBucket: "pgroomapp-e7b8c.appspot.com",
+        messagingSenderId: "482025845866",
+        appId: "1:482025845866:web:1a32fd93682fe4d75d8613",
+        measurementId: "G-BXYHY78C24"
+
+    )
   );
   //_initializerFirebase();
 
