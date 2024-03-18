@@ -48,17 +48,17 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        color: Colors.red,
-                      );
-                    });
-              },
-              icon: Icon(Icons.filter_alt))
+          // IconButton(
+          //     onPressed: () {
+          //       showDialog(
+          //           context: context,
+          //           builder: (context) {
+          //             return Container(
+          //               color: Colors.red,
+          //             );
+          //           });
+          //     },
+          //     icon: Icon(Icons.filter_alt))
         ],
       ),
       body: Column(

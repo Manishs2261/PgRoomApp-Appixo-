@@ -7,7 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
-
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'firebase_options.dart';
 
 
@@ -32,6 +32,14 @@ Future<void> main() async {
     )
   );
   //_initializerFirebase();
+
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+  OneSignal.initialize("212272d1-35f0-4d7c-84ad-5a0ccee76ae1");
+
+// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+  OneSignal.Notifications.requestPermission(true);
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
