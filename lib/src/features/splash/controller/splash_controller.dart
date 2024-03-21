@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,20 +16,24 @@ class SplashController extends GetxController {
   Future<void> startSplashScreen() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
-    /// 'userUid' is refrence to pass a data ,
+    /// 'userUid' is reference to pass a data ,
     /// like , google login data and email login
     finalUserUidGlobal = preferences.getString('userUid');
 
     if (finalUserUidGlobal == null) {
-      print(finalUserUidGlobal);
-      await Future.delayed(const Duration(milliseconds: 5000));
+      if (kDebugMode) {
+        print(finalUserUidGlobal);
+      }
+      await Future.delayed(const Duration(milliseconds: 3000));
       Get.offNamed(RoutesName.onboradingScreen);
     } else {
-      print(finalUserUidGlobal);
-      await Future.delayed(Duration(milliseconds: 5000));
+      if (kDebugMode) {
+        print(finalUserUidGlobal);
+      }
+      await Future.delayed(const Duration(milliseconds: 3000));
     // Get.offNamed(RoutesName.homeScreen);
       Navigator.of(Get.context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          NavigationMenuScreen()), (Route<dynamic> route) => false);
+          const NavigationMenuScreen()), (Route<dynamic> route) => false);
 
     }
   }
