@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
@@ -13,7 +14,7 @@ class NavigationMenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
 
-    //on back press open alert dilog box
+    //on back press open alert dialog box
     return WillPopScope(
       onWillPop: () async {
         final value = await showDialog<bool>(
@@ -53,7 +54,8 @@ class NavigationMenuScreen extends StatelessWidget {
             indicatorColor: AppColors.primary,
             onDestinationSelected: (index) => controller.selectedIndex.value = index,
             destinations: [
-              const NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+              //const NavigationDestination(icon: Icon(Icons.home), label: "Home"),
+              const NavigationDestination(icon: Icon(Icons.home), label: "Room"),
               const NavigationDestination(icon: Icon(Icons.food_bank_sharp), label: "Food"),
               const NavigationDestination(icon: Icon(Icons.person_2_outlined), label: "Profile"),
             ],
@@ -67,5 +69,5 @@ class NavigationMenuScreen extends StatelessWidget {
 
 class NavigationController extends GetxController {
   final RxInt selectedIndex = 0.obs;
-  final screen = [HomeScreen(), TiffineServicesScreen(), ProfileDetailsScreen()];
+  final screen = [ HomeScreen(), TiffineServicesScreen(), ProfileDetailsScreen()];
 }
