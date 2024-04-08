@@ -78,6 +78,10 @@ dependencies:
   firebase_performance: ^0.9.3+8
   lottie: ^2.7.0
   onesignal_flutter: ^5.1.2
+  google_nav_bar: ^5.0.6
+  line_icons: ^2.0.3
+  gap: ^3.0.1
+
 
 
 

@@ -20,8 +20,6 @@ class HomeScreen extends StatelessWidget {
     AppLoggerHelper.debug("home build : Home Screen");
     return Scaffold(
 
-
-
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(108),

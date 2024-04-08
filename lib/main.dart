@@ -37,6 +37,7 @@ Future<void> main() async {
   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
   OneSignal.initialize("212272d1-35f0-4d7c-84ad-5a0ccee76ae1");
+  
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
   OneSignal.Notifications.requestPermission(true);
