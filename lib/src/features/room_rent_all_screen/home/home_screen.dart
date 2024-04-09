@@ -1,10 +1,13 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
@@ -15,6 +18,8 @@ class HomeScreen extends StatelessWidget {
   List<UserRentModel> rentList = [];
   var snapData;
 
+  final homeController = Get.put(HomeScreenController());
+
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("home build : Home Screen");
@@ -22,7 +27,8 @@ class HomeScreen extends StatelessWidget {
 
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(108),
+        preferredSize: const Size.fromHeight(155),
+
         child: Column(
           children: [
             //=======App bar code ====================
@@ -58,6 +64,144 @@ class HomeScreen extends StatelessWidget {
                     contentPadding: const EdgeInsets.only(bottom: 5),
                   ),
                 ),
+
+              ),
+            ),
+            Gap(4),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: SizedBox(
+                height: 42,
+
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                     InkWell(
+                        onTap: (){homeController.roomsType.value = '';},
+                        child: Container(
+                             width: 60,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(.8),
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                          ),
+                          child: Text(
+                            "All",
+                            style: TextStyle(
+                              color: Colors.white,
+                                fontSize: 16
+                            ),
+                          ),
+                        ),
+                      ),
+
+                    const Gap(12),
+                    InkWell(
+                      onTap: (){homeController.roomsType.value = 'Girls';},
+                      child: Container(
+                            width: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: homeController.roomsType.value == 'Girls' ? AppColors.primary.withOpacity(.8): null,
+                           border: Border.all(color: homeController.roomsType.value == 'Girls'? Colors.transparent:AppColors
+                               .primary),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            Image(
+                              image: const AssetImage(AppImage.girlsIcon),
+                              width: 25,
+                                color:  homeController.roomsType.value == 'Girls'? Colors.white :AppColors.primary
+                            ),
+                            const Gap(5),
+                            Text(
+                              "Girls",
+                              style: TextStyle(
+                                  color: homeController.roomsType.value == 'Girls' ?Colors.white: AppColors.primary,
+                                fontSize: 16
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Gap(12),
+                    InkWell(
+                      onTap: (){homeController.roomsType.value = 'Boys';},
+                      child: Container(
+                       width: 100,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primary),
+
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image(
+                              image: const AssetImage(AppImage.boysIcon),
+                              width: 25,
+                              height: 25,
+                              color: AppColors.primary,
+                            ),
+                            const Gap(5),
+                            Text(
+                              "Boys",
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                  fontSize: 16
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Gap(12),
+                    InkWell(
+                      onTap: (){homeController.roomsType.value = 'Family';},
+                      child: Container(
+                        width: 120,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primary),
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                        ),
+                        child:  Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.apartment_rounded,
+                              color: AppColors.primary
+                            ),
+                            Gap(4),
+                            Text(
+                              "Flat/BHK",
+                              style: TextStyle(
+                                color: AppColors.primary,
+                                  fontSize: 16
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -79,7 +223,8 @@ class HomeScreen extends StatelessWidget {
           );
         },
         child: StreamBuilder(
-            stream: ApisClass.firebaseFirestore.collection('rentCollection').snapshots(),
+            stream: ApisClass.firebaseFirestore.collection('rentCollection')
+                .snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -121,7 +266,10 @@ class HomeScreen extends StatelessWidget {
                   //   }
 
                   snapData = snapshot;
-                  rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
+                  rentList = data?.map((e) => UserRentModel.fromJson(e.data())).where((element) => element.roomType
+                      == homeController.roomsType.value)
+                      .toList()
+                      ?? [];
 
                   return ItemListView(
                     rentList: rentList,
