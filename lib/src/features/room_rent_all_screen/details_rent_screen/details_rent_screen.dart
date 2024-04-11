@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/ContactAndShareWidgets.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/all_details_widgets.dart';
-  import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../utils/Constants/colors.dart';
@@ -100,7 +100,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                           alignment: Alignment.center,
                           child: OutlinedButton(
                               onPressed: () {
-                                Get.toNamed(RoutesName.viewALlImage,arguments: itemId);
+                                Get.toNamed(RoutesName.viewALlImage, arguments: itemId);
                               },
                               style: OutlinedButton.styleFrom(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),

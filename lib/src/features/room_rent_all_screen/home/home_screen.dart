@@ -12,10 +12,16 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   List<UserRentModel> rentList = [];
+
   var snapData;
 
   final homeController = Get.put(HomeScreenController());
@@ -77,12 +83,23 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   children: [
                      InkWell(
-                        onTap: (){homeController.roomsType.value = '';},
+
+                       borderRadius: BorderRadius.circular(24),
+                        splashColor: Colors.grey,
+
+
+                        onTap: (){
+                          setState(() {
+
+                          });
+                          homeController.roomsType.value = '';},
                         child: Container(
                              width: 60,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(.8),
+                            color: homeController.roomsType.value == '' ? AppColors.primary.withOpacity(.8): null,
+                            border: Border.all(color: homeController.roomsType.value == ''? Colors
+                                .transparent:AppColors.primary,),
                             borderRadius: BorderRadius.circular(24),
                           ),
                           padding: const EdgeInsets.symmetric(
@@ -91,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                           child: Text(
                             "All",
                             style: TextStyle(
-                              color: Colors.white,
+                                color: homeController.roomsType.value == '' ?Colors.white: AppColors.primary,
                                 fontSize: 16
                             ),
                           ),
@@ -100,7 +117,13 @@ class HomeScreen extends StatelessWidget {
 
                     const Gap(12),
                     InkWell(
-                      onTap: (){homeController.roomsType.value = 'Girls';},
+                      borderRadius: BorderRadius.circular(24),
+                      splashColor: Colors.grey,
+                      onTap: (){
+                        setState(() {
+
+                        });
+                        homeController.roomsType.value = 'Girls';},
                       child: Container(
                             width: 100,
                         alignment: Alignment.center,
@@ -136,12 +159,20 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const Gap(12),
                     InkWell(
-                      onTap: (){homeController.roomsType.value = 'Boys';},
+                      borderRadius: BorderRadius.circular(24),
+                      splashColor: Colors.grey,
+                      onTap: (){
+                        setState(() {
+
+                        });
+                        homeController.roomsType.value = 'Boys';},
                       child: Container(
                        width: 100,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primary),
+                          color: homeController.roomsType.value == 'Boys' ? AppColors.primary.withOpacity(.8): null,
+                          border: Border.all(color: homeController.roomsType.value == 'Boys'? Colors
+                              .transparent:AppColors.primary,),
 
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -155,13 +186,13 @@ class HomeScreen extends StatelessWidget {
                               image: const AssetImage(AppImage.boysIcon),
                               width: 25,
                               height: 25,
-                              color: AppColors.primary,
+                                color:  homeController.roomsType.value == 'Boys'? Colors.white :AppColors.primary
                             ),
                             const Gap(5),
                             Text(
                               "Boys",
                               style: TextStyle(
-                                color: AppColors.primary,
+                                  color: homeController.roomsType.value == 'Boys' ?Colors.white: AppColors.primary,
                                   fontSize: 16
                               ),
                             ),
@@ -171,11 +202,19 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const Gap(12),
                     InkWell(
-                      onTap: (){homeController.roomsType.value = 'Family';},
+                      borderRadius: BorderRadius.circular(24),
+                      splashColor: Colors.grey,
+                      onTap: (){
+                        setState(() {
+
+                        });
+                        homeController.roomsType.value = 'Family';},
                       child: Container(
                         width: 120,
                         decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.primary),
+                          color: homeController.roomsType.value == 'Family' ? AppColors.primary.withOpacity(.8): null,
+                          border: Border.all(color: homeController.roomsType.value == 'Family'? Colors
+                              .transparent:AppColors.primary,),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -186,13 +225,14 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.apartment_rounded,
-                              color: AppColors.primary
+                                color:  homeController.roomsType.value == 'Family'? Colors.white :AppColors.primary
                             ),
                             Gap(4),
                             Text(
                               "Flat/BHK",
                               style: TextStyle(
-                                color: AppColors.primary,
+                                  color: homeController.roomsType.value == 'Family' ?Colors.white: AppColors.primary,
+
                                   fontSize: 16
                               ),
                             ),
@@ -266,10 +306,16 @@ class HomeScreen extends StatelessWidget {
                   //   }
 
                   snapData = snapshot;
-                  rentList = data?.map((e) => UserRentModel.fromJson(e.data())).where((element) => element.roomType
-                      == homeController.roomsType.value)
-                      .toList()
-                      ?? [];
+                  if(homeController.roomsType.value.isNotEmpty){
+                    rentList = data?.map((e) => UserRentModel.fromJson(e.data())).where((element) => element.roomType
+                        == homeController.roomsType.value)
+                        .toList()
+                        ?? [];
+                  }else{
+                    rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList()
+                        ?? [];
+                  }
+
 
                   return ItemListView(
                     rentList: rentList,

@@ -9,9 +9,11 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import '../../../../data/repository/apis/apis.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/helpers/helper_function.dart';
+import '../../details_rent_screen/controller/details_screen_controller.dart';
 
 class ItemListView extends StatelessWidget {
   const ItemListView({
@@ -27,6 +29,8 @@ class ItemListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = AppHelperFunction.isDarkMode(context);
     final size = MediaQuery.of(context).size;
+
+
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(left: 0.2, right: 0.2),
@@ -44,7 +48,7 @@ class ItemListView extends StatelessWidget {
 
             child: Container(
               width: double.infinity,
-              constraints: BoxConstraints(minHeight: 180, maxHeight: 400),
+              constraints: const BoxConstraints(minHeight: 180, maxHeight: 400),
               decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.black12, boxShadow: const [
                 BoxShadow(
                   color: Colors.white,
@@ -64,11 +68,11 @@ class ItemListView extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       children: [
                         Container(
-                          margin: EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
                           height: 400,
                           width: 400,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
-                            BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2, offset: Offset(2, 4)),
+                            const BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2, offset: Offset(2, 4)),
                           ]),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -109,39 +113,47 @@ class ItemListView extends StatelessWidget {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(24),
                                     ),
-                                    padding: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
                                     child: Row(
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.star,
                                           size: 18,
                                           color: Colors.orange,
                                         ),
-                                        Gap(8),
+                                        const Gap(8),
                                         Text(
                                           "${rentList[index].average}  ",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                           ),
                                         )
                                       ],
                                     ),
                                   ),
-                                  Spacer(),
-                                  CircleAvatar(
-                                    backgroundColor: Colors.red,
-                                    foregroundColor: Colors.white,
-                                    child: Icon(
-                                      Icons.favorite,
-                                    ),
-                                  )
+                                  const Spacer(),
+                                  // InkWell(
+                                  //   borderRadius: BorderRadius.circular(24),
+                                  //   splashColor: Colors.grey,
+                                  //   onTap: (){
+                                  //
+                                  //
+                                  //   },
+                                  //   child: const CircleAvatar(
+                                  //     backgroundColor: Colors.red,
+                                  //     foregroundColor: Colors.white,
+                                  //     child: Icon(
+                                  //       Icons.favorite,
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
-                              Spacer(),
+                              const Spacer(),
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
                                 child: Container(
-                                  padding: EdgeInsets.all(16),
+                                  padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(.3),
                                   ),
@@ -165,11 +177,11 @@ class ItemListView extends StatelessWidget {
                                                     fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                                               ),
                                             ),
-                                            Spacer(),
+                                            const Spacer(),
                                             RichText(
                                               text: TextSpan(
                                                 text: '₹',
-                                                style: TextStyle(color: Colors.white), //DefaultTextStyle.of
+                                                style: const TextStyle(color: Colors.white), //DefaultTextStyle.of
                                                 // (context)
                                                 // .style,
                                                 children: <TextSpan>[
@@ -187,63 +199,63 @@ class ItemListView extends StatelessWidget {
                                         const Gap(6),
                                         Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.location_city,
                                               color: Colors.white,
                                               size: 18,
                                             ),
-                                            Gap(6),
+                                            const Gap(6),
                                             Flexible(
                                               child: Text(
                                                 "${rentList[index].address} ",
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: false,
                                                 maxLines: 2,
-                                                style: TextStyle(color: Colors.white),
+                                                style: const TextStyle(color: Colors.white),
                                               ),
                                             ),
                                           ],
                                         ),
-                                        Gap(6),
+                                        const Gap(6),
                                         Row(
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.location_on,
                                               color: Colors.white,
                                               size: 18,
                                             ),
-                                            Gap(6),
+                                            const Gap(6),
                                             Text(
                                               "${rentList[index].city}",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 13,
                                               ),
                                             ),
-                                            Gap(20),
+                                            const Gap(20),
                                             Container(
-                                              padding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                                              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
                                               decoration: BoxDecoration(
                                                   color: Colors.blue, borderRadius: BorderRadius.circular(10)),
                                               child: (rentList[index].bhkType!.isEmpty)
                                                   ? Text(
                                                       "Only ${rentList[index].roomType}",
                                                       style:
-                                                          TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                          const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
                                                     )
                                                   : Text("${rentList[index].roomType} ${rentList[index].bhkType}",
-                                                      style: TextStyle(color: Colors.white)),
+                                                      style: const TextStyle(color: Colors.white)),
                                             ),
-                                            Gap(20),
+                                            const Gap(20),
                                             InkWell(
                                               onTap: (){},
                                               child: Container(
-                                                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                                                   decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius: BorderRadius.circular(10),
                                                       border: Border.all(color: Colors.blue, width: 2)),
-                                                  child: Text(
+                                                  child: const Text(
                                                     "Call Now",
                                                     style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                                                   )),

@@ -2,14 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../res/route_name/routes_name.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
-import '../room_rent_all_screen/home/widgets/ItemListView.dart';
 
 class AddToCard extends StatelessWidget {
   AddToCard({super.key});
@@ -22,7 +20,7 @@ class AddToCard extends StatelessWidget {
     final dark = AppHelperFunction.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add to card"),
+        title: const Text("Add to card"),
       ),
       body: StreamBuilder(
           stream: ApisClass.firebaseFirestore.collection('rentCollection').snapshots(),
@@ -73,9 +71,6 @@ class AddToCard extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           final itemId = snapshot.data?.docs[index].id;
-
-                          print(snapshot.data?.docs[index].id);
-                          print("manish");
                           Get.toNamed(RoutesName.detailsRentInfoScreen, arguments: {
                             'list': likedRentList[index],
                             'id': itemId,
@@ -83,7 +78,7 @@ class AddToCard extends StatelessWidget {
                         },
                         child: Container(
                           width: double.infinity,
-                          constraints: BoxConstraints(minHeight: 180, maxHeight: 200),
+                          constraints: const BoxConstraints(minHeight: 180, maxHeight: 200),
                           decoration: BoxDecoration(
                               color: dark ? AppColors.dark : const Color.fromRGBO(200, 200, 40, 0.01),
                               boxShadow: const [
@@ -129,13 +124,10 @@ class AddToCard extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {
 
-                                          final itemId = snapshot.data?.docs[index].id;
                                           ApisClass.updateAddToCart(likedRentList[index].userRentId, false);
-                                          print(itemId);
-                                          print(likedRentList[index].userRentId);
 
                                         },
-                                        child: CircleAvatar(
+                                        child: const CircleAvatar(
                                           radius: 17,
                                           backgroundColor: Colors.white,
                                           child: Icon(
@@ -220,9 +212,9 @@ class AddToCard extends StatelessWidget {
                                     (likedRentList[index].roomAvailable!)
                                         ? Text(
                                             "Available :- ${likedRentList[index].numberOfRooms}",
-                                            style: TextStyle(color: Colors.green),
+                                            style: const TextStyle(color: Colors.green),
                                           )
-                                        : Text(
+                                        : const Text(
                                             "Not Available",
                                             style: TextStyle(color: Colors.red),
                                           )
