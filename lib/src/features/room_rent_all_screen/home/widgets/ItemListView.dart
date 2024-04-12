@@ -49,13 +49,15 @@ class ItemListView extends StatelessWidget {
             child: Container(
               width: double.infinity,
               constraints: const BoxConstraints(minHeight: 180, maxHeight: 400),
-              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.black12, boxShadow: const [
+              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.black12,
+                  boxShadow: const [
                 BoxShadow(
                   color: Colors.white,
                   spreadRadius: 0.1,
                   blurRadius: .1,
                 )
-              ]),
+              ]
+              ),
               child: Stack(
                 children: [
                   Container(

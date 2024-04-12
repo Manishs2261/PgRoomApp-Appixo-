@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/widgets/app_bar.dart';
@@ -9,6 +12,7 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../utils/Constants/colors.dart';
+import '../../utils/Constants/image_string.dart';
 
 class TiffineServicesScreen extends StatelessWidget {
   TiffineServicesScreen({super.key});
@@ -23,9 +27,7 @@ class TiffineServicesScreen extends StatelessWidget {
           preferredSize: const Size.fromHeight(108),
           child: Column(
             children: [
-              AppBarTiffineWidgets(),
-
-
+              const AppBarTiffineWidgets(),
               Container(
                 color: AppColors.primary,
                 height: 50,
@@ -38,7 +40,7 @@ class TiffineServicesScreen extends StatelessWidget {
                   child: TextFormField(
                     onTap: () {
                       Get.toNamed(RoutesName.searchTiffineScreen, arguments: {
-                        'list':  tiffineList,
+                        'list': tiffineList,
                         'id': snapData,
                       });
                     },
@@ -116,106 +118,164 @@ class TiffineServicesScreen extends StatelessWidget {
                               'id': snapshot.data?.docs[index].id,
                             });
                           },
-                          child: Container(
-                              width: 60,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-
-                                border: Border.all(color:  Colors.transparent ,),
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                              ),
-
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CachedNetworkImage(
-
-                                imageUrl: tiffineList[index].foodImage.toString(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                                height: 340,
                                 width: double.infinity,
-                                height: 200,
-                                fit: BoxFit.fill,
-                                placeholder: (context, url) => Container(
-                                  color: Colors.transparent,
-                                  width: double.infinity,
-                                  height: 200,
-                                  child: const SpinKitFadingCircle(
-                                    color: AppColors.primary,
-                                    size: 35,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black38, spreadRadius: 0.5, blurRadius: .1, offset: Offset(0, 6))
+                                  ],
+                                  color: Colors.black.withOpacity(.9),
+                                  border: Border.all(
+                                    color: Colors.transparent,
                                   ),
+                                  borderRadius: BorderRadius.circular(24),
                                 ),
-                                errorWidget: (context, url, error) => Container(
-                                  width: double.infinity,
-                                  height: 200,
-                                  alignment: Alignment.center,
-                                  child: const Icon(
-                                    Icons.food_bank,
-                                    size: 50,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 5, top: 3),
+                                margin: EdgeInsets.only(bottom: 8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "${tiffineList[index].servicesName}",
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: false,
-                                      maxLines: 1,
-                                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                                    ),
-                                    Row(
+                                    Stack(
                                       children: [
-                                        Icon(
-                                          Icons.star,
-                                          color: Colors.yellow,
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(24),
+                                          child: CachedNetworkImage(
+                                            imageUrl: tiffineList[index].foodImage.toString(),
+                                            width: double.infinity,
+                                            height: 250,
+                                            fit: BoxFit.fill,
+                                            placeholder: (context, url) => Container(
+                                              color: Colors.transparent,
+                                              width: double.infinity,
+                                              height: 200,
+                                              child: const SpinKitFadingCircle(
+                                                color: AppColors.primary,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url, error) => Container(
+                                              width: double.infinity,
+                                              height: 200,
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.food_bank,
+                                                size: 50,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                        SizedBox(
-                                          width: 2,
-                                        ),
-                                        Text(
-                                          "${tiffineList[index].averageRating}",
-                                          style: TextStyle(fontSize: 17),
-                                        ),
-                                        SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text("(${tiffineList[index].numberOfRating} Ratings)"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            "Address :- ${tiffineList[index].address}",
-                                            softWrap: false,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
+                                        Container(
+                                          margin: EdgeInsets.only(top: 8, left: 8),
+                                          width: 80,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(24),
+                                          ),
+                                          padding: const EdgeInsets.all(8),
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.star,
+                                                size: 18,
+                                                color: Colors.orange,
+                                              ),
+                                              const Gap(8),
+                                              Flexible(
+                                                child: Text(
+                                                  "${tiffineList[index].averageRating}  ",
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 5,
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5, top: 3),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    "${tiffineList[index].servicesName}",
+                                                    overflow: TextOverflow.ellipsis,
+                                                    softWrap: false,
+                                                    maxLines: 1,
+                                                    style: const TextStyle(
+                                                        fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                                  ),
+                                                ),
+                                                Gap(10),
+                                                Row(
+                                                  children: [
+                                                    Image(
+                                                      image: const AssetImage(AppImage.foodIcon),
+                                                      width: 25,
+                                                      height: 25,
+                                                      color: Colors.white,
+                                                    ),
+                                                    Gap(8),
+                                                    Padding(
+                                                      padding: const EdgeInsets.only(top: 10),
+                                                      child: Text(
+                                                        "₹${tiffineList[index].foodPrice}/Month",
+                                                        overflow: TextOverflow.ellipsis,
+                                                        softWrap: false,
+                                                        maxLines: 1,
+                                                        style: TextStyle(color: Colors.white),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                            child: Row(
+                                              children: [
+                                                const Icon(
+                                                  Icons.location_on,
+                                                  color: Colors.white,
+                                                  size: 18,
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    " ${tiffineList[index].address}",
+                                                    softWrap: false,
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(color: Colors.white),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                    Row(
-                                      children: [Text("Stating Price :- ${tiffineList[index].foodPrice} Ru  day/- ")],
-                                    )
+                                    SizedBox(
+                                      height: 8,
+                                    ),
                                   ],
-                                ),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                            ],
-                          )),
+                                )),
+                          ),
                         );
                       });
               }

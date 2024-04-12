@@ -82,31 +82,34 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
       //   body: Obx(() => controller.screen[controller.selectedIndex.value]),
       // ),
       child: Scaffold(
-        bottomSheet: GNav(
+
+        bottomNavigationBar:  GNav(
+
           rippleColor: Colors.green[300]!,
           hoverColor: Colors.green[100]!,
           gap: 8,
           activeColor: Colors.green,
           iconSize: 24,
+
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           duration: Duration(milliseconds: 400),
           tabBackgroundColor: Colors.green[50]!,
           color: Colors.black, // navigation bar padding
-            tabs: [
-              GButton(
-                icon: LineIcons.home,
-                text: 'Home',
-              ),
+          tabs: [
+            GButton(
+              icon: LineIcons.home,
+              text: 'Home',
+            ),
 
-              GButton(
-                icon: LineIcons.search,
-                text: 'Search',
-              ),
-              GButton(
-                icon: LineIcons.user,
-                text: 'Profile',
-              )
-            ],
+            GButton(
+              icon: Icons.dinner_dining_outlined,
+              text: 'foods',
+            ),
+            GButton(
+              icon: LineIcons.user,
+              text: 'Profile',
+            )
+          ],
           selectedIndex: selectedIndex,
           onTabChange: (index) {
             setState(() {

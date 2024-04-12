@@ -19,6 +19,7 @@ class AppImage {
   static const String boysIcon = 'assets/images/boys_icon.png';
   static const String girlsIcon = 'assets/images/girls_icon.png';
   static const String flatIcon = 'assets/images/flat_icon.png';
+  static const String foodIcon = 'assets/images/foodIcon.png';
 
 
 
