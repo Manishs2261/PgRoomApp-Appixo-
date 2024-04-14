@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,17 +11,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/features/old_goods/widgets/app_bar.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/widgets/app_bar.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
+import '../../model/old_goods_model/old_goods_model.dart';
 import '../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
 
-class TiffineServicesScreen extends StatelessWidget {
-  TiffineServicesScreen({super.key});
+class OldGoodsScreen extends StatelessWidget {
+  OldGoodsScreen({super.key});
 
-  List<TiffineServicesModel> tiffineList = [];
+  List<OldGoodsModel> oldGoodsList = [];
   var snapData;
 
   @override
@@ -27,7 +33,7 @@ class TiffineServicesScreen extends StatelessWidget {
           preferredSize: const Size.fromHeight(108),
           child: Column(
             children: [
-              const AppBarTiffineWidgets(),
+              const AppBarOldGoodsWidgets(),
               Container(
                 color: AppColors.primary,
                 height: 50,
@@ -40,7 +46,7 @@ class TiffineServicesScreen extends StatelessWidget {
                   child: TextFormField(
                     onTap: () {
                       Get.toNamed(RoutesName.searchTiffineScreen, arguments: {
-                        'list': tiffineList,
+                        'list': oldGoodsList,
                         'id': snapData,
                       });
                     },
@@ -64,7 +70,7 @@ class TiffineServicesScreen extends StatelessWidget {
           ),
         ),
         body: StreamBuilder(
-            stream: ApisClass.firebaseFirestore.collection('tiffineServicesCollection').snapshots(),
+            stream: ApisClass.firebaseFirestore.collection('oldGoods').snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -106,22 +112,22 @@ class TiffineServicesScreen extends StatelessWidget {
                   //   }
 
                   snapData = snapshot;
-                  tiffineList = data?.map((e) => TiffineServicesModel.fromJson(e.data())).toList() ?? [];
+                  oldGoodsList = data?.map((e) => OldGoodsModel.fromJson(e.data())).toList() ?? [];
 
                   return ListView.builder(
-                      itemCount: tiffineList.length,
+                      itemCount: oldGoodsList.length,
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            Get.toNamed(RoutesName.tiffinDetailsScreen, arguments: {
-                              'list': tiffineList[index],
-                              'id': snapshot.data?.docs[index].id,
+                            Get.toNamed(RoutesName.oldGoodsDetailsScreen, arguments: {
+                              'list': oldGoodsList[index],
+                               'id': snapshot.data?.docs[index].id,
                             });
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Container(
-                                height: 335,
+                                height: 360,
                                 width: double.infinity,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
@@ -135,7 +141,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                   ),
                                   borderRadius: BorderRadius.circular(24),
                                 ),
-                                margin: const EdgeInsets.only(bottom: 8),
+                                margin: EdgeInsets.only(bottom: 8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -144,57 +150,33 @@ class TiffineServicesScreen extends StatelessWidget {
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(24),
                                           child: CachedNetworkImage(
-                                            imageUrl: tiffineList[index].foodImage.toString(),
+                                            imageUrl: oldGoodsList[index].image.toString(),
                                             width: double.infinity,
                                             height: 250,
                                             fit: BoxFit.fill,
-                                            placeholder: (context, url) => Container(
-                                              color: Colors.transparent,
-                                              width: double.infinity,
-                                              height: 200,
-                                              child: const SpinKitFadingCircle(
-                                                color: AppColors.primary,
-                                                size: 35,
-                                              ),
-                                            ),
-                                            errorWidget: (context, url, error) => Container(
-                                              width: double.infinity,
-                                              height: 200,
-                                              alignment: Alignment.center,
-                                              child: const Icon(
-                                                Icons.food_bank,
-                                                size: 50,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 8, left: 8),
-                                          width: 80,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(24),
-                                          ),
-                                          padding: const EdgeInsets.all(8),
-                                          child: Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.star,
-                                                size: 18,
-                                                color: Colors.orange,
-                                              ),
-                                              const Gap(8),
-                                              Flexible(
-                                                child: Text(
-                                                  "${tiffineList[index].averageRating}  ",
-                                                  style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                  color: Colors.transparent,
+                                                  width: double.infinity,
+                                                  height: 200,
+                                                  child: const SpinKitFadingCircle(
+                                                    color: AppColors.primary,
+                                                    size: 35,
                                                   ),
                                                 ),
-                                              )
-                                            ],
+                                            errorWidget: (context, url, error) =>
+                                                Container(
+                                                  width: double.infinity,
+                                                  height: 200,
+                                                  alignment: Alignment.center,
+                                                  child: const Icon(
+                                                    Icons.food_bank,
+                                                    size: 50,
+                                                  ),
+                                                ),
                                           ),
                                         ),
+
                                       ],
                                     ),
                                     Padding(
@@ -209,7 +191,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    "${tiffineList[index].servicesName}",
+                                                    "${oldGoodsList[index].name}",
                                                     overflow: TextOverflow.ellipsis,
                                                     softWrap: false,
                                                     maxLines: 1,
@@ -221,73 +203,94 @@ class TiffineServicesScreen extends StatelessWidget {
                                                 Row(
                                                   children: [
                                                     Image(
-                                                      image: const AssetImage(AppImage.foodIcon),
-                                                      width: 20,
-                                                      height: 20,
+                                                      image: const AssetImage(AppImage.goodsIcon),
+                                                      width: 17,
+                                                      height: 17,
                                                       color: Colors.white,
                                                     ),
                                                     Gap(8),
                                                     Padding(
-                                                      padding: const EdgeInsets.only(top: 5),
+                                                      padding: const EdgeInsets.only(top: 5, right: 30),
                                                       child: Text(
-                                                        "₹${tiffineList[index].foodPrice}/Month",
+                                                        "₹${oldGoodsList[index].price}/-",
                                                         overflow: TextOverflow.ellipsis,
                                                         softWrap: false,
                                                         maxLines: 1,
                                                         style: TextStyle(color: Colors.white),
                                                       ),
                                                     ),
+
                                                   ],
-                                                )
+                                                ),
+
                                               ],
                                             ),
                                           ),
 
                                           Padding(
-                                            padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                            padding: EdgeInsets.only(top: 5, left: 5),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                               Flexible(
-                                                 child: Row(children: [
-                                                   Icon(
-                                                   Icons.location_on,
-                                                   color: Colors.white,
-                                                   size: 18,
-                                                 ),
-                                                   Flexible(
-                                                     child: Text(
-                                                       " ${tiffineList[index].address}",
+                                                Flexible(
+                                                  child: Column(
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.location_on,
+                                                            color: Colors.white,
+                                                            size: 18,
+                                                          ),
+                                                          Flexible(
+                                                            child: Text(
+                                                              " ${oldGoodsList[index].address}",
+                                                              softWrap: false,
+                                                              maxLines: 1,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              style: TextStyle(color: Colors.white),
+                                                            ),
+                                                          ),
+                                                        ],),
+                                                      Gap(5),
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.date_range_outlined, color: Colors.white, size: 18,),
+                                                          Text(
+                                                            " ${oldGoodsList[index].postDate}",
+                                                            softWrap: false,
+                                                            maxLines: 1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                            style: TextStyle(color: Colors.white),
+                                                          ),
+                                                        ],
+                                                      ),
 
-                                                       softWrap: false,
-                                                       maxLines: 1,
-                                                       overflow: TextOverflow.ellipsis,
-                                                       style: TextStyle(color: Colors.white),
-                                                     ),
-                                                   ),],),
-                                               ),
-                                                const Gap(20),
+                                                    ],
+                                                  ),
+                                                ),
                                                 InkWell(
-                                                  onTap: (){},
+                                                  onTap: () {},
                                                   child: Container(
 
-                                                      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 15),
                                                       decoration: BoxDecoration(
                                                           color: Colors.white,
                                                           borderRadius: BorderRadius.circular(10),
                                                           border: Border.all(color: Colors.blue, width: 2)),
                                                       child: const Text(
                                                         "Call Now",
-                                                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
+                                                        style: TextStyle(
+                                                            color: Colors.blue, fontWeight: FontWeight.w700),
                                                       )),
                                                 ),
-                                                const Gap(20),
+                                                Gap(25)
+
                                               ],
                                             ),
                                           ),
-                                          
-                                          
-                                          
+
                                         ],
                                       ),
                                     ),

@@ -31,8 +31,9 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
           children: [
             Card(
               margin: const EdgeInsets.all(5),
+
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(5),
+                borderRadius: BorderRadius.circular(24),
                 child: CachedNetworkImage(
                   imageUrl: controller.data.foodImage.toString(),
                   width: double.infinity,

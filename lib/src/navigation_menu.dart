@@ -6,6 +6,7 @@ import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import 'features/old_goods/old_goods_screen.dart';
 import 'features/room_rent_all_screen/home/home_screen.dart';
 import 'features/tiffinServicesScreen/tiffinServicesScreen.dart';
 
@@ -23,6 +24,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
   static  final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     TiffineServicesScreen(),
+    OldGoodsScreen(),
     ProfileDetailsScreen()
   ];
 
@@ -104,6 +106,10 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
             GButton(
               icon: Icons.dinner_dining_outlined,
               text: 'foods',
+            ),
+            GButton(
+              icon: Icons.fmd_good_sharp,
+              text: 'Goods',
             ),
             GButton(
               icon: LineIcons.user,

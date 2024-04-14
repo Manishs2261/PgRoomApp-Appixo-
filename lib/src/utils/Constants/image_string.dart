@@ -20,6 +20,7 @@ class AppImage {
   static const String girlsIcon = 'assets/images/girls_icon.png';
   static const String flatIcon = 'assets/images/flat_icon.png';
   static const String foodIcon = 'assets/images/foodIcon.png';
+  static const String goodsIcon = 'assets/images/goods_icon.png';
 
 
 
