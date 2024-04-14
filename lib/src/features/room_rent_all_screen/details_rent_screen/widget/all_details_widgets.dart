@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gap/gap.dart';
 
  import '../../../../utils/Constants/sizes.dart';
 import '../../../../utils/icon_and_name_widgets/Icon_Write_And_Wrong_Widgets.dart';
@@ -19,6 +21,16 @@ class AllDetailsWidgets extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          Text(
+            "${controller.data.houseName}",
+            style: Theme.of(context).textTheme.titleLarge,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            softWrap: false,
+          ),
+              Gap(10),
+
               (controller.data.roomAvailable!)
                 ?  Text("Available :- ${controller.data.numberOfRooms} Rooms",style: TextStyle(color: Colors.green),)
                 : Text("Not Available",style: TextStyle(color: Colors.red),),
