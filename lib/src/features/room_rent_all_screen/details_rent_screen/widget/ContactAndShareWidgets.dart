@@ -18,33 +18,6 @@ class ContactAndShareWidgets extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ComReuseElevButton(onPressed: () => controller.onCallNow(), title: "Contact Now"),
-
-        const SizedBox(
-          height: 15,
-        ),
-        SizedBox(
-            height: 40.0,
-            width: AppHelperFunction.screenWidth() * 0.9,
-            child: ElevatedButton(
-                onPressed: () {
-
-
-                  ApisClass.updateAddToCart(controller.itemId, true);
-                    AppHelperFunction.showSnackBar("successfully added");
-
-                },
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent, side: BorderSide.none),
-                child:
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Text("Add To Card"),
-                SizedBox(width: 15,),
-                Icon(Icons.shopping_basket_outlined,)
-              ],)
-            )
-        ),
 
         const SizedBox(
           height: 50,
