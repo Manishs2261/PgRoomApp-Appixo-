@@ -8,6 +8,7 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import '../add_image_/controller/controller.dart';
 import '../charges_and_door_timing/controller/controller.dart';
 import '../hostel_and_room_type/controller/controller.dart';
+import '../map_screen/controller/controller.dart';
 import '../permission/controller/permission_controller.dart';
 import '../provide_facilities/controller/controller.dart';
 import '../rent_details/controller/controller.dart';
@@ -19,6 +20,7 @@ class DataSaveController extends GetxController {
   final addImageController = Get.put(AddImageController());
   final chargeAndDoorController = Get.put(AdditionalChargesController());
   final providerController = Get.put(ProvideFacilitiesController());
+  final mapViewController = Get.put(MapScreenController());
   RxBool loading = false.obs;
 
   saveRentDetails() {
@@ -59,10 +61,15 @@ class DataSaveController extends GetxController {
             permissionController.familyMember.value,
             providerController.attachBathRoom.value,
             providerController.shareAbleBathRoom.value,
-            false)
+            false,
+      mapViewController.latitude.value,
+      mapViewController.longitude.value,
+
+    )
         .then((value) {
       Get.snackbar("Upload", "Successfully");
       loading.value = false;
+      Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
@@ -116,7 +123,10 @@ class DataSaveController extends GetxController {
             permissionController.familyMember.value,
             providerController.attachBathRoom.value,
             providerController.shareAbleBathRoom.value,
-            false)
+            false,
+      mapViewController.latitude.value,
+      mapViewController.longitude.value,
+    )
         .then((value) {
       //save home list data
       saveRentDetails();

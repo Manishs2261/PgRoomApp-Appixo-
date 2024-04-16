@@ -30,6 +30,7 @@ import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_f
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/Edit_Cover_Image_Screen.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_charges.dart';
+import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_mapview_screen.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_provid_facilities.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
@@ -268,6 +269,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.mapScreen,
             page: () => MapScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.editMapScreen,
+            page: () => EditMapViewScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

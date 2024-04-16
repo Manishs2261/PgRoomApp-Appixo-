@@ -62,5 +62,6 @@ class RoutesName{
   static const String dataSaveOldGoodsScreen  = '/data_save_old_goods_screen';
   static const String editOldGoodsScreen  = '/edit_old_goods_screen';
   static const String mapScreen  = '/map_screen';
+  static const String editMapScreen  = '/edit_map_screen';
 
 }

@@ -40,6 +40,8 @@ class UserRentModel {
   double? average;
   int? numberOfRating;
   bool? roomAvailable;
+  String? latitude;
+  String? longitude;
 
   UserRentModel({
     this.parking,
@@ -82,7 +84,10 @@ class UserRentModel {
     this.shareAbleBathRoom,
     this.average,
     this.numberOfRating,
-    this.roomAvailable
+    this.roomAvailable,
+    this.longitude,
+    this.latitude,
+
   });
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
@@ -127,6 +132,8 @@ class UserRentModel {
     average = json['average']??0.0;
     numberOfRating = json['numberOfRating']?? 0;
     roomAvailable = json['roomAvailable'] ?? true;
+    longitude = json['longitude'] ;
+    latitude = json['latitude'] ;
   }
 
   Map<String, dynamic> toJson() {
@@ -172,6 +179,8 @@ class UserRentModel {
     data['average'] = this.average;
     data['numberOfRating'] = this.numberOfRating;
     data['roomAvailable'] = this.roomAvailable;
+    data['longitude'] = this.longitude;
+    data['latitude'] = this.latitude;
 
      return data;
   }

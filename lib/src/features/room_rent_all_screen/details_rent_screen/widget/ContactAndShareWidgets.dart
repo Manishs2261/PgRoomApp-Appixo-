@@ -17,10 +17,10 @@ class ContactAndShareWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String lat = "21.2106854";
-    String logi = "81.3192501";
 
-    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + lat + "," + logi);
+
+    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + controller.data.latitude.toString() + "," +
+        controller.data.longitude.toString());
 
     Future<void> _launchUrl() async {
       if (!await launchUrl(url)) {

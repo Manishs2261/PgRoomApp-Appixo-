@@ -78,7 +78,10 @@ class ApisClass {
       familyMember,
       attachBathRoom,
       shareAbleBathRoom,
-      like) async {
+      like,
+      latitude,
+      longitude,
+      ) async {
     final userHomeList = UserRentModel(
         coverImage: coverImage,
         houseName: houseName,
@@ -120,7 +123,10 @@ class ApisClass {
         average: 0.0,
         numberOfRating: 0,
         roomAvailable: true,
-        userRentId: time);
+        userRentId: time,
+      latitude:latitude,
+      longitude: longitude,
+    );
     return await firebaseFirestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
   }
 
@@ -163,7 +169,10 @@ class ApisClass {
       familyMember,
       attachBathRoom,
       shareAbleBathRoom,
-      like) async {
+      like,
+      latitude,
+      longitude,
+      ) async {
     final userHomeList = UserRentModel(
         coverImage: coverImage,
         houseName: houseName,
@@ -205,7 +214,10 @@ class ApisClass {
         average: 0.0,
         numberOfRating: 0,
         roomAvailable: true,
-        userRentId: time);
+        userRentId: time,
+      latitude:latitude,
+      longitude: longitude,
+    );
 
     return await firebaseFirestore
         .collection("userRentDetails")
@@ -397,6 +409,24 @@ class ApisClass {
       'familyPrice': family,
       'fourPersonPrice': four,
       'singlePersonPrice': single
+    });
+  }
+
+
+
+
+  // update map view  Data
+  static Future<void> updateMapViewData(itemId, latitude, longitude) async {
+    //rent collection data base
+    await firebaseFirestore.collection("rentCollection").doc(itemId).update({
+      'latitude': latitude,
+      'longitude': longitude,
+
+    });
+//user personal collection data base
+    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+      'latitude': latitude,
+      'longitude': longitude,
     });
   }
 

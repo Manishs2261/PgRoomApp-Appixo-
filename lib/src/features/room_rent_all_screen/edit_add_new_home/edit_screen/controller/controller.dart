@@ -9,7 +9,6 @@ import '../../../../../data/repository/apis/apis.dart';
 import '../../../../../utils/widgets/flat_radio_button_wedget.dart';
 import '../../../../../utils/widgets/hostel_radio_button_widget.dart';
 
-
 class EditFormScreenController extends GetxController {
   UserRentModel data = UserRentModel();
   var itemId;
@@ -80,6 +79,9 @@ class EditFormScreenController extends GetxController {
 
   RxBool selectedImage = false.obs;
 
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -141,6 +143,9 @@ class EditFormScreenController extends GetxController {
     // image picker form Gallery
     selectedCoverImage = "${data.coverImage}".obs;
     selectedImage = (data.coverImage != '').obs;
+
+    latitude = '${data.latitude}'.obs;
+    longitude = '${data.longitude}'.obs;
 
     super.onInit();
   }
@@ -346,13 +351,30 @@ class EditFormScreenController extends GetxController {
     });
   }
 
-  onRoomAvailableButton(bool value){
-    ApisClass.updateRoomAvailable(value, itemId).then((value){
+  onRoomAvailableButton(bool value) {
+    ApisClass.updateRoomAvailable(value, itemId).then((value) {
       AppHelperFunction.showFlashbar("change Successfully.");
-    }).onError((error, stackTrace){
+    }).onError((error, stackTrace) {
       AppHelperFunction.showFlashbar("Failed to change");
     });
   }
 
-
+  Future<void> onEditMapViewData() async {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        AppHelperFunction.showDialogCenter(false);
+        ApisClass.updateMapViewData(itemId, latitude.value, longitude.value).then((value) {
+          Get.snackbar("Update", "Successfully");
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+          Navigator.pop(Get.context!);
+        }).onError((error, stackTrace) {
+          Get.snackbar("Update", "Failed");
+          AppLoggerHelper.error("Upload MapView Error", error);
+          AppLoggerHelper.error('$stackTrace');
+        });
+      }
+    });
+  }
 }

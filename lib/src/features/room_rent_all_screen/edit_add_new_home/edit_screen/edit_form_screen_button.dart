@@ -70,6 +70,14 @@ class EditFormScreenButton extends StatelessWidget {
               title: "Edit Permission",
               screenName: RoutesName.editPermissionScreen,
             ),
+
+
+            ItemEditButtonWidgets(
+              data: data,
+              itemId: itemId,
+              title: "Edit Map View",
+              screenName: RoutesName.editMapScreen,
+            ),
           ],
         ),
       )),
