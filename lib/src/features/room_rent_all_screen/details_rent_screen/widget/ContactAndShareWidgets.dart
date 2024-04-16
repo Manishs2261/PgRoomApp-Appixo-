@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../utils/helpers/helper_function.dart';
 import '../controller/details_screen_controller.dart';
@@ -16,13 +17,22 @@ class ContactAndShareWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String lat = "21.2106854";
+    String logi = "81.3192501";
+
+    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + lat + "," + logi);
+
+    Future<void> _launchUrl() async {
+      if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+      }
+    }
+
     return Column(
       children: [
-
         const SizedBox(
           height: 50,
         ),
-
         //===========================================
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,7 +45,7 @@ class ContactAndShareWidgets extends StatelessWidget {
             ),
 
             // ==========map view ===========
-            CircleContainerWidgets(title: "Map view", iconData: Icons.location_on_outlined, ontap: () {})
+            CircleContainerWidgets(title: "Map view", iconData: Icons.location_on_outlined, ontap: () => _launchUrl())
           ],
         ),
       ],

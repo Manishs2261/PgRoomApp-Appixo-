@@ -25,7 +25,7 @@ class AdditionalChargesController extends GetxController {
 
   onSubmitButton() {
     loading.value = false;
-    Get.toNamed(RoutesName.perimissionScreen)?.then((value) {
+    Get.toNamed(RoutesName.mapScreen)?.then((value) {
       loading.value = false;
     }).onError((error, stackTrace) {
       loading.value = false;

@@ -5,6 +5,7 @@ import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/rent_form_screen/map_screen/controller/controller.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
@@ -37,6 +38,7 @@ import '../../features/room_rent_all_screen/home/home_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/add_image_/add_image_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/charges_and_door_timing/charges_and_door_timing_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
+import '../../features/room_rent_all_screen/rent_form_screen/map_screen/map_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/permission/permission_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
 import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_details_screen.dart';
@@ -260,6 +262,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.editOldGoodsScreen,
             page: () => EditGoodsScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.mapScreen,
+            page: () => MapScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
