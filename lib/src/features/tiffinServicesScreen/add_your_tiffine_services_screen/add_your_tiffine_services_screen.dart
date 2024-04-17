@@ -160,7 +160,6 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-
                                         const SizedBox(
                                           height: 5,
                                         ),
@@ -180,8 +179,10 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                           height: 5,
                                         ),
                                         Row(
-                                          children: [Text("Stating Price :- ${tiffineList[index].foodPrice} ₹ Month/- "
-                                              "")],
+                                          children: [
+                                            Text("Stating Price :- ${tiffineList[index].foodPrice} ₹ Month/- "
+                                                "")
+                                          ],
                                         ),
                                         const SizedBox(
                                           height: 30,

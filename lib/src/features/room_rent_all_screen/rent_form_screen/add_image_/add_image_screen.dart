@@ -49,6 +49,7 @@ class AddImageScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   height: 200,
                   width: double.infinity,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
 
                   //======== cover image=================
                   child: Stack(
@@ -56,17 +57,23 @@ class AddImageScreen extends StatelessWidget {
                       // =====for initial image when your don't choose image============
                       Obx(
                         () => imageController.selectedCoverImage.value != ""
-                            ? Image(
-                                image: FileImage(File(imageController.selectedCoverImage.value.toString())),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(24),
+                                child: Image(
+                                  image: FileImage(File(imageController.selectedCoverImage.value.toString())),
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               )
-                            : const Image(
-                                image: AssetImage(AppImage.roomImage),
-                                height: double.infinity,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(24),
+                                child: const Image(
+                                  image: AssetImage(AppImage.roomImage),
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                       ),
 
@@ -84,9 +91,12 @@ class AddImageScreen extends StatelessWidget {
                               },
                               child: Container(
                                 height: 60,
-                                width: 200,
+
                                 alignment: Alignment.center,
-                                decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(.8),
+                                    borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.white)),
                                 child: const Text(
                                   "Choose cover Image",
                                   style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),

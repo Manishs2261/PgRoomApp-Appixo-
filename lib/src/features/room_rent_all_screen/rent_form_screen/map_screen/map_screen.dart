@@ -14,39 +14,44 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-
   final controller = Get.put(MapScreenController());
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Choose Map view"),),
+      appBar: AppBar(
+        title: const Text("Choose Map view"),
+      ),
       body: FlutterLocationPicker(
         showSearchBar: false,
         searchbarBorderRadius: BorderRadius.circular(50),
-
         selectLocationButtonStyle: ButtonStyle(
-
           backgroundColor: MaterialStateProperty.all(AppColors.primary),
         ),
         initZoom: 11,
         minZoomLevel: 1,
         maxZoomLevel: 16,
         trackMyPosition: true,
-
-        searchBarBackgroundColor: Colors.white,
         selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
         mapLanguage: 'en',
         onError: (e) => print(e),
-        selectLocationButtonLeadingIcon: const Icon(Icons.check),
+        countryFilter: 'In',
+        markerIcon: Icon(
+          Icons.location_on_sharp,
+          color: Colors.red,
+          size: 60,
+        ),
+        selectLocationButtonLeadingIcon: const Icon(
+          Icons.check,
+        ),
         onPicked: (pickedData) {
           print(pickedData.latLong.latitude);
           print(pickedData.latLong.longitude);
           controller.latitude.value = pickedData.latLong.latitude.toString();
           controller.longitude.value = pickedData.latLong.longitude.toString();
           Get.toNamed(RoutesName.perimissionScreen);
-
         },
-
         showContributorBadgeForOSM: true,
       ),
     );

@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
@@ -12,6 +15,7 @@ import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/sizes.dart';
 import '../../../utils/helpers/helper_function.dart';
+import '../../room_rent_all_screen/details_rent_screen/widget/circle_Container_widgets.dart';
 import 'controller/controller.dart';
 
 class DetailsTiffineServicesScreen extends StatelessWidget {
@@ -22,43 +26,116 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - DetailsTiffineServicesScreen ");
+
+    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" +
+        controller.data.latitude.toString() +
+        "," +
+        controller.data.longitude.toString());
+
+    Future<void> _launchUrl() async {
+      if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+      }
+    }
+
     return Scaffold(
+      bottomNavigationBar: Container(
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () => controller.onCallNow(),
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    decoration: BoxDecoration(color: AppColors.primary),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.call_outlined,
+                          color: Colors.white,
+                        ),
+                        Gap(10),
+                        Text(
+                          "Contact Now",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
+            Expanded(
+              child: InkWell(
+                hoverColor: Colors.grey,
+                // onTap: (){
+                //   ApisClass.updateAddToCart(controller.itemId, true);
+                //   AppHelperFunction.showSnackBar("successfully added");
+                // },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  decoration: BoxDecoration(color: Colors.orange),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_basket_outlined,
+                        color: Colors.white,
+                      ),
+                      Gap(10),
+                      Text(
+                        "Add to card",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
-        title: const Text("Details food"),
+        title: Text("${controller.data.servicesName}"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Card(
-              margin: const EdgeInsets.all(5),
-
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: CachedNetworkImage(
-                  imageUrl: controller.data.foodImage.toString(),
-                  width: double.infinity,
-                  height: 200,
-                  fit: BoxFit.fill,
-                  placeholder: (context, url) => Container(
-                    color: Colors.transparent,
-                    width: double.infinity,
-                    height: 200,
-                    child: const SpinKitFadingCircle(
-                      color: AppColors.primary,
-                      size: 35,
-                    ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    width: double.infinity,
-                    height: 200,
-                    alignment: Alignment.center,
-                    child: const Icon(
-                      Icons.food_bank,
-                      size: 50,
+            Stack(
+              children: [
+                Card(
+                  margin: const EdgeInsets.all(5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: CachedNetworkImage(
+                      imageUrl: controller.data.foodImage.toString(),
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => Container(
+                        color: Colors.transparent,
+                        width: double.infinity,
+                        height: 200,
+                        child: const SpinKitFadingCircle(
+                          color: AppColors.primary,
+                          size: 35,
+                        ),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        width: double.infinity,
+                        height: 200,
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.food_bank,
+                          size: 50,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
@@ -184,10 +261,29 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50,
                   ),
-                  ComReuseElevButton(onPressed: () {
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      //===========================================
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          //=========share =========
+                          CircleContainerWidgets(
+                            title: 'Share',
+                            iconData: Icons.share_outlined,
+                            ontap: () {},
+                          ),
 
-                    controller.onCallNow();
-                  }, title: "Contact now"),
+                          // ==========map view ===========
+                          CircleContainerWidgets(
+                              title: "Map view", iconData: Icons.location_on_outlined, ontap: () => _launchUrl())
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

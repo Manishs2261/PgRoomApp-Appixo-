@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
+import 'package:pgroom/src/utils/device/device_utility.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
+import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 import 'controller/controller.dart';
@@ -20,7 +24,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Add your tiffine services"),
+        title: const Text("Add your foods services"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -47,6 +51,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 200,
                       width: double.infinity,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
 
                       //======== cover image=================
                       child: Stack(
@@ -54,17 +59,23 @@ class DataSaveTiffineScreen extends StatelessWidget {
                           // =====for initial image when your don't choose image============
                           Obx(
                             () => controller.selectedCoverImage.value != ""
-                                ? Image(
-                                    image: FileImage(File(controller.selectedCoverImage.value.toString())),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(24),
+                                    child: Image(
+                                      image: FileImage(File(controller.selectedCoverImage.value.toString())),
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   )
-                                : const Image(
-                                    image: AssetImage(AppImage.foodImage),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(24),
+                                    child: const Image(
+                                      image: AssetImage(AppImage.foodImage),
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                           ),
 
@@ -82,11 +93,12 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     height: 60,
-                                    width: 200,
+                                    padding: EdgeInsets.all(10),
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white),
-                                        color: Colors.black26
-                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: Colors.white),
+                                        color: Colors.black.withOpacity(.7)),
                                     child: const Text(
                                       "Choose cover Image",
                                       style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
@@ -140,6 +152,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 200,
                       width: double.infinity,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
 
                       //======== cover image=================
                       child: Stack(
@@ -147,17 +160,23 @@ class DataSaveTiffineScreen extends StatelessWidget {
                           // =====for initial image when your don't choose image============
                           Obx(
                             () => controller.selectedMenuImage.value != ""
-                                ? Image(
-                                    image: FileImage(File(controller.selectedMenuImage.value.toString())),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    fit: BoxFit.cover,
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(24),
+                                    child: Image(
+                                      image: FileImage(File(controller.selectedMenuImage.value.toString())),
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
+                                    ),
                                   )
-                                : const Image(
-                                    image: AssetImage(AppImage.menuImage),
-                                    height: double.infinity,
-                                    width: double.infinity,
-                                    fit: BoxFit.fill,
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(24),
+                                    child: const Image(
+                                      image: AssetImage(AppImage.menuImage),
+                                      height: double.infinity,
+                                      width: double.infinity,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                           ),
 
@@ -175,12 +194,12 @@ class DataSaveTiffineScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     height: 60,
-                                    width: 200,
+                                    padding: EdgeInsets.all(10),
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white),
-                                      color: Colors.black26
-
-                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: Colors.white),
+                                        color: Colors.black.withOpacity(.7)),
                                     child: const Text(
                                       "Choose Menu Image",
                                       style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
@@ -282,6 +301,47 @@ class DataSaveTiffineScreen extends StatelessWidget {
 
                 //=========save & next button ===============
 
+                const SizedBox(
+                  height: 40,
+                ),
+
+                Container(
+                  height: 400,
+                  width: double.infinity,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
+                  child: FlutterLocationPicker(
+                    showSearchBar: false,
+                    searchbarBorderRadius: BorderRadius.circular(50),
+                    selectLocationButtonStyle: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.orange),
+                    ),
+                    selectLocationButtonText: "Set a Location",
+                    initZoom: 11,
+                    minZoomLevel: 1,
+                    maxZoomLevel: 16,
+                    trackMyPosition: true,
+                    selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+                    mapLanguage: 'en',
+                    onError: (e) => print(e),
+                    countryFilter: 'In',
+                    markerIcon: const Icon(
+                      Icons.location_on_sharp,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    selectLocationButtonLeadingIcon: const Icon(
+                      Icons.check,
+                    ),
+                    onPicked: (pickedData) {
+                      print(pickedData.latLong.latitude);
+                      print(pickedData.latLong.longitude);
+                      controller.latitude.value = pickedData.latLong.latitude.toString();
+                      controller.longitude.value = pickedData.latLong.longitude.toString();
+                      AppHelperFunction.showSnackBar("Location set successfully");
+                    },
+                    showContributorBadgeForOSM: true,
+                  ),
+                ),
                 const SizedBox(
                   height: 40,
                 ),

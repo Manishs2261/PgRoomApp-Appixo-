@@ -49,7 +49,8 @@ class TiffineServicesApis {
 //==============Tiffine Services Apis =====================
 
   // create a tiffine services data base for main home collection
-  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage,contactNumber) async {
+  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage,contactNumber,latu,
+      lang) async {
     // model class
     final tiffineList = TiffineServicesModel(
       address: address,
@@ -59,7 +60,9 @@ class TiffineServicesApis {
       menuImage: menuImage,
       numberOfRating: 0,
       servicesName: servicesName,
-      contactNumber: contactNumber
+      contactNumber: contactNumber,
+      latitude: latu,
+      longitude: lang
     );
 
     // store main list data
@@ -70,7 +73,8 @@ class TiffineServicesApis {
   }
 
   // create a tiffine services data base for user data base
-  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage,contactNumber) async {
+  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage,
+      contactNumber,latu,lang) async {
     // model class
     final tiffineList = TiffineServicesModel(
       address: address,
@@ -80,7 +84,9 @@ class TiffineServicesApis {
       menuImage: menuImage,
       numberOfRating: 0,
       servicesName: servicesName,
-        contactNumber: contactNumber
+        contactNumber: contactNumber,
+        latitude: latu,
+        longitude: lang
     );
     // user list collection
     return await firebaseFirestore

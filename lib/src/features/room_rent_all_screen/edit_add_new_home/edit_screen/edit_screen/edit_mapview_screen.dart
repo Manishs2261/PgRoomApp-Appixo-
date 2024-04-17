@@ -45,6 +45,7 @@ class _EditMapViewScreenState extends State<EditMapViewScreen> {
 
         searchBarBackgroundColor: Colors.white,
 
+
         selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
         mapLanguage: 'en',
         onError: (e) => print(e),

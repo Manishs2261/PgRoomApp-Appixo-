@@ -40,6 +40,9 @@ class DetailsTiffineController extends GetxController {
   // calculate average rating summary
   RxDouble ratingAverage = 0.0.obs;
 
+  RxString  latitude = ''.obs;
+  RxString  longitude = ''.obs;
+
   @override
   Future<void> onInit() async {
     await UserApis.getUserData();

@@ -28,6 +28,11 @@ class AddYourTiffineController extends GetxController {
   RxString selectedCoverImage = "".obs;
   RxString selectedMenuImage = "".obs;
 
+
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
+
+
   //===========================================
   Future pickCoverImageFromGallery() async {
     coverImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 70);
@@ -66,7 +71,10 @@ class AddYourTiffineController extends GetxController {
             addressController.value.text,
             priceController.value.text,
             TiffineServicesApis.foodMenuImageUrl,
-            numberController.value.text)
+            numberController.value.text,
+              latitude.value,
+                  longitude.value
+    )
         .then((value) {
       onTiffineServicesData();
     }).onError((error, stackTrace) {
@@ -82,7 +90,10 @@ class AddYourTiffineController extends GetxController {
             addressController.value.text,
             priceController.value.text,
             TiffineServicesApis.foodMenuImageUrl,
-            numberController.value.text)
+            numberController.value.text,
+        latitude.value,
+        longitude.value
+    )
         .then((value) {
       Get.snackbar("Save", "Successfully");
       Navigator.pop(Get.context!);
