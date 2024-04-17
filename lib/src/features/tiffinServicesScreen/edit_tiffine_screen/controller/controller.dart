@@ -36,6 +36,12 @@ class EditTiffineScreenController extends GetxController {
   RxBool isSelectedCoverImage = false.obs;
   RxBool isSelectedMenuImage = false.obs;
 
+
+
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
+
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -49,6 +55,10 @@ class EditTiffineScreenController extends GetxController {
     selectedMenuImage = "${data.menuImage}".obs;
     isSelectedCoverImage = (data.foodImage != "").obs;
     isSelectedMenuImage = (data.menuImage != '').obs;
+     latitude = "${data.latitude}".obs;
+     longitude = "${data.longitude}".obs;
+
+
 
     super.onInit();
   }
@@ -95,7 +105,7 @@ class EditTiffineScreenController extends GetxController {
           AppHelperFunction.showDialogCenter(false);
           TiffineServicesApis.updateTiffineServicesData(
                   servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId,
-          numberController.value.text)
+          numberController.value.text,latitude.value,longitude.value)
               .then((value) {
             Get.snackbar("Update", "Successfully");
             Navigator.pop(Get.context!);

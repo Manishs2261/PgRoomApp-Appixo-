@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/colors.dart';
@@ -352,10 +353,53 @@ class EditTiffineScreen extends StatelessWidget {
                   height: 40,
                 ),
 
+
+
+                Container(
+                  height: 400,
+                  width: double.infinity,
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
+                  child: FlutterLocationPicker(
+                    showSearchBar: false,
+                    searchbarBorderRadius: BorderRadius.circular(50),
+                    selectLocationButtonStyle: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.orange),
+                    ),
+                    selectLocationButtonText: "Set a Location",
+                    initZoom: 11,
+                    minZoomLevel: 1,
+                    maxZoomLevel: 16,
+                    trackMyPosition: true,
+                    selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+                    mapLanguage: 'en',
+                    onError: (e) => print(e),
+                    countryFilter: 'In',
+                    markerIcon: const Icon(
+                      Icons.location_on_sharp,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    selectLocationButtonLeadingIcon: const Icon(
+                      Icons.check,
+                    ),
+                    onPicked: (pickedData) {
+                      print(pickedData.latLong.latitude);
+                      print(pickedData.latLong.longitude);
+                      controller.latitude.value = pickedData.latLong.latitude.toString();
+                      controller.longitude.value = pickedData.latLong.longitude.toString();
+                      AppHelperFunction.showSnackBar("Location set successfully");
+                    },
+                    showContributorBadgeForOSM: true,
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
                 ComReuseElevButton(
                   onPressed: () => controller.onSubmitButton(),
                   title: "Update",
                 ),
+
 
                 const SizedBox(
                   height: 40,

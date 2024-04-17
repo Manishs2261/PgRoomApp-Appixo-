@@ -131,20 +131,25 @@ class TiffineServicesApis {
 //==============Edit  Tiffine Services Apis ===============
 
   //update tiffine service  data
-  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId,contactNumber) async {
+  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId,contactNumber,latitude, longitude)
+  async {
     //home list collection data base
     await firebaseFirestore.collection("tiffineServicesCollection").doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-      'contactNumber':contactNumber
+      'contactNumber':contactNumber,
+      'longitude':longitude,
+      'latitude':latitude
     });
 //user personal collection data base
     await firebaseFirestore.collection("userTiffineCollection").doc(user.uid).collection(user.uid).doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-      'contactNumber':contactNumber
+      'contactNumber':contactNumber,
+      'longitude':longitude,
+      'latitude':latitude
     });
   }
 
