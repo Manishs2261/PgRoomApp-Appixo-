@@ -177,7 +177,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Price :- ${controller.data.foodPrice} ₹/- day  ",
+                        "Price :- ₹${controller.data.foodPrice}/-Month  ",
                         style: const TextStyle(fontSize: 18),
                       )
                     ],
@@ -263,9 +263,6 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
                       //===========================================
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

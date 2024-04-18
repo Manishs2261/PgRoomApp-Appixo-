@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
@@ -11,7 +12,6 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
-
 
 class AddYourHome extends StatelessWidget {
   AddYourHome({super.key});
@@ -32,7 +32,7 @@ class AddYourHome extends StatelessWidget {
           //Button
           ComReuseElevButton(
             onPressed: () => Get.toNamed(RoutesName.addImageScreen),
-            title: "Add New",
+            title: "Add New Room",
             loading: false,
           ),
 
@@ -65,7 +65,6 @@ class AddYourHome extends StatelessWidget {
                       rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
 
                       return ListView.builder(
-                          padding: const EdgeInsets.only(left: 5, right: 5),
                           itemCount: rentList.length,
                           itemBuilder: (context, index) {
                             return Stack(
@@ -83,12 +82,14 @@ class AddYourHome extends StatelessWidget {
                                     padding: const EdgeInsets.all(3),
                                     height: 200,
                                     width: double.infinity,
+                                    margin: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
-                                        color: dark ? AppColors.dark : const Color.fromRGBO(200, 200, 40, 0.01),
-                                        boxShadow: const [
+                                        color: dark ? AppColors.dark : Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: [
                                           BoxShadow(
-                                            color: Colors.white,
-                                            spreadRadius: 0.2,
+                                            color: Colors.black.withOpacity(.8),
+                                            offset: const Offset(2, 4),
                                           )
                                         ]),
                                     child: Row(
@@ -98,28 +99,33 @@ class AddYourHome extends StatelessWidget {
                                         Container(
                                           width: 150,
                                           height: 280,
-                                          color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
-                                          child: CachedNetworkImage(
-                                              imageUrl: '${rentList[index].coverImage}',
-                                              fit: BoxFit.fill,
-                                              placeholder: (context, url) => Container(
-                                                    color: Colors.transparent,
-                                                    height: 100,
-                                                    width: 100,
-                                                    child: const SpinKitFadingCircle(
-                                                      color: AppColors.primary,
-                                                      size: 35,
+                                          decoration: BoxDecoration(
+                                              color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
+                                              borderRadius: BorderRadius.circular(5)),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(5),
+                                            child: CachedNetworkImage(
+                                                imageUrl: '${rentList[index].coverImage}',
+                                                fit: BoxFit.fill,
+                                                placeholder: (context, url) => Container(
+                                                      color: Colors.transparent,
+                                                      height: 100,
+                                                      width: 100,
+                                                      child: const SpinKitFadingCircle(
+                                                        color: AppColors.primary,
+                                                        size: 35,
+                                                      ),
                                                     ),
-                                                  ),
-                                              errorWidget: (context, url, error) => Container(
-                                                    width: 150,
-                                                    height: 280,
-                                                    alignment: Alignment.center,
-                                                    child: const Icon(
-                                                      Icons.image_outlined,
-                                                      size: 50,
-                                                    ),
-                                                  )),
+                                                errorWidget: (context, url, error) => Container(
+                                                      width: 150,
+                                                      height: 280,
+                                                      alignment: Alignment.center,
+                                                      child: const Icon(
+                                                        Icons.image_outlined,
+                                                        size: 50,
+                                                      ),
+                                                    )),
+                                          ),
                                         ),
 
                                         const SizedBox(
@@ -131,6 +137,7 @@ class AddYourHome extends StatelessWidget {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
+                                              const Gap(10),
                                               Flexible(
                                                 child: Text(
                                                   "${rentList[index].houseName} ",
@@ -193,10 +200,15 @@ class AddYourHome extends StatelessWidget {
                                               const SizedBox(
                                                 height: 3,
                                               ),
-
                                               (rentList[index].roomAvailable!)
-                                                  ?  Text("Available :- ${rentList[index].numberOfRooms}",style: TextStyle(color: Colors.green),)
-                                                  : Text("Not Available",style: TextStyle(color: Colors.red),)
+                                                  ? Text(
+                                                      "Available :- ${rentList[index].numberOfRooms}",
+                                                      style: const TextStyle(color: Colors.green),
+                                                    )
+                                                  : const Text(
+                                                      "Not Available",
+                                                      style: TextStyle(color: Colors.red),
+                                                    )
                                             ],
                                           ),
                                         ),

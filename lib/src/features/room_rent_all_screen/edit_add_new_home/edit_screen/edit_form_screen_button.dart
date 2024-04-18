@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
- import '../../../../model/user_rent_model/user_rent_model.dart';
+import '../../../../model/user_rent_model/user_rent_model.dart';
+import '../../../../utils/Constants/colors.dart';
 import 'controller/controller.dart';
 
 class EditFormScreenButton extends StatelessWidget {
@@ -70,8 +71,6 @@ class EditFormScreenButton extends StatelessWidget {
               title: "Edit Permission",
               screenName: RoutesName.editPermissionScreen,
             ),
-
-
             ItemEditButtonWidgets(
               data: data,
               itemId: itemId,
@@ -101,16 +100,25 @@ class ItemEditButtonWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24.0),
-      child: SizedBox(
-        height: 40,
-        width: double.infinity,
-        child: ElevatedButton(
-            onPressed: () {
-              Get.toNamed(screenName, arguments: {'list': data, 'id': itemId});
-            },
-            child: Text(title)),
+    return Center(
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(screenName, arguments: {'list': data, 'id': itemId});
+        },
+        child: Container(
+            height: 40,
+            margin: const EdgeInsets.only(bottom: 24),
+            alignment: Alignment.center,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: AppColors.primary,
+              boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(.9), offset: const Offset(0, 5))],
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Text(
+              title,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            )),
       ),
     );
   }

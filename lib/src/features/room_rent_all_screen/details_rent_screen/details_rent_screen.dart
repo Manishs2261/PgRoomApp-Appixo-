@@ -43,49 +43,55 @@ class DetailsRentInfoScreen extends StatelessWidget {
       ),
 
       bottomNavigationBar: Container(
-      height: 50,
+        height: 50,
         child: Row(
           children: [
             Expanded(
-             child: InkWell(
-               onTap: ()=> controller.onCallNow(),
-               child: Container(
-                 alignment: Alignment.center,
-                 height: 50,
-
-                 decoration: BoxDecoration(
-                   color: AppColors.primary
-                 ),
-                 child: Row(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                   Icon(Icons.call_outlined,color: Colors.white,),
-                   Gap(10),
-                   Text("Contact Now",style: TextStyle(color: Colors.white,fontSize: 16),),
-                 ],)
-               ),
-             ),
-           ),
+              child: InkWell(
+                onTap: () => controller.onCallNow(),
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    decoration: BoxDecoration(color: AppColors.primary),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.call_outlined,
+                          color: Colors.white,
+                        ),
+                        Gap(10),
+                        Text(
+                          "Contact Now",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
             Expanded(
               child: InkWell(
                 hoverColor: Colors.grey,
-                onTap: (){
+                onTap: () {
                   ApisClass.updateAddToCart(controller.itemId, true);
                   AppHelperFunction.showSnackBar("successfully added");
                 },
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,
-                  decoration: BoxDecoration(
-
-                      color: Colors.orange
-                  ),
+                  decoration: BoxDecoration(color: Colors.orange),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.shopping_basket_outlined,color: Colors.white,),
+                      Icon(
+                        Icons.shopping_basket_outlined,
+                        color: Colors.white,
+                      ),
                       Gap(10),
-                      Text("Add to card",style: TextStyle(color: Colors.white,fontSize: 16),),
+                      Text(
+                        "Add to card",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
                     ],
                   ),
                 ),
@@ -93,7 +99,6 @@ class DetailsRentInfoScreen extends StatelessWidget {
             )
           ],
         ),
-
       ),
       body: CustomMaterialIndicator(
         // Refresh indicator
@@ -123,8 +128,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: AppHelperFunction.isDarkMode(context) ? Colors.blueGrey.shade900 : Colors.grey.shade200,
-                      boxShadow: const [
-                        BoxShadow(color: Colors.black38, spreadRadius: 0.5, blurRadius: .1, offset: Offset(0, 6))
+                      boxShadow:  [
+                        BoxShadow(color: Colors.black.withOpacity(.8), offset: const Offset(0, 4))
                       ],
                     ),
                     child: PageView(

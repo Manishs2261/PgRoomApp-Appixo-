@@ -54,18 +54,16 @@ class EditAddNewHomeScreen extends StatelessWidget {
               ComReuseElevButton(
                   onPressed: () {
                     AppHelperFunction.showAlert("Delete", "Aru you sure delete this room.", () {
-
-
-                    AppHelperFunction.checkInternetAvailability().then((value) {
-                      if(value){
-                        AppHelperFunction.showDialogCenter(false);
-                        ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        });
-                      }
-                    });
+                      AppHelperFunction.checkInternetAvailability().then((value) {
+                        if (value) {
+                          AppHelperFunction.showDialogCenter(false);
+                          ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          });
+                        }
+                      });
                     });
                   },
                   title: "Delete"),
@@ -78,17 +76,26 @@ class EditAddNewHomeScreen extends StatelessWidget {
                 () => Align(
                   alignment: Alignment.center,
                   child: FilterChip(
-                    label: (controller.available.value) ? Text("    Room Available    ") : Text("Room Not Available "),
+                    label: (controller.available.value)
+                        ? const Text(
+                            "    Room Available    ",
+                            style: TextStyle(color: Colors.white),
+                          )
+                        : const Text(
+                            "Room Not "
+                            "Available"
+                            " ",
+                            style: TextStyle(color: Colors.white),
+                          ),
                     selected: controller.available.value,
                     onSelected: (value) {
                       controller.available.value = value;
                       controller.onRoomAvailableButton(value);
-                      print(value);
                     },
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: Colors.red,
                     selectedColor: Colors.green,
                     showCheckmark: false,
-                    padding: EdgeInsets.symmetric(horizontal: 105, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 105, vertical: 10),
                   ),
                 ),
               ),
@@ -97,44 +104,36 @@ class EditAddNewHomeScreen extends StatelessWidget {
                 height: 50,
               ),
 
-              Center(
-                child: Text(
-                  "${data.houseName}",
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              // Image(image: AssetImage(roomImage)),
-
               //=======Image view======
               SizedBox(
                 height: 250,
                 width: double.infinity,
-                child: CachedNetworkImage(
-                    imageUrl: data.coverImage.toString(),
-                    fit: BoxFit.fill,
-                    placeholder: (context, url) => Container(
-                          color: Colors.transparent,
-                          height: 100,
-                          width: 100,
-                          child: const SpinKitFadingCircle(
-                            color: AppColors.primary,
-                            size: 35,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: CachedNetworkImage(
+                      imageUrl: data.coverImage.toString(),
+                      fit: BoxFit.fill,
+                      placeholder: (context, url) => Container(
+                            color: Colors.transparent,
+                            height: 100,
+                            width: 100,
+                            child: const SpinKitFadingCircle(
+                              color: AppColors.primary,
+                              size: 35,
+                            ),
                           ),
-                        ),
-                    errorWidget: (context, url, error) => Container(
-                          width: 150,
-                          height: 280,
-                          alignment: Alignment.center,
-                          child: const Icon(
-                            Icons.image_outlined,
-                            size: 50,
-                          ),
-                        )),
+                      errorWidget: (context, url, error) => Container(
+                            width: 150,
+                            height: 280,
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.image_outlined,
+                              size: 50,
+                            ),
+                          )),
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
@@ -142,13 +141,17 @@ class EditAddNewHomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Text(
+                      "${data.houseName}",
+                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+                    ),
                     Obx(
                       () => (controller.available.value)
                           ? Text(
                               "Available :- ${data.numberOfRooms}",
-                              style: TextStyle(color: Colors.green),
+                              style: const TextStyle(color: Colors.green),
                             )
-                          : Text(
+                          : const Text(
                               "Not Available",
                               style: TextStyle(color: Colors.red),
                             ),

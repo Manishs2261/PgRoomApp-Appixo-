@@ -87,15 +87,15 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
 
         bottomNavigationBar:  GNav(
 
-          rippleColor: Colors.green[300]!,
-          hoverColor: Colors.green[100]!,
+          rippleColor: AppColors.primary.withOpacity(0.2),
+          hoverColor:  AppColors.primary.withOpacity(0.2),
           gap: 8,
-          activeColor: Colors.green,
+          activeColor: Colors.black,
           iconSize: 24,
 
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           duration: Duration(milliseconds: 400),
-          tabBackgroundColor: Colors.green[50]!,
+          tabBackgroundColor: AppColors.primary.withOpacity(0.5),
           color: Colors.black, // navigation bar padding
           tabs: [
             GButton(
@@ -111,6 +111,8 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
               icon: Icons.fmd_good_sharp,
               text: 'Goods',
             ),
+
+
             GButton(
               icon: LineIcons.user,
               text: 'Profile',

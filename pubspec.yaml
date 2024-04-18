@@ -82,6 +82,7 @@ dependencies:
   line_icons: ^2.0.3
   gap: ^3.0.1
   location_picker_flutter_map: ^3.0.1
+  latlong2: ^0.9.1
 
 
 

@@ -1,19 +1,15 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
-import '../../../../data/repository/apis/apis.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/helpers/helper_function.dart';
-import '../../details_rent_screen/controller/details_screen_controller.dart';
 
 class ItemListView extends StatelessWidget {
   const ItemListView({
@@ -28,8 +24,6 @@ class ItemListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunction.isDarkMode(context);
-    final size = MediaQuery.of(context).size;
-
 
     return ListView.builder(
         physics: const BouncingScrollPhysics(),
@@ -49,15 +43,14 @@ class ItemListView extends StatelessWidget {
             child: Container(
               width: double.infinity,
               constraints: const BoxConstraints(minHeight: 180, maxHeight: 400),
-              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.black12,
+              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.white,
                   boxShadow: const [
                 BoxShadow(
                   color: Colors.white,
                   spreadRadius: 0.1,
                   blurRadius: .1,
                 )
-              ]
-              ),
+              ]),
               child: Stack(
                 children: [
                   Container(
@@ -74,7 +67,7 @@ class ItemListView extends StatelessWidget {
                           height: 400,
                           width: 400,
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
-                            const BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 2, offset: Offset(2, 4)),
+                            BoxShadow(color: Colors.black.withOpacity(.8), offset: const Offset(2, 5)),
                           ]),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
@@ -242,15 +235,15 @@ class ItemListView extends StatelessWidget {
                                               child: (rentList[index].bhkType!.isEmpty)
                                                   ? Text(
                                                       "Only ${rentList[index].roomType}",
-                                                      style:
-                                                          const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                      style: const TextStyle(
+                                                          color: Colors.white, fontWeight: FontWeight.w700),
                                                     )
                                                   : Text("${rentList[index].roomType} ${rentList[index].bhkType}",
                                                       style: const TextStyle(color: Colors.white)),
                                             ),
                                             const Gap(20),
                                             InkWell(
-                                              onTap: (){},
+                                              onTap: () {},
                                               child: Container(
                                                   padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                                                   decoration: BoxDecoration(

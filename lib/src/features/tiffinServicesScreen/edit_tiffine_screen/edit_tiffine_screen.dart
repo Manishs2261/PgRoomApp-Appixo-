@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
@@ -21,6 +24,8 @@ class EditTiffineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final initialPosition =
+        new LatLng(double.parse(controller.latitude.value), double.parse(controller.longitude.value));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Tiffine Services"),
@@ -353,8 +358,6 @@ class EditTiffineScreen extends StatelessWidget {
                   height: 40,
                 ),
 
-
-
                 Container(
                   height: 400,
                   width: double.infinity,
@@ -399,7 +402,6 @@ class EditTiffineScreen extends StatelessWidget {
                   onPressed: () => controller.onSubmitButton(),
                   title: "Update",
                 ),
-
 
                 const SizedBox(
                   height: 40,

@@ -125,9 +125,12 @@ class TiffineServicesScreen extends StatelessWidget {
                                 width: double.infinity,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  boxShadow: const [
+                                  boxShadow: [
                                     BoxShadow(
-                                        color: Colors.black38, spreadRadius: 0.5, blurRadius: .1, offset: Offset(0, 6))
+                                        color: Colors.black.withOpacity(.8),
+                                        spreadRadius: 0.5,
+                                        blurRadius: .1,
+                                        offset: Offset(0, 5))
                                   ],
                                   color: Colors.black.withOpacity(.9),
                                   border: Border.all(
@@ -203,7 +206,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -220,8 +223,8 @@ class TiffineServicesScreen extends StatelessWidget {
                                                 Gap(10),
                                                 Row(
                                                   children: [
-                                                    Image(
-                                                      image: const AssetImage(AppImage.foodIcon),
+                                                    const Image(
+                                                      image: AssetImage(AppImage.foodIcon),
                                                       width: 20,
                                                       height: 20,
                                                       color: Colors.white,
@@ -242,35 +245,36 @@ class TiffineServicesScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-
                                           Padding(
-                                            padding:  EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                               Flexible(
-                                                 child: Row(children: [
-                                                   Icon(
-                                                   Icons.location_on,
-                                                   color: Colors.white,
-                                                   size: 18,
-                                                 ),
-                                                   Flexible(
-                                                     child: Text(
-                                                       " ${tiffineList[index].address}",
-
-                                                       softWrap: false,
-                                                       maxLines: 1,
-                                                       overflow: TextOverflow.ellipsis,
-                                                       style: TextStyle(color: Colors.white),
-                                                     ),
-                                                   ),],),
-                                               ),
+                                                Flexible(
+                                                  child: Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.location_on,
+                                                        color: Colors.white,
+                                                        size: 18,
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          " ${tiffineList[index].address}",
+                                                          softWrap: false,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: const TextStyle(color: Colors.white),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
                                                 const Gap(20),
                                                 InkWell(
-                                                  onTap: (){},
+                                                  onTap: () {},
                                                   child: Container(
-
+                                                      alignment: Alignment.center,
                                                       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                                                       decoration: BoxDecoration(
                                                           color: Colors.white,
@@ -278,20 +282,17 @@ class TiffineServicesScreen extends StatelessWidget {
                                                           border: Border.all(color: Colors.blue, width: 2)),
                                                       child: const Text(
                                                         "Call Now",
-                                                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
+                                                        style:
+                                                            TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                                                       )),
                                                 ),
                                                 const Gap(20),
                                               ],
                                             ),
                                           ),
-                                          
-                                          
-                                          
                                         ],
                                       ),
                                     ),
-
                                   ],
                                 )),
                           ),
