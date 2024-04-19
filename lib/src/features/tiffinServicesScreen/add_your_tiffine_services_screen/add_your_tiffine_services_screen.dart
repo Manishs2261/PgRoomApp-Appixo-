@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -88,8 +87,8 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                             itemCount: tiffineList.length,
                             itemBuilder: (context, index) {
                               return Container(
-                                  margin: EdgeInsets.all(10),
-                                  padding: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(24),
@@ -98,7 +97,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                             color: Colors.black.withOpacity(.8),
                                             spreadRadius: 0.5,
                                             blurRadius: .1,
-                                            offset: Offset(0, 5))
+                                            offset: const Offset(0, 5))
                                       ]),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,

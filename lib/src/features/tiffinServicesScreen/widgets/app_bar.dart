@@ -28,12 +28,13 @@ class AppBarTiffineWidgets extends StatelessWidget {
               alignment: Alignment.center,
               height: 25,
               width: 135,
-              decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), border: Border.all(), boxShadow: [
-                BoxShadow(
+              decoration: BoxDecoration(
                   color: Colors.grey,
-                  blurRadius: 5.0,
-                ),
-              ]),
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: Colors.grey),
+                  boxShadow: [
+                    BoxShadow(color: Colors.grey.withOpacity(.7), offset: const Offset(0, 3)),
+                  ]),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +62,7 @@ class AppBarTiffineWidgets extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
+        // IconButton(onPressed: () {}, icon: Icon(Icons.notifications))
       ],
     );
   }

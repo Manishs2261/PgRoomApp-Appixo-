@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
-import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../data/repository/apis/old_goods_api.dart';
 import '../../../model/old_goods_model/old_goods_model.dart';
-import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../data_save_goods/data_save_goods_screen.dart';
@@ -88,31 +86,46 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                         return ListView.builder(
                             itemCount: goodsList.length,
                             itemBuilder: (context, index) {
-                              return Card(
+                              return Container(
+                                  margin: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(24),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black.withOpacity(.8),
+                                            spreadRadius: 0.5,
+                                            blurRadius: .1,
+                                            offset: const Offset(0, 5))
+                                      ]),
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      CachedNetworkImage(
-                                        imageUrl: goodsList[index].image.toString(),
-                                        width: double.infinity,
-                                        height: 200,
-                                        fit: BoxFit.fill,
-                                        placeholder: (context, url) => Container(
-                                          color: Colors.transparent,
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(24),
+                                        child: CachedNetworkImage(
+                                          imageUrl: goodsList[index].image.toString(),
                                           width: double.infinity,
                                           height: 200,
-                                          child: const SpinKitFadingCircle(
-                                            color: AppColors.primary,
-                                            size: 35,
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) => Container(
+                                            color: Colors.transparent,
+                                            width: double.infinity,
+                                            height: 200,
+                                            child: const SpinKitFadingCircle(
+                                              color: AppColors.primary,
+                                              size: 35,
+                                            ),
                                           ),
-                                        ),
-                                        errorWidget: (context, url, error) => Container(
-                                          width: double.infinity,
-                                          height: 200,
-                                          alignment: Alignment.center,
-                                          child: const Icon(
-                                            Icons.food_bank,
-                                            size: 50,
+                                          errorWidget: (context, url, error) => Container(
+                                            width: double.infinity,
+                                            height: 200,
+                                            alignment: Alignment.center,
+                                            child: const Icon(
+                                              Icons.food_bank,
+                                              size: 50,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -128,7 +141,6 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                                               maxLines: 1,
                                               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                                             ),
-
                                             const SizedBox(
                                               height: 5,
                                             ),
@@ -144,7 +156,6 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                                                 ),
                                               ],
                                             ),
-
                                             const SizedBox(
                                               height: 5,
                                             ),
@@ -193,10 +204,8 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                                                       AppHelperFunction.checkInternetAvailability().then((value) {
                                                         if (value) {
                                                           AppHelperFunction.showDialogCenter(false);
-                                                          OldGoodsApis.deleteOldGoodsData(
-                                                              snapshot.data!.docs[index].id,
-                                                              goodsList[index].image,
-                                                              goodsList[index].image)
+                                                          OldGoodsApis.deleteOldGoodsData(snapshot.data!.docs[index].id,
+                                                                  goodsList[index].image, goodsList[index].image)
                                                               .then((value) {
                                                             Navigator.pop(context);
                                                             Navigator.pop(context);

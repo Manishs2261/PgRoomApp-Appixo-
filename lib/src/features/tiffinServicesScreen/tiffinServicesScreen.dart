@@ -1,8 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -130,7 +127,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                         color: Colors.black.withOpacity(.8),
                                         spreadRadius: 0.5,
                                         blurRadius: .1,
-                                        offset: Offset(0, 5))
+                                        offset: const Offset(0, 5))
                                   ],
                                   color: Colors.black.withOpacity(.9),
                                   border: Border.all(
@@ -172,7 +169,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Container(
-                                          margin: EdgeInsets.only(top: 8, left: 8),
+                                          margin: const EdgeInsets.only(top: 8, left: 8),
                                           width: 80,
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -220,7 +217,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                                         fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                                                   ),
                                                 ),
-                                                Gap(10),
+                                                const Gap(10),
                                                 Row(
                                                   children: [
                                                     const Image(
@@ -229,7 +226,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                                       height: 20,
                                                       color: Colors.white,
                                                     ),
-                                                    Gap(8),
+                                                    const Gap(8),
                                                     Padding(
                                                       padding: const EdgeInsets.only(top: 5),
                                                       child: Text(
@@ -237,7 +234,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                                         overflow: TextOverflow.ellipsis,
                                                         softWrap: false,
                                                         maxLines: 1,
-                                                        style: TextStyle(color: Colors.white),
+                                                        style: const TextStyle(color: Colors.white),
                                                       ),
                                                     ),
                                                   ],
@@ -246,7 +243,7 @@ class TiffineServicesScreen extends StatelessWidget {
                                             ),
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [

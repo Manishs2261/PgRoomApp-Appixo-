@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/model/old_goods_model/old_goods_model.dart';
-
-import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../utils/Constants/colors.dart';
+import '../../../utils/device/device_utility.dart';
+import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
 
 class GoodsDetailsScreen extends StatefulWidget {
@@ -23,10 +22,56 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
 
   var index = Get.arguments["id"];
 
+  onCallNow() {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        AuthApisClass.checkUserLogin().then((value) {
+          if (value) {
+            AppDeviceUtils.launchUrl("${Uri(
+              scheme: 'tel',
+              path: list.contactNumber,
+            )}");
+          }
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - GoodsDetailsScreen");
+
     return Scaffold(
+      bottomNavigationBar: SizedBox(
+        height: 50,
+        child: Row(
+          children: [
+            Expanded(
+              child: InkWell(
+                onTap: () => onCallNow(),
+                child: Container(
+                    alignment: Alignment.center,
+                    height: 50,
+                    decoration: const BoxDecoration(color: AppColors.primary),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.call_outlined,
+                          color: Colors.white,
+                        ),
+                        Gap(10),
+                        Text(
+                          "Contact Now",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    )),
+              ),
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text(
           "${list.name}",
@@ -40,7 +85,7 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
               Container(
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), boxShadow: [
-                   BoxShadow(color: Colors.grey.shade300, blurRadius: 1, spreadRadius: 2, offset: Offset(2, 5)),
+                  BoxShadow(color: Colors.grey.shade300, blurRadius: 1, spreadRadius: 2, offset: const Offset(2, 5)),
                 ]),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
@@ -85,7 +130,6 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                     const SizedBox(
                       height: 5,
                     ),
-
                     Row(
                       children: [
                         Text(
@@ -113,8 +157,6 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                         )
                       ],
                     ),
-
-
                     Row(
                       children: [
                         const Text(
@@ -131,19 +173,14 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                         )
                       ],
                     ),
-                    Gap(50),
-                    ComReuseElevButton(onPressed: () {
-
-                    //  controller.onCallNow();
-                    }, title: "Contact now"),
                   ],
                 ),
               ),
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(
+                  SizedBox(
                     height: 50,
                   )
                 ],

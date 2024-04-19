@@ -53,26 +53,26 @@ class DataSaveGoodsScreen extends StatelessWidget {
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
-                                () => controller.selectedCoverImage.value != ""
+                            () => controller.selectedCoverImage.value != ""
                                 ? Image(
-                              image: FileImage(File(controller.selectedCoverImage.value.toString())),
-                              height: double.infinity,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                            )
+                                    image: FileImage(File(controller.selectedCoverImage.value.toString())),
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
                                 : const Image(
-                              image: AssetImage(AppImage.goodsIcon),
-                              height: double.infinity,
-                              width: double.infinity,
-                              fit: BoxFit.fill,
-                                  color: Colors.pink,
-                            ),
+                                    image: AssetImage(AppImage.goodsIcon),
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.fill,
+                                    color: Colors.pink,
+                                  ),
                           ),
 
                           // ========for add a image button=========
 
                           Obx(
-                                () => Visibility(
+                            () => Visibility(
                               visible: (controller.selectedCoverImage.value == ""),
                               child: Positioned(
                                 top: 60,
@@ -83,11 +83,12 @@ class DataSaveGoodsScreen extends StatelessWidget {
                                   },
                                   child: Container(
                                     height: 60,
-                                    width: 200,
+                                    padding: const EdgeInsets.all(10),
                                     alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white),
-                                        color: Colors.black26
-                                    ),
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(color: Colors.white),
+                                        color: Colors.black.withOpacity(.7)),
                                     child: const Text(
                                       "Choose cover Image",
                                       style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
@@ -100,24 +101,24 @@ class DataSaveGoodsScreen extends StatelessWidget {
 
                           //==========for delete  Cover image a image===========
                           Obx(() => Visibility(
-                            visible: (controller.selectedCoverImage.value != ""),
-                            child: Positioned(
-                                right: 7,
-                                top: 7,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.selectedCoverImage.value = "";
-                                  },
-                                  child: const CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor: Colors.black26,
-                                    child: Text(
-                                      "X",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                )),
-                          ))
+                                visible: (controller.selectedCoverImage.value != ""),
+                                child: Positioned(
+                                    right: 7,
+                                    top: 7,
+                                    child: InkWell(
+                                      onTap: () {
+                                        controller.selectedCoverImage.value = "";
+                                      },
+                                      child: const CircleAvatar(
+                                        radius: 18,
+                                        backgroundColor: Colors.black26,
+                                        child: Text(
+                                          "X",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    )),
+                              ))
                         ],
                       ),
                     ),
@@ -125,7 +126,6 @@ class DataSaveGoodsScreen extends StatelessWidget {
                     const SizedBox(
                       height: 15,
                     ),
-
                   ],
                 ),
 

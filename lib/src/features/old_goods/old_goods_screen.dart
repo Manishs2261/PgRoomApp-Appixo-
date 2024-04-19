@@ -1,22 +1,13 @@
-import 'dart:convert';
-import 'dart:developer';
-
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/old_goods/widgets/app_bar.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/widgets/app_bar.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../model/old_goods_model/old_goods_model.dart';
-import '../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
 
@@ -121,7 +112,7 @@ class OldGoodsScreen extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(RoutesName.oldGoodsDetailsScreen, arguments: {
                               'list': oldGoodsList[index],
-                               'id': snapshot.data?.docs[index].id,
+                              'id': snapshot.data?.docs[index].id,
                             });
                           },
                           child: Padding(
@@ -141,7 +132,7 @@ class OldGoodsScreen extends StatelessWidget {
                                   ),
                                   borderRadius: BorderRadius.circular(24),
                                 ),
-                                margin: EdgeInsets.only(bottom: 8),
+                                margin: const EdgeInsets.only(bottom: 8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -154,29 +145,26 @@ class OldGoodsScreen extends StatelessWidget {
                                             width: double.infinity,
                                             height: 250,
                                             fit: BoxFit.fill,
-                                            placeholder: (context, url) =>
-                                                Container(
-                                                  color: Colors.transparent,
-                                                  width: double.infinity,
-                                                  height: 200,
-                                                  child: const SpinKitFadingCircle(
-                                                    color: AppColors.primary,
-                                                    size: 35,
-                                                  ),
-                                                ),
-                                            errorWidget: (context, url, error) =>
-                                                Container(
-                                                  width: double.infinity,
-                                                  height: 200,
-                                                  alignment: Alignment.center,
-                                                  child: const Icon(
-                                                    Icons.food_bank,
-                                                    size: 50,
-                                                  ),
-                                                ),
+                                            placeholder: (context, url) => Container(
+                                              color: Colors.transparent,
+                                              width: double.infinity,
+                                              height: 200,
+                                              child: const SpinKitFadingCircle(
+                                                color: AppColors.primary,
+                                                size: 35,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url, error) => Container(
+                                              width: double.infinity,
+                                              height: 200,
+                                              alignment: Alignment.center,
+                                              child: const Icon(
+                                                Icons.food_bank,
+                                                size: 50,
+                                              ),
+                                            ),
                                           ),
                                         ),
-
                                       ],
                                     ),
                                     Padding(
@@ -199,16 +187,16 @@ class OldGoodsScreen extends StatelessWidget {
                                                         fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                                                   ),
                                                 ),
-                                                Gap(10),
+                                                const Gap(10),
                                                 Row(
                                                   children: [
-                                                    Image(
-                                                      image: const AssetImage(AppImage.goodsIcon),
+                                                    const Image(
+                                                      image: AssetImage(AppImage.goodsIcon),
                                                       width: 17,
                                                       height: 17,
                                                       color: Colors.white,
                                                     ),
-                                                    Gap(8),
+                                                    const Gap(8),
                                                     Padding(
                                                       padding: const EdgeInsets.only(top: 5, right: 30),
                                                       child: Text(
@@ -216,19 +204,16 @@ class OldGoodsScreen extends StatelessWidget {
                                                         overflow: TextOverflow.ellipsis,
                                                         softWrap: false,
                                                         maxLines: 1,
-                                                        style: TextStyle(color: Colors.white),
+                                                        style: const TextStyle(color: Colors.white),
                                                       ),
                                                     ),
-
                                                   ],
                                                 ),
-
                                               ],
                                             ),
                                           ),
-
                                           Padding(
-                                            padding: EdgeInsets.only(top: 5, left: 5),
+                                            padding: const EdgeInsets.only(top: 5, left: 5),
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
@@ -237,7 +222,7 @@ class OldGoodsScreen extends StatelessWidget {
                                                     children: [
                                                       Row(
                                                         children: [
-                                                          Icon(
+                                                          const Icon(
                                                             Icons.location_on,
                                                             color: Colors.white,
                                                             size: 18,
@@ -248,32 +233,34 @@ class OldGoodsScreen extends StatelessWidget {
                                                               softWrap: false,
                                                               maxLines: 1,
                                                               overflow: TextOverflow.ellipsis,
-                                                              style: TextStyle(color: Colors.white),
+                                                              style: const TextStyle(color: Colors.white),
                                                             ),
                                                           ),
-                                                        ],),
-                                                      Gap(5),
+                                                        ],
+                                                      ),
+                                                      const Gap(5),
                                                       Row(
                                                         children: [
-                                                          Icon(
-                                                            Icons.date_range_outlined, color: Colors.white, size: 18,),
+                                                          const Icon(
+                                                            Icons.date_range_outlined,
+                                                            color: Colors.white,
+                                                            size: 18,
+                                                          ),
                                                           Text(
                                                             " ${oldGoodsList[index].postDate}",
                                                             softWrap: false,
                                                             maxLines: 1,
                                                             overflow: TextOverflow.ellipsis,
-                                                            style: TextStyle(color: Colors.white),
+                                                            style: const TextStyle(color: Colors.white),
                                                           ),
                                                         ],
                                                       ),
-
                                                     ],
                                                   ),
                                                 ),
                                                 InkWell(
                                                   onTap: () {},
                                                   child: Container(
-
                                                       padding: const EdgeInsets.symmetric(horizontal: 15),
                                                       decoration: BoxDecoration(
                                                           color: Colors.white,
@@ -281,20 +268,17 @@ class OldGoodsScreen extends StatelessWidget {
                                                           border: Border.all(color: Colors.blue, width: 2)),
                                                       child: const Text(
                                                         "Call Now",
-                                                        style: TextStyle(
-                                                            color: Colors.blue, fontWeight: FontWeight.w700),
+                                                        style:
+                                                            TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                                                       )),
                                                 ),
-                                                Gap(25)
-
+                                                const Gap(25)
                                               ],
                                             ),
                                           ),
-
                                         ],
                                       ),
                                     ),
-
                                   ],
                                 )),
                           ),
