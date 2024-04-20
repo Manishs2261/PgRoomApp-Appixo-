@@ -69,6 +69,34 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                     )),
               ),
             ),
+            Expanded(
+              child: InkWell(
+                hoverColor: Colors.grey,
+                // onTap: (){
+                //   ApisClass.updateAddToCart(controller.itemId, true);
+                //   AppHelperFunction.showSnackBar("successfully added");
+                // },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  decoration: const BoxDecoration(color: Colors.orange),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_basket_outlined,
+                        color: Colors.white,
+                      ),
+                      Gap(10),
+                      Text(
+                        "Add to card",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

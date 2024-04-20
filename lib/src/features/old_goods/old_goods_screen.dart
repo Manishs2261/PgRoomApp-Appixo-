@@ -122,9 +122,8 @@ class OldGoodsScreen extends StatelessWidget {
                                 width: double.infinity,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.black38, spreadRadius: 0.5, blurRadius: .1, offset: Offset(0, 6))
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.black.withOpacity(.7), offset: const Offset(2, 4))
                                   ],
                                   color: Colors.black.withOpacity(.9),
                                   border: Border.all(
