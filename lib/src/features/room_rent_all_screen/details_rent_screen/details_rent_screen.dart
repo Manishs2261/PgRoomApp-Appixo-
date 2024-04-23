@@ -42,7 +42,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
         ),
       ),
 
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 50,
         child: Row(
           children: [
@@ -52,8 +52,8 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 child: Container(
                     alignment: Alignment.center,
                     height: 50,
-                    decoration: BoxDecoration(color: AppColors.primary),
-                    child: Row(
+                    decoration: const BoxDecoration(color: AppColors.primary),
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -73,14 +73,14 @@ class DetailsRentInfoScreen extends StatelessWidget {
               child: InkWell(
                 hoverColor: Colors.grey,
                 onTap: () {
-                  ApisClass.updateAddToCart(controller.itemId, true);
+                  controller.addToCartData();
                   AppHelperFunction.showSnackBar("successfully added");
                 },
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,
-                  decoration: BoxDecoration(color: Colors.orange),
-                  child: Row(
+                  decoration: const BoxDecoration(color: Colors.orange),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(

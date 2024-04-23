@@ -23,7 +23,12 @@ class AddToCard extends StatelessWidget {
         title: const Text("Add to card"),
       ),
       body: StreamBuilder(
-          stream: ApisClass.firebaseFirestore.collection('rentCollection').snapshots(),
+          stream: ApisClass.firebaseFirestore
+              .collection("loginUser")
+              .doc( ApisClass.user.uid)
+              .collection( ApisClass.auth.currentUser!.uid)
+              .doc( ApisClass.user.uid)
+              .collection('addToCart').snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -61,18 +66,16 @@ class AddToCard extends StatelessWidget {
 
                 snapData = snapshot;
                 rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
-                // Filter the rentList based on the 'like' field being true
-                final likedRentList = rentList.where((rent) => rent.like == true,).toList();
                 return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(left: 0.2, right: 0.2),
-                    itemCount: likedRentList.length,
+                    itemCount: rentList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
                           final itemId = snapshot.data?.docs[index].id;
                           Get.toNamed(RoutesName.detailsRentInfoScreen, arguments: {
-                            'list': likedRentList[index],
+                            'list': rentList[index],
                             'id': itemId,
                           });
                         },
@@ -97,7 +100,7 @@ class AddToCard extends StatelessWidget {
                                     height: 280,
                                     color: dark ? Colors.blueGrey.shade900 : Colors.grey.shade200,
                                     child: CachedNetworkImage(
-                                        imageUrl: '${likedRentList[index].coverImage}',
+                                        imageUrl: '${rentList[index].coverImage}',
                                         fit: BoxFit.fill,
                                         placeholder: (context, url) => Container(
                                               color: Colors.transparent,
@@ -124,7 +127,7 @@ class AddToCard extends StatelessWidget {
                                       child: InkWell(
                                         onTap: () {
 
-                                          ApisClass.updateAddToCart(likedRentList[index].userRentId, false);
+                                          ApisClass.updateAddToCart(rentList[index].userRentId, false);
 
                                         },
                                         child: const CircleAvatar(
@@ -150,7 +153,7 @@ class AddToCard extends StatelessWidget {
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        "${likedRentList[index].houseName}",
+                                        "${rentList[index].houseName}",
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 1,
@@ -167,8 +170,8 @@ class AddToCard extends StatelessWidget {
                                           color: Colors.yellow,
                                           size: 17,
                                         ),
-                                        Text("${likedRentList[index].average}"),
-                                        Text(" (${likedRentList[index].numberOfRating} Reviews)")
+                                        Text("${rentList[index].average}"),
+                                        Text(" (${rentList[index].numberOfRating} Reviews)")
                                       ],
                                     ),
                                     const SizedBox(
@@ -180,9 +183,9 @@ class AddToCard extends StatelessWidget {
                                         style: DefaultTextStyle.of(context).style,
                                         children: <TextSpan>[
                                           TextSpan(
-                                              text: (likedRentList[index].singlePersonPrice!.isNotEmpty)
-                                                  ? '${likedRentList[index].singlePersonPrice}'
-                                                  : '${likedRentList[index].familyPrice}',
+                                              text: (rentList[index].singlePersonPrice!.isNotEmpty)
+                                                  ? '${rentList[index].singlePersonPrice}'
+                                                  : '${rentList[index].familyPrice}',
                                               style: const TextStyle(fontWeight: FontWeight.bold)),
                                           const TextSpan(text: ' /- monthly'),
                                         ],
@@ -193,7 +196,7 @@ class AddToCard extends StatelessWidget {
                                     ),
                                     Flexible(
                                       child: Text(
-                                        "Address:-${likedRentList[index].address} ",
+                                        "Address:-${rentList[index].address} ",
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 2,
@@ -202,16 +205,16 @@ class AddToCard extends StatelessWidget {
                                     const SizedBox(
                                       height: 3,
                                     ),
-                                    Text("City - ${likedRentList[index].city}"),
-                                    (likedRentList[index].bhkType!.isEmpty)
-                                        ? Text("Room Type - ${likedRentList[index].roomType}")
-                                        : Text("Room Type - ${likedRentList[index].roomType} - ${likedRentList[index].bhkType}"),
+                                    Text("City - ${rentList[index].city}"),
+                                    (rentList[index].bhkType!.isEmpty)
+                                        ? Text("Room Type - ${rentList[index].roomType}")
+                                        : Text("Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}"),
                                     const SizedBox(
                                       height: 3,
                                     ),
-                                    (likedRentList[index].roomAvailable!)
+                                    (rentList[index].roomAvailable!)
                                         ? Text(
-                                            "Available :- ${likedRentList[index].numberOfRooms}",
+                                            "Available :- ${rentList[index].numberOfRooms}",
                                             style: const TextStyle(color: Colors.green),
                                           )
                                         : const Text(
