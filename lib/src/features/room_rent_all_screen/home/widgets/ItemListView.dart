@@ -7,8 +7,10 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/device/device_utility.dart';
 import '../../../../utils/helpers/helper_function.dart';
 
 class ItemListView extends StatelessWidget {
@@ -43,8 +45,7 @@ class ItemListView extends StatelessWidget {
             child: Container(
               width: double.infinity,
               constraints: const BoxConstraints(minHeight: 180, maxHeight: 400),
-              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.white,
-                  boxShadow: const [
+              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.white, boxShadow: const [
                 BoxShadow(
                   color: Colors.white,
                   spreadRadius: 0.1,
@@ -127,21 +128,6 @@ class ItemListView extends StatelessWidget {
                                     ),
                                   ),
                                   const Spacer(),
-                                  // InkWell(
-                                  //   borderRadius: BorderRadius.circular(24),
-                                  //   splashColor: Colors.grey,
-                                  //   onTap: (){
-                                  //
-                                  //
-                                  //   },
-                                  //   child: const CircleAvatar(
-                                  //     backgroundColor: Colors.red,
-                                  //     foregroundColor: Colors.white,
-                                  //     child: Icon(
-                                  //       Icons.favorite,
-                                  //     ),
-                                  //   ),
-                                  // )
                                 ],
                               ),
                               const Spacer(),
@@ -243,7 +229,20 @@ class ItemListView extends StatelessWidget {
                                             ),
                                             const Gap(20),
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                AppHelperFunction.checkInternetAvailability().then((value) {
+                                                  if (value) {
+                                                    AuthApisClass.checkUserLogin().then((value) {
+                                                      if (value) {
+                                                        AppDeviceUtils.launchUrl("${Uri(
+                                                          scheme: 'tel',
+                                                          path: rentList[index].contactNumber,
+                                                        )}");
+                                                      }
+                                                    });
+                                                  }
+                                                });
+                                              },
                                               child: Container(
                                                   padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                                                   decoration: BoxDecoration(

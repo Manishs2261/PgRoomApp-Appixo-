@@ -7,9 +7,12 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/widgets/app_bar.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
+import '../../data/repository/auth_apis/auth_apis.dart';
 import '../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
+import '../../utils/device/device_utility.dart';
+import '../../utils/helpers/helper_function.dart';
 
 class TiffineServicesScreen extends StatelessWidget {
   TiffineServicesScreen({super.key});
@@ -47,7 +50,7 @@ class TiffineServicesScreen extends StatelessWidget {
                       fillColor: Colors.yellow[50],
                       filled: true,
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                      hintText: "Enter Service / Landmark / Colony",
+                      hintText: "Enter Name / Landmark / Colony",
                       hintStyle: const TextStyle(color: Colors.black54),
                       prefixIcon: const Icon(Icons.search_rounded),
                       suffixIcon: const Icon(Icons.mic),
@@ -269,7 +272,21 @@ class TiffineServicesScreen extends StatelessWidget {
                                                 ),
                                                 const Gap(20),
                                                 InkWell(
-                                                  onTap: () {},
+                                                  onTap: () {
+
+                                                    AppHelperFunction.checkInternetAvailability().then((value) {
+                                                      if (value) {
+                                                        AuthApisClass.checkUserLogin().then((value) {
+                                                          if (value) {
+                                                            AppDeviceUtils.launchUrl("${Uri(
+                                                              scheme: 'tel',
+                                                              path: tiffineList[index].contactNumber,
+                                                            )}");
+                                                          }
+                                                        });
+                                                      }
+                                                    });
+                                                  },
                                                   child: Container(
                                                       alignment: Alignment.center,
                                                       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),

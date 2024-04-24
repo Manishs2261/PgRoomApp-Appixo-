@@ -6,11 +6,11 @@ import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
- import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
+import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
- import 'package:pgroom/src/navigation_menu.dart';
+import 'package:pgroom/src/navigation_menu.dart';
 
 import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
@@ -21,6 +21,7 @@ import '../../features/old_goods/add_your_goods/add_your_goods.dart';
 import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
 import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
 import '../../features/old_goods/old_goods_details_screen/goods_details_screen.dart';
+import '../../features/old_goods/search/search_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
 
 import '../../features/room_rent_all_screen/add_new_home/add_your_home.dart';
@@ -206,7 +207,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.navigationScreen,
-            page: () => NavigationMenuScreen(),
+            page: () => const NavigationMenuScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -231,7 +232,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.searchTiffineScreen,
-            page: () => SearchTiffineScreen(),
+            page: () => const SearchTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -241,7 +242,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.advertisementPageScreen,
-            page: () => AdvertisementPageScreen(),
+            page: () => const AdvertisementPageScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -256,37 +257,37 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.dataSaveOldGoodsScreen,
-            page: () => DataSaveGoodsScreen(),
+            page: () => const DataSaveGoodsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.editOldGoodsScreen,
             page: () => EditGoodsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.mapScreen,
-            page: () => MapScreen(),
+            page: () => const MapScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.editMapScreen,
-            page: () => EditMapViewScreen(),
+            page: () => const EditMapViewScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.addToCartTiffineScreen,
             page: () => AddToCartTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
         GetPage(
             name: RoutesName.addToCartGoodsScreen,
             page: () => AddToCartGoodsScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.goodsSearchScreen,
+            page: () => const GoodsSearchScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

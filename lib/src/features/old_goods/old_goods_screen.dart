@@ -7,9 +7,12 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/old_goods/widgets/app_bar.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
+import '../../data/repository/auth_apis/auth_apis.dart';
 import '../../model/old_goods_model/old_goods_model.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
+import '../../utils/device/device_utility.dart';
+import '../../utils/helpers/helper_function.dart';
 
 class OldGoodsScreen extends StatelessWidget {
   OldGoodsScreen({super.key});
@@ -36,7 +39,7 @@ class OldGoodsScreen extends StatelessWidget {
                   ),
                   child: TextFormField(
                     onTap: () {
-                      Get.toNamed(RoutesName.searchTiffineScreen, arguments: {
+                      Get.toNamed(RoutesName.goodsSearchScreen, arguments: {
                         'list': oldGoodsList,
                         'id': snapData,
                       });
@@ -258,7 +261,21 @@ class OldGoodsScreen extends StatelessWidget {
                                                   ),
                                                 ),
                                                 InkWell(
-                                                  onTap: () {},
+                                                  onTap: () {
+
+                                                    AppHelperFunction.checkInternetAvailability().then((value) {
+                                                      if (value) {
+                                                        AuthApisClass.checkUserLogin().then((value) {
+                                                          if (value) {
+                                                            AppDeviceUtils.launchUrl("${Uri(
+                                                              scheme: 'tel',
+                                                              path: oldGoodsList[index].contactNumber,
+                                                            )}");
+                                                          }
+                                                        });
+                                                      }
+                                                    });
+                                                  },
                                                   child: Container(
                                                       padding: const EdgeInsets.symmetric(horizontal: 15),
                                                       decoration: BoxDecoration(

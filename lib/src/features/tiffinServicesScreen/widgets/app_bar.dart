@@ -11,7 +11,7 @@ class AppBarTiffineWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text("Tiffine Srvices"),
+      title: const Text("Foods"),
       actions: [
         //   ===post room free   ==================
         Padding(

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../data/repository/auth_apis/auth_apis.dart';
+import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
@@ -14,25 +14,25 @@ import '../../../utils/Constants/image_string.dart';
 import '../../../utils/device/device_utility.dart';
 import '../../../utils/helpers/helper_function.dart';
 
-class SearchTiffineScreen extends StatefulWidget {
-  const SearchTiffineScreen({super.key});
+class GoodsSearchScreen extends StatefulWidget {
+  const GoodsSearchScreen({super.key});
 
   @override
-  State<SearchTiffineScreen> createState() => _SearchTiffineScreenState();
+  State<GoodsSearchScreen> createState() => _GoodsSearchScreenState();
 }
 
-class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
+class _GoodsSearchScreenState extends State<GoodsSearchScreen> {
   final searchController = TextEditingController();
-  List<TiffineServicesModel> data = Get.arguments['list'];
+  List<OldGoodsModel> data = Get.arguments['list'];
   var snapData = Get.arguments['id'];
 
-  List<TiffineServicesModel> displayList = [];
+  List<OldGoodsModel> displayList = [];
 
   void updateList(String value) {
     setState(() {
       displayList = data
           .where((element) =>
-              element.servicesName!.toLowerCase().contains(value.toLowerCase()) ||
+              element.name!.toLowerCase().contains(value.toLowerCase()) ||
               element.address!.toLowerCase().contains(value.toLowerCase()))
           .toList();
     });
@@ -92,7 +92,7 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                     return InkWell(
                       onTap: () {
                         final itemId = snapData.data?.docs[index].id;
-                        Get.toNamed(RoutesName.tiffinDetailsScreen, arguments: {
+                        Get.toNamed(RoutesName.oldGoodsDetailsScreen, arguments: {
                           'list': displayList[index],
                           'id': itemId,
                         });
@@ -100,17 +100,11 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Container(
-                            height: 335,
+                            height: 360,
                             width: double.infinity,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(.8),
-                                    spreadRadius: 0.5,
-                                    blurRadius: .1,
-                                    offset: const Offset(0, 5))
-                              ],
+                              boxShadow: [BoxShadow(color: Colors.black.withOpacity(.7), offset: const Offset(2, 4))],
                               color: Colors.black.withOpacity(.9),
                               border: Border.all(
                                 color: Colors.transparent,
@@ -126,7 +120,7 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(24),
                                       child: CachedNetworkImage(
-                                        imageUrl: displayList[index].foodImage.toString(),
+                                        imageUrl: displayList[index].image.toString(),
                                         width: double.infinity,
                                         height: 250,
                                         fit: BoxFit.fill,
@@ -150,33 +144,6 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      margin: const EdgeInsets.only(top: 8, left: 8),
-                                      width: 80,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(24),
-                                      ),
-                                      padding: const EdgeInsets.all(8),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            size: 18,
-                                            color: Colors.orange,
-                                          ),
-                                          const Gap(8),
-                                          Flexible(
-                                            child: Text(
-                                              "${displayList[index].averageRating}  ",
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
                                   ],
                                 ),
                                 Padding(
@@ -185,13 +152,13 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Flexible(
                                               child: Text(
-                                                "${displayList[index].servicesName}",
+                                                "${displayList[index].name}",
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: false,
                                                 maxLines: 1,
@@ -203,16 +170,16 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                             Row(
                                               children: [
                                                 const Image(
-                                                  image: AssetImage(AppImage.foodIcon),
-                                                  width: 20,
-                                                  height: 20,
+                                                  image: AssetImage(AppImage.goodsIcon),
+                                                  width: 17,
+                                                  height: 17,
                                                   color: Colors.white,
                                                 ),
                                                 const Gap(8),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(top: 5),
+                                                  padding: const EdgeInsets.only(top: 5, right: 30),
                                                   child: Text(
-                                                    "₹${displayList[index].foodPrice}/Month",
+                                                    "₹${displayList[index].price}/-",
                                                     overflow: TextOverflow.ellipsis,
                                                     softWrap: false,
                                                     maxLines: 1,
@@ -220,36 +187,56 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                                   ),
                                                 ),
                                               ],
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                                        padding: const EdgeInsets.only(top: 5, left: 5),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Flexible(
-                                              child: Row(
+                                              child: Column(
                                                 children: [
-                                                  const Icon(
-                                                    Icons.location_on,
-                                                    color: Colors.white,
-                                                    size: 18,
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.location_on,
+                                                        color: Colors.white,
+                                                        size: 18,
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          " ${displayList[index].address}",
+                                                          softWrap: false,
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          style: const TextStyle(color: Colors.white),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  Flexible(
-                                                    child: Text(
-                                                      " ${displayList[index].address}",
-                                                      softWrap: false,
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: const TextStyle(color: Colors.white),
-                                                    ),
+                                                  const Gap(5),
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.date_range_outlined,
+                                                        color: Colors.white,
+                                                        size: 18,
+                                                      ),
+                                                      Text(
+                                                        " ${displayList[index].postDate}",
+                                                        softWrap: false,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: const TextStyle(color: Colors.white),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),
                                             ),
-                                            const Gap(20),
                                             InkWell(
                                               onTap: () {
                                                 AppHelperFunction.checkInternetAvailability().then((value) {
@@ -266,8 +253,7 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                                 });
                                               },
                                               child: Container(
-                                                  alignment: Alignment.center,
-                                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                                                  padding: const EdgeInsets.symmetric(horizontal: 15),
                                                   decoration: BoxDecoration(
                                                       color: Colors.white,
                                                       borderRadius: BorderRadius.circular(10),
@@ -277,7 +263,7 @@ class _SearchTiffineScreenState extends State<SearchTiffineScreen> {
                                                     style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
                                                   )),
                                             ),
-                                            const Gap(20),
+                                            const Gap(25)
                                           ],
                                         ),
                                       ),
