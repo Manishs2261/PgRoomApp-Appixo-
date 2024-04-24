@@ -30,19 +30,16 @@ class ContactAndShareWidgets extends StatelessWidget {
 
     return Column(
       children: [
-        const SizedBox(
-          height: 50,
-        ),
         //===========================================
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             //=========share =========
-            CircleContainerWidgets(
-              title: 'Share',
-              iconData: Icons.share_outlined,
-              ontap: () {},
-            ),
+            // CircleContainerWidgets(
+            //   title: 'Share',
+            //   iconData: Icons.share_outlined,
+            //   ontap: () {},
+            // ),
 
             // ==========map view ===========
             CircleContainerWidgets(title: "Map view", iconData: Icons.location_on_outlined, ontap: () => _launchUrl())

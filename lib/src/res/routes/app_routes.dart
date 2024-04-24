@@ -1,18 +1,18 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:pgroom/src/features/add_to_card/add_to_card.dart';
+import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
+import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/rent_form_screen/map_screen/controller/controller.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
+ import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/tiffinServicesScreen.dart';
-import 'package:pgroom/src/navigation_menu.dart';
+ import 'package:pgroom/src/navigation_menu.dart';
 
+import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
 
@@ -235,8 +235,8 @@ class AppRoutes {
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
-            name: RoutesName.addToCardScreen,
-            page: () => AddToCard(),
+            name: RoutesName.addToCardRoomScreen,
+            page: () => AddToCardRoom(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -275,6 +275,18 @@ class AppRoutes {
         GetPage(
             name: RoutesName.editMapScreen,
             page: () => EditMapViewScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.addToCartTiffineScreen,
+            page: () => AddToCartTiffineScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.addToCartGoodsScreen,
+            page: () => AddToCartGoodsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

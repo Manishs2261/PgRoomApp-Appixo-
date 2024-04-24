@@ -73,7 +73,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
               child: InkWell(
                 hoverColor: Colors.grey,
                 onTap: () {
-                  controller.addToCartData();
+                  controller.addToCartRoomData();
                   AppHelperFunction.showSnackBar("successfully added");
                 },
                 child: Container(
@@ -203,7 +203,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   AllDetailsWidgets(controller: controller),
 
                   const SizedBox(
-                    height: 50,
+                    height: 30,
                   ),
 
                   ContactAndShareWidgets(

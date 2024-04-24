@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/old_goods/old_goods_details_screen/controller.dart';
 import 'package:pgroom/src/model/old_goods_model/old_goods_model.dart';
 import '../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../utils/Constants/colors.dart';
@@ -20,22 +21,9 @@ class GoodsDetailsScreen extends StatefulWidget {
 class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
   final OldGoodsModel list = Get.arguments['list'];
 
-  var index = Get.arguments["id"];
+  var itemId = Get.arguments["id"];
 
-  onCallNow() {
-    AppHelperFunction.checkInternetAvailability().then((value) {
-      if (value) {
-        AuthApisClass.checkUserLogin().then((value) {
-          if (value) {
-            AppDeviceUtils.launchUrl("${Uri(
-              scheme: 'tel',
-              path: list.contactNumber,
-            )}");
-          }
-        });
-      }
-    });
-  }
+  final controller = Get.put(OldGoodsScreenController(Get.arguments["id"],Get.arguments['list']));
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +36,7 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
           children: [
             Expanded(
               child: InkWell(
-                onTap: () => onCallNow(),
+                onTap: () => controller.onCallNow(),
                 child: Container(
                     alignment: Alignment.center,
                     height: 50,
@@ -72,10 +60,10 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
             Expanded(
               child: InkWell(
                 hoverColor: Colors.grey,
-                // onTap: (){
-                //   ApisClass.updateAddToCart(controller.itemId, true);
-                //   AppHelperFunction.showSnackBar("successfully added");
-                // },
+                onTap: (){
+                  controller.addToCartGoodsData();
+                  AppHelperFunction.showSnackBar("successfully added");
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,

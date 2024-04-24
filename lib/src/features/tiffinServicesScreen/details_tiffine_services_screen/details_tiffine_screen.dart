@@ -9,6 +9,7 @@ import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../common/widgets/com_ratingbar_widgets.dart';
+import '../../../data/repository/apis/add_to_cart_api.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../res/route_name/routes_name.dart';
@@ -69,10 +70,10 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
             Expanded(
               child: InkWell(
                 hoverColor: Colors.grey,
-                // onTap: (){
-                //   ApisClass.updateAddToCart(controller.itemId, true);
-                //   AppHelperFunction.showSnackBar("successfully added");
-                // },
+                onTap: (){
+                  controller.addToCartTiffineData();
+                  AppHelperFunction.showSnackBar("successfully added");
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,

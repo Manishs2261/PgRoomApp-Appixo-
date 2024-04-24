@@ -55,7 +55,7 @@ class RoutesName{
   static const String addYourTiffineScreen = '/addYourTiffineScreen';
   static const String viewAllReviewTiffineScreen = '/viewAllReviewTiffine_Screen';
   static const String searchTiffineScreen = '/searchTiffine_Screen';
-  static const String addToCardScreen  = '/addToCard_Screen';
+  static const String addToCardRoomScreen  = '/addToCardRoom_Screen';
   static const String advertisementPageScreen  = '/Advertisement_page_screen';
   static const String oldGoodsDetailsScreen  = '/old_goods_details_screen';
   static const String addYourOldGoodsScreen  = '/add_your_old_goods_screen';
@@ -63,5 +63,7 @@ class RoutesName{
   static const String editOldGoodsScreen  = '/edit_old_goods_screen';
   static const String mapScreen  = '/map_screen';
   static const String editMapScreen  = '/edit_map_screen';
+  static const String addToCartTiffineScreen  = '/addToCartTiffineScreen';
+  static const String addToCartGoodsScreen  = '/addToCartGoodsScreen';
 
 }

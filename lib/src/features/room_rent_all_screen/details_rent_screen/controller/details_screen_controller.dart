@@ -174,47 +174,56 @@ class DetailsScreenController extends GetxController {
     });
   }
 
-  addToCartData() {
-    AddToCartApis.createAddToCartUser(
-        data.coverImage,
-        data.houseName,
-        data.address,
-        data.city,
-        data.landMark,
-        data.contactNumber,
-        data.bhkType,
-        data.roomType,
-        data.singlePersonPrice,
-        data.doublePersonPrice,
-        data.triplePersonPrice,
-        data.fourPersonPrice,
-        data.familyPrice,
-        data.restrictedTime,
-        data.numberOfRooms,
-        data.wifi,
-        data.bed,
-        data.chair,
-        data.table,
-        data.fan,
-        data.gadda,
-        data.light,
-        data.locker,
-        data.bedSheet,
-        data.washingMachine,
-        data.parking,
-        data.electricityBill,
-        data.waterBill,
-        data.flexibleTime,
-        data.cooking,
-        data.cookingType,
-        data.boy,
-        data.girls,
-        data.familyMember,
-        data.attachBathRoom,
-        data.shareAbleBathRoom,
-        data.like,
-        data.latitude,
-        data.longitude,
-        itemId);
+  addToCartRoomData() {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        AuthApisClass.checkUserLogin().then((value) {
+          if (value) {
+            AddToCartApis.createAddToCartUserRoom(
+                data.coverImage,
+                data.houseName,
+                data.address,
+                data.city,
+                data.landMark,
+                data.contactNumber,
+                data.bhkType,
+                data.roomType,
+                data.singlePersonPrice,
+                data.doublePersonPrice,
+                data.triplePersonPrice,
+                data.fourPersonPrice,
+                data.familyPrice,
+                data.restrictedTime,
+                data.numberOfRooms,
+                data.wifi,
+                data.bed,
+                data.chair,
+                data.table,
+                data.fan,
+                data.gadda,
+                data.light,
+                data.locker,
+                data.bedSheet,
+                data.washingMachine,
+                data.parking,
+                data.electricityBill,
+                data.waterBill,
+                data.flexibleTime,
+                data.cooking,
+                data.cookingType,
+                data.boy,
+                data.girls,
+                data.familyMember,
+                data.attachBathRoom,
+                data.shareAbleBathRoom,
+                data.like,
+                data.latitude,
+                data.longitude,
+                itemId);
+          }
+        });
+      }
+    });
+
   }
 }

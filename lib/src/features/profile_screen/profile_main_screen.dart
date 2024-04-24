@@ -190,7 +190,7 @@ class ProfileDetailsScreen extends StatelessWidget {
 
           ListTile(
               leading: const Icon(Icons.shopping_basket_outlined),
-              title: const Text("Add To Cart"),
+              title: const Text("Add To Cart Room"),
               trailing: const Icon(
                 Icons.arrow_forward_ios,
                 size: 16,
@@ -198,7 +198,35 @@ class ProfileDetailsScreen extends StatelessWidget {
               onTap: () {
                 AuthApisClass.checkUserLogin().then((value) {
                   if (value) {
-                    Get.toNamed(RoutesName.addToCardScreen);
+                    Get.toNamed(RoutesName.addToCardRoomScreen);
+                  }
+                });
+              }),
+          ListTile(
+              leading: const Icon(Icons.shopping_basket_outlined),
+              title: const Text("Add To Cart Foods"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCartTiffineScreen);
+                  }
+                });
+              }),
+          ListTile(
+              leading: const Icon(Icons.shopping_basket_outlined),
+              title: const Text("Add To Cart Goods"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCartGoodsScreen);
                   }
                 });
               }),

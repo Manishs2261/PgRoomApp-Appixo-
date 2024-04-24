@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/model/tiffin_services_model/tiffen_services_model.dart';
 
+import '../../../../data/repository/apis/add_to_cart_api.dart';
 import '../../../../data/repository/apis/user_apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../model/rating_and_review_Model/rating_and_review_Model.dart';
@@ -208,5 +209,21 @@ class DetailsTiffineController extends GetxController {
         });
       }
     });
+  }
+
+
+  addToCartTiffineData() {
+    AppHelperFunction.checkInternetAvailability().then((value) {
+      if (value) {
+        AuthApisClass.checkUserLogin().then((value) {
+          if (value) {
+            AddToCartApis.createAddToCartUserTiffine(data.foodImage, data.servicesName, data.address, data.foodPrice,
+                data.menuImage,
+                data.contactNumber, data.latitude, data.latitude, itemId);
+          }
+        });
+      }
+    });
+
   }
 }

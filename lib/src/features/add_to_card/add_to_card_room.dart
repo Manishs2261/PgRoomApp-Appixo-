@@ -4,13 +4,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 
+import '../../data/repository/apis/add_to_cart_api.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../res/route_name/routes_name.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
 
-class AddToCard extends StatelessWidget {
-  AddToCard({super.key});
+class AddToCardRoom extends StatelessWidget {
+  AddToCardRoom({super.key});
 
   List<UserRentModel> rentList = [];
   var snapData;
@@ -25,10 +26,11 @@ class AddToCard extends StatelessWidget {
       body: StreamBuilder(
           stream: ApisClass.firebaseFirestore
               .collection("loginUser")
-              .doc( ApisClass.user.uid)
-              .collection( ApisClass.auth.currentUser!.uid)
-              .doc( ApisClass.user.uid)
-              .collection('addToCart').snapshots(),
+              .doc(ApisClass.user.uid)
+              .collection(ApisClass.auth.currentUser!.uid)
+              .doc(ApisClass.user.uid)
+              .collection('addToCartRoom')
+              .snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -66,14 +68,15 @@ class AddToCard extends StatelessWidget {
 
                 snapData = snapshot;
                 rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
+
                 return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.only(left: 0.2, right: 0.2),
                     itemCount: rentList.length,
                     itemBuilder: (context, index) {
+                      final itemId = snapshot.data?.docs[index].id;
                       return GestureDetector(
                         onTap: () {
-                          final itemId = snapshot.data?.docs[index].id;
                           Get.toNamed(RoutesName.detailsRentInfoScreen, arguments: {
                             'list': rentList[index],
                             'id': itemId,
@@ -126,9 +129,7 @@ class AddToCard extends StatelessWidget {
                                       top: 5,
                                       child: InkWell(
                                         onTap: () {
-
-                                          ApisClass.updateAddToCart(rentList[index].userRentId, false);
-
+                                          AddToCartApis.deleteAddToCartRoomData(itemId);
                                         },
                                         child: const CircleAvatar(
                                           radius: 17,
