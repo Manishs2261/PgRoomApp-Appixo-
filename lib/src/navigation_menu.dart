@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
@@ -21,7 +19,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
 
   int selectedIndex = 0;
 
-  static  final List<Widget> _widgetOptions = <Widget>[
+  static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     TiffineServicesScreen(),
     OldGoodsScreen(),
@@ -31,7 +29,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-   // final controller = Get.put(NavigationController());
+    // final controller = Get.put(NavigationController());
 
 
     //on back press open alert dialog box
@@ -41,19 +39,19 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text("Alert"),
-                content: const Text("Do you want to Exit ?."),
+                title: const Text("Close App"),
+                content: const Text("Do you want to Close App?."),
                 actions: [
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       },
-                      child: const Text("No",style: TextStyle(fontSize: 18),)),
+                      child: const Text("No", style: TextStyle(fontSize: 18),)),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(true);
                       },
-                      child: const Text("Yes",style: TextStyle(fontSize: 18),)),
+                      child: const Text("Yes", style: TextStyle(fontSize: 18),)),
                 ],
               );
             });
@@ -64,71 +62,49 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
           return Future.value(false);
         }
       },
-      // child: Scaffold(
-      //   bottomNavigationBar: Obx(
-      //     () => NavigationBar(
-      //       height: 60,
-      //       elevation: 0,
-      //
-      //       selectedIndex: controller.selectedIndex.value,
-      //       indicatorColor: AppColors.primary,
-      //       onDestinationSelected: (index) => controller.selectedIndex.value = index,
-      //       destinations: [
-      //         //const NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-      //         const NavigationDestination(icon: Icon(Icons.home), label: "Room"),
-      //         const NavigationDestination(icon: Icon(Icons.food_bank_sharp), label: "Food"),
-      //         const NavigationDestination(icon: Icon(Icons.person_2_outlined), label: "Profile"),
-      //       ],
-      //     ),
-      //   ),
-      //   body: Obx(() => controller.screen[controller.selectedIndex.value]),
-      // ),
+
       child: Scaffold(
-
-        bottomNavigationBar:  GNav(
-
+          bottomNavigationBar: GNav
           rippleColor: AppColors.primary.withOpacity(0.2),
-          hoverColor:  AppColors.primary.withOpacity(0.2),
-          gap: 8,
-          activeColor: Colors.black,
-          iconSize: 24,
-
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          duration: Duration(milliseconds: 400),
-          tabBackgroundColor: AppColors.primary.withOpacity(0.5),
-          color: Colors.black, // navigation bar padding
-          tabs: [
-            GButton(
-              icon: LineIcons.home,
-              text: 'Home',
-            ),
-
-            GButton(
-              icon: Icons.dinner_dining_outlined,
-              text: 'foods',
-            ),
-            GButton(
-              icon: Icons.fmd_good_sharp,
-              text: 'Goods',
-            ),
-
-
-            GButton(
-              icon: LineIcons.user,
-              text: 'Profile',
-            )
-          ],
-          selectedIndex: selectedIndex,
-          onTabChange: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
-          },
+      hoverColor: AppColors.primary.withOpacity(0.2),
+      gap: 8,
+      activeColor: Colors.black,
+      iconSize: 24,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+      duration: const Duration(milliseconds: 400),
+      tabBackgroundColor: AppColors.primary.withOpacity(0.5),
+      color: Colors.black,
+      // navigation bar padding
+      tabs: const [
+        GButton(
+          icon: LineIcons.home,
+          text: 'Home',
         ),
-        body: _widgetOptions.elementAt(selectedIndex),
+        GButton(
+          icon: Icons.emoji_food_beverage_rounded,
+          text: 'foods',
+        ),
+        GButton(
+          icon: Icons.shop,
+          text: 'Goods',
+        ),
+
+        GButton(
+          icon: LineIcons.user,
+          text: 'Profile',
+        )
+      ],
+      selectedIndex: selectedIndex,
+      onTabChange: (index) {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+    ),
+    body: _widgetOptions.elementAt(selectedIndex),
 
 
-      ),
+    ),
     );
   }
 }
