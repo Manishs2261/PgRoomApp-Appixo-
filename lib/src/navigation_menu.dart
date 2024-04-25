@@ -64,47 +64,51 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
       },
 
       child: Scaffold(
-          bottomNavigationBar: GNav
+
+        bottomNavigationBar: GNav(
           rippleColor: AppColors.primary.withOpacity(0.2),
-      hoverColor: AppColors.primary.withOpacity(0.2),
-      gap: 8,
-      activeColor: Colors.black,
-      iconSize: 24,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      duration: const Duration(milliseconds: 400),
-      tabBackgroundColor: AppColors.primary.withOpacity(0.5),
-      color: Colors.black,
-      // navigation bar padding
-      tabs: const [
-        GButton(
-          icon: LineIcons.home,
-          text: 'Home',
-        ),
-        GButton(
-          icon: Icons.emoji_food_beverage_rounded,
-          text: 'foods',
-        ),
-        GButton(
-          icon: Icons.shop,
-          text: 'Goods',
-        ),
+          hoverColor: AppColors.primary.withOpacity(0.2),
+          gap: 8,
+          activeColor: Colors.black,
+          iconSize: 24,
 
-        GButton(
-          icon: LineIcons.user,
-          text: 'Profile',
-        )
-      ],
-      selectedIndex: selectedIndex,
-      onTabChange: (index) {
-        setState(() {
-          selectedIndex = index;
-        });
-      },
-    ),
-    body: _widgetOptions.elementAt(selectedIndex),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+          duration: const Duration(milliseconds: 400),
+          tabBackgroundColor: AppColors.primary.withOpacity(0.5),
+          color: Colors.black,
+          // navigation bar padding
+          tabs: const [
+            GButton(
+              icon: LineIcons.home,
+              text: 'Home',
+            ),
+
+            GButton(
+              icon: Icons.emoji_food_beverage_rounded,
+              text: 'foods',
+            ),
+            GButton(
+              icon: Icons.shop,
+              text: 'Goods',
+            ),
 
 
-    ),
+            GButton(
+              icon: LineIcons.user,
+              text: 'Profile',
+            )
+          ],
+          selectedIndex: selectedIndex,
+          onTabChange: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+        ),
+        body: _widgetOptions.elementAt(selectedIndex),
+
+
+      ),
     );
   }
 }
