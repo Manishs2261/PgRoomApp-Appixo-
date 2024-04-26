@@ -30,7 +30,7 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => const DataSaveGoodsScreen());
                 },
-                title: "Add your Goods"),
+                title: "Add your Deal"),
             const SizedBox(
               height: 15,
             ),

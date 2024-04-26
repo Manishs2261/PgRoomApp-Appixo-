@@ -272,7 +272,6 @@ class TiffineServicesScreen extends StatelessWidget {
                                                 const Gap(20),
                                                 InkWell(
                                                   onTap: () {
-
                                                     AppHelperFunction.checkInternetAvailability().then((value) {
                                                       if (value) {
                                                         AuthApisClass.checkUserLogin().then((value) {

@@ -3,7 +3,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
-
 import 'features/old_goods/old_goods_screen.dart';
 import 'features/room_rent_all_screen/home/home_screen.dart';
 import 'features/tiffinServicesScreen/tiffinServicesScreen.dart';
@@ -16,7 +15,6 @@ class NavigationMenuScreen extends StatefulWidget {
 }
 
 class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
-
   int selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
@@ -26,11 +24,9 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
     ProfileDetailsScreen()
   ];
 
-
   @override
   Widget build(BuildContext context) {
     // final controller = Get.put(NavigationController());
-
 
     //on back press open alert dialog box
     return WillPopScope(
@@ -46,12 +42,18 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
                       onPressed: () {
                         Navigator.of(context).pop(false);
                       },
-                      child: const Text("No", style: TextStyle(fontSize: 18),)),
+                      child: const Text(
+                        "No",
+                        style: TextStyle(fontSize: 18),
+                      )),
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(true);
                       },
-                      child: const Text("Yes", style: TextStyle(fontSize: 18),)),
+                      child: const Text(
+                        "Yes",
+                        style: TextStyle(fontSize: 18),
+                      )),
                 ],
               );
             });
@@ -62,39 +64,36 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
           return Future.value(false);
         }
       },
-
       child: Scaffold(
-
         bottomNavigationBar: GNav(
           rippleColor: AppColors.primary.withOpacity(0.2),
           hoverColor: AppColors.primary.withOpacity(0.2),
           gap: 8,
-          activeColor: Colors.black,
-          iconSize: 24,
-
+          activeColor: Colors.white,
+          iconSize: 28,
+          haptic: false,
+          curve: Curves.bounceIn,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           duration: const Duration(milliseconds: 400),
-          tabBackgroundColor: AppColors.primary.withOpacity(0.5),
-          color: Colors.black,
+          tabBackgroundColor: AppColors.primary.withOpacity(.8),
+          color: AppColors.primary,
+          tabMargin: const EdgeInsets.all(3),
           // navigation bar padding
           tabs: const [
             GButton(
               icon: LineIcons.home,
-              text: 'Home',
-            ),
-
-            GButton(
-              icon: Icons.emoji_food_beverage_rounded,
-              text: 'foods',
+              text: 'Room',
             ),
             GButton(
-              icon: Icons.shop,
-              text: 'Goods',
+              icon: Icons.food_bank_outlined,
+              text: 'food',
             ),
-
-
             GButton(
-              icon: LineIcons.user,
+              icon: Icons.handshake_outlined,
+              text: 'Deal',
+            ),
+            GButton(
+              icon: Icons.perm_identity_sharp,
               text: 'Profile',
             )
           ],
@@ -106,14 +105,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
           },
         ),
         body: _widgetOptions.elementAt(selectedIndex),
-
-
       ),
     );
   }
 }
-
-// class NavigationController extends GetxController {
-//   final RxInt selectedIndex = 0.obs;
-//   final screen = [ HomeScreen(), TiffineServicesScreen(), ProfileDetailsScreen()];
-// }

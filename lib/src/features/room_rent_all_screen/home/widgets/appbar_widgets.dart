@@ -12,7 +12,10 @@ class AppBarWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("Rooms"),
+      title: const Text(
+        "Room",
+        style: TextStyle(fontSize: 20),
+      ),
       actions: [
         //   ===post room free   ==================
         Padding(

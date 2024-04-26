@@ -262,7 +262,6 @@ class OldGoodsScreen extends StatelessWidget {
                                                 ),
                                                 InkWell(
                                                   onTap: () {
-
                                                     AppHelperFunction.checkInternetAvailability().then((value) {
                                                       if (value) {
                                                         AuthApisClass.checkUserLogin().then((value) {

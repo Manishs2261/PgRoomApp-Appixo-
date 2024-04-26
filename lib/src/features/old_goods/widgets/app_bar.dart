@@ -4,14 +4,17 @@ import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import '../../../res/route_name/routes_name.dart';
 
 class AppBarOldGoodsWidgets extends StatelessWidget {
-  const  AppBarOldGoodsWidgets({
+  const AppBarOldGoodsWidgets({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text("Old Goods"),
+      title: const Text(
+        "Deal",
+        style: TextStyle(fontSize: 20),
+      ),
       actions: [
         //   ===post room free   ==================
         Padding(

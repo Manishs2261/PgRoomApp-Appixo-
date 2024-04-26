@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import '../../../model/user_model/user_model.dart';
 import 'contorller/profile_controller.dart';
 
@@ -20,9 +20,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLoggerHelper.debug("ProfileScreen");
-    return SafeArea(
-        child: Scaffold(
+    AppLoggerHelper.debug("Profile Screen");
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: CustomMaterialIndicator(
           onRefresh: () async {
             return await Future.delayed(const Duration(seconds: 2));
@@ -130,31 +130,49 @@ class ProfileScreen extends StatelessWidget {
                                                   Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                     children: [
-                                                      InkWell(
-                                                        child: const CircleAvatar(
-                                                          radius: 40,
-                                                          child: Icon(
-                                                            Icons.image,
-                                                            size: 40,
+                                                      Column(
+                                                        children: [
+                                                          InkWell(
+                                                            child: const CircleAvatar(
+                                                              radius: 40,
+                                                              child: Icon(
+                                                                Icons.image,
+                                                                size: 40,
+                                                              ),
+                                                            ),
+                                                            onTap: () {
+                                                              controller.pickImageFromGallery(ImageSource.gallery);
+                                                              Navigator.pop(context);
+                                                            },
                                                           ),
-                                                        ),
-                                                        onTap: () {
-                                                          controller.pickImageFromGallery(ImageSource.gallery);
-                                                          Navigator.pop(context);
-                                                        },
+                                                          const Gap(8),
+                                                          const Text(
+                                                            "Gallery",
+                                                            style: TextStyle(fontSize: 16),
+                                                          )
+                                                        ],
                                                       ),
-                                                      InkWell(
-                                                        child: const CircleAvatar(
-                                                          radius: 40,
-                                                          child: Icon(
-                                                            Icons.camera_alt,
-                                                            size: 40,
+                                                      Column(
+                                                        children: [
+                                                          InkWell(
+                                                            child: const CircleAvatar(
+                                                              radius: 40,
+                                                              child: Icon(
+                                                                Icons.camera_alt,
+                                                                size: 40,
+                                                              ),
+                                                            ),
+                                                            onTap: () {
+                                                              controller.pickImageFromGallery(ImageSource.camera);
+                                                              Navigator.pop(context);
+                                                            },
                                                           ),
-                                                        ),
-                                                        onTap: () {
-                                                          controller.pickImageFromGallery(ImageSource.camera);
-                                                          Navigator.pop(context);
-                                                        },
+                                                          const Gap(8),
+                                                          const Text(
+                                                            "Camera",
+                                                            style: TextStyle(fontSize: 16),
+                                                          )
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
@@ -202,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
               }
             },
           )),
-    ));
+    );
   }
 }
 
@@ -221,7 +239,7 @@ class ProfileTextFormWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, top: 30),
+      padding: const EdgeInsets.only(left: 15, top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
