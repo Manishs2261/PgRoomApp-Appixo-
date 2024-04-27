@@ -28,7 +28,7 @@ class StartButtonWidget extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12), color: AppColors.primary),
             child: const Text(
               "Start",
-              style: TextStyle(fontSize: 20,color: Colors.white),
+              style: TextStyle(fontSize: 20, color: Colors.white),
             )),
       ),
     );

@@ -42,7 +42,12 @@ class OnBoardingOneScreen extends StatelessWidget {
                   image: AppImage.onBoardingFoodImage,
                   title: '"Discover Comfort and Flavor: Foods."',
                   subtitle: '"Indulge in culinary excellence with our streamlined food services."',
-                )
+                ),
+                onBoardingWidget(
+                  image: AppImage.onBoardingDealImage,
+                  title: '"Discover Treasures: Buy and Sell Pre-Loved Goods Online!"',
+                  subtitle: '',
+                ),
               ],
             ),
             //=============================

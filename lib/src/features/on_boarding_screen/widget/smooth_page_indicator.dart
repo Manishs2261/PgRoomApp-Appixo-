@@ -22,7 +22,7 @@ class SmootPageIndicatorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           // ======for skip the page========
-          //== Empety for maintain center ========
+          //== Empty for maintain center ========
           TextButton(
             onPressed: () {},
             child: const Text(
@@ -34,7 +34,7 @@ class SmootPageIndicatorWidget extends StatelessWidget {
 
           SmoothPageIndicator(
             controller: _onBoaeding.pageController,
-            count: 2,
+            count: 3,
             effect: const WormEffect(dotHeight: 6, dotWidth: 30, activeDotColor: AppColors.primary),
           ),
 

@@ -7,6 +7,7 @@ class AppImage {
 // on Boarding screen
   static const String onBoardingOneImage = 'assets/images/house.json';
   static const String onBoardingFoodImage = 'assets/images/fooddeliver.json';
+  static const String onBoardingDealImage = 'assets/images/onBoardingDeals_three.json';
 
 // login image
   static const String loginGoogleImage = 'assets/images/google.png';
