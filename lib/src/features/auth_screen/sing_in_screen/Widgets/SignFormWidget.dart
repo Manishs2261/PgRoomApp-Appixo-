@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import '../../../../utils/Constants/sizes.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../sing_screen_controller/sing_screen_controller.dart';
@@ -36,7 +37,10 @@ class SignFormWidget extends StatelessWidget {
                         filled: _controller.emailReading.value,
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                         hintText: "Enter Email id ",
-                        prefixIcon: const Icon(Icons.email_outlined),
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                          color: AppColors.primary,
+                        ),
                         contentPadding: const EdgeInsets.only(top: 5),
 
                         //=====send the otp text button ==========
@@ -44,7 +48,7 @@ class SignFormWidget extends StatelessWidget {
                           () => (_controller.isSend.value)
                               ? const Text("")
                               : (_controller.otpSendLoading.value)
-                                  ? Padding(
+                                  ? const Padding(
                                       padding: EdgeInsets.only(right: 20),
                                       child: SizedBox(
                                         height: 20,
@@ -60,7 +64,7 @@ class SignFormWidget extends StatelessWidget {
                                         //====send otp code ==========
                                         _controller.onSendOtpButton();
                                       },
-                                      child: Text("| "
+                                      child: const Text("| "
                                           "SEND OTP   "),
                                     ),
                         ),
@@ -79,15 +83,16 @@ class SignFormWidget extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     hintText: "Enter OTP",
-                    prefixIcon: const Icon(Icons.password),
+                    prefixIcon: const Icon(
+                      Icons.password,
+                      color: AppColors.primary,
+                    ),
                     contentPadding: const EdgeInsets.only(top: 5),
                   ),
                 ),
                 // ===========Enter Password text field =============
 
-                SizedBox(
-                  height: 14,
-                ),
+                Gap(10),
                 Obx(
                   () => (_controller.isSend.value)
                       ? Obx(
@@ -102,13 +107,13 @@ class SignFormWidget extends StatelessWidget {
                                       ),
                                       Text(
                                         "${_controller.counter.value}",
-                                        style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
                                 )
                               : (_controller.otpReSendLoading.value)
-                                  ? Padding(
+                                  ? const Padding(
                                       padding: EdgeInsets.only(right: 20),
                                       child: SizedBox(
                                         height: 20,
@@ -124,7 +129,7 @@ class SignFormWidget extends StatelessWidget {
                                         //====RE-send otp code
                                         _controller.onReSendOtpButton(context);
                                       },
-                                      child: Align(
+                                      child: const Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(
                                           "| RE-SEND   ",
@@ -136,11 +141,11 @@ class SignFormWidget extends StatelessWidget {
                                       ),
                                     ),
                         )
-                      : Text(""),
+                      : const Text(""),
                 ),
 
-                SizedBox(
-                  height: 80,
+                const SizedBox(
+                  height: 50,
                 ),
 
                 //===========submit button ===============

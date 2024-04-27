@@ -1,12 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
-import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-import '../../../res/route_name/routes_name.dart';
 
+import '../login_screen/widgets/footer_widgets.dart';
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';
 
@@ -35,10 +35,59 @@ class SingInScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const HeaderWidgets(),
-                const SizedBox(
-                  height: AppSizes.defaultSpace,
-                ),
+                const Gap(40),
                 SignFormWidget(globalKey: globalKey, controller: _controller),
+
+                const Gap(30),
+                //=========divider ==================
+                const Row(
+                  children: [
+                    Expanded(
+                        child: Divider(
+                      color: Colors.grey,
+                      thickness: AppSizes.dividerHeight,
+                    )),
+                    Text("  Or  "),
+                    Expanded(
+                        child: Divider(
+                      color: Colors.grey,
+                      thickness: AppSizes.dividerHeight,
+                    )),
+                  ],
+                ),
+
+                const Gap(40),
+                //========continue with google ======
+                const FooterWidgets(),
+
+                const SizedBox(
+                  height: AppSizes.spaceBtwSSections,
+                ),
+
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(text: 'By Login, you agree to our', style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: ' Terms ',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('term"');
+                              }),
+                        const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: ' Privacy Policy ',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('Privacy Policy"');
+                              }),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),

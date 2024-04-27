@@ -9,7 +9,7 @@ class AppImage {
 
 // login image
   static const String loginGoogleImage = 'assets/images/google.png';
-  static const String loginImage = 'assets/images/login.png';
+  static const String loginImage = 'assets/images/0.2.png';
 
 //rent details image
   static const String roomImage = 'assets/images/room.jpg';

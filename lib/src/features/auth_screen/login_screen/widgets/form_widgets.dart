@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/Constants/sizes.dart';
@@ -9,11 +10,11 @@ import '../login_screen_controller/login_controller.dart';
 class FormWidgets extends StatelessWidget {
   const FormWidgets({
     super.key,
-    required this.globleKey,
+    required this.globalKey,
     required LoginScreenController controller,
   }) : _controller = controller;
 
-  final GlobalKey<FormState> globleKey;
+  final GlobalKey<FormState> globalKey;
   final LoginScreenController _controller;
 
   @override
@@ -21,7 +22,7 @@ class FormWidgets extends StatelessWidget {
     return Column(
       children: [
         Form(
-            key: globleKey,
+            key: globalKey,
             child: Column(
               children: [
                 //===========Email and phone number  text
@@ -33,7 +34,10 @@ class FormWidgets extends StatelessWidget {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     hintText: "Enter Email id ",
-                    prefixIcon: const Icon(Icons.email_outlined),
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: AppColors.primary,
+                    ),
                     contentPadding: const EdgeInsets.only(top: 5),
                   ),
                 ),
@@ -49,20 +53,22 @@ class FormWidgets extends StatelessWidget {
                     validator: PasswordValidator.validate,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       hintText: "Enter Password",
-                      prefixIcon: const Icon(Icons.lock),
+                      prefixIcon: const Icon(Icons.lock, color: AppColors.primary),
                       suffixIcon: (_controller.passView.value)
                           ? InkWell(
                               onTap: () {
                                 _controller.passView.value = false;
                               },
-                              child: const Icon(Icons.visibility_off))
+                              child: const Icon(Icons.visibility_off, color: AppColors.primary))
                           : InkWell(
                               onTap: () {
                                 _controller.passView.value = true;
                               },
-                              child: const Icon(Icons.visibility)),
+                              child: const Icon(Icons.visibility, color: AppColors.primary)),
                       contentPadding: const EdgeInsets.only(top: 5),
                     ),
                   ),
@@ -79,7 +85,7 @@ class FormWidgets extends StatelessWidget {
                   Get.toNamed(RoutesName.emailForgetPassScreen);
                 },
                 child: const Text(
-                  "Forget PassWord ",
+                  "Forget Password ? ",
                   style: TextStyle(color: Colors.blue),
                 ))),
         const SizedBox(
@@ -93,7 +99,7 @@ class FormWidgets extends StatelessWidget {
           child: Obx(
             () => ElevatedButton(
               onPressed: () async {
-                if (globleKey.currentState!.validate()) {
+                if (globalKey.currentState!.validate()) {
                   _controller.onLoginButton(context);
                 }
               },

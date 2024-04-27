@@ -1,5 +1,6 @@
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/form_widgets.dart';
@@ -7,9 +8,7 @@ import 'package:pgroom/src/features/auth_screen/login_screen/widgets/header_widg
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/skip_button.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import 'login_screen_controller/login_controller.dart';
-
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
@@ -22,14 +21,14 @@ class LoginScreen extends StatelessWidget {
     AppLoggerHelper.debug("Login screen ");
     return Scaffold(
       appBar: AppBar(
-        //=======skip buttton ========
-         backgroundColor: Colors.transparent,
+        //=======skip button ========
+        backgroundColor: Colors.transparent,
         actions: const [
           SkipTextButtonWidgets(),
         ],
       ),
       body: GestureDetector(
-        // ======on tab off the keybord screen
+        // ======on tab off the keyboard screen
         onTap: () => FocusScope.of(context).unfocus(),
         child: SingleChildScrollView(
           child: Padding(
@@ -37,19 +36,16 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const HederWidgets(),
 
                 const SizedBox(
                   height: AppSizes.spaceBtwSSections,
                 ),
 
-                FormWidgets(globleKey: globalKey, controller: _controller),
+                const Gap(30),
+                FormWidgets(globalKey: globalKey, controller: _controller),
 
-                const SizedBox(
-                  height: AppSizes.spaceBtwItems,
-                ),
-
+                const Gap(30),
                 //=========divider ==================
                 const Row(
                   children: [
@@ -67,11 +63,38 @@ class LoginScreen extends StatelessWidget {
                   ],
                 ),
 
+                const Gap(40),
+                //========continue with google ======
+                const FooterWidgets(),
+
                 const SizedBox(
                   height: AppSizes.spaceBtwSSections,
                 ),
-                //========continue with google ======
-                const FooterWidgets(),
+
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      children: [
+                        const TextSpan(text: 'By Login, you agree to our', style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: ' Terms ',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('term"');
+                              }),
+                        const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
+                        TextSpan(
+                            text: ' Privacy Policy ',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                print('Privacy Policy"');
+                              }),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),

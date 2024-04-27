@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../utils/Constants/image_string.dart';
 import '../../../../utils/Constants/sizes.dart';
@@ -13,12 +14,16 @@ class HeaderWidgets extends StatelessWidget {
     return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image(
-          image: AssetImage(AppImage.loginImage),
-          height: 150,
-          width: 150,
-          fit: BoxFit.cover,
+        SizedBox(
+          height: 100,
+          width: 220,
+          child: Image(
+            image: AssetImage(
+              AppImage.loginImage,
+            ),
+          ),
         ),
+        Gap(60),
         Text(
           "Sing-in",
           style: TextStyle(fontSize: AppSizes.fontSizeMd * 2, fontWeight: FontWeight.w400, letterSpacing: 1),

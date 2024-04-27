@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../utils/Constants/image_string.dart';
 
@@ -12,21 +13,19 @@ class HederWidgets extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Image(
-          image: AssetImage(
-            AppImage.loginImage,
+        const SizedBox(
+          height: 100,
+          width: 220,
+          child: Image(
+            image: AssetImage(
+              AppImage.loginImage,
+            ),
           ),
-          width: 150,
-          height: 150,
-          fit: BoxFit.cover,
         ),
+        const Gap(40),
         Text(
           "Login",
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        Text(
-          "Welcome Back ",
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
       ],
     );
