@@ -24,17 +24,16 @@ class SplashController extends GetxController {
       if (kDebugMode) {
         print(finalUserUidGlobal);
       }
-      await Future.delayed(const Duration(milliseconds: 3000));
+      await Future.delayed(const Duration(seconds: 2));
       Get.offNamed(RoutesName.onboradingScreen);
     } else {
       if (kDebugMode) {
         print(finalUserUidGlobal);
       }
-      await Future.delayed(const Duration(milliseconds: 3000));
-    // Get.offNamed(RoutesName.homeScreen);
-      Navigator.of(Get.context!).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          const NavigationMenuScreen()), (Route<dynamic> route) => false);
-
+      await Future.delayed(const Duration(seconds: 2));
+      // Get.offNamed(RoutesName.homeScreen);
+      Navigator.of(Get.context!).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const NavigationMenuScreen()), (Route<dynamic> route) => false);
     }
   }
 }

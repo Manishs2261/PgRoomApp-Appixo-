@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
 import 'package:pgroom/main.dart';
-import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import 'controller/splash_controller.dart';
@@ -18,12 +19,11 @@ class SplashScreen extends StatelessWidget {
     mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
-        child: Image(
-          image: const AssetImage(AppImage.splashImage),
-          width: mediaQuery.width * .8,
-          height: mediaQuery.height * .8,
-        ),
-      ),
+          child: Image.asset(
+        "assets/images/0.2.png",
+        height: 300,
+        width: 300,
+      )),
     );
   }
 }

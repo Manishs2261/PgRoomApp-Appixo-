@@ -1,8 +1,6 @@
 class AppImage {
-
-
   // splash screen image
-  static const String splashImage = 'assets/images/splash.jpg';
+  static const String splashImage = 'assets/images/splash_screen_logo.svg';
 
 // on Boarding screen
   static const String onBoardingOneImage = 'assets/images/house.json';
@@ -22,7 +20,4 @@ class AppImage {
   static const String flatIcon = 'assets/images/flat_icon.png';
   static const String foodIcon = 'assets/images/foodIcon.png';
   static const String goodsIcon = 'assets/images/goods_icon.png';
-
-
-
 }
