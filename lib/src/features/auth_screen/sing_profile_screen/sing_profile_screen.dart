@@ -41,9 +41,11 @@ class SignProfileScreen extends StatelessWidget {
                             alignment: Alignment.topCenter,
                             child: CircleAvatar(
                               radius: 85,
+                              backgroundColor: AppColors.primary,
                               child: Icon(
                                 Icons.person,
                                 size: 70,
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -80,6 +82,7 @@ class SignProfileScreen extends StatelessWidget {
                                         InkWell(
                                           child: const CircleAvatar(
                                             radius: 40,
+
                                             child: Icon(
                                               Icons.camera_alt,
                                               size: 40,
@@ -124,7 +127,7 @@ class SignProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                           hintText: "Enter Name",
-                          prefixIcon: const Icon(Icons.person),
+                          prefixIcon: const Icon(Icons.person,color:  AppColors.primary,),
                           contentPadding: const EdgeInsets.only(top: 5),
                         ),
                       ),
@@ -138,7 +141,7 @@ class SignProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                           hintText: "Enter city name",
-                          prefixIcon: const Icon(Icons.location_city),
+                          prefixIcon: const Icon(Icons.location_city,  color:  AppColors.primary,),
                           contentPadding: const EdgeInsets.only(top: 5),
                         ),
                       ),
@@ -152,7 +155,7 @@ class SignProfileScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                           hintText: "Enter min 6 character of  password",
-                          prefixIcon: const Icon(Icons.lock),
+                          prefixIcon: const Icon(Icons.lock,color:  AppColors.primary,),
                           contentPadding: const EdgeInsets.only(top: 5),
                         ),
                       )

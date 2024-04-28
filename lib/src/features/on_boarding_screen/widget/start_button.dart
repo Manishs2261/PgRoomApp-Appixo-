@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
-import '../../../utils/Constants/sizes.dart';
-import '../../../utils/device/device_utility.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class StartButtonWidget extends StatelessWidget {
@@ -14,14 +11,14 @@ class StartButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: AppSizes.defaultSpace,
-      right: AppDeviceUtils.getBottomNavigationBarHeight(),
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: InkWell(
         onTap: () {
           Get.offNamed(RoutesName.loginScreen);
         },
         child: Container(
+            margin: const EdgeInsets.only(bottom: 20),
             alignment: Alignment.center,
             width: AppHelperFunction.screenWidth() * 0.6,
             height: 40,

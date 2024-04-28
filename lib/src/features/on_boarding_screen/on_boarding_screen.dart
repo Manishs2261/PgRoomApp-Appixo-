@@ -28,9 +28,9 @@ class OnBoardingOneScreen extends StatelessWidget {
             PageView(
               controller: controller.pageController,
               onPageChanged: (value) => controller.onChange(value),
-              children: [
+              children: const [
                 //========screen one ===============
-                onBoardingWidget(
+                OnBoardingWidget(
                   image: AppImage.onBoardingOneImage,
                   title: 'Explore, Discover, and Settle In',
                   subtitle: '"Welcome to PgROOM –\n Simplifying PG Room Hunting for '
@@ -38,12 +38,12 @@ class OnBoardingOneScreen extends StatelessWidget {
                 ),
 
                 //=============screen two===============
-                onBoardingWidget(
+                OnBoardingWidget(
                   image: AppImage.onBoardingFoodImage,
                   title: '"Discover Comfort and Flavor: Foods."',
                   subtitle: '"Indulge in culinary excellence with our streamlined food services."',
                 ),
-                onBoardingWidget(
+                OnBoardingWidget(
                   image: AppImage.onBoardingDealImage,
                   title: '"Discover Treasures: Buy and Sell Pre-Loved Goods Online!"',
                   subtitle: '',
