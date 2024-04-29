@@ -50,6 +50,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
 
                       //======== cover image=================
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
@@ -74,25 +75,22 @@ class DataSaveGoodsScreen extends StatelessWidget {
                           Obx(
                             () => Visibility(
                               visible: (controller.selectedCoverImage.value == ""),
-                              child: Positioned(
-                                top: 60,
-                                left: 80,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.pickCoverImageFromGallery();
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    padding: const EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(color: Colors.white),
-                                        color: Colors.black.withOpacity(.7)),
-                                    child: const Text(
-                                      "Choose cover Image",
-                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
-                                    ),
+                              child: InkWell(
+                                onTap: () {
+                                  controller.pickCoverImageFromGallery();
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 220,
+                                  padding: const EdgeInsets.all(10),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(color: Colors.white),
+                                      color: Colors.black.withOpacity(.7)),
+                                  child: const Text(
+                                    "Choose cover Image",
+                                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                                   ),
                                 ),
                               ),

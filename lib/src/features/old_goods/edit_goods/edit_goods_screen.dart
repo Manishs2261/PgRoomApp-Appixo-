@@ -51,6 +51,7 @@ class EditGoodsScreen extends StatelessWidget {
 
                       //======== cover image=================
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
@@ -103,26 +104,25 @@ class EditGoodsScreen extends StatelessWidget {
                           Obx(
                             () => Visibility(
                               visible: (controller.selectedCoverImage.value == ""),
-                              child: Positioned(
-                                top: 60,
-                                left: 80,
-                                child: InkWell(
-                                  onTap: () {
-                                    AppHelperFunction.checkInternetAvailability().then((value) {
-                                      if (value) {
-                                        controller.pickCoverImageFromGallery();
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    width: 200,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                                    child: const Text(
-                                      "Choose cover Image",
-                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
-                                    ),
+                              child: InkWell(
+                                onTap: () {
+                                  AppHelperFunction.checkInternetAvailability().then((value) {
+                                    if (value) {
+                                      controller.pickCoverImageFromGallery();
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 220,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(.7),
+                                      borderRadius: BorderRadius.circular(24),
+                                      border: Border.all(color: Colors.white)),
+                                  child: const Text(
+                                    "Choose cover Image",
+                                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                                   ),
                                 ),
                               ),

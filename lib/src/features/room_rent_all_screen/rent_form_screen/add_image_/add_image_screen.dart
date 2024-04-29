@@ -5,9 +5,7 @@ import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/model/other_image_model.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import 'controller/controller.dart';
 
 class AddImageScreen extends StatelessWidget {
@@ -53,6 +51,7 @@ class AddImageScreen extends StatelessWidget {
 
                   //======== cover image=================
                   child: Stack(
+                    alignment: Alignment.center,
                     children: [
                       // =====for initial image when your don't choose image============
                       Obx(
@@ -82,25 +81,22 @@ class AddImageScreen extends StatelessWidget {
                       Obx(
                         () => Visibility(
                           visible: (imageController.selectedCoverImage.value == ""),
-                          child: Positioned(
-                            top: 60,
-                            left: 80,
-                            child: InkWell(
-                              onTap: () {
-                                imageController.pickCoverImageFromGallery();
-                              },
-                              child: Container(
-                                height: 60,
-
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
+                          child: InkWell(
+                            onTap: () {
+                              imageController.pickCoverImageFromGallery();
+                            },
+                            child: Container(
+                              height: 60,
+                              width: 250,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(.8),
-                                    borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.white)),
-                                child: const Text(
-                                  "Choose cover Image",
-                                  style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
-                                ),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.white)),
+                              child: const Text(
+                                "Choose cover Image",
+                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                               ),
                             ),
                           ),

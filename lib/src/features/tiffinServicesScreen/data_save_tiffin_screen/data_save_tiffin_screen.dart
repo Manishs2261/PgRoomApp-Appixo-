@@ -4,10 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
-import 'package:pgroom/src/utils/device/device_utility.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/validator/text_field_validator.dart';
@@ -55,6 +53,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
 
                       //======== cover image=================
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
@@ -84,25 +83,22 @@ class DataSaveTiffineScreen extends StatelessWidget {
                           Obx(
                             () => Visibility(
                               visible: (controller.selectedCoverImage.value == ""),
-                              child: Positioned(
-                                top: 60,
-                                left: 80,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.pickCoverImageFromGallery();
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    padding: EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(color: Colors.white),
-                                        color: Colors.black.withOpacity(.7)),
-                                    child: const Text(
-                                      "Choose cover Image",
-                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
-                                    ),
+                              child: InkWell(
+                                onTap: () {
+                                  controller.pickCoverImageFromGallery();
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 230,
+                                  padding: const EdgeInsets.all(10),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Colors.white),
+                                      color: Colors.black.withOpacity(.7)),
+                                  child: const Text(
+                                    "Choose cover Image",
+                                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                                   ),
                                 ),
                               ),
@@ -156,6 +152,7 @@ class DataSaveTiffineScreen extends StatelessWidget {
 
                       //======== cover image=================
                       child: Stack(
+                        alignment: Alignment.center,
                         children: [
                           // =====for initial image when your don't choose image============
                           Obx(
@@ -185,25 +182,22 @@ class DataSaveTiffineScreen extends StatelessWidget {
                           Obx(
                             () => Visibility(
                               visible: (controller.selectedMenuImage.value == ""),
-                              child: Positioned(
-                                top: 60,
-                                left: 80,
-                                child: InkWell(
-                                  onTap: () {
-                                    controller.pickMenuImageFromGallery();
-                                  },
-                                  child: Container(
-                                    height: 60,
-                                    padding: EdgeInsets.all(10),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(color: Colors.white),
-                                        color: Colors.black.withOpacity(.7)),
-                                    child: const Text(
-                                      "Choose Menu Image",
-                                      style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-                                    ),
+                              child: InkWell(
+                                onTap: () {
+                                  controller.pickMenuImageFromGallery();
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 220,
+                                  padding: const EdgeInsets.all(10),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(color: Colors.white),
+                                      color: Colors.black.withOpacity(.7)),
+                                  child: const Text(
+                                    "Choose Menu Image",
+                                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
@@ -322,7 +316,6 @@ class DataSaveTiffineScreen extends StatelessWidget {
                     trackMyPosition: true,
                     selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
                     mapLanguage: 'en',
-                    onError: (e) => print(e),
                     countryFilter: 'In',
                     markerIcon: const Icon(
                       Icons.location_on_sharp,
@@ -333,8 +326,6 @@ class DataSaveTiffineScreen extends StatelessWidget {
                       Icons.check,
                     ),
                     onPicked: (pickedData) {
-                      print(pickedData.latLong.latitude);
-                      print(pickedData.latLong.longitude);
                       controller.latitude.value = pickedData.latLong.latitude.toString();
                       controller.longitude.value = pickedData.latLong.longitude.toString();
                       AppHelperFunction.showSnackBar("Location set successfully");

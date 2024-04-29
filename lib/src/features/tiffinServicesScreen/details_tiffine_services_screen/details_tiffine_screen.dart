@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../common/widgets/com_ratingbar_widgets.dart';
-import '../../../data/repository/apis/add_to_cart_api.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../res/route_name/routes_name.dart';
@@ -28,10 +26,8 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - DetailsTiffineServicesScreen ");
 
-    final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" +
-        controller.data.latitude.toString() +
-        "," +
-        controller.data.longitude.toString());
+    final Uri url = Uri.parse(
+        "https://www.google.com/maps/search/?api=1&query=${controller.data.latitude},${controller.data.longitude}");
 
     Future<void> _launchUrl() async {
       if (!await launchUrl(url)) {
@@ -40,7 +36,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      bottomNavigationBar: Container(
+      bottomNavigationBar: SizedBox(
         height: 50,
         child: Row(
           children: [
@@ -50,8 +46,8 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                 child: Container(
                     alignment: Alignment.center,
                     height: 50,
-                    decoration: BoxDecoration(color: AppColors.primary),
-                    child: Row(
+                    decoration: const BoxDecoration(color: AppColors.primary),
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
@@ -70,15 +66,15 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
             Expanded(
               child: InkWell(
                 hoverColor: Colors.grey,
-                onTap: (){
+                onTap: () {
                   controller.addToCartTiffineData();
                   AppHelperFunction.showSnackBar("successfully added");
                 },
                 child: Container(
                   alignment: Alignment.center,
                   height: 50,
-                  decoration: BoxDecoration(color: Colors.orange),
-                  child: Row(
+                  decoration: const BoxDecoration(color: Colors.orange),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
@@ -269,12 +265,6 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           //=========share =========
-                          CircleContainerWidgets(
-                            title: 'Share',
-                            iconData: Icons.share_outlined,
-                            ontap: () {},
-                          ),
-
                           // ==========map view ===========
                           CircleContainerWidgets(
                               title: "Map view", iconData: Icons.location_on_outlined, ontap: () => _launchUrl())

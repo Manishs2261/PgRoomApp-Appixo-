@@ -50,6 +50,7 @@ class EditCoverImageScreen extends StatelessWidget {
 
                 //======== cover image=================
                 child: Stack(
+                  alignment: Alignment.center,
                   children: [
                     // =====for initial image when your don't choose image============
                     Obx(
@@ -111,22 +112,21 @@ class EditCoverImageScreen extends StatelessWidget {
                     Obx(
                       () => Visibility(
                         visible: controller.selectedCoverImage.value == "",
-                        child: Positioned(
-                          top: 60,
-                          left: 80,
-                          child: InkWell(
-                            onTap: () {
-                              controller.pickCoverImageFromGallery();
-                            },
-                            child: Container(
-                              height: 60,
-                              width: 200,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-                              child: const Text(
-                                "Choose cover Image",
-                                style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
-                              ),
+                        child: InkWell(
+                          onTap: () {
+                            controller.pickCoverImageFromGallery();
+                          },
+                          child: Container(
+                            height: 60,
+                            width: 200,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                color: Colors.black.withOpacity(.6),
+                                border: Border.all(color: Colors.white)),
+                            child: const Text(
+                              "Choose cover Image",
+                              style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                             ),
                           ),
                         ),

@@ -81,42 +81,45 @@ class ProfileScreen extends StatelessWidget {
                                     )),
                               ),
                             ),
-                            Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(360),
-                                    child: CachedNetworkImage(
-                                        height: 200,
-                                        width: 200,
-                                        imageUrl: userList[0].userImage.toString(),
-                                        fit: BoxFit.fill,
-                                        placeholder: (context, url) => Container(
-                                              color: Colors.transparent,
-                                              height: 200,
-                                              width: 200,
-                                              child: const SpinKitFadingCircle(
-                                                color: AppColors.primary,
-                                                size: 35,
+                            Container(
+                              width: 200,
+                              alignment: Alignment.bottomRight,
+                              child: Stack(
+                                alignment: Alignment.bottomRight,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(360),
+                                      child: CachedNetworkImage(
+                                          height: 200,
+                                          width: 200,
+                                          imageUrl: userList[0].userImage.toString(),
+                                          fit: BoxFit.fill,
+                                          placeholder: (context, url) => Container(
+                                                color: Colors.transparent,
+                                                height: 200,
+                                                width: 200,
+                                                child: const SpinKitFadingCircle(
+                                                  color: AppColors.primary,
+                                                  size: 35,
+                                                ),
                                               ),
-                                            ),
-                                        errorWidget: (context, url, error) => Container(
-                                              width: 200,
-                                              height: 200,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(50), color: Colors.grey),
-                                              alignment: Alignment.center,
-                                              child: const Icon(
-                                                Icons.person,
-                                                size: 100,
-                                              ),
-                                            )),
+                                          errorWidget: (context, url, error) => Container(
+                                                width: 200,
+                                                height: 200,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(50), color: Colors.grey),
+                                                alignment: Alignment.center,
+                                                child: const Icon(
+                                                  Icons.person,
+                                                  size: 100,
+                                                ),
+                                              )),
+                                    ),
                                   ),
-                                ),
-                                Positioned(
-                                    bottom: 5,
-                                    right: 100,
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 9, bottom: 18),
                                     child: InkWell(
                                       onTap: () {
                                         showModalBottomSheet(
@@ -191,8 +194,10 @@ class ProfileScreen extends StatelessWidget {
                                             Icons.camera_alt,
                                             color: AppColors.primary,
                                           )),
-                                    )),
-                              ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 50,
