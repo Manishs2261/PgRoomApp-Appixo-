@@ -30,7 +30,7 @@ class SingScreenController extends GetxController {
   RxBool emailReading = false.obs;
 
   RxInt counter = 90.obs;
-  late Timer timer;
+ late Timer timer ;
 
   onOtpSubmitVerifyButton() async {
     //check the internet connection
@@ -42,11 +42,14 @@ class SingScreenController extends GetxController {
         } else {
           if (otpController.value.text.isNotEmpty && otpController.value.text.length == 6) {
             AuthApisClass.otpSubmitVerification(otpController.value.text).then((value) {
-              isOtp.value = value;
-              isVerify.value = value;
-              isSend.value = false;
-              Get.toNamed(RoutesName.signProfileScreen);
-              timer.cancel();
+              if(value){
+                isOtp.value = value;
+                isVerify.value = value;
+                isSend.value = false;
+                Get.offAndToNamed(RoutesName.signProfileScreen);
+                timer.cancel();
+              }
+
             }).onError((error, stackTrace) {});
           } else {
             Get.snackbar("Wrong OTP", " Please try again.");
@@ -72,6 +75,7 @@ class SingScreenController extends GetxController {
 
           AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
             if (AuthApisClass.otpSend) {
+              counter.value = 90;
               // isSend is true than ReSend Button Visible
               isSend.value = value;
               //count down timer
@@ -130,7 +134,7 @@ class SingScreenController extends GetxController {
         print(timer.tick);
       }
       counter--;
-      if (counter == 0) {
+      if (counter.value == 0) {
         timer.cancel();
       }
     });

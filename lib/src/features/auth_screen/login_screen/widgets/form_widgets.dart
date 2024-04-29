@@ -28,7 +28,7 @@ class FormWidgets extends StatelessWidget {
                 //===========Email and phone number  text
                 // field===============
                 TextFormField(
-                  controller: _controller.emailControlerLogin.value,
+                  controller: _controller.emailControllerLogin.value,
                   validator: EmailValidator.validate,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -48,7 +48,7 @@ class FormWidgets extends StatelessWidget {
                 //==========password text field==============
                 Obx(
                   () => TextFormField(
-                    controller: _controller.passwordControlerLogin.value,
+                    controller: _controller.passwordControllerLogin.value,
                     obscureText: _controller.passView.value,
                     validator: PasswordValidator.validate,
                     keyboardType: TextInputType.text,

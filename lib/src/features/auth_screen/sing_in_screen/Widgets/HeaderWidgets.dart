@@ -25,7 +25,7 @@ class HeaderWidgets extends StatelessWidget {
         ),
         Gap(60),
         Text(
-          "Sing-in",
+          "Sign-up",
           style: TextStyle(fontSize: AppSizes.fontSizeMd * 2, fontWeight: FontWeight.w400, letterSpacing: 1),
         ),
       ],

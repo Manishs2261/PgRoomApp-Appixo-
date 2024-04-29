@@ -1,13 +1,18 @@
 class AppValidator {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
+
       return 'Email is required.';
     }
 
     //Regular expression for email validation
-    final emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final emailRegExp = RegExp(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
+    r'*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+'
+    '[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
     if (!emailRegExp.hasMatch(value)) {
+
       return 'Invalid email address.';
+
     }
     return null;
   }

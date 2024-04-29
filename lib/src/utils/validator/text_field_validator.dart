@@ -6,7 +6,17 @@ class EmailValidator {
 
 class PasswordValidator {
   static String? validate(String? value) {
-    return value==null ||value.isEmpty ? "Password can't be empty" : null;
+
+    if(value==null || value.isEmpty)
+      {
+        return "Password can't be empty";
+      }else if(value.length == 6)
+      {
+        return null;
+      }else{
+      return "Enter at least 6 characters for the password";
+    }
+
   }
 }
 

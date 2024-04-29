@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/app_validators/app_validators.dart';
 import '../../../../utils/Constants/sizes.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../sing_screen_controller/sing_screen_controller.dart';
@@ -15,10 +16,12 @@ class SignFormWidget extends StatelessWidget {
   }) : _controller = controller;
 
   final GlobalKey<FormState> globalKey;
+
   final SingScreenController _controller;
 
   @override
   Widget build(BuildContext context) {
+    final globalKeyEmail = GlobalKey<FormState>();
     return Column(
       children: [
         Form(
@@ -26,49 +29,54 @@ class SignFormWidget extends StatelessWidget {
             child: Column(
               children: [
                 //=========enter email text field =============
-                Obx(
-                  () => TextFormField(
-                    controller: _controller.emailController.value,
-                    keyboardType: TextInputType.text,
-                    autofocus: true,
-                    readOnly: _controller.emailReading.value,
-                    validator: EmailValidator.validate,
-                    decoration: InputDecoration(
-                        filled: _controller.emailReading.value,
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                        hintText: "Enter Email id ",
-                        prefixIcon: const Icon(
-                          Icons.email_outlined,
-                          color: AppColors.primary,
-                        ),
-                        contentPadding: const EdgeInsets.only(top: 5),
+                Form(
+                  key: globalKeyEmail,
+                  child: Obx(
+                    () => TextFormField(
+                      controller: _controller.emailController.value,
+                      keyboardType: TextInputType.text,
+                      readOnly: _controller.emailReading.value,
+                      validator: (value) => AppValidator.validateEmail(value),
+                      decoration: InputDecoration(
+                          filled: _controller.emailReading.value,
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                          hintText: "Enter Email id ",
+                          prefixIcon: const Icon(
+                            Icons.email_outlined,
+                            color: AppColors.primary,
+                          ),
+                          contentPadding: const EdgeInsets.only(top: 5),
 
-                        //=====send the otp text button ==========
-                        suffix: Obx(
-                          () => (_controller.isSend.value)
-                              ? const Text("")
-                              : (_controller.otpSendLoading.value)
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.blue,
-                                          strokeWidth: 3,
+                          //=====send the otp text button ==========
+                          suffix: Obx(
+                            () => (_controller.isSend.value)
+                                ? const Text("")
+                                : (_controller.otpSendLoading.value)
+                                    ? const Padding(
+                                        padding: EdgeInsets.only(right: 20),
+                                        child: SizedBox(
+                                          height: 20,
+                                          width: 20,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.blue,
+                                            strokeWidth: 3,
+                                          ),
                                         ),
+                                      )
+                                    : InkWell(
+                                        onTap: () async {
+                                          //====send otp code ==========
+
+                                          if (globalKeyEmail.currentState!.validate()) {
+                                            _controller.onSendOtpButton();
+                                          }
+                                        },
+                                        child: const Text("| "
+                                            "SEND OTP   "),
                                       ),
-                                    )
-                                  : InkWell(
-                                      onTap: () async {
-                                        //====send otp code ==========
-                                        _controller.onSendOtpButton();
-                                      },
-                                      child: const Text("| "
-                                          "SEND OTP   "),
-                                    ),
-                        ),
-                        suffixStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.blue)),
+                          ),
+                          suffixStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.blue)),
+                    ),
                   ),
                 ),
 
@@ -92,7 +100,7 @@ class SignFormWidget extends StatelessWidget {
                 ),
                 // ===========Enter Password text field =============
 
-                Gap(10),
+                const Gap(10),
                 Obx(
                   () => (_controller.isSend.value)
                       ? Obx(
@@ -181,10 +189,20 @@ class SignFormWidget extends StatelessWidget {
                     const Text("Already have an account ? "),
                     InkWell(
                         onTap: () async {
+                          _controller.emailController.value.clear();
+                          _controller.otpController.value.clear();
+
+                          if (_controller.emailReading.value) {
+                            _controller.timer.cancel();
+                          }
+                          _controller.emailReading.value = false;
+
+                          _controller.isSend.value = false;
+
                           Get.toNamed(RoutesName.loginScreen);
                         },
                         child: const Text(
-                          " Login-in",
+                          " Log-in",
                           style: TextStyle(color: Colors.blue),
                         ))
                   ],

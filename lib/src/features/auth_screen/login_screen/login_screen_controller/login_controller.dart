@@ -6,18 +6,17 @@ import 'package:pgroom/src/navigation_menu.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../res/route_name/routes_name.dart';
 import '../../../splash/controller/splash_controller.dart';
 
 class LoginScreenController extends GetxController {
-  final emailControlerLogin = TextEditingController().obs;
-  final passwordControlerLogin = TextEditingController().obs;
+  final emailControllerLogin = TextEditingController().obs;
+  final passwordControllerLogin = TextEditingController().obs;
   Connectivity connectivity = Connectivity();
 
-  RxBool worngpassword = false.obs;
+  RxBool wrongPassword = false.obs;
   RxBool passView = true.obs;
   RxBool loading = false.obs;
 
@@ -29,38 +28,35 @@ class LoginScreenController extends GetxController {
         showDialog(
             context: Get.context!,
             builder: (context) {
-              return Center(
-                child: CircularProgressIndicator(color: Colors.white,),
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               );
             });
 
         loading.value = true;
-        AuthApisClass.loginEmailAndPassword(emailControlerLogin.value.text, passwordControlerLogin.value.text)
+        AuthApisClass.loginEmailAndPassword(emailControllerLogin.value.text, passwordControllerLogin.value.text)
             .then((value) async {
-          //if user use wrong password and email id thna
+          //if user use wrong password and email id than
           // not to allow next page navigation
-          worngpassword.value = value;
+          wrongPassword.value = value;
 
           loading.value = false;
           Navigator.pop(Get.context!);
-          if (worngpassword.value) {
-            // Login sharedPrefrence code +++++++++
-            SharedPreferences prefrence = await SharedPreferences.getInstance();
-            // store a data in sharedPrefrence
-            prefrence.setString('userUid', ApisClass.user.uid);
-            //initialize  a varible
-            finalUserUidGlobal = prefrence.getString('userUid');
+          if (wrongPassword.value) {
+            // Login sharedPreference code +++++++++
+            SharedPreferences preference = await SharedPreferences.getInstance();
+            // store a data in sharedPreference
+            preference.setString('userUid', ApisClass.user.uid);
+            //initialize  a variable
+            finalUserUidGlobal = preference.getString('userUid');
             //========================
             Get.offAllNamed(RoutesName.navigationScreen);
-          //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          //       NavigationMenuScreen()), (Route<dynamic> route) => false);
-
-
-
-
+            //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            //       NavigationMenuScreen()), (Route<dynamic> route) => false);
           }
         }).onError((error, stackTrace) {
-
           loading.value = false;
           print(error);
           print(stackTrace);

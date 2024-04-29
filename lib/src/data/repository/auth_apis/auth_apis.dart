@@ -135,12 +135,17 @@ class AuthApisClass {
     return true;
   }
 
+
+
+
+
+
   //===========send opt email verification ===============
   static Future<bool> sendEmailOtpVerification(String email) async {
     //====send otp code ==========
     emailOtp.setConfig(
       appEmail: "sahusanju138@gmail.com",
-      appName: "~ By Pg Room App",
+      appName: "~ By Appixo",
       userEmail: email,
       otpLength: 6,
       otpType: OTPType.digitsOnly,
@@ -161,7 +166,7 @@ class AuthApisClass {
       Get.snackbar('OTP verify', 'Successfully', snackPosition: SnackPosition.TOP);
       return true;
     } else {
-      Get.snackbar('OTP verify', 'field', snackPosition: SnackPosition.TOP);
+      Get.snackbar('OTP verify', 'Failed', snackPosition: SnackPosition.TOP);
       return false;
     }
   }
