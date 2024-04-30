@@ -133,7 +133,7 @@ class DetailsScreenController extends GetxController {
                 //Rating summary calculation method
                 onRatingStar(ratingNow.value);
 
-                Future.delayed(Duration(seconds: 2), () {
+                Future.delayed(const Duration(seconds: 2), () {
                   onRatingSummaryCalculation(ratingList.length);
                 });
                 //after submit rating than reset value

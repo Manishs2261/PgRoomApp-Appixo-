@@ -32,7 +32,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
               // checkReviewSubmission  for use current time update a screen
               //Because reviewSubmissionId  not initialize after Rating submit
 //(controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value)
-              visible: (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value) ,
+              visible: (controller.reviewSubmissionId.isEmpty && controller.checkReviewSubmission.value),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -154,7 +154,6 @@ class RatingAndReviewWidgets extends StatelessWidget {
                         //your code goes here
                         controller.isView.value = true;
                         controller.totalReview.value = controller.ratingList.length;
-
                       });
 
                       return ListView.builder(
@@ -176,7 +175,6 @@ class RatingAndReviewWidgets extends StatelessWidget {
                                       width: 25,
                                       decoration:
                                           BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
-
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(50),
                                         child: CachedNetworkImage(
@@ -184,23 +182,23 @@ class RatingAndReviewWidgets extends StatelessWidget {
                                           width: 25,
                                           fit: BoxFit.cover,
                                           imageUrl: controller.ratingList[index].userImage.toString(),
-                                          placeholder: (context,_)=>Center(
+                                          placeholder: (context, _) => const Center(
                                             child: SpinKitFadingCircle(
                                               color: AppColors.primary,
                                               size: 30,
                                             ),
                                           ),
                                           errorWidget: (context, url, error) =>
-                                          const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                                              const CircleAvatar(child: Icon(CupertinoIcons.person)),
                                         ),
                                       ),
                                     ),
                                     const SizedBox(
                                       width: 10,
                                     ),
-                                     Text(
+                                    Text(
                                       "${controller.ratingList[index].userName}",
-                                      style: TextStyle(fontWeight: FontWeight.w600),
+                                      style: const TextStyle(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -242,28 +240,26 @@ class RatingAndReviewWidgets extends StatelessWidget {
             ],
           ),
         ),
-          Obx(
-           ()=>Visibility(
-              visible: controller.isView.value,
-              child: Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: InkWell(
-                          onTap: () {
-                            Get.toNamed(RoutesName.viewAllReview, arguments: controller.itemId);
-                          },
-                          child: const Text(
-                            "View All",
-                            style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                    ),
+        Obx(
+          () => Visibility(
+            visible: controller.isView.value,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(RoutesName.viewAllReview, arguments: controller.itemId);
+                  },
+                  child: const Text(
+                    "View All",
+                    style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
             ),
-          )
-
-
+          ),
+        )
       ],
     );
   }

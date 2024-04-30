@@ -29,10 +29,13 @@ class UserApis {
   static final time = DateTime.now().microsecondsSinceEpoch.toString();
 
   static var userEmail;
-  static var userCity ;
-  static var userName ;
-  static var userImage ;
-  static var userImageDownloadUrl ;
+  static var userCity;
+
+  static var userName;
+
+  static var userImage;
+
+  static var userImageDownloadUrl;
 
   //============== User Data  Apis ===========================
 
@@ -126,7 +129,6 @@ class UserApis {
         snapshots.listen((QuerySnapshot querySnapshot) {
           // Get the number of documents in the collection
           numberOfDocuments1 = querySnapshot.docs.length;
-
         });
 
         final snapshots1 =
@@ -153,7 +155,6 @@ class UserApis {
                 print(error);
                 print(stackTrace);
               }
-
             });
           } else {
             Get.snackbar("Alert", "Please delete all your posted items first.");

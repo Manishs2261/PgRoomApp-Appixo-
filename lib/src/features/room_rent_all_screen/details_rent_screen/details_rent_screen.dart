@@ -11,9 +11,6 @@ import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/wid
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/all_details_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../data/repository/apis/apis.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/sizes.dart';
 import '../../../utils/helpers/helper_function.dart';
@@ -128,9 +125,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                       color: AppHelperFunction.isDarkMode(context) ? Colors.blueGrey.shade900 : Colors.grey.shade200,
-                      boxShadow:  [
-                        BoxShadow(color: Colors.black.withOpacity(.8), offset: const Offset(0, 4))
-                      ],
+                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(.8), offset: const Offset(0, 4))],
                     ),
                     child: PageView(
                       controller: controller.imageIndicatorController.value,
