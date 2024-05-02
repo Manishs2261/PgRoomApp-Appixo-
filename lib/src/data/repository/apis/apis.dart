@@ -516,11 +516,18 @@ class ApisClass {
 
   //get review id for check user a review submit or not
   static Future<String> getReviewData(itemId) async {
-    var collection =
-        firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
+    var collection = firebaseFirestore
+        .collection("loginUser")
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId);
+
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     reviewId = data?['itemId'] ?? '';
+
     return reviewId;
   }
 

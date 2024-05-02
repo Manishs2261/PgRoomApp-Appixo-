@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/auth_apis/auth_apis.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../data/repository/apis/add_to_cart_api.dart';
 import '../../../../data/repository/apis/apis.dart';
@@ -54,6 +53,7 @@ class DetailsScreenController extends GetxController {
 
     //check the user Review submit or  not id data
     await ApisClass.getReviewData(itemId).then((value) {
+
       reviewSubmissionId.value = value;
     });
 
@@ -224,6 +224,5 @@ class DetailsScreenController extends GetxController {
         });
       }
     });
-
   }
 }

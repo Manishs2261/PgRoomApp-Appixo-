@@ -23,10 +23,7 @@ class TiffineServicesApis {
   static FirebaseStorage storage = FirebaseStorage.instance;
 
   //current date and time
-  static final time = DateTime
-      .now()
-      .microsecondsSinceEpoch
-      .toString();
+  static final time = DateTime.now().microsecondsSinceEpoch.toString();
 
   static var tiffineServicesId = '';
   static var tiffineServicesCoverImageUrl = '';
@@ -49,21 +46,20 @@ class TiffineServicesApis {
 //==============Tiffine Services Apis =====================
 
   // create a tiffine services data base for main home collection
-  static Future<void> addYourTiffineServices(coverImage, servicesName, address, price, menuImage,contactNumber,latu,
-      lang) async {
+  static Future<void> addYourTiffineServices(
+      coverImage, servicesName, address, price, menuImage, contactNumber, latu, lang) async {
     // model class
     final tiffineList = TiffineServicesModel(
-      address: address,
-      averageRating: 0.0,
-      foodImage: coverImage,
-      foodPrice: price,
-      menuImage: menuImage,
-      numberOfRating: 0,
-      servicesName: servicesName,
-      contactNumber: contactNumber,
-      latitude: latu,
-      longitude: lang
-    );
+        address: address,
+        averageRating: 0.0,
+        foodImage: coverImage,
+        foodPrice: price,
+        menuImage: menuImage,
+        numberOfRating: 0,
+        servicesName: servicesName,
+        contactNumber: contactNumber,
+        latitude: latu,
+        longitude: lang);
 
     // store main list data
     return await firebaseFirestore
@@ -73,21 +69,20 @@ class TiffineServicesApis {
   }
 
   // create a tiffine services data base for user data base
-  static Future<void> addYourTiffineServicesUserAccount(coverImage, servicesName, address, price, menuImage,
-      contactNumber,latu,lang) async {
+  static Future<void> addYourTiffineServicesUserAccount(
+      coverImage, servicesName, address, price, menuImage, contactNumber, latu, lang) async {
     // model class
     final tiffineList = TiffineServicesModel(
-      address: address,
-      averageRating: 0.0,
-      foodImage: coverImage,
-      foodPrice: price,
-      menuImage: menuImage,
-      numberOfRating: 0,
-      servicesName: servicesName,
+        address: address,
+        averageRating: 0.0,
+        foodImage: coverImage,
+        foodPrice: price,
+        menuImage: menuImage,
+        numberOfRating: 0,
+        servicesName: servicesName,
         contactNumber: contactNumber,
         latitude: latu,
-        longitude: lang
-    );
+        longitude: lang);
     // user list collection
     return await firebaseFirestore
         .collection("userTiffineCollection")
@@ -131,39 +126,36 @@ class TiffineServicesApis {
 //==============Edit  Tiffine Services Apis ===============
 
   //update tiffine service  data
-  static Future<void> updateTiffineServicesData(servicesName, address, price, itemId,contactNumber,latitude, longitude)
-  async {
+  static Future<void> updateTiffineServicesData(
+      servicesName, address, price, itemId, contactNumber, latitude, longitude) async {
     //home list collection data base
     await firebaseFirestore.collection("tiffineServicesCollection").doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-      'contactNumber':contactNumber,
-      'longitude':longitude,
-      'latitude':latitude
+      'contactNumber': contactNumber,
+      'longitude': longitude,
+      'latitude': latitude
     });
 //user personal collection data base
     await firebaseFirestore.collection("userTiffineCollection").doc(user.uid).collection(user.uid).doc(itemId).update({
       'foodPrice': price,
       'address': address,
       'servicesName': servicesName,
-      'contactNumber':contactNumber,
-      'longitude':longitude,
-      'latitude':latitude
+      'contactNumber': contactNumber,
+      'longitude': longitude,
+      'latitude': latitude
     });
   }
 
   // update cover Image data
   static Future<void> updateTiffineCoverImage(File file, String itemId) async {
     //getting image file extension
-    final ext = file.path
-        .split('.')
-        .last;
+    final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('tiffineServices/${user.uid}/${DateTime
-        .now()}.$ext');
+    final ref = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -189,14 +181,11 @@ class TiffineServicesApis {
   // update cover Image data
   static Future<void> updateTiffineMenuImage(File file, String itemId) async {
     //getting image file extension
-    final ext = file.path
-        .split('.')
-        .last;
+    final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('foodMenu/${user.uid}/${DateTime
-        .now()}.$ext');
+    final ref = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.$ext');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -225,8 +214,13 @@ class TiffineServicesApis {
 
   //get review id for check user a review submit or not
   static Future<String> getTiffineRatingSubmitIdData(itemId) async {
-    var collection =
-    firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(itemId);
+    var collection = firebaseFirestore
+        .collection("loginUser")
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId);
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     tiffineReviewSubmitId = data?['tiffineUserId'] ?? '';
@@ -246,8 +240,14 @@ class TiffineServicesApis {
     });
 
     // This review  data save in user account only
-    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(auth.currentUser!.uid).doc(user.uid)
-        .collection(auth.currentUser!.uid).doc(itemId).set({
+    await firebaseFirestore
+        .collection("loginUser")
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(user.uid)
+        .collection(auth.currentUser!.uid)
+        .doc(itemId)
+        .set({
       'tiffineUserId': itemId,
       'tiffineRating': ratingStar,
       'tiffineTitle': review,
@@ -296,8 +296,8 @@ class TiffineServicesApis {
   }
 
   //save Rating Summary data
-  static Future<void> saveRatingBarSummaryTiffineData(itemId, one, two, three, four, five, avg,
-      totalNumberOfStar) async {
+  static Future<void> saveRatingBarSummaryTiffineData(
+      itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("TiffineReview")
@@ -343,7 +343,7 @@ class TiffineServicesApis {
     try {
       //delete a Firestorm
       DocumentReference documentReference =
-      firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
+          firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).doc(deleteId);
 
       DocumentReference documentReference1 = firebaseFirestore.collection('tiffineServicesCollection').doc(deleteId);
 
@@ -390,7 +390,4 @@ class TiffineServicesApis {
       AppLoggerHelper.info("data in not delete $e");
     }
   }
-
-
-
 }

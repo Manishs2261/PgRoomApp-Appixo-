@@ -23,10 +23,12 @@ class RatingAndReviewWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
         Obx(
           () => Visibility(
               // checkReviewSubmission  for use current time update a screen
