@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/old_goods/add_your_goods/add_your_goods.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/apis/apis.dart';
 import '../../data/repository/apis/user_apis.dart';
 import '../../data/repository/auth_apis/auth_apis.dart';
@@ -19,6 +20,15 @@ class ProfileDetailsScreen extends StatelessWidget {
   ProfileDetailsScreen({super.key});
 
   List<UserPersonModel> userList = [];
+
+  final Uri _url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfrObbLmPcyPTqE5Ku_Ae2SZneeM7CqWkR0mREaeb24cYNH-Q/viewform?usp=sf_link');
+
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,13 +315,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartGoodsScreen);
-                    }
-                  });
-                }),
+                onTap: () =>_launchUrl()),
             Divider(
               color: Colors.grey.withOpacity(.3),
             ),
