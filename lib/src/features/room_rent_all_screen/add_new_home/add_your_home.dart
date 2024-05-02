@@ -9,7 +9,6 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 
@@ -166,7 +165,7 @@ class AddYourHome extends StatelessWidget {
                                               ),
                                               RichText(
                                                 text: TextSpan(
-                                                  text: 'Rent - ₹',
+                                                  text: 'Rent ₹',
                                                   style: DefaultTextStyle.of(context).style,
                                                   children: <TextSpan>[
                                                     TextSpan(
@@ -174,7 +173,7 @@ class AddYourHome extends StatelessWidget {
                                                             ? '${rentList[index].singlePersonPrice}'
                                                             : '${rentList[index].familyPrice}',
                                                         style: const TextStyle(fontWeight: FontWeight.bold)),
-                                                    const TextSpan(text: ' /- monthly'),
+                                                    const TextSpan(text: '/-Monthly'),
                                                   ],
                                                 ),
                                               ),
@@ -183,20 +182,29 @@ class AddYourHome extends StatelessWidget {
                                               ),
                                               Flexible(
                                                 child: Text(
-                                                  "Adress:- ${rentList[index].address} ",
+                                                  "Address:- ${rentList[index].address} ",
                                                   overflow: TextOverflow.ellipsis,
                                                   softWrap: false,
-                                                  maxLines: 2,
+                                                  maxLines: 1,
                                                 ),
                                               ),
                                               const SizedBox(
                                                 height: 3,
                                               ),
-                                              Text("City - ${rentList[index].city}"),
+                                              Flexible(child: Text("City - ${rentList[index].city}")),
                                               (rentList[index].bhkType!.isEmpty)
-                                                  ? Text("Room Type - ${rentList[index].roomType}")
-                                                  : Text("Room Type - ${rentList[index].roomType} - "
-                                                      "${rentList[index].bhkType}"),
+                                                  ? Flexible(
+                                                      child: Text(
+                                                      "Room Type - ${rentList[index].roomType}",
+                                                      maxLines: 1,
+                                                    ))
+                                                  : Flexible(
+                                                      child: Text(
+                                                        "Room Type - ${rentList[index].roomType} - "
+                                                        "${rentList[index].bhkType}",
+                                                        maxLines: 1,
+                                                      ),
+                                                    ),
                                               const SizedBox(
                                                 height: 3,
                                               ),

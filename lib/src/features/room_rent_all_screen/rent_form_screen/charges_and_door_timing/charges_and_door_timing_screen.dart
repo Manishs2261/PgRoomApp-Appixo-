@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
-
- import '../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../utils/widgets/my_check_box_widget.dart';
 import 'controller/controller.dart';
 
 class ChargesAndDoorTime extends StatelessWidget {
@@ -132,6 +130,7 @@ class ChargesAndDoorTime extends StatelessWidget {
                               lableText: "Time",
                               isDense: true,
                               isCollapsed: true,
+                              maxLength: 8,
                               borderRadius: BorderRadius.zero,
                               contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                             ),

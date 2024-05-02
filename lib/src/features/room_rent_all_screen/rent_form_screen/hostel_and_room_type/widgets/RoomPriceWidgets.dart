@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
- import '../../../../../utils/widgets/my_check_box_widget.dart';
+import '../../../../../utils/widgets/my_check_box_widget.dart';
 import '../../../../../utils/widgets/my_text_form_field.dart';
 import '../controller/controller.dart';
 
@@ -49,6 +49,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       isDense: true,
                       borderRadius: BorderRadius.circular(11),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      maxLength: 6,
                     ),
                   )),
                 ),
@@ -80,6 +81,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       lableText: "Price",
                       isCollapsed: true,
                       isDense: true,
+                      maxLength: 6,
                       borderRadius: BorderRadius.circular(11),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     ),
@@ -111,6 +113,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       hintText: "Price",
                       lableText: "Price",
                       isCollapsed: true,
+                      maxLength: 6,
                       isDense: true,
                       borderRadius: BorderRadius.circular(11),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -144,6 +147,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       lableText: "Price",
                       isCollapsed: true,
                       isDense: true,
+                      maxLength: 6,
                       borderRadius: BorderRadius.circular(11),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                     ),
@@ -177,6 +181,7 @@ class RoomPriceWidgets extends StatelessWidget {
                         lableText: "Price",
                         isCollapsed: true,
                         isDense: true,
+                        maxLength: 6,
                         borderRadius: BorderRadius.circular(11),
                         contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       ),

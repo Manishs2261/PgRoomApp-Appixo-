@@ -22,8 +22,6 @@ class EditTiffineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final initialPosition =
-        new LatLng(double.parse(controller.latitude.value), double.parse(controller.longitude.value));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Tiffine Services"),
@@ -121,7 +119,7 @@ class EditTiffineScreen extends StatelessWidget {
                                   width: 200,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
+                                      borderRadius: BorderRadius.circular(24),
                                       color: Colors.black.withOpacity(.7),
                                       border: Border.all(color: Colors.white)),
                                   child: const Text(
@@ -247,7 +245,7 @@ class EditTiffineScreen extends StatelessWidget {
                                   width: 220,
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(24),
+                                      borderRadius: BorderRadius.circular(24),
                                       color: Colors.black.withOpacity(.7),
                                       border: Border.all(color: Colors.white)),
                                   child: const Text(
@@ -303,6 +301,7 @@ class EditTiffineScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
+                          maxLength: 40,
                         ),
                         const SizedBox(
                           height: 15,
@@ -316,6 +315,7 @@ class EditTiffineScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
+                          maxLength: 100,
                         ),
                         const SizedBox(
                           height: 15,
@@ -346,6 +346,7 @@ class EditTiffineScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.number,
+                          maxLength: 6,
                         ),
                       ],
                     )),
@@ -373,7 +374,6 @@ class EditTiffineScreen extends StatelessWidget {
                     trackMyPosition: true,
                     selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
                     mapLanguage: 'en',
-                    onError: (e) => print(e),
                     countryFilter: 'In',
                     markerIcon: const Icon(
                       Icons.location_on_sharp,
@@ -384,8 +384,6 @@ class EditTiffineScreen extends StatelessWidget {
                       Icons.check,
                     ),
                     onPicked: (pickedData) {
-                      print(pickedData.latLong.latitude);
-                      print(pickedData.latLong.longitude);
                       controller.latitude.value = pickedData.latLong.latitude.toString();
                       controller.longitude.value = pickedData.latLong.longitude.toString();
                       AppHelperFunction.showSnackBar("Location set successfully");

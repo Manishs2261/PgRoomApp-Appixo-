@@ -146,9 +146,9 @@ class ItemListView extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Flexible(
-                                              flex: 2,
                                               child: Text(
                                                 "${rentList[index].houseName}",
                                                 overflow: TextOverflow.ellipsis,
@@ -158,7 +158,6 @@ class ItemListView extends StatelessWidget {
                                                     fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
                                               ),
                                             ),
-                                            const Spacer(),
                                             RichText(
                                               text: TextSpan(
                                                 text: '₹',
@@ -171,7 +170,7 @@ class ItemListView extends StatelessWidget {
                                                           ? '${rentList[index].singlePersonPrice}'
                                                           : '${rentList[index].familyPrice}',
                                                       style: const TextStyle(fontWeight: FontWeight.bold)),
-                                                  const TextSpan(text: '/-monthly'),
+                                                  const TextSpan(text: '/-Monthly'),
                                                 ],
                                               ),
                                             ),
@@ -191,7 +190,7 @@ class ItemListView extends StatelessWidget {
                                                 "${rentList[index].address} ",
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: false,
-                                                maxLines: 2,
+                                                maxLines: 1,
                                                 style: const TextStyle(color: Colors.white),
                                               ),
                                             ),
@@ -206,11 +205,14 @@ class ItemListView extends StatelessWidget {
                                               size: 18,
                                             ),
                                             const Gap(6),
-                                            Text(
-                                              "${rentList[index].city}",
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
+                                            Flexible(
+                                              child: Text(
+                                                "${rentList[index].city}",
+                                                maxLines: 1,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13,
+                                                ),
                                               ),
                                             ),
                                             const Gap(20),

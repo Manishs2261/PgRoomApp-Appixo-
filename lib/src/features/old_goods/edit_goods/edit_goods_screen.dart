@@ -177,6 +177,7 @@ class EditGoodsScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
+                          maxLength: 40,
                         ),
                         const SizedBox(
                           height: 15,
@@ -190,6 +191,7 @@ class EditGoodsScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
+                          maxLength: 100,
                         ),
                         const SizedBox(
                           height: 15,
@@ -220,6 +222,7 @@ class EditGoodsScreen extends StatelessWidget {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.number,
+                          maxLength: 5,
                         ),
                       ],
                     )),

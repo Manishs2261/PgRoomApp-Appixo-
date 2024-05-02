@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/rent_form_screen/hostel_and_room_type/widgets/HostelTypeWidgets.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/rent_form_screen/hostel_and_room_type/widgets/RoomPriceWidgets.dart';
- import 'package:pgroom/src/utils/logger/logger.dart';
-
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'controller/controller.dart';
 
 class HostelAndRoomTypeScreen extends StatelessWidget {

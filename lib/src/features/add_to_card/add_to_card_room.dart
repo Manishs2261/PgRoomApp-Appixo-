@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
-
 import '../../data/repository/apis/add_to_cart_api.dart';
 import '../../model/user_rent_model/user_rent_model.dart';
 import '../../res/route_name/routes_name.dart';
@@ -180,7 +179,7 @@ class AddToCardRoom extends StatelessWidget {
                                     ),
                                     RichText(
                                       text: TextSpan(
-                                        text: 'Rent - ₹',
+                                        text: 'Rent -₹',
                                         style: DefaultTextStyle.of(context).style,
                                         children: <TextSpan>[
                                           TextSpan(
@@ -188,7 +187,7 @@ class AddToCardRoom extends StatelessWidget {
                                                   ? '${rentList[index].singlePersonPrice}'
                                                   : '${rentList[index].familyPrice}',
                                               style: const TextStyle(fontWeight: FontWeight.bold)),
-                                          const TextSpan(text: ' /- monthly'),
+                                          const TextSpan(text: ' /-Monthly'),
                                         ],
                                       ),
                                     ),
@@ -200,16 +199,28 @@ class AddToCardRoom extends StatelessWidget {
                                         "Address:-${rentList[index].address} ",
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
-                                        maxLines: 2,
+                                        maxLines: 1,
                                       ),
                                     ),
                                     const SizedBox(
                                       height: 3,
                                     ),
-                                    Text("City - ${rentList[index].city}"),
+                                    Flexible(
+                                        child: Text(
+                                      "City - ${rentList[index].city}",
+                                      maxLines: 1,
+                                    )),
                                     (rentList[index].bhkType!.isEmpty)
-                                        ? Text("Room Type - ${rentList[index].roomType}")
-                                        : Text("Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}"),
+                                        ? Flexible(
+                                            child: Text(
+                                            "Room Type - ${rentList[index].roomType}",
+                                            maxLines: 1,
+                                          ))
+                                        : Flexible(
+                                            child: Text(
+                                            "Room Type - ${rentList[index].roomType} - ${rentList[index].bhkType}",
+                                            maxLines: 1,
+                                          )),
                                     const SizedBox(
                                       height: 3,
                                     ),

@@ -5,7 +5,7 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 
 import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
 
- import '../../../../utils/validator/text_field_validator.dart';
+import '../../../../utils/validator/text_field_validator.dart';
 import 'controller/controller.dart';
 
 class RentDetailsScsreen extends StatelessWidget {
@@ -42,6 +42,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: EmailValidator.validate,
                     textKeyBoard: TextInputType.text,
+                    maxLength: 40,
                   ),
 
                   const SizedBox(
@@ -58,6 +59,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: AddressValidator.validate,
+                    maxLength: 100,
                   ),
                   const SizedBox(
                     height: 15,
@@ -72,6 +74,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: CityValidator.validate,
+                    maxLength: 40,
                   ),
                   const SizedBox(
                     height: 15,
@@ -86,6 +89,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: LandMarkValidator.validate,
+                    maxLength: 100,
                   ),
                   const SizedBox(
                     height: 15,
@@ -123,14 +127,15 @@ class RentDetailsScsreen extends StatelessWidget {
                     height: 80,
                   ),
 
-
-                  ComReuseElevButton(onPressed: (){
-                    if (_globalKey.currentState!.validate()) {
-                      controller.onSubmitButton();
-                    }
-                  }, title: "Next",loading: controller.loading.value,)
-
-
+                  ComReuseElevButton(
+                    onPressed: () {
+                      if (_globalKey.currentState!.validate()) {
+                        controller.onSubmitButton();
+                      }
+                    },
+                    title: "Next",
+                    loading: controller.loading.value,
+                  )
                 ],
               ),
             ),
