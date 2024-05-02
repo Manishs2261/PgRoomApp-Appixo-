@@ -220,6 +220,8 @@ class DetailsScreenController extends GetxController {
                 data.latitude,
                 data.longitude,
                 itemId);
+
+            AppHelperFunction.showSnackBar("successfully added");
           }
         });
       }

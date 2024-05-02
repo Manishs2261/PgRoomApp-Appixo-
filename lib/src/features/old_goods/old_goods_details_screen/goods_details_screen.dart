@@ -5,10 +5,8 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/old_goods/old_goods_details_screen/controller.dart';
 import 'package:pgroom/src/model/old_goods_model/old_goods_model.dart';
-import '../../../data/repository/auth_apis/auth_apis.dart';
-import '../../../utils/Constants/colors.dart';
-import '../../../utils/device/device_utility.dart';
-import '../../../utils/helpers/helper_function.dart';
+ import '../../../utils/Constants/colors.dart';
+ import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
 
 class GoodsDetailsScreen extends StatefulWidget {
@@ -62,7 +60,7 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                 hoverColor: Colors.grey,
                 onTap: (){
                   controller.addToCartGoodsData();
-                  AppHelperFunction.showSnackBar("successfully added");
+
                 },
                 child: Container(
                   alignment: Alignment.center,

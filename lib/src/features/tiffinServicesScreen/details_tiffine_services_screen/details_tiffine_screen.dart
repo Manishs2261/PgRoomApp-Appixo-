@@ -68,7 +68,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                 hoverColor: Colors.grey,
                 onTap: () {
                   controller.addToCartTiffineData();
-                  AppHelperFunction.showSnackBar("successfully added");
+
                 },
                 child: Container(
                   alignment: Alignment.center,

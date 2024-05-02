@@ -71,7 +71,7 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 hoverColor: Colors.grey,
                 onTap: () {
                   controller.addToCartRoomData();
-                  AppHelperFunction.showSnackBar("successfully added");
+
                 },
                 child: Container(
                   alignment: Alignment.center,

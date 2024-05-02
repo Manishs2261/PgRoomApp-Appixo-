@@ -44,6 +44,7 @@ class OldGoodsScreenController extends GetxController {
           if (value) {
             AddToCartApis.createAddToCartOldGoods(
                 data.image, data.name, data.address, data.price, data.postDate, data.contactNumber, itemId);
+            AppHelperFunction.showSnackBar("successfully added");
           }
         });
       }

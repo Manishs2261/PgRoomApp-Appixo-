@@ -220,6 +220,7 @@ class DetailsTiffineController extends GetxController {
             AddToCartApis.createAddToCartUserTiffine(data.foodImage, data.servicesName, data.address, data.foodPrice,
                 data.menuImage,
                 data.contactNumber, data.latitude, data.latitude, itemId);
+            AppHelperFunction.showSnackBar("successfully added");
           }
         });
       }
