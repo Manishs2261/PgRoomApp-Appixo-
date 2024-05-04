@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../login_screen/widgets/footer_widgets.dart';
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';
@@ -17,6 +18,29 @@ class SingInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+    final Uri urlTermsAndCondition = Uri.parse('https://docs.google'
+        '.com/document/d/1saDug8Y6GXYsvlXzFkPlSvBPZ6RTX-iZAPZ5wyYPvEo/edit?usp=sharing');
+
+    final Uri urlPrivacyPolicy = Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
+
+    Future<void> _launchUrlTermsAndCondition() async {
+      if (!await launchUrl(urlTermsAndCondition)) {
+        throw Exception('Could not launch $urlTermsAndCondition');
+      }
+    }
+
+
+    Future<void> _launchUrlPrivacyPolicy() async {
+      if (!await launchUrl(urlPrivacyPolicy)) {
+        throw Exception('Could not launch $urlPrivacyPolicy');
+      }
+    }
+
+
+
+
     AppLoggerHelper.debug("rebuild => sing screen ");
 
     return Scaffold(
@@ -86,17 +110,13 @@ class SingInScreen extends StatelessWidget {
                               text: ' Terms ',
                               style: const TextStyle(color: Colors.blue),
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('term"');
-                                }),
+                                ..onTap = ()=>_launchUrlTermsAndCondition()),
                           const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
                           TextSpan(
                               text: ' Privacy Policy ',
                               style: const TextStyle(color: Colors.blue),
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  print('Privacy Policy"');
-                                }),
+                                ..onTap = ()=>_launchUrlPrivacyPolicy()),
                         ],
                       ),
                     ),

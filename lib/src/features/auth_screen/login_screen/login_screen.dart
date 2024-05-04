@@ -8,6 +8,7 @@ import 'package:pgroom/src/features/auth_screen/login_screen/widgets/header_widg
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/skip_button.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'login_screen_controller/login_controller.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -18,6 +19,24 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Uri urlTermsAndCondition = Uri.parse('https://docs.google'
+        '.com/document/d/1saDug8Y6GXYsvlXzFkPlSvBPZ6RTX-iZAPZ5wyYPvEo/edit?usp=sharing');
+
+    final Uri urlPrivacyPolicy =
+        Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
+
+    Future<void> _launchUrlTermsAndCondition() async {
+      if (!await launchUrl(urlTermsAndCondition)) {
+        throw Exception('Could not launch $urlTermsAndCondition');
+      }
+    }
+
+    Future<void> _launchUrlPrivacyPolicy() async {
+      if (!await launchUrl(urlPrivacyPolicy)) {
+        throw Exception('Could not launch $urlPrivacyPolicy');
+      }
+    }
+
     AppLoggerHelper.debug("Login screen ");
     return Scaffold(
       appBar: AppBar(
@@ -79,18 +98,12 @@ class LoginScreen extends StatelessWidget {
                         TextSpan(
                             text: ' Terms ',
                             style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('term"');
-                              }),
+                            recognizer: TapGestureRecognizer()..onTap = () => _launchUrlTermsAndCondition()),
                         const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
                         TextSpan(
                             text: ' Privacy Policy ',
                             style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                print('Privacy Policy"');
-                              }),
+                            recognizer: TapGestureRecognizer()..onTap = () => _launchUrlPrivacyPolicy()),
                       ],
                     ),
                   ),

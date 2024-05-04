@@ -27,8 +27,8 @@ class ProfileDetailsScreen extends StatelessWidget {
   final Uri urlTermsAndCondition = Uri.parse('https://docs.google'
       '.com/document/d/1saDug8Y6GXYsvlXzFkPlSvBPZ6RTX-iZAPZ5wyYPvEo/edit?usp=sharing');
 
-  final Uri urlPrivacyPolicy = Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
-
+  final Uri urlPrivacyPolicy =
+      Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
 
   Future<void> _launchUrlFrom() async {
     if (!await launchUrl(urlFrom)) {
@@ -42,13 +42,11 @@ class ProfileDetailsScreen extends StatelessWidget {
     }
   }
 
-
   Future<void> _launchUrlPrivacyPolicy() async {
     if (!await launchUrl(urlPrivacyPolicy)) {
       throw Exception('Could not launch $urlPrivacyPolicy');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -288,11 +286,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   size: 16,
                 ),
                 onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartGoodsScreen);
-                    }
-                  });
+
                 }),
             ListTile(
                 leading: const Icon(Icons.help_center_outlined),
@@ -301,13 +295,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartGoodsScreen);
-                    }
-                  });
-                }),
+                onTap: ()=> Get.toNamed(RoutesName.helpScreen)),
             ListTile(
                 leading: const Icon(Icons.info_outline),
                 title: const Text("Privacy And Policy"),
@@ -315,7 +303,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () =>_launchUrlPrivacyPolicy()),
+                onTap: () => _launchUrlPrivacyPolicy()),
             ListTile(
                 leading: const Icon(Icons.policy_outlined),
                 title: const Text("Terms And Condition"),
@@ -323,7 +311,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () =>_launchUrlTermsAndCondition()),
+                onTap: () => _launchUrlTermsAndCondition()),
             Divider(
               color: Colors.grey.withOpacity(.3),
             ),
@@ -337,7 +325,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () =>_launchUrlFrom()),
+                onTap: () => _launchUrlFrom()),
             Divider(
               color: Colors.grey.withOpacity(.3),
             ),

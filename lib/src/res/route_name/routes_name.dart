@@ -66,5 +66,6 @@ class RoutesName{
   static const String addToCartTiffineScreen  = '/addToCartTiffineScreen';
   static const String addToCartGoodsScreen  = '/addToCartGoodsScreen';
   static const String goodsSearchScreen = '/goodsSearchScreen';
+  static const String helpScreen = '/helpScreen';
 
 }
