@@ -21,14 +21,34 @@ class ProfileDetailsScreen extends StatelessWidget {
 
   List<UserPersonModel> userList = [];
 
-  final Uri _url = Uri.parse('https://docs.google.com/forms/d/e/1FAIpQLSfrObbLmPcyPTqE5Ku_Ae2SZneeM7CqWkR0mREaeb24cYNH-Q/viewform?usp=sf_link');
+  final Uri urlFrom = Uri.parse('https://docs.google'
+      '.com/forms/d/e/1FAIpQLSfrObbLmPcyPTqE5Ku_Ae2SZneeM7CqWkR0mREaeb24cYNH-Q/viewform?usp=sf_link');
+
+  final Uri urlTermsAndCondition = Uri.parse('https://docs.google'
+      '.com/document/d/1saDug8Y6GXYsvlXzFkPlSvBPZ6RTX-iZAPZ5wyYPvEo/edit?usp=sharing');
+
+  final Uri urlPrivacyPolicy = Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
 
 
-  Future<void> _launchUrl() async {
-    if (!await launchUrl(_url)) {
-      throw Exception('Could not launch $_url');
+  Future<void> _launchUrlFrom() async {
+    if (!await launchUrl(urlFrom)) {
+      throw Exception('Could not launch $urlFrom');
     }
   }
+
+  Future<void> _launchUrlTermsAndCondition() async {
+    if (!await launchUrl(urlTermsAndCondition)) {
+      throw Exception('Could not launch $urlTermsAndCondition');
+    }
+  }
+
+
+  Future<void> _launchUrlPrivacyPolicy() async {
+    if (!await launchUrl(urlPrivacyPolicy)) {
+      throw Exception('Could not launch $urlPrivacyPolicy');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -290,18 +310,20 @@ class ProfileDetailsScreen extends StatelessWidget {
                 }),
             ListTile(
                 leading: const Icon(Icons.info_outline),
-                title: const Text("About App"),
+                title: const Text("Privacy And Policy"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartGoodsScreen);
-                    }
-                  });
-                }),
+                onTap: () =>_launchUrlPrivacyPolicy()),
+            ListTile(
+                leading: const Icon(Icons.policy_outlined),
+                title: const Text("Terms And Condition"),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+                onTap: () =>_launchUrlTermsAndCondition()),
             Divider(
               color: Colors.grey.withOpacity(.3),
             ),
@@ -315,7 +337,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () =>_launchUrl()),
+                onTap: () =>_launchUrlFrom()),
             Divider(
               color: Colors.grey.withOpacity(.3),
             ),
