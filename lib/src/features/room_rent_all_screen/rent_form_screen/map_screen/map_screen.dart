@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
-
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/Constants/colors.dart';
 import 'controller/controller.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -16,44 +17,91 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   final controller = Get.put(MapScreenController());
 
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Choose Map view"),
       ),
-      body: FlutterLocationPicker(
-        showSearchBar: false,
-        searchbarBorderRadius: BorderRadius.circular(50),
-        selectLocationButtonStyle: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(AppColors.primary),
+       floatingActionButton: Padding(
+         padding: const EdgeInsets.only(bottom: 280),
+         child: FloatingActionButton(
+           backgroundColor: Colors.green,
+           child: const Icon(Icons.refresh_outlined,color: Colors.white,),
+           onPressed: (){
+
+             setState(() {
+
+             });
+           },
+         ),
+       ),
+      body: Stack(
+        children: [
+          FlutterLocationPicker(
+            showSearchBar: false,
+            searchbarBorderRadius: BorderRadius.circular(50),
+            selectLocationButtonStyle: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(AppColors.primary),
+            ),
+            initZoom: 11,
+            minZoomLevel: 1,
+            maxZoomLevel: 16,
+            trackMyPosition: true,
+            selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+            mapLanguage: 'en',
+            onError: (e) => print(e),
+            countryFilter: 'In',
+            markerIcon: const Icon(
+              Icons.location_on_sharp,
+              color: Colors.red,
+              size: 60,
+            ),
+            selectLocationButtonLeadingIcon: const Icon(
+              Icons.check,
+            ),
+            onPicked: (pickedData) {
+              print(pickedData.latLong.latitude);
+              print(pickedData.latLong.longitude);
+              controller.latitude.value = pickedData.latLong.latitude.toString();
+              controller.longitude.value = pickedData.latLong.longitude.toString();
+              Get.toNamed(RoutesName.perimissionScreen);
+            },
+            showContributorBadgeForOSM: true,
+          ),
+
+      Container(
+        margin: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Colors.white
         ),
-        initZoom: 11,
-        minZoomLevel: 1,
-        maxZoomLevel: 16,
-        trackMyPosition: true,
-        selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-        mapLanguage: 'en',
-        onError: (e) => print(e),
-        countryFilter: 'In',
-        markerIcon: Icon(
-          Icons.location_on_sharp,
-          color: Colors.red,
-          size: 60,
+        child: DefaultTextStyle(
+          style: const TextStyle(
+            fontSize: 30.0,
+            fontFamily: 'Agne',
+          ),
+          child: AnimatedTextKit(
+            totalRepeatCount: 100,
+            animatedTexts: [
+              TypewriterAnimatedText('Please wait a moment while I fetch a marker 📍.',textStyle: const TextStyle
+                (color:Colors.red)),
+              TypewriterAnimatedText('If I can not fetch it',textStyle: const TextStyle
+                (color:Colors.red)),
+              TypewriterAnimatedText('It will refresh the page.',textStyle: const TextStyle
+                (color:Colors.green)),
+
+            ],
+            onTap: () {
+              print("Tap Event");
+            },
+          ),
         ),
-        selectLocationButtonLeadingIcon: const Icon(
-          Icons.check,
-        ),
-        onPicked: (pickedData) {
-          print(pickedData.latLong.latitude);
-          print(pickedData.latLong.longitude);
-          controller.latitude.value = pickedData.latLong.latitude.toString();
-          controller.longitude.value = pickedData.latLong.longitude.toString();
-          Get.toNamed(RoutesName.perimissionScreen);
-        },
-        showContributorBadgeForOSM: true,
-      ),
+      )
+        ],
+      )
     );
   }
 }

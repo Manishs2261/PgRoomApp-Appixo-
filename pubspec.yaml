@@ -83,6 +83,8 @@ dependencies:
   gap: ^3.0.1
   location_picker_flutter_map: ^3.0.1
   latlong2: ^0.9.1
+  animated_text_kit: ^4.2.2
+  progress_state_button: "^1.0.4"
 
 
 

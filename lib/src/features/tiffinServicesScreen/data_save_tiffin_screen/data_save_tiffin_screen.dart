@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/image_string.dart';
@@ -12,9 +15,14 @@ import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 import 'controller/controller.dart';
 
-class DataSaveTiffineScreen extends StatelessWidget {
+class DataSaveTiffineScreen extends StatefulWidget {
   const DataSaveTiffineScreen({super.key});
 
+  @override
+  State<DataSaveTiffineScreen> createState() => _DataSaveTiffineScreenState();
+}
+
+class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - AddTiffineScreen");
@@ -303,37 +311,87 @@ class DataSaveTiffineScreen extends StatelessWidget {
                 ),
 
                 Container(
-                  height: 400,
+                  height: 500,
                   width: double.infinity,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
-                  child: FlutterLocationPicker(
-                    showSearchBar: false,
-                    searchbarBorderRadius: BorderRadius.circular(50),
-                    selectLocationButtonStyle: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.orange),
-                    ),
-                    selectLocationButtonText: "Set a Location",
-                    initZoom: 11,
-                    minZoomLevel: 1,
-                    maxZoomLevel: 16,
-                    trackMyPosition: true,
-                    selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-                    mapLanguage: 'en',
-                    countryFilter: 'In',
-                    markerIcon: const Icon(
-                      Icons.location_on_sharp,
-                      color: Colors.red,
-                      size: 60,
-                    ),
-                    selectLocationButtonLeadingIcon: const Icon(
-                      Icons.check,
-                    ),
-                    onPicked: (pickedData) {
-                      controller.latitude.value = pickedData.latLong.latitude.toString();
-                      controller.longitude.value = pickedData.latLong.longitude.toString();
-                      AppHelperFunction.showSnackBar("Location set successfully");
-                    },
-                    showContributorBadgeForOSM: true,
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary,
+                  ),
+                  child: Stack(
+                    children: [
+                      FlutterLocationPicker(
+                        showSearchBar: false,
+                        searchbarBorderRadius: BorderRadius.circular(50),
+                        selectLocationButtonStyle: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(Colors.orange),
+                        ),
+                        selectLocationButtonText: "Set a Location",
+                        initZoom: 11,
+                        minZoomLevel: 1,
+                        maxZoomLevel: 16,
+                        trackMyPosition: true,
+                        selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+                        mapLanguage: 'en',
+                        countryFilter: 'In',
+                        markerIcon: const Icon(
+                          Icons.location_on_sharp,
+                          color: Colors.red,
+                          size: 60,
+                        ),
+                        selectLocationButtonLeadingIcon: const Icon(
+                          Icons.check,
+                        ),
+                        onPicked: (pickedData) {
+                          controller.latitude.value = pickedData.latLong.latitude.toString();
+                          controller.longitude.value = pickedData.latLong.longitude.toString();
+                          AppHelperFunction.showSnackBar("Location set successfully");
+                        },
+                        showContributorBadgeForOSM: true,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
+                        child: DefaultTextStyle(
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontFamily: 'Agne',
+                          ),
+                          child: AnimatedTextKit(
+                            totalRepeatCount: 100,
+                            animatedTexts: [
+                              TypewriterAnimatedText('Please wait a moment while I fetch a marker 📍.',
+                                  textStyle: const TextStyle(color: Colors.red)),
+                              TypewriterAnimatedText('If I can not fetch it',
+                                  textStyle: const TextStyle(color: Colors.red)),
+                              TypewriterAnimatedText('It will refresh the page.',
+                                  textStyle: const TextStyle(color: Colors.green)),
+                            ],
+                            onTap: () {
+                              print("Tap Event");
+                            },
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {});
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(top: 150, right: 15),
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
+                            child: Icon(
+                              Icons.refresh_outlined,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 const SizedBox(
