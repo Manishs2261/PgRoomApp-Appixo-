@@ -5,13 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../res/route_name/routes_name.dart';
-import '../../../splash/controller/splash_controller.dart';
 
 class SingScreenController extends GetxController {
   final emailController = TextEditingController().obs;
@@ -30,7 +25,7 @@ class SingScreenController extends GetxController {
   RxBool emailReading = false.obs;
 
   RxInt counter = 90.obs;
- late Timer timer ;
+  late Timer timer;
 
   onOtpSubmitVerifyButton() async {
     //check the internet connection
@@ -42,14 +37,18 @@ class SingScreenController extends GetxController {
         } else {
           if (otpController.value.text.isNotEmpty && otpController.value.text.length == 6) {
             AuthApisClass.otpSubmitVerification(otpController.value.text).then((value) {
-              if(value){
+              if (value) {
                 isOtp.value = value;
                 isVerify.value = value;
                 isSend.value = false;
-                Get.offAndToNamed(RoutesName.signProfileScreen);
+                Get.offAndToNamed(
+                  RoutesName.signProfileScreen,
+                  arguments: {
+                    'email': emailController.value.text
+                  },
+                );
                 timer.cancel();
               }
-
             }).onError((error, stackTrace) {});
           } else {
             Get.snackbar("Wrong OTP", " Please try again.");
@@ -58,8 +57,6 @@ class SingScreenController extends GetxController {
       }
     });
   }
-
-
 
   /// send otp button
   onSendOtpButton() async {
@@ -92,7 +89,6 @@ class SingScreenController extends GetxController {
               timer.cancel();
             }
           }).onError((error, stackTrace) {
-
             print(error);
             print(stackTrace);
           });

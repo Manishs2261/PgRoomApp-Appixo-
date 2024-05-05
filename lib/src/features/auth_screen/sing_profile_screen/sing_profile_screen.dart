@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/controller/controller.dart';
-import 'package:pinput/pinput.dart';
-
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/validator/text_field_validator.dart';
 
@@ -15,7 +12,13 @@ class SignProfileScreen extends StatelessWidget {
   SignProfileScreen({super.key});
 
   final globalKey = GlobalKey<FormState>();
-  final controller = Get.put(SignProfileScreenControllter());
+  final controller = Get.put(SignProfileScreenController());
+
+  // // Retrieve the passed arguments
+  // final Map<String, dynamic> args = Get.arguments;
+  //
+  // // Extract the email ID from the arguments
+  // final String email = args['email'];
 
   @override
   Widget build(BuildContext context) {
@@ -204,7 +207,7 @@ class SignProfileScreen extends StatelessWidget {
               ComReuseElevButton(
                   onPressed: () {
                     if (globalKey.currentState!.validate()) {
-                      controller.onSubmitButton();
+                      controller.onSubmitButton(Get.arguments['email']);
                     }
                   },
                   title: "Submit"),

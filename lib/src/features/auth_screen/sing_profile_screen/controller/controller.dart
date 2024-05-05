@@ -17,7 +17,11 @@ import '../../../../utils/logger/logger.dart';
 import '../../../splash/controller/splash_controller.dart';
 import '../../sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 
-class SignProfileScreenControllter extends GetxController {
+class SignProfileScreenController extends GetxController{
+
+
+
+
   RxString image = ''.obs;
   final nameController = TextEditingController().obs;
   final cityNameController = TextEditingController().obs;
@@ -41,16 +45,17 @@ class SignProfileScreenControllter extends GetxController {
     });
   }
 
-  onSubmitButton() {
+  onSubmitButton( String email) {
     //AppHelperFunction.showDialogCenter(false);
-    print(controller.emailController.value.text);
+    print("email ${ email}");
+    print("email22 ${passwordController.value.text}");
 
    // check the internet connection
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         AppHelperFunction.showDialogCenter(false);
         loading.value = true;
-        AuthApisClass.singEmailIdAndPassword(controller.emailController.value.text, passwordController.value.text)
+        AuthApisClass.singEmailIdAndPassword(email, passwordController.value.text)
             .then((value) async {
           //in this condition
           //if email is already exist not sing
@@ -72,7 +77,7 @@ class SignProfileScreenControllter extends GetxController {
                 NavigationMenuScreen()), (Route<dynamic> route) => false);
 
             UserApis.saveUserData(
-                nameController.value.text, cityNameController.value.text, controller.emailController.value.text,
+                nameController.value.text, cityNameController.value.text,  email,
                 imageUrl.value)
                 .then((value) {
               Get.snackbar("Save", "successfully");
