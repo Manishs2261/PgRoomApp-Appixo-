@@ -1,13 +1,14 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
-import 'firebase_options.dart';
+
 
 //global object for accessing device screen size
 late Size mediaQuery;
@@ -16,6 +17,7 @@ Future<void> main() async {
   // for initializer  firebase on open a app
 
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
       options: FirebaseOptions(
           apiKey: "AIzaSyDbOPMm6_yzLJNCvSYwKbi3Ajby1wadkH0",
