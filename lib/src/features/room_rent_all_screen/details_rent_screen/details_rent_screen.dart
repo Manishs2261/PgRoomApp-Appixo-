@@ -6,10 +6,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/ContactAndShareWidgets.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/RatingAndReviewWidgets.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/details_rent_screen/widget/all_details_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/sizes.dart';
@@ -17,12 +20,27 @@ import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
 import 'controller/details_screen_controller.dart';
 
-class DetailsRentInfoScreen extends StatelessWidget {
+class DetailsRentInfoScreen extends StatefulWidget {
   DetailsRentInfoScreen({super.key});
 
+  @override
+  State<DetailsRentInfoScreen> createState() => _DetailsRentInfoScreenState();
+}
+
+class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
   // Get x Controller  for business code
   final controller = Get.put(DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
+
   final itemId = Get.arguments['id'];
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
+    adProvider.initializeDetailsBanner();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +89,6 @@ class DetailsRentInfoScreen extends StatelessWidget {
                 hoverColor: Colors.grey,
                 onTap: () {
                   controller.addToCartRoomData();
-
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -210,7 +227,26 @@ class DetailsRentInfoScreen extends StatelessWidget {
                   RatingAndReviewWidgets(controller: controller),
 
                   const SizedBox(
-                    height: 50,
+                    height: 20,
+                  ),
+
+                  Consumer<AdProvider>(builder: (context, adProvider, child) {
+                    if (adProvider.isDetailsPageLoaded) {
+                      return SizedBox(
+                        height: adProvider.detailsPage.size.height.toDouble(),
+                        child: AdWidget(
+                          ad: adProvider.detailsPage,
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                      );
+                    }
+                  }),
+
+                  const SizedBox(
+                    height: 100,
                   ),
                 ],
               ),

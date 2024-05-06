@@ -4,10 +4,13 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
+import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
+import 'package:provider/provider.dart';
 
 
 //global object for accessing device screen size
@@ -17,9 +20,10 @@ Future<void> main() async {
   // for initializer  firebase on open a app
 
   WidgetsFlutterBinding.ensureInitialized();
+   MobileAds.instance.initialize();
 
   await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: "AIzaSyDbOPMm6_yzLJNCvSYwKbi3Ajby1wadkH0",
           authDomain: "pgroomapp-e7b8c.firebaseapp.com",
           databaseURL: "https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app",
@@ -47,7 +51,14 @@ Future<void> main() async {
     return true;
   };
 
-  runApp(const MyApp());
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => AdProvider()),  // Add your ChangeNotifier here
+        ],
+        child: MyApp(),  // Your main application widget
+      ),
+       );
 }
 
 class MyApp extends StatelessWidget {
