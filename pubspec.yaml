@@ -89,6 +89,8 @@ dependencies:
   provider: ^6.1.2
   upgrader: ^10.3.0
   device_info_plus: ^10.1.0
+  permission_handler: ^11.3.1
+  package_info_plus: ^8.0.0
 
 
 

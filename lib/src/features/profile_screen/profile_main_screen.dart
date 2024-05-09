@@ -367,6 +367,14 @@ class ProfileDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(
               height: 30,
+            ),
+
+
+            Text("version -  "),
+
+
+            const SizedBox(
+              height: 30,
             )
           ],
         ),
