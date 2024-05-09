@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +13,6 @@ import 'package:pgroom/src/utils/Theme/theme.dart';
 import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
 import 'package:provider/provider.dart';
 
-
 //global object for accessing device screen size
 late Size mediaQuery;
 
@@ -22,7 +20,8 @@ Future<void> main() async {
   // for initializer  firebase on open a app
 
   WidgetsFlutterBinding.ensureInitialized();
-   MobileAds.instance.initialize();
+
+  MobileAds.instance.initialize();
 
   await Permission.notification.isDenied.then((value) {
     if (value) {
@@ -30,7 +29,6 @@ Future<void> main() async {
     }
   });
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
 
   await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -62,13 +60,13 @@ Future<void> main() async {
   };
 
   runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => AdProvider()),  // Add your ChangeNotifier here
-        ],
-        child: MyApp(),  // Your main application widget
-      ),
-       );
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AdProvider()), // Add your ChangeNotifier here
+      ],
+      child: MyApp(), // Your main application widget
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

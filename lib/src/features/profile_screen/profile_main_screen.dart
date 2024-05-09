@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pgroom/src/features/old_goods/add_your_goods/add_your_goods.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/apis/apis.dart';
@@ -16,10 +17,24 @@ import '../../utils/logger/logger.dart';
 import '../splash/controller/splash_controller.dart';
 import '../tiffinServicesScreen/add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 
-class ProfileDetailsScreen extends StatelessWidget {
+class ProfileDetailsScreen extends StatefulWidget {
   ProfileDetailsScreen({super.key});
 
+  @override
+  State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();
+}
+
+class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   List<UserPersonModel> userList = [];
+
+  String AppVersion = "";
+
+  Future<void> _initPackageInfo() async {
+    final _packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      AppVersion = _packageInfo.version;
+    });
+  }
 
   final Uri urlFrom = Uri.parse('https://docs.google'
       '.com/forms/d/e/1FAIpQLSfrObbLmPcyPTqE5Ku_Ae2SZneeM7CqWkR0mREaeb24cYNH-Q/viewform?usp=sf_link');
@@ -49,9 +64,18 @@ class ProfileDetailsScreen extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    _initPackageInfo();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - ProfileDetailsScreen");
+
     UserApis.getUserData();
+
     return SafeArea(
       child: Scaffold(
         body: ListView(
@@ -285,9 +309,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () {
-
-                }),
+                onTap: () {}),
             ListTile(
                 leading: const Icon(Icons.help_center_outlined),
                 title: const Text("Help"),
@@ -295,7 +317,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: ()=> Get.toNamed(RoutesName.helpScreen)),
+                onTap: () => Get.toNamed(RoutesName.helpScreen)),
             ListTile(
                 leading: const Icon(Icons.info_outline),
                 title: const Text("Privacy And Policy"),
@@ -366,13 +388,13 @@ class ProfileDetailsScreen extends StatelessWidget {
                   }),
             ),
             const SizedBox(
-              height: 30,
+              height: 40,
             ),
-
-
-            Text("version -  "),
-
-
+            Center(
+                child: Text(
+              "version - $AppVersion ",
+              style: TextStyle(fontSize: 16),
+            )),
             const SizedBox(
               height: 30,
             )
