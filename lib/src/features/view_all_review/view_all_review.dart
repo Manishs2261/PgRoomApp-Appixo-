@@ -31,7 +31,7 @@ class ViewAllReviewScreen extends StatelessWidget {
       body: LiquidPullToRefresh(
         color: Colors.white,
         onRefresh: () {
-          return Future.delayed(Duration(seconds: 2));
+          return Future.delayed(const Duration(seconds: 2));
         },
         child: ListView(
           children: [
@@ -91,7 +91,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                                             width: 25,
                                             fit: BoxFit.cover,
                                             imageUrl: ratingList[index].userImage.toString(),
-                                            placeholder: (context, _) => Center(
+                                            placeholder: (context, _) => const Center(
                                               child: SpinKitFadingCircle(
                                                 color: AppColors.primary,
                                                 size: 30,
@@ -107,7 +107,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         "${ratingList[index].userName}",
-                                        style: TextStyle(fontWeight: FontWeight.w600),
+                                        style: const TextStyle(fontWeight: FontWeight.w600),
                                       ),
                                     ],
                                   ),
@@ -126,7 +126,7 @@ class ViewAllReviewScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         "${ratingList[index].currentDate}",
-                                        style: const TextStyle(fontSize: 13, color: Colors.white70),
+                                        style: const TextStyle(fontSize: 13, color: Colors.black),
                                       )
                                     ],
                                   ),

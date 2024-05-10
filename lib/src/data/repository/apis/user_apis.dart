@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +8,6 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../utils/logger/logger.dart';
 
 class UserApis {

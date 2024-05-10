@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pgroom/src/features/old_goods/old_goods_details_screen/controller.dart';
 import 'package:pgroom/src/model/old_goods_model/old_goods_model.dart';
+import 'package:provider/provider.dart';
  import '../../../utils/Constants/colors.dart';
- import '../../../utils/helpers/helper_function.dart';
+ import '../../../utils/ad_helper/services/ad_services.dart';
 import '../../../utils/logger/logger.dart';
 
 class GoodsDetailsScreen extends StatefulWidget {
@@ -22,6 +24,23 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
   var itemId = Get.arguments["id"];
 
   final controller = Get.put(OldGoodsScreenController(Get.arguments["id"],Get.arguments['list']));
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+
+      AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
+
+      adProvider.initializeNativeAd();
+
+    });
+
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -190,13 +209,43 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                   ],
                 ),
               ),
-              const Column(
+               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 50,
-                  )
+                    height: 100,
+                  ),
+
+
+                  Consumer<AdProvider>(builder: (context, adProvider, child) {
+                    if (adProvider.isNativeAdLoaded) {
+                      return ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 320, // minimum recommended width
+                          minHeight: 320, // minimum recommended height
+                          maxWidth: 400,
+                          maxHeight: 400,
+                        ),
+                        child:   adProvider.isNativeAdLoaded ? Container(
+                          alignment: Alignment.center,
+                          child: AdWidget(ad: adProvider.nativeAd),
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.only(bottom: 20.0),
+                          height: 70,
+                        ) : CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                      );
+                    }
+                  }),
+
+
+                  const SizedBox(
+                    height: 100,
+                  ),
                 ],
               )
             ],

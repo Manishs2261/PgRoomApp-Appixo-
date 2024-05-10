@@ -219,7 +219,7 @@ class RatingAndReviewWidgets extends StatelessWidget {
                                     ),
                                     Text(
                                       "${controller.ratingList[index].currentDate}",
-                                      style: const TextStyle(fontSize: 13, color: Colors.white70),
+                                      style: const TextStyle(fontSize: 13, color: Colors.black),
                                     )
                                   ],
                                 ),

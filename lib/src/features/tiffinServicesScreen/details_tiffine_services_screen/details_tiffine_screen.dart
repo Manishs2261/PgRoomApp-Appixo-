@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../data/repository/apis/apis.dart';
@@ -13,14 +15,37 @@ import '../../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/sizes.dart';
+import '../../../utils/ad_helper/services/ad_services.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../room_rent_all_screen/details_rent_screen/widget/circle_Container_widgets.dart';
 import 'controller/controller.dart';
 
-class DetailsTiffineServicesScreen extends StatelessWidget {
+class DetailsTiffineServicesScreen extends StatefulWidget {
   DetailsTiffineServicesScreen({super.key});
 
+  @override
+  State<DetailsTiffineServicesScreen> createState() => _DetailsTiffineServicesScreenState();
+}
+
+class _DetailsTiffineServicesScreenState extends State<DetailsTiffineServicesScreen> {
   final controller = Get.put(DetailsTiffineController(Get.arguments["id"], Get.arguments['list']));
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+
+      AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
+
+      adProvider.initializeNativeAd();
+
+    });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -469,7 +494,7 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
                                             ),
                                             Text(
                                               "${controller.ratingList[index].currentDate}",
-                                              style: const TextStyle(fontSize: 13, color: Colors.white70),
+                                              style: const TextStyle(fontSize: 13, color: Colors.black),
                                             )
                                           ],
                                         ),
@@ -515,7 +540,38 @@ class DetailsTiffineServicesScreen extends StatelessWidget {
 
                 const SizedBox(
                   height: 50,
-                )
+                ),
+
+
+
+                Consumer<AdProvider>(builder: (context, adProvider, child) {
+                  if (adProvider.isNativeAdLoaded) {
+                    return ConstrainedBox(
+                      constraints: const BoxConstraints(
+                        minWidth: 320, // minimum recommended width
+                        minHeight: 320, // minimum recommended height
+                        maxWidth: 400,
+                        maxHeight: 400,
+                      ),
+                      child:   adProvider.isNativeAdLoaded ? Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.only(bottom: 20.0),
+                        height: 70,
+                        child: AdWidget(ad: adProvider.nativeAd),
+                      ) : const CircularProgressIndicator(),
+                    );
+                  } else {
+                    return Container(
+                      height: 0,
+                    );
+                  }
+                }),
+
+
+                const SizedBox(
+                  height: 100,
+                ),
               ],
             )
           ],

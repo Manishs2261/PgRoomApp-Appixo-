@@ -40,6 +40,7 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
     super.initState();
     AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
     adProvider.initializeDetailsBanner();
+    adProvider.initializeNativeAd();
   }
 
   @override
@@ -248,6 +249,8 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
                   const SizedBox(
                     height: 100,
                   ),
+
+
                 ],
               ),
             ),
