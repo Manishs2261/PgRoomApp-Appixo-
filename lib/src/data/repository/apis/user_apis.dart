@@ -20,6 +20,9 @@ class UserApis {
   // for accessing cloud firestorm database
   static FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
+
+
+
   // for storing Image  information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -120,6 +123,7 @@ class UserApis {
   static Future<void> deleteUserAccount() async {
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
+
         final snapshots =
             firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
 
@@ -137,13 +141,42 @@ class UserApis {
           // Get the number of documents in the collection
           numberOfDocuments2 = querySnapshot.docs.length;
 
+
           if (kDebugMode) {
             print(numberOfDocuments2.runtimeType);
           }
         });
 
+
+
+        final snapshots2 =
+        firebaseFirestore.collection('userOldGoodsList').doc(user.uid).collection(user.uid).snapshots();
+
+        var numberOfDocuments3;
+        snapshots2.listen((QuerySnapshot querySnapshot) {
+          // Get the number of documents in the collection
+          numberOfDocuments3 = querySnapshot.docs.length;
+
+
+          if (kDebugMode) {
+            print(numberOfDocuments3.runtimeType);
+          }
+        });
+
+        //delete a Firestorm
+        DocumentReference documentReference =
+        firebaseFirestore.collection('loginUser').doc(user.uid);
+        // Delete the document.
+        await documentReference.delete();
+
+
+
+
+
+
+
         Future.delayed(const Duration(seconds: 1), () async {
-          if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0) {
+          if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0 && numberOfDocuments3 ==0) {
             await user.delete().then((value) {
               Get.offAllNamed(RoutesName.loginScreen);
               Get.snackbar("Delete", "Successfully");

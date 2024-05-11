@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "482025845866-h26ikfrnprkf5rlqvujv36d27ld5nk0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sahumanish.pgroom",
+            "certificate_hash": "7ddf0c0d7022d0c383252d28d709772df591302f"
+          }
+        },
+        {
           "client_id": "482025845866-hst64ut2u3jn7ib0thne9qa05vkrqmab.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -48,7 +56,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-2907991407152083~6630431809"
     }
   ],
   "configuration_version": "1"
