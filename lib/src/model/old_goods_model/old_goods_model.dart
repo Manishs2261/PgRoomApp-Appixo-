@@ -5,6 +5,7 @@ class OldGoodsModel {
   String? name;
   String? contactNumber;
   String? postDate;
+  String? coverImageId;
 
   OldGoodsModel(
       {this.image,
@@ -12,7 +13,9 @@ class OldGoodsModel {
         this.price,
         this.name,
         this.contactNumber,
-        this.postDate});
+        this.postDate,
+        this.coverImageId
+      });
 
   OldGoodsModel.fromJson(Map<String, dynamic> json) {
     image = json['image'];
@@ -21,6 +24,7 @@ class OldGoodsModel {
     name = json['name'];
     contactNumber = json['contactNumber'];
     postDate = json['postDate'];
+    coverImageId = json['coverImageId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +35,7 @@ class OldGoodsModel {
     data['name'] = this.name;
     data['contactNumber'] = this.contactNumber;
     data['postDate'] = this.postDate;
+    data['coverImageId'] = this.coverImageId;
     return data;
   }
 }

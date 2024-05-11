@@ -113,6 +113,7 @@ class EditOtherImageScreen extends StatelessWidget {
                         child: (controller.loading.value)
                             ? const CircularProgressIndicator(
                                 strokeWidth: 3.0,
+                                    color: Colors.white,
                               )
                             : const Text("Choose image")),
                   ),
@@ -132,8 +133,11 @@ class EditOtherImageScreen extends StatelessWidget {
                     height: 200.0 + 200 * controller.containerHeight.value,
                     width: double.infinity,
                     child: StreamBuilder(
-                        stream:
-                            ApisClass.firebaseFirestore.collection("OtherImageList").doc(itemId).collection(itemId).snapshots(),
+                        stream: ApisClass.firebaseFirestore
+                            .collection("OtherImageList")
+                            .doc(itemId)
+                            .collection(itemId)
+                            .snapshots(),
                         builder: (context, snapshot) {
                           switch (snapshot.connectionState) {
                             case ConnectionState.waiting:
@@ -208,7 +212,7 @@ class EditOtherImageScreen extends StatelessWidget {
                                                 onTap: () {
                                                   final imageId = snapshot.data!.docs[index].id;
                                                   final imageUrl = rentList[index].OtherImage;
-                                                  controller.onDeleteButton( imageId, itemId, imageUrl!);
+                                                  controller.onDeleteButton(imageId, itemId, imageUrl!);
                                                 },
                                                 child: CircleAvatar(
                                                     radius: 18,

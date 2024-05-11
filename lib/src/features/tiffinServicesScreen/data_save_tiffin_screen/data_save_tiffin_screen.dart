@@ -313,8 +313,8 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                 Container(
                   height: 500,
                   width: double.infinity,
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(2),
+                  decoration: const BoxDecoration(
                     color: AppColors.primary,
                   ),
                   child: Stack(
@@ -377,14 +377,17 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                         alignment: Alignment.topRight,
                         child: InkWell(
                           onTap: () {
-                            setState(() {});
+                            setState(() {
+
+
+                            });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(top: 150, right: 15),
+                            margin: const EdgeInsets.only(top: 150, right: 15),
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.refresh_outlined,
                               color: Colors.white,
                             ),

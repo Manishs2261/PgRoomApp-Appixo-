@@ -43,6 +43,9 @@ class TiffineServicesApis {
   static var averageRatingTiffine;
   static var totalNumberOfStarTiffine;
 
+  static String coverImageFileName = '';
+  static String menuImageFileName = '';
+
 //==============Tiffine Services Apis =====================
 
   // create a tiffine services data base for main home collection
@@ -59,7 +62,11 @@ class TiffineServicesApis {
         servicesName: servicesName,
         contactNumber: contactNumber,
         latitude: latu,
-        longitude: lang);
+        longitude: lang,
+      coverImageId: coverImageFileName,
+      menuImageId: menuImageFileName
+
+    );
 
     // store main list data
     return await firebaseFirestore
@@ -82,7 +89,10 @@ class TiffineServicesApis {
         servicesName: servicesName,
         contactNumber: contactNumber,
         latitude: latu,
-        longitude: lang);
+        longitude: lang,
+        coverImageId: coverImageFileName,
+        menuImageId: menuImageFileName
+    );
     // user list collection
     return await firebaseFirestore
         .collection("userTiffineCollection")
@@ -100,19 +110,29 @@ class TiffineServicesApis {
   // upload Cover image data in firebase database
   static Future uploadTiffineServicesCoverImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('tiffineServices/${user.uid}/${user.uid}.jpg');
+      final reference = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.jpg');
+
+
+      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      List<String> pathSegments = updatedPath.split('/');
+      coverImageFileName = pathSegments.last;
+
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       tiffineServicesCoverImageUrl = await snapshot.ref.getDownloadURL();
     } catch (e) {
-      AppLoggerHelper.info("image is not uploaded ; $e");
+      AppLoggerHelper.info("image is not uploaded : $e");
     }
   }
 
   // upload  Menu image data in firebase database
   static Future uploadMenuImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('foodMenu/${user.uid}/${user.uid}.jpg');
+      final reference = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.jpg');
+
+      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      List<String> pathSegments = updatedPath.split('/');
+      menuImageFileName = pathSegments.last;
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       foodMenuImageUrl = await snapshot.ref.getDownloadURL();
@@ -149,13 +169,13 @@ class TiffineServicesApis {
   }
 
   // update cover Image data
-  static Future<void> updateTiffineCoverImage(File file, String itemId) async {
+  static Future<void> updateTiffineCoverImage(File file, String itemId,String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.$ext');
+    final ref = storage.ref().child('tiffineServices/${user.uid}/$coverImageFileName');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -179,13 +199,13 @@ class TiffineServicesApis {
   }
 
   // update cover Image data
-  static Future<void> updateTiffineMenuImage(File file, String itemId) async {
+  static Future<void> updateTiffineMenuImage(File file, String itemId,String menuImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.$ext');
+    final ref = storage.ref().child('foodMenu/${user.uid}/$menuImageFileName');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {

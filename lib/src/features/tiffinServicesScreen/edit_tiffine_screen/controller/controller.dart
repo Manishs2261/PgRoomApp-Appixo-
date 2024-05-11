@@ -36,11 +36,8 @@ class EditTiffineScreenController extends GetxController {
   RxBool isSelectedCoverImage = false.obs;
   RxBool isSelectedMenuImage = false.obs;
 
-
-
   RxString latitude = ''.obs;
   RxString longitude = ''.obs;
-
 
   @override
   void onInit() {
@@ -55,10 +52,8 @@ class EditTiffineScreenController extends GetxController {
     selectedMenuImage = "${data.menuImage}".obs;
     isSelectedCoverImage = (data.foodImage != "").obs;
     isSelectedMenuImage = (data.menuImage != '').obs;
-     latitude = "${data.latitude}".obs;
-     longitude = "${data.longitude}".obs;
-
-
+    latitude = "${data.latitude}".obs;
+    longitude = "${data.longitude}".obs;
 
     super.onInit();
   }
@@ -69,7 +64,7 @@ class EditTiffineScreenController extends GetxController {
     if (coverImage == null) return;
     selectedCoverImage.value = coverImage!.path.toString();
 
-    await TiffineServicesApis.updateTiffineCoverImage(File(coverImage!.path), itemId).then((value) {
+    await TiffineServicesApis.updateTiffineCoverImage(File(coverImage!.path), itemId, data.coverImageId!).then((value) {
       Get.snackbar("Image upload ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");
@@ -88,7 +83,7 @@ class EditTiffineScreenController extends GetxController {
   }
 
   Future updateMenuImage() async {
-    await TiffineServicesApis.updateTiffineMenuImage(File(menuImage!.path), itemId).then((value) {
+    await TiffineServicesApis.updateTiffineMenuImage(File(menuImage!.path), itemId, data.menuImageId!).then((value) {
       Get.snackbar("Image uploaded ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");
@@ -103,9 +98,8 @@ class EditTiffineScreenController extends GetxController {
       if (value) {
         if (globalKey.currentState!.validate()) {
           AppHelperFunction.showDialogCenter(false);
-          TiffineServicesApis.updateTiffineServicesData(
-                  servicesNameController.value.text, addressController.value.text, priceController.value.text, itemId,
-          numberController.value.text,latitude.value,longitude.value)
+          TiffineServicesApis.updateTiffineServicesData(servicesNameController.value.text, addressController.value.text,
+                  priceController.value.text, itemId, numberController.value.text, latitude.value, longitude.value)
               .then((value) {
             Get.snackbar("Update", "Successfully");
             Navigator.pop(Get.context!);

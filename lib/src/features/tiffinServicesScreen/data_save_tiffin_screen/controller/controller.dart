@@ -3,12 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-
-import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
-import '../../../../data/repository/apis/apis.dart';
 
 class AddYourTiffineController extends GetxController {
   // for bool value false not show a image

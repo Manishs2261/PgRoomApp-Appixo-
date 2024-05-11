@@ -181,6 +181,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
                           controller: controller.priceController.value,
                           hintText: "Enter Price",
                           lableText: ' Selling Price',
+                          maxLength: 6,
                           icon: const Icon(Icons.currency_rupee),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),

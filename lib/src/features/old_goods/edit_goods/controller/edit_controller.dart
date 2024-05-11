@@ -4,13 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
-
 import '../../../../data/repository/apis/old_goods_api.dart';
 import '../../../../model/old_goods_model/old_goods_model.dart';
-import '../../../../model/tiffin_services_model/tiffen_services_model.dart';
 
 class EditGoodsScreenController extends GetxController {
   var itemId;
@@ -59,7 +55,7 @@ class EditGoodsScreenController extends GetxController {
     if (coverImage == null) return;
     selectedCoverImage.value = coverImage!.path.toString();
 
-    await TiffineServicesApis.updateTiffineCoverImage(File(coverImage!.path), itemId).then((value) {
+    await OldGoodsApis.updateOldGoodsImage(File(coverImage!.path), itemId,data.coverImageId!).then((value) {
       Get.snackbar("Image upload ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");

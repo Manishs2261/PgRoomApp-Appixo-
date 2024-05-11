@@ -42,6 +42,7 @@ class UserRentModel {
   bool? roomAvailable;
   String? latitude;
   String? longitude;
+  String? coverImageId;
 
   UserRentModel({
     this.parking,
@@ -87,7 +88,7 @@ class UserRentModel {
     this.roomAvailable,
     this.longitude,
     this.latitude,
-
+    this.coverImageId,
   });
 
   UserRentModel.fromJson(Map<String, dynamic> json) {
@@ -106,7 +107,7 @@ class UserRentModel {
     triplePersonPrice = json['triplePersonPrice'];
     houseName = json['houseName'];
     fan = json['fan'];
-    numberOfRooms = json['numberOfRooms']??'0';
+    numberOfRooms = json['numberOfRooms'] ?? '0';
     coverImage = json['coverImage'];
     contactNumber = json['contactNumber'];
     restrictedTime = json['restrictedTime'];
@@ -129,11 +130,12 @@ class UserRentModel {
     userRentId = json['userRentId'];
     attachBathRoom = json["attachBathRoom"] ?? false;
     shareAbleBathRoom = json["shareAbleBathRoom"] ?? false;
-    average = json['average']??0.0;
-    numberOfRating = json['numberOfRating']?? 0;
+    average = json['average'] ?? 0.0;
+    numberOfRating = json['numberOfRating'] ?? 0;
     roomAvailable = json['roomAvailable'] ?? true;
-    longitude = json['longitude'] ;
-    latitude = json['latitude'] ;
+    longitude = json['longitude'];
+    latitude = json['latitude'];
+    coverImageId = json['coverImageId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -181,7 +183,8 @@ class UserRentModel {
     data['roomAvailable'] = this.roomAvailable;
     data['longitude'] = this.longitude;
     data['latitude'] = this.latitude;
+    data['coverImageId'] = this.coverImageId;
 
-     return data;
+    return data;
   }
 }

@@ -2,13 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-
-import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
-import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/apis/old_goods_api.dart';
 
 class AddYourGoodsController extends GetxController {
@@ -42,8 +37,6 @@ class AddYourGoodsController extends GetxController {
     });
   }
 
-
-
   //============================================
 
   Future onUserTiffineServicesData() async {
@@ -54,8 +47,6 @@ class AddYourGoodsController extends GetxController {
       priceController.value.text,
       AppHelperFunction.getFormattedDate(date),
       numberController.value.text,
-
-
     ).then((value) {
       onTiffineServicesData();
     }).onError((error, stackTrace) {
@@ -72,7 +63,6 @@ class AddYourGoodsController extends GetxController {
       priceController.value.text,
       AppHelperFunction.getFormattedDate(date),
       numberController.value.text,
-
     ).then((value) {
       Get.snackbar("Save", "Successfully");
       Navigator.pop(Get.context!);

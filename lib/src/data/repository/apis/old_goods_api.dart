@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 
 import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../utils/logger/logger.dart';
@@ -25,6 +26,7 @@ class OldGoodsApis {
 
   static var id = '';
   static var imageUrl = '';
+  static String coverImageFileName = '';
 
 
 
@@ -40,6 +42,7 @@ class OldGoodsApis {
       contactNumber: contactNumber,
       postDate: postdate,
       price: price,
+      coverImageId:coverImageFileName,
     );
 
     // store main list data
@@ -56,6 +59,7 @@ class OldGoodsApis {
       contactNumber: contactNumber,
       postDate: postdate,
       price: price,
+      coverImageId:coverImageFileName
     );
 
     // user list collection
@@ -75,7 +79,12 @@ class OldGoodsApis {
   // upload Cover image data in firebase database
   static Future uploadOldGoodsImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('oldGoodsImage/${user.uid}/${user.uid}.jpg');
+      final reference = storage.ref().child('oldGoodsImage/${user.uid}/${DateTime.now()}.jpg');
+
+      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      List<String> pathSegments = updatedPath.split('/');
+      coverImageFileName = pathSegments.last;
+
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       imageUrl = await snapshot.ref.getDownloadURL();
@@ -105,13 +114,16 @@ class OldGoodsApis {
   }
 
   // update cover Image data
-  static Future<void> updateOldGoodsImage(File file, String itemId) async {
+  static Future<void> updateOldGoodsImage(File file, String itemId,String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
+    
+    print("cover :$coverImageFileName");
 
     // storage file ref with path
-    final ref = storage.ref().child('oldGoodsImage/${user.uid}/${DateTime.now()}.$ext');
+    final ref = storage.ref().child('oldGoodsImage/${user.uid}/$coverImageFileName');
+
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {

@@ -9,6 +9,9 @@ class TiffineServicesModel {
   String? contactNumber;
   String? latitude;
   String? longitude;
+  String? coverImageId;
+  String? menuImageId;
+
 
 
   TiffineServicesModel(
@@ -22,6 +25,8 @@ class TiffineServicesModel {
       this.contactNumber,
         this.longitude,
         this.latitude,
+        this.coverImageId,
+        this.menuImageId
       });
 
   TiffineServicesModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +40,8 @@ class TiffineServicesModel {
     contactNumber = json['contactNumber'];
     longitude = json['longitude'] ;
     latitude = json['latitude'] ;
+    coverImageId = json['coverImageId'] ;
+    menuImageId = json['menuImageId'] ;
   }
 
   Map<String, dynamic> toJson() {
@@ -49,6 +56,8 @@ class TiffineServicesModel {
     data['contactNumber'] = this.contactNumber;
     data['longitude'] = this.longitude;
     data['latitude'] = this.latitude;
+    data['coverImageId'] = this.coverImageId;
+    data['menuImageId'] = this.menuImageId;
     return data;
   }
 }

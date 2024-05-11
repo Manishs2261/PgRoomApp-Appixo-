@@ -36,6 +36,7 @@ class ApisClass {
   static var totalNumberOfStar;
   static UserRentModel model = UserRentModel();
   static List<UserRentModel> allDataList = [];
+  static String coverImageFileId = '';
 
   //============ Post Room  Data Apis =====================
 
@@ -83,50 +84,50 @@ class ApisClass {
     longitude,
   ) async {
     final userHomeList = UserRentModel(
-      coverImage: coverImage,
-      houseName: houseName,
-      address: address,
-      city: cityName,
-      landMark: landMark,
-      contactNumber: contactNumber,
-      bhkType: bhk,
-      roomType: roomType,
-      singlePersonPrice: singlePrice,
-      doublePersonPrice: doublePrice,
-      triplePersonPrice: triplePrice,
-      fourPersonPrice: fourPrice,
-      familyPrice: familyPrice,
-      numberOfRooms: numberOfRooms,
-      wifi: wifi,
-      bed: bed,
-      chair: chair,
-      table: table,
-      fan: fan,
-      gadda: gadda,
-      light: light,
-      locker: locker,
-      bedSheet: bedSheet,
-      washingMachine: washingMachine,
-      parking: parking,
-      electricityBill: electricityBill,
-      waterBill: waterBill,
-      flexibleTime: flexible,
-      cooking: cooking,
-      cookingType: cookingType,
-      boy: boyAllow,
-      girls: girlAllow,
-      familyMember: familyMember,
-      like: like,
-      restrictedTime: restrictedTime,
-      attachBathRoom: attachBathRoom,
-      shareAbleBathRoom: shareAbleBathRoom,
-      average: 0.0,
-      numberOfRating: 0,
-      roomAvailable: true,
-      userRentId: time,
-      latitude: latitude,
-      longitude: longitude,
-    );
+        coverImage: coverImage,
+        houseName: houseName,
+        address: address,
+        city: cityName,
+        landMark: landMark,
+        contactNumber: contactNumber,
+        bhkType: bhk,
+        roomType: roomType,
+        singlePersonPrice: singlePrice,
+        doublePersonPrice: doublePrice,
+        triplePersonPrice: triplePrice,
+        fourPersonPrice: fourPrice,
+        familyPrice: familyPrice,
+        numberOfRooms: numberOfRooms,
+        wifi: wifi,
+        bed: bed,
+        chair: chair,
+        table: table,
+        fan: fan,
+        gadda: gadda,
+        light: light,
+        locker: locker,
+        bedSheet: bedSheet,
+        washingMachine: washingMachine,
+        parking: parking,
+        electricityBill: electricityBill,
+        waterBill: waterBill,
+        flexibleTime: flexible,
+        cooking: cooking,
+        cookingType: cookingType,
+        boy: boyAllow,
+        girls: girlAllow,
+        familyMember: familyMember,
+        like: like,
+        restrictedTime: restrictedTime,
+        attachBathRoom: attachBathRoom,
+        shareAbleBathRoom: shareAbleBathRoom,
+        average: 0.0,
+        numberOfRating: 0,
+        roomAvailable: true,
+        userRentId: time,
+        latitude: latitude,
+        longitude: longitude,
+        coverImageId: coverImageFileId);
     return await firebaseFirestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
   }
 
@@ -174,50 +175,50 @@ class ApisClass {
     longitude,
   ) async {
     final userHomeList = UserRentModel(
-      coverImage: coverImage,
-      houseName: houseName,
-      address: address,
-      city: cityName,
-      landMark: landMark,
-      contactNumber: contactNumber,
-      bhkType: bhk,
-      roomType: roomType,
-      singlePersonPrice: singlePrice,
-      doublePersonPrice: doublePrice,
-      triplePersonPrice: triplePrice,
-      fourPersonPrice: fourPrice,
-      familyPrice: familyPrice,
-      numberOfRooms: numberOfRooms,
-      wifi: wifi,
-      bed: bed,
-      chair: chair,
-      table: table,
-      fan: fan,
-      gadda: gadda,
-      light: light,
-      locker: locker,
-      bedSheet: bedSheet,
-      washingMachine: washingMachine,
-      parking: parking,
-      electricityBill: electricityBill,
-      waterBill: waterBill,
-      flexibleTime: flexible,
-      cooking: cooking,
-      cookingType: cookingType,
-      boy: boyAllow,
-      girls: girlAllow,
-      familyMember: familyMember,
-      like: like,
-      restrictedTime: restrictedTime,
-      attachBathRoom: attachBathRoom,
-      shareAbleBathRoom: shareAbleBathRoom,
-      average: 0.0,
-      numberOfRating: 0,
-      roomAvailable: true,
-      userRentId: time,
-      latitude: latitude,
-      longitude: longitude,
-    );
+        coverImage: coverImage,
+        houseName: houseName,
+        address: address,
+        city: cityName,
+        landMark: landMark,
+        contactNumber: contactNumber,
+        bhkType: bhk,
+        roomType: roomType,
+        singlePersonPrice: singlePrice,
+        doublePersonPrice: doublePrice,
+        triplePersonPrice: triplePrice,
+        fourPersonPrice: fourPrice,
+        familyPrice: familyPrice,
+        numberOfRooms: numberOfRooms,
+        wifi: wifi,
+        bed: bed,
+        chair: chair,
+        table: table,
+        fan: fan,
+        gadda: gadda,
+        light: light,
+        locker: locker,
+        bedSheet: bedSheet,
+        washingMachine: washingMachine,
+        parking: parking,
+        electricityBill: electricityBill,
+        waterBill: waterBill,
+        flexibleTime: flexible,
+        cooking: cooking,
+        cookingType: cookingType,
+        boy: boyAllow,
+        girls: girlAllow,
+        familyMember: familyMember,
+        like: like,
+        restrictedTime: restrictedTime,
+        attachBathRoom: attachBathRoom,
+        shareAbleBathRoom: shareAbleBathRoom,
+        average: 0.0,
+        numberOfRating: 0,
+        roomAvailable: true,
+        userRentId: time,
+        latitude: latitude,
+        longitude: longitude,
+        coverImageId: coverImageFileId);
 
     return await firebaseFirestore
         .collection("userRentDetails")
@@ -235,6 +236,11 @@ class ApisClass {
   static Future uploadCoverImage(File imageFile) async {
     try {
       final reference = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
+
+      String updatedPath = reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      List<String> pathSegments = updatedPath.split('/');
+      coverImageFileId = pathSegments.last;
+
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       coverImageDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -278,13 +284,13 @@ class ApisClass {
   }
 
 // update cover Image data
-  static Future<void> updateCoverItemImage(File file, String itemId) async {
+  static Future<void> updateCoverItemImage(File file, String itemId, String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.$ext');
+    final ref = storage.ref().child('coverImage/${user.uid}/$coverImageFileName');
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {

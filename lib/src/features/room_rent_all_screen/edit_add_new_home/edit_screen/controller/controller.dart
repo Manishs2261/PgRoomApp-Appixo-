@@ -211,7 +211,7 @@ class EditFormScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         AppHelperFunction.showDialogCenter(false);
-        ApisClass.updateCoverItemImage(File(image!.path), itemId).then((value) {
+        ApisClass.updateCoverItemImage(File(image!.path), itemId, data.coverImageId!).then((value) {
           Get.snackbar("Image Update ", "Successfully");
 
           Navigator.pop(Get.context!);
