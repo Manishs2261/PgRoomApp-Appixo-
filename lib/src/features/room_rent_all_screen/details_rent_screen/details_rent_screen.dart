@@ -104,7 +104,7 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
                       ),
                       Gap(10),
                       Text(
-                        "Add to card",
+                        "Add to cart",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],

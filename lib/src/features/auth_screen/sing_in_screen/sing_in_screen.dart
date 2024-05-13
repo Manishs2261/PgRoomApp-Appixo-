@@ -47,7 +47,7 @@ class SingInScreen extends StatelessWidget {
         canPop: true,
         onPopInvoked: (didPop) {
           _controller.emailController.value.clear();
-          _controller.otpController.value.clear();
+          _controller.passController.value.clear();
           if (_controller.emailReading.value) {
             _controller.timer.cancel();
           }

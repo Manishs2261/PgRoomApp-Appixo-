@@ -1,14 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/navigation_menu.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../data/repository/apis/apis.dart';
-import '../../../../data/repository/auth_apis/auth_apis.dart';
-import '../../../../res/route_name/routes_name.dart';
+ import '../../../../data/repository/auth_apis/auth_apis.dart';
+ import '../../../../res/route_name/routes_name.dart';
 import '../../../splash/controller/splash_controller.dart';
 
 class LoginScreenController extends GetxController {
@@ -41,8 +38,8 @@ class LoginScreenController extends GetxController {
           //if user use wrong password and email id than
           // not to allow next page navigation
           wrongPassword.value = value;
-
           loading.value = false;
+
           Navigator.pop(Get.context!);
           if (wrongPassword.value) {
             // Login sharedPreference code +++++++++
@@ -52,7 +49,11 @@ class LoginScreenController extends GetxController {
             //initialize  a variable
             finalUserUidGlobal = preference.getString('userUid');
             //========================
-            Get.offAllNamed(RoutesName.navigationScreen);
+
+            Get.offAllNamed(RoutesName.signProfileScreen, arguments: {'email': emailControllerLogin.value.text});
+
+            //Get.toNamed(RoutesName.signProfileScreen,arguments: {'email':emailControllerLogin.value.text});
+            //  Get.offAllNamed(RoutesName.navigationScreen);
             //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
             //       NavigationMenuScreen()), (Route<dynamic> route) => false);
           }

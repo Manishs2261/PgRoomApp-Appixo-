@@ -185,20 +185,20 @@ class SignProfileScreen extends StatelessWidget {
                       const SizedBox(
                         height: 24,
                       ),
-                      TextFormField(
-                        controller: controller.passwordController.value,
-                        keyboardType: TextInputType.text,
-                        validator: (value) => PasswordValidator.validate(value),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                          hintText: "Enter at least 6 characters for the password.",
-                          prefixIcon: const Icon(
-                            Icons.lock,
-                            color: AppColors.primary,
-                          ),
-                          contentPadding: const EdgeInsets.only(top: 5),
-                        ),
-                      )
+                      // TextFormField(
+                      //   controller: controller.passwordController.value,
+                      //   keyboardType: TextInputType.text,
+                      //   validator: (value) => PasswordValidator.validate(value),
+                      //   decoration: InputDecoration(
+                      //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                      //     hintText: "Enter at least 6 characters for the password.",
+                      //     prefixIcon: const Icon(
+                      //       Icons.lock,
+                      //       color: AppColors.primary,
+                      //     ),
+                      //     contentPadding: const EdgeInsets.only(top: 5),
+                      //   ),
+                      // )
                     ],
                   )),
               SizedBox(

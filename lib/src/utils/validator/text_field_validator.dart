@@ -10,11 +10,11 @@ class PasswordValidator {
     if(value==null || value.isEmpty)
       {
         return "Password can't be empty";
-      }else if(value.length == 6)
+      }else if(value.length < 6)
       {
-        return null;
+        return "Enter at least 6 characters for the password";
       }else{
-      return "Enter at least 6 characters for the password";
+      return null;
     }
 
   }

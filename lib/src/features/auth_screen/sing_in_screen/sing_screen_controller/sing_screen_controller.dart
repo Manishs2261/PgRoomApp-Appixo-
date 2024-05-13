@@ -11,7 +11,7 @@ import '../../../../res/route_name/routes_name.dart';
 class SingScreenController extends GetxController {
   final emailController = TextEditingController().obs;
 
-  final otpController = TextEditingController().obs;
+  final passController = TextEditingController().obs;
 
   Connectivity connectivity = Connectivity();
 
@@ -24,36 +24,23 @@ class SingScreenController extends GetxController {
   RxBool otpReSendLoading = false.obs;
   RxBool emailReading = false.obs;
 
-  RxInt counter = 90.obs;
+  RxInt counter = 180.obs;
   late Timer timer;
 
   onOtpSubmitVerifyButton() async {
     //check the internet connection
+    loading.value = true;
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        if (otpController.value.text == "") {
-          AppHelperFunction.showFlashbar("OTP can't be empty");
-          return null;
-        } else {
-          if (otpController.value.text.isNotEmpty && otpController.value.text.length == 6) {
-            AuthApisClass.otpSubmitVerification(otpController.value.text).then((value) {
-              if (value) {
-                isOtp.value = value;
-                isVerify.value = value;
-                isSend.value = false;
-                Get.offAndToNamed(
-                  RoutesName.signProfileScreen,
-                  arguments: {
-                    'email': emailController.value.text
-                  },
-                );
-                timer.cancel();
-              }
-            }).onError((error, stackTrace) {});
-          } else {
-            Get.snackbar("Wrong OTP", " Please try again.");
+        AuthApisClass.singEmailIdAndPassword(emailController.value.text, passController.value.text).then((value) {
+          loading.value = false;
+          if (value) {
+            Get.snackbar("Email Sent", "Please verify your email id");
+            Get.toNamed(RoutesName.loginScreen);
+            emailController.value.clear();
+            passController.value.clear();
           }
-        }
+        });
       }
     });
   }
@@ -72,7 +59,7 @@ class SingScreenController extends GetxController {
 
           AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
             if (AuthApisClass.otpSend) {
-              counter.value = 90;
+              counter.value = 180;
               // isSend is true than ReSend Button Visible
               isSend.value = value;
               //count down timer
@@ -107,7 +94,7 @@ class SingScreenController extends GetxController {
           AppHelperFunction.showFlashbar("Email can't be empty");
           return null;
         } else {
-          counter.value = 90;
+          counter.value = 180;
           isSend.value = true;
           startOtpTimer();
           otpReSendLoading.value = true;

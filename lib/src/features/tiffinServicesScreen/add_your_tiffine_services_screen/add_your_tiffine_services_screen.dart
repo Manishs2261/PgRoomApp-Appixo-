@@ -29,7 +29,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                 onPressed: () {
                   Get.to(() => const DataSaveTiffineScreen());
                 },
-                title: "Add your Tiffine Services"),
+                title: "Add your services"),
             const SizedBox(
               height: 15,
             ),

@@ -364,7 +364,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                 ),
 
                 Container(
-                  height: 500,
+                  height: 300,
                   width: double.infinity,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
                   child: Stack(
@@ -380,6 +380,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                         minZoomLevel: 1,
                         maxZoomLevel: 16,
                         trackMyPosition: true,
+
                         selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
                         mapLanguage: 'en',
                         countryFilter: 'In',
@@ -404,7 +405,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
                         child: DefaultTextStyle(
                           style: const TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 14.0,
                             fontFamily: 'Agne',
                           ),
                           child: AnimatedTextKit(
@@ -424,17 +425,17 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                         ),
                       ),
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.bottomLeft,
                         child: InkWell(
                           onTap: () {
                             setState(() {});
                           },
                           child: Container(
-                            margin: EdgeInsets.only(top: 150, right: 15),
+                            margin: const EdgeInsets.only(bottom: 70, left: 10),
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.refresh_outlined,
                               color: Colors.white,
                             ),

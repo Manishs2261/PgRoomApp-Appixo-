@@ -20,9 +20,6 @@ class UserApis {
   // for accessing cloud firestorm database
   static FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-
-
-
   // for storing Image  information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -120,77 +117,109 @@ class UserApis {
     return true;
   }
 
+  static Future<void> deleteUserAllItemAccount(String profileImageUrl) async {
+    AppHelperFunction.checkInternetAvailability().then((value) async {
+      if (value) {
+        try {
+          final snapshots =
+              firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
+
+          var numberOfDocuments1;
+          snapshots.listen((QuerySnapshot querySnapshot) {
+            // Get the number of documents in the collection
+            numberOfDocuments1 = querySnapshot.docs.length;
+          });
+
+          final snapshots1 =
+              firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).snapshots();
+
+          var numberOfDocuments2;
+          snapshots1.listen((QuerySnapshot querySnapshot) {
+            // Get the number of documents in the collection
+            numberOfDocuments2 = querySnapshot.docs.length;
+
+            if (kDebugMode) {
+              print(numberOfDocuments2.runtimeType);
+            }
+          });
+
+          final snapshots2 =
+              firebaseFirestore.collection('userOldGoodsList').doc(user.uid).collection(user.uid).snapshots();
+
+          var numberOfDocuments3;
+          snapshots2.listen((QuerySnapshot querySnapshot) {
+            // Get the number of documents in the collection
+            numberOfDocuments3 = querySnapshot.docs.length;
+          });
+
+          Future.delayed(const Duration(seconds: 1), () async {
+            if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0 && numberOfDocuments3 == 0) {
+              /// Get.toNamed(RoutesName.reAuthScreen);
+              AppHelperFunction.showDialogCenter(false);
+              await firebaseFirestore
+                  .collection("loginUser")
+                  .doc(user.uid)
+                  .collection(auth.currentUser!.uid)
+                  .doc(user.uid)
+                  .delete();
+
+              if (user.displayName.runtimeType.toString() != 'String') {
+                final refCoverImage = storage.refFromURL(profileImageUrl);
+                await refCoverImage.delete();
+              }
+
+              Get.offAllNamed(RoutesName.loginScreen);
+              Get.snackbar("Delete", "Successfully");
+              await FirebaseAuth.instance.currentUser?.delete();
+
+              //  delete a Firestorm
+
+              //
+              // await user.delete().then((value) async {
+              //
+              //   print(user);
+              //   print(user.uid);
+              // // //  delete a Firestorm
+              // //   await firebaseFirestore
+              // //       .collection("loginUser")
+              // //       .doc(user.uid)
+              // //       .collection(auth.currentUser!.uid)
+              // //       .doc(user.uid)
+              // //       .delete();
+              //   Get.offAllNamed(RoutesName.loginScreen);
+              //   Get.snackbar("Delete", "Successfully");
+              // }).onError((error, stackTrace) {
+              //   Get.snackbar("Delete", "Failed");
+              //   if (kDebugMode) {
+              //     print(error);
+              //     print(stackTrace);
+              //   }
+              // });
+            } else {
+              Get.snackbar("Alert", "Please delete all your posted items first.");
+            }
+          });
+        } catch (e) {
+          print("delete :$e");
+        }
+      }
+    });
+  }
+
   static Future<void> deleteUserAccount() async {
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
+        await firebaseFirestore
+            .collection("loginUser")
+            .doc(user.uid)
+            .collection(auth.currentUser!.uid)
+            .doc(user.uid)
+            .delete();
 
-        final snapshots =
-            firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
-
-        var numberOfDocuments1;
-        snapshots.listen((QuerySnapshot querySnapshot) {
-          // Get the number of documents in the collection
-          numberOfDocuments1 = querySnapshot.docs.length;
-        });
-
-        final snapshots1 =
-            firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).snapshots();
-
-        var numberOfDocuments2;
-        snapshots1.listen((QuerySnapshot querySnapshot) {
-          // Get the number of documents in the collection
-          numberOfDocuments2 = querySnapshot.docs.length;
-
-
-          if (kDebugMode) {
-            print(numberOfDocuments2.runtimeType);
-          }
-        });
-
-
-
-        final snapshots2 =
-        firebaseFirestore.collection('userOldGoodsList').doc(user.uid).collection(user.uid).snapshots();
-
-        var numberOfDocuments3;
-        snapshots2.listen((QuerySnapshot querySnapshot) {
-          // Get the number of documents in the collection
-          numberOfDocuments3 = querySnapshot.docs.length;
-
-
-          if (kDebugMode) {
-            print(numberOfDocuments3.runtimeType);
-          }
-        });
-
-        //delete a Firestorm
-        DocumentReference documentReference =
-        firebaseFirestore.collection('loginUser').doc(user.uid);
-        // Delete the document.
-        await documentReference.delete();
-
-
-
-
-
-
-
-        Future.delayed(const Duration(seconds: 1), () async {
-          if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0 && numberOfDocuments3 ==0) {
-            await user.delete().then((value) {
-              Get.offAllNamed(RoutesName.loginScreen);
-              Get.snackbar("Delete", "Successfully");
-            }).onError((error, stackTrace) {
-              Get.snackbar("Delete", "Failed");
-              if (kDebugMode) {
-                print(error);
-                print(stackTrace);
-              }
-            });
-          } else {
-            Get.snackbar("Alert", "Please delete all your posted items first.");
-          }
-        });
+        Get.offAllNamed(RoutesName.loginScreen);
+        Get.snackbar("Delete", "Successfully");
+        await FirebaseAuth.instance.currentUser?.delete();
+        //  delete a Firestorm
       }
     });
   }

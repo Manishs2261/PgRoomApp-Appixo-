@@ -148,7 +148,7 @@ class AppHelperFunction {
       barrierDismissible: barrier,
         context: Get.context!,
         builder: (context) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(color: Colors.white,),
           );
         });

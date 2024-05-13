@@ -6,6 +6,7 @@ import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
 import '../../../utils/helpers/helper_function.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class ApisClass {
   // for authentication
@@ -256,7 +257,7 @@ class ApisClass {
   //upload other images in firebase database
   static Future uploadOtherImage(File imageFile, itemId) async {
     try {
-      final reference = storage.ref().child('otherImage/${DateTime.now()}.jpg');
+      final reference = storage.ref().child('otherImage/$itemId/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       otherDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -615,17 +616,45 @@ class ApisClass {
           .doc(deleteId)
           .delete();
 
-      //delete a review collection data
+// delete other image in firebase storage
+
+      print('id - $deleteId');
+
+      await FirebaseStorage.instance.ref("otherImage/$deleteId").listAll().then((value) {
+        value.items.forEach((element) {
+          FirebaseStorage.instance.ref(element.fullPath).delete();
+        });
+      });
+
+      //delete other image doc
 
       final batch = firebaseFirestore.batch();
-      var collection = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+      var collection = firebaseFirestore.collection("OtherImageList").doc(deleteId).collection(deleteId);
       var snapshots = await collection.get();
       for (var doc in snapshots.docs) {
         batch.delete(doc.reference);
       }
       await batch.commit();
 
-      // Delete the document.
+      final batch1 = firebaseFirestore.batch();
+      var collection1 = firebaseFirestore.collection("OtherImageUserList").doc(deleteId).collection(deleteId);
+      var snapshots1 = await collection1.get();
+      for (var doc in snapshots1.docs) {
+        batch1.delete(doc.reference);
+      }
+      await batch1.commit();
+
+      //delete a review collection data
+
+      final batch2 = firebaseFirestore.batch();
+      var collection2 = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+      var snapshots2 = await collection2.get();
+      for (var doc in snapshots2.docs) {
+        batch2.delete(doc.reference);
+      }
+      await batch2.commit();
+
+      // // Delete the document.
       await documentReference.delete();
       await documentReference1.delete();
 

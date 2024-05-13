@@ -28,7 +28,7 @@ class AuthApisClass {
       if (value) {
         signInWithGoogle().then((value) async {
           await UserApis.saveUserData(
-              auth.currentUser?.displayName,"", auth.currentUser?.email, auth.currentUser!.photoURL);
+              auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
           print("😀 ${auth.currentUser!.photoURL}");
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -89,6 +89,10 @@ class AuthApisClass {
         password: pass,
       );
 
+      final user = credential.user;
+      await FirebaseAuth.instance.setLanguageCode("en");
+      await user?.sendEmailVerification();
+
       AppLoggerHelper.info("${credential.user}");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -114,6 +118,14 @@ class AuthApisClass {
   static Future<bool> loginEmailAndPassword(String email, String pass) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
+
+      if( credential.user!.emailVerified)
+        {
+          return true;
+        }else{
+        Get.snackbar("Email Not Verified", "The email has not been verified..");
+      }
+
       AppLoggerHelper.info("${credential.user}");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -131,20 +143,15 @@ class AuthApisClass {
       }
     }
 
-    return true;
+    return false;
   }
-
-
-
-
-
 
   //===========send opt email verification ===============
   static Future<bool> sendEmailOtpVerification(String email) async {
     //====send otp code ==========
     emailOtp.setConfig(
       appEmail: "sahusanju138@gmail.com",
-      appName: "~ By Appixo",
+      appName: "~ By Appixo   ",
       userEmail: email,
       otpLength: 6,
       otpType: OTPType.digitsOnly,
@@ -172,16 +179,43 @@ class AuthApisClass {
 
   // ============Forget Password ==========
 
-static forgetPassword(String email) async {
+  static forgetPassword(String email) async {
     await auth.sendPasswordResetEmail(email: email).then((value) {
-      Get.snackbar("Send Email","check your Email id." );
+      Get.snackbar("Send Email", "check your Email id.");
       Navigator.pop(Get.context!);
       Navigator.pop(Get.context!);
     }).onError((error, stackTrace) {
-      Get.snackbar("Send Email","Failed.");
+      Get.snackbar("Send Email", "Failed.");
       Navigator.pop(Get.context!);
       print(error);
       print(stackTrace);
     });
-}
+  }
+
+// ======login with email id and password====
+
+  static Future<bool> reAuthAndDeleteAccount(String email, String pass) async {
+    try {
+      // Sign in the user with email and password to get the credential
+      final credential = EmailAuthProvider.credential(email: email, password: pass);
+      await FirebaseAuth.instance.currentUser?.reauthenticateWithCredential(credential);
+
+      // // Delete the user account
+      // await FirebaseAuth.instance.currentUser?.delete();
+
+      return true;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        Get.snackbar("Invalid Password", "The password you entered is incorrect.");
+      }
+      if (e.code == 'invalid-credential') {
+        Get.snackbar("Invalid", "Email id and password");
+
+      } else {
+        Get.snackbar("Invalid", "Email id and password");
+        print("Error: ${e.code}");
+      }
+      return false;
+    }
+  }
 }

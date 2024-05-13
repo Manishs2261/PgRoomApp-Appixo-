@@ -33,7 +33,7 @@ class OnBoardingOneScreen extends StatelessWidget {
                 OnBoardingWidget(
                   image: AppImage.onBoardingOneImage,
                   title: 'Explore, Discover, and Settle In',
-                  subtitle: '"Welcome to PgROOM –\n Simplifying PG Room Hunting for '
+                  subtitle: '"Welcome to Appixo –\n Simplifying PG Room Hunting for '
                       'You!"',
                 ),
 

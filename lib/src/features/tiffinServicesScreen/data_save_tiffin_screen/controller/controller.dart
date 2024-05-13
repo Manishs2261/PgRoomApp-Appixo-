@@ -109,6 +109,8 @@ class AddYourTiffineController extends GetxController {
         if (globalKey.currentState!.validate()) {
           if (selectedCoverImage.isEmpty) {
             AppHelperFunction.showSnackBar("Cover Image can't be empty.");
+          } if(selectedMenuImage.isEmpty){
+            AppHelperFunction.showSnackBar("Menu Image can't be empty.");
           } else {
             AppHelperFunction.showDialogCenter(false);
             uploadCoverImage().then((value) {

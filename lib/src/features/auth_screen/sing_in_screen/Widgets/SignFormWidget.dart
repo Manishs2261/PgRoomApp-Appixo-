@@ -46,35 +46,6 @@ class SignFormWidget extends StatelessWidget {
                             color: AppColors.primary,
                           ),
                           contentPadding: const EdgeInsets.only(top: 5),
-
-                          //=====send the otp text button ==========
-                          suffix: Obx(
-                            () => (_controller.isSend.value)
-                                ? const Text("")
-                                : (_controller.otpSendLoading.value)
-                                    ? const Padding(
-                                        padding: EdgeInsets.only(right: 20),
-                                        child: SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
-                                            color: Colors.blue,
-                                            strokeWidth: 3,
-                                          ),
-                                        ),
-                                      )
-                                    : InkWell(
-                                        onTap: () async {
-                                          //====send otp code ==========
-
-                                          if (globalKeyEmail.currentState!.validate()) {
-                                            _controller.onSendOtpButton();
-                                          }
-                                        },
-                                        child: const Text("| "
-                                            "SEND OTP   "),
-                                      ),
-                          ),
                           suffixStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: Colors.blue)),
                     ),
                   ),
@@ -85,71 +56,18 @@ class SignFormWidget extends StatelessWidget {
                 ),
                 //========enter otp text field =============
                 TextFormField(
-                  controller: _controller.otpController.value,
-                  keyboardType: TextInputType.number,
-                  validator: OtpValidator.validate,
+                  controller: _controller.passController.value,
+                  keyboardType: TextInputType.text,
+                  validator: (value) => PasswordValidator.validate(value),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                    hintText: "Enter OTP",
+                    hintText: "Enter at least 6 characters for the password.",
                     prefixIcon: const Icon(
-                      Icons.password,
+                      Icons.lock,
                       color: AppColors.primary,
                     ),
                     contentPadding: const EdgeInsets.only(top: 5),
                   ),
-                ),
-                // ===========Enter Password text field =============
-
-                const Gap(10),
-                Obx(
-                  () => (_controller.isSend.value)
-                      ? Obx(
-                          () => (_controller.counter.value != 0)
-                              ? Obx(
-                                  () => Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Time out :- ",
-                                        style: Theme.of(context).textTheme.bodySmall,
-                                      ),
-                                      Text(
-                                        "${_controller.counter.value}",
-                                        style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : (_controller.otpReSendLoading.value)
-                                  ? const Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: SizedBox(
-                                        height: 20,
-                                        width: 20,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.blue,
-                                          strokeWidth: 3,
-                                        ),
-                                      ),
-                                    )
-                                  : InkWell(
-                                      onTap: () async {
-                                        //====RE-send otp code
-                                        _controller.onReSendOtpButton(context);
-                                      },
-                                      child: const Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "| RE-SEND   ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                        )
-                      : const Text(""),
                 ),
 
                 const SizedBox(
@@ -164,14 +82,14 @@ class SignFormWidget extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (globalKey.currentState!.validate()) {
-                          // _controller.onSubmitButton();
+                          //_controller.onSubmitButton();
 
                           _controller.onOtpSubmitVerifyButton();
                         }
                       },
                       child: (_controller.loading.value)
                           ? const CircularProgressIndicator(
-                              color: Colors.blue,
+                              color: Colors.white,
                             )
                           : const Text("Submit"),
                     ),
@@ -190,7 +108,7 @@ class SignFormWidget extends StatelessWidget {
                     InkWell(
                         onTap: () async {
                           _controller.emailController.value.clear();
-                          _controller.otpController.value.clear();
+                          _controller.passController.value.clear();
 
                           if (_controller.emailReading.value) {
                             _controller.timer.cancel();

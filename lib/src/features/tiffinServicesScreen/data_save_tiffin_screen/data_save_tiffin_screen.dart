@@ -248,7 +248,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                       children: [
                         MyTextFormWedgit(
                           controller: controller.servicesNameController.value,
-                          hintText: "Enter Tiffine Service Name",
+                          hintText: "Enter Service Name",
                           lableText: 'Service Name',
                           icon: const Icon(Icons.food_bank_sharp),
                           borderRadius: BorderRadius.circular(11),
@@ -292,7 +292,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                         ),
                         MyTextFormWedgit(
                           controller: controller.priceController.value,
-                          hintText: "Enter Price according day  ",
+                          hintText: "Enter Price ",
                           lableText: 'Price Month',
                           icon: const Icon(Icons.currency_rupee),
                           borderRadius: BorderRadius.circular(11),
@@ -311,7 +311,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                 ),
 
                 Container(
-                  height: 500,
+                  height: 300,
                   width: double.infinity,
                   padding: const EdgeInsets.all(2),
                   decoration: const BoxDecoration(
@@ -354,7 +354,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.white),
                         child: DefaultTextStyle(
                           style: const TextStyle(
-                            fontSize: 18.0,
+                            fontSize: 14.0,
                             fontFamily: 'Agne',
                           ),
                           child: AnimatedTextKit(
@@ -374,7 +374,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                         ),
                       ),
                       Align(
-                        alignment: Alignment.topRight,
+                        alignment: Alignment.bottomLeft,
                         child: InkWell(
                           onTap: () {
                             setState(() {
@@ -383,7 +383,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                             });
                           },
                           child: Container(
-                            margin: const EdgeInsets.only(top: 150, right: 15),
+                            margin: const EdgeInsets.only(bottom: 70, left: 10),
                             height: 50,
                             width: 50,
                             decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(8)),

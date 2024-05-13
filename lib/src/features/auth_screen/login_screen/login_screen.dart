@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/form_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/header_widgets.dart';
-import 'package:pgroom/src/features/auth_screen/login_screen/widgets/skip_button.dart';
+
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -15,6 +15,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final globalKey = GlobalKey<FormState>();
+
   final _controller = Get.put(LoginScreenController());
 
   @override

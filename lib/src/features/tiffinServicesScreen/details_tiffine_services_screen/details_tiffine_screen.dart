@@ -108,7 +108,7 @@ class _DetailsTiffineServicesScreenState extends State<DetailsTiffineServicesScr
                       ),
                       Gap(10),
                       Text(
-                        "Add to card",
+                        "Add to cart",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],

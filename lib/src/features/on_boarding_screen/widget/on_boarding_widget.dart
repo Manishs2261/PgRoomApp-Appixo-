@@ -19,8 +19,8 @@ class OnBoardingWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
             Lottie.asset(image, width: 500, height: 500),
             const SizedBox(
               height: 10,
