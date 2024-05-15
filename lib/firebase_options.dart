@@ -50,12 +50,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBXBOo5c-xvnlW2xRWRGayAnksSCSILFMc',
-    appId: '1:482025845866:android:cbc0422a8f6f58bc5d8613',
-    messagingSenderId: '482025845866',
-    projectId: 'pgroomapp-e7b8c',
-    databaseURL: 'https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'pgroomapp-e7b8c.appspot.com',
+    apiKey: 'AIzaSyDjESwnZAqWTwFP_U2KjnSfuF_T-hRc2pY',
+    appId: '1:1012069754938:android:11444e136d3872b88bad03',
+    messagingSenderId: '1012069754938',
+    projectId: 'appixo',
+    storageBucket: 'appixo.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(

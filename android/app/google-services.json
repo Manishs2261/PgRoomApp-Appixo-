@@ -1,63 +1,54 @@
 {
   "project_info": {
-    "project_number": "482025845866",
-    "firebase_url": "https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "pgroomapp-e7b8c",
-    "storage_bucket": "pgroomapp-e7b8c.appspot.com"
+    "project_number": "1012069754938",
+    "project_id": "appixo",
+    "storage_bucket": "appixo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:482025845866:android:cbc0422a8f6f58bc5d8613",
+        "mobilesdk_app_id": "1:1012069754938:android:11444e136d3872b88bad03",
         "android_client_info": {
-          "package_name": "com.example.sahumanish.pgroom"
+          "package_name": "com.manishsahu.myappixo.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "482025845866-h26ikfrnprkf5rlqvujv36d27ld5nk0b.apps.googleusercontent.com",
+          "client_id": "1012069754938-0gf90igbsfhcfpdbhj1l7bv7lhlm03oa.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.sahumanish.pgroom",
-            "certificate_hash": "7ddf0c0d7022d0c383252d28d709772df591302f"
-          }
-        },
-        {
-          "client_id": "482025845866-hst64ut2u3jn7ib0thne9qa05vkrqmab.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.sahumanish.pgroom",
+            "package_name": "com.manishsahu.myappixo.app",
             "certificate_hash": "e2df6c3f7464d00f749c687d4b5e0cbe968781e7"
           }
         },
         {
-          "client_id": "482025845866-1dumfep94tuvllpgrbscbnm2bmuoji68.apps.googleusercontent.com",
+          "client_id": "1012069754938-eniu77qbhogsbp230rvoofprun4jcvpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manishsahu.myappixo.app",
+            "certificate_hash": "7ddf0c0d7022d0c383252d28d709772df591302f"
+          }
+        },
+        {
+          "client_id": "1012069754938-hibnp3nooaeg26l7ig31dvrh9f2aeldt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBXBOo5c-xvnlW2xRWRGayAnksSCSILFMc"
+          "current_key": "AIzaSyDjESwnZAqWTwFP_U2KjnSfuF_T-hRc2pY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "482025845866-1dumfep94tuvllpgrbscbnm2bmuoji68.apps.googleusercontent.com",
+              "client_id": "1012069754938-hibnp3nooaeg26l7ig31dvrh9f2aeldt.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "482025845866-3m64h5vb05n2j489h5d747jt2tv25k92.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.sahumanish.pgroom"
-              }
             }
           ]
         }
-      },
-      "admob_app_id": "ca-app-pub-2907991407152083~6630431809"
+      }
     }
   ],
   "configuration_version": "1"
