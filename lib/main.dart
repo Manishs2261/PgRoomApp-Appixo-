@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Appixo',
         themeMode: ThemeMode.light,
         darkTheme: AppTheme.darkTheme,
         theme: AppTheme.lightTheme,

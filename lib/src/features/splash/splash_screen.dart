@@ -16,6 +16,7 @@ class SplashScreen extends StatelessWidget {
     splashController.startSplashScreen();
     mediaQuery = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
           child: Image.asset(
         "assets/images/0.2.png",

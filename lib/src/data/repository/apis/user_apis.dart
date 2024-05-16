@@ -34,6 +34,7 @@ class UserApis {
   static var userImage;
 
   static var userImageDownloadUrl;
+  static var appShareUrl;
 
   //============== User Data  Apis ===========================
 
@@ -222,5 +223,15 @@ class UserApis {
         //  delete a Firestorm
       }
     });
+  }
+
+
+  static Future<void>appShareLink()async{
+    var collection = firebaseFirestore.collection("AppShareLink").doc('bnoq4yEHODF87E5TN5Tp');
+    var querySnapshot = await collection.get();
+    Map<String, dynamic>? data = querySnapshot.data();
+    appShareUrl = data?['link'] ?? '';
+
+
   }
 }

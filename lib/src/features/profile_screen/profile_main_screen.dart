@@ -63,11 +63,20 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
     }
   }
 
+  Future<void> _launchUrlAppShareLink(link) async {
+    var url = Uri.parse(link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     _initPackageInfo();
     super.initState();
+
+    UserApis.appShareLink();
   }
 
   @override
@@ -309,7 +318,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () {}),
+                onTap: () => _launchUrlAppShareLink(UserApis.appShareUrl)),
             ListTile(
                 leading: const Icon(Icons.help_center_outlined),
                 title: const Text("Help"),
@@ -380,13 +389,11 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                     size: 16,
                   ),
                   onTap: () {
-
                     AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
-                            () {
-                          Navigator.pop(context);
-                          UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
-                        });
-
+                        () {
+                      Navigator.pop(context);
+                      UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
+                    });
                   }),
             ),
             const SizedBox(
