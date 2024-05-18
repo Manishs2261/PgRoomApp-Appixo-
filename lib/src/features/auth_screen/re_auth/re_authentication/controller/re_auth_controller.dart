@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import '../../../../data/repository/auth_apis/auth_apis.dart';
+import '../../../../../data/repository/auth_apis/auth_apis.dart';
 
 class ReAuthScreenController extends GetxController {
   final emailControllerLogin = TextEditingController().obs;
@@ -19,36 +19,34 @@ class ReAuthScreenController extends GetxController {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
       } else {
-        // showDialog(
-        //     context: Get.context!,
-        //     builder: (context) {
-        //       return const Center(
-        //         child: CircularProgressIndicator(
-        //           color: Colors.white,
-        //         ),
-        //       );
-        //     });
+        showDialog(
+            context: Get.context!,
+            builder: (context) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
+            });
 
-         loading.value = true;
+        loading.value = true;
         AuthApisClass.reAuthAndDeleteAccount(emailControllerLogin.value.text, passwordControllerLogin.value.text)
             .then((value) async {
-
           if (value) {
-
             loading.value = false;
-            print("1");
-            Get.snackbar(" Re-Authenticating", "successfully");
-            Get.toNamed(RoutesName.deleteAccountScreen);
-            
-
-
-          }else{
+            Navigator.pop(Get.context!);
+            Get.snackbar("Re-Authenticating", "successfully");
+            Get.toNamed(
+              RoutesName.deleteAccountScreen,
+            );
+          } else {
             loading.value = false;
-
-            print("2");
+            Navigator.pop(Get.context!);
           }
         }).onError((error, stackTrace) {
           loading.value = false;
+          Navigator.pop(Get.context!);
+          Get.snackbar("Please try again","Something went wrong during Google Re-Authenticating.");
           print(error);
           print(stackTrace);
         });

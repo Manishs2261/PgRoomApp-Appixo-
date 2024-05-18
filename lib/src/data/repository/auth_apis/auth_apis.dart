@@ -29,7 +29,7 @@ class AuthApisClass {
         signInWithGoogle().then((value) async {
           await UserApis.saveUserData(
               auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
-          print("😀 ${auth.currentUser!.photoURL}");
+
           // sharedPreferences code
           SharedPreferences preferences = await SharedPreferences.getInstance();
           //upload user uid data in SharedPreferences
@@ -63,21 +63,89 @@ class AuthApisClass {
     }
   }
 
+
+  //====================== google sign=========================
   static Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+   try{
+     // Trigger the authentication flow
+     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+     // Check if the sign-in was successful
+     if (googleUser == null) {
+       // If signIn() returns null, the user canceled the sign-in process
+       Get.snackbar("Google sign-in", "Google sign-in was canceled.");
+       throw Exception('Google sign-in was canceled.');
+     }
 
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+     // Obtain the auth details from the request
+     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+     // Create a new credential
+     final credential = GoogleAuthProvider.credential(
+       accessToken: googleAuth?.accessToken,
+       idToken: googleAuth?.idToken,
+     );
+
+     // Once signed in, return the UserCredential
+     return await FirebaseAuth.instance.signInWithCredential(credential);
+   }catch(e){
+     Get.snackbar("Google sign-in", "Something went wrong during Google sign-in. Please try again.");
+     throw Exception('Something went wrong during Google sign-in. Please try again.');
+   }
+  }
+
+
+  //================= ReAuthenticate a user====================================
+
+  // Google sign-in and re-authentication method
+  static Future<void> reAuthenticateInWithGoogle() async {
+
+    showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.white,
+            ),
+          );
+        });
+
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        // The user canceled the sign-in
+        Navigator.pop(Get.context!);
+        return;
+
+      }
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Re-authenticate the user with the new credential
+      await auth.currentUser?.reauthenticateWithCredential(credential);
+      Navigator.pop(Get.context!);
+      Get.snackbar("Re-authentication", "Re-authentication successful");
+      Get.toNamed(RoutesName.deleteAccountScreen);
+      // Handle successful re-authentication
+      print('Re-authentication successful');
+      // TODO: Update UI or perform any necessary actions after re-authentication
+
+    } catch (e) {
+      // Handle errors
+      Navigator.pop(Get.context!);
+      Get.snackbar("Re-authentication", "Re-authentication Failed");
+      print('Error during re-authentication: $e');
+      // TODO: Update UI to show error message or take appropriate actions
+    }
   }
 
   //====sing with email and password==========

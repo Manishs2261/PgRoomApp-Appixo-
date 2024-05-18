@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -118,9 +119,18 @@ class UserApis {
     return true;
   }
 
-  static Future<void> deleteUserAllItemAccount(String profileImageUrl) async {
+  static Future<void> deleteUserAllItemAccount() async {
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
+        showDialog(
+            context: Get.context!,
+            builder: (context) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
+            });
         try {
           final snapshots =
               firebaseFirestore.collection('userTiffineCollection').doc(user.uid).collection(user.uid).snapshots();
@@ -138,10 +148,6 @@ class UserApis {
           snapshots1.listen((QuerySnapshot querySnapshot) {
             // Get the number of documents in the collection
             numberOfDocuments2 = querySnapshot.docs.length;
-
-            if (kDebugMode) {
-              print(numberOfDocuments2.runtimeType);
-            }
           });
 
           final snapshots2 =
@@ -155,48 +161,12 @@ class UserApis {
 
           Future.delayed(const Duration(seconds: 1), () async {
             if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0 && numberOfDocuments3 == 0) {
-              /// Get.toNamed(RoutesName.reAuthScreen);
-              AppHelperFunction.showDialogCenter(false);
-              await firebaseFirestore
-                  .collection("loginUser")
-                  .doc(user.uid)
-                  .collection(auth.currentUser!.uid)
-                  .doc(user.uid)
-                  .delete();
+             Navigator.pop(Get.context!);
+              Get.toNamed(RoutesName.reAuthScreen);
 
-              if (user.displayName.runtimeType.toString() != 'String') {
-                final refCoverImage = storage.refFromURL(profileImageUrl);
-                await refCoverImage.delete();
-              }
 
-              Get.offAllNamed(RoutesName.loginScreen);
-              Get.snackbar("Delete", "Successfully");
-              await FirebaseAuth.instance.currentUser?.delete();
-
-              //  delete a Firestorm
-
-              //
-              // await user.delete().then((value) async {
-              //
-              //   print(user);
-              //   print(user.uid);
-              // // //  delete a Firestorm
-              // //   await firebaseFirestore
-              // //       .collection("loginUser")
-              // //       .doc(user.uid)
-              // //       .collection(auth.currentUser!.uid)
-              // //       .doc(user.uid)
-              // //       .delete();
-              //   Get.offAllNamed(RoutesName.loginScreen);
-              //   Get.snackbar("Delete", "Successfully");
-              // }).onError((error, stackTrace) {
-              //   Get.snackbar("Delete", "Failed");
-              //   if (kDebugMode) {
-              //     print(error);
-              //     print(stackTrace);
-              //   }
-              // });
             } else {
+            Navigator.pop(Get.context!);
               Get.snackbar("Alert", "Please delete all your posted items first.");
             }
           });
@@ -208,14 +178,24 @@ class UserApis {
   }
 
   static Future<void> deleteUserAccount() async {
+
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
+
         await firebaseFirestore
             .collection("loginUser")
             .doc(user.uid)
             .collection(auth.currentUser!.uid)
             .doc(user.uid)
             .delete();
+
+        if (user.displayName.runtimeType.toString() != 'String') {
+           print("delete");
+          final refCoverImage = storage.refFromURL(userImage);
+          await refCoverImage.delete();
+        }
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.clear();
 
         Get.offAllNamed(RoutesName.loginScreen);
         Get.snackbar("Delete", "Successfully");

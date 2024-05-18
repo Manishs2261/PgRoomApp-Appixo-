@@ -5,7 +5,7 @@ import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/delete_account/delete_account.dart';
-import 'package:pgroom/src/features/auth_screen/re_auth/re_auth_screen.dart';
+import 'package:pgroom/src/features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';

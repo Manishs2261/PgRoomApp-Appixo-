@@ -389,11 +389,13 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                     size: 16,
                   ),
                   onTap: () {
-                    AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
-                        () {
-                      Navigator.pop(context);
-                      UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
-                    });
+                      // Get.toNamed(RoutesName.reAuthScreen);
+                    UserApis.deleteUserAllItemAccount();
+                    // AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
+                    //     () {
+                    //   Navigator.pop(context);
+                    //   UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
+                    // });
                   }),
             ),
             const SizedBox(

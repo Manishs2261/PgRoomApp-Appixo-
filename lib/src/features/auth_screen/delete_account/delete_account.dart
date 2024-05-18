@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
 import '../../../data/repository/apis/user_apis.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/helpers/helper_function.dart';
@@ -35,11 +34,10 @@ class _DeleteAccountScreenState extends State<DeleteAccountScreen> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-
                   AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
                           () {
                         Navigator.pop(context);
-                       // UserApis.deleteUserAllItemAccount();
+                        UserApis.deleteUserAccount();
                       });
                 },
                 child: const Text("Delete"),
