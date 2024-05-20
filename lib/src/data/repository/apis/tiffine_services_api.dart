@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pgroom/src/data/repository/apis/user_apis.dart';
-
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
@@ -63,10 +61,8 @@ class TiffineServicesApis {
         contactNumber: contactNumber,
         latitude: latu,
         longitude: lang,
-      coverImageId: coverImageFileName,
-      menuImageId: menuImageFileName
-
-    );
+        coverImageId: coverImageFileName,
+        menuImageId: menuImageFileName);
 
     // store main list data
     return await firebaseFirestore
@@ -91,8 +87,7 @@ class TiffineServicesApis {
         latitude: latu,
         longitude: lang,
         coverImageId: coverImageFileName,
-        menuImageId: menuImageFileName
-    );
+        menuImageId: menuImageFileName);
     // user list collection
     return await firebaseFirestore
         .collection("userTiffineCollection")
@@ -112,8 +107,7 @@ class TiffineServicesApis {
     try {
       final reference = storage.ref().child('tiffineServices/${user.uid}/${DateTime.now()}.jpg');
 
-
-      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      String updatedPath = reference.toString().substring(0, reference.toString().lastIndexOf(')'));
       List<String> pathSegments = updatedPath.split('/');
       coverImageFileName = pathSegments.last;
 
@@ -130,7 +124,7 @@ class TiffineServicesApis {
     try {
       final reference = storage.ref().child('foodMenu/${user.uid}/${DateTime.now()}.jpg');
 
-      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      String updatedPath = reference.toString().substring(0, reference.toString().lastIndexOf(')'));
       List<String> pathSegments = updatedPath.split('/');
       menuImageFileName = pathSegments.last;
       final UploadTask uploadTask = reference.putFile(imageFile);
@@ -169,7 +163,7 @@ class TiffineServicesApis {
   }
 
   // update cover Image data
-  static Future<void> updateTiffineCoverImage(File file, String itemId,String coverImageFileName) async {
+  static Future<void> updateTiffineCoverImage(File file, String itemId, String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
@@ -199,7 +193,7 @@ class TiffineServicesApis {
   }
 
   // update cover Image data
-  static Future<void> updateTiffineMenuImage(File file, String itemId,String menuImageFileName) async {
+  static Future<void> updateTiffineMenuImage(File file, String itemId, String menuImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');

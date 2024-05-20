@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
-
- import '../../../../utils/Constants/sizes.dart';
+import '../../../../utils/Constants/sizes.dart';
 import '../../../../utils/icon_and_name_widgets/Icon_Write_And_Wrong_Widgets.dart';
 import '../controller/details_screen_controller.dart';
 
@@ -21,7 +19,6 @@ class AllDetailsWidgets extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           Text(
             "${controller.data.houseName}",
             style: Theme.of(context).textTheme.titleLarge,
@@ -29,11 +26,17 @@ class AllDetailsWidgets extends StatelessWidget {
             maxLines: 2,
             softWrap: false,
           ),
-              Gap(10),
+          const Gap(10),
 
-              (controller.data.roomAvailable!)
-                ?  Text("Available :- ${controller.data.numberOfRooms} Rooms",style: TextStyle(color: Colors.green),)
-                : Text("Not Available",style: TextStyle(color: Colors.red),),
+          (controller.data.roomAvailable!)
+              ? Text(
+                  "Available :- ${controller.data.numberOfRooms} Rooms",
+                  style: const TextStyle(color: Colors.green),
+                )
+              : const Text(
+                  "Not Available",
+                  style: TextStyle(color: Colors.red),
+                ),
           const SizedBox(
             height: AppSizes.sizeBoxSpace * 2,
           ),
@@ -66,7 +69,7 @@ class AllDetailsWidgets extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               (controller.data.bhkType!.isEmpty)
-                  ?   Text("  ${controller.data.roomType}")
+                  ? Text("  ${controller.data.roomType}")
                   : Text("  ${controller.data.roomType} -  ${controller.data.bhkType}")
             ],
           ),
@@ -88,35 +91,35 @@ class AllDetailsWidgets extends StatelessWidget {
                   IconWriteAndWrongWidgets(
                     title: "Single Person :-  ",
                     price: '${controller.data.singlePersonPrice}/- '
-                        'month',
+                        'Month',
                     isIcon: true,
                   ),
                 if (controller.data.doublePersonPrice != "")
                   IconWriteAndWrongWidgets(
-                    title: "double Person :-  ",
+                    title: "Double Person :-  ",
                     price: '${controller.data.doublePersonPrice}/- '
-                        'month',
+                        'Month',
                     isIcon: true,
                   ),
                 if (controller.data.triplePersonPrice != "")
                   IconWriteAndWrongWidgets(
-                    title: "triple Person :-  ",
+                    title: "Triple Person :-  ",
                     price: '${controller.data.triplePersonPrice}/- '
-                        'month',
+                        'Month',
                     isIcon: true,
                   ),
                 if (controller.data.fourPersonPrice != "")
                   IconWriteAndWrongWidgets(
-                    title: "four Plus Person :-  ",
+                    title: "Four Plus Person :-  ",
                     price: '${controller.data.fourPersonPrice}/- '
-                        'month',
+                        'Month',
                     isIcon: true,
                   ),
                 if (controller.data.familyPrice != "")
                   IconWriteAndWrongWidgets(
                     title: "Family  :-  ",
                     price: '${controller.data.familyPrice}/- '
-                        'month',
+                        'Month',
                     isIcon: true,
                   ),
               ],
@@ -135,97 +138,119 @@ class AllDetailsWidgets extends StatelessWidget {
             height: 10,
           ),
 
-
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-
-           children: [
-             SizedBox(width: 20,),
-             IconWriteAndWrongWidgets(
-               title: "Wi-Fi",
-               isIcon: controller.data.wifi!,
-             ),
-             SizedBox(width: 30,),
-             IconWriteAndWrongWidgets(
-               title: "Fan",
-               isIcon: controller.data.fan!,
-             ),
-             SizedBox(width: 45,),
-             IconWriteAndWrongWidgets(
-               title: "Light",
-               isIcon: controller.data.light!,
-             ),
-           ],
-         ),
-         const SizedBox(
-           height: 5,
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: [
-             SizedBox(width: 20,),
-             IconWriteAndWrongWidgets(
-               title: "table",
-               isIcon: controller.data.table!,
-             ),
-             SizedBox(width: 30,),
-             IconWriteAndWrongWidgets(
-               title: "chair",
-               isIcon: controller.data.chair!,
-             ),
-             SizedBox(width: 38,),
-             IconWriteAndWrongWidgets(
-               title: "locker",
-               isIcon: controller.data.locker!,
-             ),
-           ],
-         ),
-         const SizedBox(
-           height: 5,
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: [
-             SizedBox(width: 20,),
-             IconWriteAndWrongWidgets(
-               title: "Bed",
-               isIcon: controller.data.bed!,
-             ),
-             SizedBox(width: 37,),
-             IconWriteAndWrongWidgets(
-               title: "gadda",
-               isIcon: controller.data.gadda!,
-             ),
-             SizedBox(width: 32,),
-             IconWriteAndWrongWidgets(
-               title: "bed sheet",
-               isIcon: controller.data.bedSheet!,
-             ),
-           ],
-         ),
-         const SizedBox(
-           height: 5,
-         ),
-         Row(
-           mainAxisAlignment: MainAxisAlignment.start,
-           children: [
-             SizedBox(width: 20,),
-             IconWriteAndWrongWidgets(
-               title: "parking",
-               isIcon: controller.data.parking!,
-             ),
-             SizedBox(width: 17,),
-             IconWriteAndWrongWidgets(
-               title: "Attach \n Bathroom",
-               isIcon: controller.data.attachBathRoom!,
-             ),
-             SizedBox(width: 5,),
-             IconWriteAndWrongWidgets(
-               title: "Shareable \n Bathroom",
-               isIcon: controller.data.shareAbleBathRoom!,
-             ),
-           ],
-         ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 20,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Wi-Fi",
+                isIcon: controller.data.wifi!,
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Fan",
+                isIcon: controller.data.fan!,
+              ),
+              const SizedBox(
+                width: 45,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Light",
+                isIcon: controller.data.light!,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 20,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Table",
+                isIcon: controller.data.table!,
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Chair",
+                isIcon: controller.data.chair!,
+              ),
+              const SizedBox(
+                width: 38,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Locker",
+                isIcon: controller.data.locker!,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 20,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Bed",
+                isIcon: controller.data.bed!,
+              ),
+              const SizedBox(
+                width: 37,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "gadda",
+                isIcon: controller.data.gadda!,
+              ),
+              const SizedBox(
+                width: 32,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Bed sheet",
+                isIcon: controller.data.bedSheet!,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(
+                width: 20,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Parking",
+                isIcon: controller.data.parking!,
+              ),
+              const SizedBox(
+                width: 17,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Attach \n Bathroom",
+                isIcon: controller.data.attachBathRoom!,
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              IconWriteAndWrongWidgets(
+                title: "Shareable \n Bathroom",
+                isIcon: controller.data.shareAbleBathRoom!,
+              ),
+            ],
+          ),
 
           const SizedBox(
             height: 10,
@@ -245,7 +270,7 @@ class AllDetailsWidgets extends StatelessWidget {
                 isIcon: controller.data.electricityBill!,
               ),
               IconWriteAndWrongWidgets(
-                title: "water bill",
+                title: "Water bill",
                 isIcon: controller.data.waterBill!,
               ),
             ],
@@ -289,12 +314,12 @@ class AllDetailsWidgets extends StatelessWidget {
                   ),
                 if (controller.data.familyMember!)
                   IconWriteAndWrongWidgets(
-                    title: "family member Allow",
+                    title: "Family member Allow",
                     isIcon: controller.data.familyMember!,
                   ),
                 if (controller.data.cooking!)
                   IconWriteAndWrongWidgets(
-                    title: "cooking Allow :-${controller.data.cookingType}",
+                    title: "Cooking Allow :-${controller.data.cookingType}",
                     isIcon: controller.data.cooking!,
                   ),
               ],

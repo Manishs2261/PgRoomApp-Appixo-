@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-
 import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
-import '../../../utils/logger/logger.dart';
 
 class AddToCartApis {
   // for authentication

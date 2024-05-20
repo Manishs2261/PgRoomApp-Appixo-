@@ -5,6 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pgroom/src/features/old_goods/add_your_goods/add_your_goods.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/apis/apis.dart';
 import '../../data/repository/apis/user_apis.dart';
@@ -27,12 +28,12 @@ class ProfileDetailsScreen extends StatefulWidget {
 class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   List<UserPersonModel> userList = [];
 
-  String AppVersion = "";
+  String appVersion = "";
 
   Future<void> _initPackageInfo() async {
-    final _packageInfo = await PackageInfo.fromPlatform();
+    final packageInfo = await PackageInfo.fromPlatform();
     setState(() {
-      AppVersion = _packageInfo.version;
+      appVersion = packageInfo.version;
     });
   }
 
@@ -60,13 +61,6 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   Future<void> _launchUrlPrivacyPolicy() async {
     if (!await launchUrl(urlPrivacyPolicy)) {
       throw Exception('Could not launch $urlPrivacyPolicy');
-    }
-  }
-
-  Future<void> _launchUrlAppShareLink(link) async {
-    var url = Uri.parse(link);
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
     }
   }
 
@@ -318,7 +312,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   Icons.arrow_forward_ios,
                   size: 16,
                 ),
-                onTap: () => _launchUrlAppShareLink(UserApis.appShareUrl)),
+                onTap: () => Share.share(UserApis.appShareUrl)),
             ListTile(
                 leading: const Icon(Icons.help_center_outlined),
                 title: const Text("Help"),
@@ -389,7 +383,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                     size: 16,
                   ),
                   onTap: () {
-                      // Get.toNamed(RoutesName.reAuthScreen);
+                    // Get.toNamed(RoutesName.reAuthScreen);
                     UserApis.deleteUserAllItemAccount();
                     // AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
                     //     () {
@@ -403,8 +397,8 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
             ),
             Center(
                 child: Text(
-              "version - $AppVersion ",
-              style: TextStyle(fontSize: 16),
+              "version - $appVersion ",
+              style: const TextStyle(fontSize: 16),
             )),
             const SizedBox(
               height: 30,

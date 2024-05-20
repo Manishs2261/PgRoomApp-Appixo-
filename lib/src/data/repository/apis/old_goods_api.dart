@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:get/get.dart';
-
 import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../utils/logger/logger.dart';
 
@@ -28,8 +25,6 @@ class OldGoodsApis {
   static var imageUrl = '';
   static String coverImageFileName = '';
 
-
-
 //==============Tiffine Services Apis =====================
 
   // create a tiffine services data base for main home collection
@@ -42,7 +37,7 @@ class OldGoodsApis {
       contactNumber: contactNumber,
       postDate: postdate,
       price: price,
-      coverImageId:coverImageFileName,
+      coverImageId: coverImageFileName,
     );
 
     // store main list data
@@ -53,14 +48,13 @@ class OldGoodsApis {
   static Future<void> addYourOldGoodsUserAccount(image, name, address, price, postdate, contactNumber) async {
     // model class
     final oldGoodsList = OldGoodsModel(
-      address: address,
-      image: image,
-      name: name,
-      contactNumber: contactNumber,
-      postDate: postdate,
-      price: price,
-      coverImageId:coverImageFileName
-    );
+        address: address,
+        image: image,
+        name: name,
+        contactNumber: contactNumber,
+        postDate: postdate,
+        price: price,
+        coverImageId: coverImageFileName);
 
     // user list collection
     return await firebaseFirestore
@@ -81,7 +75,7 @@ class OldGoodsApis {
     try {
       final reference = storage.ref().child('oldGoodsImage/${user.uid}/${DateTime.now()}.jpg');
 
-      String updatedPath =reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      String updatedPath = reference.toString().substring(0, reference.toString().lastIndexOf(')'));
       List<String> pathSegments = updatedPath.split('/');
       coverImageFileName = pathSegments.last;
 
@@ -114,16 +108,13 @@ class OldGoodsApis {
   }
 
   // update cover Image data
-  static Future<void> updateOldGoodsImage(File file, String itemId,String coverImageFileName) async {
+  static Future<void> updateOldGoodsImage(File file, String itemId, String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
-    
-    print("cover :$coverImageFileName");
 
     // storage file ref with path
     final ref = storage.ref().child('oldGoodsImage/${user.uid}/$coverImageFileName');
-
 
     // uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {

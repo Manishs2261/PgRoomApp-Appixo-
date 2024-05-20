@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -21,7 +19,7 @@ import '../../../utils/logger/logger.dart';
 import 'controller/details_screen_controller.dart';
 
 class DetailsRentInfoScreen extends StatefulWidget {
-  DetailsRentInfoScreen({super.key});
+  const DetailsRentInfoScreen({super.key});
 
   @override
   State<DetailsRentInfoScreen> createState() => _DetailsRentInfoScreenState();
@@ -32,7 +30,6 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
   final controller = Get.put(DetailsScreenController(Get.arguments["id"], Get.arguments['list']));
 
   final itemId = Get.arguments['id'];
-
 
   @override
   void initState() {
@@ -249,8 +246,6 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
                   const SizedBox(
                     height: 100,
                   ),
-
-
                 ],
               ),
             ),

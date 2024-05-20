@@ -161,27 +161,25 @@ class UserApis {
 
           Future.delayed(const Duration(seconds: 1), () async {
             if (numberOfDocuments1 == 0 && numberOfDocuments2 == 0 && numberOfDocuments3 == 0) {
-             Navigator.pop(Get.context!);
+              Navigator.pop(Get.context!);
               Get.toNamed(RoutesName.reAuthScreen);
-
-
             } else {
-            Navigator.pop(Get.context!);
+              Navigator.pop(Get.context!);
               Get.snackbar("Alert", "Please delete all your posted items first.");
             }
           });
         } catch (e) {
-          print("delete :$e");
+          if (kDebugMode) {
+            print("delete :$e");
+          }
         }
       }
     });
   }
 
   static Future<void> deleteUserAccount() async {
-
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
-
         await firebaseFirestore
             .collection("loginUser")
             .doc(user.uid)
@@ -190,7 +188,6 @@ class UserApis {
             .delete();
 
         if (user.displayName.runtimeType.toString() != 'String') {
-           print("delete");
           final refCoverImage = storage.refFromURL(userImage);
           await refCoverImage.delete();
         }
@@ -205,13 +202,10 @@ class UserApis {
     });
   }
 
-
-  static Future<void>appShareLink()async{
+  static Future<void> appShareLink() async {
     var collection = firebaseFirestore.collection("AppShareLink").doc('bnoq4yEHODF87E5TN5Tp');
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     appShareUrl = data?['link'] ?? '';
-
-
   }
 }

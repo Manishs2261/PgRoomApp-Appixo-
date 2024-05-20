@@ -1,12 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
 import '../../../utils/helpers/helper_function.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+
 
 class ApisClass {
   // for authentication
@@ -618,7 +619,9 @@ class ApisClass {
 
 // delete other image in firebase storage
 
-      print('id - $deleteId');
+      if (kDebugMode) {
+        print('id - $deleteId');
+      }
 
       await FirebaseStorage.instance.ref("otherImage/$deleteId").listAll().then((value) {
         value.items.forEach((element) {
