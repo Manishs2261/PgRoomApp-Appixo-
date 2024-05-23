@@ -144,6 +144,8 @@ class AppHelperFunction {
 
 
   static void showDialogCenter(bool barrier){
+
+
     showDialog(
       barrierDismissible: barrier,
         context: Get.context!,
