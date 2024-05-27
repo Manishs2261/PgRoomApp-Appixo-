@@ -152,7 +152,7 @@ class OldGoodsScreen extends StatelessWidget {
                                               width: double.infinity,
                                               height: 200,
                                               child: const SpinKitFadingCircle(
-                                                color: AppColors.primary,
+                                                color: Colors.white,
                                                 size: 35,
                                               ),
                                             ),
