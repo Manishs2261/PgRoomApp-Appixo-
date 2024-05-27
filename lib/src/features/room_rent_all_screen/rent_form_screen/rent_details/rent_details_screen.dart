@@ -97,7 +97,7 @@ class RentDetailsScsreen extends StatelessWidget {
 
                   //==========Contact Number================
                   MyTextFormWedgit(
-                    textKeyBoard: TextInputType.phone,
+                    textKeyBoard: TextInputType.number,
                     maxLength: 10,
                     controller: controller.contactNumberController.value,
                     hintText: "Contact Number",
