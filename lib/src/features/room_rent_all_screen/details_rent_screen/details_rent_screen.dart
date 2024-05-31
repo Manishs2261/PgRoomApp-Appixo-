@@ -35,9 +35,15 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
-    adProvider.initializeDetailsBanner();
-    adProvider.initializeNativeAd();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+
+      AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
+
+      adProvider.initializeNativeAd();
+
+    });
+
   }
 
   @override
@@ -229,12 +235,21 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
                   ),
 
                   Consumer<AdProvider>(builder: (context, adProvider, child) {
-                    if (adProvider.isDetailsPageLoaded) {
-                      return SizedBox(
-                        height: adProvider.detailsPage.size.height.toDouble(),
-                        child: AdWidget(
-                          ad: adProvider.detailsPage,
+                    if (adProvider.isNativeAdLoaded) {
+                      return ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 320, // minimum recommended width
+                          minHeight: 320, // minimum recommended height
+                          maxWidth: 400,
+                          maxHeight: 400,
                         ),
+                        child:   adProvider.isNativeAdLoaded ? Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 20.0),
+                          height: 70,
+                          child: AdWidget(ad: adProvider.nativeAd),
+                        ) : const CircularProgressIndicator(),
                       );
                     } else {
                       return Container(

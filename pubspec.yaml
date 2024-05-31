@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.5+8
+version: 1.0.6+9
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -45,15 +45,15 @@ dependencies:
   #for accessing firebase storege (for uploading files)
   firebase_storage: ^11.2.6
   #for showing Emojis
-  emoji_picker_flutter: ^1.6.1
+  emoji_picker_flutter: ^2.2.0
   #for showing a messagepack:
   firebase_messaging: ^14.6.7
   #for notification channel_talk_flutter:
-  flutter_notification_channel: ^2.0.0
+  flutter_notification_channel: ^3.1.0
   #for on Boarding screen
   smooth_page_indicator: ^1.1.0
   #otp fill screen
-  pinput: ^3.0.1
+  pinput: ^4.0.0
   #rating bar
   flutter_rating_bar: ^4.0.1
   #email and otp verification_code_builder:
@@ -61,7 +61,7 @@ dependencies:
   #login sharedPrefence
   shared_preferences: ^2.2.2
   # check internet connection_notifier:
-  connectivity_plus: ^5.0.1
+  connectivity_plus: ^6.0.3
   #date format
   intl: ^0.19.0
   logger: ^2.0.2+1
@@ -75,7 +75,7 @@ dependencies:
   custom_refresh_indicator: ^3.0.0
   firebase_crashlytics: ^3.4.9
   firebase_performance: ^0.9.3+8
-  lottie: ^2.7.0
+  lottie: ^3.1.2
   onesignal_flutter: ^5.1.2
   google_nav_bar: ^5.0.6
   line_icons: ^2.0.3
@@ -97,6 +97,7 @@ dependencies:
 
 
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -106,7 +107,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.1
+  flutter_lints: ^4.0.0
   icons_launcher: ^2.1.7
 
 # For information on the generic Dart part of this file, see the

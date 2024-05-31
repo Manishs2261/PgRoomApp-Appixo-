@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:pgroom/src/utils/ad_helper/google_ad_helper.dart';
@@ -16,15 +16,19 @@ class AdProvider with ChangeNotifier {
         adUnitId: GoogleAdHelper.productDetailsPageBanner(),
         listener: BannerAdListener(onAdLoaded: (ad) {
           isDetailsPageLoaded = true;
-          print("banner load $isDetailsPageLoaded");
+          if (kDebugMode) {
+            print("banner load $isDetailsPageLoaded");
+          }
         }, onAdClosed: (ad) {
           isDetailsPageLoaded = false;
           ad.dispose();
         }, onAdFailedToLoad: (ad, error) {
           isDetailsPageLoaded = false;
-          print("ad error $error");
+          if (kDebugMode) {
+            print("ad error $error");
+          }
         }),
-        request: AdRequest());
+        request: const AdRequest());
 
     await detailsPage.load();
     notifyListeners();
@@ -35,44 +39,42 @@ class AdProvider with ChangeNotifier {
         adUnitId: GoogleAdHelper.productDetailsNativeAd(),
         listener: NativeAdListener(onAdLoaded: (ad) {
           isNativeAdLoaded = true;
-          print("native 2 load $isNativeAdLoaded");
+          if (kDebugMode) {
+            print("native 2 load $isNativeAdLoaded");
+          }
         }, onAdClosed: (ad) {
           isNativeAdLoaded = false;
           ad.dispose();
         }, onAdFailedToLoad: (ad, error) {
           isNativeAdLoaded = false;
-          print("ad 2 error $error");
+          if (kDebugMode) {
+            print("ad 2 error $error");
+          }
         }),
         request: const AdManagerAdRequest(),
         nativeTemplateStyle: NativeTemplateStyle(
-          // Required: Choose a template.
+            // Required: Choose a template.
             templateType: TemplateType.medium,
             // Optional: Customize the ad's style.
-            mainBackgroundColor: Colors.purple,
+            mainBackgroundColor: Colors.white,
             cornerRadius: 10.0,
             callToActionTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.cyan,
-                backgroundColor: Colors.red,
+                textColor: Colors.black,
+                backgroundColor: Colors.white,
                 style: NativeTemplateFontStyle.monospace,
                 size: 16.0),
             primaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.red,
-                backgroundColor: Colors.cyan,
-                style: NativeTemplateFontStyle.italic,
-                size: 16.0),
+                textColor: Colors.black, backgroundColor: Colors.white, style: NativeTemplateFontStyle.italic, size: 16.0),
             secondaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.green,
-                backgroundColor: Colors.black,
+                textColor: Colors.black,
+                backgroundColor: Colors.white,
                 style: NativeTemplateFontStyle.bold,
                 size: 16.0),
             tertiaryTextStyle: NativeTemplateTextStyle(
-                textColor: Colors.brown,
-                backgroundColor: Colors.amber,
+                textColor: Colors.black,
+                backgroundColor: Colors.white,
                 style: NativeTemplateFontStyle.normal,
-                size: 16.0))
-    );
-
-
+                size: 16.0)));
 
     await nativeAd.load();
     notifyListeners();

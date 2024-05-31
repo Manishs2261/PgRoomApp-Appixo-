@@ -213,7 +213,7 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
 
@@ -229,11 +229,11 @@ class _GoodsDetailsScreenState extends State<GoodsDetailsScreen> {
                         ),
                         child:   adProvider.isNativeAdLoaded ? Container(
                           alignment: Alignment.center,
-                          child: AdWidget(ad: adProvider.nativeAd),
-                          padding: EdgeInsets.all(10),
-                          margin: EdgeInsets.only(bottom: 20.0),
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 20.0),
                           height: 70,
-                        ) : CircularProgressIndicator(),
+                          child: AdWidget(ad: adProvider.nativeAd),
+                        ) : const CircularProgressIndicator(),
                       );
                     } else {
                       return Container(

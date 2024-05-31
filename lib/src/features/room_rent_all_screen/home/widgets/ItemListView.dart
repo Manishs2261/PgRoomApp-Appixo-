@@ -83,17 +83,19 @@ class ItemListView extends StatelessWidget {
                                         color: Colors.transparent,
                                       ),
                                       child: const SpinKitFadingCircle(
-                                        color: AppColors.primary,
+                                        color: Colors.white,
                                         size: 35,
                                       ),
                                     ),
                                 errorWidget: (context, url, error) => Container(
                                       width: 150,
                                       height: 280,
+                                      color: Colors.black12,
                                       alignment: Alignment.center,
                                       child: const Icon(
                                         Icons.image_outlined,
                                         size: 50,
+                                        color: Colors.white,
                                       ),
                                     )),
                           ),
