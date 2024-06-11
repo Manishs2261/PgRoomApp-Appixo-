@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -135,59 +136,69 @@ class DataSaveGoodsScreen extends StatelessWidget {
                     key: controller.globalKey,
                     child: Column(
                       children: [
-                        MyTextFormWedgit(
-                          controller: controller.goodsNameController.value,
-                          hintText: "Enter Goods Name",
-                          lableText: 'Goods Name',
-                          icon: const Icon(Icons.food_bank_sharp),
-                          borderRadius: BorderRadius.circular(11),
-                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                          validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.text,
-                        ),
+                        MyTextFormWidget(
+                            controller: controller.goodsNameController.value,
+                            hintText: "Enter Goods Name",
+                            labelText: 'Goods Name',
+                            icon: const Icon(Icons.food_bank_sharp),
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                            validator: NameValidator.validate,
+                            textKeyBoard: TextInputType.text,
+                            maxLength: 40,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                            ]),
                         const SizedBox(
                           height: 15,
                         ),
-                        MyTextFormWedgit(
-                          controller: controller.addressController.value,
-                          hintText: "Enter address",
-                          lableText: 'Address',
-                          icon: const Icon(Icons.location_on_outlined),
-                          borderRadius: BorderRadius.circular(11),
-                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                          validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.text,
-                        ),
+                        MyTextFormWidget(
+                            controller: controller.addressController.value,
+                            hintText: "Enter address",
+                            labelText: 'Address',
+                            icon: const Icon(Icons.location_on_outlined),
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                            validator: NameValidator.validate,
+                            textKeyBoard: TextInputType.text,
+                            maxLength: 40,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                            ]),
                         const SizedBox(
                           height: 15,
                         ),
 
                         //==========Contact Number================
-                        MyTextFormWedgit(
-                          textKeyBoard: TextInputType.phone,
-                          maxLength: 10,
-                          controller: controller.numberController.value,
-                          hintText: "Contact Number",
-                          lableText: 'Contact Number',
-                          icon: const Icon(Icons.phone),
-                          borderRadius: BorderRadius.circular(11),
-                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                          validator: ContactNumberValidator.validate,
-                        ),
+                        MyTextFormWidget(
+                            textKeyBoard: TextInputType.number,
+                            maxLength: 10,
+                            controller: controller.numberController.value,
+                            hintText: "Contact Number",
+                            labelText: 'Contact Number',
+                            icon: const Icon(Icons.phone),
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                            validator: ContactNumberValidator.validate,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            ]),
                         const SizedBox(
                           height: 15,
                         ),
-                        MyTextFormWedgit(
-                          controller: controller.priceController.value,
-                          hintText: "Enter Price",
-                          lableText: ' Selling Price',
-                          maxLength: 6,
-                          icon: const Icon(Icons.currency_rupee),
-                          borderRadius: BorderRadius.circular(11),
-                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                          validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.number,
-                        ),
+                        MyTextFormWidget(
+                            controller: controller.priceController.value,
+                            hintText: "Enter Price",
+                            labelText: ' Selling Price',
+                            maxLength: 6,
+                            icon: const Icon(Icons.currency_rupee),
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                            validator: NameValidator.validate,
+                            textKeyBoard: TextInputType.number,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            ]),
                       ],
                     )),
 

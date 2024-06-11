@@ -19,7 +19,7 @@ import '../splash/controller/splash_controller.dart';
 import '../tiffinServicesScreen/add_your_tiffine_services_screen/add_your_tiffine_services_screen.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {
-  ProfileDetailsScreen({super.key});
+  const ProfileDetailsScreen({super.key});
 
   @override
   State<ProfileDetailsScreen> createState() => _ProfileDetailsScreenState();

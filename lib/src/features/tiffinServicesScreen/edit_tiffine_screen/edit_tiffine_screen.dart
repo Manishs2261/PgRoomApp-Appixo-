@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
@@ -15,7 +16,7 @@ import '../../../utils/widgets/my_text_form_field.dart';
 import 'controller/controller.dart';
 
 class EditTiffineScreen extends StatefulWidget {
-  EditTiffineScreen({super.key});
+  const EditTiffineScreen({super.key});
 
   @override
   State<EditTiffineScreen> createState() => _EditTiffineScreenState();
@@ -298,61 +299,72 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                     key: controller.globalKey,
                     child: Column(
                       children: [
-                        MyTextFormWedgit(
-                          controller: controller.servicesNameController.value,
-                          hintText: "Enter Tiffine Service Name",
-                          lableText: 'Service Name',
-                          icon: const Icon(Icons.food_bank_sharp),
-                          borderRadius: BorderRadius.circular(11),
-                          contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                          validator: NameValidator.validate,
-                          textKeyBoard: TextInputType.text,
-                          maxLength: 40,
-                        ),
+                        MyTextFormWidget(
+                            controller: controller.servicesNameController.value,
+                            hintText: "Enter Service Name",
+                            labelText: 'Service Name',
+                            icon: const Icon(Icons.food_bank_sharp),
+                            borderRadius: BorderRadius.circular(11),
+                            contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                            validator: NameValidator.validate,
+                            textKeyBoard: TextInputType.text,
+                            maxLength: 40,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                            ]),
                         const SizedBox(
                           height: 15,
                         ),
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           controller: controller.addressController.value,
                           hintText: "Enter address",
-                          lableText: 'Address',
+                          labelText: 'Address',
                           icon: const Icon(Icons.location_city),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
                           maxLength: 100,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
 
                         //==========Contact Number================
-                        MyTextFormWedgit(
-                          textKeyBoard: TextInputType.phone,
+                        MyTextFormWidget(
+                          textKeyBoard: TextInputType.number,
                           maxLength: 10,
                           controller: controller.numberController.value,
                           hintText: "Contact Number",
-                          lableText: 'Contact Number',
+                          labelText: 'Contact Number',
                           icon: const Icon(Icons.phone),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: ContactNumberValidator.validate,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
 
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           controller: controller.priceController.value,
                           hintText: "Enter Price according day  ",
-                          lableText: 'Price day',
+                          labelText: 'Price day',
                           icon: const Icon(Icons.currency_rupee),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.number,
                           maxLength: 6,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
                         ),
                       ],
                     )),
@@ -380,7 +392,6 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                         minZoomLevel: 1,
                         maxZoomLevel: 16,
                         trackMyPosition: true,
-
                         selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
                         mapLanguage: 'en',
                         countryFilter: 'In',
@@ -419,7 +430,9 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                                   textStyle: const TextStyle(color: Colors.green)),
                             ],
                             onTap: () {
-                              print("Tap Event");
+                              if (kDebugMode) {
+                                print("Tap Event");
+                              }
                             },
                           ),
                         ),

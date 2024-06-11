@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
@@ -83,15 +84,19 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                         child: Flexible(
                             child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: MyTextFormWedgit(
+                          child: MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
                             controller: controller.singlePersonController.value,
                             hintText: "Price",
-                            lableText: "Price",
+                            labelText: "Price",
                             isCollapsed: true,
                             isDense: true,
+                            maxLength: 6,
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            ],
                           ),
                         )),
                       ),
@@ -115,15 +120,19 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                           child: Flexible(
                               child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: MyTextFormWedgit(
+                            child: MyTextFormWidget(
                               textKeyBoard: TextInputType.number,
                               controller: controller.doublePersonController.value,
                               hintText: "Price",
-                              lableText: "Price",
+                              labelText: "Price",
                               isCollapsed: true,
+                              maxLength: 6,
                               isDense: true,
                               borderRadius: BorderRadius.circular(11),
                               contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              ],
                             ),
                           )),
                         ))
@@ -146,15 +155,19 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                         child: Flexible(
                             child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: MyTextFormWedgit(
+                          child: MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
                             controller: controller.triplePersonController.value,
                             hintText: "Price",
-                            lableText: "Price",
+                            labelText: "Price",
                             isCollapsed: true,
                             isDense: true,
+                            maxLength: 6,
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            ],
                           ),
                         )),
                       ),
@@ -178,15 +191,19 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                         child: Flexible(
                             child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: MyTextFormWedgit(
+                          child: MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
                             controller: controller.fourPersonController.value,
                             hintText: "Price",
-                            lableText: "Price",
+                            labelText: "Price",
                             isCollapsed: true,
                             isDense: true,
+                            maxLength: 6,
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            ],
                           ),
                         )),
                       ),
@@ -211,13 +228,14 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                         child: Flexible(
                             child: Padding(
                           padding: const EdgeInsets.all(10.0),
-                          child: MyTextFormWedgit(
+                          child: MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
                             controller: controller.familyPersonController.value,
                             hintText: "Price",
-                            lableText: "Price",
+                            labelText: "Price",
                             isCollapsed: true,
                             isDense: true,
+                            maxLength: 6,
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                           ),

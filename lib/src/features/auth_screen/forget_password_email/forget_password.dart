@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
@@ -50,7 +51,10 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                   key: controller.globalKey.value,
                   child: TextFormField(
                     controller: controller.emailControlerLogin.value,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.emailAddress,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.+]")),
+                    ],
                     validator: (value) => AppValidator.validateEmail(value),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

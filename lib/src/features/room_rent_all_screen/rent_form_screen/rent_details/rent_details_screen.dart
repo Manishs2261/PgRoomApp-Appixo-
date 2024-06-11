@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
@@ -33,16 +35,22 @@ class RentDetailsScsreen extends StatelessWidget {
               child: Column(
                 children: [
                   // =================Home Name================
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     controller: controller.houseNameController.value,
                     hintText: "Enter Home / House Name",
-                    lableText: 'House Name',
-                    icon: const Icon(Icons.home),
+                    labelText: 'House Name',
+                    icon: const Icon(
+                      Icons.home,
+                      color: AppColors.primary,
+                    ),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: EmailValidator.validate,
                     textKeyBoard: TextInputType.text,
                     maxLength: 40,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                    ],
                   ),
 
                   const SizedBox(
@@ -50,77 +58,92 @@ class RentDetailsScsreen extends StatelessWidget {
                   ),
 
                   //==========House Address================
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     textKeyBoard: TextInputType.text,
                     controller: controller.houseAddressController.value,
                     hintText: "House Address",
-                    lableText: 'House address',
-                    icon: const Icon(Icons.location_city_outlined),
+                    labelText: 'House address',
+                    icon: const Icon(Icons.location_city_outlined, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: AddressValidator.validate,
                     maxLength: 100,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                    ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   //===========City Name================
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     textKeyBoard: TextInputType.text,
                     controller: controller.cityNameController.value,
                     hintText: "City Name",
-                    lableText: 'City Name',
-                    icon: const Icon(Icons.location_city_rounded),
+                    labelText: 'City Name',
+                    icon: const Icon(Icons.location_city_rounded, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: CityValidator.validate,
                     maxLength: 40,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                    ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   //============Land Mark address=================
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     textKeyBoard: TextInputType.text,
                     controller: controller.landMarkController.value,
                     hintText: "Land Mark address",
-                    lableText: 'Land Mark address',
-                    icon: const Icon(Icons.home),
+                    labelText: 'Land Mark address',
+                    icon: const Icon(Icons.home, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: LandMarkValidator.validate,
                     maxLength: 100,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                    ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
 
                   //==========Contact Number================
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     textKeyBoard: TextInputType.number,
                     maxLength: 10,
                     controller: controller.contactNumberController.value,
                     hintText: "Contact Number",
-                    lableText: 'Contact Number',
-                    icon: const Icon(Icons.phone),
+                    labelText: 'Contact Number',
+                    icon: const Icon(Icons.phone, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: ContactNumberValidator.validate,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    ],
                   ),
                   const SizedBox(
                     height: 15,
                   ),
 
-                  MyTextFormWedgit(
+                  MyTextFormWidget(
                     textKeyBoard: TextInputType.number,
                     maxLength: 2,
                     controller: controller.numberOfRoomsController.value,
                     hintText: "Number of Rooms",
-                    lableText: 'Number of Rooms',
-                    icon: const Icon(Icons.home_work_rounded),
+                    labelText: 'Number of Rooms',
+                    icon: const Icon(Icons.home_work_rounded, color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: CommonUseValidator.validate,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                    ],
                   ),
 
                   const SizedBox(

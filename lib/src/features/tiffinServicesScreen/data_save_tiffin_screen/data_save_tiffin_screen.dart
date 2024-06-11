@@ -1,7 +1,8 @@
 import 'dart:io';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -246,60 +247,72 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                     key: controller.globalKey,
                     child: Column(
                       children: [
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           controller: controller.servicesNameController.value,
                           hintText: "Enter Service Name",
-                          lableText: 'Service Name',
+                          labelText: 'Service Name',
                           icon: const Icon(Icons.food_bank_sharp),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
                           maxLength: 40,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           controller: controller.addressController.value,
                           hintText: "Enter address",
-                          lableText: 'Address',
+                          labelText: 'Address',
                           icon: const Icon(Icons.location_city),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.text,
                           maxLength: 100,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
 
                         //==========Contact Number================
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           textKeyBoard: TextInputType.phone,
                           maxLength: 10,
                           controller: controller.numberController.value,
                           hintText: "Contact Number",
-                          lableText: 'Contact Number',
+                          labelText: 'Contact Number',
                           icon: const Icon(Icons.phone),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: ContactNumberValidator.validate,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        MyTextFormWedgit(
+                        MyTextFormWidget(
                           controller: controller.priceController.value,
                           hintText: "Enter Price ",
-                          lableText: 'Price Month',
+                          labelText: 'Price Month',
                           icon: const Icon(Icons.currency_rupee),
                           borderRadius: BorderRadius.circular(11),
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: NameValidator.validate,
                           textKeyBoard: TextInputType.number,
                           maxLength: 5,
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
                         ),
                       ],
                     )),
@@ -368,7 +381,9 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                                   textStyle: const TextStyle(color: Colors.green)),
                             ],
                             onTap: () {
-                              print("Tap Event");
+                              if (kDebugMode) {
+                                print("Tap Event");
+                              }
                             },
                           ),
                         ),
@@ -377,10 +392,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                         alignment: Alignment.bottomLeft,
                         child: InkWell(
                           onTap: () {
-                            setState(() {
-
-
-                            });
+                            setState(() {});
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 70, left: 10),

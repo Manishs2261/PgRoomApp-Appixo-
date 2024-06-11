@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -34,8 +35,10 @@ class SignFormWidget extends StatelessWidget {
                   child: Obx(
                     () => TextFormField(
                       controller: _controller.emailController.value,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.emailAddress,
                       readOnly: _controller.emailReading.value,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.+]")),],
                       validator: (value) => AppValidator.validateEmail(value),
                       decoration: InputDecoration(
                           filled: _controller.emailReading.value,

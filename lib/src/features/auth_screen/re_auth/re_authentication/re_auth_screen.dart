@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
@@ -56,7 +57,10 @@ class ReAuthScreen extends StatelessWidget {
                           TextFormField(
                             controller: controller.emailControllerLogin.value,
                             validator: EmailValidator.validate,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.emailAddress,
+                            inputFormatters: <TextInputFormatter>[
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.+]")),
+                            ],
                             decoration: InputDecoration(
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                               hintText: "Enter Registered Email id ",

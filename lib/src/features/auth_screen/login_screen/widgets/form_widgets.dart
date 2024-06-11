@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
@@ -30,7 +31,10 @@ class FormWidgets extends StatelessWidget {
                 TextFormField(
                   controller: _controller.emailControllerLogin.value,
                   validator: EmailValidator.validate,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.emailAddress,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.+]")),
+                  ],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                     hintText: "Enter Email id ",

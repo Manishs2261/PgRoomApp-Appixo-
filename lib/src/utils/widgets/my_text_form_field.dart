@@ -1,57 +1,55 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-
-class MyTextFormWedgit extends StatelessWidget {
-   MyTextFormWedgit({
+class MyTextFormWidget extends StatelessWidget {
+  MyTextFormWidget({
     super.key,
     required this.hintText,
-    required this.lableText,
-      this.controller,
-     this.validator,
-     this.icon,
+    required this.labelText,
+    this.controller,
+    this.validator,
+    this.icon,
     required this.borderRadius,
-     this.contentPadding,
-     this.isCollapsed = false,
-     this.isDense = false,
-     this.maxLength,
-     required this.textKeyBoard,
-     this.maxLine,
-     this.minLine,
-
+    this.contentPadding,
+    this.isCollapsed = false,
+    this.isDense = false,
+    this.maxLength,
+    required this.textKeyBoard,
+    this.maxLine,
+    this.minLine,
+    this.inputFormatters,
   });
 
-   String hintText, lableText;
-   Icon? icon;
-  BorderRadius  borderRadius;
+  String hintText, labelText;
+  Icon? icon;
+  BorderRadius borderRadius;
   EdgeInsetsGeometry? contentPadding;
-  bool isCollapsed ;
-  bool  isDense;
+  bool isCollapsed;
+
+  bool isDense;
   TextEditingController? controller;
-   String? Function(String?)? validator;
-   int ? maxLength;
-   TextInputType textKeyBoard;
-   int? minLine;
-   int? maxLine;
+  String? Function(String?)? validator;
+  int? maxLength;
+  TextInputType textKeyBoard;
+  int? minLine;
+  int? maxLine;
+  List<TextInputFormatter>? inputFormatters;
 
-
-
-   @override
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-
       minLines: minLine,
       maxLines: maxLine,
-
+      inputFormatters: inputFormatters,
       maxLength: maxLength,
       controller: controller,
       keyboardType: textKeyBoard,
       decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: borderRadius),
+          border: OutlineInputBorder(borderRadius: borderRadius),
           hintText: hintText,
-          labelText: lableText,
-          contentPadding:  contentPadding,
+          labelText: labelText,
+          contentPadding: contentPadding,
           isCollapsed: isCollapsed,
           isDense: isDense,
           prefixIcon: icon),

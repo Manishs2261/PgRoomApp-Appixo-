@@ -10,7 +10,8 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../model/user_model/user_model.dart';
-import 'contorller/profile_controller.dart';
+import 'controller/profile_controller.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});

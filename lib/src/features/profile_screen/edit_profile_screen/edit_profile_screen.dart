@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
-import 'contorller/profile_controller.dart';
+import 'controller/profile_controller.dart';
 
 class EditProfileScreen extends StatelessWidget {
   EditProfileScreen({super.key});
@@ -16,7 +17,7 @@ class EditProfileScreen extends StatelessWidget {
     AppLoggerHelper.debug("Build -EditProfileScreen ");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Edit Profile"),
+        title: const Text("Edit Profile"),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -30,6 +31,9 @@ class EditProfileScreen extends StatelessWidget {
                     TextFormField(
                       controller: controller.updateNameController.value,
                       keyboardType: TextInputType.text,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      ],
                       validator: NameValidator.validate,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -44,6 +48,9 @@ class EditProfileScreen extends StatelessWidget {
                     TextFormField(
                       controller: controller.updateCityController.value,
                       keyboardType: TextInputType.text,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      ],
                       validator: NameValidator.validate,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),

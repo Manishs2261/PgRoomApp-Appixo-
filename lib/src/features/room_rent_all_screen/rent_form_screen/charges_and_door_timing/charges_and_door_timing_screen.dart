@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
@@ -123,16 +124,19 @@ class ChargesAndDoorTime extends StatelessWidget {
                           child: Flexible(
                               child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: MyTextFormWedgit(
+                            child: MyTextFormWidget(
                               textKeyBoard: TextInputType.text,
                               controller: controller.restrictedController.value,
                               hintText: "Enter at time",
-                              lableText: "Time",
+                              labelText: "Time",
                               isDense: true,
                               isCollapsed: true,
                               maxLength: 8,
                               borderRadius: BorderRadius.zero,
                               contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                              ],
                             ),
                           )),
                         ),
