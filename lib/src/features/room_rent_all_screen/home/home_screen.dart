@@ -1,7 +1,12 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
@@ -13,7 +18,7 @@ import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -23,8 +28,18 @@ class _HomeScreenState extends State<HomeScreen> {
   List<UserRentModel> rentList = [];
 
   var snapData;
-
   final homeController = Get.put(HomeScreenController());
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    // homeController.getPosition();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

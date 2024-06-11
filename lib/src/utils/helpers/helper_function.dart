@@ -1,6 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
@@ -157,26 +158,17 @@ class AppHelperFunction {
   }
 
 
+
   static Future<bool> checkInternetAvailability() async {
     Connectivity connectivity = Connectivity();
-    //check a internet connection
-    bool isValue = false ;
-    await connectivity.checkConnectivity().then((value) {
-      if (value == ConnectivityResult.none) {
-        AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
-        isValue = false ;
-      }else if (value == ConnectivityResult.mobile){
-        isValue = true;
-      } else if (value == ConnectivityResult.wifi){
-        isValue = true;
-      }else if (value == ConnectivityResult.vpn){
-        isValue = true;
-      }else if (value == ConnectivityResult.bluetooth){
-        isValue = true;
-      }
-    });
+    // Check the internet connection
+    List<ConnectivityResult> results = await connectivity.checkConnectivity();
 
-    return isValue;
-
+    if (results.contains(ConnectivityResult.none)) {
+      AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
+      return false;
+    } else {
+      return true;
+    }
   }
 }

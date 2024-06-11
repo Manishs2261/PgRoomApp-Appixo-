@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,8 +24,10 @@ class AuthApisClass {
 
   // =======google sing =============
   static handleGoogleButtonClick(BuildContext context) async {
+
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
+
         signInWithGoogle().then((value) async {
           await UserApis.saveUserData(
               auth.currentUser?.displayName, "", auth.currentUser?.email, auth.currentUser!.photoURL);
@@ -66,6 +68,7 @@ class AuthApisClass {
 
   //====================== google sign=========================
   static Future<UserCredential> signInWithGoogle() async {
+
    try{
      // Trigger the authentication flow
      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -78,12 +81,12 @@ class AuthApisClass {
      }
 
      // Obtain the auth details from the request
-     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
      // Create a new credential
      final credential = GoogleAuthProvider.credential(
-       accessToken: googleAuth?.accessToken,
-       idToken: googleAuth?.idToken,
+       accessToken: googleAuth.accessToken,
+       idToken: googleAuth.idToken,
      );
 
      // Once signed in, return the UserCredential
@@ -136,14 +139,18 @@ class AuthApisClass {
       Get.snackbar("Re-authentication", "Re-authentication successful");
       Get.toNamed(RoutesName.deleteAccountScreen);
       // Handle successful re-authentication
-      print('Re-authentication successful');
+      if (kDebugMode) {
+        print('Re-authentication successful');
+      }
       // TODO: Update UI or perform any necessary actions after re-authentication
 
     } catch (e) {
       // Handle errors
       Navigator.pop(Get.context!);
       Get.snackbar("Re-authentication", "Re-authentication Failed");
-      print('Error during re-authentication: $e');
+      if (kDebugMode) {
+        print('Error during re-authentication: $e');
+      }
       // TODO: Update UI to show error message or take appropriate actions
     }
   }
@@ -169,13 +176,15 @@ class AuthApisClass {
             "This password is weak use Number,"
                 "Character");
       } else if (e.code == 'email-already-in-use') {
-        print(e.code);
+        if (kDebugMode) {
+          print(e.code);
+        }
         Get.snackbar("Email-already-in-use", "This email id is already exist");
         return false;
       }
     } catch (e) {
       Get.snackbar(" InValid", "Sign");
-      AppLoggerHelper.info(" api ${e} , = $e");
+      AppLoggerHelper.info(" api $e , = $e");
     }
 
     return true;
@@ -255,8 +264,12 @@ class AuthApisClass {
     }).onError((error, stackTrace) {
       Get.snackbar("Send Email", "Failed.");
       Navigator.pop(Get.context!);
-      print(error);
-      print(stackTrace);
+      if (kDebugMode) {
+        print(error);
+      }
+      if (kDebugMode) {
+        print(stackTrace);
+      }
     });
   }
 
@@ -281,7 +294,9 @@ class AuthApisClass {
 
       } else {
         Get.snackbar("Invalid", "Email id and password");
-        print("Error: ${e.code}");
+        if (kDebugMode) {
+          print("Error: ${e.code}");
+        }
       }
       return false;
     }

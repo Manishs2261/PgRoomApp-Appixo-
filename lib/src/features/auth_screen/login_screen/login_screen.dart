@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
         //=======skip button ========
         backgroundColor: Colors.transparent,
         actions: const [
-         // SkipTextButtonWidgets(),
+          // SkipTextButtonWidgets(),
         ],
       ),
       body: GestureDetector(
