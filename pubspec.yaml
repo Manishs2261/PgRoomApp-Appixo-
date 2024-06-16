@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.6+9
+version: 1.0.7+10
 
 environment:
   sdk: '>=3.1.0 <4.0.0'
@@ -31,19 +31,19 @@ dependencies:
 
   fluttertoast: ^8.2.2
   #for integrating firebase
-  firebase_core: ^2.17.0
+  firebase_core: ^2.32.0
   #for handing google sign in
   google_sign_in: ^6.1.5
   #for handling firebase authentication
-  firebase_auth: ^4.9.0
+  firebase_auth: ^4.20.0
   # for scessing cloud firestore database
-  cloud_firestore: ^4.9.1
+  cloud_firestore: ^4.17.5
   #Forfor showing network image
   cached_network_image: ^3.2.3
   #for pick image
   image_picker: ^1.0.4
   #for accessing firebase storege (for uploading files)
-  firebase_storage: ^11.2.6
+  firebase_storage: ^11.7.7
   #for showing Emojis
   emoji_picker_flutter: ^2.2.0
   #for showing a messagepack:
@@ -52,8 +52,8 @@ dependencies:
   flutter_notification_channel: ^3.1.0
   #for on Boarding screen
   smooth_page_indicator: ^1.1.0
-  #otp fill screen
-  pinput: ^4.0.0
+
+
   #rating bar
   flutter_rating_bar: ^4.0.1
   #email and otp verification_code_builder:
@@ -94,6 +94,7 @@ dependencies:
   geolocator: ^10.1.1
   geocoding: ^2.1.0
   uuid: ^3.0.7
+
 
 
 

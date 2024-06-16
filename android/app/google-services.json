@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1012069754938-7ko2o92iqq02p5il31mq8bhn2p79m831.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manishsahu.myappixo.app",
+            "certificate_hash": "454f95a4e4fe9adef0092827cffa3d4b4e6a1194"
+          }
+        },
+        {
           "client_id": "1012069754938-eniu77qbhogsbp230rvoofprun4jcvpo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pinput/pinput.dart';
+
 
 class RentDetailsController extends GetxController {
   final houseNameController = TextEditingController().obs;
@@ -14,7 +14,7 @@ class RentDetailsController extends GetxController {
   RxBool loading = false.obs;
 
   onSubmitButton() async {
-    if (contactNumberController.value.length != 10) {
+    if (contactNumberController.value.text.length != 10) {
       AppHelperFunction.showSnackBar("Please Enter 10 digit of number");
     } else {
       loading.value = true;
