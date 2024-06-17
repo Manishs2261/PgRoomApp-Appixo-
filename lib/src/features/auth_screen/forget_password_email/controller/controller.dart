@@ -6,14 +6,14 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 class ForgetPasswordController extends GetxController {
   final globalKey = GlobalKey<FormState>().obs;
 
-  final emailControlerLogin = TextEditingController().obs;
+  final emailControllerLogin = TextEditingController().obs;
 
   sendEmailForgetPassword() {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
         if (globalKey.value.currentState!.validate()) {
-          AuthApisClass.forgetPassword(emailControlerLogin.value.text);
+          AppHelperFunction.showDialogCenter(false);
+          AuthApisClass.forgetPassword(emailControllerLogin.value.text);
         }
       }
     });

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/features/auth_screen/forget_password_email/controller/controller.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/app_validators/app_validators.dart';
 import '../../../utils/Constants/image_string.dart';
 
@@ -40,7 +41,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 ),
                 const Gap(10),
                 const Text(
-                  "Please enter your registered email to receive a password reset link"
+                  "Please enter your registered email to receive a password reset link "
                   "password Email.",
                   style: TextStyle(fontSize: 16),
                 ),
@@ -50,7 +51,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 Form(
                   key: controller.globalKey.value,
                   child: TextFormField(
-                    controller: controller.emailControlerLogin.value,
+                    controller: controller.emailControllerLogin.value,
                     keyboardType: TextInputType.emailAddress,
                     inputFormatters: <TextInputFormatter>[
                       FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9@.+]")),
@@ -59,7 +60,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
                       hintText: "Enter Registered Email id",
-                      prefixIcon: const Icon(Icons.email_outlined),
+                      prefixIcon: const Icon(Icons.email_outlined,color: AppColors.primary,),
                       contentPadding: const EdgeInsets.only(top: 5),
                     ),
                   ),
