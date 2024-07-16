@@ -92,6 +92,7 @@ class AuthApisClass {
      // Once signed in, return the UserCredential
      return await FirebaseAuth.instance.signInWithCredential(credential);
    }catch(e){
+     AppLoggerHelper.error(e.toString());
      Get.snackbar("Google sign-in", "Something went wrong during Google sign-in. Please try again.");
      throw Exception('Something went wrong during Google sign-in. Please try again.');
    }

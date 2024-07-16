@@ -30,11 +30,27 @@
           }
         },
         {
+          "client_id": "1012069754938-8atcr3jrv5miufs1ia5g55k9itabgkkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manishsahu.myappixo.app",
+            "certificate_hash": "474a7a9400d87b69e82bb89d8919be96d27ecdf5"
+          }
+        },
+        {
           "client_id": "1012069754938-eniu77qbhogsbp230rvoofprun4jcvpo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.manishsahu.myappixo.app",
             "certificate_hash": "7ddf0c0d7022d0c383252d28d709772df591302f"
+          }
+        },
+        {
+          "client_id": "1012069754938-mv7k9ooao344ftlf3br4p0pr2sj0voq2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.manishsahu.myappixo.app",
+            "certificate_hash": "b5dad71df6cd1b95242adc4c909c7191aa4041ef"
           }
         },
         {
