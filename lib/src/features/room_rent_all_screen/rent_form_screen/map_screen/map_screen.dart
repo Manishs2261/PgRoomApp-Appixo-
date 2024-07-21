@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
@@ -51,7 +51,7 @@ class _MapScreenState extends State<MapScreen> {
               trackMyPosition: true,
               selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
               mapLanguage: 'en',
-              onError: (e) => print(e),
+
               countryFilter: 'India',
               markerIcon: const Icon(
                 Icons.location_on_sharp,
@@ -62,8 +62,12 @@ class _MapScreenState extends State<MapScreen> {
                 Icons.check,
               ),
               onPicked: (pickedData) {
-                print(pickedData.latLong.latitude);
-                print(pickedData.latLong.longitude);
+                if (kDebugMode) {
+                  print(pickedData.latLong.latitude);
+                }
+                if (kDebugMode) {
+                  print(pickedData.latLong.longitude);
+                }
                 controller.latitude.value = pickedData.latLong.latitude.toString();
                 controller.longitude.value = pickedData.latLong.longitude.toString();
                 Get.toNamed(RoutesName.perimissionScreen);
@@ -89,7 +93,6 @@ class _MapScreenState extends State<MapScreen> {
                         textStyle: const TextStyle(color: Colors.green)),
                   ],
                   onTap: () {
-                    print("Tap Event");
                   },
                 ),
               ),

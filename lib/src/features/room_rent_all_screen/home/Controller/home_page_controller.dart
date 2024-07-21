@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:get/get.dart';
-import 'package:geolocator/geolocator.dart';
+   import 'package:get/get.dart';
 
 class HomeScreenController extends GetxController {
   RxString roomsType = ''.obs;

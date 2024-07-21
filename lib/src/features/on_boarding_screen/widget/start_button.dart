@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+ import 'package:get/get.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';

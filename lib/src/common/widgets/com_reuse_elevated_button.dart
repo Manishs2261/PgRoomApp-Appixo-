@@ -5,7 +5,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
 
 class ComReuseElevButton extends StatelessWidget {
-  ComReuseElevButton(
+  const ComReuseElevButton(
       {super.key,
       required this.onPressed,
       required this.title,
@@ -16,8 +16,8 @@ class ComReuseElevButton extends StatelessWidget {
   final bool loading;
   final Function()? onPressed;
   final String title;
-  double width;
-  double height;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,11 @@ class ComReuseElevButton extends StatelessWidget {
           width: AppHelperFunction.screenWidth() * width,
           decoration: BoxDecoration(
             color: AppColors.primary,
-            boxShadow: [BoxShadow(color: AppColors.primary.withOpacity(.9), offset: const Offset(0, 5))],
+            boxShadow: [
+              BoxShadow(
+                  color: AppColors.primary.withOpacity(.9),
+                  offset: const Offset(0, 5))
+            ],
             borderRadius: BorderRadius.circular(24),
           ),
           child: (loading)

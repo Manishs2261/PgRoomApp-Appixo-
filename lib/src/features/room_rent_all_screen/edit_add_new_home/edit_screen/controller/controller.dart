@@ -38,8 +38,8 @@ class EditFormScreenController extends GetxController {
   RxBool checkboxFamilyRoom = false.obs;
 
   // choose any one for initialize Enum variable not all
-  var flatTypeEnum = FaltTypeEnum.OneBhk.obs;
-  var hostelTypeEnum = HostelTypeEnum.BoysH.obs;
+  var flatTypeEnum = FlatTypeEnum.oneBhk.obs;
+  var hostelTypeEnum = HostelTypeEnum.boysH.obs;
 
   RxString roomType = ''.obs;
   RxString bhk = ''.obs;
@@ -203,7 +203,7 @@ class EditFormScreenController extends GetxController {
     hostelTypeEnum.value = newHostelTypeEnum!;
   }
 
-  void updateFlatType(FaltTypeEnum? newFlatTypeEnum) {
+  void updateFlatType(FlatTypeEnum? newFlatTypeEnum) {
     flatTypeEnum.value = newFlatTypeEnum!;
   }
 

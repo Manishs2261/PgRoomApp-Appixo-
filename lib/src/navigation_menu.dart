@@ -18,10 +18,10 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
   int selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
+    const HomeScreen(),
     TiffineServicesScreen(),
     OldGoodsScreen(),
-    ProfileDetailsScreen()
+    const ProfileDetailsScreen()
   ];
 
   @override

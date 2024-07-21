@@ -8,8 +8,8 @@ import '../../../../../utils/widgets/hostel_radio_button_widget.dart';
 
 class HostelAndRoomController extends GetxController {
   // choose any one for initialize Enum veritable not all
-  var flatTypeEnum = FaltTypeEnum.OneBhk.obs;
-  var hostelTypeEnum = HostelTypeEnum.BoysH.obs;
+  var flatTypeEnum = FlatTypeEnum.oneBhk.obs;
+  var hostelTypeEnum = HostelTypeEnum.boysH.obs;
 
   RxBool isBool = false.obs;
   RxBool checkboxSingle1 = false.obs;
@@ -35,7 +35,7 @@ class HostelAndRoomController extends GetxController {
     hostelTypeEnum.value = newHostelTypeEnum!;
   }
 
-  void updateFlatType(FaltTypeEnum? newFlatTypeEnum) {
+  void updateFlatType(FlatTypeEnum? newFlatTypeEnum) {
     flatTypeEnum.value = newFlatTypeEnum!;
   }
 

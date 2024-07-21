@@ -1,27 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //for radio button
-enum FaltTypeEnum{OneBhk,TwoBhk,ThreeBhk}
+enum FlatTypeEnum{oneBhk,twoBhk,threeBhk}
 
 
 class MyFlatRadioButtonWidget extends StatelessWidget {
-  MyFlatRadioButtonWidget({
-    required this.titel,
+ const MyFlatRadioButtonWidget({
+    required this.title,
     required this.value,
     required this.flatTypeEnum,
     required this.onChange,
     super.key});
 
-  String titel;
-  FaltTypeEnum value;
-  FaltTypeEnum?  flatTypeEnum;
-  Function(FaltTypeEnum?)? onChange;
+  final String title;
+  final FlatTypeEnum value;
+  final FlatTypeEnum?  flatTypeEnum;
+  final Function(FlatTypeEnum?)? onChange;
   @override
   Widget build(BuildContext context) {
-    return RadioListTile<FaltTypeEnum>(
+    return RadioListTile<FlatTypeEnum>(
       contentPadding: EdgeInsets.zero,
-      title: Text(titel),
+      title: Text(title),
       value: value,
       groupValue: flatTypeEnum,
       onChanged:  onChange,

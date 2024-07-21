@@ -1,4 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -47,8 +48,14 @@ class ReAuthScreenController extends GetxController {
           loading.value = false;
           Navigator.pop(Get.context!);
           Get.snackbar("Please try again","Something went wrong during Google Re-Authenticating.");
-          print(error);
-          print(stackTrace);
+          if (kDebugMode) {
+            print(error);
+          }
+          if (kDebugMode) {
+            if (kDebugMode) {
+              print(stackTrace);
+            }
+          }
         });
       }
     });

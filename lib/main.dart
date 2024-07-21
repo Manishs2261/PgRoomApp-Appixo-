@@ -56,7 +56,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AdProvider()), // Add your ChangeNotifier here
       ],
-      child: MyApp(), // Your main application widget
+      child: const MyApp(), // Your main application widget
     ),
   );
 }

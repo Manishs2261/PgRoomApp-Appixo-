@@ -3,8 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
+ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../../data/repository/apis/old_goods_api.dart';
 import '../../../../model/old_goods_model/old_goods_model.dart';
 

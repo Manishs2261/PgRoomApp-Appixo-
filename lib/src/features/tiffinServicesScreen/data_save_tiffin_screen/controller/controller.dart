@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
@@ -75,8 +76,12 @@ class AddYourTiffineController extends GetxController {
         .then((value) {
       onTiffineServicesData();
     }).onError((error, stackTrace) {
-      print("user data not upload");
-      print(error);
+      if (kDebugMode) {
+        print("user data not upload");
+      }
+      if (kDebugMode) {
+        print(error);
+      }
     });
   }
 
@@ -98,7 +103,9 @@ class AddYourTiffineController extends GetxController {
     }).onError((error, stackTrace) {
       Get.snackbar("Save", "Failed");
       Navigator.pop(Get.context!);
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     });
   }
 

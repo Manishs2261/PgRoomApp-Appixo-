@@ -1,17 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class IconWriteAndWrongWidgets extends StatelessWidget {
-  IconWriteAndWrongWidgets({
+ const IconWriteAndWrongWidgets({
     required this.title,
     this.price = "",
      this.isIcon  = false,
     super.key,
   });
 
-  String title;
-  String price;
-  bool isIcon;
+ final String title;
+ final String price;
+ final  bool isIcon;
 
 
   @override
@@ -19,18 +18,18 @@ class IconWriteAndWrongWidgets extends StatelessWidget {
     return Row(
       children: [
         isIcon
-            ? Icon(
+            ? const Icon(
       Icons.done,
       color: Colors.green,
       size: 20,
     )
             :
-        Icon(
+        const Icon(
           Icons.close,
           color: Colors.red,
           size: 20,
         ),
-        SizedBox(
+        const SizedBox(
           width: 5,
         ),
         Text(title),

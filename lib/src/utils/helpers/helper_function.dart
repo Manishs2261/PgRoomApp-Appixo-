@@ -2,8 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:intl/intl.dart';
 
 
@@ -53,7 +51,7 @@ class AppHelperFunction {
   static void showFlashbar(String message) {
     Flushbar(
       message: message,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       flushbarPosition: FlushbarPosition.TOP,
     ).show(Get.context!);
   }

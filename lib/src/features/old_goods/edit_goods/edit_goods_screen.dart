@@ -21,7 +21,7 @@ class EditGoodsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("iamge : ${data.image}");
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Edit Goods"),

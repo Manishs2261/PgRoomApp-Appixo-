@@ -26,8 +26,8 @@ class HostelTypeWidgets extends StatelessWidget {
         // ======boys hostel =====
         Obx(
           () => MyHostelRadioButtonWidget(
-              titel: "Boys Hostel",
-              value: HostelTypeEnum.BoysH,
+              title: "Boys Hostel",
+              value: HostelTypeEnum.boysH,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
                 hostelController.boysHostelConditions(value);
@@ -37,8 +37,8 @@ class HostelTypeWidgets extends StatelessWidget {
         // ======Girls hostel =====
         Obx(
           () => MyHostelRadioButtonWidget(
-              titel: "Girls Hostel",
-              value: HostelTypeEnum.GirlsH,
+              title: "Girls Hostel",
+              value: HostelTypeEnum.girlsH,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
                 hostelController.girlsHostelConditions(value);
@@ -48,8 +48,8 @@ class HostelTypeWidgets extends StatelessWidget {
         // ======Flat Room =====
         Obx(
           () => MyHostelRadioButtonWidget(
-              titel: "Flat",
-              value: HostelTypeEnum.Faimaly,
+              title: "Flat",
+              value: HostelTypeEnum.family,
               hostelTypeEnum: hostelController.hostelTypeEnum.value,
               onChange: (value) {
                 hostelController.flatTypeConditions(value);
@@ -67,8 +67,8 @@ class HostelTypeWidgets extends StatelessWidget {
 
                   Obx(
                     () => MyFlatRadioButtonWidget(
-                        titel: "1BHK",
-                        value: FaltTypeEnum.OneBhk,
+                        title: "1BHK",
+                        value: FlatTypeEnum.oneBhk,
                         flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.oneBhkCondition(value);
@@ -77,8 +77,8 @@ class HostelTypeWidgets extends StatelessWidget {
 
                   Obx(
                     () => MyFlatRadioButtonWidget(
-                        titel: "2BHK",
-                        value: FaltTypeEnum.TwoBhk,
+                        title: "2BHK",
+                        value: FlatTypeEnum.twoBhk,
                         flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.twoBhkCondition(value);
@@ -87,8 +87,8 @@ class HostelTypeWidgets extends StatelessWidget {
 
                   Obx(
                     () => MyFlatRadioButtonWidget(
-                        titel: "3BHK",
-                        value: FaltTypeEnum.ThreeBhk,
+                        title: "3BHK",
+                        value: FlatTypeEnum.threeBhk,
                         flatTypeEnum: hostelController.flatTypeEnum.value,
                         onChange: (value) {
                           hostelController.threeBhkCondition(value);

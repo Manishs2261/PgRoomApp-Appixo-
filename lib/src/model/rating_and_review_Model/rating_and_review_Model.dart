@@ -33,16 +33,16 @@ class RatingAndReviewModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rating'] = this.rating;
-    data['title'] = this.title;
-    data['currentDate'] = this.currentDate;
-    data['userId'] = this.userId;
-    data['userName'] = this.userName;
-    data['userImage'] = this.userImage;
-    data['tiffineRating'] = this.tiffineRating;
-    data['tiffineTitle'] = this.tiffineTitle;
-    data['tiffineUserId'] = this.tiffineUserId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['rating'] = rating;
+    data['title'] = title;
+    data['currentDate'] = currentDate;
+    data['userId'] = userId;
+    data['userName'] = userName;
+    data['userImage'] = userImage;
+    data['tiffineRating'] = tiffineRating;
+    data['tiffineTitle'] = tiffineTitle;
+    data['tiffineUserId'] = tiffineUserId;
     return data;
   }
 }

@@ -82,7 +82,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.homeScreen,
-            page: () => HomeScreen(),
+            page: () => const HomeScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -127,7 +127,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.detailsRentInfoScreen,
-            page: () => DetailsRentInfoScreen(),
+            page: () => const DetailsRentInfoScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -217,7 +217,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.etidTiffineScreen,
-            page: () => EditTiffineScreen(),
+            page: () => const EditTiffineScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -302,7 +302,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.deleteAccountScreen,
-            page: () => DeleteAccountScreen(),
+            page: () => const DeleteAccountScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

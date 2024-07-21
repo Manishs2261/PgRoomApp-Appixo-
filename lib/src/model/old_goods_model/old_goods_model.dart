@@ -28,14 +28,14 @@ class OldGoodsModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['image'] = this.image;
-    data['address'] = this.address;
-    data['price'] = this.price;
-    data['name'] = this.name;
-    data['contactNumber'] = this.contactNumber;
-    data['postDate'] = this.postDate;
-    data['coverImageId'] = this.coverImageId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['image'] = image;
+    data['address'] = address;
+    data['price'] = price;
+    data['name'] = name;
+    data['contactNumber'] = contactNumber;
+    data['postDate'] = postDate;
+    data['coverImageId'] = coverImageId;
     return data;
   }
 }

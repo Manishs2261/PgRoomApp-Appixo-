@@ -21,12 +21,12 @@ class RatingSummaryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['ratingStar02'] = this.ratingStar02;
-    data['ratingStar01'] = this.ratingStar01;
-    data['ratingStar04'] = this.ratingStar04;
-    data['ratingStar03'] = this.ratingStar03;
-    data['ratingStar05'] = this.ratingStar05;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['ratingStar02'] = ratingStar02;
+    data['ratingStar01'] = ratingStar01;
+    data['ratingStar04'] = ratingStar04;
+    data['ratingStar03'] = ratingStar03;
+    data['ratingStar05'] = ratingStar05;
     return data;
   }
 }

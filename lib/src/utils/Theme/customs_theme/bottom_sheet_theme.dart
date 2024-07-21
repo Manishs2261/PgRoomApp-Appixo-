@@ -9,7 +9,7 @@ class CustomeBottomSheetTheme{
      showDragHandle: true,
      backgroundColor: AppColors.white,
      modalBackgroundColor: AppColors.white,
-     constraints: BoxConstraints(minWidth: double.infinity),
+     constraints: const BoxConstraints(minWidth: double.infinity),
      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
    );
 
@@ -17,7 +17,7 @@ class CustomeBottomSheetTheme{
      showDragHandle: true,
      backgroundColor: AppColors.black,
      modalBackgroundColor: AppColors.black,
-     constraints: BoxConstraints(minWidth: double.infinity),
+     constraints: const BoxConstraints(minWidth: double.infinity),
      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
    );
 }

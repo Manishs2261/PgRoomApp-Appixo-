@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class ComRatingBarWidgets extends StatelessWidget {
-  ComRatingBarWidgets({
+  const ComRatingBarWidgets({
     super.key,
     this.controller,
     this.itemSize = 40.0,
@@ -12,10 +12,10 @@ class ComRatingBarWidgets extends StatelessWidget {
   });
 
   final controller;
-  double initialRating;
-  double itemSize;
-  double horizontal;
-  bool ignoreGestures;
+ final double initialRating;
+ final double itemSize;
+ final double horizontal;
+ final bool ignoreGestures;
 
   @override
   Widget build(BuildContext context) {

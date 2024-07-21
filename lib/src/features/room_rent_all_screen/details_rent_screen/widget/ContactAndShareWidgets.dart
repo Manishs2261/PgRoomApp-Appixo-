@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
-import 'package:url_launcher/url_launcher.dart';
+ import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../utils/helpers/helper_function.dart';
-import '../controller/details_screen_controller.dart';
+ import '../controller/details_screen_controller.dart';
 import 'circle_Container_widgets.dart';
 
 class ContactAndShareWidgets extends StatelessWidget {

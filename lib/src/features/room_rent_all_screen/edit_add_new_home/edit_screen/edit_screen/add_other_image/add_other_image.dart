@@ -185,7 +185,7 @@ class EditOtherImageScreen extends StatelessWidget {
                                           CachedNetworkImage(
                                               width: 250,
                                               height: 200,
-                                              imageUrl: rentList[index].OtherImage.toString(),
+                                              imageUrl: rentList[index].otherImage.toString(),
                                               fit: BoxFit.fill,
                                               placeholder: (context, url) => Container(
                                                     color: Colors.transparent,
@@ -211,7 +211,7 @@ class EditOtherImageScreen extends StatelessWidget {
                                               child: InkWell(
                                                 onTap: () {
                                                   final imageId = snapshot.data!.docs[index].id;
-                                                  final imageUrl = rentList[index].OtherImage;
+                                                  final imageUrl = rentList[index].otherImage;
                                                   controller.onDeleteButton(imageId, itemId, imageUrl!);
                                                 },
                                                 child: CircleAvatar(

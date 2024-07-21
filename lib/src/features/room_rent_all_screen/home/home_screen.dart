@@ -1,13 +1,8 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:line_icons/line_icon.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
+  import 'package:get/get.dart';
+ import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';

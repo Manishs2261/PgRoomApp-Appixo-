@@ -45,19 +45,19 @@ class TiffineServicesModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['foodPrice'] = this.foodPrice;
-    data['averageRating'] = this.averageRating;
-    data['address'] = this.address;
-    data['NumberOfRating'] = this.numberOfRating;
-    data['servicesName'] = this.servicesName;
-    data['menuImage'] = this.menuImage;
-    data['foodImage'] = this.foodImage;
-    data['contactNumber'] = this.contactNumber;
-    data['longitude'] = this.longitude;
-    data['latitude'] = this.latitude;
-    data['coverImageId'] = this.coverImageId;
-    data['menuImageId'] = this.menuImageId;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['foodPrice'] = foodPrice;
+    data['averageRating'] = averageRating;
+    data['address'] = address;
+    data['NumberOfRating'] = numberOfRating;
+    data['servicesName'] = servicesName;
+    data['menuImage'] = menuImage;
+    data['foodImage'] = foodImage;
+    data['contactNumber'] = contactNumber;
+    data['longitude'] = longitude;
+    data['latitude'] = latitude;
+    data['coverImageId'] = coverImageId;
+    data['menuImageId'] = menuImageId;
     return data;
   }
 }

@@ -62,7 +62,7 @@ class ViewAllImage extends StatelessWidget {
                           //On Tap full screen Image viewer
                           showImageViewer(
                             context,
-                            Image.network(rentList[index].OtherImage.toString()).image,
+                            Image.network(rentList[index].otherImage.toString()).image,
                             swipeDismissible: true,
                             doubleTapZoomable: true,
                           );
@@ -70,7 +70,7 @@ class ViewAllImage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: CachedNetworkImage(
-                              imageUrl: rentList[index].OtherImage.toString(),
+                              imageUrl: rentList[index].otherImage.toString(),
                               fit: BoxFit.fill,
                               placeholder: (context, url) => Container(
                                     color: Colors.transparent,

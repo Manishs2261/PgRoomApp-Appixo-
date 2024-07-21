@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MyTextFormWidget extends StatelessWidget {
-  MyTextFormWidget({
+  const MyTextFormWidget({
     super.key,
     required this.hintText,
     required this.labelText,
@@ -21,20 +20,20 @@ class MyTextFormWidget extends StatelessWidget {
     this.inputFormatters,
   });
 
-  String hintText, labelText;
-  Icon? icon;
-  BorderRadius borderRadius;
-  EdgeInsetsGeometry? contentPadding;
-  bool isCollapsed;
+  final String hintText, labelText;
+  final Icon? icon;
+  final BorderRadius borderRadius;
+  final EdgeInsetsGeometry? contentPadding;
+  final bool isCollapsed;
 
-  bool isDense;
-  TextEditingController? controller;
-  String? Function(String?)? validator;
-  int? maxLength;
-  TextInputType textKeyBoard;
-  int? minLine;
-  int? maxLine;
-  List<TextInputFormatter>? inputFormatters;
+  final bool isDense;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final int? maxLength;
+  final TextInputType textKeyBoard;
+  final int? minLine;
+  final int? maxLine;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   Widget build(BuildContext context) {

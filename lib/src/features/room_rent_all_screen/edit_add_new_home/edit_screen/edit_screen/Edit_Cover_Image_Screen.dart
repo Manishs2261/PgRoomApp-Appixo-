@@ -5,8 +5,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+ import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../../utils/Constants/colors.dart';

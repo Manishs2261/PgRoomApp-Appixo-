@@ -99,9 +99,7 @@ class DetailsScreenController extends GetxController {
     var numberOfRating =
         ApisClass.starOne + ApisClass.starTwo + ApisClass.starThree + ApisClass.starFour + ApisClass.starFive;
 
-    // calculation a average
-    print(numberOfRating);
-    print(totalNumberOfStar);
+
 
     if (totalNumberOfStar == 0 && numberOfRating == 0) {
       return null;

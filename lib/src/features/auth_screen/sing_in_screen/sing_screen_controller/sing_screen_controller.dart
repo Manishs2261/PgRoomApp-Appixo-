@@ -76,8 +76,12 @@ class SingScreenController extends GetxController {
               timer.cancel();
             }
           }).onError((error, stackTrace) {
-            print(error);
-            print(stackTrace);
+            if (kDebugMode) {
+              print(error);
+            }
+            if (kDebugMode) {
+              print(stackTrace);
+            }
           });
         }
       }
@@ -102,8 +106,12 @@ class SingScreenController extends GetxController {
             otpReSendLoading.value = false;
           }).onError((error, stackTrace) {
             otpReSendLoading.value = false;
-            print(error);
-            print(stackTrace);
+            if (kDebugMode) {
+              print(error);
+            }
+            if (kDebugMode) {
+              print(stackTrace);
+            }
           });
         }
       }
