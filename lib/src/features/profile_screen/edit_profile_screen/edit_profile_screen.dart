@@ -32,7 +32,7 @@ class EditProfileScreen extends StatelessWidget {
                       controller: controller.updateNameController.value,
                       keyboardType: TextInputType.text,
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                       ],
                       validator: NameValidator.validate,
                       decoration: InputDecoration(
@@ -49,7 +49,7 @@ class EditProfileScreen extends StatelessWidget {
                       controller: controller.updateCityController.value,
                       keyboardType: TextInputType.text,
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                        FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                       ],
                       validator: NameValidator.validate,
                       decoration: InputDecoration(

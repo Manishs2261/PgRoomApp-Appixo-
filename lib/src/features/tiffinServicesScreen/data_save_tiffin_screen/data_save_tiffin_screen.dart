@@ -258,7 +258,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                           textKeyBoard: TextInputType.text,
                           maxLength: 40,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                           ],
                         ),
                         const SizedBox(
@@ -275,7 +275,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                           textKeyBoard: TextInputType.text,
                           maxLength: 100,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                           ],
                         ),
                         const SizedBox(
@@ -294,7 +294,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: ContactNumberValidator.validate,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                           ],
                         ),
                         const SizedBox(
@@ -311,7 +311,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                           textKeyBoard: TextInputType.number,
                           maxLength: 5,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                           ],
                         ),
                       ],

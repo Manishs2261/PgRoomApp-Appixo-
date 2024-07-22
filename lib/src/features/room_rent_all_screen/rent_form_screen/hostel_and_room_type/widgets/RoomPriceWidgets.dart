@@ -52,7 +52,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       maxLength: 6,
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                       ],
                     ),
                   )),
@@ -89,7 +89,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                       ],
                     ),
                   )),
@@ -125,7 +125,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                       ],
                     ),
                   )),
@@ -161,7 +161,7 @@ class RoomPriceWidgets extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                        FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                       ],
                     ),
                   )),
@@ -198,7 +198,7 @@ class RoomPriceWidgets extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                         ],
                       ),
                     ),

@@ -135,7 +135,7 @@ class ChargesAndDoorTime extends StatelessWidget {
                               borderRadius: BorderRadius.zero,
                               contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                                FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                               ],
                             ),
                           )),

@@ -310,7 +310,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                             textKeyBoard: TextInputType.text,
                             maxLength: 40,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                             ]),
                         const SizedBox(
                           height: 15,
@@ -326,7 +326,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                           textKeyBoard: TextInputType.text,
                           maxLength: 100,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                           ],
                         ),
                         const SizedBox(
@@ -345,7 +345,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                           contentPadding: const EdgeInsets.only(top: 5, left: 10),
                           validator: ContactNumberValidator.validate,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                           ],
                         ),
                         const SizedBox(
@@ -363,7 +363,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                           textKeyBoard: TextInputType.number,
                           maxLength: 6,
                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                            FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                           ],
                         ),
                       ],

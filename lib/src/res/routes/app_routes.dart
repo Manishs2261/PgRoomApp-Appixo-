@@ -87,7 +87,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.rentDetails_screen,
-            page: () => RentDetailsScsreen(),
+            page: () => RentDetailsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -122,7 +122,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.rentDetailsFormScreen,
-            page: () => RentDetailsScsreen(),
+            page: () => RentDetailsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(

@@ -95,7 +95,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                             ],
                           ),
                         )),
@@ -131,7 +131,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                               borderRadius: BorderRadius.circular(11),
                               contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                               inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                                FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                               ],
                             ),
                           )),
@@ -166,7 +166,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                             ],
                           ),
                         )),
@@ -202,7 +202,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                             borderRadius: BorderRadius.circular(11),
                             contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                             ],
                           ),
                         )),

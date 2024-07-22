@@ -173,7 +173,7 @@ class SignProfileScreen extends StatelessWidget {
                         controller: controller.cityNameController.value,
                         keyboardType: TextInputType.text,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                         ],
                         validator: CityValidator.validate,
                         decoration: InputDecoration(

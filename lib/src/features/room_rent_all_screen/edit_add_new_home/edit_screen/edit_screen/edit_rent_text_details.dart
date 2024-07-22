@@ -47,7 +47,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: EmailValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                         ],
                       ),
 
@@ -66,7 +66,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: AddressValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                         ],
                       ),
                       const SizedBox(
@@ -83,7 +83,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: CityValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                         ],
                       ),
                       const SizedBox(
@@ -100,7 +100,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: LandMarkValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                          FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                         ],
                       ),
                       const SizedBox(
@@ -119,7 +119,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: ContactNumberValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                         ],
                       ),
 
@@ -138,7 +138,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         contentPadding: const EdgeInsets.only(top: 5, left: 10),
                         validator: CommonUseValidator.validate,
                         inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                         ],
                       ),
 

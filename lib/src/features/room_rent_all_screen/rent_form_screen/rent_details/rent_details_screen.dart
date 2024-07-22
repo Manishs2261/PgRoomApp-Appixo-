@@ -4,14 +4,12 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
 import 'package:pgroom/src/utils/widgets/my_text_form_field.dart';
-
 import '../../../../utils/validator/text_field_validator.dart';
 import 'controller/controller.dart';
 
-class RentDetailsScsreen extends StatelessWidget {
-  RentDetailsScsreen({super.key});
+class RentDetailsScreen extends StatelessWidget {
+  RentDetailsScreen({super.key});
 
   final _globalKey = GlobalKey<FormState>();
 
@@ -38,6 +36,7 @@ class RentDetailsScsreen extends StatelessWidget {
                   MyTextFormWidget(
                     controller: controller.houseNameController.value,
                     hintText: "Enter Home / House Name",
+
                     labelText: 'House Name',
                     icon: const Icon(
                       Icons.home,
@@ -49,7 +48,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     textKeyBoard: TextInputType.text,
                     maxLength: 40,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                     ],
                   ),
 
@@ -63,13 +62,14 @@ class RentDetailsScsreen extends StatelessWidget {
                     controller: controller.houseAddressController.value,
                     hintText: "House Address",
                     labelText: 'House address',
-                    icon: const Icon(Icons.location_city_outlined, color: AppColors.primary),
+                    icon: const Icon(Icons.location_city_outlined,
+                        color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: AddressValidator.validate,
                     maxLength: 100,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                     ],
                   ),
                   const SizedBox(
@@ -81,13 +81,14 @@ class RentDetailsScsreen extends StatelessWidget {
                     controller: controller.cityNameController.value,
                     hintText: "City Name",
                     labelText: 'City Name',
-                    icon: const Icon(Icons.location_city_rounded, color: AppColors.primary),
+                    icon: const Icon(Icons.location_city_rounded,
+                        color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: CityValidator.validate,
                     maxLength: 40,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z]")),
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                     ],
                   ),
                   const SizedBox(
@@ -105,7 +106,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     validator: LandMarkValidator.validate,
                     maxLength: 100,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                     ],
                   ),
                   const SizedBox(
@@ -124,7 +125,7 @@ class RentDetailsScsreen extends StatelessWidget {
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: ContactNumberValidator.validate,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                      FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                     ],
                   ),
                   const SizedBox(
@@ -137,12 +138,13 @@ class RentDetailsScsreen extends StatelessWidget {
                     controller: controller.numberOfRoomsController.value,
                     hintText: "Number of Rooms",
                     labelText: 'Number of Rooms',
-                    icon: const Icon(Icons.home_work_rounded, color: AppColors.primary),
+                    icon: const Icon(Icons.home_work_rounded,
+                        color: AppColors.primary),
                     borderRadius: BorderRadius.circular(11),
                     contentPadding: const EdgeInsets.only(top: 5, left: 10),
                     validator: CommonUseValidator.validate,
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                      FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                     ],
                   ),
 

@@ -147,7 +147,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
                             textKeyBoard: TextInputType.text,
                             maxLength: 40,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                             ]),
                         const SizedBox(
                           height: 15,
@@ -163,7 +163,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
                             textKeyBoard: TextInputType.text,
                             maxLength: 40,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                             ]),
                         const SizedBox(
                           height: 15,
@@ -181,7 +181,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
                             contentPadding: const EdgeInsets.only(top: 5, left: 10),
                             validator: ContactNumberValidator.validate,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                             ]),
                         const SizedBox(
                           height: 15,
@@ -197,7 +197,7 @@ class DataSaveGoodsScreen extends StatelessWidget {
                             validator: NameValidator.validate,
                             textKeyBoard: TextInputType.number,
                             inputFormatters: <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                              FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                             ]),
                       ],
                     )),
