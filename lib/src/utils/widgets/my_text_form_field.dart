@@ -51,6 +51,7 @@ class MyTextFormWidget extends StatelessWidget {
           contentPadding: contentPadding,
           isCollapsed: isCollapsed,
           isDense: isDense,
+          counterText: "",
           prefixIcon: icon),
       validator: validator,
     );
