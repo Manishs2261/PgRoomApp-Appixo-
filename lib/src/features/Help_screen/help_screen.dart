@@ -31,7 +31,7 @@ class _HelpScreenState extends State<HelpScreen> {
                   ),
                   TextSpan(text: '  or call us at', style: TextStyle(color: Colors.black, fontSize: 18)),
                   TextSpan(
-                    text: ' +91 7389523175',
+                    text: ' +91 80839 31811',
                     style: TextStyle(color: Colors.blue, fontSize: 22),
                   ),
                   TextSpan(
