@@ -262,7 +262,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 }),
             ListTile(
                 leading: const Icon(Icons.home_work),
-                title: const Text("Add to Cart Room"),
+                title: const Text("View to Cart Room"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -276,7 +276,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 }),
             ListTile(
                 leading: const Icon(Icons.food_bank),
-                title: const Text("Add to Cart Food"),
+                title: const Text("View to Cart Food"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -290,7 +290,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 }),
             ListTile(
                 leading: const Icon(Icons.handshake),
-                title: const Text("Add to Cart Deal"),
+                title: const Text("View to Cart Deal"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -345,7 +345,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   Icons.report_gmailerrorred,
                   color: Colors.red,
                 ),
-                title: const Text("App Issue"),
+                title: const Text("Report App"),
                 trailing: const Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -373,25 +373,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                     });
                   }),
             ),
-            Visibility(
-              visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
-              child: ListTile(
-                  leading: const Icon(Icons.delete_outline_sharp),
-                  title: const Text("Delete Account"),
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
-                  onTap: () {
-                    // Get.toNamed(RoutesName.reAuthScreen);
-                    UserApis.deleteUserAllItemAccount();
-                    // AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
-                    //     () {
-                    //   Navigator.pop(context);
-                    //   UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
-                    // });
-                  }),
-            ),
+
             const SizedBox(
               height: 40,
             ),

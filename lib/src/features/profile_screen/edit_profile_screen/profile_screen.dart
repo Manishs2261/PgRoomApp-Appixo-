@@ -9,7 +9,9 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import '../../../data/repository/apis/user_apis.dart';
 import '../../../model/user_model/user_model.dart';
+import '../../splash/controller/splash_controller.dart';
 import 'controller/profile_controller.dart';
 
 
@@ -217,6 +219,29 @@ class ProfileScreen extends StatelessWidget {
                               name: 'City',
                               icon: Icons.location_city,
                               initialValue: userList[0].city,
+                            ),
+
+                            const SizedBox(
+                              height: 40,
+                            ),
+                            Visibility(
+                              visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
+                              child: ListTile(
+                                  leading: const Icon(Icons.delete_outline_sharp,color: Colors.red,),
+                                  title: const Text("Delete Account",style: TextStyle(color: Colors.red),),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16,
+                                  ),
+                                  onTap: () {
+                                    // Get.toNamed(RoutesName.reAuthScreen);
+                                    UserApis.deleteUserAllItemAccount();
+                                    // AppHelperFunction.showAlert("Delete", "Are you confirming that you want to delete your account?",
+                                    //     () {
+                                    //   Navigator.pop(context);
+                                    //   UserApis.deleteUserAllItemAccount(userList[0].userImage.toString());
+                                    // });
+                                  }),
                             ),
                           ],
                         ),
