@@ -7,6 +7,7 @@ import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/delete_account/delete_account.dart';
 import 'package:pgroom/src/features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
+import 'package:pgroom/src/features/contacts_us/contacts.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
@@ -303,6 +304,11 @@ class AppRoutes {
         GetPage(
             name: RoutesName.deleteAccountScreen,
             page: () => const DeleteAccountScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.contactsUs,
+            page: () => const ContactsUs(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

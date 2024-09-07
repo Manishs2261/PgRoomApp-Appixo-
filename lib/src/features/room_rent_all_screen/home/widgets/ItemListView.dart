@@ -45,13 +45,15 @@ class ItemListView extends StatelessWidget {
             child: Container(
               width: double.infinity,
               constraints: const BoxConstraints(minHeight: 180, maxHeight: 400),
-              decoration: BoxDecoration(color: dark ? AppColors.dark : Colors.white, boxShadow: const [
-                BoxShadow(
-                  color: Colors.white,
-                  spreadRadius: 0.1,
-                  blurRadius: .1,
-                )
-              ]),
+              decoration: BoxDecoration(
+                  color: dark ? AppColors.dark : Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.white,
+                      spreadRadius: 0.1,
+                      blurRadius: .1,
+                    )
+                  ]),
               child: Stack(
                 children: [
                   Container(
@@ -67,9 +69,13 @@ class ItemListView extends StatelessWidget {
                           margin: const EdgeInsets.all(8),
                           height: 400,
                           width: 400,
-                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
-                            BoxShadow(color: Colors.black.withOpacity(.8), offset: const Offset(2, 5)),
-                          ]),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(.8),
+                                    offset: const Offset(2, 5)),
+                              ]),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: CachedNetworkImage(
@@ -105,13 +111,16 @@ class ItemListView extends StatelessWidget {
                           child: Column(
                             children: [
                               Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(24),
                                     ),
-                                    padding: const EdgeInsets.all(8),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2, horizontal: 8),
                                     child: Row(
                                       children: [
                                         const Icon(
@@ -119,9 +128,9 @@ class ItemListView extends StatelessWidget {
                                           size: 18,
                                           color: Colors.orange,
                                         ),
-                                        const Gap(8),
+                                        const Gap(4),
                                         Text(
-                                          "${rentList[index].average}  ",
+                                          "${rentList[index].average}",
                                           style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -129,7 +138,36 @@ class ItemListView extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const Spacer(),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(24),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2, horizontal: 8),
+                                    child: Row(
+                                      children: [
+                                        (rentList[index].roomAvailable!)
+                                            ? (rentList[index].roomType ==
+                                                    'Family')
+                                                ? Text(
+                                                    "${rentList[index].numberOfRooms} Flat",
+                                                    style: const TextStyle(
+                                                        color: Colors.green),
+                                                  )
+                                                : Text(
+                                                    "${rentList[index].numberOfRooms} Rooms",
+                                                    style: const TextStyle(
+                                                        color: Colors.green),
+                                                  )
+                                            : const Text(
+                                                "Not Available",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                               const Spacer(),
@@ -148,7 +186,8 @@ class ItemListView extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Flexible(
                                               child: Text(
@@ -157,22 +196,31 @@ class ItemListView extends StatelessWidget {
                                                 softWrap: false,
                                                 maxLines: 1,
                                                 style: const TextStyle(
-                                                    fontSize: 18, fontWeight: FontWeight.w500, color: Colors.white),
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white),
                                               ),
                                             ),
                                             RichText(
                                               text: TextSpan(
                                                 text: '₹',
-                                                style: const TextStyle(color: Colors.white), //DefaultTextStyle.of
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                                //DefaultTextStyle.of
                                                 // (context)
                                                 // .style,
                                                 children: <TextSpan>[
                                                   TextSpan(
-                                                      text: (rentList[index].singlePersonPrice!.isNotEmpty)
+                                                      text: (rentList[index]
+                                                              .singlePersonPrice!
+                                                              .isNotEmpty)
                                                           ? '${rentList[index].singlePersonPrice}'
                                                           : '${rentList[index].familyPrice}',
-                                                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                                                  const TextSpan(text: '/-Monthly'),
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  const TextSpan(
+                                                      text: '/-Monthly'),
                                                 ],
                                               ),
                                             ),
@@ -193,7 +241,8 @@ class ItemListView extends StatelessWidget {
                                                 overflow: TextOverflow.ellipsis,
                                                 softWrap: false,
                                                 maxLines: 1,
-                                                style: const TextStyle(color: Colors.white),
+                                                style: const TextStyle(
+                                                    color: Colors.white),
                                               ),
                                             ),
                                           ],
@@ -219,28 +268,46 @@ class ItemListView extends StatelessWidget {
                                             ),
                                             const Gap(20),
                                             Container(
-                                              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 1,
+                                                      horizontal: 10),
                                               decoration: BoxDecoration(
-                                                  color: Colors.blue, borderRadius: BorderRadius.circular(10)),
-                                              child: (rentList[index].bhkType!.isEmpty)
+                                                  color: Colors.blue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: (rentList[index]
+                                                      .bhkType!
+                                                      .isEmpty)
                                                   ? Text(
                                                       "Only ${rentList[index].roomType}",
                                                       style: const TextStyle(
-                                                          color: Colors.white, fontWeight: FontWeight.w700),
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w700),
                                                     )
-                                                  : Text("${rentList[index].roomType} ${rentList[index].bhkType}",
-                                                      style: const TextStyle(color: Colors.white)),
+                                                  : Text(
+                                                      "${rentList[index].roomType} ${rentList[index].bhkType}",
+                                                      style: const TextStyle(
+                                                          color: Colors.white)),
                                             ),
                                             const Gap(20),
                                             InkWell(
                                               onTap: () {
-                                                AppHelperFunction.checkInternetAvailability().then((value) {
+                                                AppHelperFunction
+                                                        .checkInternetAvailability()
+                                                    .then((value) {
                                                   if (value) {
-                                                    AuthApisClass.checkUserLogin().then((value) {
+                                                    AuthApisClass
+                                                            .checkUserLogin()
+                                                        .then((value) {
                                                       if (value) {
-                                                        AppDeviceUtils.launchUrl("${Uri(
+                                                        AppDeviceUtils
+                                                            .launchUrl("${Uri(
                                                           scheme: 'tel',
-                                                          path: rentList[index].contactNumber,
+                                                          path: rentList[index]
+                                                              .contactNumber,
                                                         )}");
                                                       }
                                                     });
@@ -248,14 +315,24 @@ class ItemListView extends StatelessWidget {
                                                 });
                                               },
                                               child: Container(
-                                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 2,
+                                                      horizontal: 10),
                                                   decoration: BoxDecoration(
                                                       color: Colors.white,
-                                                      borderRadius: BorderRadius.circular(10),
-                                                      border: Border.all(color: Colors.blue, width: 2)),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      border: Border.all(
+                                                          color: Colors.blue,
+                                                          width: 2)),
                                                   child: const Text(
                                                     "Call Now",
-                                                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w700),
+                                                    style: TextStyle(
+                                                        color: Colors.blue,
+                                                        fontWeight:
+                                                            FontWeight.w700),
                                                   )),
                                             ),
                                           ],

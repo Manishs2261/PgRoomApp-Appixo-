@@ -69,5 +69,6 @@ class RoutesName{
   static const String helpScreen = '/helpScreen';
   static const String reAuthScreen = '/reAuthScreen';
   static const String deleteAccountScreen = '/deleteAccountScreen';
+  static const String contactsUs = '/ContactsUs';
 
 }

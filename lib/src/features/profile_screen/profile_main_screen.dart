@@ -322,6 +322,14 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 ),
                 onTap: () => Get.toNamed(RoutesName.helpScreen)),
             ListTile(
+                leading: const Icon(Icons.contact_page_outlined),
+                title: const Text("Contact Us"),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+                onTap: () => Get.toNamed(RoutesName.contactsUs)),
+            ListTile(
                 leading: const Icon(Icons.info_outline),
                 title: const Text("Privacy And Policy"),
                 trailing: const Icon(
