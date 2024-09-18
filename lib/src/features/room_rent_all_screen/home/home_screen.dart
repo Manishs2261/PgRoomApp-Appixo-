@@ -1,6 +1,8 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
  import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
   import 'package:get/get.dart';
  import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
@@ -25,13 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
   var snapData;
   final homeController = Get.put(HomeScreenController());
 
-
-
   @override
   void initState() {
     // TODO: implement initState
 
-    // homeController.getPosition();
 
     super.initState();
   }
@@ -100,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color:
-                              homeController.roomsType.value == '' ? AppColors.primary.withOpacity(.8) : Colors.white,
+                          homeController.roomsType.value == '' ? AppColors.primary.withOpacity(.8) : Colors.white,
                           border: Border.all(
                             color: homeController.roomsType.value == '' ? Colors.transparent : AppColors.primary,
                           ),
@@ -132,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: homeController.roomsType.value == 'Girls' ? AppColors.primary.withOpacity(.8) : null,
                           border: Border.all(
                               color:
-                                  homeController.roomsType.value == 'Girls' ? Colors.transparent : AppColors.primary),
+                              homeController.roomsType.value == 'Girls' ? Colors.transparent : AppColors.primary),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -299,9 +298,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   snapData = snapshot;
                   if (homeController.roomsType.value.isNotEmpty) {
                     rentList = data
-                            ?.map((e) => UserRentModel.fromJson(e.data()))
-                            .where((element) => element.roomType == homeController.roomsType.value)
-                            .toList() ??
+                        ?.map((e) => UserRentModel.fromJson(e.data()))
+                        .where((element) => element.roomType == homeController.roomsType.value)
+                        .toList() ??
                         [];
                   } else {
                     rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];

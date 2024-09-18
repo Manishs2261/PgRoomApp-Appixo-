@@ -33,7 +33,7 @@ class ContactsUs extends StatelessWidget {
                     "Founder:- Alok aditya",
                     style: TextStyle(fontSize: 18),
                   ),
-                  const Text("Email Id:- alokadity.ece@gmail.com"),
+                  const Text("Email Id:- alokaditya.ece@gmail.com"),
                 ],
               ),
               const SizedBox(
