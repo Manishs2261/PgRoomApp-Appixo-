@@ -110,10 +110,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                         padding: EdgeInsets.zero,
                         child: StreamBuilder(
                           stream: ApisClass.firebaseFirestore
-                              .collection("loginUser")
-                              .doc(ApisClass.user.uid)
-                              .collection(ApisClass.user.uid)
-                              .snapshots(includeMetadataChanges: true),
+                              .collection("loginUser").where('uid', isEqualTo: ApisClass.user.uid).snapshots(includeMetadataChanges: true),
                           builder: (BuildContext context, snapshot) {
                             switch (snapshot.connectionState) {
                               case ConnectionState.waiting:

@@ -41,7 +41,7 @@ class UserApis {
 
   //Get all data in user
   static Future<void> getUserData() async {
-    var collection = firebaseFirestore.collection('loginUser').doc(user.uid).collection(user.uid).doc(user.uid);
+    var collection = firebaseFirestore.collection('loginUser').doc(user.uid);
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     userName = data?['Name'] ?? '';
@@ -52,11 +52,14 @@ class UserApis {
 
   // save a user data
   static Future<void> saveUserData(name, city, email, image) async {
-    await firebaseFirestore.collection("loginUser").doc(user.uid).collection(user.uid).doc(user.uid).set({
+    await firebaseFirestore.collection("loginUser").doc(user.uid).set({
       'city': city,
       'email': email,
       'Name': name,
       'userImage': image,
+      'uid':user.uid,
+      'createdAt': FieldValue.serverTimestamp(),  // Timestamp when document is created
+      'updatedAt': FieldValue.serverTimestamp(),  // Timestamp when document is updated
     });
   }
 
