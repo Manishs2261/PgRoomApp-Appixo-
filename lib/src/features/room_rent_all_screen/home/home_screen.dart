@@ -1,10 +1,10 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-  import 'package:get/get.dart';
- import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
 
     super.initState();
   }
@@ -68,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: InputDecoration(
                     fillColor: Colors.yellow[50],
                     filled: true,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
                     hintText: "Enter Locality / Landmark / Colony",
                     hintStyle: const TextStyle(color: Colors.black54),
                     prefixIcon: const Icon(Icons.search_rounded),
@@ -98,10 +98,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 60,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color:
-                          homeController.roomsType.value == '' ? AppColors.primary.withOpacity(.8) : Colors.white,
+                          color: homeController.roomsType.value == ''
+                              ? AppColors.primary.withOpacity(.8)
+                              : Colors.white,
                           border: Border.all(
-                            color: homeController.roomsType.value == '' ? Colors.transparent : AppColors.primary,
+                            color: homeController.roomsType.value == ''
+                                ? Colors.transparent
+                                : AppColors.primary,
                           ),
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -111,7 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "All",
                           style: TextStyle(
-                              color: homeController.roomsType.value == '' ? Colors.white : AppColors.primary,
+                              color: homeController.roomsType.value == ''
+                                  ? Colors.white
+                                  : AppColors.primary,
                               fontSize: 16),
                         ),
                       ),
@@ -128,10 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 100,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: homeController.roomsType.value == 'Girls' ? AppColors.primary.withOpacity(.8) : null,
+                          color: homeController.roomsType.value == 'Girls'
+                              ? AppColors.primary.withOpacity(.8)
+                              : null,
                           border: Border.all(
-                              color:
-                              homeController.roomsType.value == 'Girls' ? Colors.transparent : AppColors.primary),
+                              color: homeController.roomsType.value == 'Girls'
+                                  ? Colors.transparent
+                                  : AppColors.primary),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         padding: const EdgeInsets.symmetric(
@@ -143,12 +151,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             Image(
                                 image: const AssetImage(AppImage.girlsIcon),
                                 width: 25,
-                                color: homeController.roomsType.value == 'Girls' ? Colors.white : AppColors.primary),
+                                color: homeController.roomsType.value == 'Girls'
+                                    ? Colors.white
+                                    : AppColors.primary),
                             const Gap(5),
                             Text(
                               "Girls",
                               style: TextStyle(
-                                  color: homeController.roomsType.value == 'Girls' ? Colors.white : AppColors.primary,
+                                  color:
+                                      homeController.roomsType.value == 'Girls'
+                                          ? Colors.white
+                                          : AppColors.primary,
                                   fontSize: 16),
                             ),
                           ],
@@ -167,9 +180,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 100,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          color: homeController.roomsType.value == 'Boys' ? AppColors.primary.withOpacity(.8) : null,
+                          color: homeController.roomsType.value == 'Boys'
+                              ? AppColors.primary.withOpacity(.8)
+                              : null,
                           border: Border.all(
-                            color: homeController.roomsType.value == 'Boys' ? Colors.transparent : AppColors.primary,
+                            color: homeController.roomsType.value == 'Boys'
+                                ? Colors.transparent
+                                : AppColors.primary,
                           ),
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -183,12 +200,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 image: const AssetImage(AppImage.boysIcon),
                                 width: 25,
                                 height: 25,
-                                color: homeController.roomsType.value == 'Boys' ? Colors.white : AppColors.primary),
+                                color: homeController.roomsType.value == 'Boys'
+                                    ? Colors.white
+                                    : AppColors.primary),
                             const Gap(5),
                             Text(
                               "Boys",
                               style: TextStyle(
-                                  color: homeController.roomsType.value == 'Boys' ? Colors.white : AppColors.primary,
+                                  color:
+                                      homeController.roomsType.value == 'Boys'
+                                          ? Colors.white
+                                          : AppColors.primary,
                                   fontSize: 16),
                             ),
                           ],
@@ -206,9 +228,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         width: 120,
                         decoration: BoxDecoration(
-                          color: homeController.roomsType.value == 'Family' ? AppColors.primary.withOpacity(.8) : null,
+                          color: homeController.roomsType.value == 'Family'
+                              ? AppColors.primary.withOpacity(.8)
+                              : null,
                           border: Border.all(
-                            color: homeController.roomsType.value == 'Family' ? Colors.transparent : AppColors.primary,
+                            color: homeController.roomsType.value == 'Family'
+                                ? Colors.transparent
+                                : AppColors.primary,
                           ),
                           borderRadius: BorderRadius.circular(24),
                         ),
@@ -219,12 +245,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.apartment_rounded,
-                                color: homeController.roomsType.value == 'Family' ? Colors.white : AppColors.primary),
+                                color:
+                                    homeController.roomsType.value == 'Family'
+                                        ? Colors.white
+                                        : AppColors.primary),
                             const Gap(4),
                             Text(
                               "Flat/BHK",
                               style: TextStyle(
-                                  color: homeController.roomsType.value == 'Family' ? Colors.white : AppColors.primary,
+                                  color:
+                                      homeController.roomsType.value == 'Family'
+                                          ? Colors.white
+                                          : AppColors.primary,
                                   fontSize: 16),
                             ),
                           ],
@@ -246,7 +278,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onRefresh: () async {
           return await Future.delayed(const Duration(seconds: 2));
         },
-        indicatorBuilder: (BuildContext context, IndicatorController controller) {
+        indicatorBuilder:
+            (BuildContext context, IndicatorController controller) {
           return const Icon(
             Icons.refresh,
             color: Colors.blue,
@@ -254,7 +287,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: StreamBuilder(
-            stream: ApisClass.firebaseFirestore.collection('rentCollection').snapshots(),
+            stream: ApisClass.firebaseFirestore
+                .collection('rentCollection')
+                .snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -290,6 +325,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 case ConnectionState.done:
                   final data = snapshot.data?.docs;
 
+                  // for creating json model
+
                   // for(var i in data!)
                   //   {
                   //     log("Data : ${jsonEncode(i.data())}");
@@ -298,12 +335,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   snapData = snapshot;
                   if (homeController.roomsType.value.isNotEmpty) {
                     rentList = data
-                        ?.map((e) => UserRentModel.fromJson(e.data()))
-                        .where((element) => element.roomType == homeController.roomsType.value)
-                        .toList() ??
+                            ?.map((e) => UserRentModel.fromJson(e.data()))
+                            .where((element) =>
+                                element.roomType ==
+                                homeController.roomsType.value)
+                            .toList() ??
                         [];
                   } else {
-                    rentList = data?.map((e) => UserRentModel.fromJson(e.data())).toList() ?? [];
+                    rentList = data
+                            ?.map((e) => UserRentModel.fromJson(e.data()))
+                            .toList() ??
+                        [];
                   }
 
                   return ItemListView(
