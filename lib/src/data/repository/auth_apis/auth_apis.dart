@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,7 +10,9 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../features/splash/controller/splash_controller.dart';
+import '../../../navigation_menu.dart';
 import '../apis/apis.dart';
 import '../apis/user_apis.dart';
 
@@ -24,17 +27,27 @@ class AuthApisClass {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         signInWithGoogle().then((value) async {
-          await UserApis.saveUserData(auth.currentUser?.displayName, "",
-              auth.currentUser?.email, auth.currentUser!.photoURL);
+          // await UserApis.saveUserData(auth.currentUser?.displayName, "",
+          //     auth.currentUser?.email, auth.currentUser!.photoURL);
+
+          if (UserApis.userName != '') {
+            Navigator.of(Get.context!).pushAndRemoveUntil(
+                MaterialPageRoute(
+                    builder: (context) => const NavigationMenuScreen()),
+                (Route<dynamic> route) => false);
+          } else {
+            Get.offAllNamed(RoutesName.signProfileScreen,
+                arguments: {'email': auth.currentUser?.email});
+          }
 
           // sharedPreferences code
-          SharedPreferences preferences = await SharedPreferences.getInstance();
-          //upload user uid data in SharedPreferences
-          preferences.setString('userUid', value.user!.uid);
-          // initialize variable
-          finalUserUidGlobal = preferences.getString('userUid');
-          log('\nUser :${value.user}');
-          Get.offAllNamed(RoutesName.navigationScreen);
+          // SharedPreferences preferences = await SharedPreferences.getInstance();
+          // //upload user uid data in SharedPreferences
+          // preferences.setString('userUid', value.user!.uid);
+          // // initialize variable
+          // finalUserUidGlobal = preferences.getString('userUid');
+          // log('\nUser :${value.user}');
+          // Get.offAllNamed(RoutesName.navigationScreen);
         });
       }
     });

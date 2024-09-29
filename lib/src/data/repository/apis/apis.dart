@@ -8,7 +8,6 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import 'dart:io';
 import '../../../utils/helpers/helper_function.dart';
 
-
 class ApisClass {
   // for authentication
   static FirebaseAuth auth = FirebaseAuth.instance;
@@ -86,51 +85,57 @@ class ApisClass {
     longitude,
   ) async {
     final userHomeList = UserRentModel(
-        coverImage: coverImage,
-        houseName: houseName,
-        address: address,
-        city: cityName,
-        landMark: landMark,
-        contactNumber: contactNumber,
-        bhkType: bhk,
-        roomType: roomType,
-        singlePersonPrice: singlePrice,
-        doublePersonPrice: doublePrice,
-        triplePersonPrice: triplePrice,
-        fourPersonPrice: fourPrice,
-        familyPrice: familyPrice,
-        numberOfRooms: numberOfRooms,
-        wifi: wifi,
-        bed: bed,
-        chair: chair,
-        table: table,
-        fan: fan,
-        gadda: gadda,
-        light: light,
-        locker: locker,
-        bedSheet: bedSheet,
-        washingMachine: washingMachine,
-        parking: parking,
-        electricityBill: electricityBill,
-        waterBill: waterBill,
-        flexibleTime: flexible,
-        cooking: cooking,
-        cookingType: cookingType,
-        boy: boyAllow,
-        girls: girlAllow,
-        familyMember: familyMember,
-        like: like,
-        restrictedTime: restrictedTime,
-        attachBathRoom: attachBathRoom,
-        shareAbleBathRoom: shareAbleBathRoom,
-        average: 0.0,
-        numberOfRating: 0,
-        roomAvailable: true,
-        userRentId: time,
-        latitude: latitude,
-        longitude: longitude,
-        coverImageId: coverImageFileId);
-    return await firebaseFirestore.collection("rentCollection").doc(userRentId).set(userHomeList.toJson());
+      coverImage: coverImage,
+      houseName: houseName,
+      address: address,
+      city: cityName,
+      landMark: landMark,
+      contactNumber: contactNumber,
+      bhkType: bhk,
+      roomType: roomType,
+      singlePersonPrice: singlePrice,
+      doublePersonPrice: doublePrice,
+      triplePersonPrice: triplePrice,
+      fourPersonPrice: fourPrice,
+      familyPrice: familyPrice,
+      numberOfRooms: numberOfRooms,
+      wifi: wifi,
+      bed: bed,
+      chair: chair,
+      table: table,
+      fan: fan,
+      gadda: gadda,
+      light: light,
+      locker: locker,
+      bedSheet: bedSheet,
+      washingMachine: washingMachine,
+      parking: parking,
+      electricityBill: electricityBill,
+      waterBill: waterBill,
+      flexibleTime: flexible,
+      cooking: cooking,
+      cookingType: cookingType,
+      boy: boyAllow,
+      girls: girlAllow,
+      familyMember: familyMember,
+      like: like,
+      restrictedTime: restrictedTime,
+      attachBathRoom: attachBathRoom,
+      shareAbleBathRoom: shareAbleBathRoom,
+      average: 0.0,
+      numberOfRating: 0,
+      roomAvailable: true,
+      userRentId: time,
+      latitude: latitude,
+      longitude: longitude,
+      coverImageId: coverImageFileId,
+
+
+    );
+    return await firebaseFirestore
+        .collection("rentCollection")
+        .doc(userRentId)
+        .set(userHomeList.toJson());
   }
 
   // this data store in data in user profile specific
@@ -237,9 +242,12 @@ class ApisClass {
   // upload  Cover image data in firebase database
   static Future uploadCoverImage(File imageFile) async {
     try {
-      final reference = storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
+      final reference =
+          storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
 
-      String updatedPath = reference.toString().substring(0, reference.toString().lastIndexOf(')'));
+      String updatedPath = reference
+          .toString()
+          .substring(0, reference.toString().lastIndexOf(')'));
       List<String> pathSegments = updatedPath.split('/');
       coverImageFileId = pathSegments.last;
 
@@ -258,7 +266,8 @@ class ApisClass {
   //upload other images in firebase database
   static Future uploadOtherImage(File imageFile, itemId) async {
     try {
-      final reference = storage.ref().child('otherImage/$itemId/${DateTime.now()}.jpg');
+      final reference =
+          storage.ref().child('otherImage/$itemId/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       otherDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -286,24 +295,32 @@ class ApisClass {
   }
 
 // update cover Image data
-  static Future<void> updateCoverItemImage(File file, String itemId, String coverImageFileName) async {
+  static Future<void> updateCoverItemImage(
+      File file, String itemId, String coverImageFileName) async {
     //getting image file extension
     final ext = file.path.split('.').last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
-    final ref = storage.ref().child('coverImage/${user.uid}/$coverImageFileName');
+    final ref =
+        storage.ref().child('coverImage/${user.uid}/$coverImageFileName');
 
     // uploading image
-    await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
-      AppLoggerHelper.info('Data Transferred :${p0.bytesTransferred / 1000} kb');
+    await ref
+        .putFile(file, SettableMetadata(contentType: 'image/$ext'))
+        .then((p0) {
+      AppLoggerHelper.info(
+          'Data Transferred :${p0.bytesTransferred / 1000} kb');
     });
 
     // updating image in firebase  database
     model.coverImage = await ref.getDownloadURL();
 
     //rent collection data base
-    await firebaseFirestore.collection('rentCollection').doc(itemId).update({'coverImage': model.coverImage});
+    await firebaseFirestore
+        .collection('rentCollection')
+        .doc(itemId)
+        .update({'coverImage': model.coverImage});
 //user personal collection data base
     await firebaseFirestore
         .collection("userRentDetails")
@@ -314,18 +331,47 @@ class ApisClass {
   }
 
   //update Permission data
-  static Future<void> updatePermissionData(itemId, cookingType, cooking, boy, girl, familyMember) async {
+  static Future<void> updatePermissionData(
+      itemId, cookingType, cooking, boy, girl, familyMember) async {
     //rent collection data base
-    await firebaseFirestore.collection("rentCollection").doc(itemId).update(
-        {'girls': girl, 'boy': boy, 'cooking': cooking, 'cookingType': cookingType, 'familyMember': familyMember});
+    await firebaseFirestore.collection("rentCollection").doc(itemId).update({
+      'girls': girl,
+      'boy': boy,
+      'cooking': cooking,
+      'cookingType': cookingType,
+      'familyMember': familyMember
+    });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update(
-        {'girls': girl, 'boy': boy, 'cooking': cooking, 'cookingType': cookingType, 'familyMember': familyMember});
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
+      'girls': girl,
+      'boy': boy,
+      'cooking': cooking,
+      'cookingType': cookingType,
+      'familyMember': familyMember
+    });
   }
 
   // update provide Facilities Data
-  static Future<void> updateProvideFacilitiesData(itemId, wifi, bed, chair, table, fan, gadda, light, locker, bedSheet,
-      washingMachine, parking, attachBathroom, shareableBathroom) async {
+  static Future<void> updateProvideFacilitiesData(
+      itemId,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      attachBathroom,
+      shareableBathroom) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'parking': parking,
@@ -343,7 +389,12 @@ class ApisClass {
       'shareAbleBathRoom': shareableBathroom,
     });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
       'parking': parking,
       'bed': bed,
       'washingMachine': washingMachine,
@@ -361,7 +412,8 @@ class ApisClass {
   }
 
   // update Additional Charges And Door closing time
-  static Future<void> updateAdditionalChargesAndDoorDate(itemId, electricity, water, restrictTime, flexibleTime) async {
+  static Future<void> updateAdditionalChargesAndDoorDate(
+      itemId, electricity, water, restrictTime, flexibleTime) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'flexibleTime': flexibleTime,
@@ -370,7 +422,12 @@ class ApisClass {
       'electricityBill': electricity,
     });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
       'flexibleTime': flexibleTime,
       'restrictedTime': restrictTime,
       'waterBill': water,
@@ -379,7 +436,8 @@ class ApisClass {
   }
 
   //update Rent Details data
-  static Future<void> updateRentDetailsData(name, address, city, landMark, number, numberOfRoom, itemID) async {
+  static Future<void> updateRentDetailsData(
+      name, address, city, landMark, number, numberOfRoom, itemID) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemID).update({
       'houseName': name,
@@ -390,7 +448,12 @@ class ApisClass {
       'numberOfRooms': numberOfRoom
     });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemID).update({
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemID)
+        .update({
       'houseName': name,
       'contactNumber': number,
       'landMark': landMark,
@@ -401,7 +464,8 @@ class ApisClass {
   }
 
   // update Room type And Price Data
-  static Future<void> updateRoomTypeAndPrice(itemId, single, doublePerson, triple, four, family) async {
+  static Future<void> updateRoomTypeAndPrice(
+      itemId, single, doublePerson, triple, four, family) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'doublePersonPrice': doublePerson,
@@ -411,7 +475,12 @@ class ApisClass {
       'singlePersonPrice': single
     });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
       'doublePeronPrice': doublePerson,
       'triplePersonPrice': triple,
       'familyPrice': family,
@@ -428,14 +497,22 @@ class ApisClass {
       'longitude': longitude,
     });
 //user personal collection data base
-    await firebaseFirestore.collection("userRentDetails").doc(user.uid).collection(user.uid).doc(itemId).update({
+    await firebaseFirestore
+        .collection("userRentDetails")
+        .doc(user.uid)
+        .collection(user.uid)
+        .doc(itemId)
+        .update({
       'latitude': latitude,
       'longitude': longitude,
     });
   }
 
   static Future<void> updateRoomAvailable(roomAvailable, itemId) async {
-    await firebaseFirestore.collection("rentCollection").doc(itemId).update({'roomAvailable': roomAvailable});
+    await firebaseFirestore
+        .collection("rentCollection")
+        .doc(itemId)
+        .update({'roomAvailable': roomAvailable});
 //user personal collection data base
     await firebaseFirestore
         .collection("userRentDetails")
@@ -478,7 +555,8 @@ class ApisClass {
   }
 
   //save Rating Summary data
-  static Future<void> saveRatingBarSummaryData(itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
+  static Future<void> saveRatingBarSummaryData(
+      itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("userReview")
@@ -499,7 +577,8 @@ class ApisClass {
   }
 
   //update Rating bar summary data
-  static Future<void> updateRatingBarStarSummaryData(itemId, avg, totalNumberOfStar) async {
+  static Future<void> updateRatingBarStarSummaryData(
+      itemId, avg, totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("userReview")
@@ -540,9 +619,14 @@ class ApisClass {
   }
 
   /// Rating and review create api
-  static Future<void> ratingAndReviewCreateData(ratingStar, review, itemId) async {
+  static Future<void> ratingAndReviewCreateData(
+      ratingStar, review, itemId) async {
     //This review data save in all viewer user
-    await firebaseFirestore.collection("userReview").doc("reviewCollection").collection("$itemId").add({
+    await firebaseFirestore
+        .collection("userReview")
+        .doc("reviewCollection")
+        .collection("$itemId")
+        .add({
       'rating': ratingStar,
       'title': review,
       'currentDate': AppHelperFunction.getFormattedDate(DateTime.now()),
@@ -591,13 +675,18 @@ class ApisClass {
 //============== Deletes data apis =========================
 
   // delete cover image  data and all list collection data  code
-  static Future<void> deleteCoverImageData(String deleteId, String imageUrl) async {
+  static Future<void> deleteCoverImageData(
+      String deleteId, String imageUrl) async {
     try {
       //delete a Firestorm
-      DocumentReference documentReference =
-          firebaseFirestore.collection('userRentDetails').doc(user.uid).collection(user.uid).doc(deleteId);
+      DocumentReference documentReference = firebaseFirestore
+          .collection('userRentDetails')
+          .doc(user.uid)
+          .collection(user.uid)
+          .doc(deleteId);
 
-      DocumentReference documentReference1 = firebaseFirestore.collection('rentCollection').doc(deleteId);
+      DocumentReference documentReference1 =
+          firebaseFirestore.collection('rentCollection').doc(deleteId);
 
       //Rating Summary data
       await firebaseFirestore
@@ -623,7 +712,10 @@ class ApisClass {
         print('id - $deleteId');
       }
 
-      await FirebaseStorage.instance.ref("otherImage/$deleteId").listAll().then((value) {
+      await FirebaseStorage.instance
+          .ref("otherImage/$deleteId")
+          .listAll()
+          .then((value) {
         value.items.forEach((element) {
           FirebaseStorage.instance.ref(element.fullPath).delete();
         });
@@ -632,7 +724,10 @@ class ApisClass {
       //delete other image doc
 
       final batch = firebaseFirestore.batch();
-      var collection = firebaseFirestore.collection("OtherImageList").doc(deleteId).collection(deleteId);
+      var collection = firebaseFirestore
+          .collection("OtherImageList")
+          .doc(deleteId)
+          .collection(deleteId);
       var snapshots = await collection.get();
       for (var doc in snapshots.docs) {
         batch.delete(doc.reference);
@@ -640,7 +735,10 @@ class ApisClass {
       await batch.commit();
 
       final batch1 = firebaseFirestore.batch();
-      var collection1 = firebaseFirestore.collection("OtherImageUserList").doc(deleteId).collection(deleteId);
+      var collection1 = firebaseFirestore
+          .collection("OtherImageUserList")
+          .doc(deleteId)
+          .collection(deleteId);
       var snapshots1 = await collection1.get();
       for (var doc in snapshots1.docs) {
         batch1.delete(doc.reference);
@@ -650,7 +748,10 @@ class ApisClass {
       //delete a review collection data
 
       final batch2 = firebaseFirestore.batch();
-      var collection2 = firebaseFirestore.collection("userReview").doc("reviewCollection").collection(deleteId);
+      var collection2 = firebaseFirestore
+          .collection("userReview")
+          .doc("reviewCollection")
+          .collection(deleteId);
       var snapshots2 = await collection2.get();
       for (var doc in snapshots2.docs) {
         batch2.delete(doc.reference);
@@ -670,13 +771,20 @@ class ApisClass {
   }
 
   //delete Other image data
-  static Future<void> deleteOtherImage(String deleteOtherIMageId, String itemId, String imageUrl) async {
+  static Future<void> deleteOtherImage(
+      String deleteOtherIMageId, String itemId, String imageUrl) async {
     try {
-      DocumentReference documentReference =
-          firebaseFirestore.collection("OtherImageUserList").doc(itemId).collection(itemId).doc(deleteOtherIMageId);
+      DocumentReference documentReference = firebaseFirestore
+          .collection("OtherImageUserList")
+          .doc(itemId)
+          .collection(itemId)
+          .doc(deleteOtherIMageId);
 
-      DocumentReference documentReference1 =
-          firebaseFirestore.collection("OtherImageList").doc(itemId).collection(itemId).doc(deleteOtherIMageId);
+      DocumentReference documentReference1 = firebaseFirestore
+          .collection("OtherImageList")
+          .doc(itemId)
+          .collection(itemId)
+          .doc(deleteOtherIMageId);
 
       await documentReference.delete();
       await documentReference1.delete();

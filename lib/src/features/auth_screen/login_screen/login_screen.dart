@@ -2,10 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/form_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/header_widgets.dart';
-
 import 'package:pgroom/src/utils/Constants/sizes.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -20,11 +21,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserApis.getUserData();
+
+
     final Uri urlTermsAndCondition = Uri.parse('https://docs.google'
         '.com/document/d/1saDug8Y6GXYsvlXzFkPlSvBPZ6RTX-iZAPZ5wyYPvEo/edit?usp=sharing');
 
-    final Uri urlPrivacyPolicy =
-        Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
+    final Uri urlPrivacyPolicy = Uri.parse(
+        'https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
 
     Future<void> _launchUrlTermsAndCondition() async {
       if (!await launchUrl(urlTermsAndCondition)) {
@@ -95,16 +99,22 @@ class LoginScreen extends StatelessWidget {
                   child: RichText(
                     text: TextSpan(
                       children: [
-                        const TextSpan(text: 'By Login, you agree to our', style: TextStyle(color: Colors.black)),
+                        const TextSpan(
+                            text: 'By Login, you agree to our',
+                            style: TextStyle(color: Colors.black)),
                         TextSpan(
                             text: ' Terms ',
                             style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()..onTap = () => _launchUrlTermsAndCondition()),
-                        const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchUrlTermsAndCondition()),
+                        const TextSpan(
+                            text: ' and ',
+                            style: TextStyle(color: Colors.black)),
                         TextSpan(
                             text: ' Privacy Policy ',
                             style: const TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()..onTap = () => _launchUrlPrivacyPolicy()),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _launchUrlPrivacyPolicy()),
                       ],
                     ),
                   ),

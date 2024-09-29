@@ -2,8 +2,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+
 import '../../../../data/repository/auth_apis/auth_apis.dart';
+import '../../../../navigation_menu.dart';
 import '../../../../res/route_name/routes_name.dart';
 
 class LoginScreenController extends GetxController {
@@ -20,18 +23,10 @@ class LoginScreenController extends GetxController {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
       } else {
-        showDialog(
-            context: Get.context!,
-            builder: (context) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              );
-            });
-
+        AppHelperFunction.showDialogCenter(true);
         loading.value = true;
-        AuthApisClass.loginEmailAndPassword(emailControllerLogin.value.text, passwordControllerLogin.value.text)
+        AuthApisClass.loginEmailAndPassword(emailControllerLogin.value.text,
+                passwordControllerLogin.value.text)
             .then((value) async {
           //if user use wrong password and email id than
           // not to allow next page navigation
@@ -48,7 +43,15 @@ class LoginScreenController extends GetxController {
             // finalUserUidGlobal = preference.getString('userUid');
             //========================
 
-            Get.offAllNamed(RoutesName.signProfileScreen, arguments: {'email': emailControllerLogin.value.text});
+            if (UserApis.userName != '') {
+              Navigator.of(Get.context!).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                      builder: (context) => const NavigationMenuScreen()),
+                  (Route<dynamic> route) => false);
+            } else {
+              Get.offAllNamed(RoutesName.signProfileScreen,
+                  arguments: {'email': emailControllerLogin.value.text});
+            }
 
             //Get.toNamed(RoutesName.signProfileScreen,arguments: {'email':emailControllerLogin.value.text});
             //  Get.offAllNamed(RoutesName.navigationScreen);
