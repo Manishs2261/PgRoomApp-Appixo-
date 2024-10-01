@@ -64,15 +64,25 @@ dependencies:
   connectivity_plus: ^6.0.3
   #date format
   intl: ^0.19.0
+  #for print log
   logger: ^2.0.2+1
+  #url luncher
   url_launcher: ^6.2.1
+  #icon provider
   iconsax: ^0.0.8
+  #top flash bar
   another_flushbar: ^1.12.30
+  #loading progress abr
   flutter_spinkit: ^5.2.0
+  #full screen image view
   easy_image_viewer: ^1.2.1
+  #raing summary
   rating_summary: ^1.0.2+1
+  #refresh bar
   liquid_pull_to_refresh: ^3.0.1
+  #refresh bar
   custom_refresh_indicator: ^3.0.0
+  #firebase
   firebase_crashlytics: ^3.4.9
   firebase_performance: ^0.9.3+8
   lottie: ^3.1.2
