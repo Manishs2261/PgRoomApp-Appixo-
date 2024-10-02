@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/new_search_home/new_search_home.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
@@ -57,10 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: TextFormField(
                   onTap: () {
-                    Get.toNamed(RoutesName.searchScreen, arguments: {
-                      'list': rentList,
-                      'id': snapData,
-                    });
+                    // Get.toNamed(RoutesName.searchScreen, arguments: {
+                    //   'list': rentList,
+                    //   'id': snapData,
+                    // });
+
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NewSearchHome(),
+                      ),
+                    );
                   },
                   autofocus: false,
                   keyboardType: TextInputType.none,
