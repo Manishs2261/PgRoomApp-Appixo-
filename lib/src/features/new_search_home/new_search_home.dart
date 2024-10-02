@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class NewSearchHome extends StatefulWidget {
   @override
@@ -86,6 +87,35 @@ class _NewSearchHomeState extends State<NewSearchHome>
     _searchAnimationController.forward();
     _postAnimationController.forward();
     _searchTextFieldAnimationController.forward();
+
+    Future.delayed(Duration.zero, () {
+      _autoSlide();
+    });
+  }
+
+  final PageController _controller = PageController();
+
+  final List<String> imgList = [
+    'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+    'https://images.unsplash.com/photo-1458668383970-8ddd3927deed?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
+  ];
+
+  void _autoSlide() {
+    Future.delayed(Duration(seconds: 3), () {
+      if (_controller.hasClients) {
+        int nextPage = _controller.page!.round() + 1;
+        _controller.animateToPage(
+          nextPage % imgList.length,
+          // Loop back to the first image after the last one
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+        _autoSlide(); // Call the function again to continue the auto-slide
+      }
+    });
   }
 
   @override
@@ -153,12 +183,12 @@ class _NewSearchHomeState extends State<NewSearchHome>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/images/icon_luncher.png"),
+                                backgroundImage: AssetImage(
+                                    "assets/images/icon_luncher.png"),
                               ),
                               CircleAvatar(
-                                backgroundImage:
-                                    AssetImage("assets/images/icon_luncher.png"),
+                                backgroundImage: AssetImage(
+                                    "assets/images/icon_luncher.png"),
                               )
                             ],
                           ),
@@ -329,8 +359,8 @@ class _NewSearchHomeState extends State<NewSearchHome>
                           children: [
                             Text(
                               "Are you an owner?",
-                              style:
-                                  TextStyle(color: Colors.white.withOpacity(0.9)),
+                              style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9)),
                             ),
                             Text(
                               " Post for free.",
@@ -351,7 +381,50 @@ class _NewSearchHomeState extends State<NewSearchHome>
                 ),
               ],
             ),
+            Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              margin: EdgeInsets.all(20),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: 250,
+                    child: PageView.builder(
+                      controller: _controller,
+                      itemCount: imgList.length,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            imgList[index],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SmoothPageIndicator(
+                      controller: _controller,
+                      count: imgList.length,
+                      effect: ExpandingDotsEffect(
+                        activeDotColor: Colors.blueAccent,
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        spacing: 8,
+                      ), // Custom dot effect
+                    ),
+                  ),
+                  // Space between image and dots
 
+                  // Bottom space under the dots
+                ],
+              ),
+            )
           ],
         ),
       ),
