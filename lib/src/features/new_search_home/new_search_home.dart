@@ -90,10 +90,12 @@ class _NewSearchHomeState extends State<NewSearchHome>
 
     Future.delayed(Duration.zero, () {
       _autoSlide();
+      _autoSlideOne();
     });
   }
 
   final PageController _controller = PageController();
+  final PageController  _controllerOne = PageController();
 
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
@@ -114,6 +116,22 @@ class _NewSearchHomeState extends State<NewSearchHome>
           curve: Curves.easeInOut,
         );
         _autoSlide(); // Call the function again to continue the auto-slide
+      }
+    });
+  }
+
+
+  void _autoSlideOne() {
+    Future.delayed(Duration(seconds: 3), () {
+      if (_controllerOne.hasClients) {
+        int nextPage = _controllerOne.page!.round() + 1;
+        _controllerOne.animateToPage(
+          nextPage % imgList.length,
+          // Loop back to the first image after the last one
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+        _autoSlideOne(); // Call the function again to continue the auto-slide
       }
     });
   }
@@ -392,6 +410,103 @@ class _NewSearchHomeState extends State<NewSearchHome>
                   Container(
                     height: 250,
                     child: PageView.builder(
+                      controller: _controllerOne,
+                      itemCount: imgList.length,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            imgList[index],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SmoothPageIndicator(
+                      controller: _controllerOne,
+                      count: imgList.length,
+                      effect: ExpandingDotsEffect(
+                        activeDotColor: Colors.blueAccent,
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        spacing: 8,
+                      ), // Custom dot effect
+                    ),
+                  ),
+                  // Space between image and dots
+
+                  // Bottom space under the dots
+                ],
+              ),
+            ),
+
+
+
+
+            SizedBox(
+              height: 450,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2, // 2 Columns
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: [
+                    // Room Card
+                    CategoryCard(
+                      imagePath: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHJvb21zfGVufDB8fDB8fHww',
+                      title: 'Rooms',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Food Card
+                    CategoryCard(
+                      imagePath: 'https://media.istockphoto.com/id/868408746/photo/assorted-indian-dish.webp?a=1&b=1&s=612x612&w=0&k=20&c=LWxNqGlUSb5jfhv3Fu8lzYdXOebquU0_0WUKl0f5zxk=',
+                      title: 'Foods',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Services Card
+                    CategoryCard(
+                      imagePath: 'https://images.unsplash.com/photo-1605152276897-4f618f831968?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2VydmljZXxlbnwwfHwwfHx8MA%3D%3D',
+                      title: 'Services',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Old Items Card
+                    CategoryCard(
+                      imagePath: 'https://images.unsplash.com/photo-1692195321701-1a454c79ab02?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                      title: 'Old Items',
+                      onTap: () {
+
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+
+
+            Card(
+              elevation: 8,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              margin: EdgeInsets.all(20),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    height: 250,
+                    child: PageView.builder(
                       controller: _controller,
                       itemCount: imgList.length,
                       itemBuilder: (context, index) {
@@ -424,7 +539,276 @@ class _NewSearchHomeState extends State<NewSearchHome>
                   // Bottom space under the dots
                 ],
               ),
-            )
+            ),
+            
+
+            SizedBox(height: 16,),
+            Text('ROOM CATEGOY',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold, shadows: [
+              Shadow(
+                blurRadius: 10.0,
+                color: Colors.black26,
+                offset: Offset(2.0, 2.0),
+              ),
+            ],),),
+
+            SizedBox(
+              height: 450,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.count(
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2, // 2 Columns
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                  children: [
+                    // Room Card
+                    CategoryCardOne(
+                      imagePath: 'assets/images/boy.png',
+                      title: 'Boys',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Food Card
+                    CategoryCardOne(
+                      imagePath: 'assets/images/girl.png',
+                      title: 'Girls',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Services Card
+                    CategoryCardOne(
+                      imagePath: 'assets/images/boyandgirl.png',
+                      title: 'Co-Living',
+                      onTap: () {
+
+                      },
+                    ),
+                    // Old Items Card
+                    CategoryCardOne(
+                      imagePath: 'assets/images/flatFamily.png',
+                      title: 'Flats',
+                      onTap: () {
+
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+
+
+      Card(
+        margin: EdgeInsets.all(16),
+        elevation: 15,  // High shadow elevation
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),  // More exaggerated rounded corners
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.black, Colors.blueAccent],  // Unique gradient background
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),  // Same as the card for rounded effect
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                blurRadius: 15,
+                spreadRadius: 5,
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),  // Padding inside the card
+            child: Column(
+              mainAxisSize: MainAxisSize.min,  // Shrinks card to fit content
+              children: <Widget>[
+                Row(
+                  children: [
+                    Image(image: AssetImage('assets/images/sharenow.png'), height: 100),
+                    SizedBox(width: 15),
+                    Flexible(  // Use Flexible or Expanded to prevent overflow
+                      child: Text(
+                        'Your friends will love this too—share it now!',
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              blurRadius: 10.0,
+                              color: Colors.black54,
+                              offset: Offset(2.0, 2.0),
+                            ),
+                          ],
+                        ),
+                        overflow: TextOverflow.visible,  // Text will wrap automatically to next line
+                        softWrap: true,  // Allow wrapping of text
+                      ),
+                    ),
+                  ],
+                ),
+
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        // Add your onPressed logic here
+                      },
+                      borderRadius: BorderRadius.circular(20),
+                      splashColor: Colors.white.withOpacity(0.3),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),  // Button background
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          'Share Now',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      )
+
+
+        ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+class CategoryCard extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final Function onTap;
+
+  CategoryCard({required this.imagePath, required this.title, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        elevation: 5,
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child:  Image.network(imagePath,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+              )
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.6),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CategoryCardOne extends StatelessWidget {
+  final String imagePath;
+  final String title;
+  final Function onTap;
+
+  CategoryCardOne({required this.imagePath, required this.title, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        elevation: 5,
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child:  Image.asset(imagePath,
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                  height: double.infinity,
+                )
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.black.withOpacity(0.8),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: 20,
+              left: 20,
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
