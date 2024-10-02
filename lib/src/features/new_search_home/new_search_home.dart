@@ -22,7 +22,7 @@ class NewSearchHome extends StatelessWidget {
           Stack(
             children: [
               Container(
-                height: 500,
+                height: 400,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -168,35 +168,73 @@ class NewSearchHome extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 16,
+                      height: 24,
                     ),
                     TextFormField(
                       onTap: () {},
                       autofocus: false,
+                      onTapOutside: (e) => FocusScope.of(context).unfocus(),
                       keyboardType: TextInputType.none,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100)),
                         hintText: "Find what you need—just search here",
                         hintStyle: const TextStyle(
-                            color: Colors.black54, fontWeight: FontWeight.w400),
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w400,
+                        ),
                         prefixIcon: const Icon(
                           Icons.search_rounded,
                           color: AppColors.primary,
                           size: 24,
                         ),
-                        // suffixIcon: const Icon(Icons.mic),
                         isDense: true,
                         contentPadding: const EdgeInsets.only(bottom: 5),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100), // Ensure radius stays the same
+                          borderSide: BorderSide(color: Colors.white), // Example border color
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100), // Ensure radius stays the same
+                          borderSide: BorderSide(color: Colors.white,), // Change border color and width on focus if needed
+                        ),
                       ),
-                    ),
+                    )
+
                   ],
                 ),
               ),
+
+              Positioned(
+                bottom: 1,
+                right: 1,
+                left: 1,
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.symmetric(vertical: 6),
+
+
+                  decoration: BoxDecoration(
+                      color: Colors.black54,
+                         borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10))
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      Text("Are you an owner?",style: TextStyle(color: Colors.white),),
+                      Text(" Post for free.",style: TextStyle(color: Colors.white),),
+                      Icon(Icons.arrow_forward_ios,size: 15,color: Colors.white,)
+                    ],),
+                ),
+              )
             ],
-          )
+          ),
+
         ],
       ),
     );
