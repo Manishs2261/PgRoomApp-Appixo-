@@ -599,6 +599,26 @@ class _NewSearchHomeState extends State<NewSearchHome>
             ),
 
 
+      //
+      // Text("Exclusive Benefits for Our Users",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,shadows: [ Shadow(
+      //   blurRadius: 10.0,
+      //   color: Colors.black26,
+      //   offset: Offset(2.0, 2.0),
+      // ),]),),
+
+
+      Container(
+        height: 200,
+        width: 100,
+        decoration: BoxDecoration(
+
+        ),
+      ),
+
+
+
+
+
 
       Card(
         margin: EdgeInsets.all(16),
@@ -686,7 +706,9 @@ class _NewSearchHomeState extends State<NewSearchHome>
             ),
           ),
         ),
-      )
+      ),
+
+
 
 
         ],
