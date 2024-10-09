@@ -8,19 +8,28 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   String location = "Bilaspur";
-  RangeValues _budgetRange = RangeValues(5000, 50000);
-  List<String> accommodationType = ['PG', 'Rent', 'Flat', 'Co-living'];
-  String selectedGender = 'Any';
-  String roomType = 'Private';
+  RangeValues _budgetRange = RangeValues(1000, 10000);
+  List<String> accommodationType = ['PG', 'Flat', 'Co-living'];
+  List<String> gender = ['Boy', 'Girl', 'Both'];
+  List<String> food = ['Yes', 'No'];
+  List<String> roomType = [
+    'Private Room',
+    'Double Sharing',
+    'Triple Sharing',
+    '3+ Sharing'
+  ];
+  List<String> flatType = ['1Rk', '1BHK', '2BHK', '3BHK', '4BHK'];
+  List<String> furnishedType = [
+    'Un Furnished',
+    'semi Furnished',
+    'Fully Furnished'
+  ];
   String? selectedAccommodationType;
-
-  void _clearAllFilters() {
-    setState(() {
-      selectedGender = 'Any';
-      roomType = 'Private';
-      _budgetRange = RangeValues(5000, 50000);
-    });
-  }
+  String? selectedGender;
+  String? selectedRoomType;
+  String? selectedFood;
+  String? selectedFlatType;
+  String? selectedFurnishedType;
 
   @override
   Widget build(BuildContext context) {
@@ -143,20 +152,28 @@ class _FilterScreenState extends State<FilterScreen> {
                   'I am looking to:',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
+                SizedBox(
+                  height: 8,
+                ),
                 Wrap(
                   spacing: 8,
                   children: accommodationType
                       .map(
                         (type) => FilterChip(
                           label: Text(type),
-                          labelStyle: TextStyle(color: selectedAccommodationType == type ? Colors.white:Colors.black),
+                          labelStyle: TextStyle(
+                              color: selectedAccommodationType == type
+                                  ? Colors.white
+                                  : Colors.black),
                           selected: selectedAccommodationType == type,
-                          selectedColor: Colors.blue,
-                          backgroundColor: Colors.blue.withOpacity(0.08), // Set color to blue when selected
+                          selectedColor: AppColors.primary,
+                          backgroundColor: Colors.blue.withOpacity(0.08),
+                          // Set color to blue when selected
                           onSelected: (selected) {
                             setState(() {
                               if (selected) {
                                 selectedAccommodationType = type;
+
                               } else {
                                 selectedAccommodationType =
                                     null; // Deselect when tapped again
@@ -166,80 +183,286 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       )
                       .toList(),
-                )
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Visibility(
+                  visible: (selectedAccommodationType == 'PG'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                    Text(
+                      'Gender:',
+                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      children: gender
+                          .map(
+                            (type) => FilterChip(
+                          label: Text(type),
+                          labelStyle: TextStyle(
+                              color: selectedGender == type
+                                  ? Colors.white
+                                  : Colors.black),
+                          selected: selectedGender == type,
+                          selectedColor: AppColors.primary,
+                          backgroundColor: Colors.blue.withOpacity(0.08),
+                          // Set color to blue when selected
+                          onSelected: (selected) {
+                            setState(() {
+                              if (selected) {
+                                selectedGender = type;
+                              } else {
+                                selectedGender =
+                                null; // Deselect when tapped again
+                              }
+                            });
+                          },
+                        ),
+                      )
+                          .toList(),
+                    ),
+                  ],),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Visibility(
+                  visible: (selectedAccommodationType == 'PG'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Room Type:',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        // Set the scroll direction to horizontal
+                        child: Wrap(
+                          spacing: 8, // Spacing between chips
+                          children: roomType
+                              .map(
+                                (type) => FilterChip(
+                              label: Text(type),
+                              labelStyle: TextStyle(
+                                color: selectedRoomType == type
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              selected: selectedRoomType == type,
+                              selectedColor: AppColors.primary,
+                              backgroundColor: Colors.blue.withOpacity(0.08),
+                              // Background when not selected
+                              onSelected: (selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedRoomType = type;
+                                  } else {
+                                    selectedRoomType =
+                                    null; // Deselect when tapped again
+                                  }
+                                });
+                              },
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: (selectedAccommodationType == 'Flat'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'BHK Type:',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        // Set the scroll direction to horizontal
+                        child: Wrap(
+                          spacing: 8, // Spacing between chips
+                          children: flatType
+                              .map(
+                                (type) => FilterChip(
+                              label: Text(type),
+                              labelStyle: TextStyle(
+                                color: selectedFlatType == type
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              selected: selectedFlatType == type,
+                              selectedColor: AppColors.primary,
+                              backgroundColor: Colors.blue.withOpacity(0.08),
+                              // Background when not selected
+                              onSelected: (selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedFlatType = type;
+                                  } else {
+                                    selectedFlatType =
+                                    null; // Deselect when tapped again
+                                  }
+                                });
+                              },
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                      Text(
+                        'Furnishing Type:',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        // Set the scroll direction to horizontal
+                        child: Wrap(
+                          spacing: 8, // Spacing between chips
+                          children: furnishedType
+                              .map(
+                                (type) => FilterChip(
+                              label: Text(type),
+                              labelStyle: TextStyle(
+                                color: selectedFurnishedType == type
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                              selected: selectedFurnishedType == type,
+                              selectedColor: AppColors.primary,
+                              backgroundColor: Colors.blue.withOpacity(0.08),
+                              // Background when not selected
+                              onSelected: (selected) {
+                                setState(() {
+                                  if (selected) {
+                                    selectedFurnishedType = type;
+                                  } else {
+                                    selectedFurnishedType =
+                                    null; // Deselect when tapped again
+                                  }
+                                });
+                              },
+                            ),
+                          )
+                              .toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: 16,
+                ),
+                 Visibility(
+                   visible: (selectedAccommodationType == 'PG' || selectedAccommodationType == 'Co-living'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Food:',
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Wrap(
+                        spacing: 8,
+                        children: food
+                            .map(
+                              (type) => FilterChip(
+                            label: Text(type),
+                            labelStyle: TextStyle(
+                                color: selectedFood == type
+                                    ? Colors.white
+                                    : Colors.black),
+                            selected: selectedFood == type,
+                            selectedColor: AppColors.primary,
+                            backgroundColor: Colors.blue.withOpacity(0.08),
+                            // Set color to blue when selected
+                            onSelected: (selected) {
+                              setState(() {
+                                if (selected) {
+                                  selectedFood = type;
+                                } else {
+                                  selectedFood =
+                                  null; // Deselect when tapped again
+                                }
+                              });
+                            },
+                          ),
+                        )
+                            .toList(),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  'Budget:',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                RangeSlider(
+                  activeColor: AppColors.primary,
+                  values: _budgetRange,
+                  min: 500,
+                  max: 100000,
+                  divisions: 100,
+                  labels: RangeLabels(
+                    _budgetRange.start.round().toString(),
+                    _budgetRange.end.round().toString(),
+                  ),
+                  onChanged: (RangeValues values) {
+                    setState(() {
+                      _budgetRange = values;
+                    });
+                  },
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Selected Budget: ₹${_budgetRange.start.round()} - ₹${_budgetRange.end.round()}',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 24),
+                ElevatedButton(
+                  onPressed: () {
+                    // Apply the filters
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Apply Filters'),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-          SizedBox(height: 24),
-          Text(
-            'Gender',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          DropdownButton<String>(
-            value: selectedGender,
-            items: <String>['Any', 'Male', 'Female'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                selectedGender = newValue!;
-              });
-            },
-          ),
-          SizedBox(height: 24),
-          Text(
-            'Room Type',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          DropdownButton<String>(
-            value: roomType,
-            items: <String>['Private', 'Double', 'Triple', '3+']
-                .map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (newValue) {
-              setState(() {
-                roomType = newValue!;
-              });
-            },
-          ),
-          SizedBox(height: 24),
-          Text(
-            'Budget',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          RangeSlider(
-            values: _budgetRange,
-            min: 1000,
-            max: 100000,
-            divisions: 100,
-            labels: RangeLabels(
-              _budgetRange.start.round().toString(),
-              _budgetRange.end.round().toString(),
-            ),
-            onChanged: (RangeValues values) {
-              setState(() {
-                _budgetRange = values;
-              });
-            },
-          ),
-          SizedBox(height: 16),
-          Text(
-            'Selected Budget: ₹${_budgetRange.start.round()} - ₹${_budgetRange.end.round()}',
-            style: TextStyle(fontSize: 16),
-          ),
-          SizedBox(height: 24),
-          ElevatedButton(
-            onPressed: () {
-              // Apply the filters
-            },
-            child: Text('Apply Filters'),
           ),
         ],
       ),
