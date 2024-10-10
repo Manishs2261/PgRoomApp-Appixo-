@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
-        home:  FilterScreen(),//NewSearch(),//NewSearchHome(),//SplashScreen(),
+        home:  NewSearch(),//NewSearchHome(),//SplashScreen(),
         getPages: AppRoutes.appRoutes()
     );
   }

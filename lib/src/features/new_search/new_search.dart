@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/main.dart';
+import 'package:pgroom/src/features/filter/filter.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -18,6 +19,7 @@ class _NewSearchState extends State<NewSearch> {
 
   int selectedButtonIndex = -1; // -1 means no button is selected initially
   int selectedButtonIndexChild = -1; // -1 means no button is selected initially
+  
 
 
   void _onButtonSelected(int index) {
@@ -27,6 +29,8 @@ class _NewSearchState extends State<NewSearch> {
   }
  
   void _onSearchSubmitted(String searchText) {
+
+
     if (searchText.isNotEmpty) {
       setState(() {
         _searchHistory.add(searchText); // Add search text to the search history
@@ -169,7 +173,16 @@ class _NewSearchState extends State<NewSearch> {
                          controller: _searchController,  // Manages the text inside the search field
                          focusNode: _focusNode,
                          onTapOutside: (e)=>FocusScope.of(context).unfocus(), // Handles focusing the field
-                         onFieldSubmitted: _onSearchSubmitted,  // Trigger search on enter/submit
+                         onFieldSubmitted:((value){
+                           _onSearchSubmitted(value);
+                           Navigator.of(context).push(
+                             MaterialPageRoute(
+                               builder: (context) => FilterScreen(searchItem: selectedButtonIndex,),
+                             ),
+                           );
+
+
+                         }),  // Trigger search on enter/submit
                          decoration: InputDecoration(
                            fillColor: Colors.white,
                            filled: true,
