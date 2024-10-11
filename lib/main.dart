@@ -7,6 +7,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:pgroom/src/features/Rooms/details_room.dart';
 import 'package:pgroom/src/features/filter/filter.dart';
 import 'package:pgroom/src/features/new_search/new_search.dart';
 import 'package:pgroom/src/features/new_search_home/new_search_home.dart';
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
-        home:  NewSearch(),//NewSearchHome(),//SplashScreen(),
+        home:  DetailsRoom(),//NewSearch(),//NewSearchHome(),//SplashScreen(),
         getPages: AppRoutes.appRoutes()
     );
   }
