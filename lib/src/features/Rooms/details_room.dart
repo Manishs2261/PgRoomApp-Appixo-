@@ -176,11 +176,29 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 duration: Duration(milliseconds: 300),
                 opacity: _buttonOpacity,
                 child: FloatingActionButton.extended(
+                  elevation: 2,
+                  backgroundColor: AppColors.primary,
                   onPressed: () {
                     // Add action for the button
                   },
-                  label: Text('Sort & Filter'),
-                  icon: Icon(Icons.filter_list),
+                  label: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                    Column(
+                      children: [
+                        Icon(Icons.filter_list,color: Colors.white,),
+                        Text("Sort",style: TextStyle(color: Colors.white),)
+                      ],
+                    ),
+                    SizedBox(width: 16,),
+                    Column(
+                      children: [
+                        Icon(Icons.filter_alt_outlined,color: Colors.white,),
+                        Text("Filter",style: TextStyle(color: Colors.white),)
+                      ],
+                    )
+                  ],)
+                
                 ),
               ),
             ),
