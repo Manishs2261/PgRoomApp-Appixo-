@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:pgroom/src/features/Rooms/details_room.dart';
 
 import '../../utils/Constants/colors.dart';
 
@@ -179,236 +180,242 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                     controller: _scrollController,
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(top: 12,left: 12,right: 12),
-                        height: 451, // You can adjust this height to fit the content
-                        padding: const EdgeInsets.all(12.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 1,
-                              blurRadius: 1,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Image Slider
-                            Container(
-                              height: 200, // Set a fixed height for the PageView
-                              child: Stack(
-                                children: [
-                                  PageView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: roomImages.length,
-                                    onPageChanged: (int page) {
-                                      setState(() {
-                                        currentPage = page;
-                                      });
-                                    },
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(right: 8),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10.0),
-                                          child: CachedNetworkImage(
-                                            imageUrl: roomImages[index],
-                                            placeholder: (context, url) =>
-                                                Center(child: CircularProgressIndicator()),
-                                            errorWidget: (context, url, error) =>
-                                                Icon(Icons.error),
-                                            fit: BoxFit.cover,
+                      return InkWell(
+                        onTap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DetailsRoom()));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 12,left: 12,right: 12),
+                          height: 451, // You can adjust this height to fit the content
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 1,
+                                blurRadius: 1,
+                                offset: Offset(0, 1),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Image Slider
+                              Container(
+                                height: 200, // Set a fixed height for the PageView
+                                child: Stack(
+                                  children: [
+                                    PageView.builder(
+
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: roomImages.length,
+                                      onPageChanged: (int page) {
+                                        setState(() {
+                                          currentPage = page;
+                                        });
+                                      },
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                          padding: const EdgeInsets.only(right: 8),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.0),
+                                            child: CachedNetworkImage(
+                                              imageUrl: roomImages[index],
+                                              placeholder: (context, url) =>
+                                                  Center(child: CircularProgressIndicator()),
+                                              errorWidget: (context, url, error) =>
+                                                  Icon(Icons.error),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                    Positioned(
+                                      bottom: 1,
+                                      right: 8,
+                                      child: Container(
+                                        margin: EdgeInsets.all(8),
+                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.black,
+                                          borderRadius: BorderRadius.circular(50),
+                                        ),
+                                        child: Text(
+                                          '${currentPage + 1}/ ${roomImages.length}',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                      );
-                                    },
-                                  ),
-                                  Positioned(
-                                    bottom: 1,
-                                    right: 8,
-                                    child: Container(
-                                      margin: EdgeInsets.all(8),
-                                      padding: EdgeInsets.symmetric(horizontal: 8),
-                                      decoration: BoxDecoration(
-                                        color: Colors.black,
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      child: Text(
-                                        '${currentPage + 1}/ ${roomImages.length}',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.white,
-                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: 1,
-                                    left: 1,
-                                    child: Container(
-                                        margin: EdgeInsets.all(8),
-                                        padding: EdgeInsets.all(6),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(100),
-                                        ),
-                                        child: false ? Icon(Icons.favorite ,color: Colors.red,) :Icon(Icons.favorite_border_outlined,color: Colors.white,)
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 12),
-                            // Room details
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '₹500/-',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: Colors.blueAccent,
-                                  ),
-                                  child: Text(
-                                    'BOYS',
-                                    style: TextStyle(color: Colors.white, fontSize: 12),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 4),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Room Name',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 14),
-                                ),
-
-
-                                Text(
-                                  'Shareable',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(fontSize: 14,color: Colors.green,fontStyle: FontStyle.italic),
-                                ),
-                              ],
-                            ),
-
-                            SizedBox(height: 4),
-                            Text(
-                              'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 14),
-                            ),
-                            SizedBox(height: 4),
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [Colors.black, Colors.blueAccent],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16.0),
-                                ),
-                                padding: const EdgeInsets.all(12.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  'https://plus.unsplash.com/premium_photo-1668127295858-552a0ef56309?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lybCUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D'),
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              'John Doe',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Updated',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.white70,
-                                              ),
-                                            ),
-                                            Text(
-                                              '3w ago',
-                                              style: TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.white70,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8),
-                                    // Buttons for "Chat Now" and "Call Now"
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        // Chat Now Button with Gradient
-                                        GradientButton(
-                                          icon: Icons.chat,
-                                          label: 'Chat Now',
-                                          colors: [Colors.orange, Colors.red],
-                                          onPressed: () {
-                                            // Handle chat action
-                                          },
-                                        ),
-                                        // Call Now Button with Gradient
-                                        GradientButton(
-                                          icon: Icons.phone,
-                                          label: 'Call Now',
-                                          colors: [Colors.green, Colors.teal],
-                                          onPressed: () {
-                                            // Handle call action
-                                          },
-                                        ),
-                                      ],
+                                    Positioned(
+                                      top: 1,
+                                      left: 1,
+                                      child: Container(
+                                          margin: EdgeInsets.all(8),
+                                          padding: EdgeInsets.all(6),
+                                          decoration: BoxDecoration(
+                                            color: Colors.black.withOpacity(0.5),
+                                            borderRadius: BorderRadius.circular(100),
+                                          ),
+                                          child: false ? Icon(Icons.favorite ,color: Colors.red,) :Icon(Icons.favorite_border_outlined,color: Colors.white,)
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(height: 12),
+                              // Room details
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '₹500/-',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Colors.blueAccent,
+                                    ),
+                                    child: Text(
+                                      'BOYS',
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 4),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Room Name',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+
+
+                                  Text(
+                                    'Shareable',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 14,color: Colors.green,fontStyle: FontStyle.italic),
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: 4),
+                              Text(
+                                'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 14),
+                              ),
+                              SizedBox(height: 4),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Colors.black, Colors.blueAccent],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    'https://plus.unsplash.com/premium_photo-1668127295858-552a0ef56309?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lybCUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D'),
+                                              ),
+                                              SizedBox(width: 4),
+                                              Text(
+                                                'John Doe',
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(mainAxisAlignment: MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Updated',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white70,
+                                                ),
+                                              ),
+                                              Text(
+                                                '3w ago',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white70,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 8),
+                                      // Buttons for "Chat Now" and "Call Now"
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          // Chat Now Button with Gradient
+                                          GradientButton(
+                                            icon: Icons.chat,
+                                            label: 'Chat Now',
+                                            colors: [Colors.orange, Colors.red],
+                                            onPressed: () {
+                                              // Handle chat action
+                                            },
+                                          ),
+                                          // Call Now Button with Gradient
+                                          GradientButton(
+                                            icon: Icons.phone,
+                                            label: 'Call Now',
+                                            colors: [Colors.green, Colors.teal],
+                                            onPressed: () {
+                                              // Handle call action
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
