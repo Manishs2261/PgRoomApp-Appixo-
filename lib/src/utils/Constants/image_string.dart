@@ -22,4 +22,18 @@ class AppImage {
   static const String goodsIcon = 'assets/images/goods_icon.png';
 
   static const String deleteAccoun = 'assets/images/delete_account.png';
+
+
+  /// image for filter services page
+static const String atmImage = 'assets/images/atm.png';
+static const String bankImage = 'assets/images/bank.png';
+static const String clinicImage = 'assets/images/clinic.png';
+static const String electricianImage = 'assets/images/electrician.png';
+static const String groceryShopImage = 'assets/images/groceryShop.png';
+static const String mechanicImage = 'assets/images/mechanic.png';
+static const String medicalShopImage = 'assets/images/medicalShop.png';
+static const String plumberImage = 'assets/images/plumber.png';
+
+
+
 }
