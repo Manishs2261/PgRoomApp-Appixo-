@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/new_search_home/new_search_home.dart';
+
 import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
 import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
@@ -14,6 +14,7 @@ import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
+import '../../Home_fitter_new/new_search_home/new_search_home.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

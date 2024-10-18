@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
 
 class FilterScreen extends StatefulWidget {
-
   FilterScreen({required this.searchItem});
+
   final int searchItem;
 
   @override
@@ -11,7 +12,6 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-
   String location = "Bilaspur";
   RangeValues _budgetRange = RangeValues(1000, 10000);
   List<String> accommodationType = ['PG', 'Flat', 'Co-living'];
@@ -40,6 +40,27 @@ class _FilterScreenState extends State<FilterScreen> {
   String? selectedFoodType;
   String? selectedMessType;
 
+  final List<String> nameOfServices = [
+    'ATM',
+    'Plumber',
+    'Electrician',
+    'Clinic',
+    'Medical Shop',
+    'Grocery Shop',
+    'Cloth Store',
+    'Bank'
+  ];
+  final List<String> imageOfServices = [
+    AppImage.atmImage,
+    AppImage.plumberImage,
+    AppImage.electricianImage,
+    AppImage.clinicImage,
+    AppImage.medicalShopImage,
+    AppImage.groceryShopImage,
+    AppImage.plumberImage,
+    AppImage.bankImage
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,17 +70,19 @@ class _FilterScreenState extends State<FilterScreen> {
             padding: EdgeInsets.all(16),
             height: 200,
             width: double.infinity,
-            decoration: BoxDecoration(color: Colors.grey.shade200, boxShadow: [
+            decoration: BoxDecoration(color: Colors.grey.shade100, boxShadow: [
               BoxShadow(
                   color: Colors.grey.shade400,
-                  blurRadius: 4,
-                  offset: Offset(1, 2))
+                  blurRadius: 2,
+                  offset: Offset(1, 1))
             ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
-                  onTap: (){Navigator.pop(context);},
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                   child: Icon(
                     Icons.arrow_back,
                   ),
@@ -156,7 +179,7 @@ class _FilterScreenState extends State<FilterScreen> {
             ),
           ),
 
-/// for room filter
+          /// for room filter
           Visibility(
             visible: (widget.searchItem == 0),
             child: Padding(
@@ -189,7 +212,6 @@ class _FilterScreenState extends State<FilterScreen> {
                               setState(() {
                                 if (selected) {
                                   selectedAccommodationType = type;
-
                                 } else {
                                   selectedAccommodationType =
                                       null; // Deselect when tapped again
@@ -208,42 +230,45 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      Text(
-                        'Gender:',
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      Wrap(
-                        spacing: 8,
-                        children: gender
-                            .map(
-                              (type) => FilterChip(
-                            label: Text(type),
-                            labelStyle: TextStyle(
-                                color: selectedGender == type
-                                    ? Colors.white
-                                    : Colors.black),
-                            selected: selectedGender == type,
-                            selectedColor: AppColors.primary,
-                            backgroundColor: Colors.blue.withOpacity(0.08),
-                            // Set color to blue when selected
-                            onSelected: (selected) {
-                              setState(() {
-                                if (selected) {
-                                  selectedGender = type;
-                                } else {
-                                  selectedGender =
-                                  null; // Deselect when tapped again
-                                }
-                              });
-                            },
-                          ),
-                        )
-                            .toList(),
-                      ),
-                    ],),
+                        Text(
+                          'Gender:',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Wrap(
+                          spacing: 8,
+                          children: gender
+                              .map(
+                                (type) => FilterChip(
+                                  label: Text(type),
+                                  labelStyle: TextStyle(
+                                      color: selectedGender == type
+                                          ? Colors.white
+                                          : Colors.black),
+                                  selected: selectedGender == type,
+                                  selectedColor: AppColors.primary,
+                                  backgroundColor:
+                                      Colors.blue.withOpacity(0.08),
+                                  // Set color to blue when selected
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      if (selected) {
+                                        selectedGender = type;
+                                      } else {
+                                        selectedGender =
+                                            null; // Deselect when tapped again
+                                      }
+                                    });
+                                  },
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 16,
@@ -255,7 +280,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Text(
                           'Room Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -268,28 +294,29 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: roomType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedRoomType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedRoomType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedRoomType = type;
-                                    } else {
-                                      selectedRoomType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedRoomType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedRoomType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedRoomType = type;
+                                        } else {
+                                          selectedRoomType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
@@ -303,7 +330,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Text(
                           'BHK Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -316,37 +344,39 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: flatType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedFlatType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedFlatType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedFlatType = type;
-                                    } else {
-                                      selectedFlatType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedFlatType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedFlatType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedFlatType = type;
+                                        } else {
+                                          selectedFlatType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
-                          SizedBox(
-                            height: 16,
-                          ),
+                        SizedBox(
+                          height: 16,
+                        ),
                         Text(
                           'Furnishing Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -359,46 +389,48 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: furnishedType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedFurnishedType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedFurnishedType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedFurnishedType = type;
-                                    } else {
-                                      selectedFurnishedType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedFurnishedType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedFurnishedType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedFurnishedType = type;
+                                        } else {
+                                          selectedFurnishedType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
                       ],
                     ),
                   ),
-
                   SizedBox(
                     height: 16,
                   ),
-                   Visibility(
-                     visible: (selectedAccommodationType == 'PG' || selectedAccommodationType == 'Co-living'),
+                  Visibility(
+                    visible: (selectedAccommodationType == 'PG' ||
+                        selectedAccommodationType == 'Co-living'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Food:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -408,27 +440,28 @@ class _FilterScreenState extends State<FilterScreen> {
                           children: food
                               .map(
                                 (type) => FilterChip(
-                              label: Text(type),
-                              labelStyle: TextStyle(
-                                  color: selectedFood == type
-                                      ? Colors.white
-                                      : Colors.black),
-                              selected: selectedFood == type,
-                              selectedColor: AppColors.primary,
-                              backgroundColor: Colors.blue.withOpacity(0.08),
-                              // Set color to blue when selected
-                              onSelected: (selected) {
-                                setState(() {
-                                  if (selected) {
-                                    selectedFood = type;
-                                  } else {
-                                    selectedFood =
-                                    null; // Deselect when tapped again
-                                  }
-                                });
-                              },
-                            ),
-                          )
+                                  label: Text(type),
+                                  labelStyle: TextStyle(
+                                      color: selectedFood == type
+                                          ? Colors.white
+                                          : Colors.black),
+                                  selected: selectedFood == type,
+                                  selectedColor: AppColors.primary,
+                                  backgroundColor:
+                                      Colors.blue.withOpacity(0.08),
+                                  // Set color to blue when selected
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      if (selected) {
+                                        selectedFood = type;
+                                      } else {
+                                        selectedFood =
+                                            null; // Deselect when tapped again
+                                      }
+                                    });
+                                  },
+                                ),
+                              )
                               .toList(),
                         ),
                       ],
@@ -499,44 +532,44 @@ class _FilterScreenState extends State<FilterScreen> {
                   ),
                   Wrap(
                     spacing: 8,
-                    children:  foodType
+                    children: foodType
                         .map(
                           (type) => FilterChip(
-                        label: Text(type),
-                        labelStyle: TextStyle(
-                            color:  selectedFood == type
-                                ? Colors.white
-                                : Colors.black),
-                        selected: selectedFood == type,
-                        selectedColor: AppColors.primary,
-                        backgroundColor: Colors.blue.withOpacity(0.08),
-                        // Set color to blue when selected
-                        onSelected: (selected) {
-                          setState(() {
-                            if (selected) {
-                              selectedFood = type;
-
-                            } else {
-                              selectedFood =
-                              null; // Deselect when tapped again
-                            }
-                          });
-                        },
-                      ),
-                    )
+                            label: Text(type),
+                            labelStyle: TextStyle(
+                                color: selectedFood == type
+                                    ? Colors.white
+                                    : Colors.black),
+                            selected: selectedFood == type,
+                            selectedColor: AppColors.primary,
+                            backgroundColor: Colors.blue.withOpacity(0.08),
+                            // Set color to blue when selected
+                            onSelected: (selected) {
+                              setState(() {
+                                if (selected) {
+                                  selectedFood = type;
+                                } else {
+                                  selectedFood =
+                                      null; // Deselect when tapped again
+                                }
+                              });
+                            },
+                          ),
+                        )
                         .toList(),
                   ),
                   SizedBox(
                     height: 16,
                   ),
                   Visibility(
-                    visible: ( selectedFood == 'Mess'),
+                    visible: (selectedFood == 'Mess'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Mess Type',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -546,30 +579,32 @@ class _FilterScreenState extends State<FilterScreen> {
                           children: messType
                               .map(
                                 (type) => FilterChip(
-                              label: Text(type),
-                              labelStyle: TextStyle(
-                                  color: selectedMessType == type
-                                      ? Colors.white
-                                      : Colors.black),
-                              selected: selectedMessType == type,
-                              selectedColor: AppColors.primary,
-                              backgroundColor: Colors.blue.withOpacity(0.08),
-                              // Set color to blue when selected
-                              onSelected: (selected) {
-                                setState(() {
-                                  if (selected) {
-                                    selectedMessType = type;
-                                  } else {
-                                    selectedMessType =
-                                    null; // Deselect when tapped again
-                                  }
-                                });
-                              },
-                            ),
-                          )
+                                  label: Text(type),
+                                  labelStyle: TextStyle(
+                                      color: selectedMessType == type
+                                          ? Colors.white
+                                          : Colors.black),
+                                  selected: selectedMessType == type,
+                                  selectedColor: AppColors.primary,
+                                  backgroundColor:
+                                      Colors.blue.withOpacity(0.08),
+                                  // Set color to blue when selected
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      if (selected) {
+                                        selectedMessType = type;
+                                      } else {
+                                        selectedMessType =
+                                            null; // Deselect when tapped again
+                                      }
+                                    });
+                                  },
+                                ),
+                              )
                               .toList(),
                         ),
-                      ],),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 16,
@@ -581,7 +616,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Text(
                           'Room Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -594,28 +630,29 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: roomType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedRoomType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedRoomType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedRoomType = type;
-                                    } else {
-                                      selectedRoomType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedRoomType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedRoomType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedRoomType = type;
+                                        } else {
+                                          selectedRoomType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
@@ -629,7 +666,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       children: [
                         Text(
                           'BHK Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -642,28 +680,29 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: flatType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedFlatType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedFlatType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedFlatType = type;
-                                    } else {
-                                      selectedFlatType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedFlatType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedFlatType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedFlatType = type;
+                                        } else {
+                                          selectedFlatType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
@@ -672,7 +711,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                         Text(
                           'Furnishing Type:',
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -685,37 +725,35 @@ class _FilterScreenState extends State<FilterScreen> {
                             children: furnishedType
                                 .map(
                                   (type) => FilterChip(
-                                label: Text(type),
-                                labelStyle: TextStyle(
-                                  color: selectedFurnishedType == type
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                selected: selectedFurnishedType == type,
-                                selectedColor: AppColors.primary,
-                                backgroundColor: Colors.blue.withOpacity(0.08),
-                                // Background when not selected
-                                onSelected: (selected) {
-                                  setState(() {
-                                    if (selected) {
-                                      selectedFurnishedType = type;
-                                    } else {
-                                      selectedFurnishedType =
-                                      null; // Deselect when tapped again
-                                    }
-                                  });
-                                },
-                              ),
-                            )
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                      color: selectedFurnishedType == type
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                    selected: selectedFurnishedType == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor:
+                                        Colors.blue.withOpacity(0.08),
+                                    // Background when not selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedFurnishedType = type;
+                                        } else {
+                                          selectedFurnishedType =
+                                              null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
                                 .toList(),
                           ),
                         ),
                       ],
                     ),
                   ),
-
-
-
                   SizedBox(height: 24),
                   ElevatedButton(
                     onPressed: () {
@@ -733,6 +771,46 @@ class _FilterScreenState extends State<FilterScreen> {
             ),
           ),
 
+          Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              children: nameOfServices.asMap().entries.map((entry) {
+                print(entry);
+                int index = entry.key;
+                String name = entry.value;
+
+                return Container(
+                    height: 80,
+                    width: 100,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.grey.shade300),
+                        borderRadius: BorderRadius.circular(8),
+
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage(imageOfServices[index]),
+                          backgroundColor: Colors.white,
+                        ),
+
+                        // Spacing between image and text
+                        // Name text
+                        Text(
+                          name,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ));
+              }).toList()),
         ],
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:pgroom/src/features/Rooms/details_room.dart';
 
-import '../../utils/Constants/colors.dart';
+import '../../../utils/Constants/colors.dart';
+import '../details_rooms/details_room.dart';
 
 class ListOfRooms extends StatefulWidget {
   const ListOfRooms({super.key});

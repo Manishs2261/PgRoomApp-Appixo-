@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pgroom/main.dart';
-import 'package:pgroom/src/features/filter/filter.dart';
+
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+
+import '../filter/filter.dart';
 
 class NewSearch extends StatefulWidget {
   @override
