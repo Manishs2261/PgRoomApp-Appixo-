@@ -108,11 +108,8 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                               text: '8',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            TextSpan(text: ' results found for '),
-                            TextSpan(
-                              text: 'Result!',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                            TextSpan(text: ' results found.'),
+
                           ],
                         ),
                       ),
