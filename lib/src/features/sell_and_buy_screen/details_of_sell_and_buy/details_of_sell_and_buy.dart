@@ -250,6 +250,19 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                   fontWeight: FontWeight.w500,
                 ),
               ),
+
+              SizedBox(
+                height: 4,
+              ),
+              Text(
+                " Post Date- 12/12/5858",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
               SizedBox(
                 height: 16,
               ),
@@ -326,6 +339,22 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                  ],
+                ),
+              ),
+
+              Container(
+                width:double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(8)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Report About Mess',style: TextStyle(color: Colors.white),),
+                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
                   ],
                 ),
               ),
