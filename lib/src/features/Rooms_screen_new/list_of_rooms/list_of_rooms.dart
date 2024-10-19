@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:gap/gap.dart';
 
 import '../../../utils/Constants/colors.dart';
 import '../details_rooms/details_room.dart';
@@ -186,7 +187,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                         },
                         child: Container(
                           margin: EdgeInsets.only(top: 12,left: 12,right: 12),
-                          height: 451, // You can adjust this height to fit the content
+                          height: 473, // You can adjust this height to fit the content
                           padding: const EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -317,6 +318,24 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                 ],
                               ),
 
+                              SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    size: 18,
+                                    color: Colors.orange,
+                                  ),
+                                  const Gap(4),
+                                  Text(
+                                    "2.5",
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
+                              ),
                               SizedBox(height: 4),
                               Text(
                                 'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
