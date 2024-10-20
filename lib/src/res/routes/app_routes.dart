@@ -15,6 +15,7 @@ import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_servic
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
+
 import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
@@ -48,7 +49,6 @@ import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_d
 import '../../features/room_rent_all_screen/search/search.dart';
 import '../../features/room_rent_all_screen/view_all_image/view_all_image.dart';
 import '../../features/splash/splash_screen.dart';
-
 import '../../features/tiffinServicesScreen/search/search.dart';
 import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
 import '../../features/view_all_review/view_all_review.dart';
@@ -308,6 +308,71 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.contactsUs,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        ///new router screen
+
+        GetPage(
+            name: RoutesName.homeNew,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.filter,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.search,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.listOfRooms,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.roomDetails,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.listOfFoods,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.foodDetails,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.listOfSellAndBuy,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.sellAndBuyDetails,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.listOfServices,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.servicesDetails,
+            page: () => const ContactsUs(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.listOfChats,
             page: () => const ContactsUs(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
