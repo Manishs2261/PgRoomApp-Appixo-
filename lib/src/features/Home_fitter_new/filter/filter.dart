@@ -3,9 +3,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 
 class FilterScreen extends StatefulWidget {
-  FilterScreen({required this.searchItem});
-
-  final int searchItem;
+  FilterScreen();
 
   @override
   _FilterScreenState createState() => _FilterScreenState();
@@ -181,7 +179,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
           /// for room filter
           Visibility(
-            visible: (widget.searchItem == 0),
+            visible: (0 == 0),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -517,7 +515,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
           /// for food filter
           Visibility(
-            visible: (widget.searchItem == 1),
+            visible: (1 == 1),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
