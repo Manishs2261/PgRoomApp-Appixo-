@@ -1,6 +1,4 @@
-class RoutesName{
-
-
+class RoutesName {
   static const String SplashScreen = '/';
 
   static const String onboradingScreen = '/OnBoardingOne_Screen';
@@ -42,7 +40,6 @@ class RoutesName{
 
   static const String searchScreen = '/search_screen';
 
-
   static const String viewAllReview = '/viewallreview_screen';
   static const String viewALlImage = '/viewAllIMage_screen';
 
@@ -53,22 +50,37 @@ class RoutesName{
   static const String tiffinDetailsScreen = '/tiffenDetailsScreen';
   static const String etidTiffineScreen = '/editTiffineScreeen';
   static const String addYourTiffineScreen = '/addYourTiffineScreen';
-  static const String viewAllReviewTiffineScreen = '/viewAllReviewTiffine_Screen';
+  static const String viewAllReviewTiffineScreen =
+      '/viewAllReviewTiffine_Screen';
   static const String searchTiffineScreen = '/searchTiffine_Screen';
-  static const String addToCardRoomScreen  = '/addToCardRoom_Screen';
-  static const String advertisementPageScreen  = '/Advertisement_page_screen';
-  static const String oldGoodsDetailsScreen  = '/old_goods_details_screen';
-  static const String addYourOldGoodsScreen  = '/add_your_old_goods_screen';
-  static const String dataSaveOldGoodsScreen  = '/data_save_old_goods_screen';
-  static const String editOldGoodsScreen  = '/edit_old_goods_screen';
-  static const String mapScreen  = '/map_screen';
-  static const String editMapScreen  = '/edit_map_screen';
-  static const String addToCartTiffineScreen  = '/addToCartTiffineScreen';
-  static const String addToCartGoodsScreen  = '/addToCartGoodsScreen';
+  static const String addToCardRoomScreen = '/addToCardRoom_Screen';
+  static const String advertisementPageScreen = '/Advertisement_page_screen';
+  static const String oldGoodsDetailsScreen = '/old_goods_details_screen';
+  static const String addYourOldGoodsScreen = '/add_your_old_goods_screen';
+  static const String dataSaveOldGoodsScreen = '/data_save_old_goods_screen';
+  static const String editOldGoodsScreen = '/edit_old_goods_screen';
+  static const String mapScreen = '/map_screen';
+  static const String editMapScreen = '/edit_map_screen';
+  static const String addToCartTiffineScreen = '/addToCartTiffineScreen';
+  static const String addToCartGoodsScreen = '/addToCartGoodsScreen';
   static const String goodsSearchScreen = '/goodsSearchScreen';
   static const String helpScreen = '/helpScreen';
   static const String reAuthScreen = '/reAuthScreen';
   static const String deleteAccountScreen = '/deleteAccountScreen';
   static const String contactsUs = '/ContactsUs';
 
+  /// new screen router
+
+  static const String homeNew = '/homeNew';
+  static const String filter = '/filter';
+  static const String search = '/search';
+  static const String listOfRooms = '/listOfRooms';
+  static const String roomDetails = '/roomDetails';
+  static const String listOfFoods = '/listOfFoods';
+  static const String foodDetails = '/foodDetails';
+  static const String listOfSellAndBuy = '/listOfSellAndBuy';
+  static const String sellAndBuyDetails = '/sellAndBuyDetails';
+  static const String listOfServices = '/listOfServices';
+  static const String servicesDetails = '/servicesDetails';
+  static const String listOfChats = '/listOfChats';
 }
