@@ -1,21 +1,33 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/Help_screen/help_screen.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/delete_account/delete_account.dart';
 import 'package:pgroom/src/features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
+import 'package:pgroom/src/features/chats_screen/list_of_chats_sceen/list_of_chat_screen.dart';
 import 'package:pgroom/src/features/contacts_us/contacts.dart';
+import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/food_details_screen.dart';
+import 'package:pgroom/src/features/foods_screen_new/list_of_foods_screen/list_of_foods_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/List_of_sell_and_buy/List_of_sell_and_buy.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/details_of_sell_and_buy/details_of_sell_and_buy.dart';
+import 'package:pgroom/src/features/services_screen/details_services/details_services.dart';
+import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
 
+import '../../features/Home_fitter_new/filter/filter.dart';
+import '../../features/Home_fitter_new/location_search/location_search.dart';
+import '../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
 import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
@@ -316,64 +328,64 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.homeNew,
-            page: () => const ContactsUs(),
+            page: () => const HomeNew(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.filter,
-            page: () => const ContactsUs(),
+            page: () => FilterScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
-            name: RoutesName.search,
-            page: () => const ContactsUs(),
+            name: RoutesName.locationSearch,
+            page: () => LocationSearch(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfRooms,
-            page: () => const ContactsUs(),
+            page: () => const ListOfRooms(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.roomDetails,
-            page: () => const ContactsUs(),
+            page: () => const DetailsRoom(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfFoods,
-            page: () => const ContactsUs(),
+            page: () => const ListOfFoods(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.foodDetails,
-            page: () => const ContactsUs(),
+            page: () => const DetailsFood(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfSellAndBuy,
-            page: () => const ContactsUs(),
+            page: () => const ListOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.sellAndBuyDetails,
-            page: () => const ContactsUs(),
+            page: () => const DetailsOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfServices,
-            page: () => const ContactsUs(),
+            page: () => const ListOfServices(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.servicesDetails,
-            page: () => const ContactsUs(),
+            page: () => const DetailsServices(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfChats,
-            page: () => const ContactsUs(),
+            page: () => const ListOfChatScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
