@@ -73,7 +73,7 @@ class RoutesName {
 
   static const String homeNew = '/homeNew';
   static const String filter = '/filter';
-  static const String search = '/search';
+  static const String locationSearch = '/locationSearch';
   static const String listOfRooms = '/listOfRooms';
   static const String roomDetails = '/roomDetails';
   static const String listOfFoods = '/listOfFoods';
