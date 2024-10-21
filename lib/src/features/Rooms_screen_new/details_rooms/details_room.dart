@@ -40,24 +40,23 @@ class _DetailsRoomState extends State<DetailsRoom> {
 
   final List<String> billItem = ['ELECTRICITY BILL', 'WATER BILL'];
 
-
   // List of FAQ questions and answers
   final List<Map<String, String>> faqs = [
     {
       'question': 'What is Flutter?',
-      'answer': 'Flutter is an open-source UI software development kit created by Google.',
+      'answer':
+          'Flutter is an open-source UI software development kit created by Google.',
     },
     {
       'question': 'How to use Flutter?',
-      'answer': 'Flutter can be used to develop applications for Android, iOS, Linux, Mac, Windows, Google Fuchsia, and the web from a single codebase.',
+      'answer':
+          'Flutter can be used to develop applications for Android, iOS, Linux, Mac, Windows, Google Fuchsia, and the web from a single codebase.',
     },
     {
       'question': 'Is Flutter free?',
       'answer': 'Yes, Flutter is free and open source.',
     },
   ];
-
-
 
   final List<String> rules = [
     "Available for Students & Working Professionals",
@@ -241,7 +240,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       color: Colors.blueAccent,
                     ),
                     child: Text(
-                      'BOYS',
+                      'PG',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -252,6 +251,20 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: Colors.blueAccent,
+                ),
+                child: Text(
+                  'BOYS',
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
               SizedBox(
                 height: 16,
@@ -416,7 +429,53 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 height: 16,
               ),
               Text(
-                'Other Bills',
+                'Other Details',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+              Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all()),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Room is provided by the broker.',
+                      ),
+                      SizedBox(height: 8), // Space between each text
+                      Text(
+                        'Total number of room - 12',
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Room is available - YES',
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Notice period - 7 Day',
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Meals is available - YES',
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Common area - Kitchen, dining hall, study room, library, breakout area',
+                      ),
+                    ],
+                  )),
+              SizedBox(
+                height: 16,
+              ),
+              Text(
+                'Bills',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -476,15 +535,15 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ),
                 );
               }).toList()),
-
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Container(
-                width:double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                  color: Colors.yellow,
-                  borderRadius: BorderRadius.circular(8)
-                ),
+                    color: Colors.yellow,
+                    borderRadius: BorderRadius.circular(8)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -493,7 +552,9 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ],
                 ),
               ),
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -511,13 +572,13 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: Colors.blue,
-
                     ),
                   ),
                 ],
               ),
-
-              SizedBox(height: 16,),
+              SizedBox(
+                height: 16,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -530,8 +591,9 @@ class _DetailsRoomState extends State<DetailsRoom> {
                           Container(
                             height: 25,
                             width: 25,
-                            decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Colors.blue),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: CachedNetworkImage(
@@ -539,16 +601,20 @@ class _DetailsRoomState extends State<DetailsRoom> {
                                 width: 25,
                                 fit: BoxFit.cover,
                                 imageUrl: "",
-                                placeholder: (context, _) =>  Center(
+                                placeholder: (context, _) => Center(
                                   child: SpinKitFadingCircle(
                                     color: AppColors.primary,
                                     size: 30,
                                   ),
                                 ),
                                 errorWidget: (context, url, error) =>
-                                const CircleAvatar(
-                                  backgroundColor: AppColors.primary,
-                                    child: Icon(CupertinoIcons.person,size: 18,color: Colors.white,)),
+                                    const CircleAvatar(
+                                        backgroundColor: AppColors.primary,
+                                        child: Icon(
+                                          CupertinoIcons.person,
+                                          size: 18,
+                                          color: Colors.white,
+                                        )),
                               ),
                             ),
                           ),
@@ -561,7 +627,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                           ),
                         ],
                       ),
-                      Text('12/12/2000',style: TextStyle(color: Colors.grey,fontSize: 10),)
+                      Text(
+                        '12/12/2000',
+                        style: TextStyle(color: Colors.grey, fontSize: 10),
+                      )
                     ],
                   ),
                   const SizedBox(
@@ -579,7 +648,8 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       ),
                       Text(
                         "2.5",
-                        style: const TextStyle(fontSize: 12, color: Colors.black),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.black),
                       )
                     ],
                   ),
@@ -592,28 +662,30 @@ class _DetailsRoomState extends State<DetailsRoom> {
                             ? Colors.blueGrey.shade900
                             : Colors.grey.shade50,
                         borderRadius: BorderRadius.circular(8)),
-                    child: Text("To add an underline to your Text widget in Flutter, you can modify the TextStyle to include decoration: TextDecoration.underline. Here's how you can update your code:"),
+                    child: Text(
+                        "To add an underline to your Text widget in Flutter, you can modify the TextStyle to include decoration: TextDecoration.underline. Here's how you can update your code:"),
                   ),
                 ],
               ),
-
-
               Container(
-                width:double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8)
-                ),
+                    color: Colors.red, borderRadius: BorderRadius.circular(8)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Report About Room',style: TextStyle(color: Colors.white),),
-                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
+                    Text(
+                      'Report About Room',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                    )
                   ],
                 ),
               ),
-
               SizedBox(
                 height: 16,
               ),
@@ -625,7 +697,6 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   color: Colors.black,
                 ),
               ),
-
               Column(
                 children: faqs.map((faq) {
                   // Mapping each FAQ item to a FAQTile widget
@@ -635,8 +706,6 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   );
                 }).toList(),
               ),
-
-
             ],
           ),
         ),
@@ -644,8 +713,6 @@ class _DetailsRoomState extends State<DetailsRoom> {
     );
   }
 }
-
-
 
 class FAQTile extends StatelessWidget {
   final String question;
@@ -660,19 +727,17 @@ class FAQTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric( vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Card(
         color: Colors.grey.withOpacity(0.15),
         elevation: 0,
         child: ExpansionTile(
-
           shape: const RoundedRectangleBorder(
             side: BorderSide(color: Colors.transparent),
           ),
           collapsedShape: const RoundedRectangleBorder(
             side: BorderSide(color: Colors.transparent),
           ),
-
           title: Text(
             question,
             style: const TextStyle(fontWeight: FontWeight.w500),
