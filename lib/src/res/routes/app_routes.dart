@@ -3,6 +3,7 @@ import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/Help_screen/help_screen.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_form.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
@@ -386,6 +387,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.listOfChats,
             page: () => const ListOfChatScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.roomPostForm,
+            page: () =>   FirstRoomFormScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
