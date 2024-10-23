@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 
 class MyTextFormWidget extends StatelessWidget {
   const MyTextFormWidget({
@@ -45,15 +46,28 @@ class MyTextFormWidget extends StatelessWidget {
       controller: controller,
       keyboardType: textKeyBoard,
       decoration: InputDecoration(
-          border: OutlineInputBorder(borderRadius: borderRadius),
-          hintText: hintText,
-          labelText: labelText,
-          contentPadding: contentPadding,
-          isCollapsed: isCollapsed,
-          isDense: isDense,
-          counterText: "",
-          prefixIcon: icon),
+        // Define the same border radius for different states
+        border: OutlineInputBorder(
+          borderRadius: borderRadius, // normal border
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: borderRadius, // border when focused
+          borderSide: BorderSide(color: AppColors.primary, ), // optional: customize the border when focused
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: borderRadius, // border when enabled
+          borderSide: BorderSide(color: Colors.grey, width: 1.0), // optional: customize the border when enabled
+        ),
+        hintText: hintText,
+        labelText: labelText,
+        contentPadding: contentPadding,
+        isCollapsed: isCollapsed,
+        isDense: isDense,
+        counterText: "",
+        prefixIcon: icon,
+      ),
       validator: validator,
     );
+
   }
 }
