@@ -469,6 +469,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       Text(
                         'Common area - Kitchen, dining hall, study room, library, breakout area',
                       ),
+                      SizedBox(height: 8),
+                      Text(
+                        'Bathroom - seprate',
+                      ),
                     ],
                   )),
               SizedBox(
