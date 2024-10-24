@@ -5,8 +5,8 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 class MyTextFormWidget extends StatelessWidget {
   const MyTextFormWidget({
     super.key,
-    required this.hintText,
-    required this.labelText,
+     this.hintText,
+     this.labelText,
     this.controller,
     this.validator,
     this.icon,
@@ -21,7 +21,7 @@ class MyTextFormWidget extends StatelessWidget {
     this.inputFormatters,
   });
 
-  final String hintText, labelText;
+  final String? hintText, labelText;
   final Icon? icon;
   final BorderRadius borderRadius;
   final EdgeInsetsGeometry? contentPadding;
@@ -38,7 +38,7 @@ class MyTextFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return  TextFormField(
       minLines: minLine,
       maxLines: maxLine,
       inputFormatters: inputFormatters,
@@ -46,17 +46,15 @@ class MyTextFormWidget extends StatelessWidget {
       controller: controller,
       keyboardType: textKeyBoard,
       decoration: InputDecoration(
-        // Define the same border radius for different states
-        border: OutlineInputBorder(
-          borderRadius: borderRadius, // normal border
+        // Remove all borders and show only the bottom underline
+        border: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0), // bottom line
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: borderRadius, // border when focused
-          borderSide: BorderSide(color: AppColors.primary, ), // optional: customize the border when focused
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppColors.primary, width: 2.0), // bottom line when focused
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: borderRadius, // border when enabled
-          borderSide: BorderSide(color: Colors.grey, width: 1.0), // optional: customize the border when enabled
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey, width: 1.0), // bottom line when enabled
         ),
         hintText: hintText,
         labelText: labelText,
@@ -68,6 +66,7 @@ class MyTextFormWidget extends StatelessWidget {
       ),
       validator: validator,
     );
+
 
   }
 }
