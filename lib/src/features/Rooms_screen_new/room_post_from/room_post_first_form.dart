@@ -9,6 +9,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../common/widgets/reuseable_icon.dart';
 import '../../../utils/validator/text_field_validator.dart';
+import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 
 class FirstRoomFormScreen extends StatefulWidget {
@@ -83,7 +84,7 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(),
+        title: FormProcessStep(isFormOne: true,),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -514,53 +515,4 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
   }
 }
 
-class FormProcessStep extends StatelessWidget {
-  const FormProcessStep({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-      ],
-    );
-  }
-}

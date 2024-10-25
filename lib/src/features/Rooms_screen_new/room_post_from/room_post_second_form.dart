@@ -7,6 +7,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../common/widgets/reuseable_icon.dart';
 import '../../../utils/validator/text_field_validator.dart';
+import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 
 class SecondRoomFormScreen extends StatefulWidget {
@@ -81,7 +82,7 @@ class _SecondRoomFormScreenState extends State<SecondRoomFormScreen> {
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(),
+        title: FormProcessStep(isFormOne: true, isFormTwo: true),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -429,57 +430,6 @@ class _SecondRoomFormScreenState extends State<SecondRoomFormScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class FormProcessStep extends StatelessWidget {
-  const FormProcessStep({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-        Expanded(
-          child: ReusableContainer(
-            color: Colors.grey,
-            height: 2,
-            width: double.infinity,
-          ),
-        ),
-        ReusableIcon(
-          icon: Icons.check_circle,
-          color: Colors.green,
-        ),
-      ],
     );
   }
 }
