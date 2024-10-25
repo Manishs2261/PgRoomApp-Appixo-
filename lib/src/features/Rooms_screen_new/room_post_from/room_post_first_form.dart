@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/common/widgets/reuseable_container.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../common/widgets/reuseable_icon.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
@@ -84,7 +82,9 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(isFormOne: true,),
+        title: FormProcessStep(
+          isFormOne: true,
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -514,5 +514,3 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
     );
   }
 }
-
-
