@@ -36,4 +36,12 @@ static const String plumberImage = 'assets/images/plumber.png';
 
 
 
+/// image of all category
+static const String roomOne = 'assets/images/roomOne.png';
+static const String sellAndBuyOne = 'assets/images/sellAndBuy.png';
+static const String servicesOne = 'assets/images/servicesOne.png';
+static const String foodOne = 'assets/images/foodOne.png';
+
+
+
 }
