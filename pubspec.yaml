@@ -105,6 +105,9 @@ dependencies:
   geocoding: ^2.1.0
   uuid: ^3.0.7
   shimmer: ^3.0.0
+  multi_image_picker_view: ^1.1.0
+
+
 
 
 
