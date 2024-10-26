@@ -2,9 +2,12 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/Help_screen/help_screen.dart';
 import 'package:pgroom/src/features/Home_fitter_new/city_search/city_search.dart';
- import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
@@ -407,6 +410,27 @@ class AppRoutes {
         GetPage(
             name: RoutesName.citySearch,
             page: () => CitySearch(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.firstRoomFormScreen,
+            page: () => FirstRoomFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.secondRoomFormScreen,
+            page: () => SecondRoomFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.thirdRoomFormScreen,
+            page: () => ThirdRoomFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.firstRoomFormScreen,
+            page: () => FourthRoomFormScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

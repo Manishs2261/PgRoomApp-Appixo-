@@ -86,4 +86,11 @@ class RoutesName {
   static const String roomPostForm = '/roomPostForm';
   static const String listOfPost = '/listOfPost';
   static const String  citySearch = '/citySearch';
+
+
+  /// post share router
+  static const String firstRoomFormScreen = '/firstRoomFormScreen';
+  static const String secondRoomFormScreen = '/secondRoomFormScreen';
+  static const String thirdRoomFormScreen = '/thirdRoomFormScreen';
+  static const String fourthRoomFormScreen = '/fourthRoomFormScreen';
 }
