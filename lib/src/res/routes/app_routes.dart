@@ -1,9 +1,10 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:pgroom/src/features/Help_screen/help_screen.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
+import 'package:pgroom/src/features/Home_fitter_new/city_search/city_search.dart';
+ import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
@@ -26,6 +27,7 @@ import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_service
 import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
 
+import '../../features/Home_fitter_new/List_of_post/List_of_post.dart';
 import '../../features/Home_fitter_new/filter/filter.dart';
 import '../../features/Home_fitter_new/location_search/location_search.dart';
 import '../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
@@ -392,7 +394,19 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.roomPostForm,
-            page: () =>   FirstRoomFormScreen(),
+            page: () => FirstRoomFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.listOfPost,
+            page: () => ListOfPost(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.citySearch,
+            page: () => CitySearch(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

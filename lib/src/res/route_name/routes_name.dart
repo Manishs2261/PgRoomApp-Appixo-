@@ -83,4 +83,7 @@ class RoutesName {
   static const String listOfServices = '/listOfServices';
   static const String servicesDetails = '/servicesDetails';
   static const String listOfChats = '/listOfChats';
+  static const String roomPostForm = '/roomPostForm';
+  static const String listOfPost = '/listOfPost';
+  static const String  citySearch = '/citySearch';
 }
