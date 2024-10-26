@@ -1,14 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class NewSearchHome extends StatefulWidget {
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/image_string.dart';
+
+class HomeNew extends StatefulWidget {
+  const HomeNew({super.key});
+
   @override
-  State<NewSearchHome> createState() => _NewSearchHomeState();
+  State<HomeNew> createState() => _HomeNewState();
 }
 
-class _NewSearchHomeState extends State<NewSearchHome>
-    with TickerProviderStateMixin {
+class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   late AnimationController _topRowAnimationController;
   late Animation<Offset> _topRowSlideAnimation;
   late Animation<double> _topRowOpacityAnimation;
@@ -95,7 +100,7 @@ class _NewSearchHomeState extends State<NewSearchHome>
   }
 
   final PageController _controller = PageController();
-  final PageController  _controllerOne = PageController();
+  final PageController _controllerOne = PageController();
 
   final List<String> imgList = [
     'https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG5hdHVyZXxlbnwwfHwwfHx8MA%3D%3D',
@@ -119,7 +124,6 @@ class _NewSearchHomeState extends State<NewSearchHome>
       }
     });
   }
-
 
   void _autoSlideOne() {
     Future.delayed(Duration(seconds: 3), () {
@@ -227,24 +231,27 @@ class _NewSearchHomeState extends State<NewSearchHome>
                         position: _searchSlideAnimation,
                         child: FadeTransition(
                           opacity: _searchOpacityAnimation,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Bilaspur",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              SizedBox(width: 2),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.white.withOpacity(0.6),
-                                size: 18,
-                              )
-                            ],
+                          child: InkWell(
+                            onTap: () => Get.toNamed(RoutesName.citySearch),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Bilaspur",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(width: 2),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.white.withOpacity(0.6),
+                                  size: 18,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -290,9 +297,7 @@ class _NewSearchHomeState extends State<NewSearchHome>
                                       ),
                                     ],
                                     isRepeatingAnimation: true,
-                                    onTap: () {
-                                      print("Tap Event");
-                                    },
+                                    onTap: () => Get.toNamed(RoutesName.listOfPost),
                                   ),
                                 ),
                                 Positioned(
@@ -330,6 +335,8 @@ class _NewSearchHomeState extends State<NewSearchHome>
                         child: FadeTransition(
                           opacity: _searchTextFieldOpacityAnimation,
                           child: TextFormField(
+                            onTap: () => Get.toNamed(RoutesName.locationSearch),
+                            readOnly: true,
                             decoration: InputDecoration(
                               fillColor: Colors.white,
                               filled: true,
@@ -380,11 +387,14 @@ class _NewSearchHomeState extends State<NewSearchHome>
                               style: TextStyle(
                                   color: Colors.white.withOpacity(0.9)),
                             ),
-                            Text(
-                              " Post for free.",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500),
+                            InkWell(
+                              onTap: () => Get.toNamed(RoutesName.listOfPost),
+                              child: Text(
+                                " Post for free.",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
                             Icon(
                               Icons.arrow_forward_ios,
@@ -443,59 +453,45 @@ class _NewSearchHomeState extends State<NewSearchHome>
                 ],
               ),
             ),
-
-
-
-
             SizedBox(
               height: 450,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2, // 2 Columns
+                  crossAxisCount: 2,
+                  // 2 Columns
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   children: [
                     // Room Card
                     CategoryCard(
-                      imagePath: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHJvb21zfGVufDB8fDB8fHww',
-                      title: 'Rooms',
-                      onTap: () {
-
-                      },
+                      imagePath: AppImage.roomOne,
+                       title: 'Rooms',
+                      onTap: () {},
                     ),
                     // Food Card
                     CategoryCard(
-                      imagePath: 'https://media.istockphoto.com/id/868408746/photo/assorted-indian-dish.webp?a=1&b=1&s=612x612&w=0&k=20&c=LWxNqGlUSb5jfhv3Fu8lzYdXOebquU0_0WUKl0f5zxk=',
-                      title: 'Foods',
-                      onTap: () {
-
-                      },
+                      imagePath:AppImage.foodOne,
+                       title: 'Foods',
+                      onTap: () {},
                     ),
                     // Services Card
                     CategoryCard(
-                      imagePath: 'https://images.unsplash.com/photo-1605152276897-4f618f831968?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8c2VydmljZXxlbnwwfHwwfHx8MA%3D%3D',
-                      title: 'Services',
-                      onTap: () {
-
-                      },
+                      imagePath:AppImage.servicesOne,
+                       title: 'Services',
+                      onTap: () {},
                     ),
                     // Old Items Card
                     CategoryCard(
-                      imagePath: 'https://images.unsplash.com/photo-1692195321701-1a454c79ab02?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                      title: 'Old Items',
-                      onTap: () {
-
-                      },
+                      imagePath: AppImage.sellAndBuyOne,
+                       title: 'Old Items',
+                      onTap: () {},
                     ),
                   ],
                 ),
               ),
             ),
-
-
-
             Card(
               elevation: 8,
               shape: RoundedRectangleBorder(
@@ -540,24 +536,31 @@ class _NewSearchHomeState extends State<NewSearchHome>
                 ],
               ),
             ),
-            
-
-            SizedBox(height: 16,),
-            Text('ROOM CATEGOY',style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold, shadows: [
-              Shadow(
-                blurRadius: 10.0,
-                color: Colors.black26,
-                offset: Offset(2.0, 2.0),
+            SizedBox(
+              height: 16,
+            ),
+            Text(
+              'ROOM CATEGOY',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    blurRadius: 10.0,
+                    color: Colors.black26,
+                    offset: Offset(2.0, 2.0),
+                  ),
+                ],
               ),
-            ],),),
-
+            ),
             SizedBox(
               height: 450,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.count(
                   physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2, // 2 Columns
+                  crossAxisCount: 2,
+                  // 2 Columns
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                   children: [
@@ -565,169 +568,146 @@ class _NewSearchHomeState extends State<NewSearchHome>
                     CategoryCardOne(
                       imagePath: 'assets/images/boy.png',
                       title: 'Boys',
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     ),
                     // Food Card
                     CategoryCardOne(
                       imagePath: 'assets/images/girl.png',
                       title: 'Girls',
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     ),
                     // Services Card
                     CategoryCardOne(
                       imagePath: 'assets/images/boyandgirl.png',
                       title: 'Co-Living',
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     ),
                     // Old Items Card
                     CategoryCardOne(
                       imagePath: 'assets/images/flatFamily.png',
                       title: 'Flats',
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                     ),
                   ],
                 ),
               ),
             ),
-
-
-      //
-      // Text("Exclusive Benefits for Our Users",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600,shadows: [ Shadow(
-      //   blurRadius: 10.0,
-      //   color: Colors.black26,
-      //   offset: Offset(2.0, 2.0),
-      // ),]),),
-
-
-      Container(
-        height: 200,
-        width: 100,
-        decoration: BoxDecoration(
-
-        ),
-      ),
-
-
-
-
-
-
-      Card(
-        margin: EdgeInsets.all(16),
-        elevation: 15,  // High shadow elevation
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),  // More exaggerated rounded corners
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.black, Colors.blueAccent],  // Unique gradient background
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+            Container(
+              height: 200,
+              width: 100,
+              decoration: BoxDecoration(),
             ),
-            borderRadius: BorderRadius.circular(20),  // Same as the card for rounded effect
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                blurRadius: 15,
-                spreadRadius: 5,
+            Card(
+              margin: EdgeInsets.all(16),
+              elevation: 15, // High shadow elevation
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(
+                    20), // More exaggerated rounded corners
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),  // Padding inside the card
-            child: Column(
-              mainAxisSize: MainAxisSize.min,  // Shrinks card to fit content
-              children: <Widget>[
-                Row(
-                  children: [
-                    Image(image: AssetImage('assets/images/sharenow.png'), height: 100),
-                    SizedBox(width: 15),
-                    Flexible(  // Use Flexible or Expanded to prevent overflow
-                      child: Text(
-                        'Your friends will love this too—share it now!',
-                        style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 10.0,
-                              color: Colors.black54,
-                              offset: Offset(2.0, 2.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.black, Colors.blueAccent],
+                    // Unique gradient background
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  // Same as the card for rounded effect
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 15,
+                      spreadRadius: 5,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  // Padding inside the card
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    // Shrinks card to fit content
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Image(
+                              image: AssetImage('assets/images/sharenow.png'),
+                              height: 100),
+                          SizedBox(width: 15),
+                          Flexible(
+                            // Use Flexible or Expanded to prevent overflow
+                            child: Text(
+                              'Your friends will love this too—share it now!',
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                                shadows: [
+                                  Shadow(
+                                    blurRadius: 10.0,
+                                    color: Colors.black54,
+                                    offset: Offset(2.0, 2.0),
+                                  ),
+                                ],
+                              ),
+                              overflow: TextOverflow.visible,
+                              // Text will wrap automatically to next line
+                              softWrap: true, // Allow wrapping of text
                             ),
-                          ],
-                        ),
-                        overflow: TextOverflow.visible,  // Text will wrap automatically to next line
-                        softWrap: true,  // Allow wrapping of text
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        // Add your onPressed logic here
-                      },
-                      borderRadius: BorderRadius.circular(20),
-                      splashColor: Colors.white.withOpacity(0.3),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),  // Button background
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          'Share Now',
-                          style: TextStyle(
-                            color: Colors.blueAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                  ],
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          InkWell(
+                            onTap: () {
+                              // Add your onPressed logic here
+                            },
+                            borderRadius: BorderRadius.circular(20),
+                            splashColor: Colors.white.withOpacity(0.3),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.9),
+                                // Button background
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                'Share Now',
+                                style: TextStyle(
+                                  color: Colors.blueAccent,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-
-
-
-
-        ],
+          ],
         ),
       ),
     );
   }
 }
 
-
-
-
-
 class CategoryCard extends StatelessWidget {
   final String imagePath;
   final String title;
   final Function onTap;
 
-  CategoryCard({required this.imagePath, required this.title, required this.onTap});
+  CategoryCard(
+      {required this.imagePath, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -741,13 +721,13 @@ class CategoryCard extends StatelessWidget {
         child: Stack(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child:  Image.network(imagePath,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-              )
-            ),
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                )),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
@@ -785,7 +765,8 @@ class CategoryCardOne extends StatelessWidget {
   final String title;
   final Function onTap;
 
-  CategoryCardOne({required this.imagePath, required this.title, required this.onTap});
+  CategoryCardOne(
+      {required this.imagePath, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -800,12 +781,12 @@ class CategoryCardOne extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(20.0),
-                child:  Image.asset(imagePath,
+                child: Image.asset(
+                  imagePath,
                   fit: BoxFit.contain,
                   width: double.infinity,
                   height: double.infinity,
-                )
-            ),
+                )),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
