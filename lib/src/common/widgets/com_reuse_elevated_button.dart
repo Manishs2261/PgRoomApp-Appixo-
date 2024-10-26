@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../utils/helpers/helper_function.dart';
@@ -11,13 +10,15 @@ class ComReuseElevButton extends StatelessWidget {
       required this.title,
       this.loading = false,
       this.height = 40.0,
-      this.width = 0.9});
+      this.width = 0.9,
+      this.color = AppColors.primary});
 
   final bool loading;
   final Function()? onPressed;
   final String title;
   final double width;
   final double height;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +30,10 @@ class ComReuseElevButton extends StatelessWidget {
           alignment: Alignment.center,
           width: AppHelperFunction.screenWidth() * width,
           decoration: BoxDecoration(
-            color: AppColors.primary,
+            color: color,
             boxShadow: [
               BoxShadow(
-                  color: AppColors.primary.withOpacity(.9),
+                  color: color.withOpacity(.9),
                   offset: const Offset(0, 5))
             ],
             borderRadius: BorderRadius.circular(24),
