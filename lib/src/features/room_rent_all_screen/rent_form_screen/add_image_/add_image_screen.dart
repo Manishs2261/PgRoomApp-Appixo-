@@ -133,7 +133,7 @@ class AddImageScreen extends StatelessWidget {
 
                 //=========save & next button ===============
 
-                ComReuseElevButton(
+                ReuseElevButton(
                   onPressed: () => imageController.onSubmitButton(),
                   title: "Next",
                   loading: imageController.loading.value,
