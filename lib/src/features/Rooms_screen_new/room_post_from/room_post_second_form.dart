@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
-import 'package:pgroom/src/common/widgets/reuseable_container.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
-import '../../../common/widgets/reuseable_icon.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
@@ -79,10 +80,15 @@ class _SecondRoomFormScreenState extends State<SecondRoomFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug(
+        "Build - SecondRoomFormScreen......................................");
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(isFormOne: true, isFormTwo: true),
+        title: FormProcessStep(
+          isFormOne: true,
+        ),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -421,9 +427,16 @@ class _SecondRoomFormScreenState extends State<SecondRoomFormScreen> {
 
                 // Save button
                 SizedBox(height: 20),
-                ComReuseElevButton(
-                  onPressed: () {},
+                ReuseElevButton(
+                  onPressed: () => Get.toNamed(RoutesName.thirdRoomFormScreen),
                   title: "Save & Next",
+                ),
+
+                SizedBox(height: 20),
+                ReuseElevButton(
+                  color: Colors.orange,
+                  onPressed: () => Get.back(),
+                  title: "Back",
                 ),
               ],
             ),

@@ -2,10 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
@@ -79,12 +83,13 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug(
+        "Build - FirstRoomFormScreen......................................");
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(
-          isFormOne: true,
-        ),
+        automaticallyImplyLeading: false,
+        title: FormProcessStep(),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -129,6 +134,25 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
                               fontWeight: FontWeight.w400, fontSize: 14),
                         ),
                         value: 'Broker',
+                        dense: true,
+                        contentPadding: EdgeInsets.zero,
+                        visualDensity: VisualDensity(horizontal: -4),
+                        groupValue: roomOwnerType,
+                        onChanged: (value) {
+                          setState(() {
+                            roomOwnerType = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: RadioListTile<String>(
+                        title: const Text(
+                          'Room Mete',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 14),
+                        ),
+                        value: 'RoomMate',
                         dense: true,
                         contentPadding: EdgeInsets.zero,
                         visualDensity: VisualDensity(horizontal: -4),
@@ -502,8 +526,8 @@ class _FirstRoomFormScreenState extends State<FirstRoomFormScreen> {
                   height: 32,
                 ),
 
-                ComReuseElevButton(
-                  onPressed: () {},
+                ReuseElevButton(
+                  onPressed: ()=>Get.toNamed(RoutesName.secondRoomFormScreen),
                   title: 'Save & Next',
                 )
               ],

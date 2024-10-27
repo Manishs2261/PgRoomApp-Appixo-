@@ -3,9 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/form_process_step.dart';
 
 class FourthRoomFormScreen extends StatefulWidget {
+  const FourthRoomFormScreen({super.key});
+
   @override
   _FourthRoomFormScreenState createState() => _FourthRoomFormScreenState();
 }
@@ -39,6 +42,9 @@ class _FourthRoomFormScreenState extends State<FourthRoomFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    AppLoggerHelper.debug(
+        "Build - _FourthRoomFormScreenState......................................");
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
@@ -154,9 +160,9 @@ class _FourthRoomFormScreenState extends State<FourthRoomFormScreen> {
 
                 // Save button
                 SizedBox(height: 20),
-                ComReuseElevButton(
+                ReuseElevButton(
                   onPressed: () {},
-                  title: "Save & Next",
+                  title: "Done",
                 ),
               ],
             ),
