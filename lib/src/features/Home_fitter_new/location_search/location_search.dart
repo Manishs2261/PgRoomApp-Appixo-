@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
-import '../filter/filter.dart';
-
 
 class LocationSearch extends StatefulWidget {
   const LocationSearch({super.key});
@@ -17,7 +17,7 @@ class _LocationSearchState extends State<LocationSearch> {
   String searchText = "";
   List<String> _searchHistory = [];
 
-  int selectedButtonIndex = -1; // -1 means no button is selected initially
+  int selectedButtonIndex = 0; // -1 means no button is selected initially
   int selectedButtonIndexChild = -1; // -1 means no button is selected initially
 
   void _onButtonSelected(int index) {
@@ -35,8 +35,12 @@ class _LocationSearchState extends State<LocationSearch> {
     }
   }
 
+
+
+
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -100,9 +104,12 @@ class _LocationSearchState extends State<LocationSearch> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 8, bottom: 12),
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
+                          child: InkWell(
+                            onTap: () => Get.back(),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         Text(
@@ -230,13 +237,7 @@ class _LocationSearchState extends State<LocationSearch> {
                           // Handles focusing the field
                           onFieldSubmitted: ((value) {
                             _onSearchSubmitted(value);
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (context) => FilterScreen(
-                            //       searchItem: selectedButtonIndex,
-                            //     ),
-                            //   ),
-                            //);
+                            Get.toNamed(RoutesName.filter ,arguments: selectedButtonIndex);
                           }),
                           // Trigger search on enter/submit
                           decoration: InputDecoration(
