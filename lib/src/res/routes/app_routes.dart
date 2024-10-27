@@ -429,7 +429,7 @@ class AppRoutes {
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
-            name: RoutesName.firstRoomFormScreen,
+            name: RoutesName.fourthRoomFormScreen,
             page: () => FourthRoomFormScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
