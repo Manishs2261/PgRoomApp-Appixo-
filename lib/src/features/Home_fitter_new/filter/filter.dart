@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/logger/logger.dart';
+
 class FilterScreen extends StatefulWidget {
-  FilterScreen();
+  const FilterScreen();
 
   @override
   _FilterScreenState createState() => _FilterScreenState();
 }
 
 class _FilterScreenState extends State<FilterScreen> {
+  final filterIndex = Get.arguments;
+
+  Set<int> selectedIndices = {};
   String location = "Bilaspur";
   RangeValues _budgetRange = RangeValues(1000, 10000);
   List<String> accommodationType = ['PG', 'Flat', 'Co-living'];
@@ -22,7 +30,7 @@ class _FilterScreenState extends State<FilterScreen> {
     'Triple Sharing',
     '3+ Sharing'
   ];
-  List<String> flatType = ['1Rk', '1BHK', '2BHK', '3BHK', '4BHK'];
+  List<String> flatType = ['1RK', '1BHK', '2BHK', '3BHK', '4BHK'];
   List<String> foodType = ['Mess', 'Restaurants', 'Chopati'];
   List<String> furnishedType = [
     'Un Furnished',
@@ -61,6 +69,9 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug(
+        "Build - FilterScreen......................................");
+
     return Scaffold(
       body: ListView(
         children: [
@@ -179,7 +190,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
           /// for room filter
           Visibility(
-            visible: (0 == 0),
+            visible: (filterIndex == 0),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -497,17 +508,10 @@ class _FilterScreenState extends State<FilterScreen> {
                     style: TextStyle(fontSize: 16),
                   ),
                   SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Apply the filters
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Apply Filters'),
-                      ],
-                    ),
-                  ),
+
+                 ReuseElevButton(onPressed: (){
+                   Get.toNamed(RoutesName.listOfRooms);
+                 }, title: 'Apply Filter')
                 ],
               ),
             ),
@@ -515,7 +519,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
           /// for food filter
           Visibility(
-            visible: (1 == 1),
+            visible: (filterIndex == 1),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -753,62 +757,88 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Apply the filters
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Apply Filters'),
-                      ],
-                    ),
-                  ),
+                  ReuseElevButton(onPressed: (){
+                    Get.toNamed(RoutesName.listOfFoods);
+                  }, title: 'Apply Filter')
                 ],
               ),
             ),
           ),
 
-          Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 10,
-              runSpacing: 10,
-              children: nameOfServices.asMap().entries.map((entry) {
-                print(entry);
-                int index = entry.key;
-                String name = entry.value;
+          /// for services card
+          Visibility(
+            visible: (filterIndex == 3),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 10,
+                      runSpacing: 10,
+                      children: nameOfServices.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        String name = entry.value;
 
-                return Container(
-                    height: 80,
-                    width: 100,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(8),
+                        return GestureDetector(
+                          onTap: (){
 
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage(imageOfServices[index]),
-                          backgroundColor: Colors.white,
-                        ),
+                            setState(() {
+                              // Toggle selection state
+                              if (selectedIndices.contains(index)) {
+                                selectedIndices.remove(index); // Deselect if already selected
+                              } else {
+                                selectedIndices.add(index); // Select if not selected
+                              }
+                            });
+                          },
+                          child: Container(
+                              height: 80,
+                              width: 100,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: selectedIndices.contains(index)
+                                    ? AppColors.primary
+                                    : Colors.white,
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage(imageOfServices[index]),
+                                    backgroundColor: Colors.white,
+                                  ),
 
-                        // Spacing between image and text
-                        // Name text
-                        Text(
-                          name,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ));
-              }).toList()),
+                                  // Spacing between image and text
+                                  // Name text
+                                  Text(
+                                    name,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: selectedIndices.contains(index)
+                                        ? Colors.white
+                                        : Colors.black,
+
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        );
+                      }).toList()),
+
+                  SizedBox(height: 24,),
+                  ReuseElevButton(onPressed: (){
+                    Get.toNamed(RoutesName.listOfServices);
+                  }, title: 'Apply Filter')
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
