@@ -155,7 +155,7 @@ class EditProvideFacilites extends StatelessWidget {
                 height: 50,
               ),
 
-              ComReuseElevButton(onPressed: () => controller.onEditProviderFacilitiesData(), title: "Update")
+              ReuseElevButton(onPressed: () => controller.onEditProviderFacilitiesData(), title: "Update")
             ],
           ),
         ),

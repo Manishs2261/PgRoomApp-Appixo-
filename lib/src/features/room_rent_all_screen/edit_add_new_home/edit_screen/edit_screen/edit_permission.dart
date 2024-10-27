@@ -119,7 +119,7 @@ class EditPermissiionScreen extends StatelessWidget {
                 height: 30,
               ),
 
-              ComReuseElevButton(onPressed: () => controller.onEditPermissionData(), title: 'Update')
+              ReuseElevButton(onPressed: () => controller.onEditPermissionData(), title: 'Update')
             ],
           ),
         ),

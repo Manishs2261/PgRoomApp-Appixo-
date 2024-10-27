@@ -461,7 +461,7 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                ComReuseElevButton(
+                ReuseElevButton(
                   onPressed: () => controller.onSubmitButton(),
                   title: "Update",
                 ),

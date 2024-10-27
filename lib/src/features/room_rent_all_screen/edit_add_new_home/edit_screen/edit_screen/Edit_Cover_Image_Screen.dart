@@ -174,7 +174,7 @@ class EditCoverImageScreen extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         height: 40,
-                        child: ComReuseElevButton(
+                        child: ReuseElevButton(
                             onPressed: () => controller.onEditCoverImageSaveButton(), title: "Update"),
                       ),
                     ),

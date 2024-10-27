@@ -25,7 +25,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            ComReuseElevButton(
+            ReuseElevButton(
                 onPressed: () {
                   Get.to(() => const DataSaveTiffineScreen());
                 },

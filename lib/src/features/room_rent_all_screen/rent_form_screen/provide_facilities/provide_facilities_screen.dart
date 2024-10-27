@@ -148,7 +148,7 @@ class ProvideFacilitiesScreen extends StatelessWidget {
                 height: 20,
               ),
 
-              ComReuseElevButton(
+              ReuseElevButton(
                 onPressed: () => controller.onSubmitButton(),
                 title: "Next",
                 loading: controller.loading.value,

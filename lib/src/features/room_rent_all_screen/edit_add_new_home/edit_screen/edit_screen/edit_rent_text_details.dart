@@ -146,7 +146,7 @@ class EditRentTextDetailsScreen extends StatelessWidget {
                         height: 50,
                       ),
 
-                      ComReuseElevButton(
+                      ReuseElevButton(
                           onPressed: () {
                             if (_globalKey.currentState!.validate()) {
                               controller.onEditRentDetailsData();

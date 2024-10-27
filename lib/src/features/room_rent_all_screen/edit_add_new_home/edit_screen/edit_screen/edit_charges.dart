@@ -159,7 +159,7 @@ class EditAdditionalChargesAndDoorTime extends StatelessWidget {
                 height: 50,
               ),
 
-              ComReuseElevButton(
+              ReuseElevButton(
                 onPressed: () => controller.onEditAdditionalChargesAndDoor(),
                 title: "Update",
               )

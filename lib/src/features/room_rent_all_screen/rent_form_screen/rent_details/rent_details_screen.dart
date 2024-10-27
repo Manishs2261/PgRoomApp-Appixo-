@@ -152,7 +152,7 @@ class RentDetailsScreen extends StatelessWidget {
                     height: 80,
                   ),
 
-                  ComReuseElevButton(
+                  ReuseElevButton(
                     onPressed: () {
                       if (_globalKey.currentState!.validate()) {
                         controller.onSubmitButton();

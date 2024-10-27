@@ -250,7 +250,7 @@ class EditRoomTypeAndPrice extends StatelessWidget {
                 height: 50,
               ),
 
-              ComReuseElevButton(onPressed: () => controller.onEditRoomTypeAndPriceData(), title: 'Update')
+              ReuseElevButton(onPressed: () => controller.onEditRoomTypeAndPriceData(), title: 'Update')
             ],
           ),
         ),

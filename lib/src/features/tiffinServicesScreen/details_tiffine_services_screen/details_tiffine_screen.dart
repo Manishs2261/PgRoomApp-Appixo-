@@ -360,7 +360,7 @@ class _DetailsTiffineServicesScreenState extends State<DetailsTiffineServicesScr
 
                           //Rating submit button
                           Obx(
-                            () => ComReuseElevButton(
+                            () => ReuseElevButton(
                               onPressed: () => controller.onSubmitReviewButton(),
                               title: 'Submit',
                               loading: controller.loading.value,

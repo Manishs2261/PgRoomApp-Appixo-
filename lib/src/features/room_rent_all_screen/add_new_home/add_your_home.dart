@@ -29,7 +29,7 @@ class AddYourHome extends StatelessWidget {
           const Padding(padding: EdgeInsets.only(top: 15)),
 
           //Button
-          ComReuseElevButton(
+          ReuseElevButton(
             onPressed: () => Get.toNamed(RoutesName.addImageScreen),
             title: "Add New Room",
             loading: false,

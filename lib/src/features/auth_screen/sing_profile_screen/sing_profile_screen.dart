@@ -208,7 +208,7 @@ class SignProfileScreen extends StatelessWidget {
               SizedBox(
                 height: Get.height * 0.1,
               ),
-              ComReuseElevButton(
+              ReuseElevButton(
                   onPressed: () {
                     if (globalKey.currentState!.validate()) {
                       controller.onSubmitButton(Get.arguments['email']);

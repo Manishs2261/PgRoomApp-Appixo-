@@ -119,7 +119,7 @@ class PermissionScreen extends StatelessWidget {
               ),
 
               Obx(
-                () => ComReuseElevButton(
+                () => ReuseElevButton(
                   onPressed: () => saveController.uploadData(),
                   title: "Save",
                   loading: saveController.loading.value,

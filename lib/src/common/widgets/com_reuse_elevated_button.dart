@@ -3,8 +3,8 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../utils/helpers/helper_function.dart';
 
-class ComReuseElevButton extends StatelessWidget {
-  const ComReuseElevButton(
+class ReuseElevButton extends StatelessWidget {
+  const ReuseElevButton(
       {super.key,
       required this.onPressed,
       required this.title,

@@ -40,7 +40,7 @@ class HostelAndRoomTypeScreen extends StatelessWidget {
 
               // Next button
 
-              ComReuseElevButton(
+              ReuseElevButton(
                 onPressed: () => hostelController.onSubmitButton(),
                 title: "Next",
                 loading: hostelController.loading.value,

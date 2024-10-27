@@ -40,7 +40,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //Edit button
-              ComReuseElevButton(
+              ReuseElevButton(
                   onPressed: () => Get.toNamed(RoutesName.editFormScreen, arguments: {
                         'list': data,
                         'id': itemId,
@@ -51,7 +51,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
               ),
 
               //Delete data button
-              ComReuseElevButton(
+              ReuseElevButton(
                   onPressed: () {
                     AppHelperFunction.showAlert("Delete", "Aru you sure delete this room.", () {
                       AppHelperFunction.checkInternetAvailability().then((value) {

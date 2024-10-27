@@ -413,7 +413,7 @@ class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
                   height: 40,
                 ),
 
-                ComReuseElevButton(
+                ReuseElevButton(
                   onPressed: () => controller.onSubmitButton(),
                   title: "Save",
                 ),

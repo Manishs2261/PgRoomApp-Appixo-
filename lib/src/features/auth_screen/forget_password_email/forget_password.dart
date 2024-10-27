@@ -68,7 +68,7 @@ class ForgetPasswordEmailScreen extends StatelessWidget {
                 const SizedBox(
                   height: 50,
                 ),
-                ComReuseElevButton(onPressed: () => controller.sendEmailForgetPassword(), title: "Submit")
+                ReuseElevButton(onPressed: () => controller.sendEmailForgetPassword(), title: "Submit")
               ],
             ),
           ),
