@@ -93,4 +93,11 @@ class RoutesName {
   static const String secondRoomFormScreen = '/secondRoomFormScreen';
   static const String thirdRoomFormScreen = '/thirdRoomFormScreen';
   static const String fourthRoomFormScreen = '/fourthRoomFormScreen';
+
+
+  /// for food form router
+  static const String firstFoodFormScreen = '/firstFoodFormScreen';
+  static const String secondFoodFormScreen = '/secondFoodFormScreen';
+  static const String thirdFoodFormScreen = '/thirdFoodFormScreen';
+  static const String fourthFoodFormScreen = '/fourthFoodFormScreen';
 }

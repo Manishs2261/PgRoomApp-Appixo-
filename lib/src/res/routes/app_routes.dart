@@ -38,6 +38,10 @@ import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
 import '../../features/auth_screen/sing_in_screen/sing_in_screen.dart';
+import '../../features/foods_screen_new/foods_form_screen/first_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/fourth_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/second_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/third_food_form.dart';
 import '../../features/old_goods/add_your_goods/add_your_goods.dart';
 import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
 import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
@@ -431,6 +435,32 @@ class AppRoutes {
         GetPage(
             name: RoutesName.fourthRoomFormScreen,
             page: () => FourthRoomFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        /// for food form screen
+
+        GetPage(
+            name: RoutesName.firstFoodFormScreen,
+            page: () => FirstFoodForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.secondFoodFormScreen,
+            page: () => SecondFoodForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.thirdFoodFormScreen,
+            page: () => ThirdFoodForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.fourthFoodFormScreen,
+            page: () => FourthFoodForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
