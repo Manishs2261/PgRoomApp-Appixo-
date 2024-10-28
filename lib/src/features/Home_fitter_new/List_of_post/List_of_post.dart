@@ -33,6 +33,7 @@ class _ListOfPostState extends State<ListOfPost> {
             ),
             PostCard(
               title: "Post your food here",
+              onTap: ()=> Get.toNamed(RoutesName.firstFoodFormScreen),
             ),
             PostCard(
               title: "Feel free to post items for sale",
