@@ -45,6 +45,7 @@ class MyTextFormWidget extends StatelessWidget {
       maxLength: maxLength,
       controller: controller,
       keyboardType: textKeyBoard,
+      onTapOutside: (e)=> FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         // Remove all borders and show only the bottom underline
         border: UnderlineInputBorder(
