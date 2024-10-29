@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../res/route_name/routes_name.dart';
@@ -19,10 +21,35 @@ class FirstFoodForm extends StatefulWidget {
 }
 
 class _FirstFoodFormState extends State<FirstFoodForm> {
-
   final _formKey = GlobalKey<FormState>();
+
   // food type
-  String roomOwnerType = 'Owner';
+  String roomOwnerType = 'Mess';
+
+
+  // Multiple image picker
+  List<XFile>? _images = [];
+  final ImagePicker _picker = ImagePicker();
+
+
+  Future<void> _pickImages() async {
+    final List<XFile>? selectedImages = await _picker.pickMultiImage();
+
+    if (selectedImages != null) {
+      setState(() {
+        if (selectedImages.length > 10) {
+          // Show a message or alert if more than 10 images are selected
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('You can only select up to 10 images!')));
+
+          // Limit the list to 10 images
+          _images = selectedImages.sublist(0, 10);
+        } else {
+          _images = selectedImages;
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,78 +74,22 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-
-                Text("Room Ownership Type"),
-                Row(
+                Text("Food Type"),
+                Wrap(
+                  spacing: 8.0, // Optional: Add space between i
+                  runSpacing: 8.0,
                   children: [
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: const Text(
-                          'Owner',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14),
-                        ),
-                        value: 'Owner',
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4),
-                        groupValue: roomOwnerType,
-                        onChanged: (value) {
-                          setState(() {
-                            roomOwnerType = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: const Text(
-                          'Broker',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14),
-                        ),
-                        value: 'Broker',
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4),
-                        groupValue: roomOwnerType,
-                        onChanged: (value) {
-                          setState(() {
-                            roomOwnerType = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      child: RadioListTile<String>(
-                        title: const Text(
-                          'Room Mete',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400, fontSize: 14),
-                        ),
-                        value: 'RoomMate',
-                        dense: true,
-                        contentPadding: EdgeInsets.zero,
-                        visualDensity: VisualDensity(horizontal: -4),
-                        groupValue: roomOwnerType,
-                        onChanged: (value) {
-                          setState(() {
-                            roomOwnerType = value!;
-                          });
-                        },
-                      ),
-                    ),
+                    _buildRadioListTile('Mess', 'Mess'),
+                    _buildRadioListTile('Restaurants', 'Restaurants'),
+                    _buildRadioListTile('Street Food', 'StreetFood'),
                   ],
                 ),
-
-
 
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
                   //   controller: controller.houseAddressController.value,
 
-                  labelText: '',
+                  labelText: 'House name',
                   icon: const Icon(Icons.home, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
@@ -129,6 +100,29 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                   ],
                 ),
 
+                const SizedBox(
+                  height: 16,
+                ),
+
+                TextFormField(
+                  maxLines: 3,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    labelText: "Description (Optional)",
+                    prefixIcon: const Icon(
+                      Icons.description_outlined,
+                      color: AppColors.primary,
+                    ),
+                    contentPadding: const EdgeInsets.only(top: 5),
+                    suffixStyle: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.blue),
+                  ),
+                ),
+
+                SizedBox(height: 16),
                 //==========House Address================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
@@ -144,6 +138,7 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                   ],
                 ),
+
                 const SizedBox(
                   height: 16,
                 ),
@@ -202,258 +197,70 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                   height: 16,
                 ),
 
-                MyTextFormWidget(
-                  textKeyBoard: TextInputType.number,
-                  maxLength: 2,
-                  // controller: controller.numberOfRoomsController.value,
-                  labelText: 'Total number of rooms',
-                  icon: const Icon(Icons.home_work_rounded,
-                      color: AppColors.primary),
-                  borderRadius: BorderRadius.circular(11),
-                  contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: CommonUseValidator.validate,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
-                  ],
+
+                SizedBox(
+                  height: 16,
                 ),
+                // 2. Select images
+                InkWell(
+                  onTap: _pickImages,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.primary),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.image,
+                          color: AppColors.primary,
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          "Choose Images",
+                          style: TextStyle(fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                (_images != null && _images!.isNotEmpty)
+                    ? Container(
+                  margin: EdgeInsets.only(top: 16),
+                  height: 150,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: _images!.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.file(File(_images![index].path)),
+                      );
+                    },
+                  ),
+                )
+                    : Center(
+                    child: Icon(
+                      Icons.image_outlined,
+                      size: 80,
+                      color: Colors.grey,
+                    )),
+
+
                 const SizedBox(
                   height: 16,
                 ),
 
-                // 15. Meals availability
-                Text(
-                  "Meals Available",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black),
-                ),
-                // Row(
-                //   children: [
-                //     Expanded(
-                //       child: RadioListTile<String>(
-                //         title: const Text('Yes'),
-                //         value: 'Yes',
-                //         dense: true,
-                //         groupValue: mealsAvailable,
-                //         onChanged: (value) {
-                //           setState(() {
-                //             mealsAvailable = value!;
-                //           });
-                //         },
-                //       ),
-                //     ),
-                //     Expanded(
-                //       child: RadioListTile<String>(
-                //         title: const Text('No'),
-                //         value: 'No',
-                //         dense: true,
-                //         groupValue: mealsAvailable,
-                //         onChanged: (value) {
-                //           setState(() {
-                //             mealsAvailable = value!;
-                //           });
-                //         },
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // MyTextFormWidget(
-                //   textKeyBoard: TextInputType.number,
-                //   maxLength: 2,
-                //   // controller: controller.numberOfRoomsController.value,
-                //   labelText: 'One time security deposit',
-                //   icon: const Icon(Icons.currency_rupee,
-                //       color: AppColors.primary),
-                //   borderRadius: BorderRadius.circular(11),
-                //   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                //   validator: CommonUseValidator.validate,
-                //   inputFormatters: <TextInputFormatter>[
-                //     FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
-                //   ],
-                // ),
-                //
-                // const SizedBox(
-                //   height: 16,
-                // ),
-                // // 12. Room facilities (Multiple choice)
-                // Text("Room Facilities",
-                //     style: TextStyle(
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w500,
-                //         color: Colors.black)),
-                // const SizedBox(
-                //   height: 16,
-                // ),
-                // Column(
-                //   children: [
-                //     // Wrap for FilterChips
-                //     Wrap(
-                //       runSpacing: 8,
-                //       spacing: 8,
-                //       children: availableFacilities.map((facility) {
-                //         final isSelected =
-                //         selectedFacilities.contains(facility);
-                //         return FilterChip(
-                //           backgroundColor: Colors.white,
-                //           selectedColor: AppColors.primary,
-                //           label: Text(
-                //             facility,
-                //             style: TextStyle(
-                //               color: isSelected
-                //                   ? Colors.white
-                //                   : Colors.black, // Selected text color
-                //             ),
-                //           ),
-                //           selected: selectedFacilities.contains(facility),
-                //           onSelected: (selected) {
-                //             setState(() {
-                //               if (selected) {
-                //                 selectedFacilities.add(facility);
-                //               } else {
-                //                 selectedFacilities.remove(facility);
-                //               }
-                //             });
-                //           },
-                //         );
-                //       }).toList(),
-                //     ),
-                //
-                //     // TextField for adding new facilities
-                //     Padding(
-                //       padding: const EdgeInsets.only(top: 16.0),
-                //       child: Row(
-                //         children: [
-                //           Expanded(
-                //             child: TextField(
-                //               controller: newFacilityController,
-                //               inputFormatters: <TextInputFormatter>[
-                //                 FilteringTextInputFormatter.allow(
-                //                     RegExp("[a-zA-Z]")),
-                //               ],
-                //               decoration: InputDecoration(
-                //                 labelText: 'Add a new facility',
-                //                 border: OutlineInputBorder(
-                //                     borderRadius: BorderRadius.circular(8)),
-                //                 focusedBorder: OutlineInputBorder(
-                //                   borderRadius: BorderRadius.circular(8),
-                //                 ),
-                //                 isDense: true,
-                //               ),
-                //             ),
-                //           ),
-                //           IconButton(
-                //             icon: Icon(
-                //               Icons.add_circle_outline_sharp,
-                //               color: AppColors.primary,
-                //               size: 35,
-                //             ),
-                //             onPressed: () {
-                //               _addNewFacility(newFacilityController.text);
-                //             },
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                //
-                // const SizedBox(
-                //   height: 16,
-                // ),
-
-                // 16. Common areas
-                // Text("Common Areas",
-                //     style: TextStyle(
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w500,
-                //         color: Colors.black)),
-                // const SizedBox(
-                //   height: 16,
-                // ),
-                //
-                // Column(
-                //   children: [
-                //     Wrap(
-                //         runSpacing: 8,
-                //         spacing: 8,
-                //         children: availableCommonAreas.map((area) {
-                //           final isSelected = selectedCommonAreas.contains(area);
-                //           return FilterChip(
-                //             label: Text(
-                //               area,
-                //               style: TextStyle(
-                //                 color: isSelected
-                //                     ? Colors.white
-                //                     : Colors.black, // Selected text color
-                //               ),
-                //             ),
-                //             selectedColor: AppColors.primary,
-                //             backgroundColor: Colors.white,
-                //             selected: selectedCommonAreas.contains(area),
-                //             onSelected: (selected) {
-                //               setState(() {
-                //                 if (selected) {
-                //                   selectedCommonAreas.add(area);
-                //                 } else {
-                //                   selectedCommonAreas.remove(area);
-                //                 }
-                //               });
-                //             },
-                //           );
-                //         }).toList()),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: 16,
-                // ),
-                // // 17. Bill responsibilities
-                // Text(
-                //   "Bills",
-                //   style: TextStyle(
-                //       fontSize: 16,
-                //       fontWeight: FontWeight.w500,
-                //       color: Colors.black),
-                // ),
-                // SizedBox(
-                //   height: 16,
-                // ),
-                // Wrap(
-                //   runSpacing: 8,
-                //   spacing: 8,
-                //   children: availableBills.map((bill) {
-                //     final isSelected = selectedCommonAreas.contains(bill);
-                //
-                //     return FilterChip(
-                //       label: Text(
-                //         bill,
-                //         style: TextStyle(
-                //           color: isSelected
-                //               ? Colors.white
-                //               : Colors.black, // Selected text color
-                //         ),
-                //       ),
-                //       selectedColor: AppColors.primary,
-                //       backgroundColor: Colors.white,
-                //       selected: selectedCommonAreas.contains(bill),
-                //       onSelected: (selected) {
-                //         setState(() {
-                //           if (selected) {
-                //             selectedCommonAreas.add(bill);
-                //           } else {
-                //             selectedCommonAreas.remove(bill);
-                //           }
-                //         });
-                //       },
-                //     );
-                //     ;
-                //   }).toList(),
-                // ),
-
-                // Save button
                 SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () => Get.toNamed(RoutesName.thirdRoomFormScreen),
+                  onPressed: () => Get.toNamed(RoutesName.secondFoodFormScreen),
                   title: "Save & Next",
                 ),
 
@@ -470,5 +277,32 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
       ),
     );
   }
-  }
 
+  /// Radio List Tile for food type
+  Widget _buildRadioListTile(String title, String value) {
+    return SizedBox(
+      width: 150,
+      child: RadioListTile<String>(
+        title: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+          ),
+        ),
+        value: value,
+        dense: false,
+        contentPadding: EdgeInsets.zero,
+        visualDensity: VisualDensity(
+          horizontal: -4,
+        ),
+        groupValue: roomOwnerType,
+        onChanged: (value) {
+          setState(() {
+            roomOwnerType = value!;
+          });
+        },
+      ),
+    );
+  }
+}
