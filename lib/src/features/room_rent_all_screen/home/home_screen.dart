@@ -14,7 +14,7 @@ import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
-import '../../Home_fitter_new/new_search_home/new_search_home.dart';
+import '../../Home_fitter_new/new_search_home/new_home_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => NewSearchHome(),
+                        builder: (context) => HomeNew(),
                       ),
                     );
                   },
