@@ -407,7 +407,7 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                     subtitle: Text('Cost: \₹ ${dailyItem[index]['price']}'),
                     trailing: IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _removeSubscriptionItem(index),
+                      onPressed: () => _removeDailyItem(index),
                     ),
                   );
                 }).toList(),
@@ -418,7 +418,7 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               Align(
                   alignment: Alignment.center,
                   child: IconButton(
-                    onPressed: _showAddSubscriptionItemDialog,
+                    onPressed:  _showAddDailyItemDialog,
                     icon: Icon(
                       Icons.add_circle_outline_sharp,
                       size: 40,
