@@ -40,6 +40,7 @@ class _ListOfPostState extends State<ListOfPost> {
             ),
             PostCard(
               title: "Free to advertise local services",
+              onTap: ()=> Get.toNamed(RoutesName.firstServiceFormScreen),
             ),
           ],
         ),
