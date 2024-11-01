@@ -24,6 +24,8 @@ import 'package:pgroom/src/features/sell_and_buy_screen/List_of_sell_and_buy/Lis
 import 'package:pgroom/src/features/sell_and_buy_screen/details_of_sell_and_buy/details_of_sell_and_buy.dart';
 import 'package:pgroom/src/features/services_screen/details_services/details_services.dart';
 import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/second_services_form.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
@@ -461,6 +463,18 @@ class AppRoutes {
         GetPage(
             name: RoutesName.fourthFoodFormScreen,
             page: () => FourthFoodForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.firstServiceFormScreen,
+            page: () => FirstServicesForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.secondServiceFormScreen,
+            page: () => SecondServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

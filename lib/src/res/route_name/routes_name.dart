@@ -85,7 +85,7 @@ class RoutesName {
   static const String listOfChats = '/listOfChats';
   static const String roomPostForm = '/roomPostForm';
   static const String listOfPost = '/listOfPost';
-  static const String  citySearch = '/citySearch';
+  static const String citySearch = '/citySearch';
 
 
   /// post share router
@@ -100,4 +100,9 @@ class RoutesName {
   static const String secondFoodFormScreen = '/secondFoodFormScreen';
   static const String thirdFoodFormScreen = '/thirdFoodFormScreen';
   static const String fourthFoodFormScreen = '/fourthFoodFormScreen';
+
+
+  ///for service form router
+  static const String firstServiceFormScreen = '/firstServiceFormScreen';
+  static const String secondServiceFormScreen = '/secondServiceFormScreen';
 }
