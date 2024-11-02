@@ -5,6 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/image_string.dart';
+import '../../../utils/logger/logger.dart';
 
 class HomeNew extends StatefulWidget {
   const HomeNew({super.key});
@@ -152,6 +153,9 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug(
+        "Build - HomeNew......................................");
+
     const colorizeColors = [
       Colors.white,
       Colors.white,
@@ -297,7 +301,8 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                                       ),
                                     ],
                                     isRepeatingAnimation: true,
-                                    onTap: () => Get.toNamed(RoutesName.listOfPost),
+                                    onTap: () =>
+                                        Get.toNamed(RoutesName.listOfPost),
                                   ),
                                 ),
                                 Positioned(
@@ -467,25 +472,25 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     // Room Card
                     CategoryCard(
                       imagePath: AppImage.roomOne,
-                       title: 'Rooms',
+                      title: 'Rooms',
                       onTap: () {},
                     ),
                     // Food Card
                     CategoryCard(
-                      imagePath:AppImage.foodOne,
-                       title: 'Foods',
+                      imagePath: AppImage.foodOne,
+                      title: 'Foods',
                       onTap: () {},
                     ),
                     // Services Card
                     CategoryCard(
-                      imagePath:AppImage.servicesOne,
-                       title: 'Services',
+                      imagePath: AppImage.servicesOne,
+                      title: 'Services',
                       onTap: () {},
                     ),
                     // Old Items Card
                     CategoryCard(
                       imagePath: AppImage.sellAndBuyOne,
-                       title: 'Old Items',
+                      title: 'Old Items',
                       onTap: () {},
                     ),
                   ],
