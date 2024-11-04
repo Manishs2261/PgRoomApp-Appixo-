@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
+import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/validator/text_field_validator.dart';
+import '../../../utils/widgets/form_headline.dart';
 import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 
@@ -18,8 +22,6 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
 
   List<Map<String, dynamic>> subscriptionItem = [];
   List<Map<String, dynamic>> dailyItem = [];
-
-
 
   // Function to add a new item
   void _addSubscriptionItem(String name, double price) {
@@ -42,7 +44,6 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
 
     showDialog(
       context: context,
-
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
@@ -51,14 +52,16 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Enter Subscription Name'),
+                decoration:
+                    InputDecoration(labelText: 'Enter Subscription Name'),
                 onChanged: (value) {
                   itemName = value;
                 },
               ),
               SizedBox(height: 16),
               TextField(
-                decoration: InputDecoration(labelText: 'Enter Subscription Cost'),
+                decoration:
+                    InputDecoration(labelText: 'Enter Subscription Cost'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   itemPrice = value;
@@ -68,13 +71,19 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
           ),
           actions: [
             TextButton(
-              child: Text("Cancel",style: TextStyle(fontSize: 18),),
+              child: Text(
+                "Cancel",
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("Save",style: TextStyle(fontSize: 18),),
+              child: Text(
+                "Save",
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 if (itemName.isNotEmpty && itemPrice.isNotEmpty) {
                   _addSubscriptionItem(itemName, double.parse(itemPrice));
@@ -87,13 +96,13 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
       },
     );
   }
+
   void _showAddDailyItemDialog() {
     String itemName = '';
     String itemPrice = '';
 
     showDialog(
       context: context,
-
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
@@ -119,13 +128,19 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
           ),
           actions: [
             TextButton(
-              child: Text("Cancel",style: TextStyle(fontSize: 18),),
+              child: Text(
+                "Cancel",
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text("Save",style: TextStyle(fontSize: 18),),
+              child: Text(
+                "Save",
+                style: TextStyle(fontSize: 18),
+              ),
               onPressed: () {
                 if (itemName.isNotEmpty && itemPrice.isNotEmpty) {
                   _addDailyItem(itemName, double.parse(itemPrice));
@@ -138,13 +153,13 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
       },
     );
   }
+
   // Function to remove an item
   void _removeSubscriptionItem(int index) {
     setState(() {
       subscriptionItem.removeAt(index);
     });
   }
-
 
   void _removeDailyItem(int index) {
     setState(() {
@@ -171,9 +186,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Food Type",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              FormHeadline(
+                title: 'Food type',
               ),
               Wrap(
                 children: [
@@ -184,19 +198,17 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               SizedBox(
                 height: 16,
               ),
-              Text(
-                "Monthly Subscription",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
+              FormHeadline(title: 'Monthly Subscription'),
               SizedBox(
                 height: 16,
               ),
               MyTextFormWidget(
                 textKeyBoard: TextInputType.text,
                 //   controller: controller.houseAddressController.value,
-        
+
                 labelText: 'Breakfast',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -211,9 +223,10 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               MyTextFormWidget(
                 textKeyBoard: TextInputType.text,
                 //   controller: controller.houseAddressController.value,
-        
+
                 labelText: 'Lunch Or Dinner (only One)',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -228,9 +241,10 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               MyTextFormWidget(
                 textKeyBoard: TextInputType.text,
                 //   controller: controller.houseAddressController.value,
-        
+
                 labelText: 'Lunch Or Dinner (Both)',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -245,9 +259,10 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               MyTextFormWidget(
                 textKeyBoard: TextInputType.text,
                 //   controller: controller.houseAddressController.value,
-        
+
                 labelText: 'Breakfast, Lunch & Dinner',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -259,58 +274,38 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
               subscriptionItem.isEmpty
                   ? Center(child: Text(''))
                   : Column(
-                children: subscriptionItem.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  Map<String, dynamic> item = entry.value;
-                  return  ListTile(
-                    title: Text(subscriptionItem[index]['name']),
-                    subtitle: Text('Cost: \₹ ${subscriptionItem[index]['price']}'),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _removeSubscriptionItem(index),
+                      children: subscriptionItem.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        Map<String, dynamic> item = entry.value;
+                        return ListTile(
+                          title: Text(subscriptionItem[index]['name']),
+                          subtitle: Text(
+                              'Cost: \₹ ${subscriptionItem[index]['price']}'),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => _removeSubscriptionItem(index),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
               SizedBox(
                 height: 5,
               ),
               Align(
                   alignment: Alignment.center,
                   child: IconButton(
-                onPressed: _showAddSubscriptionItemDialog,
-                icon: Icon(
-                  Icons.add_circle_outline_sharp,
-                  size: 40,
-                ),
-              )),
-
-
-               SizedBox(
-                height: 16,),
-
-
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4), // Add padding if needed
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.orange, Colors.pink],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(8), // Rounded corners if desired
-                ),
-                child: Text(
-                  "Daily meals cost",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white, // Text color to contrast with the background
-                  ),
-                ),
+                    onPressed: _showAddSubscriptionItemDialog,
+                    icon: Icon(
+                      Icons.add_circle_outline_sharp,
+                      size: 40,
+                    ),
+                  )),
+              SizedBox(
+                height: 16,
               ),
-
-
+              FormHeadline(
+                title: 'Daily meals cost',
+              ),
               SizedBox(
                 height: 16,
               ),
@@ -319,7 +314,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                 //   controller: controller.houseAddressController.value,
 
                 labelText: 'Thali',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -336,7 +332,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                 //   controller: controller.houseAddressController.value,
 
                 labelText: 'a cup of rice',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -353,7 +350,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                 //   controller: controller.houseAddressController.value,
 
                 labelText: 'Roti per pice',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -370,7 +368,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                 //   controller: controller.houseAddressController.value,
 
                 labelText: 'Sabaji',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -387,7 +386,8 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                 //   controller: controller.houseAddressController.value,
 
                 labelText: 'Dal',
-                icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                icon:
+                    const Icon(Icons.currency_rupee, color: AppColors.primary),
                 borderRadius: BorderRadius.circular(11),
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 validator: AddressValidator.validate,
@@ -396,34 +396,49 @@ class _SecondFoodFormState extends State<SecondFoodForm> {
                   FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
                 ],
               ),
-               dailyItem.isEmpty
+              dailyItem.isEmpty
                   ? Center(child: Text(''))
                   : Column(
-                children: dailyItem.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  Map<String, dynamic> item = entry.value;
-                  return  ListTile(
-                    title: Text(dailyItem[index]['name']),
-                    subtitle: Text('Cost: \₹ ${dailyItem[index]['price']}'),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _removeDailyItem(index),
+                      children: dailyItem.asMap().entries.map((entry) {
+                        int index = entry.key;
+                        Map<String, dynamic> item = entry.value;
+                        return ListTile(
+                          title: Text(dailyItem[index]['name']),
+                          subtitle:
+                              Text('Cost: \₹ ${dailyItem[index]['price']}'),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => _removeDailyItem(index),
+                          ),
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
               SizedBox(
                 height: 5,
               ),
               Align(
                   alignment: Alignment.center,
                   child: IconButton(
-                    onPressed:  _showAddDailyItemDialog,
+                    onPressed: _showAddDailyItemDialog,
                     icon: Icon(
                       Icons.add_circle_outline_sharp,
                       size: 40,
                     ),
-                  ))
+                  )),
+              const SizedBox(
+                height: 16,
+              ),
+              SizedBox(height: 20),
+              ReuseElevButton(
+                onPressed: () => Get.toNamed(RoutesName.thirdFoodFormScreen),
+                title: "Save & Next",
+              ),
+              SizedBox(height: 20),
+              ReuseElevButton(
+                color: Colors.orange,
+                onPressed: () => Get.back(),
+                title: "Back",
+              ),
             ],
           ),
         ),
