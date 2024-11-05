@@ -55,7 +55,7 @@ class _FourthFoodFormState extends State<FourthFoodForm> {
 
   // Function to show dialog for adding new item
   void _showAddFoodFAQDialog() {
-    String  itemQuestion = '';
+    String itemQuestion = '';
     String itemAnswer = '';
 
     showDialog(
@@ -68,18 +68,16 @@ class _FourthFoodFormState extends State<FourthFoodForm> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration:
-                    InputDecoration(labelText: 'Enter Questions'),
+                decoration: InputDecoration(labelText: 'Enter Questions'),
                 maxLines: 2,
                 minLines: 1,
                 onChanged: (value) {
-                   itemQuestion = value;
+                  itemQuestion = value;
                 },
               ),
               SizedBox(height: 16),
               TextField(
-                decoration:
-                    InputDecoration(labelText: 'Enter Answer'),
+                decoration: InputDecoration(labelText: 'Enter Answer'),
                 keyboardType: TextInputType.text,
                 maxLines: 5,
                 minLines: 1,
@@ -105,8 +103,8 @@ class _FourthFoodFormState extends State<FourthFoodForm> {
                 style: TextStyle(fontSize: 18),
               ),
               onPressed: () {
-                if ( itemQuestion.isNotEmpty && itemAnswer.isNotEmpty) {
-                  _addFoodFAQ( itemQuestion, itemAnswer);
+                if (itemQuestion.isNotEmpty && itemAnswer.isNotEmpty) {
+                  _addFoodFAQ(itemQuestion, itemAnswer);
                   Navigator.of(context).pop();
                 }
               },
@@ -251,7 +249,8 @@ class _FourthFoodFormState extends State<FourthFoodForm> {
                           Map<String, dynamic> item = entry.value;
 
                           return ListTile(
-                            title: Text(  'Q${index + 1} :-  ${foodFAQ[index]['question']}'),
+                            title: Text(
+                                'Q${index + 1} :-  ${foodFAQ[index]['question']}'),
                             subtitle:
                                 Text('Answer :-  ${foodFAQ[index]['answer']}'),
                             trailing: IconButton(
@@ -261,8 +260,6 @@ class _FourthFoodFormState extends State<FourthFoodForm> {
                           );
                         }).toList(),
                       ),
-
-
 
                 Align(
                     alignment: Alignment.center,
