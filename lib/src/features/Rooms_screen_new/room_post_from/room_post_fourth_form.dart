@@ -4,6 +4,7 @@ import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../utils/logger/logger.dart';
+import '../../../utils/widgets/form_headline.dart';
 import '../../../utils/widgets/form_process_step.dart';
 
 class FourthRoomFormScreen extends StatefulWidget {
@@ -40,9 +41,86 @@ class _FourthRoomFormScreenState extends State<FourthRoomFormScreen> {
     newHouseRulesController.clear();
   }
 
+  List<Map<String, dynamic>> houseFAQ = [];
+
+  // Function to add a new item
+  void _addHouseFAQ(String question, String answer) {
+    setState(() {
+      houseFAQ.add({'question': question, 'answer': answer});
+    });
+  }
+
+  // Function to show dialog for adding new item
+  void _showAddHouseFAQDialog() {
+    String itemQuestion = '';
+    String itemAnswer = '';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text("Add New FAQ"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Enter Questions'),
+                maxLines: 2,
+                minLines: 1,
+                onChanged: (value) {
+                  itemQuestion = value;
+                },
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(labelText: 'Enter Answer'),
+                keyboardType: TextInputType.text,
+                maxLines: 5,
+                minLines: 1,
+                onChanged: (value) {
+                  itemAnswer = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                "Cancel",
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                "Save",
+                style: TextStyle(fontSize: 18),
+              ),
+              onPressed: () {
+                if (itemQuestion.isNotEmpty && itemAnswer.isNotEmpty) {
+                  _addHouseFAQ(itemQuestion, itemAnswer);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to remove an item
+  void _removeHouseFAQ(int index) {
+    setState(() {
+      houseFAQ.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     AppLoggerHelper.debug(
         "Build - _FourthRoomFormScreenState......................................");
     return Scaffold(
@@ -153,6 +231,45 @@ class _FourthRoomFormScreenState extends State<FourthRoomFormScreen> {
                     ),
                   ],
                 ),
+
+                const SizedBox(
+                  height: 16,
+                ),
+
+                FormHeadline(title: 'House FAQ'),
+                SizedBox(
+                  height: 5,
+                ),
+
+                houseFAQ.isEmpty
+                    ? Center(child: Text(''))
+                    : Column(
+                        children: houseFAQ.asMap().entries.map((entry) {
+                          int index = entry.key;
+                          Map<String, dynamic> item = entry.value;
+
+                          return ListTile(
+                            title: Text(
+                                'Q${index + 1} :-  ${houseFAQ[index]['question']}'),
+                            subtitle:
+                                Text('Answer :-  ${houseFAQ[index]['answer']}'),
+                            trailing: IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () => _removeHouseFAQ(index),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+
+                Align(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      onPressed: _showAddHouseFAQDialog,
+                      icon: Icon(
+                        Icons.add_circle_outline_sharp,
+                        size: 40,
+                      ),
+                    )),
 
                 const SizedBox(
                   height: 16,
