@@ -106,6 +106,7 @@ dependencies:
   uuid: ^3.0.7
   shimmer: ^3.0.0
   multi_image_picker_view: ^1.1.0
+  google_maps_flutter: ^2.9.0
 
 
 
