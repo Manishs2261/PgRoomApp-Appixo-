@@ -125,6 +125,7 @@ class _FourthRoomFormScreenState extends State<FourthRoomFormScreen> {
         "Build - _FourthRoomFormScreenState......................................");
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         // Increase the height to accommodate the progress indicator
         title: FormProcessStep(
           isFormOne: true,
