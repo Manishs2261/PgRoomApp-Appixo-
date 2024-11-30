@@ -1,8 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:http/http.dart' as http;
+import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:provider/provider.dart';
 
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
+import '../../../utils/ad_helper/services/ad_services.dart';
+import '../../../utils/widgets/custom_Icon_button.dart';
 
 class LocationSearch extends StatefulWidget {
   const LocationSearch({super.key});
@@ -14,15 +22,15 @@ class LocationSearch extends StatefulWidget {
 class _LocationSearchState extends State<LocationSearch> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _searchController = TextEditingController();
-  String searchText = "";
-  List<String> _searchHistory = [];
+  final RxString searchText = "".obs;
+  final RxList<String> _searchHistory = <String>[].obs;
+  final RxBool showSuggestions = false.obs;
 
-  int selectedButtonIndex = 0; // -1 means no button is selected initially
-  int selectedButtonIndexChild = -1; // -1 means no button is selected initially
+  int selectedButtonIndex = 0;
 
   void _onButtonSelected(int index) {
     setState(() {
-      selectedButtonIndex = index; // Update selected button index
+      selectedButtonIndex = index;
     });
   }
 
@@ -35,23 +43,28 @@ class _LocationSearchState extends State<LocationSearch> {
     }
   }
 
-
-
-
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _focusNode.requestFocus(); // Automatically focus when the page opens
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+
+      AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
+
+      adProvider.initializeNativeAd();
+
     });
 
-    // Listen for changes in the text field
-    _searchController.addListener(() {
-      setState(() {
-        searchText = _searchController.text;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _focusNode.requestFocus();
+      _focusNode.addListener(() {
+        showSuggestions.value = _focusNode.hasFocus;
       });
+    });
+
+    _searchController.addListener(() {
+      searchText.value = _searchController.value.text;
     });
   }
 
@@ -62,8 +75,33 @@ class _LocationSearchState extends State<LocationSearch> {
     super.dispose();
   }
 
+  final String apiKey = "AIzaSyAwsLCabPSfnXi7Mq2JV3vzl4Xjl1nMB1Y";
+  RxList<dynamic> suggestions = RxList<dynamic>([]);
+
+  Future<void> _getCitySuggestions(String query) async {
+    if (query.isEmpty) return;
+
+    final String url =
+        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&types=(cities)&key=$apiKey';
+
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+
+      if (data['status'] == 'OK') {
+        suggestions.value = data['predictions'];
+      } else {
+        suggestions.value = [];
+      }
+    } else {
+      throw Exception('Failed to fetch suggestions');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - LocationSearch");
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -87,18 +125,9 @@ class _LocationSearchState extends State<LocationSearch> {
                     ),
                   ),
                 ),
-                Opacity(
-                  opacity: 0.2,
-                  child: Image(
-                    image: AssetImage('assets/images/searchBackground.png'),
-                  ),
-                ),
                 SafeArea(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 16,
-                      left: 16,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -124,7 +153,7 @@ class _LocationSearchState extends State<LocationSearch> {
                             Text(
                               "Select Locality or Landmark in ",
                               style:
-                                  TextStyle(fontSize: 14, color: Colors.white),
+                              TextStyle(fontSize: 14, color: Colors.white),
                             ),
                             Text(
                               "Bilaspur",
@@ -140,139 +169,114 @@ class _LocationSearchState extends State<LocationSearch> {
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CustomButton(
-                                  label: 'Room',
-                                  icon: Icons.bedroom_parent_outlined,
-                                  gradientColors: [
-                                    Colors.blueAccent.withOpacity(0.3),
-                                    Colors.blue.withOpacity(0.5)
-                                  ],
-                                  // Light color when unselected
-                                  selectedGradientColors: [
-                                    Colors.blue,
-                                    Colors.blueAccent
-                                  ],
-                                  // Darker colors when selected
-                                  isSelected: selectedButtonIndex == 0,
-                                  // Check if this button is selected
-                                  onTap: () => _onButtonSelected(
-                                      0), // Set selected index to 0
-                                ),
-                                CustomButton(
-                                  label: 'Food',
-                                  icon: Icons.fastfood_outlined,
-                                  gradientColors: [
-                                    Colors.greenAccent.withOpacity(0.2),
-                                    Colors.green.withOpacity(0.5)
-                                  ],
-                                  // Light color when unselected
-                                  selectedGradientColors: [
-                                    Colors.green,
-                                    Colors.greenAccent
-                                  ],
-                                  // Darker colors when selected
-                                  isSelected: selectedButtonIndex == 1,
-                                  // Check if this button is selected
-                                  onTap: () => _onButtonSelected(
-                                      1), // Set selected index to 1
-                                ),
-                                CustomButton(
-                                  label: 'Buy/Sell',
-                                  icon: Icons.archive_outlined,
-                                  gradientColors: [
-                                    Colors.orangeAccent.withOpacity(0.3),
-                                    Colors.deepOrange.withOpacity(0.3)
-                                  ],
-                                  // Light color when unselected
-                                  selectedGradientColors: [
-                                    Colors.deepOrange,
-                                    Colors.orange
-                                  ],
-                                  // Darker colors when selected
-                                  isSelected: selectedButtonIndex == 2,
-                                  // Check if this button is selected
-                                  onTap: () => _onButtonSelected(
-                                      2), // Set selected index to 2
-                                ),
-                                CustomButton(
-                                  label: 'Service',
-                                  icon: Icons.room_service_outlined,
-                                  gradientColors: [
-                                    Colors.black.withOpacity(0.3),
-                                    Colors.purple.withOpacity(0.3)
-                                  ],
-                                  // Light color when unselected
-                                  selectedGradientColors: [
-                                    Colors.purple[900]!,
-                                    Colors.purpleAccent
-                                  ],
-                                  // Darker colors when selected
-                                  isSelected: selectedButtonIndex == 3,
-                                  // Check if this button is selected
-                                  onTap: () => _onButtonSelected(
-                                      3), // Set selected index to 3
-                                ),
-                              ],
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              CustomIconButton(
+                                label: 'Room',
+                                icon: Icons.bedroom_parent_outlined,
+                                gradientColors: [
+                                  Colors.blueAccent.withOpacity(0.3),
+                                  Colors.blue.withOpacity(0.5)
+                                ],
+                                selectedGradientColors: [
+                                  Colors.blue,
+                                  Colors.blueAccent
+                                ],
+                                isSelected: selectedButtonIndex == 0,
+                                onTap: () => _onButtonSelected(0),
+                              ),
+                              CustomIconButton(
+                                label: 'Food',
+                                icon: Icons.fastfood_outlined,
+                                gradientColors: [
+                                  Colors.greenAccent.withOpacity(0.2),
+                                  Colors.green.withOpacity(0.5)
+                                ],
+                                selectedGradientColors: [
+                                  Colors.green,
+                                  Colors.greenAccent
+                                ],
+                                isSelected: selectedButtonIndex == 1,
+                                onTap: () => _onButtonSelected(1),
+                              ),
+                              CustomIconButton(
+                                label: 'Buy/Sell',
+                                icon: Icons.archive_outlined,
+                                gradientColors: [
+                                  Colors.orangeAccent.withOpacity(0.3),
+                                  Colors.deepOrange.withOpacity(0.3)
+                                ],
+                                selectedGradientColors: [
+                                  Colors.deepOrange,
+                                  Colors.orange
+                                ],
+                                isSelected: selectedButtonIndex == 2,
+                                onTap: () => _onButtonSelected(2),
+                              ),
+                              CustomIconButton(
+                                label: 'Service',
+                                icon: Icons.room_service_outlined,
+                                gradientColors: [
+                                  Colors.black.withOpacity(0.3),
+                                  Colors.purple.withOpacity(0.3)
+                                ],
+                                selectedGradientColors: [
+                                  Colors.purple[900]!,
+                                  Colors.purpleAccent
+                                ],
+                                isSelected: selectedButtonIndex == 3,
+                                onTap: () => _onButtonSelected(3),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         TextFormField(
                           controller: _searchController,
-                          // Manages the text inside the search field
-                          focusNode: _focusNode,
-                          onTapOutside: (e) => FocusScope.of(context).unfocus(),
-                          // Handles focusing the field
-                          onFieldSubmitted: ((value) {
+                          onFieldSubmitted: (value) {
+                            _getCitySuggestions(value);
                             _onSearchSubmitted(value);
-                            Get.toNamed(RoutesName.filter ,arguments: selectedButtonIndex);
-                          }),
-                          // Trigger search on enter/submit
+                            Get.toNamed(RoutesName.filter,
+                                arguments: selectedButtonIndex);
+                          },
+                          onChanged: (value) {
+                            value.isEmpty
+                                ? showSuggestions.value = false
+                                : showSuggestions.value = true;
+                            _getCitySuggestions(value);
+                          },
                           decoration: InputDecoration(
                             fillColor: Colors.white,
                             filled: true,
                             hintText: "Find what you need—just search here",
-                            hintStyle: const TextStyle(
-                              color: Colors.black54,
-                              fontWeight: FontWeight.w400,
-                            ),
                             prefixIcon: const Icon(
                               Icons.search_rounded,
                               color: AppColors.primary,
                               size: 24,
                             ),
-                            suffixIcon: searchText.isNotEmpty
-                                ? IconButton(
-                                    icon: const Icon(
-                                      Icons.clear,
-                                      color: Colors.black,
-                                    ),
-                                    onPressed: () {
-                                      _searchController
-                                          .clear(); // Clear the search field
-                                    },
-                                  )
-                                : null,
-                            // Show a clear button if text is not empty
+                            // suffixIcon: Obx(() => searchText.value.isNotEmpty
+                            //     ? IconButton(
+                            //   icon: const Icon(
+                            //     Icons.clear,
+                            //     color: Colors.black,
+                            //   ),
+                            //   onPressed: () {
+                            //     _searchController.clear();
+                            //     searchText.value = '';
+                            //   },
+                            // )
+                            //     : null),
                             isDense: true,
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 16),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
                               borderSide: const BorderSide(
-                                color: Colors.transparent, // No border color
+                                color: Colors.transparent,
                                 width: 0.0,
                               ),
                             ),
@@ -284,150 +288,137 @@ class _LocationSearchState extends State<LocationSearch> {
                               ),
                             ),
                           ),
-                          keyboardType: TextInputType.text,
-                          // Keyboard suited for text search
-                          textInputAction: TextInputAction
-                              .search, // Show "Search" button on keyboard
                         ),
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Search History :-',
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.primary),
-                      ),
-                    ),
-                    // Show search history
-                    Container(
-                      constraints: BoxConstraints(maxHeight: 270),
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        padding: EdgeInsets.zero,
-                        itemCount: _searchHistory.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  // Handle tap on search history item
-                                  print('Tapped on: ${_searchHistory[index]}');
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 0.0, horizontal: 16.0),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.history, size: 20),
-                                      SizedBox(width: 8),
-                                      // Adds spacing between icon and text
-                                      Expanded(
-                                        child: Text(
-                                          _searchHistory[index],
-                                          style: TextStyle(fontSize: 14),
-                                          overflow: TextOverflow.visible,
-                                          maxLines: null,
-                                          // Handles long text gracefully
-                                        ),
+            Obx(
+                  () => showSuggestions.value
+                  ? ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: suggestions.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(suggestions[index]['description']),
+                    onTap: () {
+                      showSuggestions.value = false;
+                      String cityName = suggestions[index]['description'];
+                      _searchController.text = cityName;
+                      suggestions.clear();
+                    },
+                  );
+                },
+              )
+                  : Column(
+                children: [
+                  SizedBox(
+                    height: 350,
+                    // Explicitly constrain the height of this section
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Search History :-',
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.primary),
+                          ),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.zero,
+                            itemCount: _searchHistory.length,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      // Handle tap on search history item
+
+                                      Get.toNamed(RoutesName.filter,
+                                          arguments: selectedButtonIndex);
+
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0.0,
+                                          horizontal: 16.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.history, size: 20),
+                                          SizedBox(width: 8),
+                                          // Adds spacing between icon and text
+                                          Expanded(
+                                            child: Text(
+                                              _searchHistory[index],
+                                              style:
+                                              TextStyle(fontSize: 14),
+                                              overflow:
+                                              TextOverflow.visible,
+                                              maxLines: null,
+                                              // Handles long text gracefully
+                                            ),
+                                          ),
+                                          IconButton(
+                                            icon: Icon(Icons.clear,
+                                                size: 18),
+                                            onPressed: () {
+                                              // Handle delete specific search history item
+                                              // _removeFromSearchHistory(index);
+                                            },
+                                          ),
+                                        ],
                                       ),
-                                      IconButton(
-                                        icon: Icon(Icons.clear, size: 18),
-                                        onPressed: () {
-                                          // Handle delete specific search history item
-                                          //  _removeFromSearchHistory(index);
-                                        },
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Divider(
-                                height: 1,
-                                color: Colors.grey.shade300,
-                              ),
-                              // Divider between items
-                            ],
-                          );
-                        },
-                      ),
+                                  Divider(
+                                    height: 1,
+                                    color: Colors.grey.shade300,
+                                  ),
+                                  // Divider between items
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Container(
-                  margin: EdgeInsets.all(12),
-                  height: 200,
-                  decoration: BoxDecoration(color: Colors.yellow),
-                )
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  final String? label;
-  final IconData? icon;
-  final List<Color>? gradientColors;
-  final List<Color>? selectedGradientColors; // Dark colors when selected
-  final bool isSelected; // Track whether the button is selected
-  final VoidCallback? onTap;
-
-  CustomButton({
-    this.label,
-    this.icon,
-    this.gradientColors,
-    this.selectedGradientColors,
-    this.isSelected = false,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap, // Tap event triggers selection
-      child: Container(
-        margin: EdgeInsets.only(right: 5),
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: isSelected
-                ? (selectedGradientColors ?? [Colors.black, Colors.black])
-                : (gradientColors ?? [Colors.blue, Colors.blue]),
-            // Switch colors based on state
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            if (icon != null) Icon(icon, color: Colors.white, size: 18),
-            if (icon != null) SizedBox(width: 5),
-            if (label != null)
-              Text(
-                label!,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                  ),
+                  // The yellow container at the bottom
+                  Consumer<AdProvider>(builder: (context, adProvider, child) {
+                    if (adProvider.isNativeAdLoaded) {
+                      return ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          minWidth: 320, // minimum recommended width
+                          minHeight: 320, // minimum recommended height
+                          maxWidth: 400,
+                          maxHeight: 400,
+                        ),
+                        child:   adProvider.isNativeAdLoaded ? Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(bottom: 20.0),
+                          height: 70,
+                          child: AdWidget(ad: adProvider.nativeAd),
+                        ) : const CircularProgressIndicator(),
+                      );
+                    } else {
+                      return Container(
+                        height: 0,
+                      );
+                    }
+                  }),
+                ],
               ),
+            )
           ],
         ),
       ),
