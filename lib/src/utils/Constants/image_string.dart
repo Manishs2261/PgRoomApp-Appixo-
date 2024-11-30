@@ -42,6 +42,6 @@ static const String sellAndBuyOne = 'assets/images/sellAndBuy.png';
 static const String servicesOne = 'assets/images/servicesOne.png';
 static const String foodOne = 'assets/images/foodOne.png';
 
-
+static const String searchBackground = 'assets/images/searchBackground.png';
 
 }
