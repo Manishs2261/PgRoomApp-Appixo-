@@ -1,8 +1,10 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../data/repository/apis/user_apis.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/logger/logger.dart';
@@ -15,6 +17,12 @@ class HomeNew extends StatefulWidget {
 }
 
 class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
+
+  var cityName  = Get.arguments;
+
+
+
+
   late AnimationController _topRowAnimationController;
   late Animation<Offset> _topRowSlideAnimation;
   late Animation<double> _topRowOpacityAnimation;
@@ -153,6 +161,8 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    print(cityName);
     AppLoggerHelper.debug(
         "Build - HomeNew......................................");
 
@@ -242,7 +252,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Bilaspur",
+                                  "$cityName",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
@@ -473,25 +483,25 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     CategoryCard(
                       imagePath: AppImage.roomOne,
                       title: 'Rooms',
-                      onTap: () {},
+                      onTap: () => Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Food Card
                     CategoryCard(
                       imagePath: AppImage.foodOne,
                       title: 'Foods',
-                      onTap: () {},
+                      onTap: () => Get.toNamed(RoutesName.listOfFoods),
                     ),
                     // Services Card
                     CategoryCard(
                       imagePath: AppImage.servicesOne,
                       title: 'Services',
-                      onTap: () {},
+                      onTap: ()=> Get.toNamed(RoutesName.listOfServices),
                     ),
                     // Old Items Card
                     CategoryCard(
                       imagePath: AppImage.sellAndBuyOne,
                       title: 'Old Items',
-                      onTap: () {},
+                      onTap: ()=> Get.toNamed(RoutesName.listOfSellAndBuy),
                     ),
                   ],
                 ),
@@ -573,25 +583,25 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     CategoryCardOne(
                       imagePath: 'assets/images/boy.png',
                       title: 'Boys',
-                      onTap: () {},
+                      onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Food Card
                     CategoryCardOne(
                       imagePath: 'assets/images/girl.png',
                       title: 'Girls',
-                      onTap: () {},
+                      onTap: ()=>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Services Card
                     CategoryCardOne(
                       imagePath: 'assets/images/boyandgirl.png',
                       title: 'Co-Living',
-                      onTap: () {},
+                      onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Old Items Card
                     CategoryCardOne(
                       imagePath: 'assets/images/flatFamily.png',
                       title: 'Flats',
-                      onTap: () {},
+                      onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                   ],
                 ),
@@ -668,9 +678,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           InkWell(
-                            onTap: () {
-                              // Add your onPressed logic here
-                            },
+                            onTap: ()=>Share.share(UserApis.appShareUrl ?? 'ok'),
                             borderRadius: BorderRadius.circular(20),
                             splashColor: Colors.white.withOpacity(0.3),
                             child: Container(
