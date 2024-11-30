@@ -4,7 +4,7 @@ import 'package:pgroom/src/features/Help_screen/help_screen.dart';
 import 'package:pgroom/src/features/Home_fitter_new/city_search/city_search.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form/room_post_first_form.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form.dart';
