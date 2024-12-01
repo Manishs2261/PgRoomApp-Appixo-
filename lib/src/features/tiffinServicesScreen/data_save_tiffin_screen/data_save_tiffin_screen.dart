@@ -26,7 +26,7 @@ class DataSaveTiffineScreen extends StatefulWidget {
 class _DataSaveTiffineScreenState extends State<DataSaveTiffineScreen> {
   @override
   Widget build(BuildContext context) {
-    AppLoggerHelper.debug("Build - AddTiffineScreen");
+    AppLoggerHelper.debug("Build - AddTiffineScreen......................");
     final controller = Get.put(AddYourTiffineController());
 
     return Scaffold(

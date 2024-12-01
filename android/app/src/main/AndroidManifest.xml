@@ -37,6 +37,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
+        android:hardwareAccelerated="true"
         android:label="Appixo">
         <activity
             android:name=".MainActivity"

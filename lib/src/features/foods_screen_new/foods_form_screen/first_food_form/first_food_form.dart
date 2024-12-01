@@ -5,49 +5,42 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../res/route_name/routes_name.dart';
-import '../../../utils/Constants/colors.dart';
-import '../../../utils/logger/logger.dart';
-import '../../../utils/validator/text_field_validator.dart';
-import '../../../utils/widgets/form_process_step.dart';
-import '../../../utils/widgets/my_text_form_field.dart';
+import '../../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/Constants/colors.dart';
+import '../../../../utils/logger/logger.dart';
+import '../../../../utils/validator/text_field_validator.dart';
+import '../../../../utils/widgets/form_headline.dart';
+import '../../../../utils/widgets/form_process_step.dart';
+import '../../../../utils/widgets/my_text_form_field.dart';
 
-class FirstFoodForm extends StatefulWidget {
-  const FirstFoodForm({super.key});
+class FirstFoodForm extends StatelessWidget {
+  FirstFoodForm({super.key});
 
-  @override
-  State<FirstFoodForm> createState() => _FirstFoodFormState();
-}
-
-class _FirstFoodFormState extends State<FirstFoodForm> {
   final _formKey = GlobalKey<FormState>();
 
   // food type
-  String roomOwnerType = 'Mess';
-
+  RxString roomOwnerType = 'Mess'.obs;
 
   // Multiple image picker
-  List<XFile>? _images = [];
-  final ImagePicker _picker = ImagePicker();
+  final RxList<XFile> images = <XFile>[].obs;
 
+  final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
 
     if (selectedImages != null) {
-      setState(() {
-        if (selectedImages.length > 10) {
-          // Show a message or alert if more than 10 images are selected
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('You can only select up to 10 images!')));
+      if (selectedImages.length > 10) {
+        // Show a message or alert if more than 10 images are selected
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+            SnackBar(content: Text('You can only select up to 10 images!')));
 
-          // Limit the list to 10 images
-          _images = selectedImages.sublist(0, 10);
-        } else {
-          _images = selectedImages;
-        }
-      });
+        // Limit the list to 10 images
+        images.value = selectedImages.sublist(0, 10);
+      } else {
+        images.value = selectedImages;
+      }
     }
   }
 
@@ -59,9 +52,7 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(
-          isFormOne: true,
-        ),
+        title: const FormProcessStep(),
         backgroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -74,26 +65,28 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Food Type"),
-                Wrap(
-                  spacing: 8.0, // Optional: Add space between i
-                  runSpacing: 8.0,
-                  children: [
-                    _buildRadioListTile('Mess', 'Mess'),
-                    _buildRadioListTile('Restaurants', 'Restaurants'),
-                    _buildRadioListTile('Street Food', 'StreetFood'),
-                  ],
+                const FormHeadline( title: 'Food Type'),
+                Obx(
+                  ()=> Wrap(
+                    spacing: 8.0, // Optional: Add space between i
+                    runSpacing: 8.0,
+                    children: [
+                      _buildRadioListTile('Mess', 'Mess'),
+                      _buildRadioListTile('Restaurants', 'Restaurants'),
+                      _buildRadioListTile('Street Food', 'StreetFood'),
+                    ],
+                  ),
                 ),
 
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
                   //   controller: controller.houseAddressController.value,
 
-                  labelText: 'House name',
+                  labelText: 'Restaurant/Mess Name',
                   icon: const Icon(Icons.home, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: AddressValidator.validate,
+                  validator:  CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -110,6 +103,7 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
                     labelText: "Description (Optional)",
+
                     prefixIcon: const Icon(
                       Icons.description_outlined,
                       color: AppColors.primary,
@@ -128,11 +122,11 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                   textKeyBoard: TextInputType.text,
                   //   controller: controller.houseAddressController.value,
 
-                  labelText: 'House address',
+                  labelText: 'Enter Address',
                   icon: const Icon(Icons.home, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: AddressValidator.validate,
+                  validator: CommonUseValidator .validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -151,7 +145,7 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                   icon: const Icon(Icons.location_on, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: CityValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 40,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
@@ -186,15 +180,11 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                   icon: const Icon(Icons.map, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: LandMarkValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                   ],
-                ),
-
-                const SizedBox(
-                  height: 16,
                 ),
 
 
@@ -231,17 +221,17 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
                     ),
                   ),
                 ),
-                (_images != null && _images!.isNotEmpty)
+                (images != null && images!.isNotEmpty)
                     ? Container(
                   margin: EdgeInsets.only(top: 16),
                   height: 150,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _images!.length,
+                    itemCount: images!.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Image.file(File(_images![index].path)),
+                        child: Image.file(File(images![index].path)),
                       );
                     },
                   ),
@@ -296,11 +286,10 @@ class _FirstFoodFormState extends State<FirstFoodForm> {
         visualDensity: VisualDensity(
           horizontal: -4,
         ),
-        groupValue: roomOwnerType,
+        groupValue: roomOwnerType.value,
         onChanged: (value) {
-          setState(() {
-            roomOwnerType = value!;
-          });
+          roomOwnerType.value = value!;
+
         },
       ),
     );

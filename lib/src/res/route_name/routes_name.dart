@@ -105,4 +105,10 @@ class RoutesName {
   ///for service form router
   static const String firstServiceFormScreen = '/firstServiceFormScreen';
   static const String secondServiceFormScreen = '/secondServiceFormScreen';
+
+
+
+  static const String profileDetailsScreen = '/profileDetailsScreen';
+
+
 }

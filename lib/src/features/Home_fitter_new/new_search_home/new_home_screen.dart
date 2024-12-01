@@ -222,9 +222,12 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                                 backgroundImage: AssetImage(
                                     "assets/images/icon_luncher.png"),
                               ),
-                              CircleAvatar(
-                                backgroundImage: AssetImage(
-                                    "assets/images/icon_luncher.png"),
+                              InkWell(
+                                onTap: ()=>Get.toNamed(RoutesName.profileDetailsScreen),
+                                child: CircleAvatar(
+                                  backgroundImage: AssetImage(
+                                      "assets/images/icon_luncher.png"),
+                                ),
                               )
                             ],
                           ),

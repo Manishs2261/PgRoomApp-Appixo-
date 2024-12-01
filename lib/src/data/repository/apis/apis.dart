@@ -22,7 +22,10 @@ class ApisClass {
   static FirebaseStorage storage = FirebaseStorage.instance;
 
   //current date and time
-  static final time = DateTime.now().microsecondsSinceEpoch.toString();
+  static final time = DateTime
+      .now()
+      .microsecondsSinceEpoch
+      .toString();
 
   static var coverImageDownloadUrl;
   static var userRentId = "";
@@ -43,47 +46,45 @@ class ApisClass {
 
   //upload data in firebase for home screen list
   // in list all data in one collection
-  static Future rentDetailsHomeList(
-    coverImage,
-    houseName,
-    address,
-    cityName,
-    landMark,
-    contactNumber,
-    bhk,
-    roomType,
-    singlePrice,
-    doublePrice,
-    triplePrice,
-    fourPrice,
-    familyPrice,
-    restrictedTime,
-    numberOfRooms,
-    wifi,
-    bed,
-    chair,
-    table,
-    fan,
-    gadda,
-    light,
-    locker,
-    bedSheet,
-    washingMachine,
-    parking,
-    electricityBill,
-    waterBill,
-    flexible,
-    cooking,
-    cookingType,
-    boyAllow,
-    girlAllow,
-    familyMember,
-    attachBathRoom,
-    shareAbleBathRoom,
-    like,
-    latitude,
-    longitude,
-  ) async {
+  static Future rentDetailsHomeList(coverImage,
+      houseName,
+      address,
+      cityName,
+      landMark,
+      contactNumber,
+      bhk,
+      roomType,
+      singlePrice,
+      doublePrice,
+      triplePrice,
+      fourPrice,
+      familyPrice,
+      restrictedTime,
+      numberOfRooms,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      electricityBill,
+      waterBill,
+      flexible,
+      cooking,
+      cookingType,
+      boyAllow,
+      girlAllow,
+      familyMember,
+      attachBathRoom,
+      shareAbleBathRoom,
+      like,
+      latitude,
+      longitude,) async {
     final userHomeList = UserRentModel(
       coverImage: coverImage,
       houseName: houseName,
@@ -141,46 +142,45 @@ class ApisClass {
   // this data store in data in user profile specific
 
   static Future<DocumentReference<Map<String, dynamic>>?> rentDetailsUser(
-    coverImage,
-    houseName,
-    address,
-    cityName,
-    landMark,
-    contactNumber,
-    bhk,
-    roomType,
-    singlePrice,
-    doublePrice,
-    triplePrice,
-    fourPrice,
-    familyPrice,
-    restrictedTime,
-    numberOfRooms,
-    wifi,
-    bed,
-    chair,
-    table,
-    fan,
-    gadda,
-    light,
-    locker,
-    bedSheet,
-    washingMachine,
-    parking,
-    electricityBill,
-    waterBill,
-    flexible,
-    cooking,
-    cookingType,
-    boyAllow,
-    girlAllow,
-    familyMember,
-    attachBathRoom,
-    shareAbleBathRoom,
-    like,
-    latitude,
-    longitude,
-  ) async {
+      coverImage,
+      houseName,
+      address,
+      cityName,
+      landMark,
+      contactNumber,
+      bhk,
+      roomType,
+      singlePrice,
+      doublePrice,
+      triplePrice,
+      fourPrice,
+      familyPrice,
+      restrictedTime,
+      numberOfRooms,
+      wifi,
+      bed,
+      chair,
+      table,
+      fan,
+      gadda,
+      light,
+      locker,
+      bedSheet,
+      washingMachine,
+      parking,
+      electricityBill,
+      waterBill,
+      flexible,
+      cooking,
+      cookingType,
+      boyAllow,
+      girlAllow,
+      familyMember,
+      attachBathRoom,
+      shareAbleBathRoom,
+      like,
+      latitude,
+      longitude,) async {
     final userHomeList = UserRentModel(
         coverImage: coverImage,
         houseName: houseName,
@@ -243,7 +243,7 @@ class ApisClass {
   static Future uploadCoverImage(File imageFile) async {
     try {
       final reference =
-          storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
+      storage.ref().child('coverImage/${user.uid}/${DateTime.now()}.jpg');
 
       String updatedPath = reference
           .toString()
@@ -267,7 +267,7 @@ class ApisClass {
   static Future uploadOtherImage(File imageFile, itemId) async {
     try {
       final reference =
-          storage.ref().child('otherImage/$itemId/${DateTime.now()}.jpg');
+      storage.ref().child('otherImage/$itemId/${DateTime.now()}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       otherDownloadUrl = await snapshot.ref.getDownloadURL();
@@ -295,15 +295,17 @@ class ApisClass {
   }
 
 // update cover Image data
-  static Future<void> updateCoverItemImage(
-      File file, String itemId, String coverImageFileName) async {
+  static Future<void> updateCoverItemImage(File file, String itemId,
+      String coverImageFileName) async {
     //getting image file extension
-    final ext = file.path.split('.').last;
+    final ext = file.path
+        .split('.')
+        .last;
     AppLoggerHelper.info('Extension :$ext');
 
     // storage file ref with path
     final ref =
-        storage.ref().child('coverImage/${user.uid}/$coverImageFileName');
+    storage.ref().child('coverImage/${user.uid}/$coverImageFileName');
 
     // uploading image
     await ref
@@ -331,8 +333,8 @@ class ApisClass {
   }
 
   //update Permission data
-  static Future<void> updatePermissionData(
-      itemId, cookingType, cooking, boy, girl, familyMember) async {
+  static Future<void> updatePermissionData(itemId, cookingType, cooking, boy,
+      girl, familyMember) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'girls': girl,
@@ -357,8 +359,7 @@ class ApisClass {
   }
 
   // update provide Facilities Data
-  static Future<void> updateProvideFacilitiesData(
-      itemId,
+  static Future<void> updateProvideFacilitiesData(itemId,
       wifi,
       bed,
       chair,
@@ -412,8 +413,8 @@ class ApisClass {
   }
 
   // update Additional Charges And Door closing time
-  static Future<void> updateAdditionalChargesAndDoorDate(
-      itemId, electricity, water, restrictTime, flexibleTime) async {
+  static Future<void> updateAdditionalChargesAndDoorDate(itemId, electricity,
+      water, restrictTime, flexibleTime) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'flexibleTime': flexibleTime,
@@ -436,8 +437,8 @@ class ApisClass {
   }
 
   //update Rent Details data
-  static Future<void> updateRentDetailsData(
-      name, address, city, landMark, number, numberOfRoom, itemID) async {
+  static Future<void> updateRentDetailsData(name, address, city, landMark,
+      number, numberOfRoom, itemID) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemID).update({
       'houseName': name,
@@ -464,8 +465,8 @@ class ApisClass {
   }
 
   // update Room type And Price Data
-  static Future<void> updateRoomTypeAndPrice(
-      itemId, single, doublePerson, triple, four, family) async {
+  static Future<void> updateRoomTypeAndPrice(itemId, single, doublePerson,
+      triple, four, family) async {
     //rent collection data base
     await firebaseFirestore.collection("rentCollection").doc(itemId).update({
       'doublePersonPrice': doublePerson,
@@ -555,8 +556,8 @@ class ApisClass {
   }
 
   //save Rating Summary data
-  static Future<void> saveRatingBarSummaryData(
-      itemId, one, two, three, four, five, avg, totalNumberOfStar) async {
+  static Future<void> saveRatingBarSummaryData(itemId, one, two, three, four,
+      five, avg, totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("userReview")
@@ -577,8 +578,8 @@ class ApisClass {
   }
 
   //update Rating bar summary data
-  static Future<void> updateRatingBarStarSummaryData(
-      itemId, avg, totalNumberOfStar) async {
+  static Future<void> updateRatingBarStarSummaryData(itemId, avg,
+      totalNumberOfStar) async {
     //Rating Summary data
     await firebaseFirestore
         .collection("userReview")
@@ -619,8 +620,8 @@ class ApisClass {
   }
 
   /// Rating and review create api
-  static Future<void> ratingAndReviewCreateData(
-      ratingStar, review, itemId) async {
+  static Future<void> ratingAndReviewCreateData(ratingStar, review,
+      itemId) async {
     //This review data save in all viewer user
     await firebaseFirestore
         .collection("userReview")
@@ -675,8 +676,8 @@ class ApisClass {
 //============== Deletes data apis =========================
 
   // delete cover image  data and all list collection data  code
-  static Future<void> deleteCoverImageData(
-      String deleteId, String imageUrl) async {
+  static Future<void> deleteCoverImageData(String deleteId,
+      String imageUrl) async {
     try {
       //delete a Firestorm
       DocumentReference documentReference = firebaseFirestore
@@ -686,7 +687,7 @@ class ApisClass {
           .doc(deleteId);
 
       DocumentReference documentReference1 =
-          firebaseFirestore.collection('rentCollection').doc(deleteId);
+      firebaseFirestore.collection('rentCollection').doc(deleteId);
 
       //Rating Summary data
       await firebaseFirestore
@@ -771,8 +772,8 @@ class ApisClass {
   }
 
   //delete Other image data
-  static Future<void> deleteOtherImage(
-      String deleteOtherIMageId, String itemId, String imageUrl) async {
+  static Future<void> deleteOtherImage(String deleteOtherIMageId, String itemId,
+      String imageUrl) async {
     try {
       DocumentReference documentReference = firebaseFirestore
           .collection("OtherImageUserList")
@@ -797,5 +798,45 @@ class ApisClass {
     }
   }
 
-//=========================================================
+//========================================================= new api=====
+
+
+  static Future addRoomRentList(roomOwnershipType, houseName, roomType,
+      roomCategory, genderType, imageList, homeAddress, landmark, city, state,
+      numberOfRoom, mealsAvailable, depositAmount, roomFacilityList,
+      commonAreasList, billsList, longitude, latitude, houseRules, houseFAQ,
+      rUid, uid, atCreated, atUpdated, isDelete, report, disable,) async {
+
+    return await firebaseFirestore
+        .collection("DevRoomCollection")
+        .add({
+          "roomOwnershipType": roomOwnershipType,
+          "houseName": houseName,
+          "roomType": roomType,
+          "roomCategory": roomCategory,
+          "genderType": genderType,
+          "imageList": imageList,
+          "homeAddress": homeAddress,
+          "landmark": landmark,
+          "city": city,
+          "state": state,
+          "numberOfRoom": numberOfRoom,
+          "mealsAvailable": mealsAvailable,
+          "depositAmount": depositAmount,
+          "roomFacilityList": roomFacilityList,
+          "commonAreasList": commonAreasList,
+          "billsList": billsList,
+          "longitude": longitude,
+          "latitude": latitude,
+          "houseRules": houseRules,
+          "houseFAQ": houseFAQ,
+          "rUid": rUid,
+          "uid": uid,
+          "atCreated": atCreated,
+          "atUpdated": atUpdated,
+          "isDelete": isDelete,
+          "report": report,
+          "disable": disable
+    });
+  }
 }

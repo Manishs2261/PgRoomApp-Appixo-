@@ -5,8 +5,8 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 class MyTextFormWidget extends StatelessWidget {
   const MyTextFormWidget({
     super.key,
-     this.hintText,
-     this.labelText,
+    this.hintText,
+    this.labelText,
     this.controller,
     this.validator,
     this.icon,
@@ -19,6 +19,7 @@ class MyTextFormWidget extends StatelessWidget {
     this.maxLine,
     this.minLine,
     this.inputFormatters,
+    this.counterText = '',
   });
 
   final String? hintText, labelText;
@@ -35,39 +36,40 @@ class MyTextFormWidget extends StatelessWidget {
   final int? minLine;
   final int? maxLine;
   final List<TextInputFormatter>? inputFormatters;
+  final String counterText ;
 
   @override
   Widget build(BuildContext context) {
-    return  TextFormField(
+    return TextFormField(
       minLines: minLine,
       maxLines: maxLine,
       inputFormatters: inputFormatters,
       maxLength: maxLength,
       controller: controller,
       keyboardType: textKeyBoard,
-      onTapOutside: (e)=> FocusManager.instance.primaryFocus?.unfocus(),
+      onTapOutside: (e) => FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         // Remove all borders and show only the bottom underline
-        border: UnderlineInputBorder(
+        border: const UnderlineInputBorder(
           borderSide: BorderSide(color: Colors.grey, width: 1.0), // bottom line
         ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: AppColors.primary, width: 2.0), // bottom line when focused
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: AppColors.primary, width: 2.0), // bottom line when focused
         ),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 1.0), // bottom line when enabled
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: Colors.grey, width: 1.0), // bottom line when enabled
         ),
         hintText: hintText,
         labelText: labelText,
         contentPadding: contentPadding,
         isCollapsed: isCollapsed,
         isDense: isDense,
-        counterText: "",
+        counterText: counterText,
         prefixIcon: icon,
       ),
       validator: validator,
     );
-
-
   }
 }

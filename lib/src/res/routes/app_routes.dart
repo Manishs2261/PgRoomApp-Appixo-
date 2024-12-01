@@ -5,9 +5,9 @@ import 'package:pgroom/src/features/Home_fitter_new/city_search/city_search.dart
 import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form/room_post_first_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/room_post_fourth_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/room_post_second_form.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/room_post_third_form.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
 import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
 import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
@@ -40,16 +40,17 @@ import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
 import '../../features/auth_screen/sing_in_screen/sing_in_screen.dart';
-import '../../features/foods_screen_new/foods_form_screen/first_food_form.dart';
-import '../../features/foods_screen_new/foods_form_screen/fourth_food_form.dart';
-import '../../features/foods_screen_new/foods_form_screen/second_food_form.dart';
-import '../../features/foods_screen_new/foods_form_screen/third_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/first_food_form/first_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/fourth_food_form/fourth_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/second_food_form/second_food_form.dart';
+import '../../features/foods_screen_new/foods_form_screen/third_food_form/third_food_form.dart';
 import '../../features/old_goods/add_your_goods/add_your_goods.dart';
 import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
 import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
 import '../../features/old_goods/old_goods_details_screen/goods_details_screen.dart';
 import '../../features/old_goods/search/search_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
+import '../../features/profile_screen/profile_main_screen.dart';
 import '../../features/room_rent_all_screen/add_new_home/add_your_home.dart';
 import '../../features/room_rent_all_screen/details_rent_screen/details_rent_screen.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_add_new_home.dart';
@@ -475,6 +476,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.secondServiceFormScreen,
             page: () => SecondServicesForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.profileDetailsScreen,
+            page: () => ProfileDetailsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
