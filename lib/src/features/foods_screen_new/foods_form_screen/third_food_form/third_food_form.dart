@@ -1,42 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/logger/logger.dart';
+import '../../../../utils/widgets/form_process_step.dart';
+import 'controller.dart';
 
-class ThirdFoodForm extends StatefulWidget {
-  const ThirdFoodForm({super.key});
+class ThirdFoodForm extends StatelessWidget {
+  ThirdFoodForm({super.key});
 
-  @override
-  State<ThirdFoodForm> createState() => _ThirdFoodFormState();
-}
+  final controller = Get.put(ThirdFoodFormController());
 
-class _ThirdFoodFormState extends State<ThirdFoodForm> {
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug(
+        "Build - ThirdRoomFormScreen......................................");
     return Scaffold(
-      appBar: AppBar(title: Text("third food form"),),
-
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        // Increase the height to accommodate the progress indicator
+        title: FormProcessStep(
+          isFormOne: true,
+          isFormTwo: true,
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+      ),
       body: Column(
         children: [
-
-          const SizedBox(
-            height: 16,
+          Expanded(
+            child: Obx(
+                  () => GoogleMap(
+                mapType: MapType.hybrid,
+                initialCameraPosition: controller.kGooglePlex,
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
+                compassEnabled: true,
+                markers: controller.markers.toSet(),
+                // Use toSet() to get a standard Set
+                onMapCreated: (GoogleMapController controller1) {
+                  controller.mapController.complete(controller1);
+                },
+                onTap: controller.handleTap,
+              ),
+            ),
           ),
-
-          SizedBox(height: 20),
+          // Save button
+          const SizedBox(height: 20),
           ReuseElevButton(
-            onPressed: () => Get.toNamed(RoutesName.fourthFoodFormScreen),
+            onPressed: () =>  controller.onSaveAndNext(),
             title: "Save & Next",
           ),
-
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           ReuseElevButton(
             color: Colors.orange,
             onPressed: () => Get.back(),
             title: "Back",
           ),
+          SizedBox(height: 20),
         ],
       ),
     );
