@@ -17,7 +17,7 @@ class ThirdRoomFormController extends GetxController {
 
   LatLng? lastTappedPosition;
 
-  CameraPosition kGooglePlex = CameraPosition(
+  CameraPosition kGooglePlex = const CameraPosition(
     target: LatLng(22.092196846135895, 82.12939292192459),
     zoom: 5,
   );
@@ -80,7 +80,7 @@ class ThirdRoomFormController extends GetxController {
     // Add marker for current location
     markers.add(
       Marker(
-        markerId: MarkerId('current_location'),
+        markerId: const MarkerId('current_location'),
         position: LatLng(position.latitude, position.longitude),
         infoWindow: InfoWindow(
           title: 'Current Location',

@@ -38,6 +38,7 @@ class _DetailsRentInfoScreenState extends State<DetailsRentInfoScreen> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
 
+      // ignore: use_build_context_synchronously
       AdProvider adProvider = Provider.of<AdProvider>(context, listen: false);
 
       adProvider.initializeNativeAd();

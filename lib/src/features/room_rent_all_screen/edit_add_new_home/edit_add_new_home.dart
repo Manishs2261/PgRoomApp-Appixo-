@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -58,7 +60,9 @@ class EditAddNewHomeScreen extends StatelessWidget {
                         if (value) {
                           AppHelperFunction.showDialogCenter(false);
                           ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
+                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
+                            // ignore: use_build_context_synchronously
                             Navigator.pop(context);
                             Navigator.pop(context);
                           });

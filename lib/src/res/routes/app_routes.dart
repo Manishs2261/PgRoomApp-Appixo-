@@ -347,12 +347,12 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.filter,
-            page: () => FilterScreen(),
+            page: () => const FilterScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.locationSearch,
-            page: () => LocationSearch(),
+            page: () => const LocationSearch(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -410,7 +410,7 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.listOfPost,
-            page: () => ListOfPost(),
+            page: () => const ListOfPost(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
@@ -469,19 +469,19 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.firstServiceFormScreen,
-            page: () => FirstServicesForm(),
+            page: () => const FirstServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.secondServiceFormScreen,
-            page: () => SecondServicesForm(),
+            page: () => const SecondServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.profileDetailsScreen,
-            page: () => ProfileDetailsScreen(),
+            page: () => const ProfileDetailsScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

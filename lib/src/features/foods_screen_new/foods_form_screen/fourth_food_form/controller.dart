@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class FourFoodFormController extends GetxController {
 
@@ -23,7 +19,7 @@ class FourFoodFormController extends GetxController {
   ].obs;
 
   RxSet<String> selectedHouseRules =
-      Set<String>().obs;
+      <String>{}.obs;
   // To store selected facilities
   TextEditingController newHouseRulesController =
   TextEditingController();
@@ -54,21 +50,21 @@ class FourFoodFormController extends GetxController {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          title: Text("Add New FAQ"),
+          title: const Text("Add New FAQ"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                decoration: InputDecoration(labelText: 'Enter Questions'),
+                decoration: const InputDecoration(labelText: 'Enter Questions'),
                 maxLines: 2,
                 minLines: 1,
                 onChanged: (value) {
                   itemQuestion = value;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
-                decoration: InputDecoration(labelText: 'Enter Answer'),
+                decoration: const InputDecoration(labelText: 'Enter Answer'),
                 keyboardType: TextInputType.text,
                 maxLines: 5,
                 minLines: 1,
@@ -80,7 +76,7 @@ class FourFoodFormController extends GetxController {
           ),
           actions: [
             TextButton(
-              child: Text(
+              child: const Text(
                 "Cancel",
                 style: TextStyle(fontSize: 18),
               ),
@@ -89,7 +85,7 @@ class FourFoodFormController extends GetxController {
               },
             ),
             TextButton(
-              child: Text(
+              child: const Text(
                 "Save",
                 style: TextStyle(fontSize: 18),
               ),

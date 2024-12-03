@@ -68,7 +68,7 @@ class _ListOfServicesState extends State<ListOfServices> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -77,7 +77,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                         BoxShadow(
                             color: Colors.grey.shade400,
                             blurRadius: 4,
-                            offset: Offset(1, 2))
+                            offset: const Offset(1, 2))
                       ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,18 +89,18 @@ class _ListOfServicesState extends State<ListOfServices> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.search_rounded,
                             color: AppColors.primary,
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      Text.rich(
+                      const SizedBox(height: 12),
+                      const Text.rich(
                         style: TextStyle(fontSize: 12),
                         TextSpan(
                           text: 'Awesome! ',
@@ -115,12 +115,12 @@ class _ListOfServicesState extends State<ListOfServices> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 12, bottom: 12),
-                        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                        margin: const EdgeInsets.only(top: 12, bottom: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                         decoration: BoxDecoration(
                             color: Colors.blueAccent.withOpacity(0.07),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,10 +144,10 @@ class _ListOfServicesState extends State<ListOfServices> {
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Bilaspur',
                                     style: TextStyle(
                                       fontSize: 14,
@@ -155,14 +155,14 @@ class _ListOfServicesState extends State<ListOfServices> {
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CircleAvatar(
                                       backgroundColor:
                                       Colors.blueAccent.withOpacity(0.1),
                                       radius: 8,
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.close,
                                         color: AppColors.primary,
                                         size: 14,
@@ -183,10 +183,10 @@ class _ListOfServicesState extends State<ListOfServices> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  DetailsServices()));
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  const DetailsServices()));
                         },
                         child: Container(
-                          margin: EdgeInsets.only(top: 12,left: 12,right: 12),
+                          margin: const EdgeInsets.only(top: 12,left: 12,right: 12),
                           padding: const EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -196,7 +196,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                                 color: Colors.grey.withOpacity(0.3),
                                 spreadRadius: 1,
                                 blurRadius: 1,
-                                offset: Offset(0, 1),
+                                offset: const Offset(0, 1),
                               ),
                             ],
                           ),
@@ -225,9 +225,9 @@ class _ListOfServicesState extends State<ListOfServices> {
                                             child: CachedNetworkImage(
                                               imageUrl: roomImages[index],
                                               placeholder: (context, url) =>
-                                                  Center(child: CircularProgressIndicator()),
+                                                  const Center(child: CircularProgressIndicator()),
                                               errorWidget: (context, url, error) =>
-                                                  Icon(Icons.error),
+                                                  const Icon(Icons.error),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -238,15 +238,15 @@ class _ListOfServicesState extends State<ListOfServices> {
                                       bottom: 1,
                                       right: 8,
                                       child: Container(
-                                        margin: EdgeInsets.all(8),
-                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        margin: const EdgeInsets.all(8),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
                                         decoration: BoxDecoration(
                                           color: Colors.black,
                                           borderRadius: BorderRadius.circular(50),
                                         ),
                                         child: Text(
                                           '${currentPage + 1}/ ${roomImages.length}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             color: Colors.white,
                                           ),
@@ -257,21 +257,21 @@ class _ListOfServicesState extends State<ListOfServices> {
                                       top: 1,
                                       left: 1,
                                       child: Container(
-                                          margin: EdgeInsets.all(8),
-                                          padding: EdgeInsets.all(4),
+                                          margin: const EdgeInsets.all(8),
+                                          padding: const EdgeInsets.all(4),
                                           decoration: BoxDecoration(
                                             color: Colors.black.withOpacity(0.5),
                                             borderRadius: BorderRadius.circular(100),
                                           ),
-                                          child: false ? Icon(Icons.favorite ,color: Colors.red,) :Icon(Icons.favorite_border_outlined,color: Colors.white,size: 20,)
+                                          child: false ? const Icon(Icons.favorite ,color: Colors.red,) :const Icon(Icons.favorite_border_outlined,color: Colors.white,size: 20,)
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               // Room details
-                              Text(
+                              const Text(
                                 'Bank',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
@@ -281,15 +281,15 @@ class _ListOfServicesState extends State<ListOfServices> {
                                 ),
                               ),
 
-                              SizedBox(height: 4),
-                              Text(
+                              const SizedBox(height: 4),
+                              const Text(
                                 'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 14),
                               ),
 
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               // Buttons for "Chat Now" and "Call Now"
                               Card(
                                 shape: RoundedRectangleBorder(
@@ -297,7 +297,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
+                                    gradient: const LinearGradient(
                                       colors: [Colors.black, Colors.blueAccent],
                                       begin: Alignment.topLeft,
                                       end: Alignment.bottomRight,
@@ -309,7 +309,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Row(
+                                      const Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
@@ -351,7 +351,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                                           ),
                                         ],
                                       ),
-                                      SizedBox(height: 8),
+                                      const SizedBox(height: 8),
                                       // Buttons for "Chat Now" and "Call Now"
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -399,7 +399,7 @@ class _ListOfServicesState extends State<ListOfServices> {
             right: 0,
             child: Center(
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 opacity: _buttonOpacity,
                 child: FloatingActionButton.extended(
                     elevation: 2,
@@ -407,7 +407,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                     onPressed: () {
                       // Add action for the button
                     },
-                    label: Row(
+                    label: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
@@ -483,10 +483,10 @@ class GradientButton extends StatelessWidget {
               icon,
               color: Colors.white, // White icon
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white, // White text
                 fontWeight: FontWeight.bold,
               ),

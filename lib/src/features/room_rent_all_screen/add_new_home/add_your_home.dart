@@ -12,6 +12,7 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
 
+// ignore: must_be_immutable
 class AddYourHome extends StatelessWidget {
   AddYourHome({super.key});
 

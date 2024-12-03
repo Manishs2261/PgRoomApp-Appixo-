@@ -11,6 +11,7 @@ import '../../../../model/user_rent_model/user_rent_model.dart';
 import '../../../../utils/device/device_utility.dart';
 
 class DetailsScreenController extends GetxController {
+  // ignore: prefer_typing_uninitialized_variables
   var itemId;
 
   UserRentModel data = UserRentModel();

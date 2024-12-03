@@ -66,7 +66,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -75,7 +75,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                         BoxShadow(
                             color: Colors.grey.shade400,
                             blurRadius: 4,
-                            offset: Offset(1, 2))
+                            offset: const Offset(1, 2))
                       ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,18 +87,18 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.search_rounded,
                             color: AppColors.primary,
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      Text.rich(
+                      const SizedBox(height: 12),
+                      const Text.rich(
                         style: TextStyle(fontSize: 12),
                         TextSpan(
                           text: 'Awesome! ',
@@ -116,12 +116,12 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 12, bottom: 12),
-                        padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                        margin: const EdgeInsets.only(top: 12, bottom: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                         decoration: BoxDecoration(
                             color: Colors.blueAccent.withOpacity(0.07),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,10 +145,10 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Bilaspur',
                                     style: TextStyle(
                                       fontSize: 14,
@@ -156,14 +156,14 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CircleAvatar(
                                       backgroundColor:
                                       Colors.blueAccent.withOpacity(0.1),
                                       radius: 8,
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.close,
                                         color: AppColors.primary,
                                         size: 14,
@@ -184,10 +184,10 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: (){
-                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> DetailsFood()));
+                           Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const DetailsFood()));
                         },
                         child: Container(
-                          margin: EdgeInsets.only(top: 12,left: 12,right: 12),
+                          margin: const EdgeInsets.only(top: 12,left: 12,right: 12),
                           padding: const EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -197,7 +197,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                 color: Colors.grey.withOpacity(0.3),
                                 spreadRadius: 1,
                                 blurRadius: 1,
-                                offset: Offset(0, 1),
+                                offset: const Offset(0, 1),
                               ),
                             ],
                           ),
@@ -226,9 +226,9 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                             child: CachedNetworkImage(
                                               imageUrl: roomImages[index],
                                               placeholder: (context, url) =>
-                                                  Center(child: CircularProgressIndicator()),
+                                                  const Center(child: CircularProgressIndicator()),
                                               errorWidget: (context, url, error) =>
-                                                  Icon(Icons.error),
+                                                  const Icon(Icons.error),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -239,15 +239,15 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                       bottom: 1,
                                       right: 8,
                                       child: Container(
-                                        margin: EdgeInsets.all(8),
-                                        padding: EdgeInsets.symmetric(horizontal: 8),
+                                        margin: const EdgeInsets.all(8),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
                                         decoration: BoxDecoration(
                                           color: Colors.black,
                                           borderRadius: BorderRadius.circular(50),
                                         ),
                                         child: Text(
                                           '${currentPage + 1}/ ${roomImages.length}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             fontSize: 14,
                                             color: Colors.white,
                                           ),
@@ -258,24 +258,24 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                       top: 1,
                                       left: 1,
                                       child: Container(
-                                          margin: EdgeInsets.all(8),
-                                          padding: EdgeInsets.all(6),
+                                          margin: const EdgeInsets.all(8),
+                                          padding: const EdgeInsets.all(6),
                                           decoration: BoxDecoration(
                                             color: Colors.black.withOpacity(0.5),
                                             borderRadius: BorderRadius.circular(100),
                                           ),
-                                          child: false ? Icon(Icons.favorite ,color: Colors.red,) :Icon(Icons.favorite_border_outlined,color: Colors.white,)
+                                          child: false ? const Icon(Icons.favorite ,color: Colors.red,) :const Icon(Icons.favorite_border_outlined,color: Colors.white,)
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 12),
+                              const SizedBox(height: 12),
                               // Room details
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: Text(
                                       'Jolly Mess Pure Vegitarian foods and delivry',
                                       maxLines: 1,
@@ -287,12 +287,12 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                     ),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       color: Colors.green,
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       'VEG',
                                       style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
@@ -300,18 +300,18 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                 ],
                               ),
 
-                              SizedBox(height: 4),
-                              Row(
+                              const SizedBox(height: 4),
+                              const Row(
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.star,
                                     size: 18,
                                     color: Colors.orange,
                                   ),
-                                  const Gap(4),
+                                  Gap(4),
                                   Text(
                                     "2.5",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -323,28 +323,28 @@ class _ListOfFoodsState extends State<ListOfFoods> {
 
 
 
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
 
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   color: Colors.green,
                                 ),
-                                child: Text(
+                                child: const Text(
                                   'Mess',
                                   style: TextStyle(color: Colors.white, fontSize: 12),
                                 ),
                               ),
-                              SizedBox(height: 4),
-                              Text(
+                              const SizedBox(height: 4),
+                              const Text(
                                 'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 14),
                               ),
 
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               // Buttons for "Chat Now" and "Call Now"
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -353,7 +353,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                   GradientButton(
                                     icon: Icons.chat,
                                     label: 'Chat Now',
-                                    colors: [Colors.orange, Colors.red],
+                                    colors: const [Colors.orange, Colors.red],
                                     onPressed: () {
                                       // Handle chat action
                                     },
@@ -362,7 +362,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                                   GradientButton(
                                     icon: Icons.phone,
                                     label: 'Call Now',
-                                    colors: [Colors.green, Colors.teal],
+                                    colors: const [Colors.green, Colors.teal],
                                     onPressed: () {
                                       // Handle call action
                                     },
@@ -388,7 +388,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
             right: 0,
             child: Center(
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 opacity: _buttonOpacity,
                 child: FloatingActionButton.extended(
                     elevation: 2,
@@ -396,7 +396,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                     onPressed: () {
                       // Add action for the button
                     },
-                    label: Row(
+                    label: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
@@ -443,7 +443,7 @@ class GradientButton extends StatelessWidget {
   final List<Color> colors;
   final VoidCallback onPressed;
 
-  GradientButton({
+  const GradientButton({super.key,
     required this.icon,
     required this.label,
     required this.colors,
@@ -472,10 +472,10 @@ class GradientButton extends StatelessWidget {
               icon,
               color: Colors.white, // White icon
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white, // White text
                 fontWeight: FontWeight.bold,
               ),

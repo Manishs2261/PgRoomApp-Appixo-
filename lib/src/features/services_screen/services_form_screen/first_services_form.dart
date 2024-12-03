@@ -40,7 +40,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
         if (selectedImages.length > 10) {
           // Show a message or alert if more than 10 images are selected
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('You can only select up to 10 images!')));
+              const SnackBar(content: Text('You can only select up to 10 images!')));
 
           // Limit the list to 10 images
           _images = selectedImages.sublist(0, 10);
@@ -59,7 +59,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         // Increase the height to accommodate the progress indicator
-        title: FormProcessStep(
+        title: const FormProcessStep(
           isFormOne: true,
         ),
         backgroundColor: Colors.white,
@@ -111,7 +111,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                   ),
                 ),
 
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 //==========House Address================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
@@ -187,7 +187,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 ),
 
 
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 // 2. Select images
@@ -195,12 +195,12 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                   onTap: _pickImages,
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -222,7 +222,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 ),
                 (_images != null && _images!.isNotEmpty)
                     ? Container(
-                  margin: EdgeInsets.only(top: 16),
+                  margin: const EdgeInsets.only(top: 16),
                   height: 150,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -235,7 +235,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                     },
                   ),
                 )
-                    : Center(
+                    : const Center(
                     child: Icon(
                       Icons.image_outlined,
                       size: 80,
@@ -247,13 +247,13 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                   height: 16,
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ReuseElevButton(
                   onPressed: () => Get.toNamed(RoutesName.secondFoodFormScreen),
                   title: "Save & Next",
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ReuseElevButton(
                   color: Colors.orange,
                   onPressed: () => Get.back(),
@@ -274,7 +274,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
       child: RadioListTile<String>(
         title: Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 14,
           ),
@@ -282,7 +282,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
         value: value,
         dense: false,
         contentPadding: EdgeInsets.zero,
-        visualDensity: VisualDensity(
+        visualDensity: const VisualDensity(
           horizontal: -4,
         ),
         groupValue: roomOwnerType,

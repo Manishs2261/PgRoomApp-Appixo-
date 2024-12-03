@@ -12,12 +12,12 @@ class _ListOfChatScreenState extends State<ListOfChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chats"),
+        title: const Text("Chats"),
         actions: [
           PopupMenuButton<String>(
               position: PopupMenuPosition.under,
               color: Colors.white,
-              icon: Icon(Icons.more_vert),
+              icon: const Icon(Icons.more_vert),
               onSelected: (String result) {
 
                 _deleteAllChats(context);
@@ -47,12 +47,12 @@ class _ListOfChatScreenState extends State<ListOfChatScreen> {
             child: ListTile(
 
               leading: CircleAvatar(
-                backgroundImage: NetworkImage('https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',),
+                backgroundImage: const NetworkImage('https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',),
                 backgroundColor: Colors.blue.shade50,
-                  child: Icon(Icons.person)
+                  child: const Icon(Icons.person)
               ),
-              title: Text('Manish sahu'),
-              subtitle: Text('jolly mess'),
+              title: const Text('Manish sahu'),
+              subtitle: const Text('jolly mess'),
 
             ),
           )
@@ -68,17 +68,17 @@ class _ListOfChatScreenState extends State<ListOfChatScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Delete All Chats"),
-          content: Text("Are you sure you want to delete all chats?"),
+          title: const Text("Delete All Chats"),
+          content: const Text("Are you sure you want to delete all chats?"),
           actions: [
             TextButton(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
             ),
             TextButton(
-              child: Text("Delete"),
+              child: const Text("Delete"),
               onPressed: () {
                 // Add your logic to delete all chats here
                 Navigator.of(context).pop(); // Close the dialog after deleting

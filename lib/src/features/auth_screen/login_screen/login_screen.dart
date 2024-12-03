@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/form_widgets.dart';
@@ -30,13 +29,13 @@ class LoginScreen extends StatelessWidget {
     final Uri urlPrivacyPolicy = Uri.parse(
         'https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
 
-    Future<void> _launchUrlTermsAndCondition() async {
+    Future<void> launchUrlTermsAndCondition() async {
       if (!await launchUrl(urlTermsAndCondition)) {
         throw Exception('Could not launch $urlTermsAndCondition');
       }
     }
 
-    Future<void> _launchUrlPrivacyPolicy() async {
+    Future<void> launchUrlPrivacyPolicy() async {
       if (!await launchUrl(urlPrivacyPolicy)) {
         throw Exception('Could not launch $urlPrivacyPolicy');
       }
@@ -106,7 +105,7 @@ class LoginScreen extends StatelessWidget {
                             text: ' Terms ',
                             style: const TextStyle(color: Colors.blue),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => _launchUrlTermsAndCondition()),
+                              ..onTap = () => launchUrlTermsAndCondition()),
                         const TextSpan(
                             text: ' and ',
                             style: TextStyle(color: Colors.black)),
@@ -114,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                             text: ' Privacy Policy ',
                             style: const TextStyle(color: Colors.blue),
                             recognizer: TapGestureRecognizer()
-                              ..onTap = () => _launchUrlPrivacyPolicy()),
+                              ..onTap = () => launchUrlPrivacyPolicy()),
                       ],
                     ),
                   ),

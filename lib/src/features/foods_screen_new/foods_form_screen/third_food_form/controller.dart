@@ -80,6 +80,7 @@ class ThirdFoodFormController extends GetxController {
     // Add marker for current location
     markers.add(
       Marker(
+        // ignore: prefer_const_constructors
         markerId: MarkerId('current_location'),
         position: LatLng(position.latitude, position.longitude),
         infoWindow: InfoWindow(

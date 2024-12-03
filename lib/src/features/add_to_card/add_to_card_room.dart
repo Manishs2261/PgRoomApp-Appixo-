@@ -9,10 +9,12 @@ import '../../res/route_name/routes_name.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
 
+// ignore: must_be_immutable
 class AddToCardRoom extends StatelessWidget {
   AddToCardRoom({super.key});
 
   List<UserRentModel> rentList = [];
+  // ignore: prefer_typing_uninitialized_variables
   var snapData;
 
   @override

@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/Constants/colors.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/validator/text_field_validator.dart';
@@ -90,7 +89,7 @@ class FirstFoodForm extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 //==========House Address================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
@@ -135,7 +134,7 @@ class FirstFoodForm extends StatelessWidget {
                       color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: LandMarkValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -159,7 +158,7 @@ class FirstFoodForm extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 // 2. Select images
@@ -224,7 +223,7 @@ class FirstFoodForm extends StatelessWidget {
 
                 const SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () => Get.toNamed(RoutesName.secondFoodFormScreen),
+                  onPressed: () =>  controller.onSaveAndNext(),
                   title: "Save & Next",
                 ),
 
@@ -260,9 +259,9 @@ class FirstFoodForm extends StatelessWidget {
         visualDensity: const VisualDensity(
           horizontal: -4,
         ),
-        groupValue: controller.roomOwnerType.value,
+        groupValue: controller.foodShopType.value,
         onChanged: (value) {
-          controller.roomOwnerType.value = value!;
+          controller.foodShopType.value = value!;
         },
       ),
     );

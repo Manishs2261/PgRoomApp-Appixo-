@@ -6,21 +6,22 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import '../../data/repository/apis/add_to_cart_api.dart';
 import '../../model/old_goods_model/old_goods_model.dart';
-import '../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../res/route_name/routes_name.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
 import '../../utils/helpers/helper_function.dart';
 
+// ignore: must_be_immutable
 class AddToCartGoodsScreen extends StatelessWidget {
   AddToCartGoodsScreen({super.key});
 
   List<OldGoodsModel> oldGoodsList = [];
+  // ignore: prefer_typing_uninitialized_variables
   var snapData;
 
   @override
   Widget build(BuildContext context) {
-    final dark = AppHelperFunction.isDarkMode(context);
+    AppHelperFunction.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add to card"),

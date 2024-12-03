@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
- import 'package:url_launcher/url_launcher.dart';
 
  import '../controller/details_screen_controller.dart';
 import 'circle_Container_widgets.dart';
@@ -19,8 +18,8 @@ class ContactAndShareWidgets extends StatelessWidget {
     final Uri url = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + controller.data.latitude.toString() + "," +
         controller.data.longitude.toString());
 
-    Future<void> _launchUrl() async {
-      if (!await launchUrl(url)) {
+    Future launchUrl(Uri url) async {
+      if (await launchUrl(url)) {
         throw Exception('Could not launch $url');
       }
     }
@@ -39,7 +38,7 @@ class ContactAndShareWidgets extends StatelessWidget {
             // ),
 
             // ==========map view ===========
-            CircleContainerWidgets(title: "Map view", iconData: Icons.location_on_outlined, ontap: () => _launchUrl())
+            CircleContainerWidgets(title: "Map view", iconData: Icons.location_on_outlined, ontap: () => launchUrl(url))
           ],
         ),
       ],

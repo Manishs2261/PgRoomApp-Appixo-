@@ -80,10 +80,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text(
+        title: const Text(
           'Room name',
           style: TextStyle(color: Colors.black),
         ),
@@ -91,14 +91,14 @@ class _DetailsRoomState extends State<DetailsRoom> {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.share,
                 color: Colors.black,
               ))
         ],
       ),
       floatingActionButton: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -107,7 +107,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.shade300,
-                offset: Offset(0, 1),
+                offset: const Offset(0, 1),
                 blurRadius: 2,
                 spreadRadius: 1,
               )
@@ -119,23 +119,23 @@ class _DetailsRoomState extends State<DetailsRoom> {
               alignment: Alignment.center,
               width: AppHelperFunction.screenWidth() * 0.4,
               height: 40,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.amber,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text('Chat Now'),
+              child: const Text('Chat Now'),
             ),
             Container(
               alignment: Alignment.center,
               height: 40,
               width: AppHelperFunction.screenWidth() * 0.4,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 204, 102, 1.0),
+                color: const Color.fromRGBO(0, 204, 102, 1.0),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
+              child: const Text(
                 'Call Now',
                 style: TextStyle(color: Colors.white),
               ),
@@ -173,9 +173,9 @@ class _DetailsRoomState extends State<DetailsRoom> {
                             child: CachedNetworkImage(
                               imageUrl: roomImages[index],
                               placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
+                                  const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -186,15 +186,15 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       bottom: 16,
                       right: 4,
                       child: Container(
-                        margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
                           '${currentPage + 1}/ ${roomImages.length}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
                           ),
@@ -205,18 +205,18 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       top: 4,
                       left: 4,
                       child: Container(
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(6),
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(6),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: false
-                              ? Icon(
+                              ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_border_outlined,
                                   color: Colors.white,
                                 )),
@@ -227,46 +227,46 @@ class _DetailsRoomState extends State<DetailsRoom> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "₹ 15,000/-",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
                       color: Colors.blueAccent,
                     ),
-                    child: Text(
+                    child: const Text(
                       'PG',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                 ],
               ),
-              Text(
+              const Text(
                 "Name of Room",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.blueAccent,
                 ),
-                child: Text(
+                child: const Text(
                   'BOYS',
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Card(
@@ -275,7 +275,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [Colors.black, Colors.blueAccent],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -288,15 +288,15 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       Container(
                         height: 40,
                         width: 40,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/map_icon.png'),
                           ),
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       // Add some spacing between the icon and text
-                      Expanded(
+                      const Expanded(
                         // Allow the column to take up the remaining space
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,10 +328,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Overview',
                 style: TextStyle(
                   fontSize: 16,
@@ -340,8 +340,8 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(8),
-                padding: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all()),
@@ -356,22 +356,22 @@ class _DetailsRoomState extends State<DetailsRoom> {
                               children: [
                                 Text(
                                   room['type'],
-                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                  style: const TextStyle(fontWeight: FontWeight.w500),
                                 ),
                                 Text(
                                   '₹${room['price']}/-',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
                               ],
                             ),
-                            Divider(),
+                            const Divider(),
                           ],
                         );
                       }).toList(),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -387,10 +387,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Room Offering',
                 style: TextStyle(
                   fontSize: 16,
@@ -411,7 +411,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       runSpacing: 10, // space between lines
                       children: items
                           .map((item) => Container(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Colors.black.withOpacity(0.2)),
@@ -419,16 +419,16 @@ class _DetailsRoomState extends State<DetailsRoom> {
                                 ),
                                 child: Text(
                                   item,
-                                  style: TextStyle(fontSize: 14),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                               ))
                           .toList(),
                     )),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Other Details',
                 style: TextStyle(
                   fontSize: 16,
@@ -438,12 +438,12 @@ class _DetailsRoomState extends State<DetailsRoom> {
               ),
               Container(
                   width: double.infinity,
-                  margin: EdgeInsets.all(8),
-                  padding: EdgeInsets.all(16),
+                  margin: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all()),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -475,10 +475,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       ),
                     ],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Bills',
                 style: TextStyle(
                   fontSize: 16,
@@ -486,7 +486,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Wrap(
@@ -494,22 +494,22 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 runSpacing: 10, // space between lines
                 children: billItem.map((bill) {
                   return Container(
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.black.withOpacity(0.2)),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
                       bill,
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                     ),
                   );
                 }).toList(),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'House Rules',
                 style: TextStyle(
                   fontSize: 16,
@@ -517,7 +517,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Column(
@@ -526,12 +526,12 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_rounded,
                         color: Colors.greenAccent,
                         size: 18,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Text(rule)
@@ -539,16 +539,16 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ),
                 );
               }).toList()),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.yellow,
                     borderRadius: BorderRadius.circular(8)),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Submit Your Review'),
@@ -556,10 +556,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -580,7 +580,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Column(
@@ -605,7 +605,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                                 width: 25,
                                 fit: BoxFit.cover,
                                 imageUrl: "",
-                                placeholder: (context, _) => Center(
+                                placeholder: (context, _) => const Center(
                                   child: SpinKitFadingCircle(
                                     color: AppColors.primary,
                                     size: 30,
@@ -625,13 +625,13 @@ class _DetailsRoomState extends State<DetailsRoom> {
                           const SizedBox(
                             width: 10,
                           ),
-                          Text(
+                          const Text(
                             "Manish sahu",
-                            style: const TextStyle(fontWeight: FontWeight.w400),
+                            style: TextStyle(fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),
-                      Text(
+                      const Text(
                         '12/12/2000',
                         style: TextStyle(color: Colors.grey, fontSize: 10),
                       )
@@ -640,20 +640,20 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   const SizedBox(
                     height: 5,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       ComRatingBarWidgets(
                         initialRating: 5,
                         itemSize: 10.0,
                         ignoreGestures: true,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       ),
                       Text(
                         "2.5",
                         style:
-                            const TextStyle(fontSize: 12, color: Colors.black),
+                            TextStyle(fontSize: 12, color: Colors.black),
                       )
                     ],
                   ),
@@ -666,17 +666,17 @@ class _DetailsRoomState extends State<DetailsRoom> {
                             ? Colors.blueGrey.shade900
                             : Colors.grey.shade50,
                         borderRadius: BorderRadius.circular(8)),
-                    child: Text(
+                    child: const Text(
                         "To add an underline to your Text widget in Flutter, you can modify the TextStyle to include decoration: TextDecoration.underline. Here's how you can update your code:"),
                   ),
                 ],
               ),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.red, borderRadius: BorderRadius.circular(8)),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -690,10 +690,10 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'FAQ',
                 style: TextStyle(
                   fontSize: 16,

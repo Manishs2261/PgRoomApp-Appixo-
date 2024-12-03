@@ -3,6 +3,7 @@ import '../../common/widgets/reuseable_container.dart';
 import '../../common/widgets/reuseable_icon.dart';
 
 class FormProcessStep extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final isFormOne, isFormTwo, isFormThree, isFormFour;
 
   const FormProcessStep({

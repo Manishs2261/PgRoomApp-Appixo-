@@ -19,7 +19,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
   Set<int> selectedIndices = {};
   String location = "Bilaspur";
-  RangeValues _budgetRange = RangeValues(1000, 10000);
+  RangeValues _budgetRange = const RangeValues(1000, 10000);
   List<String> accommodationType = ['PG', 'Flat', 'Co-living'];
   List<String> gender = ['Boy', 'Girl', 'Both'];
   List<String> messType = ['Vag', 'Non-Vag', 'Both'];
@@ -76,14 +76,14 @@ class _FilterScreenState extends State<FilterScreen> {
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             height: 200,
             width: double.infinity,
             decoration: BoxDecoration(color: Colors.grey.shade100, boxShadow: [
               BoxShadow(
                   color: Colors.grey.shade400,
                   blurRadius: 2,
-                  offset: Offset(1, 1))
+                  offset: const Offset(1, 1))
             ]),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,11 +92,11 @@ class _FilterScreenState extends State<FilterScreen> {
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                   ),
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -110,7 +110,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     )
                   ],
                 ),
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -124,7 +124,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Chnage Location',
                           style: TextStyle(fontSize: 12),
                         ),
@@ -137,11 +137,11 @@ class _FilterScreenState extends State<FilterScreen> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                Divider(),
-                Text(
+                const Divider(),
+                const Text(
                   'Filter Applied',
                   style: TextStyle(color: Colors.grey),
                 ),
@@ -154,10 +154,10 @@ class _FilterScreenState extends State<FilterScreen> {
                     // Set the number of times to repeat the container
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
                         child: Row(
                           children: [
-                            Text(
+                            const Text(
                               'Bilaspur',
                               // You can update this with dynamic data if needed
                               style: TextStyle(
@@ -166,14 +166,14 @@ class _FilterScreenState extends State<FilterScreen> {
                                 color: Colors.blueAccent,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 5,
                             ),
                             CircleAvatar(
                                 backgroundColor:
                                     Colors.blueAccent.withOpacity(0.1),
                                 radius: 10,
-                                child: Icon(
+                                child: const Icon(
                                   Icons.close,
                                   color: AppColors.primary,
                                   size: 16,
@@ -196,11 +196,11 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'I am looking to:',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Wrap(
@@ -231,7 +231,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         )
                         .toList(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Visibility(
@@ -239,12 +239,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Gender:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Wrap(
@@ -279,7 +279,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Visibility(
@@ -287,12 +287,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Room Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -337,12 +337,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'BHK Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -379,15 +379,15 @@ class _FilterScreenState extends State<FilterScreen> {
                                 .toList(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
-                        Text(
+                        const Text(
                           'Furnishing Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -427,7 +427,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Visibility(
@@ -436,12 +436,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Food:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Wrap(
@@ -476,14 +476,14 @@ class _FilterScreenState extends State<FilterScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
-                  Text(
+                  const Text(
                     'Budget:',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   RangeSlider(
@@ -502,12 +502,12 @@ class _FilterScreenState extends State<FilterScreen> {
                       });
                     },
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                     'Selected Budget: ₹${_budgetRange.start.round()} - ₹${_budgetRange.end.round()}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
                  ReuseElevButton(onPressed: (){
                    Get.toNamed(RoutesName.listOfRooms);
@@ -525,11 +525,11 @@ class _FilterScreenState extends State<FilterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'I am looking to:',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Wrap(
@@ -560,7 +560,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         )
                         .toList(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Visibility(
@@ -568,12 +568,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Mess Type',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         Wrap(
@@ -608,7 +608,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 16,
                   ),
                   Visibility(
@@ -616,12 +616,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'Room Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -666,12 +666,12 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           'BHK Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -708,15 +708,15 @@ class _FilterScreenState extends State<FilterScreen> {
                                 .toList(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
-                        Text(
+                        const Text(
                           'Furnishing Type:',
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         SingleChildScrollView(
@@ -756,7 +756,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   ReuseElevButton(onPressed: (){
                     Get.toNamed(RoutesName.listOfFoods);
                   }, title: 'Apply Filter')
@@ -831,7 +831,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         );
                       }).toList()),
 
-                  SizedBox(height: 24,),
+                  const SizedBox(height: 24,),
                   ReuseElevButton(onPressed: (){
                     Get.toNamed(RoutesName.listOfServices);
                   }, title: 'Apply Filter')

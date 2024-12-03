@@ -69,7 +69,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(16),
                   height: 160,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -78,7 +78,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                         BoxShadow(
                             color: Colors.grey.shade400,
                             blurRadius: 4,
-                            offset: Offset(1, 2))
+                            offset: const Offset(1, 2))
                       ]),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,18 +90,18 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.search_rounded,
                             color: AppColors.primary,
                           ),
                         ],
                       ),
-                      SizedBox(height: 12),
-                      Text.rich(
+                      const SizedBox(height: 12),
+                      const Text.rich(
                         style: TextStyle(fontSize: 12),
                         TextSpan(
                           text: 'Awesome! ',
@@ -119,18 +119,18 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 12, bottom: 12),
+                        margin: const EdgeInsets.only(top: 12, bottom: 12),
                         padding:
-                            EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                            const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                         decoration: BoxDecoration(
                             color: Colors.blueAccent.withOpacity(0.07),
                             borderRadius: BorderRadius.circular(12)),
-                        child: Row(
+                        child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.add,
                               color: Colors.blue,
                             ),
@@ -149,10 +149,10 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                           itemCount: 10,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              padding: const EdgeInsets.symmetric(horizontal: 6),
                               child: Row(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Bilaspur',
                                     style: TextStyle(
                                       fontSize: 14,
@@ -160,14 +160,14 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                       color: AppColors.primary,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   CircleAvatar(
                                       backgroundColor:
                                           Colors.blueAccent.withOpacity(0.1),
                                       radius: 8,
-                                      child: Icon(
+                                      child: const Icon(
                                         Icons.close,
                                         color: AppColors.primary,
                                         size: 14,
@@ -239,10 +239,10 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     return InkWell(
                                                     onTap: () {
                                                     Navigator.of(context).push(MaterialPageRoute(
-                                                    builder: (context) => DetailsRoom()));
+                                                    builder: (context) => const DetailsRoom()));
                                                     },
                                                     child: Container(
-                                                    margin: EdgeInsets.only(top: 12, left: 12, right: 12),
+                                                    margin: const EdgeInsets.only(top: 12, left: 12, right: 12),
                                                     // You can adjust this height to fit the content
                                                     padding: const EdgeInsets.all(12.0),
                                                     decoration: BoxDecoration(
@@ -253,7 +253,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     color: Colors.grey.withOpacity(0.3),
                                                     spreadRadius: 1,
                                                     blurRadius: 1,
-                                                    offset: Offset(0, 1),
+                                                    offset: const Offset(0, 1),
                                                     ),
                                                     ],
                                                     ),
@@ -283,12 +283,12 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     BorderRadius.circular(10.0),
                                                     child: CachedNetworkImage(
                                                     imageUrl: roomImages[index],
-                                                    placeholder: (context, url) => Center(
+                                                    placeholder: (context, url) => const Center(
                                                     child:
                                                     CircularProgressIndicator()),
                                                     errorWidget:
                                                     (context, url, error) =>
-                                                    Icon(Icons.error),
+                                                    const Icon(Icons.error),
                                                     fit: BoxFit.cover,
                                                     ),
                                                     ),
@@ -299,9 +299,9 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     bottom: 1,
                                                     right: 8,
                                                     child: Container(
-                                                    margin: EdgeInsets.all(8),
+                                                    margin: const EdgeInsets.all(8),
                                                     padding:
-                                                    EdgeInsets.symmetric(horizontal: 8),
+                                                    const EdgeInsets.symmetric(horizontal: 8),
                                                     decoration: BoxDecoration(
                                                     color: Colors.black,
                                                     borderRadius:
@@ -309,7 +309,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ),
                                                     child: Text(
                                                     '${currentPage + 1}/ ${roomImages.length}',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.white,
                                                     ),
@@ -320,8 +320,8 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     top: 1,
                                                     left: 1,
                                                     child: Container(
-                                                    margin: EdgeInsets.all(8),
-                                                    padding: EdgeInsets.all(4),
+                                                    margin: const EdgeInsets.all(8),
+                                                    padding: const EdgeInsets.all(4),
                                                     decoration: BoxDecoration(
                                                     color:
                                                     Colors.black.withOpacity(0.5),
@@ -329,11 +329,11 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     BorderRadius.circular(100),
                                                     ),
                                                     child: false
-                                                    ? Icon(
+                                                    ? const Icon(
                                                     Icons.favorite,
                                                     color: Colors.red,
                                                     )
-                            : Icon(
+                            : const Icon(
                                                     Icons
                             .favorite_border_outlined,
                                                     color: Colors.white,
@@ -343,13 +343,13 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ],
                                                     ),
                                                     ),
-                                                    SizedBox(height: 12),
+                                                    const SizedBox(height: 12),
                                                     // Room details
                                                     Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                    Text(
+                                                    const Text(
                                                     '₹500/-',
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
@@ -359,13 +359,13 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ),
                                                     ),
                                                     Container(
-                                                    padding: EdgeInsets.symmetric(
+                                                    padding: const EdgeInsets.symmetric(
                                                     horizontal: 8, vertical: 2),
                                                     decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(4),
                                                     color: Colors.blueAccent,
                                                     ),
-                                                    child: Text(
+                                                    child: const Text(
                                                     'BOYS',
                                                     style: TextStyle(
                                                     color: Colors.white, fontSize: 12),
@@ -373,25 +373,25 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ),
                                                     ],
                                                     ),
-                                                    SizedBox(height: 4),
+                                                    const SizedBox(height: 4),
                                                     Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                    Text(
+                                                    const Text(
                                                     'Room Name',
                                                     maxLines: 1,
                                                     overflow: TextOverflow.ellipsis,
                                                     style: TextStyle(fontSize: 14),
                                                     ),
                                                     Container(
-                                                    padding: EdgeInsets.symmetric(
+                                                    padding: const EdgeInsets.symmetric(
                                                     horizontal: 8, vertical: 2),
                                                     decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(4),
                                                     color: Colors.amber,
                                                     ),
-                                                    child: Text(
+                                                    child: const Text(
                                                     'PG',
                                                     style: TextStyle(
                                                     fontSize: 12,
@@ -401,8 +401,8 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ],
                                                     ),
 
-                                                    SizedBox(height: 4),
-                                                    Row(
+                                                    const SizedBox(height: 4),
+                                                    const Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -417,15 +417,15 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ),
                                                     Row(
                                                     children: [
-                                                    const Icon(
+                                                    Icon(
                                                     Icons.star,
                                                     size: 18,
                                                     color: Colors.orange,
                                                     ),
-                                                    const Gap(4),
+                                                    Gap(4),
                                                     Text(
                                                     "2.5",
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w400,
                                                     ),
@@ -435,21 +435,21 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ],
                                                     ),
 
-                                                    SizedBox(height: 4),
-                                                    Text(
+                                                    const SizedBox(height: 4),
+                                                    const Text(
                                                     'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
                                                     maxLines: 2,
                                                     overflow: TextOverflow.ellipsis,
                                                     style: TextStyle(fontSize: 14),
                                                     ),
-                                                    SizedBox(height: 4),
+                                                    const SizedBox(height: 4),
                                                     Card(
                                                     shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(16.0),
                                                     ),
                                                     child: Container(
                                                     decoration: BoxDecoration(
-                                                    gradient: LinearGradient(
+                                                    gradient: const LinearGradient(
                                                     colors: [Colors.black, Colors.blueAccent],
                                                     begin: Alignment.topLeft,
                                                     end: Alignment.bottomRight,
@@ -462,7 +462,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                     children: <Widget>[
-                                                    Row(
+                                                    const Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.spaceBetween,
                                                     children: [
@@ -508,7 +508,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                     ),
                                                     ],
                                                     ),
-                                                    SizedBox(height: 8),
+                                                    const SizedBox(height: 8),
                                                     // Buttons for "Chat Now" and "Call Now"
                                                     Row(
                                                     mainAxisAlignment:
@@ -559,7 +559,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
             right: 0,
             child: Center(
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 opacity: _buttonOpacity,
                 child: FloatingActionButton.extended(
                     elevation: 2,
@@ -567,7 +567,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                     onPressed: () {
                       // Add action for the button
                     },
-                    label: Row(
+                    label: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
@@ -644,10 +644,10 @@ class GradientButton extends StatelessWidget {
               color: Colors.white,
               size: 16, // White icon
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white, // White text
                   fontWeight: FontWeight.bold,
                   fontSize: 12),

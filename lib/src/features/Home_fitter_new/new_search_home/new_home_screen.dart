@@ -58,7 +58,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
         parent: _topRowAnimationController, curve: Curves.easeIn));
 
     _searchAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 700));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 700));
 
     _searchSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -71,7 +71,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
             parent: _searchAnimationController, curve: Curves.easeIn));
 
     _postAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 600));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
 
     _postSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -84,7 +84,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
             parent: _postAnimationController, curve: Curves.easeIn));
 
     _searchTextFieldAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _searchTextFieldSlideAnimation = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -120,13 +120,13 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   ];
 
   void _autoSlide() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (_controller.hasClients) {
         int nextPage = _controller.page!.round() + 1;
         _controller.animateToPage(
           nextPage % imgList.length,
           // Loop back to the first image after the last one
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
         _autoSlide(); // Call the function again to continue the auto-slide
@@ -135,13 +135,13 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   }
 
   void _autoSlideOne() {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (_controllerOne.hasClients) {
         int nextPage = _controllerOne.page!.round() + 1;
         _controllerOne.animateToPage(
           nextPage % imgList.length,
           // Loop back to the first image after the last one
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         );
         _autoSlideOne(); // Call the function again to continue the auto-slide
@@ -189,9 +189,9 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFF133157),
-                        Color(0xFF1A426D),
-                        Color(0xFF2A5C99),
+                        const Color(0xFF133157),
+                        const Color(0xFF1A426D),
+                        const Color(0xFF2A5C99),
                         Colors.white.withOpacity(0.4),
                       ],
                       begin: Alignment.topCenter,
@@ -199,7 +199,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     ),
                   ),
                 ),
-                Opacity(
+                const Opacity(
                   opacity: 0.2,
                   child: Image(
                     image: AssetImage('assets/images/building.png'),
@@ -218,13 +218,13 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 backgroundImage: AssetImage(
                                     "assets/images/icon_luncher.png"),
                               ),
                               InkWell(
                                 onTap: ()=>Get.toNamed(RoutesName.profileDetailsScreen),
-                                child: CircleAvatar(
+                                child: const CircleAvatar(
                                   backgroundImage: AssetImage(
                                       "assets/images/icon_luncher.png"),
                                 ),
@@ -256,12 +256,12 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               children: [
                                 Text(
                                   "$cityName",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                SizedBox(width: 2),
+                                const SizedBox(width: 2),
                                 Icon(
                                   Icons.keyboard_arrow_down,
                                   color: Colors.white.withOpacity(0.6),
@@ -272,7 +272,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
+                      const SizedBox(height: 16),
                       SlideTransition(
                         position: _postSlideAnimation,
                         child: FadeTransition(
@@ -283,7 +283,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               clipBehavior: Clip.none,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 8),
                                   decoration: BoxDecoration(
                                     color: Colors.white30,
@@ -322,12 +322,12 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                                   top: -10,
                                   right: 0,
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 1, horizontal: 6),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       color: Colors.red,
-                                      boxShadow: [
+                                      boxShadow: const [
                                         BoxShadow(
                                           color: Colors.black54,
                                           offset: Offset(0, 2),
@@ -335,7 +335,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                                         ),
                                       ],
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       "FREE",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 8),
@@ -347,7 +347,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      SizedBox(height: 24),
+                      const SizedBox(height: 24),
                       SlideTransition(
                         position: _searchTextFieldSlideAnimation,
                         child: FadeTransition(
@@ -390,11 +390,11 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                       opacity: _searchTextFieldOpacityAnimation,
                       child: Container(
                         alignment: Alignment.bottomCenter,
-                        padding: EdgeInsets.symmetric(vertical: 6),
-                        decoration: BoxDecoration(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        decoration: const BoxDecoration(
                           color: Colors.black38,
                           borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
+                              topLeft: const Radius.circular(30),
                               topRight: Radius.circular(30)),
                         ),
                         child: Row(
@@ -407,14 +407,14 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                             ),
                             InkWell(
                               onTap: () => Get.toNamed(RoutesName.listOfPost),
-                              child: Text(
+                              child: const Text(
                                 " Post for free.",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            Icon(
+                            const Icon(
                               Icons.arrow_forward_ios,
                               size: 12,
                               color: Colors.white,
@@ -432,10 +432,10 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Stack(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: 250,
                     child: PageView.builder(
                       controller: _controllerOne,
@@ -457,7 +457,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     child: SmoothPageIndicator(
                       controller: _controllerOne,
                       count: imgList.length,
-                      effect: ExpandingDotsEffect(
+                      effect: const ExpandingDotsEffect(
                         activeDotColor: Colors.blueAccent,
                         dotHeight: 8,
                         dotWidth: 8,
@@ -476,7 +476,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   // 2 Columns
                   crossAxisSpacing: 10,
@@ -515,10 +515,10 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               child: Stack(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     height: 250,
                     child: PageView.builder(
                       controller: _controller,
@@ -540,7 +540,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     child: SmoothPageIndicator(
                       controller: _controller,
                       count: imgList.length,
-                      effect: ExpandingDotsEffect(
+                      effect: const ExpandingDotsEffect(
                         activeDotColor: Colors.blueAccent,
                         dotHeight: 8,
                         dotWidth: 8,
@@ -554,10 +554,10 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
-            Text(
+            const Text(
               'ROOM CATEGOY',
               style: TextStyle(
                 fontSize: 24,
@@ -576,7 +576,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.count(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   // 2 Columns
                   crossAxisSpacing: 10,
@@ -613,10 +613,10 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
             Container(
               height: 200,
               width: 100,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
             ),
             Card(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               elevation: 15, // High shadow elevation
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(
@@ -624,7 +624,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [Colors.black, Colors.blueAccent],
                     // Unique gradient background
                     begin: Alignment.topLeft,
@@ -647,7 +647,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                     mainAxisSize: MainAxisSize.min,
                     // Shrinks card to fit content
                     children: <Widget>[
-                      Row(
+                      const Row(
                         children: [
                           Image(
                               image: AssetImage('assets/images/sharenow.png'),
@@ -676,7 +676,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -685,14 +685,14 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(20),
                             splashColor: Colors.white.withOpacity(0.3),
                             child: Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.white.withOpacity(0.9),
                                 // Button background
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Share Now',
                                 style: TextStyle(
                                   color: Colors.blueAccent,
@@ -762,7 +762,7 @@ class CategoryCard extends StatelessWidget {
               left: 20,
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -781,8 +781,8 @@ class CategoryCardOne extends StatelessWidget {
   final String title;
   final Function onTap;
 
-  CategoryCardOne(
-      {required this.imagePath, required this.title, required this.onTap});
+  const CategoryCardOne(
+      {super.key, required this.imagePath, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -821,7 +821,7 @@ class CategoryCardOne extends StatelessWidget {
               left: 20,
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

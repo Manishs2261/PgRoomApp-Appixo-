@@ -115,9 +115,9 @@ class _LocationSearchState extends State<LocationSearch> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFF133157),
-                        Color(0xFF1A426D),
-                        Color(0xFF2A5C99),
+                        const Color(0xFF133157),
+                        const Color(0xFF1A426D),
+                        const Color(0xFF2A5C99),
                         Colors.white.withOpacity(0.9),
                       ],
                       begin: Alignment.topCenter,
@@ -135,13 +135,13 @@ class _LocationSearchState extends State<LocationSearch> {
                           padding: const EdgeInsets.only(top: 8, bottom: 12),
                           child: InkWell(
                             onTap: () => Get.back(),
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back,
                               color: Colors.white,
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "You are looking to rent in",
                           style: TextStyle(
                               fontSize: 16,
@@ -169,7 +169,7 @@ class _LocationSearchState extends State<LocationSearch> {
                             )
                           ],
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -234,7 +234,7 @@ class _LocationSearchState extends State<LocationSearch> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         TextFormField(
                           controller: _searchController,
                           onFieldSubmitted: (value) {
@@ -299,7 +299,7 @@ class _LocationSearchState extends State<LocationSearch> {
                   () => showSuggestions.value
                   ? ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: suggestions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -321,8 +321,8 @@ class _LocationSearchState extends State<LocationSearch> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
                           child: Text(
                             'Search History :-',
                             style: TextStyle(
@@ -353,14 +353,14 @@ class _LocationSearchState extends State<LocationSearch> {
                                           horizontal: 16.0),
                                       child: Row(
                                         children: [
-                                          Icon(Icons.history, size: 20),
-                                          SizedBox(width: 8),
+                                          const Icon(Icons.history, size: 20),
+                                          const SizedBox(width: 8),
                                           // Adds spacing between icon and text
                                           Expanded(
                                             child: Text(
                                               _searchHistory[index],
                                               style:
-                                              TextStyle(fontSize: 14),
+                                              const TextStyle(fontSize: 14),
                                               overflow:
                                               TextOverflow.visible,
                                               maxLines: null,
@@ -368,7 +368,7 @@ class _LocationSearchState extends State<LocationSearch> {
                                             ),
                                           ),
                                           IconButton(
-                                            icon: Icon(Icons.clear,
+                                            icon: const Icon(Icons.clear,
                                                 size: 18),
                                             onPressed: () {
                                               // Handle delete specific search history item

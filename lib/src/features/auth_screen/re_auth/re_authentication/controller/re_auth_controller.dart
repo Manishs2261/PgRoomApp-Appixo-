@@ -17,6 +17,7 @@ class ReAuthScreenController extends GetxController {
 
   onReAuthButton(BuildContext context) async {
     await connectivity.checkConnectivity().then((value) {
+      // ignore: unrelated_type_equality_checks
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
       } else {

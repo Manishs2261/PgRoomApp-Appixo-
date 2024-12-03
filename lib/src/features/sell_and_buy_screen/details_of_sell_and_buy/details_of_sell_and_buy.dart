@@ -86,10 +86,10 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text(
+        title: const Text(
           'TAble name',
           style: TextStyle(color: Colors.black),
         ),
@@ -97,14 +97,14 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.share,
                 color: Colors.black,
               ))
         ],
       ),
       floatingActionButton: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 16),
         height: 60,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -113,7 +113,7 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.shade300,
-                offset: Offset(0, 1),
+                offset: const Offset(0, 1),
                 blurRadius: 2,
                 spreadRadius: 1,
               )
@@ -125,23 +125,23 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
               alignment: Alignment.center,
               width: AppHelperFunction.screenWidth() * 0.4,
               height: 40,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               decoration: BoxDecoration(
                 color: Colors.amber,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text('Chat Now'),
+              child: const Text('Chat Now'),
             ),
             Container(
               alignment: Alignment.center,
               height: 40,
               width: AppHelperFunction.screenWidth() * 0.4,
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
               decoration: BoxDecoration(
-                color: Color.fromRGBO(0, 204, 102, 1.0),
+                color: const Color.fromRGBO(0, 204, 102, 1.0),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
+              child: const Text(
                 'Call Now',
                 style: TextStyle(color: Colors.white),
               ),
@@ -179,9 +179,9 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                             child: CachedNetworkImage(
                               imageUrl: roomImages[index],
                               placeholder: (context, url) =>
-                                  Center(child: CircularProgressIndicator()),
+                                  const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -192,15 +192,15 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                       bottom: 16,
                       right: 4,
                       child: Container(
-                        margin: EdgeInsets.all(8),
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        margin: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
                           '${currentPage + 1}/ ${roomImages.length}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
                           ),
@@ -211,18 +211,18 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                       top: 4,
                       left: 4,
                       child: Container(
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(4),
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.5),
                             borderRadius: BorderRadius.circular(100),
                           ),
                           child: false
-                              ? Icon(
+                              ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.favorite_border_outlined,
                                   color: Colors.white,
                                   size: 20,
@@ -231,17 +231,17 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 "Joly mess where tapping on a question dfhd fdjkfksf sdfkj  ",
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                     fontSize: 18, fontWeight: FontWeight.w500, height: 0),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 "₹200/-",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -251,10 +251,10 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
-              Text(
+              const Text(
                 " Post Date- 12/12/5858",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -263,7 +263,7 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Card(
@@ -272,7 +272,7 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    gradient: const LinearGradient(
                       colors: [Colors.black, Colors.blueAccent],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -285,15 +285,15 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                       Container(
                         height: 40,
                         width: 40,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/images/map_icon.png'),
                           ),
                         ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       // Add some spacing between the icon and text
-                      Expanded(
+                      const Expanded(
                         // Allow the column to take up the remaining space
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,10 +314,10 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
-              Text(
+              const Text(
                 'Discription',
                 style: TextStyle(
                   fontSize: 16,
@@ -326,12 +326,12 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.all(8),
-                padding: EdgeInsets.all(16),
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all()),
-                child: Column(
+                child: const Column(
                   children: [
                     Text(
                       'about computer tter, TextFormField is a widget that allows users to input text in forms. It has several types of configurations to handle different types of input, including text, numbers, email, and passwords. You can control the type of input using the keyboardType and obscureText properties.',
@@ -345,12 +345,12 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
 
               Container(
                 width:double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
                 decoration: BoxDecoration(
                     color: Colors.red,
                     borderRadius: BorderRadius.circular(8)
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Report About Mess',style: TextStyle(color: Colors.white),),

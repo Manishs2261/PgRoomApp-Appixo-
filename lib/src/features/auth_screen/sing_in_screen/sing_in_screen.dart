@@ -24,13 +24,13 @@ class SingInScreen extends StatelessWidget {
     final Uri urlPrivacyPolicy =
         Uri.parse('https://docs.google.com/document/d/1NUfUoQwe4rkntC8cg-w0yjlg-Lk39cLMF6KZaCMTLok/edit?usp=sharing');
 
-    Future<void> _launchUrlTermsAndCondition() async {
+    Future<void> launchUrlTermsAndCondition() async {
       if (!await launchUrl(urlTermsAndCondition)) {
         throw Exception('Could not launch $urlTermsAndCondition');
       }
     }
 
-    Future<void> _launchUrlPrivacyPolicy() async {
+    Future<void> launchUrlPrivacyPolicy() async {
       if (!await launchUrl(urlPrivacyPolicy)) {
         throw Exception('Could not launch $urlPrivacyPolicy');
       }
@@ -45,6 +45,7 @@ class SingInScreen extends StatelessWidget {
       ),
       body: PopScope(
         canPop: true,
+        // ignore: deprecated_member_use
         onPopInvoked: (didPop) {
           _controller.emailController.value.clear();
           _controller.passController.value.clear();
@@ -101,12 +102,12 @@ class SingInScreen extends StatelessWidget {
                           TextSpan(
                               text: ' Terms ',
                               style: const TextStyle(color: Colors.blue),
-                              recognizer: TapGestureRecognizer()..onTap = () => _launchUrlTermsAndCondition()),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrlTermsAndCondition()),
                           const TextSpan(text: ' and ', style: TextStyle(color: Colors.black)),
                           TextSpan(
                               text: ' Privacy Policy ',
                               style: const TextStyle(color: Colors.blue),
-                              recognizer: TapGestureRecognizer()..onTap = () => _launchUrlPrivacyPolicy()),
+                              recognizer: TapGestureRecognizer()..onTap = () => launchUrlPrivacyPolicy()),
                         ],
                       ),
                     ),

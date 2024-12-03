@@ -14,10 +14,12 @@ import '../../utils/Constants/image_string.dart';
 import '../../utils/device/device_utility.dart';
 import '../../utils/helpers/helper_function.dart';
 
+// ignore: must_be_immutable
 class OldGoodsScreen extends StatelessWidget {
   OldGoodsScreen({super.key});
 
   List<OldGoodsModel> oldGoodsList = [];
+  // ignore: prefer_typing_uninitialized_variables
   var snapData;
 
   @override

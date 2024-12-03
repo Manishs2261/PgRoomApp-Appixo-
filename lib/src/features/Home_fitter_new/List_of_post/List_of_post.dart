@@ -19,12 +19,12 @@ class _ListOfPostState extends State<ListOfPost> {
         "Build - ListOfPost......................................");
     return Scaffold(
       appBar: AppBar(
-        title: Text("Post"),
+        title: const Text("Post"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             PostCard(
@@ -35,7 +35,7 @@ class _ListOfPostState extends State<ListOfPost> {
               title: "Post your food here",
               onTap: ()=> Get.toNamed(RoutesName.firstFoodFormScreen),
             ),
-            PostCard(
+            const PostCard(
               title: "Feel free to post items for sale",
             ),
             PostCard(
@@ -63,7 +63,7 @@ class PostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(left: 8, right: 8, bottom: 8),
+      margin: const EdgeInsets.only(left: 8, right: 8, bottom: 8),
       elevation: 2, // High shadow elevation
       shape: RoundedRectangleBorder(
         borderRadius:
@@ -73,7 +73,7 @@ class PostCard extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 colors: [Colors.black, Colors.blueAccent],
                 // Unique gradient background
                 begin: Alignment.topLeft,
@@ -98,15 +98,15 @@ class PostCard extends StatelessWidget {
                 children: <Widget>[
                   Row(
                     children: [
-                      Image(
+                      const Image(
                           image: AssetImage('assets/images/sharenow.png'),
                           height: 80),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Flexible(
                         // Use Flexible or Expanded to prevent overflow
                         child: Text(
                           title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w900,
                             color: Colors.white,
@@ -125,7 +125,7 @@ class PostCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
@@ -134,16 +134,16 @@ class PostCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         splashColor: Colors.white.withOpacity(0.3),
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.9),
                             // Button background
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Post Now',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blueAccent,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,

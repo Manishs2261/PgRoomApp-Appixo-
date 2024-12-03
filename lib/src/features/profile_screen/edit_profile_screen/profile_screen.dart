@@ -15,6 +15,7 @@ import '../../splash/controller/splash_controller.dart';
 import 'controller/profile_controller.dart';
 
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
@@ -255,6 +256,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ProfileTextFormWidgets extends StatelessWidget {
   ProfileTextFormWidgets({
     super.key,

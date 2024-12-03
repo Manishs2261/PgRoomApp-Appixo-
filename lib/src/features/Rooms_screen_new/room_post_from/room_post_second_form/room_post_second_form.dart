@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
-import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../../../../utils/widgets/form_headline.dart';

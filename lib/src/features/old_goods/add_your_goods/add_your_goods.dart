@@ -12,6 +12,7 @@ import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../data_save_goods/data_save_goods_screen.dart';
 
+// ignore: must_be_immutable
 class AddYourOldGoodsScreen extends StatelessWidget {
   AddYourOldGoodsScreen({super.key});
 
@@ -207,7 +208,9 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                                                           OldGoodsApis.deleteOldGoodsData(snapshot.data!.docs[index].id,
                                                                   goodsList[index].image, goodsList[index].image)
                                                               .then((value) {
+                                                            // ignore: use_build_context_synchronously
                                                             Navigator.pop(context);
+                                                            // ignore: use_build_context_synchronously
                                                             Navigator.pop(context);
                                                           });
                                                         }

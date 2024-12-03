@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -8,20 +7,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pgroom/src/features/Home_fitter_new/filter/filter.dart';
 import 'package:pgroom/src/features/Home_fitter_new/new_search_home/new_home_screen.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form/room_post_first_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/room_post_fourth_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/room_post_second_form.dart';
-import 'package:pgroom/src/features/auth_screen/login_screen/login_screen.dart';
-import 'package:pgroom/src/features/chats_screen/list_of_chats_sceen/list_of_chat_screen.dart';
-import 'package:pgroom/src/features/foods_screen_new/list_of_foods_screen/list_of_foods_screen.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/home/home_screen.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/List_of_sell_and_buy/List_of_sell_and_buy.dart';
-import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
 
-import 'package:pgroom/src/features/splash/splash_screen.dart';
 import 'package:pgroom/src/res/routes/app_routes.dart';
 import 'package:pgroom/src/utils/Theme/theme.dart';
 import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
@@ -94,7 +81,7 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
-        home: HomeNew(),//ListOfRooms(),//HomeNew(),//ListOfChatScreen(),//ListOfServices(),//ListOfSellAndBuy(),//ListOfRooms(),// NewSearch(),//NewSearchHome(),//SplashScreen(),
+        home: const HomeNew(),//ListOfRooms(),//HomeNew(),//ListOfChatScreen(),//ListOfServices(),//ListOfSellAndBuy(),//ListOfRooms(),// NewSearch(),//NewSearchHome(),//SplashScreen(),
         getPages: AppRoutes.appRoutes()
     );
   }

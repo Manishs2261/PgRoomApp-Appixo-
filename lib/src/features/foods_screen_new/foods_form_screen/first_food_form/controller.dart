@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+
+import '../../../../res/route_name/routes_name.dart';
 
 class FirstFoodFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   // food type
-  RxString roomOwnerType = 'Mess'.obs;
+  RxString foodShopType = 'Mess'.obs;
 
   final nameController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -34,5 +35,19 @@ class FirstFoodFormController extends GetxController {
     } else {
       images.value = selectedImages;
     }
+  }
+
+
+  onSaveAndNext() {
+    if (!formKey.currentState!.validate()) {
+      return;
     }
+
+    if (images.isEmpty) {
+      AppHelperFunction.showSnackBar('Please select images');
+      return;
+    }
+
+    Get.toNamed(RoutesName.secondFoodFormScreen);
+  }
 }

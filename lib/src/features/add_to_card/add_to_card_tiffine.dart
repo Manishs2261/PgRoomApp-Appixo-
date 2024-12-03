@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,6 +13,7 @@ import '../../utils/Constants/colors.dart';
 import '../../utils/Constants/image_string.dart';
 import '../../utils/helpers/helper_function.dart';
 
+// ignore: must_be_immutable
 class AddToCartTiffineScreen extends StatelessWidget {
   AddToCartTiffineScreen({super.key});
 
@@ -19,7 +22,7 @@ class AddToCartTiffineScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = AppHelperFunction.isDarkMode(context);
+    AppHelperFunction.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Add to card"),

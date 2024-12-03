@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../utils/Constants/image_string.dart';
 import '../../../../utils/Constants/sizes.dart';
-import '../../sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 
 class FooterWidgets extends StatelessWidget {
   const FooterWidgets({

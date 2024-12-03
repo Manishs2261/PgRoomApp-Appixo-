@@ -39,7 +39,7 @@ class FirstRoomFormScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // 1. Room ownership type
-                FormHeadline(
+                const FormHeadline(
                   title: 'Room Ownership Type',
                 ),
                 Obx(
@@ -55,7 +55,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                           value: 'Owner',
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           groupValue: controller.roomOwnerType.value,
                           onChanged: (value) {
                             controller.roomOwnerType.value = value!;
@@ -72,7 +72,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                           value: 'Broker',
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           groupValue: controller.roomOwnerType.value,
                           onChanged: (value) {
                             controller.roomOwnerType.value = value!;
@@ -89,7 +89,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                           value: 'RoomMate',
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           groupValue: controller.roomOwnerType.value,
                           onChanged: (value) {
                             controller.roomOwnerType.value = value!;
@@ -124,7 +124,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                FormHeadline(title: "Room Type"),
+                const FormHeadline(title: "Room Type"),
                 Obx(
                   () => Row(
                     children: [
@@ -132,8 +132,8 @@ class FirstRoomFormScreen extends StatelessWidget {
                         child: RadioListTile<String>(
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
-                          title: Text(
+                          visualDensity: const VisualDensity(horizontal: -4),
+                          title: const Text(
                             'Private',
                             style: TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 14),
@@ -148,7 +148,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                       Expanded(
                         child: RadioListTile<String>(
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           dense: true,
                           title: const Text('Shareable',
                               style: TextStyle(
@@ -163,7 +163,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
 
@@ -201,7 +201,7 @@ class FirstRoomFormScreen extends StatelessWidget {
 
                               ///  isCollapsed: true,
                               maxLength: 6,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.currency_rupee,
                                 size: 20,
                                 color: AppColors.primary,
@@ -213,13 +213,13 @@ class FirstRoomFormScreen extends StatelessWidget {
                                     RegExp("[0-9.]")),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             MyTextFormWidget(
                               textKeyBoard: TextInputType.number,
                               controller: controller.tripleRoomPriceController,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.currency_rupee,
                                 size: 20,
                                 color: AppColors.primary,
@@ -236,7 +236,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                                     RegExp("[0-9.]")),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 16,
                             ),
                             MyTextFormWidget(
@@ -248,7 +248,7 @@ class FirstRoomFormScreen extends StatelessWidget {
 
                               ///  isCollapsed: true,
                               maxLength: 6,
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.currency_rupee,
                                 size: 20,
                                 color: AppColors.primary,
@@ -265,7 +265,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                       : MyTextFormWidget(
                           textKeyBoard: TextInputType.number,
                           controller: controller.singleRoomPriceController,
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.currency_rupee,
                             size: 20,
                             color: AppColors.primary,
@@ -283,11 +283,11 @@ class FirstRoomFormScreen extends StatelessWidget {
                         ),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 // 5. Room category - PG, Co-living, Flat
-                FormHeadline(title: "Room Category"),
+                const FormHeadline(title: "Room Category"),
                 Obx(
                   () => Row(
                     children: [
@@ -295,7 +295,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                         child: RadioListTile<String>(
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           title: const Text('PG',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 14)),
@@ -310,7 +310,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                         child: RadioListTile<String>(
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           title: const Text('Co-living',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 14)),
@@ -325,7 +325,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                         child: RadioListTile<String>(
                           dense: true,
                           contentPadding: EdgeInsets.zero,
-                          visualDensity: VisualDensity(horizontal: -4),
+                          visualDensity: const VisualDensity(horizontal: -4),
                           title: const Text('Flat',
                               style: TextStyle(
                                   fontWeight: FontWeight.w400, fontSize: 14)),
@@ -341,7 +341,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                 ),
 
                 // 6. Gender types
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
 
@@ -351,14 +351,14 @@ class FirstRoomFormScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FormHeadline(title: "Gender Types"),
+                          const FormHeadline(title: "Gender Types"),
                           Row(
                             children: [
                               Expanded(
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity(horizontal: -4),
+                                  visualDensity: const VisualDensity(horizontal: -4),
                                   title: const Text('Boys',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -374,7 +374,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity(horizontal: -4),
+                                  visualDensity: const VisualDensity(horizontal: -4),
                                   title: const Text('Girls',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -390,7 +390,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: VisualDensity(horizontal: -4),
+                                  visualDensity: const VisualDensity(horizontal: -4),
                                   title: const Text('Both',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -407,7 +407,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                         ],
                       )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 // 2. Select images
@@ -415,12 +415,12 @@ class FirstRoomFormScreen extends StatelessWidget {
                   onTap: controller.pickImages,
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
@@ -443,7 +443,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                 Obx(
                   () => (controller.images.isNotEmpty)
                       ? Container(
-                          margin: EdgeInsets.only(top: 16),
+                          margin: const EdgeInsets.only(top: 16),
                           height: 150,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -457,14 +457,14 @@ class FirstRoomFormScreen extends StatelessWidget {
                             },
                           ),
                         )
-                      : Center(
+                      : const Center(
                           child: Icon(
                           Icons.image_outlined,
                           size: 80,
                           color: Colors.grey,
                         )),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 32,
                 ),
 
@@ -472,7 +472,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                   onPressed: () =>  controller.onSaveAndNext(),
                   title: 'Save & Next',
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ReuseElevButton(
                   color: Colors.orange,
                   onPressed: () => Get.back(),
