@@ -3,87 +3,50 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
-import '../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../res/route_name/routes_name.dart';
-import '../../../utils/Constants/colors.dart';
-import '../../../utils/logger/logger.dart';
-import '../../../utils/validator/text_field_validator.dart';
-import '../../../utils/widgets/form_process_step.dart';
-import '../../../utils/widgets/my_text_form_field.dart';
-
-class FirstServicesForm extends StatefulWidget {
-  const FirstServicesForm({super.key});
-
-  @override
-  State<FirstServicesForm> createState() => _FirstServicesFormState();
-}
-
-class _FirstServicesFormState extends State<FirstServicesForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  // food type
-  String roomOwnerType = 'Mess';
+import '../../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../../utils/Constants/colors.dart';
+import '../../../../utils/logger/logger.dart';
+import '../../../../utils/validator/text_field_validator.dart';
+import '../../../../utils/widgets/form_process_step.dart';
+import '../../../../utils/widgets/my_text_form_field.dart';
+import 'controller.dart';
 
 
-  // Multiple image picker
-  List<XFile>? _images = [];
-  final ImagePicker _picker = ImagePicker();
 
+class FirstServicesForm extends StatelessWidget {
+  FirstServicesForm({super.key});
 
-  Future<void> _pickImages() async {
-    final List<XFile>? selectedImages = await _picker.pickMultiImage();
-
-    if (selectedImages != null) {
-      setState(() {
-        if (selectedImages.length > 10) {
-          // Show a message or alert if more than 10 images are selected
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('You can only select up to 10 images!')));
-
-          // Limit the list to 10 images
-          _images = selectedImages.sublist(0, 10);
-        } else {
-          _images = selectedImages;
-        }
-      });
-    }
-  }
+  final controller = Get.put(ServicesFormController());
 
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug(
-        "Build - FirstFoodForm......................................");
+        "Build - FirstServicesForm......................................");
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         // Increase the height to accommodate the progress indicator
-        title: const FormProcessStep(
-          isFormOne: true,
-        ),
-        backgroundColor: Colors.white,
-        centerTitle: true,
+        title: const FormProcessStep(),
+
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64,top: 13),
           child: Form(
-            key: _formKey,
+            key: controller.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
-                  //   controller: controller.houseAddressController.value,
-
-                  labelText: 'Service name',
-                  icon: const Icon(Icons.handyman_outlined, color: AppColors.primary),
+                  controller: controller.nameController,
+                  labelText: 'Name',
+                  icon: const Icon(Icons.home, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: AddressValidator.validate,
-                  maxLength: 100,
+                  validator: CommonUseValidator.validate,
+                  maxLength: 50,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                   ],
@@ -94,7 +57,10 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 ),
 
                 TextFormField(
-                  maxLines: 3,
+                  controller: controller.descriptionController,
+                  minLines: 1,
+                  maxLines: 10,
+                  maxLength: 500,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
@@ -103,7 +69,7 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                       Icons.description_outlined,
                       color: AppColors.primary,
                     ),
-                    contentPadding: const EdgeInsets.only(top: 5),
+                    contentPadding: const EdgeInsets.all(12),
                     suffixStyle: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -115,13 +81,12 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 //==========House Address================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
-                  //   controller: controller.houseAddressController.value,
-
-                  labelText: ' Enter address',
+                  controller: controller.addressController,
+                  labelText: 'Enter Address',
                   icon: const Icon(Icons.home, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: AddressValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -134,16 +99,15 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 //===========City Name================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
-                  //   controller: controller.cityNameController.value,
-
+                  controller: controller.landmarkController,
                   labelText: 'Enter landmark',
                   icon: const Icon(Icons.location_on, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: CityValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 40,
                   inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
                   ],
                 ),
                 const SizedBox(
@@ -152,13 +116,13 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 //============Land Mark address=================
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
-                  //    controller: controller.landMarkController.value,
+                  controller: controller.cityController,
                   labelText: 'Enter City',
                   icon: const Icon(Icons.location_city_outlined,
                       color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: LandMarkValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -170,12 +134,12 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
 
                 MyTextFormWidget(
                   textKeyBoard: TextInputType.text,
-                  //    controller: controller.landMarkController.value,
+                  controller: controller.stateController,
                   labelText: 'Enter State',
                   icon: const Icon(Icons.map, color: AppColors.primary),
                   borderRadius: BorderRadius.circular(11),
                   contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                  validator: LandMarkValidator.validate,
+                  validator: CommonUseValidator.validate,
                   maxLength: 100,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
@@ -185,17 +149,13 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                 const SizedBox(
                   height: 16,
                 ),
-
-
-                const SizedBox(
-                  height: 16,
-                ),
                 // 2. Select images
                 InkWell(
-                  onTap: _pickImages,
+                  onTap: controller.pickImages,
                   child: Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
@@ -220,28 +180,30 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
                     ),
                   ),
                 ),
-                (_images != null && _images!.isNotEmpty)
-                    ? Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  height: 150,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: _images!.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.file(File(_images![index].path)),
-                      );
-                    },
-                  ),
-                )
-                    : const Center(
-                    child: Icon(
-                      Icons.image_outlined,
-                      size: 80,
-                      color: Colors.grey,
-                    )),
-
+                Obx(
+                      () => (controller.images.isNotEmpty)
+                      ? Container(
+                    margin: const EdgeInsets.only(top: 16),
+                    height: 150,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.images.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.file(
+                              File(controller.images[index].path)),
+                        );
+                      },
+                    ),
+                  )
+                      : const Center(
+                      child: Icon(
+                        Icons.image_outlined,
+                        size: 80,
+                        color: Colors.grey,
+                      )),
+                ),
 
                 const SizedBox(
                   height: 16,
@@ -249,10 +211,9 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
 
                 const SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () => Get.toNamed(RoutesName.secondFoodFormScreen),
+                  onPressed: () =>  controller.onSaveAndNext(),
                   title: "Save & Next",
                 ),
-
                 const SizedBox(height: 20),
                 ReuseElevButton(
                   color: Colors.orange,
@@ -267,31 +228,5 @@ class _FirstServicesFormState extends State<FirstServicesForm> {
     );
   }
 
-  /// Radio List Tile for food type
-  Widget _buildRadioListTile(String title, String value) {
-    return SizedBox(
-      width: 150,
-      child: RadioListTile<String>(
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w400,
-            fontSize: 14,
-          ),
-        ),
-        value: value,
-        dense: false,
-        contentPadding: EdgeInsets.zero,
-        visualDensity: const VisualDensity(
-          horizontal: -4,
-        ),
-        groupValue: roomOwnerType,
-        onChanged: (value) {
-          setState(() {
-            roomOwnerType = value!;
-          });
-        },
-      ),
-    );
-  }
+
 }

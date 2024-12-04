@@ -24,8 +24,8 @@ import 'package:pgroom/src/features/sell_and_buy_screen/List_of_sell_and_buy/Lis
 import 'package:pgroom/src/features/sell_and_buy_screen/details_of_sell_and_buy/details_of_sell_and_buy.dart';
 import 'package:pgroom/src/features/services_screen/details_services/details_services.dart';
 import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/second_services_form.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/first_services_form.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/second_services_form.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
     '/add_your_tiffine_services_screen.dart';
 import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
@@ -73,6 +73,8 @@ import '../../features/room_rent_all_screen/rent_form_screen/provide_facilities/
 import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_details_screen.dart';
 import '../../features/room_rent_all_screen/search/search.dart';
 import '../../features/room_rent_all_screen/view_all_image/view_all_image.dart';
+import '../../features/sell_and_buy_screen/sell_and_buy_form/sell_and_buy_form.dart';
+import '../../features/services_screen/services_form_screen/third_service_form/third_services_form.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/tiffinServicesScreen/search/search.dart';
 import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
@@ -469,7 +471,7 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.firstServiceFormScreen,
-            page: () => const FirstServicesForm(),
+            page: () => FirstServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
@@ -482,6 +484,17 @@ class AppRoutes {
         GetPage(
             name: RoutesName.profileDetailsScreen,
             page: () => const ProfileDetailsScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.sellAndBuyForm,
+            page: () =>  SellAndBuyForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.thirdServicesForm,
+            page: () =>  ThirdServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

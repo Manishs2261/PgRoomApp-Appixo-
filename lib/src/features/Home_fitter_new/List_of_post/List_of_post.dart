@@ -35,8 +35,9 @@ class _ListOfPostState extends State<ListOfPost> {
               title: "Post your food here",
               onTap: ()=> Get.toNamed(RoutesName.firstFoodFormScreen),
             ),
-            const PostCard(
+            PostCard(
               title: "Feel free to post items for sale",
+              onTap: ()=> Get.toNamed(RoutesName.sellAndBuyForm),
             ),
             PostCard(
               title: "Free to advertise local services",
@@ -143,7 +144,7 @@ class PostCard extends StatelessWidget {
                           ),
                           child: const Text(
                             'Post Now',
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.blueAccent,
                               fontWeight: FontWeight.bold,
                               fontSize: 16,

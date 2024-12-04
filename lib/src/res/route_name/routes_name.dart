@@ -109,6 +109,8 @@ class RoutesName {
 
 
   static const String profileDetailsScreen = '/profileDetailsScreen';
+  static const String  sellAndBuyForm = '/sellAndBuyForm';
+  static const String  thirdServicesForm = '/thirdServicesForm';
 
 
 }
