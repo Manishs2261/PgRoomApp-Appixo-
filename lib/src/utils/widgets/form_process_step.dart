@@ -3,8 +3,8 @@ import '../../common/widgets/reuseable_container.dart';
 import '../../common/widgets/reuseable_icon.dart';
 
 class FormProcessStep extends StatelessWidget {
-  // ignore: prefer_typing_uninitialized_variables
-  final isFormOne, isFormTwo, isFormThree, isFormFour;
+
+  final bool isFormOne, isFormTwo, isFormThree, isFormFour , isShow;
 
   const FormProcessStep({
     super.key,
@@ -12,6 +12,7 @@ class FormProcessStep extends StatelessWidget {
     this.isFormTwo = false,
     this.isFormThree = false,
     this.isFormFour = false,
+    this.isShow = true,
   });
 
   @override
@@ -44,6 +45,7 @@ class FormProcessStep extends StatelessWidget {
           icon: Icons.check_circle,
           color: isFormThree ? Colors.green : Colors.grey,
         ),
+        if(isShow)
         Expanded(
           child: ReusableContainer(
             color: isFormThree ? Colors.green : Colors.grey,
@@ -51,6 +53,7 @@ class FormProcessStep extends StatelessWidget {
             width: double.infinity,
           ),
         ),
+        if(isShow)
         ReusableIcon(
           icon: Icons.check_circle,
           color: isFormFour ? Colors.green : Colors.grey,

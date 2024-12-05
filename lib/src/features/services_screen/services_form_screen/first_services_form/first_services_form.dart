@@ -12,12 +12,10 @@ import '../../../../utils/widgets/form_process_step.dart';
 import '../../../../utils/widgets/my_text_form_field.dart';
 import 'controller.dart';
 
-
-
 class FirstServicesForm extends StatelessWidget {
   FirstServicesForm({super.key});
 
-  final controller = Get.put(ServicesFormController());
+  final controller = Get.put(FirstServicesFormController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +23,15 @@ class FirstServicesForm extends StatelessWidget {
         "Build - FirstServicesForm......................................");
     return Scaffold(
       appBar: AppBar(
-        // Increase the height to accommodate the progress indicator
-        title: const FormProcessStep(),
+        automaticallyImplyLeading: false,
 
+        backgroundColor: Colors.white,
+        title: const FormProcessStep(isShow: false,),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64,top: 13),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, bottom: 64, top: 13),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -155,7 +155,7 @@ class FirstServicesForm extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
@@ -181,28 +181,28 @@ class FirstServicesForm extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                      () => (controller.images.isNotEmpty)
+                  () => (controller.images.isNotEmpty)
                       ? Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    height: 150,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.images.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.file(
-                              File(controller.images[index].path)),
-                        );
-                      },
-                    ),
-                  )
+                          margin: const EdgeInsets.only(top: 16),
+                          height: 150,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.images.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                    File(controller.images[index].path)),
+                              );
+                            },
+                          ),
+                        )
                       : const Center(
-                      child: Icon(
-                        Icons.image_outlined,
-                        size: 80,
-                        color: Colors.grey,
-                      )),
+                          child: Icon(
+                          Icons.image_outlined,
+                          size: 80,
+                          color: Colors.grey,
+                        )),
                 ),
 
                 const SizedBox(
@@ -211,7 +211,7 @@ class FirstServicesForm extends StatelessWidget {
 
                 const SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () =>  controller.onSaveAndNext(),
+                  onPressed: () => controller.onSaveAndNext(),
                   title: "Save & Next",
                 ),
                 const SizedBox(height: 20),
@@ -227,6 +227,4 @@ class FirstServicesForm extends StatelessWidget {
       ),
     );
   }
-
-
 }

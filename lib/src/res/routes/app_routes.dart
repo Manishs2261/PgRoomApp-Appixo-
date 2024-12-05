@@ -477,7 +477,7 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.secondServiceFormScreen,
-            page: () => const SecondServicesForm(),
+            page: () =>  SecondServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 

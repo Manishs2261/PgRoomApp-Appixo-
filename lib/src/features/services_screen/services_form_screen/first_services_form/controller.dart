@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-class ServicesFormController extends GetxController {
+import '../../../../res/route_name/routes_name.dart';
+
+class FirstServicesFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   final nameController = TextEditingController();
@@ -42,6 +44,10 @@ class ServicesFormController extends GetxController {
       AppHelperFunction.showSnackBar('Please select images');
       return;
     }
+
+    Get.toNamed(RoutesName.secondServiceFormScreen);
+
+
 
   }
 }
