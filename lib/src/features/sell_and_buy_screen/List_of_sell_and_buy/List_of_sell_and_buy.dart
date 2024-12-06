@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:gap/gap.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/food_details_screen.dart';
-
+import 'package:pgroom/src/utils/logger/logger.dart';
+import '../../../data/repository/apis/old_goods_api.dart';
 import '../../../utils/Constants/colors.dart';
 import '../details_of_sell_and_buy/details_of_sell_and_buy.dart';
 
@@ -60,6 +63,10 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    AppLoggerHelper.debug("Build - ListOfSellAndBuy");
+
     return Scaffold(
       body: Stack(
         children: [
@@ -136,41 +143,67 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                         ),
                       ),
                       Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Bilaspur',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      height: 0,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  CircleAvatar(
-                                      backgroundColor:
-                                      Colors.blueAccent.withOpacity(0.1),
-                                      radius: 8,
-                                      child: const Icon(
-                                        Icons.close,
-                                        color: AppColors.primary,
-                                        size: 14,
-                                      ))
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                        child: StreamBuilder(
+                            stream: SellAndBuyApis.firebaseFirestore.collection('devBuyAndSellCollection').snapshots(),
+                            builder: (context, snapshot) {
+
+                              final data = snapshot.data?.docs;
+
+                              //for creating json model
+
+                              for (var i in data!) {
+                                var map = i.data() as Map<String, dynamic>; // Ensure data is treated as a Map
+                                var encodableMap = map.map((key, value) {
+                                  if (value is Timestamp) {
+                                    return MapEntry(key, value.toDate().toIso8601String()); // Convert Timestamp to String
+                                  }
+                                  return MapEntry(key, value); // Leave other values unchanged
+                                });
+                                log("Data : ${jsonEncode(encodableMap)}");
+                              }
+
+
+                              if (snapshot.hasData) {
+                                return  ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: 10,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Bilaspur',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              height: 0,
+                                              color: AppColors.primary,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          CircleAvatar(
+                                              backgroundColor:
+                                              Colors.blueAccent.withOpacity(0.1),
+                                              radius: 8,
+                                              child: const Icon(
+                                                Icons.close,
+                                                color: AppColors.primary,
+                                                size: 14,
+                                              ))
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              }else {
+                                return Container();
+                              }
+                            }
+                        )
                       ),
                     ],
                   ),

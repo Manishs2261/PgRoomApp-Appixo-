@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pgroom/src/data/repository/apis/old_goods_api.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 class SellAndBuyController extends GetxController {
@@ -12,7 +13,7 @@ class SellAndBuyController extends GetxController {
   final landmarkController = TextEditingController();
   final cityController = TextEditingController();
   final stateController = TextEditingController();
-
+  final priceController = TextEditingController();
 
   // Multiple image picker
   final RxList<XFile> images = <XFile>[].obs;
@@ -32,6 +33,17 @@ class SellAndBuyController extends GetxController {
     }
   }
 
+  onDataSave() {
+    SellAndBuyApis.addSellAndBuyData(
+        itemName: nameController.text,
+        description: descriptionController.text,
+        images: [],
+        address: addressController.text,
+        landmark: landmarkController.text,
+        city: cityController.text,
+        state: stateController.text,
+        price: priceController.text);
+  }
 
   onSaveAndNext() {
     if (!formKey.currentState!.validate()) {
@@ -42,6 +54,6 @@ class SellAndBuyController extends GetxController {
       AppHelperFunction.showSnackBar('Please select images');
       return;
     }
-
-   }
+    onDataSave();
+  }
 }

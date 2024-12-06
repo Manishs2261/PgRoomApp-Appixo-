@@ -8,11 +8,8 @@ import '../../../common/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
-import '../../../utils/widgets/form_headline.dart';
-import '../../../utils/widgets/form_process_step.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
 import 'controller.dart';
-
 
 class SellAndBuyForm extends StatelessWidget {
   SellAndBuyForm({super.key});
@@ -22,16 +19,18 @@ class SellAndBuyForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug(
-        "Build - FirstFoodForm......................................");
+        "Build - SellAndBuyForm ......................................");
     return Scaffold(
       appBar: AppBar(
         // Increase the height to accommodate the progress indicator
-        title:Text('Sell and Buy from',),
-
+        title: Text(
+          'Sell and Buy from',
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64,top: 13),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, bottom: 64, top: 13),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -49,6 +48,23 @@ class SellAndBuyForm extends StatelessWidget {
                   maxLength: 50,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z0-9 ]")),
+                  ],
+                ),
+
+                const SizedBox(
+                  height: 16,
+                ),
+                MyTextFormWidget(
+                  textKeyBoard: TextInputType.number,
+                  controller: controller.priceController,
+                  labelText: 'price',
+                  icon: const Icon(Icons.currency_rupee, color: AppColors.primary),
+                  borderRadius: BorderRadius.circular(11),
+                  contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                  validator: CommonUseValidator.validate,
+                  maxLength: 50,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
                   ],
                 ),
 
@@ -147,7 +163,7 @@ class SellAndBuyForm extends StatelessWidget {
                 ),
 
                 const SizedBox(
-                  height: 16,
+                  height: 40,
                 ),
                 // 2. Select images
                 InkWell(
@@ -155,7 +171,7 @@ class SellAndBuyForm extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
@@ -181,28 +197,28 @@ class SellAndBuyForm extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                      () => (controller.images.isNotEmpty)
+                  () => (controller.images.isNotEmpty)
                       ? Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    height: 150,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: controller.images.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.file(
-                              File(controller.images[index].path)),
-                        );
-                      },
-                    ),
-                  )
+                          margin: const EdgeInsets.only(top: 16),
+                          height: 150,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.images.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                    File(controller.images[index].path)),
+                              );
+                            },
+                          ),
+                        )
                       : const Center(
-                      child: Icon(
-                        Icons.image_outlined,
-                        size: 80,
-                        color: Colors.grey,
-                      )),
+                          child: Icon(
+                          Icons.image_outlined,
+                          size: 80,
+                          color: Colors.grey,
+                        )),
                 ),
 
                 const SizedBox(
@@ -211,7 +227,7 @@ class SellAndBuyForm extends StatelessWidget {
 
                 const SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () =>  controller.onSaveAndNext(),
+                  onPressed: () => controller.onSaveAndNext(),
                   title: "Save & Next",
                 ),
               ],
@@ -221,6 +237,4 @@ class SellAndBuyForm extends StatelessWidget {
       ),
     );
   }
-
-
 }

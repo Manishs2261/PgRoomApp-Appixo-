@@ -54,7 +54,7 @@ class EditGoodsScreenController extends GetxController {
     if (coverImage == null) return;
     selectedCoverImage.value = coverImage!.path.toString();
 
-    await OldGoodsApis.updateOldGoodsImage(File(coverImage!.path), itemId,data.coverImageId!).then((value) {
+    await SellAndBuyApis.updateOldGoodsImage(File(coverImage!.path), itemId,data.coverImageId!).then((value) {
       Get.snackbar("Image upload ", "Successfully");
     }).onError((error, stackTrace) {
       Get.snackbar("Image Upload", "Failed");
@@ -71,7 +71,7 @@ class EditGoodsScreenController extends GetxController {
       if (value) {
         if (globalKey.currentState!.validate()) {
           AppHelperFunction.showDialogCenter(false);
-          OldGoodsApis.updateOldGoodsData(nameController.value.text, addressController.value.text,
+          SellAndBuyApis.updateOldGoodsData(nameController.value.text, addressController.value.text,
                   priceController.value.text, itemId, numberController.value.text)
               .then((value) {
             Get.snackbar("Update", "Successfully");

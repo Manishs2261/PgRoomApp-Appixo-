@@ -32,7 +32,7 @@ class AddYourGoodsController extends GetxController {
   }
 
   Future uploadCoverImage() async {
-    await OldGoodsApis.uploadOldGoodsImage(File(coverImage!.path)).then((value) {}).onError((error, stackTrace) {
+    await SellAndBuyApis.uploadOldGoodsImage(File(coverImage!.path)).then((value) {}).onError((error, stackTrace) {
       AppLoggerHelper.error("image upload error", error);
       AppLoggerHelper.error("image upload error", stackTrace);
     });
@@ -41,8 +41,8 @@ class AddYourGoodsController extends GetxController {
   //============================================
 
   Future onUserTiffineServicesData() async {
-    await OldGoodsApis.addYourOldGoodsUserAccount(
-      OldGoodsApis.imageUrl,
+    await SellAndBuyApis.addYourOldGoodsUserAccount(
+      SellAndBuyApis.imageUrl,
       goodsNameController.value.text,
       addressController.value.text,
       priceController.value.text,
@@ -61,8 +61,8 @@ class AddYourGoodsController extends GetxController {
   }
 
   Future onTiffineServicesData() async {
-    OldGoodsApis.addYourOldGoods(
-      OldGoodsApis.imageUrl,
+    SellAndBuyApis.addYourOldGoods(
+      SellAndBuyApis.imageUrl,
       goodsNameController.value.text,
       addressController.value.text,
       priceController.value.text,
