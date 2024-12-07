@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../features/sell_and_buy_screen/sell_and_buy_form/model/sell_and_buy_model.dart';
 import '../../../model/old_goods_model/old_goods_model.dart';
@@ -202,6 +206,7 @@ class SellAndBuyApis {
     required String state,
     required  String price,
   }) async {
+    AppHelperFunction.showCenterCircularIndicator(true);
     try {
       final userUid = user.uid; // Replace `user.uid` with actual logic to fetch user UID.
 
@@ -227,15 +232,16 @@ class SellAndBuyApis {
         DocumentReference docRef = await FirebaseFirestore.instance
             .collection("devBuyAndSellCollection")
             .add(item.toJson())
-            .timeout(Duration(seconds: 2000), onTimeout: () {
+            .timeout(const Duration(seconds: 2000), onTimeout: () {
           // Custom behavior on timeout
-          throw TimeoutException("The operation timed out after 10 seconds");
+          throw TimeoutException("The operation timed out after 2000 seconds");
         });
 
         // Successfully uploaded
         await firebaseFirestore.collection("devBuyAndSellCollection").doc(docRef.id).update({
           'sabId': docRef.id,
         }).whenComplete((){
+          Navigator.pop(Get.context!);
           print("Document added successfully with ID: ${docRef.id}");
         });
 

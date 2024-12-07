@@ -30,7 +30,7 @@ class SignProfileScreenController extends GetxController {
 
       image.value = pickFile.path.toString();
     }
-    AppHelperFunction.showDialogCenter(false);
+    AppHelperFunction.showCenterCircularIndicator(false);
     UserApis.uploadUserImage(File(image.value)).then((value) {
       imageUrl.value = value;
       Navigator.pop(Get.context!);
@@ -46,7 +46,7 @@ class SignProfileScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) async {
       if (value) {
         if (imageUrl.value.isNotEmpty) {
-          AppHelperFunction.showDialogCenter(false);
+          AppHelperFunction.showCenterCircularIndicator(false);
           loading.value = true;
 
           UserApis.saveUserData(nameController.value.text, cityNameController.value.text, email, imageUrl.value)

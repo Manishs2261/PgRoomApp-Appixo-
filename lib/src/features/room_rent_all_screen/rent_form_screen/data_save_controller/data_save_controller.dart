@@ -139,7 +139,7 @@ class DataSaveController extends GetxController {
   uploadData() {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         loading.value = true;
         addImageController.uploadCoverImage().then((value) {
           loading.value = false;

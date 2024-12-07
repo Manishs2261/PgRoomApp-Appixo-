@@ -12,7 +12,7 @@ class ForgetPasswordController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         if (globalKey.value.currentState!.validate()) {
-          AppHelperFunction.showDialogCenter(false);
+          AppHelperFunction.showCenterCircularIndicator(false);
           AuthApisClass.forgetPassword(emailControllerLogin.value.text);
         }
       }

@@ -119,7 +119,7 @@ class AddYourTiffineController extends GetxController {
           } if(selectedMenuImage.isEmpty){
             AppHelperFunction.showSnackBar("Menu Image can't be empty.");
           } else {
-            AppHelperFunction.showDialogCenter(false);
+            AppHelperFunction.showCenterCircularIndicator(false);
             uploadCoverImage().then((value) {
               uploadMenuImage().then((value) {
                 onUserTiffineServicesData();

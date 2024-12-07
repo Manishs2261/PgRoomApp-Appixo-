@@ -58,7 +58,7 @@ class EditAddNewHomeScreen extends StatelessWidget {
                     AppHelperFunction.showAlert("Delete", "Aru you sure delete this room.", () {
                       AppHelperFunction.checkInternetAvailability().then((value) {
                         if (value) {
-                          AppHelperFunction.showDialogCenter(false);
+                          AppHelperFunction.showCenterCircularIndicator(false);
                           ApisClass.deleteCoverImageData(itemId, imageUrl).then((value) {
                             // ignore: use_build_context_synchronously
                             Navigator.pop(context);

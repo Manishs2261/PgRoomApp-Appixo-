@@ -210,7 +210,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditCoverImageSaveButton() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateCoverItemImage(File(image!.path), itemId, data.coverImageId!).then((value) {
           Get.snackbar("Image Update ", "Successfully");
 
@@ -230,7 +230,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditRentDetailsData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateRentDetailsData(
                 houseNameController.value.text,
                 houseAddressController.value.text,
@@ -257,7 +257,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditRoomTypeAndPriceData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateRoomTypeAndPrice(itemId, singlePersonController.value.text, doublePersonController.value.text,
                 triplePersonController.value.text, fourPersonController.value.text, familyPersonController.value.text)
             .then((value) {
@@ -278,7 +278,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditProviderFacilitiesData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateProvideFacilitiesData(
                 itemId,
                 wifi.value,
@@ -312,7 +312,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditAdditionalChargesAndDoor() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateAdditionalChargesAndDoorDate(
                 itemId, electricityBill.value, waterBill.value, restrictedController.value.text, flexibleTime.value)
             .then((value) {
@@ -333,7 +333,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditPermissionData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updatePermissionData(
                 itemId, cookingType.value, cookingAllow.value, boy.value, girl.value, familyMember.value)
             .then((value) {
@@ -362,7 +362,7 @@ class EditFormScreenController extends GetxController {
   Future<void> onEditMapViewData() async {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         ApisClass.updateMapViewData(itemId, latitude.value, longitude.value).then((value) {
           Get.snackbar("Update", "Successfully");
           Navigator.pop(Get.context!);

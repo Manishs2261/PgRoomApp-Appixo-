@@ -89,7 +89,7 @@ class AddYourGoodsController extends GetxController {
           if (selectedCoverImage.isEmpty) {
             AppHelperFunction.showSnackBar("Cover Image can't be empty.");
           } else {
-            AppHelperFunction.showDialogCenter(false);
+            AppHelperFunction.showCenterCircularIndicator(false);
             uploadCoverImage().then((value) {
               onUserTiffineServicesData();
             });

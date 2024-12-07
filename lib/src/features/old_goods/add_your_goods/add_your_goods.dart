@@ -204,7 +204,7 @@ class AddYourOldGoodsScreen extends StatelessWidget {
                                                             ".", () {
                                                       AppHelperFunction.checkInternetAvailability().then((value) {
                                                         if (value) {
-                                                          AppHelperFunction.showDialogCenter(false);
+                                                          AppHelperFunction.showCenterCircularIndicator(false);
                                                           SellAndBuyApis.deleteOldGoodsData(snapshot.data!.docs[index].id,
                                                                   goodsList[index].image, goodsList[index].image)
                                                               .then((value) {

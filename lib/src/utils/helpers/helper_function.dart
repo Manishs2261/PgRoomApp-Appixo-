@@ -143,7 +143,7 @@ class AppHelperFunction {
   }
 
 
-  static void showDialogCenter(bool barrier){
+  static void showCenterCircularIndicator(bool barrier){
     showDialog(
       barrierDismissible: barrier,
         context: Get.context!,

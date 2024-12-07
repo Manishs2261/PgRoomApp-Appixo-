@@ -30,7 +30,7 @@ class ProfileController extends GetxController {
       image.value = pickFile.path.toString();
     }
 
-    AppHelperFunction.showDialogCenter(false);
+    AppHelperFunction.showCenterCircularIndicator(false);
     UserApis.updateUserImage(File(image.value)).then((value) {
       Navigator.pop(Get.context!);
       AppHelperFunction.showFlashbar("Image Successfully upload.");
@@ -44,7 +44,7 @@ class ProfileController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         loading.value = true;
-        AppHelperFunction.showDialogCenter(false);
+        AppHelperFunction.showCenterCircularIndicator(false);
         UserApis.updateUserData(updateNameController.value.text, updateCityController.value.text).then((value) {
           Navigator.pop(Get.context!);
           Navigator.pop(Get.context!);

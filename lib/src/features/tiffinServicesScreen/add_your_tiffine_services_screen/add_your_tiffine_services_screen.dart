@@ -224,7 +224,7 @@ class AddYourTiffineServicesScreen extends StatelessWidget {
                                                             ".", () {
                                                       AppHelperFunction.checkInternetAvailability().then((value) {
                                                         if (value) {
-                                                          AppHelperFunction.showDialogCenter(false);
+                                                          AppHelperFunction.showCenterCircularIndicator(false);
                                                           TiffineServicesApis.deleteTiffineServicesData(
                                                                   snapshot.data!.docs[index].id,
                                                                   tiffineList[index].foodImage,

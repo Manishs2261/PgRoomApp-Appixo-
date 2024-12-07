@@ -70,7 +70,7 @@ class EditGoodsScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         if (globalKey.currentState!.validate()) {
-          AppHelperFunction.showDialogCenter(false);
+          AppHelperFunction.showCenterCircularIndicator(false);
           SellAndBuyApis.updateOldGoodsData(nameController.value.text, addressController.value.text,
                   priceController.value.text, itemId, numberController.value.text)
               .then((value) {

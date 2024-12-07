@@ -97,7 +97,7 @@ class EditTiffineScreenController extends GetxController {
     AppHelperFunction.checkInternetAvailability().then((value) {
       if (value) {
         if (globalKey.currentState!.validate()) {
-          AppHelperFunction.showDialogCenter(false);
+          AppHelperFunction.showCenterCircularIndicator(false);
           TiffineServicesApis.updateTiffineServicesData(servicesNameController.value.text, addressController.value.text,
                   priceController.value.text, itemId, numberController.value.text, latitude.value, longitude.value)
               .then((value) {

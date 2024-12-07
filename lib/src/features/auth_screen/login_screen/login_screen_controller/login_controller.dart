@@ -24,7 +24,7 @@ class LoginScreenController extends GetxController {
       if (value == ConnectivityResult.none) {
         AppHelperFunction.showSnackBar("Please Check Your Internet Connection");
       } else {
-        AppHelperFunction.showDialogCenter(true);
+        AppHelperFunction.showCenterCircularIndicator(true);
         loading.value = true;
         AuthApisClass.loginEmailAndPassword(emailControllerLogin.value.text,
                 passwordControllerLogin.value.text)
