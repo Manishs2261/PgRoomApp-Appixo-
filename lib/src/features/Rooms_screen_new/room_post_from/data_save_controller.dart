@@ -36,7 +36,7 @@ class RoomDataSaveController extends GetxController {
         secondRoomFormController.availableBills,
         thirdRoomFormController.lastTappedPosition?.longitude,
         thirdRoomFormController.lastTappedPosition?.latitude,
-        fourthRoomFormController.newHouseRulesController.text,
+        fourthRoomFormController.selectedHouseRules,
         fourthRoomFormController.houseFAQ,
         '123',
         '58966',

@@ -196,7 +196,88 @@ class SellAndBuyApis {
     }
   }
 
-  static Future<bool> addSellAndBuyData({
+
+
+
+  // static Future<bool> addSellAndBuyData({
+  //   required String itemName,
+  //   required String description,
+  //   required List<String> images,
+  //   required String address,
+  //   required String landmark,
+  //   required String city,
+  //   required String state,
+  //   required  String price,
+  // }) async {
+  //   AppHelperFunction.showCenterCircularIndicator(true);
+  //   try {
+  //     final userUid = user.uid; // Replace `user.uid` with actual logic to fetch user UID.
+  //
+  //     final item =  SellAndBuyFomModel(
+  //       itemName: itemName,
+  //       description: description,
+  //       image: images,
+  //       address: address,
+  //       landmark: landmark,
+  //       city: city,
+  //       state: state,
+  //       price: price,
+  //       sabId: 'sabId', // Replace with logic for generating unique ID if needed.
+  //       rUid: userUid,
+  //       atCreated: DateTime.now().toString(),
+  //       atUpdated: DateTime.now().toString(),
+  //       isDelete: false,
+  //       report: false,
+  //       disable: false,
+  //     );
+  //     try {
+  //       // Set a timeout for Firestore operation (e.g., 10 seconds)
+  //       DocumentReference docRef = await FirebaseFirestore.instance
+  //           .collection("devBuyAndSellCollection")
+  //           .add(item.toJson())
+  //           .timeout(const Duration(seconds: 2000), onTimeout: () {
+  //         // Custom behavior on timeout
+  //         throw TimeoutException("The operation timed out after 2000 seconds");
+  //       });
+  //
+  //       // Successfully uploaded
+  //       await firebaseFirestore.collection("devBuyAndSellCollection").doc(docRef.id).update({
+  //         'sabId': docRef.id,
+  //       }).whenComplete((){
+  //         Navigator.pop(Get.context!);
+  //         print("Document added successfully with ID: ${docRef.id}");
+  //       });
+  //
+  //     } catch (e) {
+  //       // Handle different types of errors
+  //
+  //       // Timeout exception
+  //       if (e is TimeoutException) {
+  //         print("Timeout error: ${e.message}");
+  //       }
+  //       // Firestore-specific error (like permission issues)
+  //       else if (e is FirebaseException) {
+  //         print("Firebase error: ${e.message}");
+  //       }
+  //       // General error
+  //       else {
+  //         print("Error adding item: $e");
+  //       }
+  //     }
+  //
+  //     return true; // Return true if successful.
+  //   } catch (e) {
+  //     // Log the error or print it for debugging.
+  //     print("Failed to add item: $e");
+  //     // Optionally, log to an analytics service or a logging tool like Firebase Crashlytics.
+  //     return false; // Return false to indicate failure.
+  //   }
+  // }
+
+
+
+
+  static Future<DocumentReference<Map<String, dynamic>>> addSellAndBuyData({
     required String itemName,
     required String description,
     required List<String> images,
@@ -206,69 +287,30 @@ class SellAndBuyApis {
     required String state,
     required  String price,
   }) async {
-    AppHelperFunction.showCenterCircularIndicator(true);
-    try {
-      final userUid = user.uid; // Replace `user.uid` with actual logic to fetch user UID.
 
-      final item =  SellAndBuyFomModel(
-        itemName: itemName,
-        description: description,
-        image: images,
-        address: address,
-        landmark: landmark,
-        city: city,
-        state: state,
-        price: price,
-        sabId: 'sabId', // Replace with logic for generating unique ID if needed.
-        rUid: userUid,
-        atCreated: DateTime.now().toString(),
-        atUpdated: DateTime.now().toString(),
-        isDelete: false,
-        report: false,
-        disable: false,
-      );
-      try {
-        // Set a timeout for Firestore operation (e.g., 10 seconds)
-        DocumentReference docRef = await FirebaseFirestore.instance
-            .collection("devBuyAndSellCollection")
-            .add(item.toJson())
-            .timeout(const Duration(seconds: 2000), onTimeout: () {
-          // Custom behavior on timeout
-          throw TimeoutException("The operation timed out after 2000 seconds");
-        });
 
-        // Successfully uploaded
-        await firebaseFirestore.collection("devBuyAndSellCollection").doc(docRef.id).update({
-          'sabId': docRef.id,
-        }).whenComplete((){
-          Navigator.pop(Get.context!);
-          print("Document added successfully with ID: ${docRef.id}");
-        });
+       return  await FirebaseFirestore.instance
+           .collection("devBuyAndSellCollection")
+           .add({
+         "u_id": '23323',
+         "r_id": '3323333',
+         "atCreate": DateTime.now(),
+         "atUpdate": DateTime.now(),
+         "isDelete": false,
+         "report": ['bad content','user sexual content'],
+         "disable": false,
+         "itemName": itemName,
+         "description": description,
+         "image": ['image1','image2'],
+         "address": address,
+         "landmark": landmark,
+         "city": city,
+         "state": state,
+         "price": price,
+       }
+       );
 
-      } catch (e) {
-        // Handle different types of errors
 
-        // Timeout exception
-        if (e is TimeoutException) {
-          print("Timeout error: ${e.message}");
-        }
-        // Firestore-specific error (like permission issues)
-        else if (e is FirebaseException) {
-          print("Firebase error: ${e.message}");
-        }
-        // General error
-        else {
-          print("Error adding item: $e");
-        }
-      }
-
-      return true; // Return true if successful.
-    } catch (e) {
-      // Log the error or print it for debugging.
-      print("Failed to add item: $e");
-      // Optionally, log to an analytics service or a logging tool like Firebase Crashlytics.
-      return false; // Return false to indicate failure.
-    }
   }
 
 }

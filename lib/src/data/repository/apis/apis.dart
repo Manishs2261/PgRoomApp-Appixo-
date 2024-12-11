@@ -801,6 +801,48 @@ class ApisClass {
 //========================================================= new api=====
 
 
+  // static Future addRoomRentList(roomOwnershipType, houseName, roomType,
+  //     roomCategory, genderType, imageList, homeAddress, landmark, city, state,
+  //     numberOfRoom, mealsAvailable, depositAmount, roomFacilityList,
+  //     commonAreasList, billsList, longitude, latitude, houseRules, houseFAQ,
+  //     rUid, uid, atCreated, atUpdated, isDelete, report, disable,) async {
+  //
+  //   return await firebaseFirestore
+  //       .collection("DevRoomCollection")
+  //       .add({
+  //         "roomOwnershipType": roomOwnershipType,
+  //         "houseName": houseName,
+  //         "roomType": roomType,
+  //         "roomCategory": roomCategory,
+  //         "genderType": genderType,
+  //         "imageList": imageList,
+  //         "homeAddress": homeAddress,
+  //         "landmark": landmark,
+  //         "city": city,
+  //         "state": state,
+  //         "numberOfRoom": numberOfRoom,
+  //         "mealsAvailable": mealsAvailable,
+  //         "depositAmount": depositAmount,
+  //         "roomFacilityList": roomFacilityList,
+  //         "commonAreasList": commonAreasList,
+  //         "billsList": billsList,
+  //         "longitude": longitude,
+  //         "latitude": latitude,
+  //         "houseRules": houseRules,
+  //         "houseFAQ": houseFAQ,
+  //         "rUid": rUid,
+  //         "uid": uid,
+  //         "atCreated": atCreated,
+  //         "atUpdated": atUpdated,
+  //         "isDelete": isDelete,
+  //         "report": report,
+  //         "disable": disable
+  //   });
+  // }
+
+
+
+
   static Future addRoomRentList(roomOwnershipType, houseName, roomType,
       roomCategory, genderType, imageList, homeAddress, landmark, city, state,
       numberOfRoom, mealsAvailable, depositAmount, roomFacilityList,
@@ -810,33 +852,43 @@ class ApisClass {
     return await firebaseFirestore
         .collection("DevRoomCollection")
         .add({
-          "roomOwnershipType": roomOwnershipType,
-          "houseName": houseName,
-          "roomType": roomType,
-          "roomCategory": roomCategory,
-          "genderType": genderType,
-          "imageList": imageList,
-          "homeAddress": homeAddress,
-          "landmark": landmark,
-          "city": city,
-          "state": state,
-          "numberOfRoom": numberOfRoom,
-          "mealsAvailable": mealsAvailable,
-          "depositAmount": depositAmount,
-          "roomFacilityList": roomFacilityList,
-          "commonAreasList": commonAreasList,
-          "billsList": billsList,
-          "longitude": longitude,
-          "latitude": latitude,
-          "houseRules": houseRules,
-          "houseFAQ": houseFAQ,
-          "rUid": rUid,
-          "uid": uid,
-          "atCreated": atCreated,
-          "atUpdated": atUpdated,
-          "isDelete": isDelete,
-          "report": report,
-          "disable": disable
+     "u_id": uid,
+     "r_id": rUid,
+      "atCreate": DateTime.now(),
+      "atUpdate": DateTime.now(),
+      "isDelete": false,
+      "report": ['bad content','user sexual content'],
+      "disable": false,
+      "roomOwnershipType": roomOwnershipType,
+      "houseName": houseName,
+      "roomType": roomType,
+      "roomCategory": roomCategory,
+      "genderType": genderType,
+      "imageList": ['image1','image2'],
+      "single_person_cost":'5000',
+      "double_person_cost":'5000',
+      "triple_person_cost":'5000',
+      "triple_plus_cost":'5000',
+      'family_cost': '5000',
+      'homeAddress': homeAddress,
+      'landmark': landmark,
+      'city': city,
+      'state': state,
+      'totalRoom': numberOfRoom,
+      'mealsAvailable': mealsAvailable,
+      'depositAmount': depositAmount,
+      'roomFacilityList': roomFacilityList,
+      'commonAreasList': commonAreasList,
+      'billsList': billsList,
+      'longitude': longitude,
+      'latitude': latitude,
+      'houseRules': houseRules,
+      'houseFAQ': houseFAQ,
+      'notice_pride': 'notice_pride',
+      'isRoomAvailableDate':'12-12-2022',
+      'averageRating': '0.0',
+      'NumberOfRating': '0',
+
     });
   }
 }

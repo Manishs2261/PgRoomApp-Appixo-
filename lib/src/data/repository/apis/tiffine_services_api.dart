@@ -404,4 +404,56 @@ class TiffineServicesApis {
       AppLoggerHelper.info("data in not delete $e");
     }
   }
+
+
+
+
+
+  static Future addFoodList( ) async {
+
+    return await firebaseFirestore
+        .collection("DevFoodCollection")
+        .add({
+      "u_id": '5656',
+      "r_id": '56656',
+      "atCreate": DateTime.now(),
+      "atUpdate": DateTime.now(),
+      "isDelete": false,
+      "report": ['bad content','user sexual content'],
+      "disable": false,
+      "typeOfShop":'home made',
+      "shopName":'jolly',
+      "description":'decription',
+      "image":['image1','image2'],
+      'address': 'address',
+      'landmark': 'landmark',
+      'city': 'city',
+      'state': 'state',
+      'contactNumber': 'contactNumber',
+      'longitude': 'longitude',
+      'latitude': 'latitude',
+      'openingTime': 'openingTime',
+      'closingTime': 'closingTime',
+      'averageRating': '0.0',
+      'NumberOfRating': '0',
+      'breakfastCost': '30',
+      'lunchOrDinnerCost': '60',
+      'lunchAndDinnerCost': '60',
+      'breakfastAndLunchOrDinnerCost': '120',
+      'subscriptionCost': '150',
+      'dailyMealCost': '50',
+      'thaliCost': '50',
+      'aCupOfRice': '50',
+      'roti': '50',
+      'dal': '50',
+      'sabji': '50',
+      'restaurantMenu': ['menu1','menu2'],
+      'messRules': ['rule1','rule2'],
+      'FAQ':[{'question':'question1','answer':'answer1'},{'question':'question2','answer':'answer2'}],
+
+
+
+
+    });
+  }
 }

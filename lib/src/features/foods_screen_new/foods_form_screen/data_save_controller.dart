@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/second_food_form/controller.dart';
 import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/third_food_form/controller.dart';
 
 import 'first_food_form/controller.dart';
+import 'fourth_food_form/controller.dart';
 
 class FoodDataSaveController extends GetxController {
   final firstFoodFormController = Get.put(FirstFoodFormController());
@@ -11,7 +13,16 @@ class FoodDataSaveController extends GetxController {
 
   final thirdFoodFormController = Get.put(ThirdFoodFormController());
 
-  final fourthFoodFormController = Get.put(FourthFoodFormController());
+  final fourthFoodFormController = Get.put(FourFoodFormController());
+
+
+
+
+  onDataSave(){
+
+
+    TiffineServicesApis.addFoodList();
+  }
 }
 
-class FourthFoodFormController {}
+
