@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../res/route_name/routes_name.dart';
+import '../../model/food_model.dart';
 
 class SecondFoodFormController extends GetxController {
   RxString foodType = 'Veg'.obs;
 
-  RxList subscriptionItem = [].obs;
+  RxList<SubscriptionList> subscriptionItem = <SubscriptionList>[].obs;
   final formKey = GlobalKey<FormState>();
 
-  RxList dailyItem = [].obs;
+  RxList<DailyItemList> dailyItem = <DailyItemList>[].obs;
 
-  RxList restructureItem = [].obs;
+  RxList<RestructureMenuList> restructureItem = <RestructureMenuList>[].obs;
 
   final breakfastController = TextEditingController();
   final lunchOrDinnerController = TextEditingController();
-  final dinnerAndBreakfastController = TextEditingController();
-  final breakfastAndLunchController = TextEditingController();
+  final dinnerAndLunchCostController = TextEditingController();
+  final breakfastAndLunchDinnerController = TextEditingController();
 
   final thaliController = TextEditingController();
   final cupOfRiceController = TextEditingController();
@@ -27,18 +28,18 @@ class SecondFoodFormController extends GetxController {
 
 
   // Function to add a new item
-  void addSubscriptionItem(String name, double price) {
-    subscriptionItem.add({'name': name, 'price': price});
+  void addSubscriptionItem(String name, String price) {
+    subscriptionItem.add(SubscriptionList(name: name, price: price));
   }
 
   // Function to add a new item
-  void addDailyItem(String name, double price) {
-    dailyItem.add({'name': name, 'price': price});
+  void addDailyItem(String name, String price) {
+    dailyItem.add( DailyItemList(name: name, price: price));
   }
 
   // Function to add a new item
-  void addRestructureItem(String name, double price) {
-    restructureItem.add({'name': name, 'price': price});
+  void addRestructureItem(String name, String price) {
+    restructureItem.add(RestructureMenuList(name: name, price: price));
   }
 
   // Function to show dialog for adding new item
@@ -90,7 +91,7 @@ class SecondFoodFormController extends GetxController {
               ),
               onPressed: () {
                 if (itemName.isNotEmpty && itemPrice.isNotEmpty) {
-                  addSubscriptionItem(itemName, double.parse(itemPrice));
+                  addSubscriptionItem(itemName, itemPrice);
                   Navigator.of(context).pop();
                 }
               },
@@ -149,7 +150,7 @@ class SecondFoodFormController extends GetxController {
               ),
               onPressed: () {
                 if (itemName.isNotEmpty && itemPrice.isNotEmpty) {
-                  addRestructureItem(itemName, double.parse(itemPrice));
+                  addRestructureItem(itemName, itemPrice);
                   Navigator.of(context).pop();
                 }
               },
@@ -207,7 +208,7 @@ class SecondFoodFormController extends GetxController {
               ),
               onPressed: () {
                 if (itemName.isNotEmpty && itemPrice.isNotEmpty) {
-                  addDailyItem(itemName, double.parse(itemPrice));
+                  addDailyItem(itemName, itemPrice);
                   Navigator.of(context).pop();
                 }
               },

@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../../common/widgets/com_reuse_elevated_button.dart';
-import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../../../../utils/widgets/form_headline.dart';
@@ -175,6 +174,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                               textKeyBoard: TextInputType.number,
                               controller: controller.singleRoomPriceController,
                               labelText: "Single Person Rent",
+
                               ///  isCollapsed: true,
                               maxLength: 6,
                               validator: CommonUseValidator.validate,
@@ -272,6 +272,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                           ),
                           labelText: "Room Rent",
                           validator: CommonUseValidator.validate,
+
                           ///  isCollapsed: true,
                           maxLength: 6,
 
@@ -358,7 +359,8 @@ class FirstRoomFormScreen extends StatelessWidget {
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: const VisualDensity(horizontal: -4),
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
                                   title: const Text('Boys',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -374,7 +376,8 @@ class FirstRoomFormScreen extends StatelessWidget {
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: const VisualDensity(horizontal: -4),
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
                                   title: const Text('Girls',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -390,7 +393,8 @@ class FirstRoomFormScreen extends StatelessWidget {
                                 child: RadioListTile<String>(
                                   dense: true,
                                   contentPadding: EdgeInsets.zero,
-                                  visualDensity: const VisualDensity(horizontal: -4),
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
                                   title: const Text('Both',
                                       style: TextStyle(
                                           fontWeight: FontWeight.w400,
@@ -415,7 +419,8 @@ class FirstRoomFormScreen extends StatelessWidget {
                   onTap: controller.pickImages,
                   child: Container(
                     alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
@@ -441,18 +446,18 @@ class FirstRoomFormScreen extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                  () => (controller.images.isNotEmpty)
+                  () => (controller.imageFiles.isNotEmpty)
                       ? Container(
                           margin: const EdgeInsets.only(top: 16),
                           height: 150,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.images!.length,
+                            itemCount: controller.imageFiles!.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.file(
-                                    File(controller.images![index].path)),
+                                    File(controller.imageFiles![index].path)),
                               );
                             },
                           ),
@@ -469,7 +474,7 @@ class FirstRoomFormScreen extends StatelessWidget {
                 ),
 
                 ReuseElevButton(
-                  onPressed: () =>  controller.onSaveAndNext(),
+                  onPressed: () => controller.onSaveAndNext(),
                   title: 'Save & Next',
                 ),
                 const SizedBox(height: 20),

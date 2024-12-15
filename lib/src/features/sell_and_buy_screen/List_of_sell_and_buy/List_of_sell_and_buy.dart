@@ -144,7 +144,7 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                       ),
                       Expanded(
                         child: StreamBuilder(
-                            stream: SellAndBuyApis.firebaseFirestore.collection('devBuyAndSellCollection').snapshots(),
+                            stream: SellAndBuyApis.firebaseFirestore.collection('DevFoodCollection').snapshots(),
                             builder: (context, snapshot) {
 
                               final data = snapshot.data?.docs;

@@ -1,72 +1,72 @@
-class SellAndBuyFomModel {
+class BuyAndSellModel {
+  String? atCreate;
   List<String>? image;
   String? address;
   String? city;
   bool? isDelete;
-  String? atCreated;
   String? description;
-  String? rUid;
-  String? sabId;
   String? itemName;
+  String? uId;
+  String? atUpdate;
   bool? disable;
   String? price;
-  bool? report;
+  List<String>? report;
   String? state;
   String? landmark;
-  String? atUpdated;
+  String? sabId;
 
-  SellAndBuyFomModel(
-      {this.image,
+  BuyAndSellModel(
+      {this.atCreate,
+        this.image,
         this.address,
         this.city,
         this.isDelete,
-        this.atCreated,
         this.description,
-        this.rUid,
-        this.sabId,
         this.itemName,
+        this.uId,
+        this.atUpdate,
         this.disable,
         this.price,
         this.report,
         this.state,
         this.landmark,
-        this.atUpdated});
+        this.sabId});
 
-  SellAndBuyFomModel.fromJson(Map<String, dynamic> json) {
+  BuyAndSellModel.fromJson(Map<String, dynamic> json) {
+    atCreate = json['atCreate'];
     image = json['image'].cast<String>();
     address = json['address'];
     city = json['city'];
     isDelete = json['isDelete'];
-    atCreated = json['atCreated'];
     description = json['description'];
-    rUid = json['rUid'];
-    sabId = json['sabId'];
     itemName = json['itemName'];
+    uId = json['u_id'];
+    atUpdate = json['atUpdate'];
     disable = json['disable'];
     price = json['price'];
-    report = json['report'];
+    report = json['report'].cast<String>();
     state = json['state'];
     landmark = json['landmark'];
-    atUpdated = json['atUpdated'];
+    sabId = json['sab_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['atCreate'] = this.atCreate;
     data['image'] = this.image;
     data['address'] = this.address;
     data['city'] = this.city;
     data['isDelete'] = this.isDelete;
-    data['atCreated'] = this.atCreated;
     data['description'] = this.description;
-    data['rUid'] = this.rUid;
-    data['sabId'] = this.sabId;
     data['itemName'] = this.itemName;
+    data['u_id'] = this.uId;
+    data['atUpdate'] = this.atUpdate;
     data['disable'] = this.disable;
     data['price'] = this.price;
     data['report'] = this.report;
     data['state'] = this.state;
     data['landmark'] = this.landmark;
-    data['atUpdated'] = this.atUpdated;
+    data['sab_id'] = this.sabId;
     return data;
   }
 }

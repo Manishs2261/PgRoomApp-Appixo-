@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 
 class FourthRoomFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -14,7 +15,7 @@ class FourthRoomFormController extends GetxController {
     "Guests of opposite gender are allowed"
   ].obs;
 
-  RxSet<String> selectedHouseRules = Set<String>().obs;
+  RxList<String> selectedHouseRules = <String>[].obs;
 
   // To store selected facilities
   TextEditingController newHouseRulesController = TextEditingController();
@@ -27,11 +28,11 @@ class FourthRoomFormController extends GetxController {
     newHouseRulesController.clear();
   }
 
-  RxList houseFAQ = [].obs;
+  RxList<HouseFAQ> houseFAQ = <HouseFAQ>[].obs;
 
   // Function to add a new item
   void addHouseFAQ(String question, String answer) {
-    houseFAQ.add({'question': question, 'answer': answer});
+    houseFAQ.add(HouseFAQ(question: question, answer: answer));
   }
 
   // Function to show dialog for adding new item

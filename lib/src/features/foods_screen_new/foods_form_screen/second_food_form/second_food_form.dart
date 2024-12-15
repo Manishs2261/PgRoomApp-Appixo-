@@ -98,9 +98,9 @@ class SecondFoodForm extends StatelessWidget {
                           ),
                           MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
-                             controller: controller.dinnerAndBreakfastController,
+                             controller: controller.dinnerAndLunchCostController,
 
-                            labelText: 'Lunch Or Dinner (Both)',
+                            labelText: 'Lunch And Dinner (Both)',
                             icon: const Icon(Icons.currency_rupee,
                                 color: AppColors.primary),
                             borderRadius: BorderRadius.circular(11),
@@ -117,7 +117,7 @@ class SecondFoodForm extends StatelessWidget {
                           ),
                           MyTextFormWidget(
                             textKeyBoard: TextInputType.number,
-                            controller: controller.breakfastAndLunchController,
+                            controller: controller.breakfastAndLunchDinnerController,
 
                             labelText: 'Breakfast, Lunch & Dinner',
                             icon: const Icon(Icons.currency_rupee,
@@ -142,9 +142,9 @@ class SecondFoodForm extends StatelessWidget {
                                       int index = entry.key;
                                       return ListTile(
                                         title: Text(controller
-                                            .subscriptionItem[index]['name']),
+                                            .subscriptionItem[index].name!),
                                         subtitle: Text(
-                                            'Cost: ₹ ${controller.subscriptionItem[index]['price']}'),
+                                            'Cost: ₹ ${controller.subscriptionItem[index].price}'),
                                         trailing: IconButton(
                                           icon: const Icon(Icons.delete,
                                               color: Colors.red),
@@ -275,9 +275,9 @@ class SecondFoodForm extends StatelessWidget {
                               controller.dailyItem.asMap().entries.map((entry) {
                                 int index = entry.key;
                                 return ListTile(
-                                  title: Text(controller.dailyItem[index]['name']),
+                                  title: Text(controller.dailyItem[index].name!),
                                   subtitle: Text(
-                                      'Cost: ₹ ${controller.dailyItem[index]['price']}'),
+                                      'Cost: ₹ ${controller.dailyItem[index].price}'),
                                   trailing: IconButton(
                                     icon: const Icon(Icons.delete, color: Colors.red),
                                     onPressed: () =>
@@ -329,9 +329,9 @@ class SecondFoodForm extends StatelessWidget {
                                   int index = entry.key;
                                   return ListTile(
                                     title:
-                                    Text(controller.restructureItem[index]['name']),
+                                    Text(controller.restructureItem[index].name!),
                                     subtitle: Text(
-                                        'Cost: ₹ ${controller.restructureItem[index]['price']}'),
+                                        'Cost: ₹ ${controller.restructureItem[index].price}'),
                                     trailing: IconButton(
                                       icon: const Icon(Icons.delete, color: Colors.red),
                                       onPressed: () =>

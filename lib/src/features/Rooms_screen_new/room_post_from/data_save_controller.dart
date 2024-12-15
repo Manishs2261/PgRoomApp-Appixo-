@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -6,6 +7,8 @@ import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fi
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/controller.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/controller.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/controller.dart';
+
+import '../../../utils/helpers/helper_function.dart';
 
 class RoomDataSaveController extends GetxController {
 
@@ -16,41 +19,49 @@ class RoomDataSaveController extends GetxController {
   RxBool loading = false.obs;
 
 
-  onSaveData() {
-    ApisClass.addRoomRentList(
-        firstRoomFormController.roomOwnerType.value,
-        firstRoomFormController.roomNameController.text,
-        firstRoomFormController.roomType.value,
-        firstRoomFormController.roomCategory.value,
-        firstRoomFormController.genderType.value,
-        'image',
-        secondRoomFormController.houseAddressController.text,
-        secondRoomFormController.landmarkController.text,
-        secondRoomFormController.cityController.text,
-        secondRoomFormController.stateController.text,
-        secondRoomFormController.numberOfRoomController.text,
-        secondRoomFormController.mealsAvailable.value,
-        secondRoomFormController.oneTimeDepositController.text,
-        secondRoomFormController.availableFacilities,
-        secondRoomFormController.availableCommonAreas,
-        secondRoomFormController.availableBills,
-        thirdRoomFormController.lastTappedPosition?.longitude,
-        thirdRoomFormController.lastTappedPosition?.latitude,
-        fourthRoomFormController.selectedHouseRules,
-        fourthRoomFormController.houseFAQ,
-        '123',
-        '58966',
-        DateTime.now().millisecondsSinceEpoch,
-        DateTime.now().millisecondsSinceEpoch,
-        false,
-        false,
-        false
-    ).then((value){
+  onSaveData() async{
+    bool value = await ApisClass.addRoomData(
+        homeName: firstRoomFormController.roomNameController.text,
+        latitude: thirdRoomFormController.lastTappedPosition!.latitude.toString(),
+        longitude: thirdRoomFormController.lastTappedPosition!.longitude.toString(),
+        address: secondRoomFormController.houseAddressController.text,
+        landmark: secondRoomFormController.landmarkController.text,
+        city: secondRoomFormController.cityController.text,
+        state: secondRoomFormController.stateController.text,
+        commonAreasList: secondRoomFormController.selectedCommonAreas,
+        roomFacilityList: secondRoomFormController.selectedFacilities,
+        roomType: firstRoomFormController.roomType.value,
+        billsList: secondRoomFormController.selectedBills,
+        imageFiles: firstRoomFormController.imageFiles,
+        houseFAQ: fourthRoomFormController.houseFAQ,
+        roomOwnership: firstRoomFormController.roomOwnerType.value,
+        roomCategory: firstRoomFormController.roomCategory.value,
+        depositAmount: secondRoomFormController.oneTimeDepositController.text,
+        singlePersonCost: firstRoomFormController.singleRoomPriceController.text,
+        doublePersonCost: firstRoomFormController.doubleRoomPriceController.text,
+        triplePersonCost: firstRoomFormController.tripleRoomPriceController.text,
+        triplePlusCost: firstRoomFormController.threePlusRoomPriceController.text,
+        familyCost: firstRoomFormController.singleRoomPriceController.text,
+        roomsAvailable:  '',
+        noticePride: '',
+        mealsAvailable: secondRoomFormController.mealsAvailable.value,
+        houseRules: fourthRoomFormController.selectedHouseRules,
+        genderType:  firstRoomFormController.genderType.value,
+        totalRoom: secondRoomFormController.numberOfRoomController.text
+    );
 
-      Get.snackbar("Upload", "Successfully");
-    }).catchError((e){
-      print('error $e');
-    });
+    if (value) {
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      AppHelperFunction.showFlashbar('Saved successfully.');
+    } else {
+      AppHelperFunction.showFlashbar('Something went wrong.');
+    }
+
+
+
   }
 
 

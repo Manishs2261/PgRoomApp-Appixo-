@@ -6,10 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../features/sell_and_buy_screen/sell_and_buy_form/model/sell_and_buy_model.dart';
+import '../../../features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../utils/logger/logger.dart';
 
@@ -19,6 +18,7 @@ class SellAndBuyApis {
 
   //to return current user info
   static User get user => auth.currentUser!;
+  final userUid = user.uid;
 
   // for accessing cloud firestorm database
   static FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -196,121 +196,112 @@ class SellAndBuyApis {
     }
   }
 
-
-
-
-  // static Future<bool> addSellAndBuyData({
-  //   required String itemName,
-  //   required String description,
-  //   required List<String> images,
-  //   required String address,
-  //   required String landmark,
-  //   required String city,
-  //   required String state,
-  //   required  String price,
-  // }) async {
-  //   AppHelperFunction.showCenterCircularIndicator(true);
-  //   try {
-  //     final userUid = user.uid; // Replace `user.uid` with actual logic to fetch user UID.
-  //
-  //     final item =  SellAndBuyFomModel(
-  //       itemName: itemName,
-  //       description: description,
-  //       image: images,
-  //       address: address,
-  //       landmark: landmark,
-  //       city: city,
-  //       state: state,
-  //       price: price,
-  //       sabId: 'sabId', // Replace with logic for generating unique ID if needed.
-  //       rUid: userUid,
-  //       atCreated: DateTime.now().toString(),
-  //       atUpdated: DateTime.now().toString(),
-  //       isDelete: false,
-  //       report: false,
-  //       disable: false,
-  //     );
-  //     try {
-  //       // Set a timeout for Firestore operation (e.g., 10 seconds)
-  //       DocumentReference docRef = await FirebaseFirestore.instance
-  //           .collection("devBuyAndSellCollection")
-  //           .add(item.toJson())
-  //           .timeout(const Duration(seconds: 2000), onTimeout: () {
-  //         // Custom behavior on timeout
-  //         throw TimeoutException("The operation timed out after 2000 seconds");
-  //       });
-  //
-  //       // Successfully uploaded
-  //       await firebaseFirestore.collection("devBuyAndSellCollection").doc(docRef.id).update({
-  //         'sabId': docRef.id,
-  //       }).whenComplete((){
-  //         Navigator.pop(Get.context!);
-  //         print("Document added successfully with ID: ${docRef.id}");
-  //       });
-  //
-  //     } catch (e) {
-  //       // Handle different types of errors
-  //
-  //       // Timeout exception
-  //       if (e is TimeoutException) {
-  //         print("Timeout error: ${e.message}");
-  //       }
-  //       // Firestore-specific error (like permission issues)
-  //       else if (e is FirebaseException) {
-  //         print("Firebase error: ${e.message}");
-  //       }
-  //       // General error
-  //       else {
-  //         print("Error adding item: $e");
-  //       }
-  //     }
-  //
-  //     return true; // Return true if successful.
-  //   } catch (e) {
-  //     // Log the error or print it for debugging.
-  //     print("Failed to add item: $e");
-  //     // Optionally, log to an analytics service or a logging tool like Firebase Crashlytics.
-  //     return false; // Return false to indicate failure.
-  //   }
-  // }
-
-
-
-
-  static Future<DocumentReference<Map<String, dynamic>>> addSellAndBuyData({
+  static Future<bool> addSellAndBuyData({
     required String itemName,
+    required String price,
     required String description,
-    required List<String> images,
     required String address,
     required String landmark,
     required String city,
     required String state,
-    required  String price,
+    required List<File> imageFiles, // Pass a list of image files
   }) async {
+    AppHelperFunction.showCenterCircularIndicator(true);
 
+    try {
 
-       return  await FirebaseFirestore.instance
-           .collection("devBuyAndSellCollection")
-           .add({
-         "u_id": '23323',
-         "r_id": '3323333',
-         "atCreate": DateTime.now(),
-         "atUpdate": DateTime.now(),
-         "isDelete": false,
-         "report": ['bad content','user sexual content'],
-         "disable": false,
-         "itemName": itemName,
-         "description": description,
-         "image": ['image1','image2'],
-         "address": address,
-         "landmark": landmark,
-         "city": city,
-         "state": state,
-         "price": price,
-       }
-       );
+      List<String> imageUrls = [];
 
+      // Step 2: Prepare the data to save in Firestore
+      final item = BuyAndSellModel(
+        itemName: itemName,
+        price: price,
+        description: description,
+        address: address,
+        landmark: landmark,
+        city: city,
+        state: state,
+        image: imageUrls, // Use the uploaded image URLs
+        atCreate: DateTime.now().toString(),
+        atUpdate: DateTime.now().toString(),
+        isDelete: false,
+        report: [],
+        disable: false,
+        sabId: user.uid,
+        uId: user.uid,
+      );
 
+      // Step 3: Add the data to Firestore
+      try {
+        DocumentReference docRef = await FirebaseFirestore.instance
+            .collection("DevBuyAndSellCollection")
+            .add(item.toJson())
+            .timeout(const Duration(seconds: 2000), onTimeout: () {
+          Navigator.pop(Get.context!);
+          throw TimeoutException("The operation timed out after 2000 seconds");
+        });
+
+        for (File imageFile in imageFiles) {
+          try {
+            String imageUrl = await uploadImageToFirebase(imageFile,docRef.id);
+            imageUrls.add(imageUrl);
+          } catch (e) {
+            AppLoggerHelper.error("Error uploading image: $e");
+            Navigator.pop(Get.context!);
+            return false; // If any image fails to upload, return false
+          }
+        }
+
+        // Update the document with its ID
+        await FirebaseFirestore.instance
+            .collection("DevBuyAndSellCollection")
+            .doc(docRef.id)
+            .update({'sab_id': docRef.id , 'image': imageUrls}).whenComplete(() {
+          Navigator.pop(Get.context!);
+          AppLoggerHelper.info("Document added successfully with ID: ${docRef.id}");
+        });
+
+        return true; // Successfully saved data
+      } catch (e) {
+        Navigator.pop(Get.context!);
+
+        if (e is TimeoutException) {
+          AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
+          AppLoggerHelper.info("Timeout error: ${e.message}");
+        } else if (e is FirebaseException) {
+          AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
+          AppLoggerHelper.info("Firestore error: ${e.message}");
+        } else {
+          AppHelperFunction.showFlashbar('General error: ${e}');
+          AppLoggerHelper.info("General error: ${e}");
+        }
+        return false; // Return false on Firestore save failure
+      }
+    } catch (e) {
+      Navigator.pop(Get.context!);
+      AppLoggerHelper.error("Error adding document: $e");
+      return false; // Return false for general errors
+    }
   }
+
+  static Future<String> uploadImageToFirebase(File imageFile , docId) async {
+    try {
+      final reference = FirebaseStorage.instance
+          .ref()
+          .child('buyAndSellImages/${user.uid}/$docId/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      String downloadUrl = await snapshot.ref.getDownloadURL();
+      AppLoggerHelper.info("Image uploaded successfully: $downloadUrl");
+      return downloadUrl;
+    } catch (e) {
+      AppLoggerHelper.error("Image upload failed: $e");
+      throw Exception("Image upload failed");
+    }
+  }
+
+
+
+
 
 }

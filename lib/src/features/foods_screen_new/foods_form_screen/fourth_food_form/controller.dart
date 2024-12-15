@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
 class FourFoodFormController extends GetxController {
 
@@ -18,8 +19,8 @@ class FourFoodFormController extends GetxController {
     "For 1 month, 1 time plans or plans shorter than a month, leave and refund facilities are not available."
   ].obs;
 
-  RxSet<String> selectedHouseRules =
-      <String>{}.obs;
+  RxList<String> selectedHouseRules =
+      <String>[].obs;
   // To store selected facilities
   TextEditingController newHouseRulesController =
   TextEditingController();
@@ -32,11 +33,11 @@ class FourFoodFormController extends GetxController {
     newHouseRulesController.clear();
   }
 
-  RxList foodFAQ = [].obs;
+  RxList<FoodFAQ> foodFAQ = <FoodFAQ>[].obs;
 
   // Function to add a new item
   void addFoodFAQ(String question, String answer) {
-    foodFAQ.add({'question': question, 'answer': answer});
+    foodFAQ.add(FoodFAQ(question: question, answer: answer));
 
   }
 

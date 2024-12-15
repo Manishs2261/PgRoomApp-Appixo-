@@ -7,6 +7,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/form_headline.dart';
 import '../../../../utils/widgets/form_process_step.dart';
+import '../../model/room_model.dart';
 import '../data_save_controller.dart';
 import 'controller.dart';
 
@@ -142,22 +143,21 @@ class FourthRoomFormScreen extends StatelessWidget {
                   () => controller.houseFAQ.isEmpty
                       ? const Center(child: Text(''))
                       : Column(
-                          children: controller.houseFAQ.asMap().entries.map((entry) {
-                            int index = entry.key;
-                            Map<String, dynamic> item = entry.value;
+                    children: controller.houseFAQ.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      HouseFAQ item = entry.value; // Correctly type the item as HouseFAQ
 
-                            return ListTile(
-                              title: Text(
-                                  'Q${index + 1} :-  ${controller.houseFAQ[index]['question']}'),
-                              subtitle: Text(
-                                  'Answer :-  ${controller.houseFAQ[index]['answer']}'),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.delete, color: Colors.red),
-                                onPressed: () => controller.removeHouseFAQ(index),
-                              ),
-                            );
-                          }).toList(),
+                      return ListTile(
+                        title: Text('Q${index + 1} :-  ${item.question}'),
+                        subtitle: Text('Answer :-  ${item.answer}'),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => controller.removeHouseFAQ(index),
                         ),
+                      );
+                    }).toList(),
+                  ),
+
                 ),
 
                 Align(

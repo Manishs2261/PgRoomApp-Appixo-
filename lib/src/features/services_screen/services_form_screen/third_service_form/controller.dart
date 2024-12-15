@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../model/services_model.dart';
+
 class ThirdServicesFormController extends GetxController {
-  TextEditingController newHouseRulesController = TextEditingController();
+  // Observable list of ServiceFAQ objects
+  RxList<ServiceFAQ> servicesFAQ = <ServiceFAQ>[].obs;
 
-  RxList servicesFAQ = [].obs;
-
-  // Function to add a new item
+// Function to add a new item
   void addServicesFAQ(String question, String answer) {
-    servicesFAQ.add({'question': question, 'answer': answer});
+    servicesFAQ.add(ServiceFAQ(question: question, answer: answer));
   }
 
   // Function to show dialog for adding new item

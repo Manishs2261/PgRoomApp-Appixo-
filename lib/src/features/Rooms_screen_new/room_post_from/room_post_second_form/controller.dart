@@ -12,9 +12,9 @@ class SecondRoomFormController extends GetxController{
   RxString mealsAvailable = 'No'.obs;
 
   // Common facilities & house rules
-  RxList selectedCommonAreas = [].obs;
+  RxList<String> selectedCommonAreas = <String>[].obs;
 
-  RxList selectedBills = [].obs;
+  RxList<String> selectedBills = <String>[].obs;
 
   RxList availableBills = [
     "Electricity",
@@ -53,7 +53,7 @@ class SecondRoomFormController extends GetxController{
     'Attached Bathroom',
   ].obs;
 
-  RxSet<String> selectedFacilities = <String>{}.obs;
+  RxList<String> selectedFacilities = <String>[].obs;
 
   // To store selected facilities
   TextEditingController houseAddressController = TextEditingController();

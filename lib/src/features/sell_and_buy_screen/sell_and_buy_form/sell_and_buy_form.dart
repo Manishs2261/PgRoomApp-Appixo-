@@ -197,18 +197,18 @@ class SellAndBuyForm extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                  () => (controller.images.isNotEmpty)
+                  () => (controller.imageFiles.isNotEmpty)
                       ? Container(
                           margin: const EdgeInsets.only(top: 16),
                           height: 150,
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: controller.images.length,
+                            itemCount: controller.imageFiles.length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.file(
-                                    File(controller.images[index].path)),
+                                    File(controller.imageFiles[index].path)),
                               );
                             },
                           ),

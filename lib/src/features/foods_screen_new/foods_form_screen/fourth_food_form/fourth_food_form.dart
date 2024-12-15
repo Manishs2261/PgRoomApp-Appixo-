@@ -8,6 +8,7 @@ import 'package:pgroom/src/utils/widgets/form_headline.dart';
 import '../../../../data/repository/apis/tiffine_services_api.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/form_process_step.dart';
+import '../data_save_controller.dart';
 import '../first_food_form/controller.dart';
 import 'controller.dart';
 
@@ -16,6 +17,7 @@ class FourthFoodForm extends StatelessWidget {
 
   final controller = Get.put(FourFoodFormController());
   final firstFoodFormController = Get.put(FirstFoodFormController());
+  final dataSaveController = Get.put(FoodDataSaveController());
 
 
   @override
@@ -164,9 +166,9 @@ class FourthFoodForm extends StatelessWidget {
 
                             return ListTile(
                               title: Text(
-                                  'Q${index + 1} :-  ${controller.foodFAQ[index]['question']}'),
+                                  'Q${index + 1} :-  ${controller.foodFAQ[index].question}'),
                               subtitle: Text(
-                                  'Answer :-  ${controller.foodFAQ[index]['answer']}'),
+                                  'Answer :-  ${controller.foodFAQ[index].answer}'),
                               trailing: IconButton(
                                 icon:
                                     const Icon(Icons.delete, color: Colors.red),
@@ -196,7 +198,7 @@ class FourthFoodForm extends StatelessWidget {
                 const SizedBox(height: 20),
                 ReuseElevButton(
                   onPressed: () {
-                    TiffineServicesApis.addFoodList();
+                  dataSaveController.onDataSave();
                   },
                   title: "Done",
                 ),
