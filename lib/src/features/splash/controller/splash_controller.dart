@@ -1,9 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
- import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../navigation_menu.dart';
+
+import '../../Home_fitter_new/new_search_home/new_home_screen.dart';
 
 String? finalUserUidGlobal = '';
 
@@ -18,21 +19,18 @@ class SplashController extends GetxController {
     finalUserUidGlobal = preferences.getString('userUid');
 
     if (finalUserUidGlobal == null) {
-      if (kDebugMode) {
-        print(finalUserUidGlobal);
-      }
+      AppLoggerHelper.info(finalUserUidGlobal.toString());
       await Future.delayed(const Duration(seconds: 2));
 
       Get.offNamed(RoutesName.onboradingScreen);
     } else {
-      if (kDebugMode) {
-        print(finalUserUidGlobal);
-      }
+      AppLoggerHelper.info(finalUserUidGlobal.toString());
       await Future.delayed(const Duration(seconds: 2));
 
       // Get.offNamed(RoutesName.homeScreen);
       Navigator.of(Get.context!).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const NavigationMenuScreen()), (Route<dynamic> route) => false);
+          MaterialPageRoute(builder: (context) => const HomeNew()),
+          (Route<dynamic> route) => false);
     }
   }
 }

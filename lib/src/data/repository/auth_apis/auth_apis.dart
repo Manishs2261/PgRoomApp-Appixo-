@@ -11,6 +11,7 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
 import '../../../features/splash/controller/splash_controller.dart';
 import '../../../navigation_menu.dart';
 import '../apis/apis.dart';
@@ -33,21 +34,21 @@ class AuthApisClass {
           if (UserApis.userName != '') {
             Navigator.of(Get.context!).pushAndRemoveUntil(
                 MaterialPageRoute(
-                    builder: (context) => const NavigationMenuScreen()),
+                    builder: (context) => const HomeNew()),
                 (Route<dynamic> route) => false);
           } else {
             Get.offAllNamed(RoutesName.signProfileScreen,
                 arguments: {'email': auth.currentUser?.email});
           }
 
-          // sharedPreferences code
-          // SharedPreferences preferences = await SharedPreferences.getInstance();
-          // //upload user uid data in SharedPreferences
-          // preferences.setString('userUid', value.user!.uid);
-          // // initialize variable
-          // finalUserUidGlobal = preferences.getString('userUid');
-          // log('\nUser :${value.user}');
-          // Get.offAllNamed(RoutesName.navigationScreen);
+         // sharedPreferences code
+          SharedPreferences preferences = await SharedPreferences.getInstance();
+          //upload user uid data in SharedPreferences
+          preferences.setString('userUid', value.user!.uid);
+          // initialize variable
+          finalUserUidGlobal = preferences.getString('userUid');
+          log('\nUser :${value.user}');
+          Get.offAllNamed(RoutesName.homeNew);
         });
       }
     });

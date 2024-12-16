@@ -8,6 +8,7 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../navigation_menu.dart';
 import '../../../../res/route_name/routes_name.dart';
+import '../../../Home_fitter_new/new_search_home/new_home_screen.dart';
 
 class LoginScreenController extends GetxController {
   final emailControllerLogin = TextEditingController().obs;
@@ -47,7 +48,7 @@ class LoginScreenController extends GetxController {
             if (UserApis.userName != '') {
               Navigator.of(Get.context!).pushAndRemoveUntil(
                   MaterialPageRoute(
-                      builder: (context) => const NavigationMenuScreen()),
+                      builder: (context) => const HomeNew()),
                   (Route<dynamic> route) => false);
             } else {
               Get.offAllNamed(RoutesName.signProfileScreen,
