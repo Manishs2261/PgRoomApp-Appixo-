@@ -1,8 +1,11 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pgroom/src/features/Home_fitter_new/new_search_home/new_home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/apis/user_apis.dart';
 import '../../../../navigation_menu.dart';
@@ -22,12 +25,12 @@ class SignProfileScreenController extends GetxController {
   RxString imageUrl = ''.obs;
 
   void getImageFromImagePicker(ImageSource imageSource) async {
-    final pickFile = await ImagePicker().pickImage(source: imageSource, imageQuality: 70);
+    final pickFile =
+        await ImagePicker().pickImage(source: imageSource, imageQuality: 70);
 
     if (pickFile == null) {
       AppHelperFunction.showFlashbar("Please select an image to proceed.");
     } else {
-
       image.value = pickFile.path.toString();
     }
     AppHelperFunction.showCenterCircularIndicator(false);
@@ -35,8 +38,6 @@ class SignProfileScreenController extends GetxController {
       imageUrl.value = value;
       Navigator.pop(Get.context!);
     });
-
-
   }
 
   onSubmitButton(String email) {
@@ -49,10 +50,12 @@ class SignProfileScreenController extends GetxController {
           AppHelperFunction.showCenterCircularIndicator(false);
           loading.value = true;
 
-          UserApis.saveUserData(nameController.value.text, cityNameController.value.text, email, imageUrl.value)
+          UserApis.saveUserData(nameController.value.text,
+                  cityNameController.value.text, email, imageUrl.value)
               .then((value) async {
             // Login sharedPreference code +++++++++
-            SharedPreferences preference = await SharedPreferences.getInstance();
+            SharedPreferences preference =
+                await SharedPreferences.getInstance();
             // store a data in   SharedPreferences
             preference.setString('userUid', ApisClass.user.uid);
             //initialize  a variable
@@ -63,7 +66,9 @@ class SignProfileScreenController extends GetxController {
             //
             // //Get.offAllNamed(RoutesName.homeScreen);
             Navigator.of(Get.context!).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const NavigationMenuScreen()), (Route<dynamic> route) => false);
+                MaterialPageRoute(
+                    builder: (context) => const HomeNew()),
+                (Route<dynamic> route) => false);
 
             Get.snackbar("Save", "successfully");
           }).onError((error, stackTrace) {

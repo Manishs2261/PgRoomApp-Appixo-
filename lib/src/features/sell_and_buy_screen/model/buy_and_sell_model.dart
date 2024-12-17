@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BuyAndSellModel {
   String? atCreate;
   List<String>? image;
@@ -6,7 +8,8 @@ class BuyAndSellModel {
   bool? isDelete;
   String? description;
   String? itemName;
-  String? uId;
+  String? uId; // Firebase Authentication UID
+  DocumentReference? userReference; // Firestore user reference
   String? atUpdate;
   bool? disable;
   String? price;
@@ -15,43 +18,48 @@ class BuyAndSellModel {
   String? landmark;
   String? sabId;
 
-  BuyAndSellModel(
-      {this.atCreate,
-        this.image,
-        this.address,
-        this.city,
-        this.isDelete,
-        this.description,
-        this.itemName,
-        this.uId,
-        this.atUpdate,
-        this.disable,
-        this.price,
-        this.report,
-        this.state,
-        this.landmark,
-        this.sabId});
+  BuyAndSellModel({
+    this.atCreate,
+    this.image,
+    this.address,
+    this.city,
+    this.isDelete,
+    this.description,
+    this.itemName,
+    this.uId,
+    this.userReference,
+    this.atUpdate,
+    this.disable,
+    this.price,
+    this.report,
+    this.state,
+    this.landmark,
+    this.sabId,
+  });
 
   BuyAndSellModel.fromJson(Map<String, dynamic> json) {
     atCreate = json['atCreate'];
-    image = json['image'].cast<String>();
+    image = json['image']?.cast<String>();
     address = json['address'];
     city = json['city'];
     isDelete = json['isDelete'];
     description = json['description'];
     itemName = json['itemName'];
     uId = json['u_id'];
+    userReference = json['userReference'] != null
+        ? FirebaseFirestore.instance.doc(json['userReference'])
+        : null;
     atUpdate = json['atUpdate'];
     disable = json['disable'];
     price = json['price'];
-    report = json['report'].cast<String>();
+    report = json['report']?.cast<String>();
     state = json['state'];
     landmark = json['landmark'];
     sabId = json['sab_id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = {};
     data['atCreate'] = this.atCreate;
     data['image'] = this.image;
     data['address'] = this.address;
@@ -60,6 +68,7 @@ class BuyAndSellModel {
     data['description'] = this.description;
     data['itemName'] = this.itemName;
     data['u_id'] = this.uId;
+    data['userReference'] = this.userReference?.path; // Store reference path
     data['atUpdate'] = this.atUpdate;
     data['disable'] = this.disable;
     data['price'] = this.price;

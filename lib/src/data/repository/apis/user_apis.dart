@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -70,20 +72,7 @@ class UserApis {
     });
   }
 
-  //upload user images in firebase database
-  static Future<String> uploadUserImage(File imageFile) async {
-    try {
-      final reference = storage.ref().child('userImage/${user.uid}.jpg');
-      final UploadTask uploadTask = reference.putFile(imageFile);
-      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
-      userImageDownloadUrl = await snapshot.ref.getDownloadURL();
 
-      await firebaseFirestore.collection('loginUser').doc(user.uid).update({'userImage': userImageDownloadUrl});
-    } catch (e) {
-      AppLoggerHelper.info("image is not uploaded ; $e");
-    }
-    return userImageDownloadUrl;
-  }
 
   // update user Image data
   static Future<void> updateUserImage(File file) async {
@@ -210,5 +199,49 @@ class UserApis {
     var querySnapshot = await collection.get();
     Map<String, dynamic>? data = querySnapshot.data();
     appShareUrl = data?['link'] ?? '';
+  }
+
+
+
+  static Future<void> createNewUser(String name , String city , File imageUrl) async{
+
+    final image = await uploadUserImage(imageUrl);
+
+final item = UserModel(
+  uId: user.uid,
+  image:'',
+  name: name,
+  city: city,
+  atCreate: DateTime.now().toString(),
+  atUpdate: DateTime.now().toString(),
+);
+
+    DocumentReference docRef = await FirebaseFirestore.instance
+        .collection("DevBuyAndSellCollection")
+        .add(item.toJson())
+        .timeout(const Duration(seconds: 2000), onTimeout: () {
+      Navigator.pop(Get.context!);
+      throw TimeoutException("The operation timed out after 2000 seconds");
+    });
+
+
+
+  }
+
+
+
+  //upload user images in firebase database
+  static Future<String> uploadUserImage(File imageFile) async {
+    try {
+      final reference = storage.ref().child('DevUserImage/${user.uid}.jpg');
+      final UploadTask uploadTask = reference.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
+      userImageDownloadUrl = await snapshot.ref.getDownloadURL();
+
+      await firebaseFirestore.collection('loginUser').doc(user.uid).update({'userImage': userImageDownloadUrl});
+    } catch (e) {
+      AppLoggerHelper.info("image is not uploaded ; $e");
+    }
+    return userImageDownloadUrl;
   }
 }

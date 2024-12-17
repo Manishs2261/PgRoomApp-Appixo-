@@ -380,12 +380,12 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfSellAndBuy,
-            page: () => const ListOfSellAndBuy(),
+            page: () =>  ListOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.sellAndBuyDetails,
-            page: () => const DetailsOfSellAndBuy(),
+            page: () =>  DetailsOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(

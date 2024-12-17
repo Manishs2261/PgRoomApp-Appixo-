@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -23,36 +24,74 @@ class AuthApisClass {
   static bool otpSend = false;
   static FirebaseAuth auth = FirebaseAuth.instance;
 
-  // =======google sing =============
-  static handleGoogleButtonClick(BuildContext context) async {
-    AppHelperFunction.checkInternetAvailability().then((value) {
-      if (value) {
-        signInWithGoogle().then((value) async {
-          // await UserApis.saveUserData(auth.currentUser?.displayName, "",
-          //     auth.currentUser?.email, auth.currentUser!.photoURL);
+  static Future<void> handleGoogleButtonClick(BuildContext context) async {
+    try {
+      // 1. Start Google Sign-In process
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return; // User canceled the sign-in
 
-          if (UserApis.userName != '') {
-            Navigator.of(Get.context!).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => const HomeNew()),
-                (Route<dynamic> route) => false);
-          } else {
-            Get.offAllNamed(RoutesName.signProfileScreen,
-                arguments: {'email': auth.currentUser?.email});
-          }
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-         // sharedPreferences code
-          SharedPreferences preferences = await SharedPreferences.getInstance();
-          //upload user uid data in SharedPreferences
-          preferences.setString('userUid', value.user!.uid);
-          // initialize variable
-          finalUserUidGlobal = preferences.getString('userUid');
-          log('\nUser :${value.user}');
-          Get.offAllNamed(RoutesName.homeNew);
-        });
+      // 2. Authenticate with Firebase
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      User? user = userCredential.user;
+
+      if (user == null) return;
+
+      // 3. Check if the user exists in Firestore
+      final uid = user.uid; // Firebase User ID
+      final userDoc = await FirebaseFirestore.instance.collection('DevUser').doc(uid).get();
+
+      if (userDoc.exists) {
+        // User exists, navigate to Home Screen
+        Navigator.pushReplacementNamed(context, '/home');
+      } else {
+        // User does not exist, navigate to Sign-Up Screen
+        Navigator.pushReplacementNamed(context, '/signup');
       }
-    });
+    } catch (e) {
+      print('Error during Google Sign-In: $e');
+      // Handle any errors (show a message, log, etc.)
+    }
   }
+
+
+  // =======google sing =============
+  // static handleGoogleButtonClick(BuildContext context) async {
+  //   AppHelperFunction.checkInternetAvailability().then((value) {
+  //     if (value) {
+  //       signInWithGoogle().then((value) async {
+  //         // await UserApis.saveUserData(auth.currentUser?.displayName, "",
+  //         //     auth.currentUser?.email, auth.currentUser!.photoURL);
+  //
+  //         AppLoggerHelper.info(UserApis.userName);
+  //        //  if (UserApis.userName != '') {
+  //        //    Navigator.of(Get.context!).pushAndRemoveUntil(
+  //        //        MaterialPageRoute(
+  //        //            builder: (context) => const HomeNew()),
+  //        //        (Route<dynamic> route) => false);
+  //        //  } else {
+  //        //    Get.offAllNamed(RoutesName.signProfileScreen,
+  //        //        arguments: {'email': auth.currentUser?.email});
+  //        //  }
+  //        //
+  //        // // sharedPreferences code
+  //        //  SharedPreferences preferences = await SharedPreferences.getInstance();
+  //        //  //upload user uid data in SharedPreferences
+  //        //  preferences.setString('userUid', value.user!.uid);
+  //        //  // initialize variable
+  //        //  finalUserUidGlobal = preferences.getString('userUid');
+  //        //  log('\nUser :${value.user}');
+  //        //  Get.offAllNamed(RoutesName.homeNew);
+  //       });
+  //     }
+  //   });
+  // }
 
   //check for user login or not
   static Future<bool> checkUserLogin() async {

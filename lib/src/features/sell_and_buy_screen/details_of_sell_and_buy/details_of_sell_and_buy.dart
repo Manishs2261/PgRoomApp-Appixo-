@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 class DetailsOfSellAndBuy extends StatefulWidget {
-  const DetailsOfSellAndBuy({super.key});
+  const DetailsOfSellAndBuy(  {super.key});
+
+
 
   @override
   State<DetailsOfSellAndBuy> createState() => _DetailsOfSellAndBuyState();

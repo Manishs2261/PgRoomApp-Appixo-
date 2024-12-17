@@ -23,6 +23,10 @@ class SellAndBuyApis {
   // for accessing cloud firestorm database
   static FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
+  // final userRef = FirebaseFirestore.instance
+  //     .collection('DevUser')
+  //     .doc(FirebaseAuth.instance.currentUser!.uid);
+
   // for storing Image  information
   static FirebaseStorage storage = FirebaseStorage.instance;
 
@@ -229,6 +233,9 @@ class SellAndBuyApis {
         disable: false,
         sabId: user.uid,
         uId: user.uid,
+        userReference:FirebaseFirestore.instance
+            .collection('DevUser')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
       );
 
       // Step 3: Add the data to Firestore

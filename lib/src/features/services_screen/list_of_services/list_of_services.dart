@@ -1,13 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:gap/gap.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/food_details_screen.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
+import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:pgroom/src/utils/Constants/image_string.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 
-import '../../../utils/Constants/colors.dart';
-import '../details_services/details_services.dart';
-
-
+import '../../../data/repository/apis/apis.dart';
+import '../../../model/user_rent_model/user_rent_model.dart';
+import '../../Home_fitter_new/new_search_home/new_home_screen.dart';
+import '../../Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
 
 class ListOfServices extends StatefulWidget {
   const ListOfServices({super.key});
@@ -17,173 +27,94 @@ class ListOfServices extends StatefulWidget {
 }
 
 class _ListOfServicesState extends State<ListOfServices> {
-  late ScrollController _scrollController;
-  double _buttonOpacity = 1.0;
+  List<BuyAndSellModel> buyAndSellList = [];
 
-  final List<String> roomImages = [
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-  ];
+  var snapData;
 
   int currentPage = 0;
 
   @override
   void initState() {
+    // TODO: implement initState
+
     super.initState();
-    _scrollController = ScrollController();
-
-    // Add scroll listener to update button opacity
-    _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        // User is scrolling down, reduce the button's opacity
-        setState(() {
-          _buttonOpacity = 0.0;
-        });
-      } else if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        // User is scrolling up, increase the button's opacity
-        setState(() {
-          _buttonOpacity = 1.0;
-        });
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.debug("Build - ListOfSellAndBuy......................................");
     return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  height: 160,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.shade400,
-                            blurRadius: 4,
-                            offset: const Offset(1, 2))
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(
-                              Icons.arrow_back,
-                            ),
-                          ),
-                          const Icon(
-                            Icons.search_rounded,
-                            color: AppColors.primary,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      const Text.rich(
-                        style: TextStyle(fontSize: 12),
-                        TextSpan(
-                          text: 'Awesome! ',
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '8',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: ' results found.'),
+      //==PreferredSize provide a maximum appbar length
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(155), child: Text('sdf')),
 
-                          ],
+      //======drawer code ===============
+      // drawer:  DrawerScreen(),
+      //=======list view builder code==============
+      body: CustomMaterialIndicator(
+        onRefresh: () async {
+          return await Future.delayed(const Duration(seconds: 2));
+        },
+        indicatorBuilder:
+            (BuildContext context, IndicatorController controller) {
+          return const Icon(
+            Icons.refresh,
+            color: Colors.blue,
+            size: 30,
+          );
+        },
+        child: StreamBuilder(
+            stream: ApisClass.firebaseFirestore
+                .collection('DevBuyAndSellCollection')
+                .snapshots(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 12, bottom: 12),
-                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.blueAccent.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: Colors.blue,
-                            ),
-                            Text(
-                              'Add Location',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                              child: Row(
-                                children: [
-                                  const Text(
-                                    'Bilaspur',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      height: 0,
-                                      color: AppColors.primary,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  CircleAvatar(
-                                      backgroundColor:
-                                      Colors.blueAccent.withOpacity(0.1),
-                                      radius: 8,
-                                      child: const Icon(
-                                        Icons.close,
-                                        color: AppColors.primary,
-                                        size: 14,
-                                      ))
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: 5,
+                        CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  );
+                case ConnectionState.none:
+                  return const Center(
+                    child: Row(
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  );
+
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  final data = snapshot.data?.docs;
+                  snapData = snapshot;
+
+                  buyAndSellList = data
+                      ?.map((e) => BuyAndSellModel.fromJson(e.data()))
+                      .toList() ??
+                      [];
+
+                  return ListView.builder(
+                    // controller: _scrollController,
+                    itemCount: buyAndSellList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  const DetailsServices()));
+                          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const DetailsOfSellAndBuy()));
                         },
                         child: Container(
                           margin: const EdgeInsets.only(top: 12,left: 12,right: 12),
@@ -211,10 +142,10 @@ class _ListOfServicesState extends State<ListOfServices> {
                                     PageView.builder(
 
                                       scrollDirection: Axis.horizontal,
-                                      itemCount: roomImages.length,
+                                      itemCount: buyAndSellList[index].image?.length,
                                       onPageChanged: (int page) {
                                         setState(() {
-                                          currentPage = page;
+                                          // currentPage = page;
                                         });
                                       },
                                       itemBuilder: (context, index) {
@@ -223,11 +154,11 @@ class _ListOfServicesState extends State<ListOfServices> {
                                           child: ClipRRect(
                                             borderRadius: BorderRadius.circular(10.0),
                                             child: CachedNetworkImage(
-                                              imageUrl: roomImages[index],
+                                              imageUrl: buyAndSellList[index].image!.first.toString(),
                                               placeholder: (context, url) =>
-                                                  const Center(child: CircularProgressIndicator()),
+                                              const Center(child: CircularProgressIndicator()),
                                               errorWidget: (context, url, error) =>
-                                                  const Icon(Icons.error),
+                                              const Icon(Icons.error),
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -245,7 +176,7 @@ class _ListOfServicesState extends State<ListOfServices> {
                                           borderRadius: BorderRadius.circular(50),
                                         ),
                                         child: Text(
-                                          '${currentPage + 1}/ ${roomImages.length}',
+                                          '',// '${currentPage + 1}/ ${roomImages.length}',
                                           style: const TextStyle(
                                             fontSize: 14,
                                             color: Colors.white,
@@ -271,8 +202,8 @@ class _ListOfServicesState extends State<ListOfServices> {
                               ),
                               const SizedBox(height: 12),
                               // Room details
-                              const Text(
-                                'Bank',
+                              Text(
+                                '${buyAndSellList[index].itemName}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -281,9 +212,22 @@ class _ListOfServicesState extends State<ListOfServices> {
                                 ),
                               ),
 
+
                               const SizedBox(height: 4),
-                              const Text(
-                                'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
+                              // Room details
+                              Text(
+                                '₹ ${buyAndSellList[index].price}/-',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+
+                              const SizedBox(height: 4),
+                              Text(
+                                '${buyAndSellList[index].landmark},${buyAndSellList[index].address},${buyAndSellList[index].city},${buyAndSellList[index].state}',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 14),
@@ -357,23 +301,23 @@ class _ListOfServicesState extends State<ListOfServices> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           // Chat Now Button with Gradient
-                                          GradientButton(
-                                            icon: Icons.chat,
-                                            label: 'Chat Now',
-                                            colors: [Colors.orange, Colors.red],
-                                            onPressed: () {
-                                              // Handle chat action
-                                            },
-                                          ),
-                                          // Call Now Button with Gradient
-                                          GradientButton(
-                                            icon: Icons.phone,
-                                            label: 'Call Now',
-                                            colors: [Colors.green, Colors.teal],
-                                            onPressed: () {
-                                              // Handle call action
-                                            },
-                                          ),
+                                          // GradientButton(
+                                          //   icon: Icons.chat,
+                                          //   label: 'Chat Now',
+                                          //   colors: [Colors.orange, Colors.red],
+                                          //   onPressed: () {
+                                          //     // Handle chat action
+                                          //   },
+                                          // ),
+                                          // // Call Now Button with Gradient
+                                          // GradientButton(
+                                          //   icon: Icons.phone,
+                                          //   label: 'Call Now',
+                                          //   colors: [Colors.green, Colors.teal],
+                                          //   onPressed: () {
+                                          //     // Handle call action
+                                          //   },
+                                          // ),
                                         ],
                                       ),
                                     ],
@@ -385,114 +329,10 @@ class _ListOfServicesState extends State<ListOfServices> {
                         ),
                       );
                     },
-                  ),
-                ),
+                  );
 
-              ],
-            ),
-          ),
-
-          // Floating button at the bottom center
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _buttonOpacity,
-                child: FloatingActionButton.extended(
-                    elevation: 2,
-                    backgroundColor: AppColors.primary,
-                    onPressed: () {
-                      // Add action for the button
-                    },
-                    label: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.filter_list,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Sort",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.filter_alt_outlined,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Filter",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        )
-                      ],
-                    )),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class GradientButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final List<Color> colors;
-  final VoidCallback onPressed;
-
-  GradientButton({
-    required this.icon,
-    required this.label,
-    required this.colors,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        width: 140,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: colors, // Button gradient
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white, // White icon
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.white, // White text
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+              }
+            }),
       ),
     );
   }

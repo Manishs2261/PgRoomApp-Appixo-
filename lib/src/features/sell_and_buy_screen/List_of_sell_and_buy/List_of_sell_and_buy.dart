@@ -1,15 +1,14 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-import '../../../data/repository/apis/old_goods_api.dart';
+
+import '../../../data/repository/apis/apis.dart';
 import '../../../utils/Constants/colors.dart';
 import '../details_of_sell_and_buy/details_of_sell_and_buy.dart';
-
 
 class ListOfSellAndBuy extends StatefulWidget {
   const ListOfSellAndBuy({super.key});
@@ -19,206 +18,112 @@ class ListOfSellAndBuy extends StatefulWidget {
 }
 
 class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
-  late ScrollController _scrollController;
-  double _buttonOpacity = 1.0;
+  List<BuyAndSellModel> buyAndSellList = [];
 
-  final List<String> roomImages = [
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-  ];
+  var snapData;
 
   int currentPage = 0;
 
   @override
   void initState() {
+    // TODO: implement initState
+
     super.initState();
-    _scrollController = ScrollController();
-
-    // Add scroll listener to update button opacity
-    _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        // User is scrolling down, reduce the button's opacity
-        setState(() {
-          _buttonOpacity = 0.0;
-        });
-      } else if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        // User is scrolling up, increase the button's opacity
-        setState(() {
-          _buttonOpacity = 1.0;
-        });
-      }
-    });
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
 
+  void printFormattedDate(String dateString) {
+    // Define the original format of the date string
+    DateFormat inputFormat = DateFormat('dd/MM/yyyy');
+
+    // Parse the string into a DateTime object
+    DateTime parsedDate = inputFormat.parse(dateString);
+
+    // Format the date as needed (e.g., to yyyy-MM-dd or keep it as dd/MM/yyyy)
+    String outputDate = DateFormat('dd/MM/yyyy').format(parsedDate);
+
+    print(outputDate); // Output: 12/02/2024
+  }
   @override
   Widget build(BuildContext context) {
-
-
-    AppLoggerHelper.debug("Build - ListOfSellAndBuy");
-
+    AppLoggerHelper.debug(
+        "Build - ListOfSellAndBuy......................................");
     return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  height: 160,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.shade400,
-                            blurRadius: 4,
-                            offset: const Offset(1, 2))
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(
-                              Icons.arrow_back,
-                            ),
-                          ),
-                          const Icon(
-                            Icons.search_rounded,
-                            color: AppColors.primary,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      const Text.rich(
-                        style: TextStyle(fontSize: 12),
-                        TextSpan(
-                          text: 'Awesome! ',
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '8',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            TextSpan(text: ' results found.'),
+      //==PreferredSize provide a maximum appbar length
+      appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(155),
+          child: SafeArea(child: TopSearchFilter())),
 
-                          ],
+      body: CustomMaterialIndicator(
+        onRefresh: () async {
+          return await Future.delayed(const Duration(seconds: 2));
+        },
+        indicatorBuilder:
+            (BuildContext context, IndicatorController controller) {
+          return const Icon(
+            Icons.refresh,
+            color: Colors.blue,
+            size: 30,
+          );
+        },
+        child: StreamBuilder(
+            stream: ApisClass.firebaseFirestore
+                .collection('DevBuyAndSellCollection')
+                .snapshots(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 12, bottom: 12),
-                        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-                        decoration: BoxDecoration(
-                            color: Colors.blueAccent.withOpacity(0.07),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: Colors.blue,
-                            ),
-                            Text(
-                              'Add Location',
-                              style: TextStyle(color: Colors.blue),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: StreamBuilder(
-                            stream: SellAndBuyApis.firebaseFirestore.collection('DevFoodCollection').snapshots(),
-                            builder: (context, snapshot) {
-
-                              final data = snapshot.data?.docs;
-
-                              //for creating json model
-
-                              for (var i in data!) {
-                                var map = i.data() as Map<String, dynamic>; // Ensure data is treated as a Map
-                                var encodableMap = map.map((key, value) {
-                                  if (value is Timestamp) {
-                                    return MapEntry(key, value.toDate().toIso8601String()); // Convert Timestamp to String
-                                  }
-                                  return MapEntry(key, value); // Leave other values unchanged
-                                });
-                                log("Data : ${jsonEncode(encodableMap)}");
-                              }
-
-
-                              if (snapshot.hasData) {
-                                return  ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Bilaspur',
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              height: 0,
-                                              color: AppColors.primary,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 5,
-                                          ),
-                                          CircleAvatar(
-                                              backgroundColor:
-                                              Colors.blueAccent.withOpacity(0.1),
-                                              radius: 8,
-                                              child: const Icon(
-                                                Icons.close,
-                                                color: AppColors.primary,
-                                                size: 14,
-                                              ))
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              }else {
-                                return Container();
-                              }
-                            }
+                        CircularProgressIndicator(
+                          color: Colors.blue,
                         )
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: 5,
+                      ],
+                    ),
+                  );
+                case ConnectionState.none:
+                  return const Center(
+                    child: Row(
+                      children: [
+                        Icon(Icons.signal_wifi_connected_no_internet_4),
+                        Text("No Internet Connection"),
+                        CircularProgressIndicator(
+                          color: Colors.blue,
+                        )
+                      ],
+                    ),
+                  );
+
+                case ConnectionState.active:
+                case ConnectionState.done:
+                  final data = snapshot.data?.docs;
+                  snapData = snapshot;
+
+                  buyAndSellList = data
+                          ?.map((e) => BuyAndSellModel.fromJson(e.data()))
+                          .toList() ??
+                      [];
+
+                  return ListView.builder(
+                   //  controller: _scrollController,
+                    itemCount: buyAndSellList.length,
                     itemBuilder: (context, index) {
+
+                      print( '${buyAndSellList[index].atUpdate}');
                       return InkWell(
-                        onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const DetailsOfSellAndBuy()));
+                        onTap: () {
+                          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  DetailsOfSellAndBuy(buyAndSellList)));
                         },
                         child: Container(
-                          margin: const EdgeInsets.only(top: 12,left: 12,right: 12),
+                          margin: const EdgeInsets.only(
+                              top: 12, left: 12, right: 12),
                           padding: const EdgeInsets.all(12.0),
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -237,54 +142,40 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                             children: [
                               // Image Slider
                               Container(
-                                height: 200, // Set a fixed height for the PageView
+                                height: 200,
+                                // Set a fixed height for the PageView
                                 child: Stack(
                                   children: [
-                                    PageView.builder(
-
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: roomImages.length,
-                                      onPageChanged: (int page) {
-                                        setState(() {
-                                          currentPage = page;
-                                        });
-                                      },
-                                      itemBuilder: (context, index) {
-                                        return Padding(
-                                          padding: const EdgeInsets.only(right: 8),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            child: CachedNetworkImage(
-                                              imageUrl: roomImages[index],
-                                              placeholder: (context, url) =>
-                                                  const Center(child: CircularProgressIndicator()),
-                                              errorWidget: (context, url, error) =>
-                                                  const Icon(Icons.error),
-                                              fit: BoxFit.cover,
+                                    ListView.builder(
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: buyAndSellList[index]
+                                                .image
+                                                ?.length ??
+                                            0,
+                                        itemBuilder: (context, imageIndex) {
+                                          return Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 8),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                              child: CachedNetworkImage(
+                                                width: Get.width * 0.8,
+                                                imageUrl: buyAndSellList[index]
+                                                        .image?[imageIndex] ??
+                                                    '',
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(Icons.error),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    Positioned(
-                                      bottom: 1,
-                                      right: 8,
-                                      child: Container(
-                                        margin: const EdgeInsets.all(8),
-                                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                                        decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius: BorderRadius.circular(50),
-                                        ),
-                                        child: Text(
-                                          '${currentPage + 1}/ ${roomImages.length}',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                          );
+                                        }),
                                     Positioned(
                                       top: 1,
                                       left: 1,
@@ -292,19 +183,31 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                           margin: const EdgeInsets.all(8),
                                           padding: const EdgeInsets.all(4),
                                           decoration: BoxDecoration(
-                                            color: Colors.black.withOpacity(0.5),
-                                            borderRadius: BorderRadius.circular(100),
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            borderRadius:
+                                                BorderRadius.circular(100),
                                           ),
-                                          child: false ? const Icon(Icons.favorite ,color: Colors.red,) :const Icon(Icons.favorite_border_outlined,color: Colors.white,size: 20,)
-                                      ),
+                                          child: false
+                                              ? const Icon(
+                                                  Icons.favorite,
+                                                  color: Colors.red,
+                                                )
+                                              : const Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                )),
                                     ),
                                   ],
                                 ),
                               ),
+
                               const SizedBox(height: 12),
                               // Room details
-                              const Text(
-                                'Table ',
+                              Text(
+                                '${buyAndSellList[index].itemName}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -313,11 +216,10 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                 ),
                               ),
 
-
                               const SizedBox(height: 4),
                               // Room details
-                              const Text(
-                                '₹500/-',
+                              Text(
+                                '₹ ${buyAndSellList[index].price}/-',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -327,8 +229,8 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                               ),
 
                               const SizedBox(height: 4),
-                              const Text(
-                                'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
+                              Text(
+                                '${buyAndSellList[index].landmark},${buyAndSellList[index].address},${buyAndSellList[index].city},${buyAndSellList[index].state}',
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontSize: 14),
@@ -352,10 +254,12 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                   padding: const EdgeInsets.all(12.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      const Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Row(
                                             children: [
@@ -376,7 +280,9 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                               ),
                                             ],
                                           ),
-                                          Column(mainAxisAlignment: MainAxisAlignment.start,
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'POST',
@@ -386,7 +292,7 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                                 ),
                                               ),
                                               Text(
-                                                '12/12/2000',
+                                                '${buyAndSellList[index].atUpdate}',
                                                 style: TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white70,
@@ -399,9 +305,10 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                       const SizedBox(height: 8),
                                       // Buttons for "Chat Now" and "Call Now"
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          // Chat Now Button with Gradient
+                                          //  Chat Now Button with Gradient
                                           GradientButton(
                                             icon: Icons.chat,
                                             label: 'Chat Now',
@@ -430,64 +337,9 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                         ),
                       );
                     },
-                  ),
-                ),
-
-              ],
-            ),
-          ),
-
-          // Floating button at the bottom center
-          Positioned(
-            bottom: 20,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _buttonOpacity,
-                child: FloatingActionButton.extended(
-                    elevation: 2,
-                    backgroundColor: AppColors.primary,
-                    onPressed: () {
-                      // Add action for the button
-                    },
-                    label: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.filter_list,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Sort",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: 16,
-                        ),
-                        Column(
-                          children: [
-                            Icon(
-                              Icons.filter_alt_outlined,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Filter",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        )
-                      ],
-                    )),
-              ),
-            ),
-          ),
-        ],
+                  );
+              }
+            }),
       ),
     );
   }
@@ -526,18 +378,124 @@ class GradientButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: Colors.white, // White icon
+              color: Colors.white,
+              size: 16, // White icon
             ),
             const SizedBox(width: 8),
             Text(
               label,
               style: const TextStyle(
-                color: Colors.white, // White text
-                fontWeight: FontWeight.bold,
-              ),
+                  color: Colors.white, // White text
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TopSearchFilter extends StatelessWidget {
+  const TopSearchFilter({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      height: 160,
+      width: double.infinity,
+      decoration: BoxDecoration(color: Colors.grey.shade200, boxShadow: [
+        BoxShadow(
+            color: Colors.grey.shade400,
+            blurRadius: 4,
+            offset: const Offset(1, 2))
+      ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                ),
+              ),
+              const Icon(
+                Icons.search_rounded,
+                color: AppColors.primary,
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          const Text.rich(
+            style: TextStyle(fontSize: 12),
+            TextSpan(
+              text: 'Awesome! ',
+              children: <TextSpan>[
+                TextSpan(
+                  text: '8',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                TextSpan(text: ' results found.'),
+              ],
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 12, bottom: 12),
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+            decoration: BoxDecoration(
+                color: Colors.blueAccent.withOpacity(0.07),
+                borderRadius: BorderRadius.circular(12)),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.add,
+                  color: Colors.blue,
+                ),
+                Text(
+                  'Add Location',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: Row(
+              children: [
+                const Text(
+                  'Bilaspur',
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 0,
+                    color: AppColors.primary,
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                CircleAvatar(
+                    backgroundColor: Colors.blueAccent.withOpacity(0.1),
+                    radius: 8,
+                    child: const Icon(
+                      Icons.close,
+                      color: AppColors.primary,
+                      size: 14,
+                    ))
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
