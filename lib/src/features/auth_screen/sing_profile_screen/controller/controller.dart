@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../data/repository/apis/user_apis.dart';
-import '../../../../navigation_menu.dart';
 import '../../../../utils/helpers/helper_function.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../splash/controller/splash_controller.dart';
@@ -49,25 +48,14 @@ class SignProfileScreenController extends GetxController {
         if (imageUrl.value.isNotEmpty) {
           AppHelperFunction.showCenterCircularIndicator(false);
           loading.value = true;
-
-          UserApis.saveUserData(nameController.value.text,
-                  cityNameController.value.text, email, imageUrl.value)
+          UserApis.createNewUser(nameController.value.text,
+                  cityNameController.value.text, imageUrl.value, email)
               .then((value) async {
-            // Login sharedPreference code +++++++++
-            SharedPreferences preference =
-                await SharedPreferences.getInstance();
-            // store a data in   SharedPreferences
-            preference.setString('userUid', ApisClass.user.uid);
-            //initialize  a variable
-            finalUserUidGlobal = preference.getString('userUid');
-            //========================
 
             loading.value = false;
-            //
-            // //Get.offAllNamed(RoutesName.homeScreen);
+
             Navigator.of(Get.context!).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (context) => const HomeNew()),
+                MaterialPageRoute(builder: (context) => const HomeNew()),
                 (Route<dynamic> route) => false);
 
             Get.snackbar("Save", "successfully");

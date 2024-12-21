@@ -385,7 +385,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.sellAndBuyDetails,
-            page: () =>  DetailsOfSellAndBuy(),
+            page: () =>   DetailsOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -395,7 +395,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.servicesDetails,
-            page: () => const DetailsServices(),
+            page: () =>  DetailsServices(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(

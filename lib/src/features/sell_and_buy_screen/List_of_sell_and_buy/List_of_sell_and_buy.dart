@@ -7,43 +7,21 @@ import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../data/repository/apis/apis.dart';
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
-import '../details_of_sell_and_buy/details_of_sell_and_buy.dart';
+import '../../../utils/helpers/helper_function.dart';
 
-class ListOfSellAndBuy extends StatefulWidget {
-  const ListOfSellAndBuy({super.key});
+class ListOfSellAndBuy extends StatelessWidget {
+   ListOfSellAndBuy({super.key});
 
-  @override
-  State<ListOfSellAndBuy> createState() => _ListOfSellAndBuyState();
-}
-
-class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
   List<BuyAndSellModel> buyAndSellList = [];
 
   var snapData;
 
   int currentPage = 0;
 
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
 
 
-  void printFormattedDate(String dateString) {
-    // Define the original format of the date string
-    DateFormat inputFormat = DateFormat('dd/MM/yyyy');
-
-    // Parse the string into a DateTime object
-    DateTime parsedDate = inputFormat.parse(dateString);
-
-    // Format the date as needed (e.g., to yyyy-MM-dd or keep it as dd/MM/yyyy)
-    String outputDate = DateFormat('dd/MM/yyyy').format(parsedDate);
-
-    print(outputDate); // Output: 12/02/2024
-  }
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug(
@@ -112,15 +90,12 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                       [];
 
                   return ListView.builder(
-                   //  controller: _scrollController,
+                    //  controller: _scrollController,
                     itemCount: buyAndSellList.length,
                     itemBuilder: (context, index) {
-
-                      print( '${buyAndSellList[index].atUpdate}');
+                      print('${buyAndSellList[index].atUpdate}');
                       return InkWell(
-                        onTap: () {
-                          //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>  DetailsOfSellAndBuy(buyAndSellList)));
-                        },
+                        onTap: () => Get.toNamed(RoutesName.sellAndBuyDetails, arguments: buyAndSellList[index]),
                         child: Container(
                           margin: const EdgeInsets.only(
                               top: 12, left: 12, right: 12),
@@ -257,7 +232,7 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                       Row(
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
@@ -285,14 +260,14 @@ class _ListOfSellAndBuyState extends State<ListOfSellAndBuy> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'POST',
+                                                'Update',
                                                 style: TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white70,
                                                 ),
                                               ),
                                               Text(
-                                                '${buyAndSellList[index].atUpdate}',
+                                                AppHelperFunction.printFormattedDate(buyAndSellList[index].atUpdate!),
                                                 style: TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white70,

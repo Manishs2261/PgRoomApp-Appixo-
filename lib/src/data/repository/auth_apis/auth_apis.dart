@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_otp/email_otp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -10,11 +7,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
+import '../../../features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
 import '../../../features/splash/controller/splash_controller.dart';
-import '../../../navigation_menu.dart';
 import '../apis/apis.dart';
 import '../apis/user_apis.dart';
 
@@ -30,7 +25,8 @@ class AuthApisClass {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) return; // User canceled the sign-in
 
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
 
       // 2. Authenticate with Firebase
       final OAuthCredential credential = GoogleAuthProvider.credential(
@@ -38,28 +34,23 @@ class AuthApisClass {
         idToken: googleAuth.idToken,
       );
 
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
       User? user = userCredential.user;
 
-      if (user == null) return;
+      AppLoggerHelper.info(user!.uid);
 
-      // 3. Check if the user exists in Firestore
-      final uid = user.uid; // Firebase User ID
-      final userDoc = await FirebaseFirestore.instance.collection('DevUser').doc(uid).get();
-
-      if (userDoc.exists) {
-        // User exists, navigate to Home Screen
-        Navigator.pushReplacementNamed(context, '/home');
+      if (await UserApis.getUserUid(user.uid)) {
+        UserApis.setSharedPreferences(user.uid);
+        Get.offAllNamed(RoutesName.homeNew);
       } else {
-        // User does not exist, navigate to Sign-Up Screen
-        Navigator.pushReplacementNamed(context, '/signup');
+        Get.offAllNamed(RoutesName.signProfileScreen,
+            arguments: {'email': user.email});
       }
     } catch (e) {
-      print('Error during Google Sign-In: $e');
-      // Handle any errors (show a message, log, etc.)
+      AppLoggerHelper.error("Error during Google Sign-In", e);
     }
   }
-
 
   // =======google sing =============
   // static handleGoogleButtonClick(BuildContext context) async {
@@ -247,14 +238,13 @@ class AuthApisClass {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: pass);
-
       if (credential.user!.emailVerified) {
         return true;
       } else {
         Get.snackbar("Email Not Verified", "The email has not been verified..");
       }
 
-      AppLoggerHelper.info("${credential.user}");
+      AppLoggerHelper.info("login - ${credential.user}");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.snackbar("NO User found", "User are not registered.");

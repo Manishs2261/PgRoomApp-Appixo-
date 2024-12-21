@@ -1,15 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 class DetailsServices extends StatefulWidget {
-  const DetailsServices({super.key});
+   DetailsServices({super.key });
+
+
 
   @override
   State<DetailsServices> createState() => _DetailsServicesState();
 }
 
 class _DetailsServicesState extends State<DetailsServices> {
+
+
+  final BuyAndSellModel  data = Get.arguments['list'];
   final List<String> roomImages = [
     'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
     'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
@@ -84,6 +92,8 @@ class _DetailsServicesState extends State<DetailsServices> {
 
   @override
   Widget build(BuildContext context) {
+
+    print('city name }');
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(

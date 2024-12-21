@@ -171,4 +171,19 @@ class AppHelperFunction {
       return true;
     }
   }
+
+
+
+ static String printFormattedDate(String dateString) {
+    // Define the original format of the date string
+    DateFormat inputFormat = DateFormat('yyyy-MM-dd HH:mm:ss.SSSSSS');
+
+    // Parse the string into a DateTime object
+    DateTime parsedDate = inputFormat.parse(dateString);
+
+    // Format the date as needed (e.g., to dd/MM/yyyy)
+    String outputDate = DateFormat('dd/MM/yyyy').format(parsedDate);
+
+    return outputDate; // Output: 17/12/2024
+  }
 }

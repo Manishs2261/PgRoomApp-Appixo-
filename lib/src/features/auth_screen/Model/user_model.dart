@@ -20,6 +20,7 @@ class UserModel {
   String? state;
   List<String>? serviceId;
   String? email;
+  String? docId;
 
   UserModel(
       {this.atCreate,
@@ -42,7 +43,9 @@ class UserModel {
         this.report,
         this.state,
         this.serviceId,
-        this.email});
+        this.email,
+        this.docId,
+      });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     atCreate = json['atCreate'];
@@ -66,6 +69,7 @@ class UserModel {
     state = json['state'];
     serviceId = json['serviceId'].cast<String>();
     email = json['email'];
+    docId = json['docId'];
   }
 
   Map<String, dynamic> toJson() {
@@ -91,6 +95,7 @@ class UserModel {
     data['state'] = this.state;
     data['serviceId'] = this.serviceId;
     data['email'] = this.email;
+    data['docId'] = this.docId;
     return data;
   }
 }

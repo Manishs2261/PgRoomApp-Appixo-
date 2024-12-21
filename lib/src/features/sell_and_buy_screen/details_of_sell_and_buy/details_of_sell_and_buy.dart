@@ -1,42 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
 
 class DetailsOfSellAndBuy extends StatefulWidget {
-  const DetailsOfSellAndBuy(  {super.key});
-
-
+   DetailsOfSellAndBuy(  {super.key});
 
   @override
   State<DetailsOfSellAndBuy> createState() => _DetailsOfSellAndBuyState();
 }
 
 class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
-  final List<String> roomImages = [
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-  ];
-  final List<String> items = [
-    "AC",
-    "COOLER",
-    "FAN",
-    "TABLE",
-    "BED",
-    "CHAIR",
-    "FRIDGE",
-    "LIGHT",
-    "WASHING MACHINE",
-    "BED SHEET",
-    "GIGER",
-    "ALMARI",
-    "LOCKER"
-  ];
-
-  final List<String> billItem = ['ELECTRICITY BILL', 'WATER BILL'];
+   final BuyAndSellModel  data = Get.arguments;
 
   // List of FAQ questions and answers
   final List<Map<String, String>> faqs = [
@@ -56,44 +34,19 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
     },
   ];
 
-  final List<String> rules = [
-    "Available for Students & Working Professionals Available for Students & Working Professionals",
-    "Non veg food is allowed",
-    "Smoking is allowed",
-    "Drinking is allowed",
-    "Guardian is allowed",
-    "Visitors are allowed",
-    "Guests of opposite gender are allowed"
-  ];
 
-  final List<Map<String, dynamic>> roomData = [
-    {'type': 'Breakfast', 'price': 800},
-    {'type': 'Lunch OR Dinner', 'price': 1300},
-    {'type': 'Lunch AND Dinner', 'price': 2300},
-    {
-      'type': 'Breakfast,Lunch AND Dinner Breakfast,Lunch AND Dinner',
-      'price': 3100
-    },
-  ];
-
-  final List<Map<String, dynamic>> dailyFoods = [
-    {'type': 'Rice', 'price': 30},
-    {'type': 'Roti Per Pice', 'price': 7},
-    {'type': 'Sabji', 'price': 40},
-    {'type': 'dal', 'price': 30},
-  ];
-
-  int currentPage = 0;
+  RxInt currentPage = 0.obs;
 
   @override
   Widget build(BuildContext context) {
+    AppLoggerHelper.info('Build --- DetailsOfSellAndBuy');
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: const Text(
-          'TAble name',
+        title:  Text(
+          '${data.itemName?.capitalizeFirst}',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -168,11 +121,11 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                   children: [
                     PageView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: roomImages.length,
+                      itemCount: data.image?.length ?? 0,
                       onPageChanged: (int page) {
-                        setState(() {
-                          currentPage = page;
-                        });
+
+                          currentPage.value = page;
+
                       },
                       itemBuilder: (context, index) {
                         return Padding(
@@ -180,7 +133,7 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
-                              imageUrl: roomImages[index],
+                              imageUrl: data.image![index],
                               placeholder: (context, url) =>
                                   const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
@@ -201,11 +154,13 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Text(
-                          '${currentPage + 1}/ ${roomImages.length}',
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
+                        child:  Obx(
+                          ()=> Text(
+                            '${currentPage.value + 1}/ ${data.image?.length}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -257,8 +212,8 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
               const SizedBox(
                 height: 4,
               ),
-              const Text(
-                " Post Date- 12/12/5858",
+               Text(
+                " Post Date- ${AppHelperFunction.printFormattedDate(data.atCreate!)}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -296,15 +251,15 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                       ),
                       const SizedBox(width: 8),
                       // Add some spacing between the icon and text
-                      const Expanded(
+                       Expanded(
                         // Allow the column to take up the remaining space
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // Align text to the start
                           children: [
                             Text(
-                              'Gour colony yadunandan nager tifra, Bilaspur, Chhattisgarh ',
-                              style: TextStyle(
+                              '${data.landmark} ${data.address}, ${data.city}, ${data.state}}',
+                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
                                 color: Colors.white,
@@ -321,7 +276,7 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                 height: 16,
               ),
               const Text(
-                'Discription',
+                'Description',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -334,36 +289,47 @@ class _DetailsOfSellAndBuyState extends State<DetailsOfSellAndBuy> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all()),
-                child: const Column(
+                child:  Column(
                   children: [
                     Text(
-                      'about computer tter, TextFormField is a widget that allows users to input text in forms. It has several types of configurations to handle different types of input, including text, numbers, email, and passwords. You can control the type of input using the keyboardType and obscureText properties.',
-                      style: TextStyle(
+                      '${data.description}',
+                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
                 ),
               ),
-
-              Container(
-                width:double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8)
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Report About Mess',style: TextStyle(color: Colors.white),),
-                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
-                  ],
-                ),
-              ),
+            SizedBox(height: 16,),
+              ReportAboutWidgets(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ReportAboutWidgets extends StatelessWidget {
+  const ReportAboutWidgets({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width:double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+      decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(8)
+      ),
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Report About Mess',style: TextStyle(color: Colors.white),),
+          Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
+        ],
       ),
     );
   }
