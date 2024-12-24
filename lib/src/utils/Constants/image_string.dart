@@ -44,4 +44,7 @@ static const String foodOne = 'assets/images/foodOne.png';
 
 static const String searchBackground = 'assets/images/searchBackground.png';
 
+///map iocn
+static const String mapIcon = 'assets/images/map_icon.png';
+
 }

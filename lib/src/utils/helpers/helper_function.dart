@@ -3,6 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class AppHelperFunction {
@@ -186,4 +187,20 @@ class AppHelperFunction {
 
     return outputDate; // Output: 17/12/2024
   }
+
+
+  static Future<void> launchMap(double latitude, double longitude) async {
+    final Uri url = Uri.parse(
+        "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
+    // Check if the URL can be launched, then attempt to launch
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      AppHelperFunction.showFlashbar('Something went wrong');
+      throw Exception('Could not launch $url');
+    }
+  }
+
+
+
 }

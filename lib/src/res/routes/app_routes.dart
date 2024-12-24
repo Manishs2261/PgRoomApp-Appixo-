@@ -51,6 +51,7 @@ import '../../features/old_goods/old_goods_details_screen/goods_details_screen.d
 import '../../features/old_goods/search/search_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
 import '../../features/profile_screen/profile_main_screen.dart';
+import '../../features/report_screen/report_screen.dart';
 import '../../features/room_rent_all_screen/add_new_home/add_your_home.dart';
 import '../../features/room_rent_all_screen/details_rent_screen/details_rent_screen.dart';
 import '../../features/room_rent_all_screen/edit_add_new_home/edit_add_new_home.dart';
@@ -364,7 +365,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.roomDetails,
-            page: () => const DetailsRoom(),
+            page: () => DetailsRoom(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -495,6 +496,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.thirdServicesForm,
             page: () =>  ThirdServicesForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.reportScreen,
+            page: () =>  ReportScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

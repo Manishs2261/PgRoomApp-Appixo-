@@ -1,26 +1,59 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
+import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../res/route_name/routes_name.dart';
-import '../../../utils/Constants/colors.dart';
 import '../../../utils/helpers/helper_function.dart';
+import '../../../utils/widgets/gradient_button.dart';
+import '../../../utils/widgets/top_search_bar/controller/controller.dart';
+import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
 
-class ListOfSellAndBuy extends StatelessWidget {
-   ListOfSellAndBuy({super.key});
+class ListOfSellAndBuy extends StatefulWidget {
+  ListOfSellAndBuy({super.key});
 
+  @override
+  State<ListOfSellAndBuy> createState() => _ListOfSellAndBuyState();
+}
+
+class _ListOfSellAndBuyState extends State<ListOfSellAndBuy>
+    with SingleTickerProviderStateMixin {
   List<BuyAndSellModel> buyAndSellList = [];
+  final searchController = Get.put(TopSearchBarController());
+  late ScrollController _scrollController;
+  final RxBool _isButtonVisible = true.obs;
 
-  var snapData;
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        // Scrolling down
+        if (_isButtonVisible.value) {
+          _isButtonVisible.value = false;
+        }
+      } else if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        // Scrolling up
+        if (!_isButtonVisible.value) {
+          _isButtonVisible.value = true;
+        }
+      }
+    });
+  }
 
-  int currentPage = 0;
-
-
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +61,27 @@ class ListOfSellAndBuy extends StatelessWidget {
         "Build - ListOfSellAndBuy......................................");
     return Scaffold(
       //==PreferredSize provide a maximum appbar length
+
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(155),
+          preferredSize: const Size.fromHeight(120),
           child: SafeArea(child: TopSearchFilter())),
 
+      floatingActionButton: Obx(
+        () => AnimatedOpacity(
+          opacity: _isButtonVisible.value ? 1.0 : 0.0,
+          duration: Duration(milliseconds: 500),
+          child: _isButtonVisible.value
+              ? FloatingActionButton(
+                  onPressed: () {},
+                  backgroundColor: AppColors.primary,
+                  child: Icon(
+                    Icons.filter_list,
+                    color: Colors.white,
+                  ),
+                )
+              : SizedBox(),
+        ),
+      ),
       body: CustomMaterialIndicator(
         onRefresh: () async {
           return await Future.delayed(const Duration(seconds: 2));
@@ -82,7 +132,6 @@ class ListOfSellAndBuy extends StatelessWidget {
                 case ConnectionState.active:
                 case ConnectionState.done:
                   final data = snapshot.data?.docs;
-                  snapData = snapshot;
 
                   buyAndSellList = data
                           ?.map((e) => BuyAndSellModel.fromJson(e.data()))
@@ -90,12 +139,13 @@ class ListOfSellAndBuy extends StatelessWidget {
                       [];
 
                   return ListView.builder(
-                    //  controller: _scrollController,
+                    controller: _scrollController,
                     itemCount: buyAndSellList.length,
                     itemBuilder: (context, index) {
                       print('${buyAndSellList[index].atUpdate}');
                       return InkWell(
-                        onTap: () => Get.toNamed(RoutesName.sellAndBuyDetails, arguments: buyAndSellList[index]),
+                        onTap: () => Get.toNamed(RoutesName.sellAndBuyDetails,
+                            arguments: buyAndSellList[index]),
                         child: Container(
                           margin: const EdgeInsets.only(
                               top: 12, left: 12, right: 12),
@@ -267,7 +317,10 @@ class ListOfSellAndBuy extends StatelessWidget {
                                                 ),
                                               ),
                                               Text(
-                                                AppHelperFunction.printFormattedDate(buyAndSellList[index].atUpdate!),
+                                                AppHelperFunction
+                                                    .printFormattedDate(
+                                                        buyAndSellList[index]
+                                                            .atUpdate!),
                                                 style: TextStyle(
                                                   fontSize: 10,
                                                   color: Colors.white70,
@@ -315,162 +368,6 @@ class ListOfSellAndBuy extends StatelessWidget {
                   );
               }
             }),
-      ),
-    );
-  }
-}
-
-class GradientButton extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final List<Color> colors;
-  final VoidCallback onPressed;
-
-  GradientButton({
-    required this.icon,
-    required this.label,
-    required this.colors,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        width: 140,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: colors, // Button gradient
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-              size: 16, // White icon
-            ),
-            const SizedBox(width: 8),
-            Text(
-              label,
-              style: const TextStyle(
-                  color: Colors.white, // White text
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TopSearchFilter extends StatelessWidget {
-  const TopSearchFilter({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      height: 160,
-      width: double.infinity,
-      decoration: BoxDecoration(color: Colors.grey.shade200, boxShadow: [
-        BoxShadow(
-            color: Colors.grey.shade400,
-            blurRadius: 4,
-            offset: const Offset(1, 2))
-      ]),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.arrow_back,
-                ),
-              ),
-              const Icon(
-                Icons.search_rounded,
-                color: AppColors.primary,
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          const Text.rich(
-            style: TextStyle(fontSize: 12),
-            TextSpan(
-              text: 'Awesome! ',
-              children: <TextSpan>[
-                TextSpan(
-                  text: '8',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                TextSpan(text: ' results found.'),
-              ],
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 12, bottom: 12),
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-            decoration: BoxDecoration(
-                color: Colors.blueAccent.withOpacity(0.07),
-                borderRadius: BorderRadius.circular(12)),
-            child: const Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                  color: Colors.blue,
-                ),
-                Text(
-                  'Add Location',
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: Row(
-              children: [
-                const Text(
-                  'Bilaspur',
-                  style: TextStyle(
-                    fontSize: 14,
-                    height: 0,
-                    color: AppColors.primary,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                CircleAvatar(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.1),
-                    radius: 8,
-                    child: const Icon(
-                      Icons.close,
-                      color: AppColors.primary,
-                      size: 14,
-                    ))
-              ],
-            ),
-          )
-        ],
       ),
     );
   }

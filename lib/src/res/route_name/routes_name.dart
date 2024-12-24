@@ -112,5 +112,7 @@ class RoutesName {
   static const String  sellAndBuyForm = '/sellAndBuyForm';
   static const String  thirdServicesForm = '/thirdServicesForm';
 
+  static const String  reportScreen = '/reportScreen';
+
 
 }

@@ -2,79 +2,91 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
+import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/Constants/colors.dart';
+import '../../../utils/Constants/image_string.dart';
+import '../../../utils/widgets/review_view_card.dart';
+import 'controller/details_room_controller.dart';
 
-class DetailsRoom extends StatefulWidget {
-  const DetailsRoom({super.key});
+class DetailsRoom extends StatelessWidget {
+   DetailsRoom({super.key});
 
-  @override
-  State<DetailsRoom> createState() => _DetailsRoomState();
-}
 
-class _DetailsRoomState extends State<DetailsRoom> {
-  final List<String> roomImages = [
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-  ];
-  final List<String> items = [
-    "AC",
-    "COOLER",
-    "FAN",
-    "TABLE",
-    "BED",
-    "CHAIR",
-    "FRIDGE",
-    "LIGHT",
-    "WASHING MACHINE",
-    "BED SHEET",
-    "GIGER",
-    "ALMARI",
-    "LOCKER"
-  ];
+   final controller = Get.put(DetailsRoomController());
 
-  final List<String> billItem = ['ELECTRICITY BILL', 'WATER BILL'];
 
-  // List of FAQ questions and answers
-  final List<Map<String, String>> faqs = [
-    {
-      'question': 'What is Flutter?',
-      'answer':
-          'Flutter is an open-source UI software development kit created by Google.',
-    },
-    {
-      'question': 'How to use Flutter?',
-      'answer':
-          'Flutter can be used to develop applications for Android, iOS, Linux, Mac, Windows, Google Fuchsia, and the web from a single codebase.',
-    },
-    {
-      'question': 'Is Flutter free?',
-      'answer': 'Yes, Flutter is free and open source.',
-    },
-  ];
 
-  final List<String> rules = [
-    "Available for Students & Working Professionals",
-    "Non veg food is allowed",
-    "Smoking is allowed",
-    "Drinking is allowed",
-    "Guardian is allowed",
-    "Visitors are allowed",
-    "Guests of opposite gender are allowed"
-  ];
+  void showAddHouseFAQDialog() {
+    String itemQuestion = '';
+    String itemAnswer = '';
+    showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: const Text("Your Review"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
 
-  final List<Map<String, dynamic>> roomData = [
-    {'type': 'Private room', 'price': 5000},
-    {'type': 'Single room', 'price': 1000},
-    {'type': 'Double room', 'price': -500},
-  ];
+               ComRatingBarWidgets(
+                 controller: controller,
+                 initialRating: controller.ratingNow.value,
+                 horizontal: 3.0, ),
+              const SizedBox(height: 32),
+              TextField(
+                style:  TextStyle(
+                  fontSize: 16,
+                  color: Colors.black.withOpacity(0.8),
+                  fontWeight: FontWeight.w400
+                ),
+                decoration: const InputDecoration(
+                    labelText: 'Write Your Review',
+                  labelStyle: TextStyle(color: Colors.grey,fontSize: 16,fontWeight: FontWeight.w400)
+                ),
+                keyboardType: TextInputType.text,
+                maxLines: 5,
+                minLines: 1,
+                maxLength: 500,
+                onChanged: (value) {
+                  itemAnswer = value;
+                },
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text(
+                "Cancel",
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                "Submit",
+                style: TextStyle(fontSize: 16),
+              ),
+              onPressed: () {
+                // if (itemQuestion.isNotEmpty && itemAnswer.isNotEmpty) {
+                //   addHouseFAQ(itemQuestion, itemAnswer);
+                  Navigator.of(context).pop();
+                }
 
-  int currentPage = 0;
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,8 +95,8 @@ class _DetailsRoomState extends State<DetailsRoom> {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: const Text(
-          'Room name',
+        title: Text(
+          '${controller.data.houseName?.capitalizeFirst}',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -115,16 +127,19 @@ class _DetailsRoomState extends State<DetailsRoom> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              alignment: Alignment.center,
-              width: AppHelperFunction.screenWidth() * 0.4,
-              height: 40,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(8),
+            InkWell(
+              onTap: (){},
+              child: Container(
+                alignment: Alignment.center,
+                width: AppHelperFunction.screenWidth() * 0.4,
+                height: 40,
+                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text('Chat Now'),
               ),
-              child: const Text('Chat Now'),
             ),
             Container(
               alignment: Alignment.center,
@@ -159,19 +174,18 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   children: [
                     PageView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: roomImages.length,
+                      itemCount: controller.data.imageList!.length,
                       onPageChanged: (int page) {
-                        setState(() {
-                          currentPage = page;
-                        });
+                        controller.currentPage.value = page;
+
                       },
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context,  imageIndex) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
-                              imageUrl: roomImages[index],
+                              imageUrl: controller.data.imageList![imageIndex],
                               placeholder: (context, url) =>
                                   const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
@@ -193,7 +207,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          '${currentPage + 1}/ ${roomImages.length}',
+                          '${controller.currentPage + 1}/ ${controller.data.imageList!.length}',
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
@@ -227,12 +241,6 @@ class _DetailsRoomState extends State<DetailsRoom> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "₹ 15,000/-",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
@@ -240,35 +248,33 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       color: Colors.blueAccent,
                     ),
                     child: const Text(
-                      'PG',
+                      'BOYS',
                       style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.amber,
+                    ),
+                    child:  Text(
+                      '${controller.data.roomCategory}',
+                      style: TextStyle(color: Colors.black, fontSize: 12),
                     ),
                   ),
                 ],
               ),
-              const Text(
-                "Name of Room",
+               SizedBox(height: 8,),
+               Text(
+                "${controller.data.roomType}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.w400),
               ),
               const SizedBox(
                 height: 16,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.blueAccent,
-                ),
-                child: const Text(
-                  'BOYS',
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
+              ) ,
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16.0),
@@ -290,20 +296,21 @@ class _DetailsRoomState extends State<DetailsRoom> {
                         width: 40,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/map_icon.png'),
+                            image: AssetImage(AppImage.mapIcon),
                           ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       // Add some spacing between the icon and text
-                      const Expanded(
+                       Expanded(
                         // Allow the column to take up the remaining space
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // Align text to the start
                           children: [
                             Text(
-                              'Gour colony yadunandan nager tifra, Bilaspur, Chhattisgarh ',
+                              '${controller.data.landmark}, ${controller.data.homeAddress}, ${controller.data.city}, ${controller.data.state}',
+
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -313,14 +320,19 @@ class _DetailsRoomState extends State<DetailsRoom> {
                             SizedBox(
                               height: 4,
                             ),
-                            Text(
-                              'View On Map',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.blue,
+
+                            InkWell(
+                              onTap: ()=>AppHelperFunction.launchMap(double.parse(controller.data.latitude!),  double.parse(controller.data.longitude!)),
+                              child: Text(
+                                'View On Map',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -348,18 +360,18 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 child: Column(
                   children: [
                     Column(
-                      children: roomData.map((room) {
+                      children: controller.data.houseFAQ!.map((room) {
                         return Column(
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  room['type'],
+                                  room.question!,
                                   style: const TextStyle(fontWeight: FontWeight.w500),
                                 ),
                                 Text(
-                                  '₹${room['price']}/-',
+                                  '₹${room.answer}/-',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
@@ -409,8 +421,8 @@ class _DetailsRoomState extends State<DetailsRoom> {
                     child: Wrap(
                       spacing: 10, // space between containers
                       runSpacing: 10, // space between lines
-                      children: items
-                          .map((item) => Container(
+                      children:  controller.data.roomFacilityList
+                          !.map((item) => Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   border: Border.all(
@@ -443,38 +455,68 @@ class _DetailsRoomState extends State<DetailsRoom> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all()),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Room is provided by the broker.',
+                        'Room is provided by the ${controller.data.roomOwnershipType}.',
                       ),
                       SizedBox(height: 8), // Space between each text
                       Text(
-                        'Total number of room - 12',
+                        'Total number of room - ${controller.data.totalRoom}',
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Room is available - YES',
+                        'Room is available - ${controller.data.isRoomAvailableDate}',
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Notice period - 7 Day',
+                        'Notice period - ${controller.data.noticePride}',
                       ),
                       SizedBox(height: 8),
                       Text(
-                        'Meals is available - YES',
+                        'Meals is available - ${controller.data.mealsAvailable}',
                       ),
                       SizedBox(height: 8),
                       Text(
                         'Common area - Kitchen, dining hall, study room, library, breakout area',
                       ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Bathroom - seprate',
-                      ),
                     ],
                   )),
+              const SizedBox(
+                height: 16,
+              ),
+              const Text(
+                'Common area',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Wrap(
+                spacing: 10, // space between containers
+                runSpacing: 10, // space between lines
+                children:  controller.data.commonAreasList!.map((bill) {
+                  return Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black.withOpacity(0.2)),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      bill,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -492,7 +534,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
               Wrap(
                 spacing: 10, // space between containers
                 runSpacing: 10, // space between lines
-                children: billItem.map((bill) {
+                children:  controller.data.billsList!.map((bill) {
                   return Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -521,7 +563,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 height: 16,
               ),
               Column(
-                  children: rules.map((rule) {
+                  children:  controller.data.houseRules!.map((rule) {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 8),
                   child: Row(
@@ -542,24 +584,27 @@ class _DetailsRoomState extends State<DetailsRoom> {
               const SizedBox(
                 height: 16,
               ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.circular(8)),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Submit Your Review'),
-                    Icon(Icons.arrow_forward_ios_rounded)
-                  ],
+              InkWell(
+                onTap: ()=>showAddHouseFAQDialog(),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.yellow,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Submit Your Review'),
+                      Icon(Icons.arrow_forward_ios_rounded)
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -570,12 +615,15 @@ class _DetailsRoomState extends State<DetailsRoom> {
                       color: Colors.black,
                     ),
                   ),
-                  Text(
-                    'View All',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.blue,
+                  InkWell(
+                    onTap: ()=>Get.toNamed(RoutesName.viewAllReview),
+                    child: Text(
+                      'View All',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ],
@@ -583,111 +631,30 @@ class _DetailsRoomState extends State<DetailsRoom> {
               const SizedBox(
                 height: 16,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+              ReviewViewCardWidgets(imageUrl: '', userName: 'Reetu', date: '12/122022', rating: '2.5', review: 'This my review',),
+              ReviewViewCardWidgets(imageUrl: '', userName: 'Reetu', date: '12/122022', rating: '2.5', review: 'This my review',),
+              ReviewViewCardWidgets(imageUrl: '', userName: 'Reetu', date: '12/122022', rating: '2.5', review: 'This my review',),
+
+              InkWell(
+                onTap: ()=> Get.toNamed(RoutesName.reportScreen),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: Colors.red, borderRadius: BorderRadius.circular(8)),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 25,
-                            width: 25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.blue),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: CachedNetworkImage(
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover,
-                                imageUrl: "",
-                                placeholder: (context, _) => const Center(
-                                  child: SpinKitFadingCircle(
-                                    color: AppColors.primary,
-                                    size: 30,
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                    const CircleAvatar(
-                                        backgroundColor: AppColors.primary,
-                                        child: Icon(
-                                          CupertinoIcons.person,
-                                          size: 18,
-                                          color: Colors.white,
-                                        )),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Manish sahu",
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      const Text(
-                        '12/12/2000',
-                        style: TextStyle(color: Colors.grey, fontSize: 10),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Row(
-                    children: [
-                      ComRatingBarWidgets(
-                        initialRating: 5,
-                        itemSize: 10.0,
-                        ignoreGestures: true,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
                       Text(
-                        "2.5",
-                        style:
-                            TextStyle(fontSize: 12, color: Colors.black),
+                        'Report About Room',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.white,
                       )
                     ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, bottom: 20),
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: AppHelperFunction.isDarkMode(context)
-                            ? Colors.blueGrey.shade900
-                            : Colors.grey.shade50,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: const Text(
-                        "To add an underline to your Text widget in Flutter, you can modify the TextStyle to include decoration: TextDecoration.underline. Here's how you can update your code:"),
-                  ),
-                ],
-              ),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.red, borderRadius: BorderRadius.circular(8)),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Report About Room',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.white,
-                    )
-                  ],
                 ),
               ),
               const SizedBox(
@@ -702,11 +669,11 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 ),
               ),
               Column(
-                children: faqs.map((faq) {
+                children:  controller.data.houseFAQ!.map((faq) {
                   // Mapping each FAQ item to a FAQTile widget
                   return FAQTile(
-                    question: faq['question']!,
-                    answer: faq['answer']!,
+                    question: faq.question!,
+                    answer: faq.answer!,
                   );
                 }).toList(),
               ),
@@ -751,6 +718,7 @@ class FAQTile extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 answer,
+                textAlign: TextAlign.start ,
                 style: const TextStyle(color: Colors.black54),
               ),
             ),
