@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 
 import '../../common/widgets/com_reuse_elevated_button.dart';
+import '../../data/repository/apis/user_apis.dart';
+import '../../utils/logger/logger.dart';
 
 class ReportController extends GetxController {
   final options = ["Copy Right", "False Information", "Other"];
@@ -30,7 +35,9 @@ class ReportController extends GetxController {
 }
 
 class ReportScreen extends StatelessWidget {
-  const ReportScreen({super.key});
+   ReportScreen({super.key});
+
+  final rid = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -90,10 +97,12 @@ class ReportScreen extends StatelessWidget {
             }),
             const SizedBox(height: 64),
             ReuseElevButton(
-              onPressed: () {
+              onPressed: () async {
                 final reportReason = controller.reportReason;
-                // Do something with reportReason
-                print("Report Reason: $reportReason");
+               if(reportReason.isNotEmpty) {
+                 ApisClass.submitReport(reportReason: reportReason, docId: rid);
+               }
+
               },
               title: 'Submit Report',
             ),

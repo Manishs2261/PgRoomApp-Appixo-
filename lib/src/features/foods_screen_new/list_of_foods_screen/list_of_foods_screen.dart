@@ -116,10 +116,8 @@ class _ListOfFoodsState extends State<ListOfFoods> {
     itemCount: foodList.length,
     itemBuilder: (context, index) {
       return InkWell(
-        onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (
-              context) => const DetailsFood()));
-        },
+        onTap: () => Get.toNamed(RoutesName.foodDetails,
+            arguments:   foodList[index]),
         child: Container(
           margin: const EdgeInsets.only(top: 12, left: 12, right: 12),
           padding: const EdgeInsets.all(12.0),
@@ -150,6 +148,9 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                             ?.length ??
                             0,
                         itemBuilder: (context, imageIndex) {
+
+                          print(foodList[index]
+                              .image![imageIndex]);
                           return Padding(
                             padding:
                             const EdgeInsets.only(right: 8),
@@ -159,8 +160,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                               child: CachedNetworkImage(
                                 width: Get.width * 0.8,
                                 imageUrl:  foodList[index]
-                                    .image?[imageIndex] ??
-                                    '',
+                                    .image![imageIndex],
                                 placeholder: (context, url) =>
                                 const Center(
                                     child:
@@ -216,8 +216,8 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                       borderRadius: BorderRadius.circular(4),
                       color: Colors.green,
                     ),
-                    child: const Text(
-                      'VEG',
+                    child:  Text(
+                      '${foodList[index].foodCategory}',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
@@ -252,15 +252,15 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.green,
                 ),
-                child: const Text(
-                  'Mess',
+                child: Text(
+                  '${foodList[index].typeOfShop}',
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               ),
               const SizedBox(height: 4),
-              const Text(
-                'Address: 123 Main St, Springfield Addrfgff dgfdkf ess: 123 Main St, SpringfieldAddress: 123 Main St, Springfield',
-                maxLines: 2,
+               Text(
+                 '${foodList[index].landmark} ${foodList[index].address}, ${foodList[index].city}, ${foodList[index].state}',
+                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 14),
               ),

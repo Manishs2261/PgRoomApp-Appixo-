@@ -41,13 +41,14 @@ class RoomDataSaveController extends GetxController {
         doublePersonCost: firstRoomFormController.doubleRoomPriceController.text,
         triplePersonCost: firstRoomFormController.tripleRoomPriceController.text,
         triplePlusCost: firstRoomFormController.threePlusRoomPriceController.text,
-        familyCost: firstRoomFormController.singleRoomPriceController.text,
+        familyCost: firstRoomFormController.bhkCostController.text,
         roomsAvailable:  '',
         noticePride: '',
         mealsAvailable: secondRoomFormController.mealsAvailable.value,
         houseRules: fourthRoomFormController.selectedHouseRules,
         genderType:  firstRoomFormController.genderType.value,
-        totalRoom: secondRoomFormController.numberOfRoomController.text
+        totalRoom: secondRoomFormController.numberOfRoomController.text,
+        flatType: firstRoomFormController.flatType.value
     );
 
     if (value) {

@@ -94,13 +94,14 @@ class FourthRoomFormScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TextField(
+                              autofocus: false,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               controller: controller.newHouseRulesController,
                               maxLength: 50,
                               inputFormatters: <TextInputFormatter>[
                                 FilteringTextInputFormatter.allow(
-                                    RegExp("[a-zA-Z ]")),
+                                    RegExp("[a-zA-Z0-9 ]")),
                               ],
                               decoration: InputDecoration(
                                 counterText: '',

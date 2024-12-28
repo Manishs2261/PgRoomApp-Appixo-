@@ -25,6 +25,8 @@ class FirstRoomFormController extends GetxController {
   // Meal availability
   RxString mealsAvailable = 'Yes'.obs;
 
+  RxString flatType = '1BHK'.obs;
+
   // Conditional fields
   TextEditingController singleRoomPriceController = TextEditingController();
 
@@ -32,6 +34,7 @@ class FirstRoomFormController extends GetxController {
 
   TextEditingController doubleRoomPriceController = TextEditingController();
   TextEditingController threePlusRoomPriceController = TextEditingController();
+  TextEditingController  bhkCostController = TextEditingController();
 
   // Common facilities & house rules
   RxList selectedFacilities = [].obs;

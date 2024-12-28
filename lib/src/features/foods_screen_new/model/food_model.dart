@@ -30,6 +30,7 @@ class FoodModel {
   String? thaliCost;
   String? fId;
   String? aCupOfRice;
+  String? foodCategory;
 
   FoodModel(
       {this.breakfastAndLunchOrDinnerCost,
@@ -62,7 +63,9 @@ class FoodModel {
       this.subscriptionList,
       this.thaliCost,
       this.fId,
-      this.aCupOfRice});
+      this.aCupOfRice,
+      this.foodCategory
+      });
 
   FoodModel.fromJson(Map<String, dynamic> json) {
     breakfastAndLunchOrDinnerCost = json['breakfastAndLunchOrDinnerCost'];
@@ -116,6 +119,7 @@ class FoodModel {
     thaliCost = json['thaliCost'];
     fId = json['f_id'];
     aCupOfRice = json['aCupOfRice'];
+    foodCategory = json['foodCategory'];
   }
 
   Map<String, dynamic> toJson() {
@@ -162,6 +166,7 @@ class FoodModel {
     data['thaliCost'] = this.thaliCost;
     data['f_id'] = this.fId;
     data['aCupOfRice'] = this.aCupOfRice;
+    data['foodCategory'] = this.foodCategory;
     return data;
   }
 }

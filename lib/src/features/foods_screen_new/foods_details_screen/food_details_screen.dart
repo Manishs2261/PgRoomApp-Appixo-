@@ -2,10 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:pgroom/src/utils/widgets/faq_widgets.dart';
 
 import '../../../common/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/Constants/colors.dart';
+import '../../../utils/Constants/image_string.dart';
 
 class DetailsFood extends StatefulWidget {
   const DetailsFood({super.key});
@@ -15,74 +20,9 @@ class DetailsFood extends StatefulWidget {
 }
 
 class _DetailsFoodState extends State<DetailsFood> {
-  final List<String> roomImages = [
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-    'https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D',
-  ];
-  final List<String> items = [
-    "AC",
-    "COOLER",
-    "FAN",
-    "TABLE",
-    "BED",
-    "CHAIR",
-    "FRIDGE",
-    "LIGHT",
-    "WASHING MACHINE",
-    "BED SHEET",
-    "GIGER",
-    "ALMARI",
-    "LOCKER"
-  ];
 
-  final List<String> billItem = ['ELECTRICITY BILL', 'WATER BILL'];
+  final FoodModel  data = Get.arguments;
 
-
-  // List of FAQ questions and answers
-  final List<Map<String, String>> faqs = [
-    {
-      'question': 'What is Flutter?',
-      'answer': 'Flutter is an open-source UI software development kit created by Google.',
-    },
-    {
-      'question': 'How to use Flutter?',
-      'answer': 'Flutter can be used to develop applications for Android, iOS, Linux, Mac, Windows, Google Fuchsia, and the web from a single codebase.',
-    },
-    {
-      'question': 'Is Flutter free?',
-      'answer': 'Yes, Flutter is free and open source.',
-    },
-  ];
-
-
-
-  final List<String> rules = [
-    "Available for Students & Working Professionals Available for Students & Working Professionals",
-    "Non veg food is allowed",
-    "Smoking is allowed",
-    "Drinking is allowed",
-    "Guardian is allowed",
-    "Visitors are allowed",
-    "Guests of opposite gender are allowed"
-  ];
-
-  final List<Map<String, dynamic>> roomData = [
-    {'type': 'Breakfast', 'price': 800},
-    {'type': 'Lunch OR Dinner', 'price': 1300},
-    {'type': 'Lunch AND Dinner', 'price': 2300},
-    {'type': 'Breakfast,Lunch AND Dinner Breakfast,Lunch AND Dinner', 'price': 3100},
-  ];
-
-
-  final List<Map<String, dynamic>> dailyFoods = [
-    {'type': 'Rice', 'price': 30},
-    {'type': 'Roti Per Pice', 'price': 7},
-    {'type': 'Sabji', 'price': 40},
-    {'type': 'dal', 'price': 30},
-  ];
 
   int currentPage = 0;
 
@@ -93,8 +33,8 @@ class _DetailsFoodState extends State<DetailsFood> {
         iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: const Text(
-          'Food name',
+        title:  Text(
+          data.shopName.toString(),
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -169,19 +109,19 @@ class _DetailsFoodState extends State<DetailsFood> {
                   children: [
                     PageView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: roomImages.length,
+                      itemCount: data.image?.length,
                       onPageChanged: (int page) {
                         setState(() {
                           currentPage = page;
                         });
                       },
-                      itemBuilder: (context, index) {
+                      itemBuilder: (context, imageIndex) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
-                              imageUrl: roomImages[index],
+                              imageUrl: data.image?[imageIndex] ?? '',
                               placeholder: (context, url) =>
                                   const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
@@ -203,7 +143,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          '${currentPage + 1}/ ${roomImages.length}',
+                          '${currentPage + 1}/ ${data.image?.length}',
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
@@ -237,9 +177,9 @@ class _DetailsFoodState extends State<DetailsFood> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Expanded(
+                   Expanded(
                     child: Text(
-                      "Joly mess where tapping on a question ",
+                      '${data.shopName}',
                       maxLines: 2,
 
                       overflow: TextOverflow.ellipsis,
@@ -252,16 +192,16 @@ class _DetailsFoodState extends State<DetailsFood> {
                       borderRadius: BorderRadius.circular(4),
                       color: Colors.green,
                     ),
-                    child: const Text(
-                      'VEG',
+                    child:  Text(
+                      '${data.foodCategory}',
                       style: TextStyle(color: Colors.white, fontSize: 12),
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 4,),
-              const Text(
-                "pure vag and delises foods provide by owe services  you can test now evey day",
+               Text(
+                '${data.description}',
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,color: Colors.grey),
@@ -275,8 +215,8 @@ class _DetailsFoodState extends State<DetailsFood> {
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.blue,
                 ),
-                child: const Text(
-                  'Mess',
+                child:  Text(
+                  '${data.typeOfShop}',
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ),
@@ -305,20 +245,20 @@ class _DetailsFoodState extends State<DetailsFood> {
                         width: 40,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/map_icon.png'),
+                            image: AssetImage(AppImage.mapIcon),
                           ),
                         ),
                       ),
                       const SizedBox(width: 8),
                       // Add some spacing between the icon and text
-                      const Expanded(
+                       Expanded(
                         // Allow the column to take up the remaining space
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           // Align text to the start
                           children: [
                             Text(
-                              'Gour colony yadunandan nager tifra, Bilaspur, Chhattisgarh ',
+                              '${data.landmark} ${data.address}, ${data.city}, ${data.state}',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400,
@@ -328,12 +268,15 @@ class _DetailsFoodState extends State<DetailsFood> {
                             SizedBox(
                               height: 4,
                             ),
-                            Text(
-                              'View On Map',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.blue,
+                            InkWell(
+                              onTap: ()=> AppHelperFunction.launchMap(double.parse(data.latitude.toString()), double.parse(data.longitude.toString())),
+                              child: Text(
+                                'View On Map',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.blue,
+                                ),
                               ),
                             ),
                           ],
@@ -361,7 +304,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all()),
                 child: Column(
-                  children: roomData.map((room) {
+                  children:  data.fAQ!.map((room) {
                     return Column(
                       children: [
                         Row(
@@ -369,12 +312,12 @@ class _DetailsFoodState extends State<DetailsFood> {
                           children: [
                             Expanded(
                               child: Text(
-                                room['type'],
+                                room.question.toString(),
                                 style: const TextStyle(fontWeight: FontWeight.w500,),
                               ),
                             ),
                             Text(
-                              '₹${room['price']}/-',
+                              '₹${room.answer}/-',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16),
@@ -411,7 +354,7 @@ class _DetailsFoodState extends State<DetailsFood> {
 
                   ),
                   child: Column(
-                    children: dailyFoods.map((room) {
+                    children:  data.dailyItemList!.map((room) {
                       return Column(
                         children: [
                           Row(
@@ -419,12 +362,12 @@ class _DetailsFoodState extends State<DetailsFood> {
                             children: [
                               Expanded(
                                 child: Text(
-                                  room['type'],
+                                  room.name.toString(),
                                   style: const TextStyle(fontWeight: FontWeight.w400,),
                                 ),
                               ),
                               Text(
-                                '₹${room['price']}/-',
+                                '₹${room.price}/-',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 14),
@@ -454,7 +397,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                 height: 16,
               ),
               Column(
-                  children: rules.map((rule) {
+                  children:  data.messRules!.map((rule) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: Row(
@@ -623,11 +566,11 @@ class _DetailsFoodState extends State<DetailsFood> {
               ),
 
               Column(
-                children: faqs.map((faq) {
+                children: data.fAQ!.map((faq) {
                   // Mapping each FAQ item to a FAQTile widget
-                  return FAQTile(
-                    question: faq['question']!,
-                    answer: faq['answer']!,
+                  return FAQWidgets(
+                    question: faq.question!,
+                    answer: faq.answer!,
                   );
                 }).toList(),
               ),
@@ -643,47 +586,3 @@ class _DetailsFoodState extends State<DetailsFood> {
 
 
 
-class FAQTile extends StatelessWidget {
-  final String question;
-  final String answer;
-
-  const FAQTile({
-    Key? key,
-    required this.question,
-    required this.answer,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric( vertical: 5.0),
-      child: Card(
-        color: Colors.grey.withOpacity(0.15),
-        elevation: 0,
-        child: ExpansionTile(
-
-          shape: const RoundedRectangleBorder(
-            side: BorderSide(color: Colors.transparent),
-          ),
-          collapsedShape: const RoundedRectangleBorder(
-            side: BorderSide(color: Colors.transparent),
-          ),
-
-          title: Text(
-            question,
-            style: const TextStyle(fontWeight: FontWeight.w500),
-          ),
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                answer,
-                style: const TextStyle(color: Colors.black54),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

@@ -869,7 +869,10 @@ class ApisClass {
       required String mealsAvailable,
       required List<String> houseRules,
       required String genderType,
-      required String totalRoom}) async {
+      required String totalRoom,
+      required String flatType
+
+      }) async {
     AppHelperFunction.showCenterCircularIndicator(true);
 
     try {
@@ -911,6 +914,7 @@ class ApisClass {
         report: [],
         disable: false,
         uId: user.uid,
+        flatType: flatType
       );
 
       // Step 3: Add the data to Firestore
@@ -980,6 +984,34 @@ class ApisClass {
     } catch (e) {
       AppLoggerHelper.error("Image upload failed: $e");
       throw Exception("Image upload failed");
+    }
+  }
+
+  static Future<void> submitReport(
+      {required String reportReason, required String docId}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("DevRoomCollection")
+          .doc(docId)
+          .update({
+        'report': FieldValue.arrayUnion([
+          {
+            'date': DateTime.now().toString(),
+            'description': reportReason,
+            'userRef': FirebaseFirestore.instance
+                .collection('DevUser')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+          }
+        ])
+      }).then((value) {
+        Navigator.pop(Get.context!);
+        AppLoggerHelper.info("Document updated successfully");
+      }).catchError((error) {
+        AppLoggerHelper.error("Failed to update document: $error");
+      });
+    } catch (e) {
+      AppHelperFunction.showFlashbar(e.toString());
+      AppLoggerHelper.error("Error adding document: $e");
     }
   }
 }

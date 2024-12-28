@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 class RoomModel {
   String? city;
   String? mealsAvailable;
@@ -12,6 +15,7 @@ class RoomModel {
   String? landmark;
   String? roomType;
   String? genderType;
+  String? flatType;
   String? doublePersonCost;
   String? homeAddress;
   String? longitude;
@@ -22,6 +26,7 @@ class RoomModel {
   bool? isDelete;
   String? totalRoom;
   List<HouseFAQ>? houseFAQ;
+  List<Report>? reportList;
   String? roomOwnershipType;
   String? singlePersonCost;
   bool? disable;
@@ -68,7 +73,10 @@ class RoomModel {
         this.rId,
         this.imageList,
         this.commonAreasList,
-        this.familyCost});
+        this.familyCost,
+        this.reportList,
+        this.flatType,
+      });
 
   RoomModel.fromJson(Map<String, dynamic> json) {
     city = json['city'];
@@ -84,6 +92,7 @@ class RoomModel {
     landmark = json['landmark'];
     roomType = json['roomType'];
     genderType = json['genderType'];
+    flatType = json['flatType'];
     doublePersonCost = json['double_person_cost'];
     homeAddress = json['homeAddress'];
     longitude = json['longitude'];
@@ -97,6 +106,12 @@ class RoomModel {
       houseFAQ = <HouseFAQ>[];
       json['houseFAQ'].forEach((v) {
         houseFAQ!.add(new HouseFAQ.fromJson(v));
+      });
+    }
+    if (json['report'] != null) {
+      reportList = <Report>[];
+      json['report'].forEach((v) {
+        reportList!.add(new Report.fromJson(v));
       });
     }
     roomOwnershipType = json['roomOwnershipType'];
@@ -127,6 +142,7 @@ class RoomModel {
     data['landmark'] = this.landmark;
     data['roomType'] = this.roomType;
     data['genderType'] = this.genderType;
+    data['flatType'] = this.flatType;
     data['double_person_cost'] = this.doublePersonCost;
     data['homeAddress'] = this.homeAddress;
     data['longitude'] = this.longitude;
@@ -138,6 +154,9 @@ class RoomModel {
     data['totalRoom'] = this.totalRoom;
     if (this.houseFAQ != null) {
       data['houseFAQ'] = this.houseFAQ!.map((v) => v.toJson()).toList();
+    }
+    if (this.reportList != null) {
+      data['report'] = this. reportList!.map((v) => v.toJson()).toList();
     }
     data['roomOwnershipType'] = this.roomOwnershipType;
     data['single_person_cost'] = this.singlePersonCost;
@@ -169,6 +188,29 @@ class HouseFAQ {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['question'] = this.question;
     data['answer'] = this.answer;
+    return data;
+  }
+}
+
+
+class  Report {
+  String? date;
+  String? description;
+  DocumentReference? userRef ;
+
+  Report({this.date, this.description, this.userRef});
+
+  Report.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    description = json['description'];
+    userRef = json['userRef'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['date'] = this.date;
+    data['description'] = this.description;
+    data['userRef'] = this.userRef;
     return data;
   }
 }

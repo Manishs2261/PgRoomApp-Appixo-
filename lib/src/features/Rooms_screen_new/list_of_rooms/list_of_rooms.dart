@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -110,7 +114,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
             size: 30,
           );
         },
-        child: StreamBuilder(
+        child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ApisClass.firebaseFirestore
                 .collection('DevRoomCollection')
                 .snapshots(),
@@ -145,9 +149,31 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                     ),
                   );
 
+
+
+
                 case ConnectionState.active:
                 case ConnectionState.done:
                   final data = snapshot.data?.docs;
+
+
+
+               ///   for creating json model
+
+                  // for (var i in data!) {
+                  //   try {
+                  //     // Extracting the data and ensuring it's JSON serializable
+                  //     var jsonData = i.data();
+                  //     if (jsonData is Map<String, dynamic>) {
+                  //       log("Data: ${jsonEncode(jsonData)}");
+                  //     } else {
+                  //       log("Data: Unable to serialize as JSON: $jsonData");
+                  //     }
+                  //   } catch (e) {
+                  //     log("Error serializing data: $e");
+                  //   }
+                  // }
+
 
                   roomListData = data
                           ?.map((e) => RoomModel.fromJson(e.data()))

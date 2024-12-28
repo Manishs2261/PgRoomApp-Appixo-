@@ -15,6 +15,13 @@ import 'controller.dart';
 
 class FirstRoomFormScreen extends StatelessWidget {
   final controller = Get.put(FirstRoomFormController());
+  final List<String> bhkOptions = [
+    '1 BHK',
+    '2 BHK',
+    '3 BHK',
+    '4 BHK',
+    '4+ BHK'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -120,169 +127,6 @@ class FirstRoomFormScreen extends StatelessWidget {
                 ),
 
                 // 4. Room type - Shareable or Private
-                const SizedBox(
-                  height: 40,
-                ),
-                const FormHeadline(title: "Room Type"),
-                Obx(
-                  () => Row(
-                    children: [
-                      Expanded(
-                        child: RadioListTile<String>(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity: const VisualDensity(horizontal: -4),
-                          title: const Text(
-                            'Private',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 14),
-                          ),
-                          value: 'Private',
-                          groupValue: controller.roomType.value,
-                          onChanged: (value) {
-                            controller.roomType.value = value!;
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: RadioListTile<String>(
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity: const VisualDensity(horizontal: -4),
-                          dense: true,
-                          title: const Text('Shareable',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 14)),
-                          value: 'Shareable',
-                          groupValue: controller.roomType.value,
-                          onChanged: (value) {
-                            controller.roomType.value = value!;
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-
-                Obx(
-                  () => controller.roomType.value == 'Shareable'
-                      ? Column(
-                          children: [
-                            MyTextFormWidget(
-                              textKeyBoard: TextInputType.number,
-                              controller: controller.singleRoomPriceController,
-                              labelText: "Single Person Rent",
-
-                              ///  isCollapsed: true,
-                              maxLength: 6,
-                              validator: CommonUseValidator.validate,
-                              icon: const Icon(
-                                Icons.currency_rupee,
-                                size: 20,
-                                color: AppColors.primary,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                              //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[0-9.]")),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            MyTextFormWidget(
-                              textKeyBoard: TextInputType.number,
-                              controller: controller.doubleRoomPriceController,
-                              validator: CommonUseValidator.validate,
-                              labelText: "Double Person Rent",
-
-                              ///  isCollapsed: true,
-                              maxLength: 6,
-                              icon: const Icon(
-                                Icons.currency_rupee,
-                                size: 20,
-                                color: AppColors.primary,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                              //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[0-9.]")),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            MyTextFormWidget(
-                              textKeyBoard: TextInputType.number,
-                              controller: controller.tripleRoomPriceController,
-                              icon: const Icon(
-                                Icons.currency_rupee,
-                                size: 20,
-                                color: AppColors.primary,
-                              ),
-                              labelText: "Triple  Person Rent",
-
-                              ///  isCollapsed: true,
-                              maxLength: 6,
-
-                              borderRadius: BorderRadius.circular(4),
-                              //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[0-9.]")),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            MyTextFormWidget(
-                              textKeyBoard: TextInputType.number,
-                              controller:
-                                  controller.threePlusRoomPriceController,
-
-                              labelText: "+ Triple Person Rent",
-
-                              ///  isCollapsed: true,
-                              maxLength: 6,
-                              icon: const Icon(
-                                Icons.currency_rupee,
-                                size: 20,
-                                color: AppColors.primary,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                              //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                              inputFormatters: <TextInputFormatter>[
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[0-9.]")),
-                              ],
-                            ),
-                          ],
-                        )
-                      : MyTextFormWidget(
-                          textKeyBoard: TextInputType.number,
-                          controller: controller.singleRoomPriceController,
-                          icon: const Icon(
-                            Icons.currency_rupee,
-                            size: 20,
-                            color: AppColors.primary,
-                          ),
-                          labelText: "Room Rent",
-                          validator: CommonUseValidator.validate,
-
-                          ///  isCollapsed: true,
-                          maxLength: 6,
-
-                          borderRadius: BorderRadius.circular(4),
-                          //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
-                          ],
-                        ),
-                ),
 
                 const SizedBox(
                   height: 16,
@@ -322,19 +166,22 @@ class FirstRoomFormScreen extends StatelessWidget {
                           },
                         ),
                       ),
-                      Expanded(
-                        child: RadioListTile<String>(
-                          dense: true,
-                          contentPadding: EdgeInsets.zero,
-                          visualDensity: const VisualDensity(horizontal: -4),
-                          title: const Text('Flat',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w400, fontSize: 14)),
-                          value: 'Flat',
-                          groupValue: controller.roomCategory.value,
-                          onChanged: (value) {
-                            controller.roomCategory.value = value!;
-                          },
+                      Visibility(
+                        visible: controller.roomType.value != "Shareable",
+                        child: Expanded(
+                          child: RadioListTile<String>(
+                            dense: true,
+                            contentPadding: EdgeInsets.zero,
+                            visualDensity: const VisualDensity(horizontal: -4),
+                            title: const Text('Flat',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14)),
+                            value: 'Flat',
+                            groupValue: controller.roomCategory.value,
+                            onChanged: (value) {
+                              controller.roomCategory.value = value!;
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -411,9 +258,256 @@ class FirstRoomFormScreen extends StatelessWidget {
                         ],
                       )),
                 ),
+                Obx(
+                  () => Visibility(
+                      visible: controller.roomCategory.value == "Flat",
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const FormHeadline(title: "BHK Types"),
+                          Wrap(
+                            children: List.generate(
+                              bhkOptions.length,
+                              (index) => RadioListTile<String>(
+                                dense: true,
+                                contentPadding: EdgeInsets.zero,
+                                visualDensity:
+                                    const VisualDensity(horizontal: -4),
+                                title: Text(
+                                  bhkOptions[index],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                value: bhkOptions[index],
+                                groupValue: controller.flatType.value,
+                                onChanged: (value) {
+                                  controller.flatType.value = value!;
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                ),
+
+                const SizedBox(
+                  height: 40,
+                ),
+                Obx(
+                  () => Visibility(
+                    visible: controller.roomCategory.value != "Flat",
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const FormHeadline(title: "Room Type"),
+                        Obx(
+                          () => Row(
+                            children: [
+                              Expanded(
+                                child: RadioListTile<String>(
+                                  dense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
+                                  title: const Text(
+                                    'Private',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 14),
+                                  ),
+                                  value: 'Private',
+                                  groupValue: controller.roomType.value,
+                                  onChanged: (value) {
+                                    controller.roomType.value = value!;
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: RadioListTile<String>(
+                                  contentPadding: EdgeInsets.zero,
+                                  visualDensity:
+                                      const VisualDensity(horizontal: -4),
+                                  dense: true,
+                                  title: const Text('Shareable',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14)),
+                                  value: 'Shareable',
+                                  groupValue: controller.roomType.value,
+                                  onChanged: (value) {
+                                    controller.roomType.value = value!;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Obx(
+                          () => controller.roomType.value == 'Shareable'
+                              ? Column(
+                                  children: [
+                                    MyTextFormWidget(
+                                      textKeyBoard: TextInputType.number,
+                                      controller:
+                                          controller.singleRoomPriceController,
+                                      labelText: "Single Person Rent",
+
+                                      ///  isCollapsed: true,
+                                      maxLength: 6,
+                                      validator: CommonUseValidator.validate,
+                                      icon: const Icon(
+                                        Icons.currency_rupee,
+                                        size: 20,
+                                        color: AppColors.primary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                      //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp("[0-9.]")),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    MyTextFormWidget(
+                                      textKeyBoard: TextInputType.number,
+                                      controller:
+                                          controller.doubleRoomPriceController,
+                                      validator: CommonUseValidator.validate,
+                                      labelText: "Double Person Rent",
+
+                                      ///  isCollapsed: true,
+                                      maxLength: 6,
+                                      icon: const Icon(
+                                        Icons.currency_rupee,
+                                        size: 20,
+                                        color: AppColors.primary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                      //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp("[0-9.]")),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    MyTextFormWidget(
+                                      textKeyBoard: TextInputType.number,
+                                      controller:
+                                          controller.tripleRoomPriceController,
+                                      icon: const Icon(
+                                        Icons.currency_rupee,
+                                        size: 20,
+                                        color: AppColors.primary,
+                                      ),
+                                      labelText: "Triple  Person Rent",
+
+                                      ///  isCollapsed: true,
+                                      maxLength: 6,
+
+                                      borderRadius: BorderRadius.circular(4),
+                                      //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp("[0-9.]")),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 16,
+                                    ),
+                                    MyTextFormWidget(
+                                      textKeyBoard: TextInputType.number,
+                                      controller: controller
+                                          .threePlusRoomPriceController,
+
+                                      labelText: "+ Triple Person Rent",
+
+                                      ///  isCollapsed: true,
+                                      maxLength: 6,
+                                      icon: const Icon(
+                                        Icons.currency_rupee,
+                                        size: 20,
+                                        color: AppColors.primary,
+                                      ),
+                                      borderRadius: BorderRadius.circular(4),
+                                      //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                      inputFormatters: <TextInputFormatter>[
+                                        FilteringTextInputFormatter.allow(
+                                            RegExp("[0-9.]")),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              : MyTextFormWidget(
+                                  textKeyBoard: TextInputType.number,
+                                  controller:
+                                      controller.singleRoomPriceController,
+                                  icon: const Icon(
+                                    Icons.currency_rupee,
+                                    size: 20,
+                                    color: AppColors.primary,
+                                  ),
+                                  labelText: "Room Rent",
+                                  validator: CommonUseValidator.validate,
+
+                                  ///  isCollapsed: true,
+                                  maxLength: 6,
+
+                                  borderRadius: BorderRadius.circular(4),
+                                  //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp("[0-9.]")),
+                                  ],
+                                ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => Visibility(
+                    visible: controller.roomCategory.value == 'Flat',
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const FormHeadline(title: "BHK Cost"),
+                        MyTextFormWidget(
+                          textKeyBoard: TextInputType.number,
+                          controller: controller.bhkCostController,
+                          labelText: "BHK Cost",
+
+                          ///  isCollapsed: true,
+                          maxLength: 12,
+                          validator: CommonUseValidator.validate,
+                          icon: const Icon(
+                            Icons.currency_rupee,
+                            size: 20,
+                            color: AppColors.primary,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                          //contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(RegExp("[0-9.]")),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
                 const SizedBox(
                   height: 16,
                 ),
+
                 // 2. Select images
                 InkWell(
                   onTap: controller.pickImages,
