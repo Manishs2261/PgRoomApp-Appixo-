@@ -3,9 +3,10 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../common/widgets/com_ratingbar_widgets.dart';
+import '../widgets/com_ratingbar_widgets.dart';
 
 
 class AppHelperFunction {
@@ -204,71 +205,7 @@ class AppHelperFunction {
   }
 
 
- static void showSubmitReviewAndRatingDialog(controller) {
-    String itemQuestion = '';
-    String itemAnswer = '';
-    showDialog(
-      context: Get.context!,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: const Text("Your Review"),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
 
-              ComRatingBarWidgets(
-                controller: controller,
-                initialRating: controller.ratingNow.value,
-                horizontal: 3.0, ),
-              const SizedBox(height: 32),
-              TextField(
-                style:  TextStyle(
-                    fontSize: 16,
-                    color: Colors.black.withOpacity(0.8),
-                    fontWeight: FontWeight.w400
-                ),
-                decoration: const InputDecoration(
-                    labelText: 'Write Your Review',
-                    labelStyle: TextStyle(color: Colors.grey,fontSize: 16,fontWeight: FontWeight.w400)
-                ),
-                keyboardType: TextInputType.text,
-                maxLines: 5,
-                minLines: 1,
-                maxLength: 500,
-                onChanged: (value) {
-                  itemAnswer = value;
-                },
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              child: const Text(
-                "Cancel",
-                style: TextStyle(fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-                child: const Text(
-                  "Submit",
-                  style: TextStyle(fontSize: 16),
-                ),
-                onPressed: () {
-                  // if (itemQuestion.isNotEmpty && itemAnswer.isNotEmpty) {
-                  //   addHouseFAQ(itemQuestion, itemAnswer);
-                  Navigator.of(context).pop();
-                }
-
-            ),
-          ],
-        );
-      },
-    );
-  }
 
 
 }

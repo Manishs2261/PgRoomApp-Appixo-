@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 
-import '../../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../../../../utils/widgets/form_headline.dart';

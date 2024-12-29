@@ -2,9 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+import '../../../data/repository/apis/apis.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
+import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/widgets/faq_widgets.dart';
 import '../../../utils/widgets/report_card_widgets.dart';
 import '../../../utils/widgets/review_view_card.dart';
@@ -12,9 +13,14 @@ import '../../../utils/widgets/submit_review_widgets.dart';
 import '../../../utils/widgets/view_map_card_widgets.dart';
 import 'controller/details_room_controller.dart';
 
-class DetailsRoom extends StatelessWidget {
-  DetailsRoom({super.key});
+class DetailsRoom extends StatefulWidget {
+  const DetailsRoom({super.key});
 
+  @override
+  State<DetailsRoom> createState() => _DetailsRoomState();
+}
+
+class _DetailsRoomState extends State<DetailsRoom> {
   final controller = Get.put(DetailsRoomController());
 
   @override
@@ -51,7 +57,7 @@ class DetailsRoom extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 height: 200,
                 width: 400, // Set a fixed height for the PageView
                 child: Stack(
@@ -150,14 +156,14 @@ class DetailsRoom extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text(
                 "${controller.data.roomType}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16,
                     color: Colors.green,
                     fontWeight: FontWeight.w400),
@@ -185,65 +191,82 @@ class DetailsRoom extends StatelessWidget {
                     border: Border.all()),
                 child: Column(
                   children: [
-                    if(controller.data.familyCost!.isNotEmpty)
-                    CostText(title: 'BHK Cost', cost: controller.data.familyCost.toString(), ),
-                    if(controller.data.singlePersonCost!.isNotEmpty)
-                    CostText(title: 'Single Person Price', cost: controller.data.singlePersonCost.toString(), ),
-                    if(controller.data.doublePersonCost!.isNotEmpty)
-                    CostText(title: 'Double Person Price', cost: controller.data.doublePersonCost.toString(), ),
-                    if(controller.data.triplePersonCost!.isNotEmpty)
-                    CostText(title: 'Triple Person Price', cost: controller.data.triplePersonCost.toString(), ),
-                    if(controller.data.triplePlusCost!.isNotEmpty)
-                    CostText(title: 'Triple Plus Person Price', cost: controller.data.triplePlusCost.toString(), ),
-                    if(controller.data.depositAmount!.isNotEmpty)
-                    CostText(title: 'One Time Security Deposit Amount', cost: controller.data.depositAmount.toString(), ),
+                    if (controller.data.familyCost!.isNotEmpty)
+                      CostText(
+                        title: 'BHK Cost',
+                        cost: controller.data.familyCost.toString(),
+                      ),
+                    if (controller.data.singlePersonCost!.isNotEmpty)
+                      CostText(
+                        title: 'Single Person Price',
+                        cost: controller.data.singlePersonCost.toString(),
+                      ),
+                    if (controller.data.doublePersonCost!.isNotEmpty)
+                      CostText(
+                        title: 'Double Person Price',
+                        cost: controller.data.doublePersonCost.toString(),
+                      ),
+                    if (controller.data.triplePersonCost!.isNotEmpty)
+                      CostText(
+                        title: 'Triple Person Price',
+                        cost: controller.data.triplePersonCost.toString(),
+                      ),
+                    if (controller.data.triplePlusCost!.isNotEmpty)
+                      CostText(
+                        title: 'Triple Plus Person Price',
+                        cost: controller.data.triplePlusCost.toString(),
+                      ),
+                    if (controller.data.depositAmount!.isNotEmpty)
+                      CostText(
+                        title: 'One Time Security Deposit Amount',
+                        cost: controller.data.depositAmount.toString(),
+                      ),
                   ],
                 ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              if(controller.data.roomFacilityList!.isNotEmpty)
-              const Text(
-                'Room Offering',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+              if (controller.data.roomFacilityList!.isNotEmpty)
+                const Text(
+                  'Room Offering',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              if(controller.data.roomFacilityList!.isNotEmpty)
-              Card(
-                color: Colors.white,
-                elevation: 1.5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+              if (controller.data.roomFacilityList!.isNotEmpty)
+                Card(
+                  color: Colors.white,
+                  elevation: 1.5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Wrap(
+                        spacing: 10, // space between containers
+                        runSpacing: 10, // space between lines
+                        children: controller.data.roomFacilityList!
+                            .map((item) => Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.black.withOpacity(0.2)),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                ))
+                            .toList(),
+                      )),
                 ),
-                child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Wrap(
-                      spacing: 10, // space between containers
-                      runSpacing: 10, // space between lines
-                      children: controller.data.roomFacilityList!
-                          .map((item) => Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.black.withOpacity(0.2)),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Text(
-                                  item,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ))
-                          .toList(),
-                    )),
-              ),
               const SizedBox(
                 height: 16,
               ),
-
               const Text(
                 'Other Details',
                 style: TextStyle(
@@ -265,37 +288,36 @@ class DetailsRoom extends StatelessWidget {
                       Text(
                         'Room is provided by the ${controller.data.roomOwnershipType}.',
                       ),
-                      SizedBox(height: 8), // Space between each text
+                      const SizedBox(height: 8), // Space between each text
                       Text(
                         'Total number of room - ${controller.data.totalRoom}',
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Room is available - ${controller.data.isRoomAvailableDate}',
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Notice period - ${controller.data.noticePride}',
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       Text(
                         'Meals is available - ${controller.data.mealsAvailable}',
                       ),
-
                     ],
                   )),
               const SizedBox(
                 height: 16,
               ),
-              if(controller.data.commonAreasList!.isNotEmpty)
-              const Text(
-                'Common area',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+              if (controller.data.commonAreasList!.isNotEmpty)
+                const Text(
+                  'Common area',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: 16,
               ),
@@ -319,18 +341,15 @@ class DetailsRoom extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              if(controller.data.billsList!.isNotEmpty)
-              const Text(
-                'Bills',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+              if (controller.data.billsList!.isNotEmpty)
+                const Text(
+                  'Bills',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: 16,
               ),
@@ -354,15 +373,15 @@ class DetailsRoom extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              if(controller.data.houseRules!.isNotEmpty)
-              const Text(
-                'House Rules',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+              if (controller.data.houseRules!.isNotEmpty)
+                const Text(
+                  'House Rules',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
               const SizedBox(
                 height: 16,
               ),
@@ -389,8 +408,79 @@ class DetailsRoom extends StatelessWidget {
                 height: 16,
               ),
               SubmitReviewWidgets(
-                onTap: () => AppHelperFunction.showSubmitReviewAndRatingDialog(
-                    controller),
+                onTap: () {
+                  String itemQuestion = '';
+                  String itemAnswer = '';
+                  showDialog(
+                    context: Get.context!,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: Colors.white,
+                        title: const Text("Your Review"),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ComRatingBarWidgets(
+                              controller: controller,
+                              initialRating: controller.ratingNow.value,
+                              horizontal: 3.0,
+                            ),
+                            const SizedBox(height: 32),
+                            TextField(
+                              controller: controller.reviewController,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black.withOpacity(0.8),
+                                  fontWeight: FontWeight.w400),
+                              decoration: const InputDecoration(
+                                  labelText: 'Write Your Review',
+                                  labelStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400)),
+                              keyboardType: TextInputType.text,
+                              maxLines: 5,
+                              minLines: 1,
+                              maxLength: 500,
+                              onChanged: (value) {
+                                itemAnswer = value;
+                              },
+                            ),
+                          ],
+                        ),
+                        actions: [
+                          TextButton(
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                              child: const Text(
+                                "Submit",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              onPressed: () {
+                                if (controller
+                                    .reviewController.text.isNotEmpty) {
+                                  ApisClass.submitReviewData(
+                                      rating:
+                                          controller.ratingNow.value.toString(),
+                                      userReview:
+                                          controller.reviewController.text,
+                                      rId: controller.data.rId!);
+                                }
+
+                                Navigator.of(context).pop();
+                              }),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
               const SizedBox(
                 height: 16,
@@ -422,42 +512,35 @@ class DetailsRoom extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              ReviewViewCardWidgets(
-                imageUrl: '',
-                userName: 'Reetu',
-                date: '12/122022',
-                rating: '2.5',
-                review: 'This my review',
-              ),
-              ReviewViewCardWidgets(
-                imageUrl: '',
-                userName: 'Reetu',
-                date: '12/122022',
-                rating: '2.5',
-                review: 'This my review',
-              ),
-              ReviewViewCardWidgets(
-                imageUrl: '',
-                userName: 'Reetu',
-                date: '12/122022',
-                rating: '2.5',
-                review: 'This my review',
-              ),
+              Obx(() {
+                return Column(
+                  children: controller.reviews.map((review) {
+                    return ReviewViewCardWidgets(
+                      imageUrl: '',
+                      userName: 'Reetu',
+                      date: review.date!,
+                      rating: review.rating!,
+                      review: review.review!,
+                    );
+                  }).toList(),
+                );
+              }),
               ReportCardWidgets(
-                onTap: () => Get.toNamed(RoutesName.reportScreen,arguments: controller.data.rId),
+                onTap: () => Get.toNamed(RoutesName.reportScreen,
+                    arguments: controller.data.rId),
               ),
               const SizedBox(
                 height: 16,
               ),
-              if(controller.data.houseFAQ!.isNotEmpty)
-              const Text(
-                'FAQ',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+              if (controller.data.houseFAQ!.isNotEmpty)
+                const Text(
+                  'FAQ',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
               Column(
                 children: controller.data.houseFAQ!.map((faq) {
                   // Mapping each FAQ item to a FAQTile widget
@@ -477,7 +560,9 @@ class DetailsRoom extends StatelessWidget {
 
 class CostText extends StatelessWidget {
   const CostText({
-    super.key, required this.title, required this.cost,
+    super.key,
+    required this.title,
+    required this.cost,
   });
 
   final String title;
@@ -492,14 +577,11 @@ class CostText extends StatelessWidget {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w500),
+              style: const TextStyle(fontWeight: FontWeight.w500),
             ),
             Text(
               '₹$cost/-',
-              style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16),
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
           ],
         ),

@@ -3,22 +3,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../common/widgets/com_ratingbar_widgets.dart';
 import '../Constants/colors.dart';
 import '../helpers/helper_function.dart';
+import 'com_ratingbar_widgets.dart';
 
 class ReviewViewCardWidgets extends StatelessWidget {
+  const ReviewViewCardWidgets({
+    super.key,
+    required this.imageUrl,
+    required this.userName,
+    required this.date,
+    required this.rating,
+    required this.review,
+  });
 
-
-   const ReviewViewCardWidgets({super.key, required this.imageUrl, required this.userName, required this.date, required this.rating, required this.review,});
-
-  final  String imageUrl;
-   final String userName;
-   final String date;
-   final String rating;
-   final String review;
-
-
+  final String imageUrl;
+  final String userName;
+  final String date;
+  final String rating;
+  final String review;
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +47,13 @@ class ReviewViewCardWidgets extends StatelessWidget {
                       width: 25,
                       fit: BoxFit.cover,
                       imageUrl: "",
-                      placeholder: (context, _) =>  Center(
+                      placeholder: (context, _) => const Center(
                         child: SpinKitFadingCircle(
                           color: AppColors.primary,
                           size: 30,
                         ),
                       ),
-                      errorWidget: (context, url, error) =>
-                      const CircleAvatar(
+                      errorWidget: (context, url, error) => const CircleAvatar(
                           backgroundColor: AppColors.primary,
                           child: Icon(
                             CupertinoIcons.person,
@@ -64,51 +66,47 @@ class ReviewViewCardWidgets extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                 Text(
+                Text(
                   userName,
-                  style: TextStyle(fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontWeight: FontWeight.w400),
                 ),
               ],
             ),
             Text(
               date,
-              style: TextStyle(color: Colors.grey, fontSize: 10),
+              style: const TextStyle(color: Colors.grey, fontSize: 12),
             )
           ],
         ),
         const SizedBox(
           height: 5,
         ),
-         Row(
+        Row(
           children: [
             ComRatingBarWidgets(
-              initialRating: 5,
+              initialRating: double.parse(rating),
               itemSize: 10.0,
               ignoreGestures: true,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              rating,
-              style:
-              TextStyle(fontSize: 12, color: Colors.black),
+              rating.toString(),
+              style: const TextStyle(fontSize: 12, color: Colors.black),
             )
           ],
         ),
         Container(
-          margin: const EdgeInsets.only(top: 10, bottom: 20),
-          padding: const EdgeInsets.all(10.0),
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: AppHelperFunction.isDarkMode(context)
-                  ? Colors.blueGrey.shade900
-                  : Colors.grey.shade50,
-              borderRadius: BorderRadius.circular(8)),
-          child:  Text(
-              review
-          )
-         ),
+            margin: const EdgeInsets.only(top: 10, bottom: 20),
+            padding: const EdgeInsets.all(10.0),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: AppHelperFunction.isDarkMode(context)
+                    ? Colors.blueGrey.shade900
+                    : Colors.grey.shade50,
+                borderRadius: BorderRadius.circular(8)),
+            child: Text(review)),
       ],
     );
   }

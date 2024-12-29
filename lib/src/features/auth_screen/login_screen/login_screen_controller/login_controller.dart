@@ -28,8 +28,8 @@ class LoginScreenController extends GetxController {
             passwordControllerLogin.value.text);
 
         if (verify) {
-          if (await UserApis.getUserUid(UserApis.user.uid)) {
-            UserApis.setSharedPreferences(UserApis.user.uid);
+          if (await UserApis.checkUserUidExit(UserApis.user.uid)) {
+            UserApis.setSharedPreferences(uid:UserApis.user.uid);
 
             Get.offAllNamed(RoutesName.homeNew);
           } else {

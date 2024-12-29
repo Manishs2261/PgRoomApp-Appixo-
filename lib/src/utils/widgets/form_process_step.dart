@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../common/widgets/reuseable_container.dart';
-import '../../common/widgets/reuseable_icon.dart';
+import 'reuseable_container.dart';
+import 'reuseable_icon.dart';
 
 class FormProcessStep extends StatelessWidget {
 

@@ -8,7 +8,7 @@ import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/widgets/faq_widgets.dart';
 
-import '../../../common/widgets/com_ratingbar_widgets.dart';
+import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
 

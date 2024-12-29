@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 
-import '../../common/widgets/com_reuse_elevated_button.dart';
+import '../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../data/repository/apis/user_apis.dart';
 import '../../utils/logger/logger.dart';
 

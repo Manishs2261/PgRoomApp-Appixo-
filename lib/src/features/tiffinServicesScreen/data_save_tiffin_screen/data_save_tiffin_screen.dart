@@ -9,7 +9,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/validator/text_field_validator.dart';

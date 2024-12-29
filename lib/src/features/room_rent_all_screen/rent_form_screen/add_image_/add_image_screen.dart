@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/model/other_image_model.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/Constants/sizes.dart';

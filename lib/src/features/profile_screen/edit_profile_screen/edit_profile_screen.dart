@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import 'controller/profile_controller.dart';

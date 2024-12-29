@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/common/widgets/com_reuse_elevated_button.dart';
+import 'package:pgroom/src/utils/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../data/repository/apis/apis.dart';

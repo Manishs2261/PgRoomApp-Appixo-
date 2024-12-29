@@ -43,27 +43,24 @@ class UserApis {
 
   //============== User Data  Apis ===========================
 
-  static Future<bool> getUserUid(String uid) async {
+  static Future<bool> checkUserUidExit(String uid) async {
     try {
       List<String> userUIDs = [];
-
       final querySnapshot =
           await FirebaseFirestore.instance.collection('DevUser').get();
-
       for (var doc in querySnapshot.docs) {
         final data = doc.data();
         if (data['u_id'] != null && data['u_id'] is String) {
           userUIDs.add(data['u_id'] as String);
         }
       }
-      print(userUIDs);
       if (userUIDs.contains(uid)) {
+        UserApis.setSharedPreferences(uid:UserApis.user.uid);
         return true;
       }
       return false; // Return the list of user UIDs
     } catch (e) {
-      // Handle errors and return an empty list in case of failure
-      AppLoggerHelper.error("Error fetching user UIDs: $e");
+      AppLoggerHelper.error("Error fetching user UIDs Not Exit: $e");
       return false;
     }
   }
@@ -286,7 +283,7 @@ class UserApis {
           AppLoggerHelper.info(
               "Document added successfully with ID: ${docRef.id}");
         });
-        UserApis.setSharedPreferences(user.uid);
+        UserApis.setSharedPreferences(uid: user.uid,userDocId: docRef.id);
         return true; // Successfully saved data
       } catch (e) {
         Navigator.pop(Get.context!);
@@ -328,19 +325,75 @@ class UserApis {
     return userImageDownloadUrl;
   }
 
-
- static Future<void> setSharedPreferences(String uid) async {
+  static Future<void> setSharedPreferences({String? uid, String? userDocId}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    // Upload user UID data in SharedPreferences
-    preferences.setString('userUid', uid);
+
+    if (uid != null) {
+      preferences.setString('userUid', uid);
+    }
+
+    if (userDocId != null) {
+      preferences.setString('userDocId', userDocId);
+    }
   }
 
- static Future<String?> getSharedPreferences() async {
+  static Future<String?> getSharedPreferencesUserUid() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    // Retrieve the user UID from SharedPreferences
     return preferences.getString('userUid');
   }
 
+  static Future<String?> getSharedPreferencesUserDocId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString('userDocId');
+
+  }
+
+
+
+
+  static Future<UserModel?> getUserDataNew() async {
+    try {
+      // Retrieve the userDocId from SharedPreferences
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? userDocId = preferences.getString('userDocId');
+
+      // Check if the userDocId is null or empty
+      if (userDocId == null || userDocId.isEmpty) {
+        print("User document ID is not found in SharedPreferences.");
+        return null; // Return null if userDocId is missing
+      }
+
+      // Retrieve the document from Firestore
+      var collection = firebaseFirestore.collection('DevUser').doc(userDocId);
+      var querySnapshot = await collection.get();
+
+      // Check if the document exists and has data
+      if (querySnapshot.exists) {
+        Map<String, dynamic>? data = querySnapshot.data();
+
+        // Check if the data is null or empty
+        if (data == null) {
+          print("No data found in the user document.");
+          return null;
+        }
+
+        // Create a UserModel instance from the retrieved data
+        UserModel userModel = UserModel.fromJson(data);
+
+        // Log user data (ensure you're not logging sensitive information in production)
+        AppLoggerHelper.info("User Data: ${userModel.toJson()}");
+
+        return userModel;
+      } else {
+        print("No such document exists.");
+        return null;
+      }
+    } catch (e) {
+      // Handle and log any errors during the data fetching process
+      print('Error fetching user data: $e');
+      return null;
+    }
+  }
 
 
 }

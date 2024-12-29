@@ -8,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import '../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/validator/text_field_validator.dart';

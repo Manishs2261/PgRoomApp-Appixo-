@@ -8,8 +8,7 @@ import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
-import '../../../features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
-import '../../../features/splash/controller/splash_controller.dart';
+ import '../../../features/splash/controller/splash_controller.dart';
 import '../apis/apis.dart';
 import '../apis/user_apis.dart';
 
@@ -40,8 +39,8 @@ class AuthApisClass {
 
       AppLoggerHelper.info(user!.uid);
 
-      if (await UserApis.getUserUid(user.uid)) {
-        UserApis.setSharedPreferences(user.uid);
+      if (await UserApis.checkUserUidExit(user.uid)) {
+        UserApis.setSharedPreferences(uid: user.uid);
         Get.offAllNamed(RoutesName.homeNew);
       } else {
         Get.offAllNamed(RoutesName.signProfileScreen,

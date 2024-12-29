@@ -38,6 +38,7 @@ class RoomModel {
   List<String>? imageList;
   List<String>? commonAreasList;
   String? familyCost;
+  String? userDocId;
 
   RoomModel(
       {this.city,
@@ -76,6 +77,7 @@ class RoomModel {
         this.familyCost,
         this.reportList,
         this.flatType,
+        this.userDocId,
       });
 
   RoomModel.fromJson(Map<String, dynamic> json) {
@@ -85,6 +87,7 @@ class RoomModel {
     triplePersonCost = json['triple_person_cost'];
     houseName = json['houseName'];
     uId = json['u_id'];
+    userDocId = json['userDocId'];
     isRoomAvailableDate = json['isRoomAvailableDate'];
     atUpdate = json['atUpdate'];
     state = json['state'];
@@ -135,6 +138,7 @@ class RoomModel {
     data['triple_person_cost'] = this.triplePersonCost;
     data['houseName'] = this.houseName;
     data['u_id'] = this.uId;
+    data['userDocId'] = this.userDocId;
     data['isRoomAvailableDate'] = this.isRoomAvailableDate;
     data['atUpdate'] = this.atUpdate;
     data['state'] = this.state;

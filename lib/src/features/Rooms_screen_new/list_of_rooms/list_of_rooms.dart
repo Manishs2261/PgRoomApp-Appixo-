@@ -90,7 +90,11 @@ class _ListOfRoomsState extends State<ListOfRooms> {
           duration: Duration(milliseconds: 500),
           child: _isButtonVisible.value
               ? FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+
+
+                  },
                   backgroundColor: AppColors.primary,
                   child: Icon(
                     Icons.filter_list,
@@ -116,7 +120,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
         },
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ApisClass.firebaseFirestore
-                .collection('DevRoomCollection')
+                .collection('DevRoomCollection').limit(3)
                 .snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {

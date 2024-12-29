@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/Home_fitter_new/new_search_home/widgets/category_card_one.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -19,9 +20,6 @@ class HomeNew extends StatefulWidget {
 class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
   var cityName  = Get.arguments;
-
-
-
 
   late AnimationController _topRowAnimationController;
   late Animation<Offset> _topRowSlideAnimation;
@@ -583,27 +581,31 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                   mainAxisSpacing: 10,
                   children: [
                     // Room Card
-                    CategoryCardOne(
+                    CategoryCard(
                       imagePath: 'assets/images/boy.png',
                       title: 'Boys',
+                      fit:  BoxFit.contain,
                       onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Food Card
-                    CategoryCardOne(
+                    CategoryCard(
                       imagePath: 'assets/images/girl.png',
                       title: 'Girls',
+                      fit:  BoxFit.contain,
                       onTap: ()=>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Services Card
-                    CategoryCardOne(
+                    CategoryCard(
                       imagePath: 'assets/images/boyandgirl.png',
                       title: 'Co-Living',
+                      fit:  BoxFit.contain,
                       onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                     // Old Items Card
-                    CategoryCardOne(
+                    CategoryCard(
                       imagePath: 'assets/images/flatFamily.png',
                       title: 'Flats',
+                      fit:  BoxFit.contain,
                       onTap: () =>Get.toNamed(RoutesName.listOfRooms),
                     ),
                   ],
@@ -717,120 +719,6 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   }
 }
 
-class CategoryCard extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final Function onTap;
 
-  CategoryCard(
-      {required this.imagePath, required this.title, required this.onTap});
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        elevation: 5,
-        child: Stack(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                )),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.6),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 20,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
-class CategoryCardOne extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final Function onTap;
-
-  const CategoryCardOne(
-      {super.key, required this.imagePath, required this.title, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        elevation: 5,
-        child: Stack(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image.asset(
-                  imagePath,
-                  fit: BoxFit.contain,
-                  width: double.infinity,
-                  height: double.infinity,
-                )),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.8),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 20,
-              left: 20,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

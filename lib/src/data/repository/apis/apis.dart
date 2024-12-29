@@ -11,6 +11,7 @@ import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/helpers/helper_function.dart';
 
@@ -870,9 +871,7 @@ class ApisClass {
       required List<String> houseRules,
       required String genderType,
       required String totalRoom,
-      required String flatType
-
-      }) async {
+      required String flatType}) async {
     AppHelperFunction.showCenterCircularIndicator(true);
 
     try {
@@ -914,7 +913,8 @@ class ApisClass {
         report: [],
         disable: false,
         uId: user.uid,
-        flatType: flatType
+        flatType: flatType,
+        userDocId: UserApis.getSharedPreferencesUserDocId().toString(),
       );
 
       // Step 3: Add the data to Firestore
@@ -1012,6 +1012,50 @@ class ApisClass {
     } catch (e) {
       AppHelperFunction.showFlashbar(e.toString());
       AppLoggerHelper.error("Error adding document: $e");
+    }
+  }
+
+ static Future<bool> submitReviewData({
+    required String rating,
+    required String userReview,
+    required String rId,
+  }) async {
+    // Get a reference to Firestore
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      // Fetch the user document ID
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+   String? userDocId =   preferences.getString('userDocId');
+
+    //  Create the review data map
+      final reviewData = {
+        "date": DateTime.now().toIso8601String(),
+        "rating": rating,
+        "review": userReview,
+        "user": firestore
+            .collection('DevUser')
+            .doc(userDocId)
+            .path, // Correct user reference
+      };
+
+
+      // // Update the 'reviews' field in the RoomReview collection
+      await firestore.collection('RoomReview').doc(rId).set({
+        "reviews": FieldValue.arrayUnion([reviewData]),
+        // Add to an array of reviews
+      }, SetOptions(merge: true)); // Avoid overwriting the document
+      return true; // Return true when successful
+    } catch (e) {
+      // Catch any errors and handle them appropriately
+      if (e is FirebaseException) {
+        // Firestore-specific exception
+        AppLoggerHelper.error("Firestore error: $e");
+      } else {
+        // Generic error
+        AppLoggerHelper.error("General error: $e");
+      }
+      return false; // Return false if an error occurs
     }
   }
 }

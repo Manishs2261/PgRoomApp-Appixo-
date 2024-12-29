@@ -22,54 +22,60 @@ class UserModel {
   String? email;
   String? docId;
 
-  UserModel(
-      {this.atCreate,
-        this.country,
-        this.image,
-        this.address,
-        this.gender,
-        this.city,
-        this.isDelete,
-        this.postalCode,
-        this.foodId,
-        this.dateOfBirth,
-        this.buyAndSellId,
-        this.roomId,
-        this.uId,
-        this.phone,
-        this.atUpdate,
-        this.disable,
-        this.name,
-        this.report,
-        this.state,
-        this.serviceId,
-        this.email,
-        this.docId,
-      });
+  UserModel({
+    this.atCreate,
+    this.country,
+    this.image,
+    this.address,
+    this.gender,
+    this.city,
+    this.isDelete,
+    this.postalCode,
+    this.foodId,
+    this.dateOfBirth,
+    this.buyAndSellId,
+    this.roomId,
+    this.uId,
+    this.phone,
+    this.atUpdate,
+    this.disable,
+    this.name,
+    this.report,
+    this.state,
+    this.serviceId,
+    this.email,
+    this.docId,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    atCreate = json['atCreate'];
-    country = json['country'];
-    image = json['image'];
-    address = json['address'];
-    gender = json['gender'];
-    city = json['city'];
-    isDelete = json['isDelete'];
-    postalCode = json['postalCode'];
-    foodId = json['foodId'].cast<String>();
-    dateOfBirth = json['dateOfBirth'];
-    buyAndSellId = json['buyAndSellId'].cast<String>();
-    roomId = json['roomId'].cast<String>();
-    uId = json['u_id'];
-    phone = json['phone'];
-    atUpdate = json['atUpdate'];
-    disable = json['disable'];
-    name = json['name'];
-    report = json['report'].cast<String>();
-    state = json['state'];
-    serviceId = json['serviceId'].cast<String>();
-    email = json['email'];
-    docId = json['docId'];
+    atCreate = json['atCreate'] ?? '';
+    country = json['country'] ?? '';
+    image = json['image'] ?? '';
+    address = json['address'] ?? '';
+    gender = json['gender'] ?? '';
+    city = json['city'] ?? '';
+    isDelete = json['isDelete'] ?? false;
+    postalCode = json['postalCode'] ?? '';
+
+    // Safely handle lists, avoiding cast on null
+    foodId = (json['foodId'] as List?)?.cast<String>() ?? [];
+    dateOfBirth = json['dateOfBirth'] ?? '';
+    buyAndSellId = (json['buyAndSellId'] as List?)?.cast<String>() ?? [];
+    roomId = (json['roomId'] as List?)?.cast<String>() ?? [];
+
+    uId = json['u_id'] ?? '';
+    phone = json['phone'] ?? '';
+    atUpdate = json['atUpdate'] ?? '';
+    disable = json['disable'] ?? false;
+    name = json['name'] ?? '';
+
+    // Handle the report and serviceId lists with null safety
+    report = (json['report'] as List?)?.cast<String>() ?? [];
+    state = json['state'] ?? '';
+    serviceId = (json['serviceId'] as List?)?.cast<String>() ?? [];
+
+    email = json['email'] ?? '';
+    docId = json['docId'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

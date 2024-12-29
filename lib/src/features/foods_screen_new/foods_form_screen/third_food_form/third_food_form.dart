@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../../../common/widgets/com_reuse_elevated_button.dart';
+import '../../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/form_process_step.dart';
 import 'controller.dart';

@@ -69,16 +69,14 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
     // TODO: implement initState
     _initPackageInfo();
     super.initState();
-
-    UserApis.appShareLink();
+UserApis.getUserDataNew();
+   // UserApis.appShareLink();
   }
 
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - ProfileDetailsScreen");
-
-    UserApis.getUserData();
-
+    
     return SafeArea(
       child: Scaffold(
         body: ListView(

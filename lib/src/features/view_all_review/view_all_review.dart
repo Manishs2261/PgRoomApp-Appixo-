@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:pgroom/src/common/widgets/com_ratingbar_widgets.dart';
+import 'package:pgroom/src/utils/widgets/com_ratingbar_widgets.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:rating_summary/rating_summary.dart';
