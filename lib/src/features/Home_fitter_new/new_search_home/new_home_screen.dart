@@ -1,14 +1,18 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/Home_fitter_new/new_search_home/widgets/category_card_one.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../data/repository/apis/user_apis.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/logger/logger.dart';
+import '../../../utils/widgets/shimmer_effect.dart';
+import '../../auth_screen/Model/user_model.dart';
 
 class HomeNew extends StatefulWidget {
   const HomeNew({super.key});
@@ -19,7 +23,6 @@ class HomeNew extends StatefulWidget {
 
 class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
-  var cityName  = Get.arguments;
 
   late AnimationController _topRowAnimationController;
   late Animation<Offset> _topRowSlideAnimation;
@@ -40,7 +43,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
+    fetchUserData();
     _topRowAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 800));
 
@@ -106,6 +109,22 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
     });
   }
 
+
+  RxList<UserModel> user = <UserModel>[].obs;
+  RxBool isLoading = true.obs;
+  void fetchUserData() async {
+    try {
+      isLoading(true); // Set loading to true
+      List<UserModel> fetchedUsers = await UserApis.getUserDataList();
+      user.assignAll(fetchedUsers);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch user data");
+    } finally {
+      isLoading(false); // Set loading to false
+    }
+
+}
+
   final PageController _controller = PageController();
   final PageController _controllerOne = PageController();
 
@@ -159,11 +178,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
-    print(cityName);
-    AppLoggerHelper.debug(
-        "Build - HomeNew......................................");
-
+    AppLoggerHelper.debug("Build - HomeNew...................");
     const colorizeColors = [
       Colors.white,
       Colors.white,
@@ -220,13 +235,28 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                                 backgroundImage: AssetImage(
                                     "assets/images/icon_luncher.png"),
                               ),
-                              InkWell(
-                                onTap: ()=>Get.toNamed(RoutesName.profileDetailsScreen),
-                                child: const CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      "assets/images/icon_luncher.png"),
-                                ),
-                              )
+
+                    Obx(() {
+                      if (user.isEmpty) {
+                        return const ShimmerEffect(height: 40, width: 40, borderRadius: 24); // Show a default image or placeholder.
+                      }
+                      return InkWell(
+                        onTap: () => Get.toNamed(RoutesName.profileDetailsScreen,arguments: user),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(24),
+                          child: CachedNetworkImage(
+                            height: 40,
+                            width: 40,
+                            fit: BoxFit.cover,
+                            imageUrl: user.first.image ?? '',
+                            progressIndicatorBuilder: (context, url, progress) =>
+                                const ShimmerEffect(height: 40, width: 40, borderRadius: 24),
+                            errorWidget: (context, url, error) => const Icon(Icons.person,color: Colors.white,),
+                          ),
+                        ),
+                      );
+                    }),
+
                             ],
                           ),
                         ),
@@ -252,12 +282,21 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text(
-                                  "$cityName",
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
+                              
+                                Obx(
+                                (){
+                                  if(user.isEmpty){
+                                    return  ShimmerEffect(width: 64, height: 20,borderRadius: 4,);
+                                  }
+                                  return Text(
+                                    '${user.first.city}',
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
+                                  );
+
+                                }
                                 ),
                                 const SizedBox(width: 2),
                                 Icon(
@@ -425,50 +464,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              margin: const EdgeInsets.all(20),
-              child: Stack(
-                children: <Widget>[
-                  SizedBox(
-                    height: 250,
-                    child: PageView.builder(
-                      controller: _controllerOne,
-                      itemCount: imgList.length,
-                      itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            imgList[index],
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SmoothPageIndicator(
-                      controller: _controllerOne,
-                      count: imgList.length,
-                      effect: const ExpandingDotsEffect(
-                        activeDotColor: Colors.blueAccent,
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        spacing: 8,
-                      ), // Custom dot effect
-                    ),
-                  ),
-                  // Space between image and dots
-
-                  // Bottom space under the dots
-                ],
-              ),
-            ),
+            ImageSlider(controllerOne: _controllerOne, imgList: imgList),
             SizedBox(
               height: 450,
               child: Padding(
@@ -508,55 +504,12 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              margin: const EdgeInsets.all(20),
-              child: Stack(
-                children: <Widget>[
-                  SizedBox(
-                    height: 250,
-                    child: PageView.builder(
-                      controller: _controller,
-                      itemCount: imgList.length,
-                      itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            imgList[index],
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SmoothPageIndicator(
-                      controller: _controller,
-                      count: imgList.length,
-                      effect: const ExpandingDotsEffect(
-                        activeDotColor: Colors.blueAccent,
-                        dotHeight: 8,
-                        dotWidth: 8,
-                        spacing: 8,
-                      ), // Custom dot effect
-                    ),
-                  ),
-                  // Space between image and dots
-
-                  // Bottom space under the dots
-                ],
-              ),
-            ),
+            ImageSlider(controllerOne: _controller, imgList: imgList),
             const SizedBox(
               height: 16,
             ),
             const Text(
-              'ROOM CATEGOY',
+              'ROOM CATEGORY',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -615,103 +568,171 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
             Container(
               height: 200,
               width: 100,
-              decoration: const BoxDecoration(),
-            ),
-            Card(
-              margin: const EdgeInsets.all(16),
-              elevation: 15, // High shadow elevation
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    20), // More exaggerated rounded corners
+              decoration: const BoxDecoration(
+                color: Colors.yellow
               ),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Colors.black, Colors.blueAccent],
-                    // Unique gradient background
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+            ),
+            const GradientCardWidgets(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+
+class ImageSlider extends StatelessWidget {
+  const ImageSlider({
+    super.key,
+    required PageController controllerOne,
+    required this.imgList,
+  }) : _controllerOne = controllerOne;
+
+  final PageController _controllerOne;
+  final List<String> imgList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      margin: const EdgeInsets.all(20),
+      child: Stack(
+        children: <Widget>[
+          SizedBox(
+            height: 250,
+            child: PageView.builder(
+              controller: _controllerOne,
+              itemCount: imgList.length,
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    imgList[index],
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
-                  borderRadius: BorderRadius.circular(20),
-                  // Same as the card for rounded effect
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 15,
-                      spreadRadius: 5,
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SmoothPageIndicator(
+              controller: _controllerOne,
+              count: imgList.length,
+              effect: const ExpandingDotsEffect(
+                activeDotColor: Colors.blueAccent,
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 8,
+              ), // Custom dot effect
+            ),
+          ),
+          // Space between image and dots
+
+          // Bottom space under the dots
+        ],
+      ),
+    );
+  }
+}
+
+class GradientCardWidgets extends StatelessWidget {
+  const GradientCardWidgets({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Colors.black, Colors.blueAccent],
+          // Unique gradient background
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        // Same as the card for rounded effect
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 15,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children:[
+            const Row(
+              children: [
+                Image(
+                    image: AssetImage('assets/images/sharenow.png'),
+                    height: 100),
+                SizedBox(width: 15),
+                Flexible(
+                  // Use Flexible or Expanded to prevent overflow
+                  child: Text(
+                    'Your friends will love this too—share it now!',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black54,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
                     ),
-                  ],
+                    overflow: TextOverflow.visible,
+                    // Text will wrap automatically to next line
+                    softWrap: true, // Allow wrapping of text
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  // Padding inside the card
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    // Shrinks card to fit content
-                    children: <Widget>[
-                      const Row(
-                        children: [
-                          Image(
-                              image: AssetImage('assets/images/sharenow.png'),
-                              height: 100),
-                          SizedBox(width: 15),
-                          Flexible(
-                            // Use Flexible or Expanded to prevent overflow
-                            child: Text(
-                              'Your friends will love this too—share it now!',
-                              style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 10.0,
-                                    color: Colors.black54,
-                                    offset: Offset(2.0, 2.0),
-                                  ),
-                                ],
-                              ),
-                              overflow: TextOverflow.visible,
-                              // Text will wrap automatically to next line
-                              softWrap: true, // Allow wrapping of text
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          InkWell(
-                            onTap: ()=>Share.share(UserApis.appShareUrl ?? 'ok'),
-                            borderRadius: BorderRadius.circular(20),
-                            splashColor: Colors.white.withOpacity(0.3),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.9),
-                                // Button background
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: const Text(
-                                'Share Now',
-                                style: TextStyle(
-                                  color: Colors.blueAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                        ],
-                      ),
-                    ],
+              ],
+            ),
+            const SizedBox(height: 20),
+            InkWell(
+              onTap: ()=>Share.share(UserApis.appShareUrl ?? 'ok'),
+              borderRadius: BorderRadius.circular(20),
+              splashColor: Colors.white.withOpacity(0.3),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.9),
+                    // Button background
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Text(
+                    'Share Now',
+                    style: TextStyle(
+                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
             ),
+            const SizedBox(width: 8),
           ],
         ),
       ),

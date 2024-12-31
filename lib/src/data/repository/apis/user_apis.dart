@@ -351,47 +351,41 @@ class UserApis {
 
 
 
-  static Future<UserModel?> getUserDataNew() async {
+  static Future<List<UserModel>> getUserDataList() async {
     try {
-      // Retrieve the userDocId from SharedPreferences
+      // Retrieve the userDocId from SharedPreferences (optional for filtering)
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? userDocId = preferences.getString('userDocId');
 
-      // Check if the userDocId is null or empty
-      if (userDocId == null || userDocId.isEmpty) {
-        print("User document ID is not found in SharedPreferences.");
-        return null; // Return null if userDocId is missing
-      }
+      // Access the Firestore collection
+      var collection = firebaseFirestore.collection('DevUser');
 
-      // Retrieve the document from Firestore
-      var collection = firebaseFirestore.collection('DevUser').doc(userDocId);
+      // Perform a query (adjust the query if filtering by userDocId is needed)
       var querySnapshot = await collection.get();
 
-      // Check if the document exists and has data
-      if (querySnapshot.exists) {
-        Map<String, dynamic>? data = querySnapshot.data();
+      // Check if the query returned any documents
+      if (querySnapshot.docs.isNotEmpty) {
+        // Map the documents into a list of UserModel
+        List<UserModel> userList = querySnapshot.docs.map((doc) {
+          Map<String, dynamic>? data = doc.data();
+          if (data != null) {
+            return UserModel.fromJson(data);
+          }
+          throw Exception("Document data is null for doc ID: ${doc.id}");
+        }).toList();
 
-        // Check if the data is null or empty
-        if (data == null) {
-          print("No data found in the user document.");
-          return null;
-        }
+        // Optionally log user list data (ensure no sensitive info in production)
+        AppLoggerHelper.info("User List: ${userList.map((user) => user.toJson()).toList()}");
 
-        // Create a UserModel instance from the retrieved data
-        UserModel userModel = UserModel.fromJson(data);
-
-        // Log user data (ensure you're not logging sensitive information in production)
-        AppLoggerHelper.info("User Data: ${userModel.toJson()}");
-
-        return userModel;
+        return userList;
       } else {
-        print("No such document exists.");
-        return null;
+        print("No user documents found.");
+        return [];
       }
     } catch (e) {
       // Handle and log any errors during the data fetching process
-      print('Error fetching user data: $e');
-      return null;
+      print('Error fetching user list: $e');
+      return [];
     }
   }
 

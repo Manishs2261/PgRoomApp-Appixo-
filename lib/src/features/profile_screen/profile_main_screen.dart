@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
 import 'package:pgroom/src/features/old_goods/add_your_goods/add_your_goods.dart';
+import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/apis/apis.dart';
@@ -26,7 +28,8 @@ class ProfileDetailsScreen extends StatefulWidget {
 }
 
 class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
-  List<UserPersonModel> userList = [];
+
+  final List<UserModel>user = Get.arguments;
 
   String appVersion = "";
 
@@ -69,7 +72,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
     // TODO: implement initState
     _initPackageInfo();
     super.initState();
-UserApis.getUserDataNew();
+//UserApis.getUserDataNew();
    // UserApis.appShareLink();
   }
 
@@ -95,102 +98,75 @@ UserApis.getUserDataNew();
                     offset: Offset.zero,
                   )
                 ]),
-                child: ApisClass.auth.currentUser?.uid != finalUserUidGlobal
-                    ? Padding(
-                        padding: const EdgeInsets.only(top: 25, bottom: 25, left: 30, right: 30),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              Get.offAllNamed(RoutesName.loginScreen);
-                            },
-                            child: const Text("Login")),
-                      )
-                    : Container(
-                        padding: EdgeInsets.zero,
-                        child: StreamBuilder(
-                          stream: ApisClass.firebaseFirestore
-                              .collection("loginUser").where('uid', isEqualTo: ApisClass.user.uid).snapshots(includeMetadataChanges: true),
-                          builder: (BuildContext context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                              case ConnectionState.none:
-                                return const Center(child: CircularProgressIndicator());
+                child:Stack(
+                  children: [
 
-                              case ConnectionState.active:
-                              case ConnectionState.done:
-                                // TODO: Handle this case.
 
-                                final data = snapshot.data?.docs;
-
-                                userList = data?.map((e) => UserPersonModel.fromJson(e.data())).toList() ?? [];
-
-                                return Stack(
+                    Obx(
+                    () {
+                      if(user.isEmpty){
+                        return  ShimmerEffect(width: Get.width, height: 120);
+                      }
+                          return Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: CachedNetworkImage(
+                                  width: 60,
+                                  height: 60,
+                                  fit: BoxFit.cover,
+                                  imageUrl: user.first.image ?? '',
+                                  placeholder: (context, _) =>
+                                  const SpinKitFadingCircle(
+                                    color: AppColors.primary,
+                                    size: 35,
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                  const CircleAvatar(
+                                      child: Icon(CupertinoIcons.person)),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        (UserApis.userImage == "")
-                                            ? const CircleAvatar(
-                                                maxRadius: 30,
-                                                child: Icon(
-                                                  Icons.person,
-                                                  size: 35,
-                                                ),
-                                              )
-                                            : ClipRRect(
-                                                borderRadius: BorderRadius.circular(50),
-                                                child: CachedNetworkImage(
-                                                  width: 60,
-                                                  height: 60,
-                                                  fit: BoxFit.cover,
-                                                  imageUrl: userList[0].userImage.toString(),
-                                                  placeholder: (context, _) => const SpinKitFadingCircle(
-                                                    color: AppColors.primary,
-                                                    size: 35,
-                                                  ),
-                                                  errorWidget: (context, url, error) =>
-                                                      const CircleAvatar(child: Icon(CupertinoIcons.person)),
-                                                ),
-                                              ),
-                                        const SizedBox(
-                                          width: 15,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              // in this condition
-                                              Flexible(
-                                                child: Text(
-                                                  "${userList[0].name}",
-                                                  overflow: TextOverflow.ellipsis,
-                                                  softWrap: false,
-                                                  maxLines: 1,
-                                                  style: const TextStyle(fontSize: 18),
-                                                ),
-                                              ),
+                                    // in this condition
+                                    Flexible(
+                                      child: Text(
+                                        "${user.first.name?.capitalizeFirst}",
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 1,
+                                        style: const TextStyle(fontSize: 18),
+                                      ),
+                                    ),
 
-                                              // in  this email both are same
-                                              Flexible(
-                                                child: Text(
-                                                  "${ApisClass.auth.currentUser?.email}",
-                                                  style: const TextStyle(
-                                                    fontSize: 14,
-                                                  ),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  softWrap: false,
-                                                  maxLines: 1,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                    // in  this email both are same
+                                    Flexible(
+                                      child: Text(
+                                        "${ApisClass.auth.currentUser?.email}",
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        maxLines: 1,
+                                      ),
                                     ),
                                   ],
-                                );
-                            }
-                          },
-                        )),
+                                ),
+                              )
+                            ],
+                          );
+
+                        }
+                    ),
+                  ],
+                )
               ),
             ),
             ListTile(
