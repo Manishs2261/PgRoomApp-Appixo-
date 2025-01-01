@@ -1,34 +1,20 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gap/gap.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/home/Controller/home_page_controller.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/ItemListView.dart';
-import 'package:pgroom/src/features/room_rent_all_screen/home/widgets/appbar_widgets.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/Constants/image_string.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
-
+import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 import '../../../data/repository/apis/apis.dart';
-import '../../../model/user_rent_model/user_rent_model.dart';
 import '../../../utils/widgets/gradient_button.dart';
 import '../../../utils/widgets/top_search_bar/controller/controller.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
-import '../../Home_fitter_new/new_search_home/new_home_screen.dart';
-import '../../Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
-import '../details_rooms/details_room.dart';
 
 class ListOfRooms extends StatefulWidget {
   const ListOfRooms({super.key});
@@ -90,11 +76,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
           duration: Duration(milliseconds: 500),
           child: _isButtonVisible.value
               ? FloatingActionButton(
-                  onPressed: () {
-
-
-
-                  },
+                  onPressed: () {},
                   backgroundColor: AppColors.primary,
                   child: Icon(
                     Icons.filter_list,
@@ -120,7 +102,8 @@ class _ListOfRoomsState extends State<ListOfRooms> {
         },
         child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             stream: ApisClass.firebaseFirestore
-                .collection('DevRoomCollection').limit(3)
+                .collection('DevRoomCollection')
+                .limit(10)
                 .snapshots(),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
@@ -153,16 +136,11 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                     ),
                   );
 
-
-
-
                 case ConnectionState.active:
                 case ConnectionState.done:
                   final data = snapshot.data?.docs;
 
-
-
-               ///   for creating json model
+                  ///   for creating json model
 
                   // for (var i in data!) {
                   //   try {
@@ -178,11 +156,9 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                   //   }
                   // }
 
-
-                  roomListData = data
-                          ?.map((e) => RoomModel.fromJson(e.data()))
-                          .toList() ??
-                      [];
+                  roomListData =
+                      data?.map((e) => RoomModel.fromJson(e.data())).toList() ??
+                          [];
 
                   return ListView.builder(
                       controller: _scrollController,
@@ -190,7 +166,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () => Get.toNamed(RoutesName.roomDetails,
-                              arguments:  roomListData[index]),
+                              arguments: roomListData[index]),
                           child: Container(
                             margin:
                                 EdgeInsets.only(top: 12, left: 12, right: 12),
@@ -212,42 +188,44 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // Image Slider
-                                Container(
+                                SizedBox(
                                   height: 140,
                                   // Set a fixed height for the PageView
                                   child: Stack(
                                     children: [
                                       ListView.builder(
                                           scrollDirection: Axis.horizontal,
-                                          itemCount:  roomListData[index]
-                                              .imageList
-                                              ?.length ??
+                                          itemCount: roomListData[index]
+                                                  .imageList
+                                                  ?.length ??
                                               0,
                                           itemBuilder: (context, imageIndex) {
                                             return Padding(
-                                              padding:
-                                              const EdgeInsets.only(right: 8),
+                                              padding: const EdgeInsets.only(
+                                                  right: 8),
                                               child: ClipRRect(
                                                 borderRadius:
-                                                BorderRadius.circular(10.0),
+                                                    BorderRadius.circular(10.0),
                                                 child: CachedNetworkImage(
                                                   width: Get.width * 0.8,
-                                                  imageUrl:  roomListData[index]
-                                                      .imageList?[imageIndex] ??
+                                                  imageUrl: roomListData[index]
+                                                              .imageList?[
+                                                          imageIndex] ??
                                                       '',
                                                   placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                      CircularProgressIndicator()),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                  const Icon(Icons.error),
+                                                      ShimmerEffect(
+                                                          width:
+                                                              Get.width * 0.8,
+                                                          height: 140),
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      const Icon(
+                                                          Icons.image_outlined),
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                             );
                                           }),
-
                                       Positioned(
                                         top: 1,
                                         left: 1,
@@ -370,7 +348,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                 SizedBox(height: 4),
                                 Text(
                                   '${roomListData[index].landmark}, ${roomListData[index].homeAddress}, ${roomListData[index].city}, ${roomListData[index].state}',
-                                   maxLines: 2,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(fontSize: 14),
                                 ),
@@ -403,14 +381,21 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                           children: [
                                             Row(
                                               children: [
-                                                CircleAvatar(
-                                                  radius: 16,
-                                                  backgroundImage: NetworkImage(
-                                                      'https://plus.unsplash.com/premium_photo-1668127295858-552a0ef56309?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z2lybCUyMGltYWdlc3xlbnwwfHwwfHx8MA%3D%3D'),
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(24),
+                                                  child: CachedNetworkImage(
+                                                    height: 40,
+                                                    width: 40,
+                                                    fit: BoxFit.cover,
+                                                    imageUrl: roomListData[index].userImage.toString(),
+                                                    progressIndicatorBuilder: (context, url, progress) =>
+                                                    const ShimmerEffect(height: 40, width: 40, borderRadius: 24),
+                                                    errorWidget: (context, url, error) => const Icon(Icons.person,color: Colors.white,),
+                                                  ),
                                                 ),
                                                 SizedBox(width: 4),
                                                 Text(
-                                                  'John Doe',
+                                                  '${roomListData[index].userName?.capitalizeFirst}',
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -434,7 +419,7 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${AppHelperFunction.printFormattedDate(roomListData[index].atUpdate.toString())}',
+                                                  AppHelperFunction.printFormattedDate(roomListData[index].atUpdate.toString()),
                                                   style: TextStyle(
                                                     fontSize: 10,
                                                     color: Colors.white70,
@@ -491,3 +476,5 @@ class _ListOfRoomsState extends State<ListOfRooms> {
     );
   }
 }
+
+

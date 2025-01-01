@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:pgroom/src/features/Home_fitter_new/new_search_home/controller.dart';
 import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
 import 'package:pgroom/src/features/old_goods/add_your_goods/add_your_goods.dart';
 import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
@@ -29,7 +30,7 @@ class ProfileDetailsScreen extends StatefulWidget {
 
 class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
 
-  final List<UserModel>user = Get.arguments;
+  final homeController = Get.put(HomeController());
 
   String appVersion = "";
 
@@ -100,14 +101,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 ]),
                 child:Stack(
                   children: [
-
-
                     Obx(
                     () {
-                      if(user.isEmpty){
+                      if(homeController.user.isEmpty){
                         return  ShimmerEffect(width: Get.width, height: 120);
                       }
-                          return Row(
+                      return Row(
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
@@ -115,7 +114,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                   width: 60,
                                   height: 60,
                                   fit: BoxFit.cover,
-                                  imageUrl: user.first.image ?? '',
+                                  imageUrl: homeController.user.first.image ?? '',
                                   placeholder: (context, _) =>
                                   const SpinKitFadingCircle(
                                     color: AppColors.primary,
@@ -137,7 +136,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                     // in this condition
                                     Flexible(
                                       child: Text(
-                                        "${user.first.name?.capitalizeFirst}",
+                                        "${homeController.user.first.name?.capitalizeFirst}",
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: false,
                                         maxLines: 1,
@@ -148,7 +147,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                                     // in  this email both are same
                                     Flexible(
                                       child: Text(
-                                        "${ApisClass.auth.currentUser?.email}",
+                                        "${homeController.user.first.email}",
                                         style: const TextStyle(
                                           fontSize: 14,
                                         ),

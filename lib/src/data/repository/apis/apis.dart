@@ -9,10 +9,12 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/user_apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
+import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
 import 'package:pgroom/src/model/user_rent_model/user_rent_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../features/Home_fitter_new/new_search_home/controller.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class ApisClass {
@@ -802,174 +804,167 @@ class ApisClass {
     }
   }
 
-//========================================================= new api=====
 
-  // static Future addRoomRentList(roomOwnershipType, houseName, roomType,
-  //     roomCategory, genderType, imageList, homeAddress, landmark, city, state,
-  //     numberOfRoom, mealsAvailable, depositAmount, roomFacilityList,
-  //     commonAreasList, billsList, longitude, latitude, houseRules, houseFAQ,
-  //     rUid, uid, atCreated, atUpdated, isDelete, report, disable,) async {
-  //
-  //   return await firebaseFirestore
-  //       .collection("DevRoomCollection")
-  //       .add({
-  //         "roomOwnershipType": roomOwnershipType,
-  //         "houseName": houseName,
-  //         "roomType": roomType,
-  //         "roomCategory": roomCategory,
-  //         "genderType": genderType,
-  //         "imageList": imageList,
-  //         "homeAddress": homeAddress,
-  //         "landmark": landmark,
-  //         "city": city,
-  //         "state": state,
-  //         "numberOfRoom": numberOfRoom,
-  //         "mealsAvailable": mealsAvailable,
-  //         "depositAmount": depositAmount,
-  //         "roomFacilityList": roomFacilityList,
-  //         "commonAreasList": commonAreasList,
-  //         "billsList": billsList,
-  //         "longitude": longitude,
-  //         "latitude": latitude,
-  //         "houseRules": houseRules,
-  //         "houseFAQ": houseFAQ,
-  //         "rUid": rUid,
-  //         "uid": uid,
-  //         "atCreated": atCreated,
-  //         "atUpdated": atUpdated,
-  //         "isDelete": isDelete,
-  //         "report": report,
-  //         "disable": disable
-  //   });
-  // }
+ static final homeController = Get.put(HomeController());
 
-  static Future<bool> addRoomData(
-      {required String homeName,
-      required String latitude,
-      required String longitude,
-      required String address,
-      required String landmark,
-      required String city,
-      required String state,
-      required List<String> commonAreasList,
-      required List<String> roomFacilityList,
-      required String roomType,
-      required List<String> billsList,
-      required List<File> imageFiles,
-      required List<HouseFAQ> houseFAQ,
-      required String roomOwnership,
-      required String roomCategory,
-      required String depositAmount,
-      required String singlePersonCost,
-      required String doublePersonCost,
-      required String triplePersonCost,
-      required String triplePlusCost,
-      required String familyCost,
-      required String roomsAvailable,
-      required String noticePride,
-      required String mealsAvailable,
-      required List<String> houseRules,
-      required String genderType,
-      required String totalRoom,
-      required String flatType}) async {
+  static Future<bool> addRoomData({
+    required String homeName,
+    required String latitude,
+    required String longitude,
+    required String address,
+    required String landmark,
+    required String city,
+    required String state,
+    required List<String> commonAreasList,
+    required List<String> roomFacilityList,
+    required String roomType,
+    required List<String> billsList,
+    required List<File> imageFiles,
+    required List<HouseFAQ> houseFAQ,
+    required String roomOwnership,
+    required String roomCategory,
+    required String depositAmount,
+    required String singlePersonCost,
+    required String doublePersonCost,
+    required String triplePersonCost,
+    required String triplePlusCost,
+    required String familyCost,
+    required String roomsAvailable,
+    required String noticePride,
+    required String mealsAvailable,
+    required List<String> houseRules,
+    required String genderType,
+    required String totalRoom,
+    required String flatType,
+
+  }) async {
     AppHelperFunction.showCenterCircularIndicator(true);
-
-    try {
-      List<String> imageUrls = [];
-
-      // Step 2: Prepare the data to save in Firestore
-      final item = RoomModel(
-        longitude: longitude,
-        latitude: latitude,
-        billsList: billsList,
-        commonAreasList: commonAreasList,
-        depositAmount: depositAmount,
-        doublePersonCost: doublePersonCost,
-        genderType: genderType,
-        houseFAQ: houseFAQ,
-        houseName: homeName,
-        houseRules: houseRules,
-        imageList: imageUrls,
-        roomCategory: roomCategory,
-        roomFacilityList: roomFacilityList,
-        roomOwnershipType: roomOwnership,
-        roomType: roomType,
-        singlePersonCost: singlePersonCost,
-        triplePersonCost: triplePersonCost,
-        triplePlusCost: triplePlusCost,
-        mealsAvailable: mealsAvailable,
-        familyCost: familyCost,
-        isRoomAvailableDate: roomsAvailable,
-        noticePride: noticePride,
-        rId: '',
-        totalRoom: totalRoom,
-        homeAddress: address,
-        landmark: landmark,
-        city: city,
-        state: state,
-        atCreate: DateTime.now().toString(),
-        atUpdate: DateTime.now().toString(),
-        isDelete: false,
-        report: [],
-        disable: false,
-        uId: user.uid,
-        flatType: flatType,
-        userDocId: UserApis.getSharedPreferencesUserDocId().toString(),
-      );
-
-      // Step 3: Add the data to Firestore
+     if (homeController.user.isNotEmpty) {
       try {
-        DocumentReference docRef = await FirebaseFirestore.instance
-            .collection("DevRoomCollection")
-            .add(item.toJson())
-            .timeout(const Duration(seconds: 2000), onTimeout: () {
-          Navigator.pop(Get.context!);
-          throw TimeoutException("The operation timed out after 2000 seconds");
-        });
+            List<String> imageUrls = [];
+            SharedPreferences preferences = await SharedPreferences.getInstance();
+            String? userDocId = preferences.getString('userDocId');
+            // Step 1: Prepare the data to save in Firestore
+            final item = RoomModel(
+              longitude: longitude,
+              latitude: latitude,
+              billsList: billsList,
+              commonAreasList: commonAreasList,
+              depositAmount: depositAmount,
+              doublePersonCost: doublePersonCost,
+              genderType: genderType,
+              houseFAQ: houseFAQ,
+              houseName: homeName,
+              houseRules: houseRules,
+              imageList: imageUrls,
+              roomCategory: roomCategory,
+              roomFacilityList: roomFacilityList,
+              roomOwnershipType: roomOwnership,
+              roomType: roomType,
+              singlePersonCost: singlePersonCost,
+              triplePersonCost: triplePersonCost,
+              triplePlusCost: triplePlusCost,
+              mealsAvailable: mealsAvailable,
+              familyCost: familyCost,
+              isRoomAvailableDate: roomsAvailable,
+              noticePride: noticePride,
+              rId: '',
+              totalRoom: totalRoom,
+              homeAddress: address,
+              landmark: landmark,
+              city: city,
+              state: state,
+              atCreate: DateTime.now().toString(),
+              atUpdate: DateTime.now().toString(),
+              isDelete: false,
+              report: [],
+              disable: false,
+              uId: user.uid,
+              flatType: flatType,
+              userDocId: userDocId,
+              mobileNumber:homeController.user.first.phone,
+              userName: homeController.user.first.name,
+              userImage: homeController.user.first.image
+            );
 
-        for (File imageFile in imageFiles) {
-          try {
-            String imageUrl = await uploadImageToFirebase(imageFile, docRef.id);
-            imageUrls.add(imageUrl);
+            // Step 2: Add the data to Firestore
+            try {
+              DocumentReference docRef = await FirebaseFirestore.instance
+                  .collection("DevRoomCollection")
+                  .add(item.toJson())
+                  .timeout(const Duration(seconds: 2000), onTimeout: () {
+                Navigator.pop(Get.context!);
+                throw TimeoutException("The operation timed out after 2000 seconds");
+              });
+
+              for (File imageFile in imageFiles) {
+                try {
+                  String imageUrl = await uploadImageToFirebase(imageFile, docRef.id);
+                  imageUrls.add(imageUrl);
+                } catch (e) {
+                  AppLoggerHelper.error("Error uploading image: $e");
+                  Navigator.pop(Get.context!);
+                  return false; // If any image fails to upload, return false
+                }
+              }
+
+              // Update the document with its ID and image list
+              await FirebaseFirestore.instance
+                  .collection("DevRoomCollection")
+                  .doc(docRef.id)
+                  .update({'r_id': docRef.id, 'imageList': imageUrls}).whenComplete(() {
+                AppLoggerHelper.info(
+                    "Document added successfully with ID: ${docRef.id}");
+              });
+
+              // Step 3: Add the room ID to the user's roomId list
+              try {
+                // Add the new room ID to the roomId list
+                await FirebaseFirestore.instance
+                    .collection("DevUser")
+                    .doc(userDocId)
+                    .update({
+                  'roomId': FieldValue.arrayUnion([docRef.id]),
+                });
+
+                AppLoggerHelper.info(
+                    "Room ID ${docRef.id} successfully added to user's roomId list.");
+              } catch (e) {
+                Navigator.pop(Get.context!);
+                AppLoggerHelper.error("Error updating user's roomId: $e");
+                return false; // Handle errors gracefully
+              }
+
+              Navigator.pop(Get.context!);
+              return true; // Successfully saved data
+            } catch (e) {
+              Navigator.pop(Get.context!);
+
+              if (e is TimeoutException) {
+                AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
+                AppLoggerHelper.info("Timeout error: ${e.message}");
+              } else if (e is FirebaseException) {
+                AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
+                AppLoggerHelper.info("Firestore error: ${e.message}");
+              } else {
+                AppHelperFunction.showFlashbar('General error: ${e}');
+                AppLoggerHelper.info("General error: $e");
+              }
+              return false; // Return false on Firestore save failure
+            }
           } catch (e) {
-            AppLoggerHelper.error("Error uploading image: $e");
             Navigator.pop(Get.context!);
-            return false; // If any image fails to upload, return false
-          }
-        }
+            AppLoggerHelper.error("Error adding document: $e");
+            return false; // Return false for general errors
+         }
 
-        // Update the document with its ID
-        await FirebaseFirestore.instance
-            .collection("DevRoomCollection")
-            .doc(docRef.id)
-            .update({'r_id': docRef.id, 'imageList': imageUrls}).whenComplete(
-                () {
-          Navigator.pop(Get.context!);
-          AppLoggerHelper.info(
-              "Document added successfully with ID: ${docRef.id}");
-        });
-
-        return true; // Successfully saved data
-      } catch (e) {
+    } else {
         Navigator.pop(Get.context!);
-
-        if (e is TimeoutException) {
-          AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
-          AppLoggerHelper.info("Timeout error: ${e.message}");
-        } else if (e is FirebaseException) {
-          AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
-          AppLoggerHelper.info("Firestore error: ${e.message}");
-        } else {
-          AppHelperFunction.showFlashbar('General error: ${e}');
-          AppLoggerHelper.info("General error: $e");
-        }
-        return false; // Return false on Firestore save failure
-      }
-    } catch (e) {
-      Navigator.pop(Get.context!);
-      AppLoggerHelper.error("Error adding document: $e");
-      return false; // Return false for general errors
+        AppHelperFunction.showFlashbar("Something went wrong. Please try again.");
+        AppLoggerHelper.error("Something went wrong. Please try again.");
+        return false;
     }
+
   }
 
   static Future<String> uploadImageToFirebase(File imageFile, docId) async {

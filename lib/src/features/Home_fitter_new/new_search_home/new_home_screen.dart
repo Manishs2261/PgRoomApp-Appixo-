@@ -13,6 +13,7 @@ import '../../../utils/Constants/image_string.dart';
 import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/shimmer_effect.dart';
 import '../../auth_screen/Model/user_model.dart';
+import 'controller.dart';
 
 class HomeNew extends StatefulWidget {
   const HomeNew({super.key});
@@ -23,6 +24,7 @@ class HomeNew extends StatefulWidget {
 
 class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
 
+  final homeController = Get.put(HomeController());
 
   late AnimationController _topRowAnimationController;
   late Animation<Offset> _topRowSlideAnimation;
@@ -43,7 +45,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    fetchUserData();
+
     _topRowAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 800));
 
@@ -110,20 +112,9 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
   }
 
 
-  RxList<UserModel> user = <UserModel>[].obs;
-  RxBool isLoading = true.obs;
-  void fetchUserData() async {
-    try {
-      isLoading(true); // Set loading to true
-      List<UserModel> fetchedUsers = await UserApis.getUserDataList();
-      user.assignAll(fetchedUsers);
-    } catch (e) {
-      Get.snackbar("Error", "Failed to fetch user data");
-    } finally {
-      isLoading(false); // Set loading to false
-    }
 
-}
+
+
 
   final PageController _controller = PageController();
   final PageController _controllerOne = PageController();
@@ -237,18 +228,18 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               ),
 
                     Obx(() {
-                      if (user.isEmpty) {
+                      if (homeController.user.isEmpty) {
                         return const ShimmerEffect(height: 40, width: 40, borderRadius: 24); // Show a default image or placeholder.
                       }
                       return InkWell(
-                        onTap: () => Get.toNamed(RoutesName.profileDetailsScreen,arguments: user),
+                        onTap: () => Get.toNamed(RoutesName.profileDetailsScreen),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(24),
                           child: CachedNetworkImage(
                             height: 40,
                             width: 40,
                             fit: BoxFit.cover,
-                            imageUrl: user.first.image ?? '',
+                            imageUrl: homeController.user.first.image ?? '',
                             progressIndicatorBuilder: (context, url, progress) =>
                                 const ShimmerEffect(height: 40, width: 40, borderRadius: 24),
                             errorWidget: (context, url, error) => const Icon(Icons.person,color: Colors.white,),
@@ -285,11 +276,11 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                               
                                 Obx(
                                 (){
-                                  if(user.isEmpty){
+                                  if(homeController.user.isEmpty){
                                     return  ShimmerEffect(width: 64, height: 20,borderRadius: 4,);
                                   }
                                   return Text(
-                                    '${user.first.city}',
+                                    '${homeController.user.first.city}',
                                     style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

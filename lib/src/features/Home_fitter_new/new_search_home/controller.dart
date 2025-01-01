@@ -1,13 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
+
+import '../../../data/repository/apis/user_apis.dart';
+import '../../auth_screen/Model/user_model.dart';
 
 class HomeController extends GetxController {
+  RxList<UserModel> user = <UserModel>[].obs;
+  RxBool isLoading = true.obs;
 
-   List<Color> colorizeColors = [
-    Colors.white,
-    Colors.white,
-    Colors.blue,
-    Colors.yellow,
-    Colors.red,
-  ];
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    fetchUserData();
+    super.onInit();
+  }
+
+  void fetchUserData() async {
+    try {
+      isLoading(true); // Set loading to true
+      List<UserModel> fetchedUsers = await UserApis.getUserDataList();
+      user.assignAll(fetchedUsers);
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch user data");
+    } finally {
+      isLoading(false); // Set loading to false
+    }
+  }
 }

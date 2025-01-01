@@ -55,7 +55,7 @@ class UserApis {
         }
       }
       if (userUIDs.contains(uid)) {
-        UserApis.setSharedPreferences(uid:UserApis.user.uid);
+        UserApis.setSharedPreferences(uid: UserApis.user.uid);
         return true;
       }
       return false; // Return the list of user UIDs
@@ -283,7 +283,7 @@ class UserApis {
           AppLoggerHelper.info(
               "Document added successfully with ID: ${docRef.id}");
         });
-        UserApis.setSharedPreferences(uid: user.uid,userDocId: docRef.id);
+        UserApis.setSharedPreferences(uid: user.uid, userDocId: docRef.id);
         return true; // Successfully saved data
       } catch (e) {
         Navigator.pop(Get.context!);
@@ -325,7 +325,8 @@ class UserApis {
     return userImageDownloadUrl;
   }
 
-  static Future<void> setSharedPreferences({String? uid, String? userDocId}) async {
+  static Future<void> setSharedPreferences(
+      {String? uid, String? userDocId}) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (uid != null) {
@@ -345,49 +346,39 @@ class UserApis {
   static Future<String?> getSharedPreferencesUserDocId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return preferences.getString('userDocId');
-
   }
-
-
-
 
   static Future<List<UserModel>> getUserDataList() async {
     try {
-      // Retrieve the userDocId from SharedPreferences (optional for filtering)
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      String? userDocId = preferences.getString('userDocId');
-
       // Access the Firestore collection
       var collection = firebaseFirestore.collection('DevUser');
 
       // Perform a query (adjust the query if filtering by userDocId is needed)
-      var querySnapshot = await collection.get();
+      var querySnapshot =
+          await collection.where('u_id', isEqualTo: user.uid).get();
 
       // Check if the query returned any documents
       if (querySnapshot.docs.isNotEmpty) {
         // Map the documents into a list of UserModel
         List<UserModel> userList = querySnapshot.docs.map((doc) {
           Map<String, dynamic>? data = doc.data();
-          if (data != null) {
-            return UserModel.fromJson(data);
-          }
-          throw Exception("Document data is null for doc ID: ${doc.id}");
+          return UserModel.fromJson(data);
         }).toList();
 
         // Optionally log user list data (ensure no sensitive info in production)
-        AppLoggerHelper.info("User List: ${userList.map((user) => user.toJson()).toList()}");
+        AppLoggerHelper.info(
+            "User List: ${userList.map((user) => user.toJson()).toList()}");
 
+        setSharedPreferences(userDocId: userList[0].docId);
         return userList;
       } else {
-        print("No user documents found.");
+        AppLoggerHelper.info("User list is empty");
         return [];
       }
     } catch (e) {
       // Handle and log any errors during the data fetching process
-      print('Error fetching user list: $e');
+      AppLoggerHelper.error("Error fetching user data: $e");
       return [];
     }
   }
-
-
 }

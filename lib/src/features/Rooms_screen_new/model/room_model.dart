@@ -39,6 +39,10 @@ class RoomModel {
   List<String>? commonAreasList;
   String? familyCost;
   String? userDocId;
+  String? userName;
+  String? mobileNumber;
+  String? userImage;
+
 
   RoomModel(
       {this.city,
@@ -78,6 +82,9 @@ class RoomModel {
         this.reportList,
         this.flatType,
         this.userDocId,
+        this.userName,
+        this.mobileNumber,
+        this.userImage
       });
 
   RoomModel.fromJson(Map<String, dynamic> json) {
@@ -88,6 +95,9 @@ class RoomModel {
     houseName = json['houseName'];
     uId = json['u_id'];
     userDocId = json['userDocId'];
+    userName = json['userName'];
+    mobileNumber = json['mobileNumber'];
+    userImage = json['userImage'];
     isRoomAvailableDate = json['isRoomAvailableDate'];
     atUpdate = json['atUpdate'];
     state = json['state'];
@@ -139,6 +149,9 @@ class RoomModel {
     data['houseName'] = this.houseName;
     data['u_id'] = this.uId;
     data['userDocId'] = this.userDocId;
+    data['userName'] = this.userName;
+    data['mobileNumber'] = this.mobileNumber;
+    data['userImage'] = this.userImage;
     data['isRoomAvailableDate'] = this.isRoomAvailableDate;
     data['atUpdate'] = this.atUpdate;
     data['state'] = this.state;
@@ -195,7 +208,6 @@ class HouseFAQ {
     return data;
   }
 }
-
 
 class  Report {
   String? date;
