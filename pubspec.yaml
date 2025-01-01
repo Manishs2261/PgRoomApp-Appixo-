@@ -31,23 +31,23 @@ dependencies:
 
   fluttertoast: ^8.2.2
   #for integrating firebase
-  firebase_core: ^2.32.0
+  firebase_core: ^3.9.0
   #for handing google sign in
   google_sign_in: ^6.1.5
   #for handling firebase authentication
-  firebase_auth: ^4.20.0
+  firebase_auth: ^5.3.4
   # for scenting cloud firestorm database
-  cloud_firestore: ^4.17.5
+  cloud_firestore: ^5.6.0
   #Forfor showing network image
   cached_network_image: ^3.2.3
   #for pick image
   image_picker: ^1.0.4
   #for accessing firebase storage (for uploading files)
-  firebase_storage: ^11.7.7
+  firebase_storage: ^12.3.7
   #for showing Emojis
-  emoji_picker_flutter: ^2.2.0
+  emoji_picker_flutter: ^4.2.0
   #for showing a messagepack:
-  firebase_messaging: ^14.6.7
+  firebase_messaging: ^15.1.6
   #for notification channel_talk_flutter:
   flutter_notification_channel: ^3.1.0
   #for on Boarding screen
@@ -57,7 +57,7 @@ dependencies:
   #rating bar
   flutter_rating_bar: ^4.0.1
   #email and otp verification_code_builder:
-  email_otp: ^2.0.1
+  email_otp: ^3.0.2
   #login sharedPresence
   shared_preferences: ^2.2.2
   # check internet connection_notifier:
@@ -81,10 +81,10 @@ dependencies:
   #refresh bar
   liquid_pull_to_refresh: ^3.0.1
   #refresh bar
-  custom_refresh_indicator: ^3.0.0
+  custom_refresh_indicator: ^4.0.1
   #firebase
-  firebase_crashlytics: ^3.4.9
-  firebase_performance: ^0.9.3+8
+  firebase_crashlytics: ^4.2.0
+  firebase_performance: ^0.10.0+11
   lottie: ^3.1.2
   onesignal_flutter: ^5.1.2
   google_nav_bar: ^5.0.6
@@ -99,13 +99,13 @@ dependencies:
   permission_handler: ^11.3.1
   package_info_plus: ^8.0.0
   change_app_package_name: ^1.1.0
-  share_plus: ^9.0.0
+  share_plus: ^10.1.3
   location_picker_flutter_map: ^3.0.1
-  geolocator: ^10.1.1
-  geocoding: ^2.1.0
-  uuid: ^3.0.7
+  geolocator: ^13.0.2
+  geocoding: ^3.0.0
+  uuid: ^4.5.1
   shimmer: ^3.0.0
-  multi_image_picker_view: ^1.1.0
+  multi_image_picker_view: ^2.0.1
   google_maps_flutter: ^2.9.0
 
   
@@ -130,8 +130,8 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
-  icons_launcher: ^2.1.7
+  flutter_lints: ^5.0.0
+  icons_launcher: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

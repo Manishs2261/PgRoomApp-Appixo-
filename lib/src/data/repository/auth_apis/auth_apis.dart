@@ -263,37 +263,37 @@ class AuthApisClass {
     return false;
   }
 
-  //===========send opt email verification ===============
-  static Future<bool> sendEmailOtpVerification(String email) async {
-    //====send otp code ==========
-    emailOtp.setConfig(
-      appEmail: "sahusanju138@gmail.com",
-      appName: "~ By Appixo   ",
-      userEmail: email,
-      otpLength: 6,
-      otpType: OTPType.digitsOnly,
-    );
-    if (await emailOtp.sendOTP() == true) {
-      otpSend = true;
-      return true;
-    } else {
-      otpSend = false;
-      return false;
-    }
-  }
+  // //===========send opt email verification ===============
+  // static Future<bool> sendEmailOtpVerification(String email) async {
+  //   //====send otp code ==========
+  //   emailOtp.setConfig(
+  //     appEmail: "sahusanju138@gmail.com",
+  //     appName: "~ By Appixo   ",
+  //     userEmail: email,
+  //     otpLength: 6,
+  //     otpType: OTPType.digitsOnly,
+  //   );
+  //   if (await emailOtp.sendOTP() == true) {
+  //     otpSend = true;
+  //     return true;
+  //   } else {
+  //     otpSend = false;
+  //     return false;
+  //   }
+  // }
 
   //=========== otp verification code=============
 
-  static Future<bool> otpSubmitVerification(String otp) async {
-    if (await emailOtp.verifyOTP(otp: otp) == true) {
-      Get.snackbar('OTP verify', 'Successfully',
-          snackPosition: SnackPosition.TOP);
-      return true;
-    } else {
-      Get.snackbar('OTP verify', 'Failed', snackPosition: SnackPosition.TOP);
-      return false;
-    }
-  }
+  // static Future<bool> otpSubmitVerification(String otp) async {
+  //   if (await emailOtp.verifyOTP(otp: otp) == true) {
+  //     Get.snackbar('OTP verify', 'Successfully',
+  //         snackPosition: SnackPosition.TOP);
+  //     return true;
+  //   } else {
+  //     Get.snackbar('OTP verify', 'Failed', snackPosition: SnackPosition.TOP);
+  //     return false;
+  //   }
+  // }
 
   // ============Forget Password ==========
 

@@ -56,33 +56,33 @@ class SingScreenController extends GetxController {
         } else {
           //loading indicator
           otpSendLoading.value = true;
-
-          AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
-            if (AuthApisClass.otpSend) {
-              counter.value = 180;
-              // isSend is true than ReSend Button Visible
-              isSend.value = value;
-              //count down timer
-              startOtpTimer();
-              emailReading.value = true;
-              otpSendLoading.value = false;
-
-              FocusScope.of(Get.context!).unfocus();
-              Get.snackbar('Send OTP', 'Successfully ', snackPosition: SnackPosition.TOP);
-            } else {
-              Get.snackbar('Failed', 'wrong Email id ', snackPosition: SnackPosition.TOP);
-              otpSendLoading.value = false;
-
-              timer.cancel();
-            }
-          }).onError((error, stackTrace) {
-            if (kDebugMode) {
-              print(error);
-            }
-            if (kDebugMode) {
-              print(stackTrace);
-            }
-          });
+          //
+          // AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
+          //   if (AuthApisClass.otpSend) {
+          //     counter.value = 180;
+          //     // isSend is true than ReSend Button Visible
+          //     isSend.value = value;
+          //     //count down timer
+          //     startOtpTimer();
+          //     emailReading.value = true;
+          //     otpSendLoading.value = false;
+          //
+          //     FocusScope.of(Get.context!).unfocus();
+          //     Get.snackbar('Send OTP', 'Successfully ', snackPosition: SnackPosition.TOP);
+          //   } else {
+          //     Get.snackbar('Failed', 'wrong Email id ', snackPosition: SnackPosition.TOP);
+          //     otpSendLoading.value = false;
+          //
+          //     timer.cancel();
+          //   }
+          // }).onError((error, stackTrace) {
+          //   if (kDebugMode) {
+          //     print(error);
+          //   }
+          //   if (kDebugMode) {
+          //     print(stackTrace);
+          //   }
+          // });
         }
       }
     });
@@ -102,17 +102,17 @@ class SingScreenController extends GetxController {
           isSend.value = true;
           startOtpTimer();
           otpReSendLoading.value = true;
-          AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
-            otpReSendLoading.value = false;
-          }).onError((error, stackTrace) {
-            otpReSendLoading.value = false;
-            if (kDebugMode) {
-              print(error);
-            }
-            if (kDebugMode) {
-              print(stackTrace);
-            }
-          });
+          // AuthApisClass.sendEmailOtpVerification(emailController.value.text).then((value) {
+          //   otpReSendLoading.value = false;
+          // }).onError((error, stackTrace) {
+          //   otpReSendLoading.value = false;
+          //   if (kDebugMode) {
+          //     print(error);
+          //   }
+          //   if (kDebugMode) {
+          //     print(stackTrace);
+          //   }
+          // });
         }
       }
     });

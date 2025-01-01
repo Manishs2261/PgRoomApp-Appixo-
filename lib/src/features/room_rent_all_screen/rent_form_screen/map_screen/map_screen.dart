@@ -40,40 +40,40 @@ class _MapScreenState extends State<MapScreen> {
         ),
         body: Stack(
           children: [
-            FlutterLocationPicker(
-              showSearchBar: false,
-              selectLocationButtonStyle: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(AppColors.primary),
-              ),
-              initZoom: 11,
-              minZoomLevel: 1,
-              maxZoomLevel: 16,
-              trackMyPosition: true,
-              selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-              mapLanguage: 'en',
-
-              countryFilter: 'India',
-              markerIcon: const Icon(
-                Icons.location_on_sharp,
-                color: Colors.red,
-                size: 60,
-              ),
-              selectLocationButtonLeadingIcon: const Icon(
-                Icons.check,
-              ),
-              onPicked: (pickedData) {
-                if (kDebugMode) {
-                  print(pickedData.latLong.latitude);
-                }
-                if (kDebugMode) {
-                  print(pickedData.latLong.longitude);
-                }
-                controller.latitude.value = pickedData.latLong.latitude.toString();
-                controller.longitude.value = pickedData.latLong.longitude.toString();
-                Get.toNamed(RoutesName.perimissionScreen);
-              },
-              showContributorBadgeForOSM: true,
-            ),
+            // FlutterLocationPicker(
+            //   showSearchBar: false,
+            //   selectLocationButtonStyle: ButtonStyle(
+            //     backgroundColor: MaterialStateProperty.all(AppColors.primary),
+            //   ),
+            //   initZoom: 11,
+            //   minZoomLevel: 1,
+            //   maxZoomLevel: 16,
+            //   trackMyPosition: true,
+            //   selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+            //   mapLanguage: 'en',
+            //
+            //   countryFilter: 'India',
+            //   markerIcon: const Icon(
+            //     Icons.location_on_sharp,
+            //     color: Colors.red,
+            //     size: 60,
+            //   ),
+            //   selectLocationButtonLeadingIcon: const Icon(
+            //     Icons.check,
+            //   ),
+            //   onPicked: (pickedData) {
+            //     if (kDebugMode) {
+            //       print(pickedData.latLong.latitude);
+            //     }
+            //     if (kDebugMode) {
+            //       print(pickedData.latLong.longitude);
+            //     }
+            //     controller.latitude.value = pickedData.latLong.latitude.toString();
+            //     controller.longitude.value = pickedData.latLong.longitude.toString();
+            //     Get.toNamed(RoutesName.perimissionScreen);
+            //   },
+            //   showContributorBadgeForOSM: true,
+            // ),
             Container(
               margin: const EdgeInsets.all(5),
               padding: const EdgeInsets.all(8),

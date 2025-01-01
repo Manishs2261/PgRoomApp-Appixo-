@@ -381,35 +381,35 @@ class _EditTiffineScreenState extends State<EditTiffineScreen> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(24)),
                   child: Stack(
                     children: [
-                      FlutterLocationPicker(
-                        showSearchBar: false,
-                        searchbarBorderRadius: BorderRadius.circular(50),
-                        selectLocationButtonStyle: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.orange),
-                        ),
-                        selectLocationButtonText: "Set a Location",
-                        initZoom: 11,
-                        minZoomLevel: 1,
-                        maxZoomLevel: 16,
-                        trackMyPosition: true,
-                        selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-                        mapLanguage: 'en',
-                        countryFilter: 'In',
-                        markerIcon: const Icon(
-                          Icons.location_on_sharp,
-                          color: Colors.red,
-                          size: 60,
-                        ),
-                        selectLocationButtonLeadingIcon: const Icon(
-                          Icons.check,
-                        ),
-                        onPicked: (pickedData) {
-                          controller.latitude.value = pickedData.latLong.latitude.toString();
-                          controller.longitude.value = pickedData.latLong.longitude.toString();
-                          AppHelperFunction.showSnackBar("Location set successfully");
-                        },
-                        showContributorBadgeForOSM: true,
-                      ),
+                      // FlutterLocationPicker(
+                      //   showSearchBar: false,
+                      //   searchbarBorderRadius: BorderRadius.circular(50),
+                      //   selectLocationButtonStyle: ButtonStyle(
+                      //     backgroundColor: MaterialStateProperty.all(Colors.orange),
+                      //   ),
+                      //   selectLocationButtonText: "Set a Location",
+                      //   initZoom: 11,
+                      //   minZoomLevel: 1,
+                      //   maxZoomLevel: 16,
+                      //   trackMyPosition: true,
+                      //   selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+                      //   mapLanguage: 'en',
+                      //   countryFilter: 'In',
+                      //   markerIcon: const Icon(
+                      //     Icons.location_on_sharp,
+                      //     color: Colors.red,
+                      //     size: 60,
+                      //   ),
+                      //   selectLocationButtonLeadingIcon: const Icon(
+                      //     Icons.check,
+                      //   ),
+                      //   onPicked: (pickedData) {
+                      //     controller.latitude.value = pickedData.latLong.latitude.toString();
+                      //     controller.longitude.value = pickedData.latLong.longitude.toString();
+                      //     AppHelperFunction.showSnackBar("Location set successfully");
+                      //   },
+                      //   showContributorBadgeForOSM: true,
+                      // ),
                       Container(
                         margin: const EdgeInsets.all(5),
                         padding: const EdgeInsets.all(8),

@@ -47,37 +47,37 @@ class _EditMapViewScreenState extends State<EditMapViewScreen> {
         ),
         body: Stack(
           children: [
-            FlutterLocationPicker(
-              showSearchBar: false,
-              searchbarBorderRadius: BorderRadius.circular(50),
-              selectLocationButtonStyle: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(AppColors.primary),
-              ),
-              initZoom: 11,
-              minZoomLevel: 1,
-              maxZoomLevel: 16,
-              trackMyPosition: true,
-              selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
-              mapLanguage: 'en',
-              onError: (e) => print(e),
-              countryFilter: 'In',
-              markerIcon: const Icon(
-                Icons.location_on_sharp,
-                color: Colors.red,
-                size: 60,
-              ),
-              selectLocationButtonLeadingIcon: const Icon(
-                Icons.check,
-              ),
-              onPicked: (pickedData) {
-                print(pickedData.latLong.latitude);
-                print(pickedData.latLong.longitude);
-                controller.latitude.value = pickedData.latLong.latitude.toString();
-                controller.longitude.value = pickedData.latLong.longitude.toString();
-                controller.onEditMapViewData();
-              },
-              showContributorBadgeForOSM: true,
-            ),
+            // FlutterLocationPicker(
+            //   showSearchBar: false,
+            //   searchbarBorderRadius: BorderRadius.circular(50),
+            //   selectLocationButtonStyle: ButtonStyle(
+            //     backgroundColor: MaterialStateProperty.all(AppColors.primary),
+            //   ),
+            //   initZoom: 11,
+            //   minZoomLevel: 1,
+            //   maxZoomLevel: 16,
+            //   trackMyPosition: true,
+            //   selectedLocationButtonTextstyle: const TextStyle(fontSize: 18),
+            //   mapLanguage: 'en',
+            //   onError: (e) => print(e),
+            //   countryFilter: 'In',
+            //   markerIcon: const Icon(
+            //     Icons.location_on_sharp,
+            //     color: Colors.red,
+            //     size: 60,
+            //   ),
+            //   selectLocationButtonLeadingIcon: const Icon(
+            //     Icons.check,
+            //   ),
+            //   onPicked: (pickedData) {
+            //     print(pickedData.latLong.latitude);
+            //     print(pickedData.latLong.longitude);
+            //     controller.latitude.value = pickedData.latLong.latitude.toString();
+            //     controller.longitude.value = pickedData.latLong.longitude.toString();
+            //     controller.onEditMapViewData();
+            //   },
+            //   showContributorBadgeForOSM: true,
+            // ),
             Container(
               margin: const EdgeInsets.all(5),
               padding: const EdgeInsets.all(8),
