@@ -7,9 +7,13 @@ class HomeController extends GetxController {
   RxList<UserModel> user = <UserModel>[].obs;
   RxBool isLoading = true.obs;
 
+  // For initial loading state
+  // Stores the list of rooms
+
   @override
   void onInit() {
     // TODO: implement onInit
+
     fetchUserData();
     super.onInit();
   }

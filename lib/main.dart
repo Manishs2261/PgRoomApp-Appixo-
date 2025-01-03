@@ -27,11 +27,11 @@ Future<void> main() async {
   MobileAds.instance.initialize();
   AppLoggerHelper.initialize();
 
-  await Permission.notification.isDenied.then((value) {
-    if (value) {
-      Permission.notification.request();
-    }
-  });
+  // await Permission.notification.isDenied.then((value) {
+  //   if (value) {
+  //     Permission.notification.request();
+  //   }
+  // });
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   await Firebase.initializeApp();
@@ -39,12 +39,12 @@ Future<void> main() async {
   //_initializerFirebase();
 
   //Remove this method to stop OneSignal Debugging
-  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
-
-  OneSignal.initialize("212272d1-35f0-4d7c-84ad-5a0ccee76ae1");
-
-// The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
-  OneSignal.Notifications.requestPermission(true);
+//   OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+//
+//   OneSignal.initialize("212272d1-35f0-4d7c-84ad-5a0ccee76ae1");
+//
+// // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+//   OneSignal.Notifications.requestPermission(true);
 
   // Pass all uncaught "fatal" errors from the framework to Crashlytics
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;

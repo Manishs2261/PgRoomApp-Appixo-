@@ -360,7 +360,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfRooms,
-            page: () => const ListOfRooms(),
+            page: () => ListOfRooms(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
