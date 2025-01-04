@@ -13,127 +13,326 @@ import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/widgets/gradient_button.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
-import '../../Home_fitter_new/new_search_home/controller.dart';
 
-class ListOfRooms extends StatelessWidget {
+class ListOfRooms extends StatefulWidget {
   ListOfRooms({super.key});
 
-  final listOfRoomController = Get.put( ListOfRoomController());
+  @override
+  State<ListOfRooms> createState() => _ListOfRoomsState();
+}
+
+class _ListOfRoomsState extends State<ListOfRooms> {
+  final listOfRoomController = Get.put(ListOfRoomController());
+
+  final RxList<String> roomCategory = <String>['PG', 'Co-living', 'Flat'].obs;
+  final RxList<String> genderType = <String>['Boys', 'Girls', 'Family'].obs;
+  final RxList<String> roomType = <String>['Private', 'Shared'].obs;
+
+  // Local state to keep track of selected facilities
+  RxList<String> selectedRoomCategory = <String>[].obs;
+  RxList<String> selectedGenderType = <String>[].obs;
+  RxList<String> selectedRoomType = <String>[].obs;
+  Rx<RangeValues> priceRange = const RangeValues(100, 500).obs;
+
+  void updateRange(RangeValues values) {
+    priceRange.value = values;
+  }
 
   @override
   Widget build(BuildContext context) {
-
     AppLoggerHelper.debug('ListOfRooms........');
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(120),
+        preferredSize: const Size.fromHeight(90),
         child: SafeArea(child: TopSearchFilter()),
       ),
       floatingActionButton: Obx(
-            () => AnimatedOpacity(
+        () => AnimatedOpacity(
           opacity: listOfRoomController.isButtonVisible.value ? 1.0 : 0.0,
           duration: const Duration(milliseconds: 500),
           child: listOfRoomController.isButtonVisible.value
               ? FloatingActionButton(
-            onPressed: (){
-                showModalBottomSheet(
-                    context: context,
-                    builder: (builder){
-                      return Container(
-                        height: 350.0,
-                        color: Colors.transparent, //could change this to Color(0xFF737373),
-                        //so you don't have to change MaterialApp canvasColor
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(10.0),
-                                    topRight: const Radius.circular(10.0))),
-                            child:  ListView(
-                              children: [
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: AppColors.white,
+                      context: context,
+                      builder: (context) {
+                        return DraggableScrollableSheet(
+                            initialChildSize: 0.5,
+                            // Start at 50% of screen height
+                            minChildSize: 0.3,
+                            // Minimum height: 30% of screen height
+                            maxChildSize: 0.9,
+                            // Maximum height: 90% of screen height
+                            expand: false,
+                            builder: (builder, scrollController) {
+                              return Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.all(16.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: const Radius.circular(10.0),
+                                          topRight:
+                                              const Radius.circular(10.0))),
+                                  child: SingleChildScrollView(
+                                    controller: scrollController,
+                                    primary: false,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Room Category',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                        Obx(
+                                          () => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Wrap(
+                                              spacing: 8.0,
+                                              children:
+                                                  roomCategory.map((facility) {
+                                                final isSelected =
+                                                    selectedRoomCategory
+                                                        .contains(facility);
+                                                return FilterChip(
+                                                  backgroundColor: Colors.white,
+                                                  selectedColor:
+                                                      AppColors.primary,
+                                                  label: Text(
+                                                    facility,
+                                                    style: TextStyle(
+                                                      color: isSelected
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                  selected: selectedRoomCategory
+                                                      .contains(facility),
+                                                  onSelected: (selected) {
+                                                    setState(() {
+                                                      if (selected) {
+                                                        selectedRoomCategory
+                                                            .add(facility);
+                                                      } else {
+                                                        selectedRoomCategory
+                                                            .remove(facility);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Gender Type',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                        Obx(
+                                          () => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Wrap(
+                                              spacing: 8.0,
+                                              children:
+                                                  genderType.map((facility) {
+                                                final isSelected =
+                                                    selectedGenderType
+                                                        .contains(facility);
+                                                return FilterChip(
+                                                  backgroundColor: Colors.white,
+                                                  selectedColor:
+                                                      AppColors.primary,
+                                                  label: Text(
+                                                    facility,
+                                                    style: TextStyle(
+                                                      color: isSelected
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                  selected: selectedGenderType
+                                                      .contains(facility),
+                                                  onSelected: (selected) {
+                                                    setState(() {
+                                                      if (selected) {
+                                                        selectedGenderType
+                                                            .add(facility);
+                                                      } else {
+                                                        selectedGenderType
+                                                            .remove(facility);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Room Type',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall,
+                                        ),
+                                        Obx(
+                                          () => Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Wrap(
+                                              spacing: 8.0,
+                                              children:
+                                                  roomType.map((facility) {
+                                                final isSelected =
+                                                    selectedRoomType
+                                                        .contains(facility);
+                                                return FilterChip(
+                                                  backgroundColor: Colors.white,
+                                                  selectedColor:
+                                                      AppColors.primary,
+                                                  label: Text(
+                                                    facility,
+                                                    style: TextStyle(
+                                                      color: isSelected
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                  ),
+                                                  selected: selectedRoomType
+                                                      .contains(facility),
+                                                  onSelected: (selected) {
+                                                    setState(() {
+                                                      if (selected) {
+                                                        selectedRoomType
+                                                            .add(facility);
+                                                      } else {
+                                                        selectedRoomType
+                                                            .remove(facility);
+                                                      }
+                                                    });
+                                                  },
+                                                );
+                                              }).toList(),
+                                            ),
+                                          ),
+                                        ),
+                                        const Text(
+                                          'Select Price Range:',
+                                          style: TextStyle(fontSize: 18),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Obx(() {
+                                          return RangeSlider(
+                                            values: priceRange.value,
+                                            min: 0,
+                                            max: 1000,
+                                            divisions: 20,
+                                            labels: RangeLabels(
+                                              '₹${priceRange.value.start.round()}',
+                                              '₹${priceRange.value.end.round()}',
+                                            ),
+                                            onChanged: (values) {
+                                              updateRange(values);
+                                            },
+                                          );
+                                        }),
+                                        const SizedBox(height: 20),
+                                        Obx(() {
+                                          return Text(
+                                            'Selected Range: ₹${priceRange.value.start.round()} - ₹${priceRange.value.end.round()}',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          );
+                                        }),
+                                      ],
+                                    ),
+                                  ));
+                            });
+                      },
+                    );
 
-                              ],
-                            )
-
-                        ),
-                      );
-                    }
-                );
-
-            },
-            backgroundColor: AppColors.primary,
-            child: const Icon(
-              Icons.filter_list,
-              color: Colors.white,
-            ),
-          )
+//===
+                  },
+                  backgroundColor: AppColors.primary,
+                  child: const Icon(
+                    Icons.filter_list,
+                    color: Colors.white,
+                  ),
+                )
               : const SizedBox(),
         ),
       ),
       body: Obx(
-            () => listOfRoomController.isLoadingInitial.value
+        () => listOfRoomController.isLoadingInitial.value
             ? ListView.builder(
-          // Shimmer effect during the initial load
-          itemCount: 2, // Number of shimmer placeholders
-          itemBuilder: (context, index) {
-            return ShimmerEffect(
-              width: double.infinity,
-              height: 200,
-              bottomShimmer: true,
-              bottomWidth: double.infinity,
-              bottomHeight: 20,
-            );
-          },
-        )
+                // Shimmer effect during the initial load
+                itemCount: 2, // Number of shimmer placeholders
+                itemBuilder: (context, index) {
+                  return ShimmerEffect(
+                    width: double.infinity,
+                    height: 200,
+                    bottomShimmer: true,
+                    bottomWidth: double.infinity,
+                    bottomHeight: 20,
+                  );
+                },
+              )
             : CustomMaterialIndicator(
+                durations: RefreshIndicatorDurations(
+                    settleDuration: Duration(milliseconds: 1000)),
+                onRefresh: () async {
+                  listOfRoomController.roomListData.clear();
+                  listOfRoomController.lastDocument = null;
+                  listOfRoomController.hasMoreData.value = true;
 
-              durations:RefreshIndicatorDurations(settleDuration: Duration(milliseconds: 1000)),
-          onRefresh: () async {
-            listOfRoomController.roomListData.clear();
-            listOfRoomController.lastDocument = null;
-            listOfRoomController.hasMoreData.value = true;
-
-            await listOfRoomController.fetchData();
-          },
-          indicatorBuilder:
-              (BuildContext context, IndicatorController controller) {
-            return const CircularProgressIndicator(
-              color: Colors.blue,
-            );
-          },
-          child: listOfRoomController.roomListData.isEmpty &&
-              !listOfRoomController.isLoadingMore.value
-              ? Center(
-            child: Text(
-              'No rooms available. Pull to refresh.',
-              style: TextStyle(color: Colors.grey, fontSize: 16),
-            ),
-          )
-              : ListView.builder(
-            controller: listOfRoomController.scrollController,
-            itemCount: listOfRoomController.isLoadingMore.value
-                ? listOfRoomController.roomListData.length + 1
-                : listOfRoomController.roomListData.length,
-            itemBuilder: (context, index) {
-              if (index == listOfRoomController.roomListData.length &&
-                  listOfRoomController.isLoadingMore.value) {
-                return  SizedBox(
-                  height: 40,
-                    width: 40,
-                    child: CircularProgressIndicator(color: Colors.amber, ));
-              }
-              return RoomListCardWidgets(
-                  roomListData:
-                  listOfRoomController.roomListData[index]);
-            },
-          ),
-        ),
+                  await listOfRoomController.fetchData();
+                },
+                indicatorBuilder:
+                    (BuildContext context, IndicatorController controller) {
+                  return const CircularProgressIndicator(
+                    color: Colors.blue,
+                  );
+                },
+                child: listOfRoomController.roomListData.isEmpty &&
+                        !listOfRoomController.isLoadingMore.value
+                    ? Center(
+                        child: Text(
+                          'No rooms available. Pull to refresh.',
+                          style: TextStyle(color: Colors.grey, fontSize: 16),
+                        ),
+                      )
+                    : ListView.builder(
+                        controller: listOfRoomController.scrollController,
+                        itemCount: listOfRoomController.isLoadingMore.value
+                            ? listOfRoomController.roomListData.length + 1
+                            : listOfRoomController.roomListData.length,
+                        itemBuilder: (context, index) {
+                          if (index ==
+                                  listOfRoomController.roomListData.length &&
+                              listOfRoomController.isLoadingMore.value) {
+                            return SizedBox(
+                                height: 40,
+                                width: 40,
+                                child: CircularProgressIndicator(
+                                  color: Colors.amber,
+                                ));
+                          }
+                          return RoomListCardWidgets(
+                              roomListData:
+                                  listOfRoomController.roomListData[index]);
+                        },
+                      ),
+              ),
       ),
     );
   }
 }
-
-
 
 class RoomListCardWidgets extends StatelessWidget {
   const RoomListCardWidgets({
@@ -146,8 +345,7 @@ class RoomListCardWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(RoutesName.roomDetails,
-          arguments: roomListData),
+      onTap: () => Get.toNamed(RoutesName.roomDetails, arguments: roomListData),
       child: Container(
         margin: EdgeInsets.only(top: 12, left: 12, right: 12),
         // You can adjust this height to fit the content

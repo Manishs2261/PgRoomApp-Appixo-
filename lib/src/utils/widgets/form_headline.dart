@@ -24,7 +24,7 @@ class FormHeadline extends StatelessWidget {
       child: Text(
         title,
         style: const TextStyle(
-          fontSize: 16,
+          fontSize: 14,
           fontWeight: FontWeight.w500,
           color: Colors.white, // Text color to contrast with the background
         ),

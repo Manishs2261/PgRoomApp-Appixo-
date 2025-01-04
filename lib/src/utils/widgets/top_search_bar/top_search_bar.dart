@@ -104,48 +104,52 @@ class TopSearchFilter extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 4,
-          ),
-          const Text.rich(
-            style: TextStyle(fontSize: 12),
-            TextSpan(
-              text: 'Awesome! ',
-              children: <TextSpan>[
+
+          Row(
+            children: [
+              const Text.rich(
+                style: TextStyle(fontSize: 12),
                 TextSpan(
-                  text: '8',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  text: 'Awesome! ',
+                  children: [
+                    TextSpan(
+                      text: '8',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(text: ' results found.'),
+                  ],
                 ),
-                TextSpan(text: ' results found.'),
-              ],
-            ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Row(
+                  children: [
+                    const Text(
+                      'Bilaspur',
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 0,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    CircleAvatar(
+                        backgroundColor: Colors.blueAccent.withOpacity(0.1),
+                        radius: 10,
+                        child: Icon(
+                          Icons.close,
+                          color: AppColors.primary,
+                          size: 14,
+                        ))
+                  ],
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
-            child: Row(
-              children: [
-                const Text(
-                  'Bilaspur',
-                  style: TextStyle(
-                    fontSize: 14,
-                    height: 0,
-                    color: Colors.blue,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                CircleAvatar(
-                    backgroundColor: Colors.blueAccent.withOpacity(0.1),
-                    radius: 10,
-                    child: Icon(
-                      Icons.close,
-                      color: AppColors.primary,
-                      size: 14,
-                    ))
-              ],
-            ),
-          ),
+
         ],
       ),
     );
