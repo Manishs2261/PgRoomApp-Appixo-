@@ -355,7 +355,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.locationSearch,
-            page: () => const LocationSearch(),
+            page: () => LocationSearch(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
