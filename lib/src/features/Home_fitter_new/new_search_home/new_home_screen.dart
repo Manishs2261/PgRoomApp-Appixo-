@@ -13,6 +13,7 @@ import '../../../utils/Constants/image_string.dart';
 import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/shimmer_effect.dart';
 import '../../auth_screen/Model/user_model.dart';
+import '../city_search/city_search.dart';
 import 'controller.dart';
 
 class HomeNew extends StatefulWidget {
@@ -268,7 +269,14 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                         child: FadeTransition(
                           opacity: _searchOpacityAnimation,
                           child: InkWell(
-                            onTap: () => Get.toNamed(RoutesName.citySearch),
+                            onTap: () {
+                              Get.to(() => CitySearch())?.then((result) {
+                                if (result == true) {
+                                   homeController.fetchUserData(); // Refresh data on return
+                                }
+                              });
+
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.end,

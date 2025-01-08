@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
@@ -379,6 +380,30 @@ class UserApis {
       // Handle and log any errors during the data fetching process
       AppLoggerHelper.error("Error fetching user data: $e");
       return [];
+    }
+  }
+
+
+
+  static Future<void> updateCityName(String cityName)async{
+
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? userDocId =   preferences.getString('userDocId');
+
+    try {
+      await FirebaseFirestore.instance
+              .collection("DevUser")
+              .doc(userDocId)
+              .update({
+            'city': cityName,
+          }).whenComplete(() {
+             AppLoggerHelper.info(
+                 "update successfully with ID: $userDocId");
+            AppHelperFunction.showFlashbar('Update Successfully');
+
+          });
+    } catch (e) {
+      AppLoggerHelper.error('city update error $e');
     }
   }
 }

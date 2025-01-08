@@ -5,7 +5,10 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
 
+import '../databaseHelper/databaseHelper.dart';
+
 class LocationSearchController extends GetxController {
+  final DatabaseHelper dbHelper = DatabaseHelper();
   final FocusNode focusNode = FocusNode();
   final TextEditingController searchController = TextEditingController();
   final RxString searchText = "".obs;
@@ -49,6 +52,8 @@ class LocationSearchController extends GetxController {
     //
     // });
 
+    _loadSearchHistory();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       focusNode.requestFocus();
       focusNode.addListener(() {
@@ -75,10 +80,22 @@ class LocationSearchController extends GetxController {
     selectedButtonIndex.value = index;
   }
 
-  void onSearchSubmitted(String searchText) {
+  Future<void> onSearchSubmitted(String query) async {
     if (searchText.isNotEmpty) {
-      searchHistory.add(searchText); // Add search text to the search history
-      searchController.clear(); // Clear the search field
+      await dbHelper.insertSearchQuery(query);
+      _loadSearchHistory();
     }
+  }
+
+
+  Future<void> _loadSearchHistory() async {
+    final data = await dbHelper.getSearchHistory();
+    searchHistory.value = data.map((item) => item['search_query'] as String).toList();
+  }
+
+  Future<void> deleteHistoryItem(int index) async {
+    final id = (await dbHelper.getSearchHistory())[index]['id'];
+    await dbHelper.deleteSearchQuery(id);
+    _loadSearchHistory();
   }
 }

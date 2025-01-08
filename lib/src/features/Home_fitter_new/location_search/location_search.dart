@@ -156,9 +156,9 @@ class LocationSearch extends StatelessWidget {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: controller.searchController,
-                          onFieldSubmitted: (value) {
+                          onFieldSubmitted: (value) async {
+                            await controller.onSearchSubmitted(value);
                             controller.getCitySuggestions(value);
-                            controller.onSearchSubmitted(value);
                             Get.toNamed(RoutesName.filter,
                                 arguments: controller.selectedButtonIndex);
                           },
@@ -296,9 +296,10 @@ class LocationSearch extends StatelessWidget {
                                                 IconButton(
                                                   icon: const Icon(Icons.clear,
                                                       size: 18),
-                                                  onPressed: () {
-                                                    // Handle delete specific search history item
-                                                    // _removeFromSearchHistory(index);
+                                                  onPressed: () async {
+                                                    await controller
+                                                        .deleteHistoryItem(
+                                                            index);
                                                   },
                                                 ),
                                               ],
