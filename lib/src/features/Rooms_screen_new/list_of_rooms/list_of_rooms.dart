@@ -11,11 +11,12 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 
 import '../../../res/route_name/routes_name.dart';
+import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/widgets/gradient_button.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
 
 class ListOfRooms extends StatefulWidget {
-  ListOfRooms({super.key});
+  const ListOfRooms({super.key});
 
   @override
   State<ListOfRooms> createState() => _ListOfRoomsState();
@@ -23,20 +24,22 @@ class ListOfRooms extends StatefulWidget {
 
 class _ListOfRoomsState extends State<ListOfRooms> {
   final listOfRoomController = Get.put(ListOfRoomController());
-
-  final RxList<String> roomCategory = <String>['PG', 'Co-living', 'Flat'].obs;
-  final RxList<String> genderType = <String>['Boys', 'Girls', 'Family'].obs;
-  final RxList<String> roomType = <String>['Private', 'Shared'].obs;
-
-  // Local state to keep track of selected facilities
-  RxList<String> selectedRoomCategory = <String>[].obs;
-  RxList<String> selectedGenderType = <String>[].obs;
-  RxList<String> selectedRoomType = <String>[].obs;
-  Rx<RangeValues> priceRange = const RangeValues(100, 500).obs;
-
-  void updateRange(RangeValues values) {
-    priceRange.value = values;
-  }
+  Set<int> selectedIndices = {};
+  RxString selectedAccommodationType = ''.obs;
+  RxString selectedGender = ''.obs;
+  RxString selectedRoomType = ''.obs;
+  RxString selectedFlatType = ''.obs;
+  RxString selectedFurnishedType = ''.obs;
+  RxString selectedFood = ''.obs;
+  RxList<String> furnishedType =
+      ['Un Furnished', 'semi Furnished', 'Fully Furnished'].obs;
+  RxList<String> food = ['Yes', 'No'].obs;
+  RxList<String> roomType =
+      ['Private Room', 'Double Sharing', 'Triple Sharing', '3+ Sharing'].obs;
+  Rx<RangeValues> _budgetRange = RangeValues(500, 100000).obs;
+  RxList<String> accommodationType = ['PG', 'Flat', 'Co-living'].obs;
+  RxList<String> gender = ['Boy', 'Girl', 'Both'].obs;
+  RxList<String> flatType = ['1RK', '1BHK', '2BHK', '3BHK', '4BHK'].obs;
 
   @override
   Widget build(BuildContext context) {
@@ -67,192 +70,486 @@ class _ListOfRoomsState extends State<ListOfRooms> {
                             // Maximum height: 90% of screen height
                             expand: false,
                             builder: (builder, scrollController) {
-                              return Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.all(16.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: const Radius.circular(10.0),
-                                          topRight:
-                                              const Radius.circular(10.0))),
-                                  child: SingleChildScrollView(
-                                    controller: scrollController,
-                                    primary: false,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Room Category',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                        Obx(
-                                          () => Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Wrap(
-                                              spacing: 8.0,
-                                              children:
-                                                  roomCategory.map((facility) {
-                                                final isSelected =
-                                                    selectedRoomCategory
-                                                        .contains(facility);
-                                                return FilterChip(
-                                                  backgroundColor: Colors.white,
-                                                  selectedColor:
-                                                      AppColors.primary,
-                                                  label: Text(
-                                                    facility,
-                                                    style: TextStyle(
-                                                      color: isSelected
-                                                          ? Colors.white
-                                                          : Colors.black,
+                              return Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Container(
+                                    alignment: Alignment.topCenter,
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.all(16.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: const Radius.circular(10.0),
+                                              topRight:
+                                                  const Radius.circular(10.0))),
+                                      child: SingleChildScrollView(
+                                        controller: scrollController,
+                                        primary: false,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              'I am looking to:',
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Obx(
+                                              () => Wrap(
+                                                spacing: 8,
+                                                children: accommodationType
+                                                    .map(
+                                                      (type) => FilterChip(
+                                                        label: Text(type),
+                                                        labelStyle: TextStyle(
+                                                            color:
+                                                                selectedAccommodationType ==
+                                                                        type
+                                                                    ? Colors.white
+                                                                    : Colors
+                                                                        .black),
+                                                        selected:
+                                                            selectedAccommodationType ==
+                                                                type,
+                                                        selectedColor:
+                                                            AppColors.primary,
+                                                        backgroundColor: Colors
+                                                            .blue
+                                                            .withOpacity(0.08),
+                                                        // Set color to blue when selected
+                                                        onSelected: (selected) {
+                                                          setState(() {
+                                                            if (selected) {
+                                                              selectedAccommodationType
+                                                                  .value = type;
+                                                            } else {
+                                                              selectedAccommodationType
+                                                                      .value =
+                                                                  ''; // Deselect when tapped again
+                                                            }
+                                                          });
+                                                        },
+                                                      ),
+                                                    )
+                                                    .toList(),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Obx(
+                                              () => Visibility(
+                                                visible:
+                                                    (selectedAccommodationType ==
+                                                        'PG'),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'Gender:',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
-                                                  ),
-                                                  selected: selectedRoomCategory
-                                                      .contains(facility),
-                                                  onSelected: (selected) {
-                                                    setState(() {
-                                                      if (selected) {
-                                                        selectedRoomCategory
-                                                            .add(facility);
-                                                      } else {
-                                                        selectedRoomCategory
-                                                            .remove(facility);
-                                                      }
-                                                    });
-                                                  },
-                                                );
-                                              }).toList(),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Gender Type',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                        Obx(
-                                          () => Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Wrap(
-                                              spacing: 8.0,
-                                              children:
-                                                  genderType.map((facility) {
-                                                final isSelected =
-                                                    selectedGenderType
-                                                        .contains(facility);
-                                                return FilterChip(
-                                                  backgroundColor: Colors.white,
-                                                  selectedColor:
-                                                      AppColors.primary,
-                                                  label: Text(
-                                                    facility,
-                                                    style: TextStyle(
-                                                      color: isSelected
-                                                          ? Colors.white
-                                                          : Colors.black,
+                                                    const SizedBox(
+                                                      height: 8,
                                                     ),
-                                                  ),
-                                                  selected: selectedGenderType
-                                                      .contains(facility),
-                                                  onSelected: (selected) {
-                                                    setState(() {
-                                                      if (selected) {
-                                                        selectedGenderType
-                                                            .add(facility);
-                                                      } else {
-                                                        selectedGenderType
-                                                            .remove(facility);
-                                                      }
-                                                    });
-                                                  },
-                                                );
-                                              }).toList(),
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Room Type',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headlineSmall,
-                                        ),
-                                        Obx(
-                                          () => Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Wrap(
-                                              spacing: 8.0,
-                                              children:
-                                                  roomType.map((facility) {
-                                                final isSelected =
-                                                    selectedRoomType
-                                                        .contains(facility);
-                                                return FilterChip(
-                                                  backgroundColor: Colors.white,
-                                                  selectedColor:
-                                                      AppColors.primary,
-                                                  label: Text(
-                                                    facility,
-                                                    style: TextStyle(
-                                                      color: isSelected
-                                                          ? Colors.white
-                                                          : Colors.black,
+                                                    Wrap(
+                                                      spacing: 8,
+                                                      children: gender
+                                                          .map(
+                                                            (type) => FilterChip(
+                                                              label: Text(type),
+                                                              labelStyle: TextStyle(
+                                                                  color: selectedGender ==
+                                                                          type
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black),
+                                                              selected:
+                                                                  selectedGender ==
+                                                                      type,
+                                                              selectedColor:
+                                                                  AppColors
+                                                                      .primary,
+                                                              backgroundColor:
+                                                                  Colors.blue
+                                                                      .withOpacity(
+                                                                          0.08),
+                                                              // Set color to blue when selected
+                                                              onSelected:
+                                                                  (selected) {
+                                                                setState(() {
+                                                                  if (selected) {
+                                                                    selectedGender
+                                                                            .value =
+                                                                        type;
+                                                                  } else {
+                                                                    selectedGender
+                                                                            .value =
+                                                                        ''; // Deselect when tapped again
+                                                                  }
+                                                                });
+                                                              },
+                                                            ),
+                                                          )
+                                                          .toList(),
                                                     ),
-                                                  ),
-                                                  selected: selectedRoomType
-                                                      .contains(facility),
-                                                  onSelected: (selected) {
-                                                    setState(() {
-                                                      if (selected) {
-                                                        selectedRoomType
-                                                            .add(facility);
-                                                      } else {
-                                                        selectedRoomType
-                                                            .remove(facility);
-                                                      }
-                                                    });
-                                                  },
-                                                );
-                                              }).toList(),
+                                                  ],
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        const Text(
-                                          'Select Price Range:',
-                                          style: TextStyle(fontSize: 18),
-                                        ),
-                                        const SizedBox(height: 20),
-                                        Obx(() {
-                                          return RangeSlider(
-                                            values: priceRange.value,
-                                            min: 0,
-                                            max: 1000,
-                                            divisions: 20,
-                                            labels: RangeLabels(
-                                              '₹${priceRange.value.start.round()}',
-                                              '₹${priceRange.value.end.round()}',
+                                            const SizedBox(
+                                              height: 16,
                                             ),
-                                            onChanged: (values) {
-                                              updateRange(values);
-                                            },
-                                          );
-                                        }),
-                                        const SizedBox(height: 20),
-                                        Obx(() {
-                                          return Text(
-                                            'Selected Range: ₹${priceRange.value.start.round()} - ₹${priceRange.value.end.round()}',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          );
-                                        }),
-                                      ],
-                                    ),
-                                  ));
+                                            Obx(
+                                              () => Visibility(
+                                                visible:
+                                                    (selectedAccommodationType ==
+                                                        'PG'),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'Room Type:',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      // Set the scroll direction to horizontal
+                                                      child: Wrap(
+                                                        spacing: 8,
+                                                        // Spacing between chips
+                                                        children: roomType
+                                                            .map(
+                                                              (type) =>
+                                                                  FilterChip(
+                                                                label: Text(type),
+                                                                labelStyle:
+                                                                    TextStyle(
+                                                                  color: selectedRoomType ==
+                                                                          type
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                                selected:
+                                                                    selectedRoomType ==
+                                                                        type,
+                                                                selectedColor:
+                                                                    AppColors
+                                                                        .primary,
+                                                                backgroundColor:
+                                                                    Colors.blue
+                                                                        .withOpacity(
+                                                                            0.08),
+                                                                // Background when not selected
+                                                                onSelected:
+                                                                    (selected) {
+                                                                  setState(() {
+                                                                    if (selected) {
+                                                                      selectedRoomType
+                                                                              .value =
+                                                                          type;
+                                                                    } else {
+                                                                      selectedRoomType
+                                                                              .value =
+                                                                          ''; // Deselect when tapped again
+                                                                    }
+                                                                  });
+                                                                },
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Obx(
+                                              () => Visibility(
+                                                visible:
+                                                    (selectedAccommodationType ==
+                                                        'Flat'),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'BHK Type:',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      // Set the scroll direction to horizontal
+                                                      child: Wrap(
+                                                        spacing: 8,
+                                                        // Spacing between chips
+                                                        children: flatType
+                                                            .map(
+                                                              (type) =>
+                                                                  FilterChip(
+                                                                label: Text(type),
+                                                                labelStyle:
+                                                                    TextStyle(
+                                                                  color: selectedFlatType ==
+                                                                          type
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                                selected:
+                                                                    selectedFlatType ==
+                                                                        type,
+                                                                selectedColor:
+                                                                    AppColors
+                                                                        .primary,
+                                                                backgroundColor:
+                                                                    Colors.blue
+                                                                        .withOpacity(
+                                                                            0.08),
+                                                                // Background when not selected
+                                                                onSelected:
+                                                                    (selected) {
+                                                                  setState(() {
+                                                                    if (selected) {
+                                                                      selectedFlatType
+                                                                              .value =
+                                                                          type;
+                                                                    } else {
+                                                                      selectedFlatType
+                                                                              .value =
+                                                                          ''; // Deselect when tapped again
+                                                                    }
+                                                                  });
+                                                                },
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 16,
+                                                    ),
+                                                    const Text(
+                                                      'Furnishing Type:',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      // Set the scroll direction to horizontal
+                                                      child: Wrap(
+                                                        spacing: 8,
+                                                        // Spacing between chips
+                                                        children: furnishedType
+                                                            .map(
+                                                              (type) =>
+                                                                  FilterChip(
+                                                                label: Text(type),
+                                                                labelStyle:
+                                                                    TextStyle(
+                                                                  color: selectedFurnishedType ==
+                                                                          type
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                                selected:
+                                                                    selectedFurnishedType ==
+                                                                        type,
+                                                                selectedColor:
+                                                                    AppColors
+                                                                        .primary,
+                                                                backgroundColor:
+                                                                    Colors.blue
+                                                                        .withOpacity(
+                                                                            0.08),
+                                                                // Background when not selected
+                                                                onSelected:
+                                                                    (selected) {
+                                                                  setState(() {
+                                                                    if (selected) {
+                                                                      selectedFurnishedType
+                                                                              .value =
+                                                                          type;
+                                                                    } else {
+                                                                      selectedFurnishedType
+                                                                              .value =
+                                                                          ''; // Deselect when tapped again
+                                                                    }
+                                                                  });
+                                                                },
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            Obx(
+                                              () => Visibility(
+                                                visible:
+                                                    (selectedAccommodationType ==
+                                                            'PG' ||
+                                                        selectedAccommodationType ==
+                                                            'Co-living'),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'Food:',
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 8,
+                                                    ),
+                                                    Wrap(
+                                                      spacing: 8,
+                                                      children: food
+                                                          .map(
+                                                            (type) => FilterChip(
+                                                              label: Text(type),
+                                                              labelStyle: TextStyle(
+                                                                  color: selectedFood ==
+                                                                          type
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black),
+                                                              selected:
+                                                                  selectedFood ==
+                                                                      type,
+                                                              selectedColor:
+                                                                  AppColors
+                                                                      .primary,
+                                                              backgroundColor:
+                                                                  Colors.blue
+                                                                      .withOpacity(
+                                                                          0.08),
+                                                              // Set color to blue when selected
+                                                              onSelected:
+                                                                  (selected) {
+                                                                setState(() {
+                                                                  if (selected) {
+                                                                    selectedFood
+                                                                            .value =
+                                                                        type;
+                                                                  } else {
+                                                                    selectedFood
+                                                                            .value =
+                                                                        ''; // Deselect when tapped again
+                                                                  }
+                                                                });
+                                                              },
+                                                            ),
+                                                          )
+                                                          .toList(),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 16,
+                                            ),
+                                            const Text(
+                                              'Budget:',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(
+                                              height: 8,
+                                            ),
+                                            Obx(
+                                              () => RangeSlider(
+                                                activeColor: AppColors.primary,
+                                                values: _budgetRange.value,
+                                                min: 500,
+                                                max: 100000,
+                                                divisions: 100,
+                                                labels: RangeLabels(
+                                                  _budgetRange.value.start
+                                                      .round()
+                                                      .toString(),
+                                                  _budgetRange.value.end
+                                                      .round()
+                                                      .toString(),
+                                                ),
+                                                onChanged: (RangeValues values) {
+                                                  setState(() {
+                                                    _budgetRange.value = values;
+                                                  });
+                                                },
+                                              ),
+                                            ),
+                                            const SizedBox(height: 16),
+                                            Obx(
+                                              () => Text(
+                                                'Selected Budget: ₹${_budgetRange.value.start.round()} - ₹${_budgetRange.value.end.round()}',
+                                                style:
+                                                    const TextStyle(fontSize: 16),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 24),
+
+                                          ],
+                                        ),
+                                      )),
+                                  Positioned(
+                                    bottom: 20,
+                                    child: ReuseElevButton(
+                                        onPressed: () {
+                                          Get.toNamed(
+                                              RoutesName.listOfRooms);
+                                        },
+                                        title: 'Apply Filter'),
+                                  ),
+                                ],
+                              );
                             });
                       },
                     );

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/utils/widgets/com_reuse_elevated_button.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/Constants/image_string.dart';
-
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/logger/logger.dart';
 

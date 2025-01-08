@@ -27,12 +27,12 @@ class CitySearch extends StatelessWidget {
             padding: const EdgeInsets.only(right: 16),
             child: TextButton(
                 onPressed: () {
-                if(controller.searchController.text.isNotEmpty){
-                  UserApis.updateCityName(controller.selectedCity.value);
-                  Get.back(result: true);
-                }else{
-                  AppHelperFunction.showFlashbar('City can\'t be empty');
-                }
+                  if (controller.searchController.text.isNotEmpty) {
+                    UserApis.updateCityName(controller.selectedCity.value);
+                    Get.back(result: true);
+                  } else {
+                    AppHelperFunction.showFlashbar('City can\'t be empty');
+                  }
                 },
                 child: Text(
                   'Done',
