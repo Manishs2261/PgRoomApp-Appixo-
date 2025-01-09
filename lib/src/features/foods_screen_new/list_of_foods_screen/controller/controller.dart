@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/top_search_bar/controller/controller.dart';
-import '../../model/room_model.dart';
 
-class ListOfRoomController extends GetxController {
-  RxList<RoomModel> roomListData = <RoomModel>[].obs;
+class ListOfFoodController extends GetxController {
+  RxList<FoodModel> foodListData = <FoodModel>[].obs;
   DocumentSnapshot? lastDocument;
   RxBool isLoadingMore = false.obs;
   RxBool hasMoreData = true.obs;
@@ -18,29 +18,6 @@ class ListOfRoomController extends GetxController {
   late ScrollController scrollController;
   final RxBool isButtonVisible = true.obs;
   var isLoadingInitial = true.obs;
-
-  RxString selectedAccommodationType = ''.obs;
-
-  RxString selectedGender = ''.obs;
-
-  RxString selectedRoomType = ''.obs;
-
-  RxString selectedFlatType = ''.obs;
-
-  RxString selectedFood = ''.obs;
-
-  RxList<String> food = ['Yes', 'No'].obs;
-
-  RxList<String> roomType =
-      ['Private Room', 'Double Sharing', 'Triple Sharing', '3+ Sharing'].obs;
-
-  final Rx<RangeValues> budgetRange = RangeValues(500, 100000).obs;
-
-  RxList<String> accommodationType = ['PG', 'Flat', 'Co-living'].obs;
-
-  RxList<String> gender = ['Boy', 'Girl', 'Both'].obs;
-
-  RxList<String> flatType = ['1RK', '1BHK', '2BHK', '3BHK', '4BHK'].obs;
 
   @override
   void onInit() {
@@ -83,7 +60,7 @@ class ListOfRoomController extends GetxController {
 
   Future<void> fetchData() async {
     // If no data, show the initial loading indicator
-    if (roomListData.isEmpty) {
+    if (foodListData.isEmpty) {
       isLoadingInitial.value = true;
     } else {
       isLoadingMore.value = true; // For pagination
@@ -92,7 +69,7 @@ class ListOfRoomController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevRoomCollection')
+          .collection('DevFoodCollection')
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch
 
@@ -106,8 +83,8 @@ class ListOfRoomController extends GetxController {
 
       if (snapshot.docs.isNotEmpty) {
         // Map documents to RoomModel and add to the list
-        roomListData.addAll(
-          snapshot.docs.map((e) => RoomModel.fromJson(e.data())).toList(),
+        foodListData.addAll(
+          snapshot.docs.map((e) => FoodModel.fromJson(e.data())).toList(),
         );
         // Update the last document for the next query
         lastDocument = snapshot.docs.last;
@@ -128,7 +105,7 @@ class ListOfRoomController extends GetxController {
   // Refresh data (pull-to-refresh)
   Future<void> refreshData() async {
     // Clear existing data and reset pagination
-    roomListData.clear();
+    foodListData.clear();
     lastDocument = null;
     hasMoreData.value = true;
 

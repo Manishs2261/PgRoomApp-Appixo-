@@ -17,11 +17,13 @@ import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../data/repository/apis/apis.dart';
 import '../../../model/user_rent_model/user_rent_model.dart';
+import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/widgets/gradient_button.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
 import '../../Home_fitter_new/new_search_home/new_home_screen.dart';
 import '../../Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
 import '../foods_details_screen/food_details_screen.dart';
+import 'controller/controller.dart';
 
 class ListOfFoods extends StatefulWidget {
   const ListOfFoods({super.key});
@@ -31,7 +33,15 @@ class ListOfFoods extends StatefulWidget {
 }
 
 class _ListOfFoodsState extends State<ListOfFoods> {
+
+  final listOfFoodController = Get.put(ListOfFoodController());
+
   List<FoodModel> foodList  = [];
+  List<String> foodType = ['Mess', 'Restaurants', 'Chopati'];
+  String? selectedFoodType;
+  String? selectedMessType;
+  String? selectedFood;
+  List<String> messType = ['Vag', 'Non-Vag', 'Both'];
 
   int currentPage = 0;
 
@@ -48,12 +58,143 @@ class _ListOfFoodsState extends State<ListOfFoods> {
     return Scaffold(
       //==PreferredSize provide a maximum appbar length
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(120),
+          preferredSize: const Size.fromHeight(90),
           child: SafeArea(child: TopSearchFilter())),
+      floatingActionButton:  listOfFoodController.isButtonVisible.value
+          ? FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+            isScrollControlled: true,
+            backgroundColor: AppColors.white,
+            context: context,
+            builder: (context) {
+              return DraggableScrollableSheet(
+                  initialChildSize: 0.5,
+                  minChildSize: 0.3,
+                  maxChildSize: 0.9,
+                  expand: false,
+                  builder: (builder, scrollController) {
+                    return Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'I am looking to:',
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Wrap(
+                                spacing: 8,
+                                children: foodType
+                                    .map(
+                                      (type) => FilterChip(
+                                    label: Text(type),
+                                    labelStyle: TextStyle(
+                                        color: selectedFood == type
+                                            ? Colors.white
+                                            : Colors.black),
+                                    selected: selectedFood == type,
+                                    selectedColor: AppColors.primary,
+                                    backgroundColor: Colors.blue.withOpacity(0.08),
+                                    // Set color to blue when selected
+                                    onSelected: (selected) {
+                                      setState(() {
+                                        if (selected) {
+                                          selectedFood = type;
+                                        } else {
+                                          selectedFood =
+                                          null; // Deselect when tapped again
+                                        }
+                                      });
+                                    },
+                                  ),
+                                )
+                                    .toList(),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Visibility(
+                                visible: (selectedFood == 'Mess'),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Mess Type',
+                                      style: TextStyle(
+                                          fontSize: 14, fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Wrap(
+                                      spacing: 8,
+                                      children: messType
+                                          .map(
+                                            (type) => FilterChip(
+                                          label: Text(type),
+                                          labelStyle: TextStyle(
+                                              color: selectedMessType == type
+                                                  ? Colors.white
+                                                  : Colors.black),
+                                          selected: selectedMessType == type,
+                                          selectedColor: AppColors.primary,
+                                          backgroundColor:
+                                          Colors.blue.withOpacity(0.08),
+                                          // Set color to blue when selected
+                                          onSelected: (selected) {
+                                            setState(() {
+                                              if (selected) {
+                                                selectedMessType = type;
+                                              } else {
+                                                selectedMessType =
+                                                null; // Deselect when tapped again
+                                              }
+                                            });
+                                          },
+                                        ),
+                                      )
+                                          .toList(),
+                                    ),
+                                  ],
+                                ),
+                              ),
 
-      //======drawer code ===============
-      // drawer:  DrawerScreen(),
-      //=======list view builder code==============
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 20,
+                          child: ReuseElevButton(
+                              onPressed: () {
+                                Get.toNamed(RoutesName.listOfRooms);
+                              },
+                              title: 'Apply Filter'),
+                        ),
+                      ],
+                    );
+                  });
+            },
+          );
+
+//===
+        },
+        backgroundColor: AppColors.primary,
+        child: const Icon(
+          Icons.filter_list,
+          color: Colors.white,
+        ),
+      )
+          : const SizedBox(),
+
+
+
       body: CustomMaterialIndicator(
         onRefresh: () async {
           return await Future.delayed(const Duration(seconds: 2));
@@ -66,6 +207,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
             size: 30,
           );
         },
+
         child: StreamBuilder(
             stream: ApisClass.firebaseFirestore
                 .collection('DevFoodCollection')
