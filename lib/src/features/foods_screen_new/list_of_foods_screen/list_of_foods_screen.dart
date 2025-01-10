@@ -252,6 +252,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                       .toList() ??
                       [];
 
+                  foodList.forEach((food) => print(food.toJson()));
                   return
      ListView.builder(
     //controller: _scrollController,
@@ -286,13 +287,13 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                     ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount:  foodList[index]
-                            .image
+                            .imageList
                             ?.length ??
                             0,
                         itemBuilder: (context, imageIndex) {
 
                           print(foodList[index]
-                              .image![imageIndex]);
+                              .imageList![imageIndex]);
                           return Padding(
                             padding:
                             const EdgeInsets.only(right: 8),
@@ -302,7 +303,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                               child: CachedNetworkImage(
                                 width: Get.width * 0.8,
                                 imageUrl:  foodList[index]
-                                    .image![imageIndex],
+                                    .imageList![imageIndex],
                                 placeholder: (context, url) =>
                                 const Center(
                                     child:

@@ -109,7 +109,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                   children: [
                     PageView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: data.image?.length,
+                      itemCount: data.imageList?.length,
                       onPageChanged: (int page) {
                         setState(() {
                           currentPage = page;
@@ -121,7 +121,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
-                              imageUrl: data.image?[imageIndex] ?? '',
+                              imageUrl: data.imageList?[imageIndex] ?? '',
                               placeholder: (context, url) =>
                                   const Center(child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
@@ -143,7 +143,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          '${currentPage + 1}/ ${data.image?.length}',
+                          '${currentPage + 1}/ ${data.imageList?.length}',
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,

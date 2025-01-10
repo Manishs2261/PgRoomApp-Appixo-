@@ -527,7 +527,7 @@ class TiffineServicesApis {
         shopName: foodShopName,
         thaliCost: thaliCost,
         typeOfShop: typeOfShop,
-        image: imageUrls,
+        imageList: imageUrls,
         aCupOfRice: aCupOfRice,
         address: address,
          breakfastAndLunchOrDinnerCost: breakfastAndLunchOrDinnerCost,

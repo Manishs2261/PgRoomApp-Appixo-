@@ -45,14 +45,14 @@ class SecondFoodForm extends StatelessWidget {
                   () => Wrap(
                     children: [
                       _buildRadioListTile('Veg', 'Veg'),
-                      _buildRadioListTile('Nonveg', 'Non-Veg'),
+                      _buildRadioListTile('Non-veg', 'Non-Veg'),
                     ],
                   ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                Obx(() => (firstFoodFormController.foodShopType.value == 'Mess')
+                Obx(() => (firstFoodFormController.foodShopType.value == 'Mess' || firstFoodFormController.foodShopType.value == 'Home Mess')
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -69,7 +69,7 @@ class SecondFoodForm extends StatelessWidget {
                             borderRadius: BorderRadius.circular(11),
                             contentPadding:
                                 const EdgeInsets.only(top: 5, left: 10),
-                            validator: CommonUseValidator.validate,
+                          //  validator: CommonUseValidator.validate,
                             maxLength: 100,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
@@ -125,7 +125,7 @@ class SecondFoodForm extends StatelessWidget {
                             borderRadius: BorderRadius.circular(11),
                             contentPadding:
                                 const EdgeInsets.only(top: 5, left: 10),
-                            validator: CommonUseValidator .validate,
+                           // validator: CommonUseValidator .validate,
                             maxLength: 100,
                             inputFormatters: <TextInputFormatter>[
                               FilteringTextInputFormatter.allow(RegExp("[0-9 ]")),
@@ -308,7 +308,7 @@ class SecondFoodForm extends StatelessWidget {
                     : SizedBox()),
 
                 Obx(
-                        ()=>  firstFoodFormController.foodShopType.value != "Mess"
+                        ()=>   firstFoodFormController.foodShopType.value == "Restaurants" || firstFoodFormController.foodShopType.value == "StreetFood"
                             ?  Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

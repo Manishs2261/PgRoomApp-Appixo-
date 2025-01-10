@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class FoodModel {
   String? breakfastAndLunchOrDinnerCost;
   List<String>? messRules;
@@ -16,7 +18,7 @@ class FoodModel {
   String? landmark;
   String? longitude;
   String? atCreate;
-  List<String>? image;
+  List<String>? imageList;
   String? address;
   List<RestructureMenuList>? restructureMenuList;
   bool? isDelete;
@@ -25,12 +27,16 @@ class FoodModel {
   List<DailyItemList>? dailyItemList;
   bool? disable;
   List<FoodFAQ>? fAQ;
-  List<String>? report;
+  List<Report>? report;
   List<SubscriptionList>? subscriptionList;
   String? thaliCost;
   String? fId;
   String? aCupOfRice;
   String? foodCategory;
+  String? userDocId;
+  String? userName;
+  String? mobileNumber;
+  String? userImage;
 
   FoodModel(
       {this.breakfastAndLunchOrDinnerCost,
@@ -50,7 +56,7 @@ class FoodModel {
       this.landmark,
       this.longitude,
       this.atCreate,
-      this.image,
+      this.imageList,
       this.address,
       this.restructureMenuList,
       this.isDelete,
@@ -85,7 +91,7 @@ class FoodModel {
     landmark = json['landmark'];
     longitude = json['longitude'];
     atCreate = json['atCreate'];
-    image = json['image'].cast<String>();
+    imageList = json['imageList'].cast<String>();
     address = json['address'];
     if (json['RestructureMenuList'] != null) {
       restructureMenuList = <RestructureMenuList>[];
@@ -109,7 +115,7 @@ class FoodModel {
         fAQ!.add(new  FoodFAQ.fromJson(v));
       });
     }
-    report = json['report'].cast<String>();
+    report = json['report'].cast<Report>();
     if (json['SubscriptionList'] != null) {
       subscriptionList = <SubscriptionList>[];
       json['SubscriptionList'].forEach((v) {
@@ -120,6 +126,10 @@ class FoodModel {
     fId = json['f_id'];
     aCupOfRice = json['aCupOfRice'];
     foodCategory = json['foodCategory'];
+    userDocId = json['userDocId'];
+    userName = json['userName'];
+    mobileNumber = json['mobileNumber'];
+    userImage = json['userImage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -141,7 +151,7 @@ class FoodModel {
     data['landmark'] = this.landmark;
     data['longitude'] = this.longitude;
     data['atCreate'] = this.atCreate;
-    data['image'] = this.image;
+    data['imageList'] = this.imageList;
     data['address'] = this.address;
     if (this.restructureMenuList != null) {
       data['RestructureMenuList'] =
@@ -167,6 +177,10 @@ class FoodModel {
     data['f_id'] = this.fId;
     data['aCupOfRice'] = this.aCupOfRice;
     data['foodCategory'] = this.foodCategory;
+    data['userDocId'] = this.userDocId;
+    data['userName'] = this.userName;
+    data['mobileNumber'] = this.mobileNumber;
+    data['userImage'] = this.userImage;
     return data;
   }
 }
@@ -243,6 +257,28 @@ class SubscriptionList {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['price'] = this.price;
+    return data;
+  }
+}
+
+class  Report {
+  String? date;
+  String? description;
+  DocumentReference? userRef ;
+
+  Report({this.date, this.description, this.userRef});
+
+  Report.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    description = json['description'];
+    userRef = json['userRef'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['date'] = this.date;
+    data['description'] = this.description;
+    data['userRef'] = this.userRef;
     return data;
   }
 }
