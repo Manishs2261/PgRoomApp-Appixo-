@@ -12,7 +12,7 @@ class ReusableContainer extends StatelessWidget {
 
   // Constructor for ReusableContainer
   const ReusableContainer({
-    Key? key,
+    super.key,
     this.height = 100.0, // Default height if not provided
     this.width = 100.0,  // Default width if not provided
     this.color = Colors.blue, // Default color if not provided
@@ -21,7 +21,7 @@ class ReusableContainer extends StatelessWidget {
     this.margin,
     this.borderRadius,
     this.border,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -252,7 +252,7 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                       .toList() ??
                       [];
 
-                  foodList.forEach((food) => print(food.toJson()));
+                //  foodList.forEach((food) => print(food.toJson()));
                   return
      ListView.builder(
     //controller: _scrollController,
@@ -291,9 +291,6 @@ class _ListOfFoodsState extends State<ListOfFoods> {
                             ?.length ??
                             0,
                         itemBuilder: (context, imageIndex) {
-
-                          print(foodList[index]
-                              .imageList![imageIndex]);
                           return Padding(
                             padding:
                             const EdgeInsets.only(right: 8),

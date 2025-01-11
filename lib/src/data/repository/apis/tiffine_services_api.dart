@@ -7,7 +7,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/user_apis.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../features/Home_fitter_new/new_search_home/controller.dart';
 import '../../../features/foods_screen_new/model/food_model.dart';
 import '../../../model/tiffin_services_model/tiffen_services_model.dart';
 import '../../../utils/helpers/helper_function.dart';
@@ -479,6 +481,8 @@ class TiffineServicesApis {
     }
   }
 
+  static final homeController = Get.put(HomeController());
+
   static Future<bool> addFoodData(
       {required String foodShopName,
       required String typeOfShop,
@@ -503,107 +507,207 @@ class TiffineServicesApis {
       required List<DailyItemList> dailyItemList,
       required List<RestructureMenuList> restructureItemList,
       required List<FoodFAQ> foodFAQ,
-
       required List<String> mealRule,
       required String typeFood}) async {
     AppHelperFunction.showCenterCircularIndicator(true);
 
-    try {
-      List<String> imageUrls = [];
-
-      // Step 2: Prepare the data to save in Firestore
-      final item = FoodModel(
-        breakfastCost: breakfastCost,
-         dailyItemList: dailyItemList,
-         dal: dal,
-        description: description,
-        fAQ: foodFAQ,
-        fId: '',
-        lunchAndDinnerCost: lunchOrDinnerCost,
-        lunchOrDinnerCost: lunchAndDinnerCost,
-        messRules: mealRule,
-         roti: roti,
-        sabji: sabji,
-        shopName: foodShopName,
-        thaliCost: thaliCost,
-        typeOfShop: typeOfShop,
-        imageList: imageUrls,
-        aCupOfRice: aCupOfRice,
-        address: address,
-         breakfastAndLunchOrDinnerCost: breakfastAndLunchOrDinnerCost,
-        longitude: longitude,
-        latitude: latitude,
-        landmark: landmark,
-        city: city,
-        state: state,
-        atCreate: DateTime.now().toString(),
-        atUpdate: DateTime.now().toString(),
-        isDelete: false,
-        report: [],
-        disable: false,
-        uId: user.uid,
-        restructureMenuList: restructureItemList,
-        subscriptionList: subscriptionList,
-      );
-
-      // Step 3: Add the data to Firestore
+    if (homeController.user.isNotEmpty) {
       try {
-        DocumentReference docRef = await FirebaseFirestore.instance
-            .collection("DevFoodCollection")
-            .add(item.toJson())
-            .timeout(const Duration(seconds: 2000), onTimeout: () {
-          Navigator.pop(Get.context!);
-          throw TimeoutException("The operation timed out after 2000 seconds");
-        });
+        List<String> imageUrls = [];
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        String? userDocId = preferences.getString('userDocId');
 
-        for (File imageFile in imageFiles) {
-          try {
-            String imageUrl = await uploadImageToFirebase(imageFile, docRef.id);
-            imageUrls.add(imageUrl);
-          } catch (e) {
-            AppLoggerHelper.error("Error uploading image: $e");
+        final item = FoodModel(
+            breakfastCost: breakfastCost,
+            dailyItemList: dailyItemList,
+            dal: dal,
+            description: description,
+            fAQ: foodFAQ,
+            fId: '',
+            lunchAndDinnerCost: lunchOrDinnerCost,
+            lunchOrDinnerCost: lunchAndDinnerCost,
+            messRules: mealRule,
+            roti: roti,
+            sabji: sabji,
+            shopName: foodShopName,
+            thaliCost: thaliCost,
+            typeOfShop: typeOfShop,
+            imageList: imageUrls,
+            aCupOfRice: aCupOfRice,
+            address: address,
+            breakfastAndLunchOrDinnerCost: breakfastAndLunchOrDinnerCost,
+            longitude: longitude,
+            latitude: latitude,
+            landmark: landmark,
+            city: city,
+            state: state,
+            atCreate: DateTime.now().toString(),
+            atUpdate: DateTime.now().toString(),
+            isDelete: false,
+            report: [],
+            disable: false,
+            uId: user.uid,
+            restructureMenuList: restructureItemList,
+            subscriptionList: subscriptionList,
+            foodCategory: typeFood,
+            userDocId: userDocId,
+            mobileNumber: homeController.user.first.phone,
+            userName: homeController.user.first.name,
+            userImage: homeController.user.first.image);
+
+        // Step 3: Add the data to Firestore
+        try {
+          DocumentReference docRef = await FirebaseFirestore.instance
+              .collection("DevFoodCollection")
+              .add(item.toJson())
+              .timeout(const Duration(seconds: 2000), onTimeout: () {
             Navigator.pop(Get.context!);
-            return false; // If any image fails to upload, return false
+            throw TimeoutException(
+                "The operation timed out after 2000 seconds");
+          });
+
+          for (File imageFile in imageFiles) {
+            try {
+              String imageUrl =
+                  await uploadImageToFirebase(imageFile, docRef.id);
+              imageUrls.add(imageUrl);
+            } catch (e) {
+              AppLoggerHelper.error("Error uploading image: $e");
+              Navigator.pop(Get.context!);
+              return false; // If any image fails to upload, return false
+            }
           }
-        }
 
-        // Update the document with its ID
-        await FirebaseFirestore.instance
-            .collection("DevFoodCollection")
-            .doc(docRef.id)
-            .update({'r_id': docRef.id, 'imageList': imageUrls}).whenComplete(
-                () {
+          // Update the document with its ID
+          await FirebaseFirestore.instance
+              .collection("DevFoodCollection")
+              .doc(docRef.id)
+              .update({'f_id': docRef.id, 'imageList': imageUrls}).whenComplete(
+                  () {
+            AppLoggerHelper.info(
+                "Document added successfully with ID: ${docRef.id}");
+          });
+
+          try {
+            // Add the new room ID to the roomId list
+            await FirebaseFirestore.instance
+                .collection("DevUser")
+                .doc(userDocId)
+                .update({
+              'foodId': FieldValue.arrayUnion([docRef.id]),
+            });
+
+            AppLoggerHelper.info(
+                "Food ID ${docRef.id} successfully added to user's roomId list.");
+          } catch (e) {
+            Navigator.pop(Get.context!);
+            AppLoggerHelper.error("Error updating user's foodId: $e");
+            return false; // Handle errors gracefully
+          }
           Navigator.pop(Get.context!);
-          AppLoggerHelper.info(
-              "Document added successfully with ID: ${docRef.id}");
-        });
+          return true; // Successfully saved data
+        } catch (e) {
+          Navigator.pop(Get.context!);
 
-        return true; // Successfully saved data
+          if (e is TimeoutException) {
+            AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
+            AppLoggerHelper.info("Timeout error: ${e.message}");
+          } else if (e is FirebaseException) {
+            AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
+            AppLoggerHelper.info("Firestore error: ${e.message}");
+          } else {
+            AppHelperFunction.showFlashbar('General error: ${e}');
+            AppLoggerHelper.info("General error: $e");
+          }
+          return false; // Return false on Firestore save failure
+        }
       } catch (e) {
         Navigator.pop(Get.context!);
-
-        if (e is TimeoutException) {
-          AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
-          AppLoggerHelper.info("Timeout error: ${e.message}");
-        } else if (e is FirebaseException) {
-          AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
-          AppLoggerHelper.info("Firestore error: ${e.message}");
-        } else {
-          AppHelperFunction.showFlashbar('General error: ${e}');
-          AppLoggerHelper.info("General error: $e");
-        }
-        return false; // Return false on Firestore save failure
+        AppLoggerHelper.error("Error adding document: $e");
+        return false; // Return false for general errors
       }
-    } catch (e) {
+    } else {
       Navigator.pop(Get.context!);
-      AppLoggerHelper.error("Error adding document: $e");
-      return false; // Return false for general errors
+      AppHelperFunction.showFlashbar("Something went wrong. Please try again.");
+      AppLoggerHelper.error("Something went wrong. Please try again.");
+      return false;
     }
   }
 
 
+  static Future<void> submitFoodReport(
+      {required String reportReason, required String docId}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection("DevFoodCollection")
+          .doc(docId)
+          .update({
+        'report': FieldValue.arrayUnion([
+          {
+            'date': DateTime.now().toString(),
+            'description': reportReason,
+            'userRef': FirebaseFirestore.instance
+                .collection('DevUser')
+                .doc(FirebaseAuth.instance.currentUser!.uid)
+          }
+        ])
+      }).then((value) {
+        Navigator.pop(Get.context!);
+        AppLoggerHelper.info("Document updated successfully");
+      }).catchError((error) {
+        AppLoggerHelper.error("Failed to update document: $error");
+      });
+    } catch (e) {
+      AppHelperFunction.showFlashbar(e.toString());
+      AppLoggerHelper.error("Error adding document: $e");
+    }
+  }
 
 
+  static Future<bool> submitFoodReviewData({
+    required String rating,
+    required String userReview,
+    required String rId,
+  }) async {
+    // Get a reference to Firestore
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      // Fetch the user document ID
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? userDocId =   preferences.getString('userDocId');
+
+      //  Create the review data map
+      final reviewData = {
+        "date": DateTime.now().toIso8601String(),
+        "rating": rating,
+        "review": userReview,
+        "user": firestore
+            .collection('DevUser')
+            .doc(userDocId)
+            .path, // Correct user reference
+      };
 
 
+      // // Update the 'reviews' field in the RoomReview collection
+      await firestore.collection('DevFoodReview').doc(rId).set({
+        "reviews": FieldValue.arrayUnion([reviewData]),
+        // Add to an array of reviews
+      }, SetOptions(merge: true)); // Avoid overwriting the document
+      return true; // Return true when successful
+    } catch (e) {
+      // Catch any errors and handle them appropriately
+      if (e is FirebaseException) {
+        // Firestore-specific exception
+        AppLoggerHelper.error("Firestore error: $e");
+      } else {
+        // Generic error
+        AppLoggerHelper.error("General error: $e");
+      }
+      return false; // Return false if an error occurs
+    }
+  }
 }
+
+
+

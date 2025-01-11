@@ -982,7 +982,7 @@ class ApisClass {
     }
   }
 
-  static Future<void> submitReport(
+  static Future<void> submitRoomReport(
       {required String reportReason, required String docId}) async {
     try {
       await FirebaseFirestore.instance
@@ -1010,7 +1010,7 @@ class ApisClass {
     }
   }
 
- static Future<bool> submitReviewData({
+ static Future<bool> submitRoomReviewData({
     required String rating,
     required String userReview,
     required String rId,
@@ -1036,7 +1036,7 @@ class ApisClass {
 
 
       // // Update the 'reviews' field in the RoomReview collection
-      await firestore.collection('RoomReview').doc(rId).set({
+      await firestore.collection('DevRoomReview').doc(rId).set({
         "reviews": FieldValue.arrayUnion([reviewData]),
         // Add to an array of reviews
       }, SetOptions(merge: true)); // Avoid overwriting the document

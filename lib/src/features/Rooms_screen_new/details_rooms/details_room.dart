@@ -9,6 +9,7 @@ import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/widgets/faq_widgets.dart';
 import '../../../utils/widgets/report_card_widgets.dart';
 import '../../../utils/widgets/review_view_card.dart';
+import '../../../utils/widgets/space_between_text.dart';
 import '../../../utils/widgets/submit_review_widgets.dart';
 import '../../../utils/widgets/view_map_card_widgets.dart';
 import 'controller/details_room_controller.dart';
@@ -192,32 +193,32 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 child: Column(
                   children: [
                     if (controller.data.familyCost!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'BHK Cost',
                         cost: controller.data.familyCost.toString(),
                       ),
                     if (controller.data.singlePersonCost!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'Single Person Price',
                         cost: controller.data.singlePersonCost.toString(),
                       ),
                     if (controller.data.doublePersonCost!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'Double Person Price',
                         cost: controller.data.doublePersonCost.toString(),
                       ),
                     if (controller.data.triplePersonCost!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'Triple Person Price',
                         cost: controller.data.triplePersonCost.toString(),
                       ),
                     if (controller.data.triplePlusCost!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'Triple Plus Person Price',
                         cost: controller.data.triplePlusCost.toString(),
                       ),
                     if (controller.data.depositAmount!.isNotEmpty)
-                      CostText(
+                      SpaceBetweenText(
                         title: 'One Time Security Deposit Amount',
                         cost: controller.data.depositAmount.toString(),
                       ),
@@ -466,7 +467,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                               onPressed: () {
                                 if (controller
                                     .reviewController.text.isNotEmpty) {
-                                  ApisClass.submitReviewData(
+                                  ApisClass.submitRoomReviewData(
                                       rating:
                                           controller.ratingNow.value.toString(),
                                       userReview:
@@ -558,35 +559,4 @@ class _DetailsRoomState extends State<DetailsRoom> {
   }
 }
 
-class CostText extends StatelessWidget {
-  const CostText({
-    super.key,
-    required this.title,
-    required this.cost,
-  });
 
-  final String title;
-  final String cost;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.w500),
-            ),
-            Text(
-              '₹$cost/-',
-              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-            ),
-          ],
-        ),
-        const Divider()
-      ],
-    );
-  }
-}

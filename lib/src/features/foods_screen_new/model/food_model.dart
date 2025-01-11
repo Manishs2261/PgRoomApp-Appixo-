@@ -70,7 +70,11 @@ class FoodModel {
       this.thaliCost,
       this.fId,
       this.aCupOfRice,
-      this.foodCategory
+      this.foodCategory,
+      this.userDocId,
+      this.userName,
+      this.mobileNumber,
+      this.userImage,
       });
 
   FoodModel.fromJson(Map<String, dynamic> json) {

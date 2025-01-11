@@ -8,6 +8,7 @@ import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/widgets/faq_widgets.dart';
 
+import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/Constants/image_string.dart';
@@ -47,52 +48,7 @@ class _DetailsFoodState extends State<DetailsFood> {
               ))
         ],
       ),
-      floatingActionButton: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16),
-        height: 60,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade300,
-                offset: const Offset(0, 1),
-                blurRadius: 2,
-                spreadRadius: 1,
-              )
-            ]),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              width: AppHelperFunction.screenWidth() * 0.4,
-              height: 40,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text('Chat Now'),
-            ),
-            Container(
-              alignment: Alignment.center,
-              height: 40,
-              width: AppHelperFunction.screenWidth() * 0.4,
-              padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-              decoration: BoxDecoration(
-                color: const Color.fromRGBO(0, 204, 102, 1.0),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Text(
-                'Call Now',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
-        ),
-      ),
+      floatingActionButton:BottomChatAndCallWidgets(onTapChat: () {  }, onTapCall: () {  },),
       floatingActionButtonLocation:
       FloatingActionButtonLocation.miniCenterFloat,
       body: SingleChildScrollView(
@@ -186,25 +142,16 @@ class _DetailsFoodState extends State<DetailsFood> {
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,height:0),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Colors.green,
-                    ),
-                    child:  Text(
-                      '${data.foodCategory}',
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
-                  ),
+
+                  ReUseTextContainer(title: data.foodCategory.toString(),),
                 ],
               ),
-              const SizedBox(height: 4,),
+              const SizedBox(height: 8,),
                Text(
                 '${data.description}',
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400,color: Colors.grey),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,color: Colors.grey),
               ),
               const SizedBox(
                 height: 16,
@@ -304,7 +251,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all()),
                 child: Column(
-                  children:  data.fAQ!.map((room) {
+                  children:  data.subscriptionList!.map((room) {
                     return Column(
                       children: [
                         Row(
@@ -312,12 +259,12 @@ class _DetailsFoodState extends State<DetailsFood> {
                           children: [
                             Expanded(
                               child: Text(
-                                room.question.toString(),
+                                room.name.toString(),
                                 style: const TextStyle(fontWeight: FontWeight.w500,),
                               ),
                             ),
                             Text(
-                              '₹${room.answer}/-',
+                              '₹${room.price}/-',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16),
@@ -583,6 +530,43 @@ class _DetailsFoodState extends State<DetailsFood> {
     );
   }
 }
+
+
+
+class ReUseTextContainer extends StatelessWidget {
+  final EdgeInsetsGeometry padding;
+  final double radius;
+  final Color color;
+  final Color textColor;
+  final double fontSize;
+  final String title;
+
+  const ReUseTextContainer({
+    super.key,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+    this.radius = 4.0,
+    this.color = Colors.green,
+    this.textColor = Colors.white,
+    this.fontSize = 12.0,
+    required this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(radius),
+        color: color,
+      ),
+      child: Text(
+        title,
+        style: TextStyle(color: textColor, fontSize: fontSize),
+      ),
+    );
+  }
+}
+
 
 
 

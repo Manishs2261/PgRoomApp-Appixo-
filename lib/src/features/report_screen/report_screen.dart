@@ -100,7 +100,7 @@ class ReportScreen extends StatelessWidget {
               onPressed: () async {
                 final reportReason = controller.reportReason;
                if(reportReason.isNotEmpty) {
-                 ApisClass.submitReport(reportReason: reportReason, docId: rid);
+                 ApisClass.submitRoomReport(reportReason: reportReason, docId: rid);
                }
 
               },
