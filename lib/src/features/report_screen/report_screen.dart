@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 
 import '../../utils/widgets/com_reuse_elevated_button.dart';
-import '../../data/repository/apis/user_apis.dart';
-import '../../utils/logger/logger.dart';
 
 class ReportController extends GetxController {
   final options = ["Copy Right", "False Information", "Other"];
@@ -29,15 +25,16 @@ class ReportController extends GetxController {
   String get reportReason {
     return selectedOptions.entries
         .where((entry) => entry.value)
-        .map((entry) => entry.key == "Other" ? "Other: ${otherReason.value}" : entry.key)
+        .map((entry) =>
+            entry.key == "Other" ? "Other: ${otherReason.value}" : entry.key)
         .join(", ");
   }
 }
 
 class ReportScreen extends StatelessWidget {
-   ReportScreen({super.key});
+  ReportScreen({super.key});
 
-  final rid = Get.arguments;
+  final data = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +61,8 @@ class ReportScreen extends StatelessWidget {
                     dense: true,
                     title: Text(
                       option,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w400),
                     ),
                     value: controller.selectedOptions[option],
                     onChanged: (bool? value) {
@@ -84,7 +82,8 @@ class ReportScreen extends StatelessWidget {
                       minLines: 1,
                       decoration: InputDecoration(
                         labelText: "Please specify the reason",
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                       maxLength: 200,
                       onChanged: controller.updateOtherReason,
@@ -99,10 +98,12 @@ class ReportScreen extends StatelessWidget {
             ReuseElevButton(
               onPressed: () async {
                 final reportReason = controller.reportReason;
-               if(reportReason.isNotEmpty) {
-                 ApisClass.submitRoomReport(reportReason: reportReason, docId: rid);
-               }
-
+                if (reportReason.isNotEmpty) {
+                  ApisClass.submitReport(
+                      reportReason: reportReason,
+                      docId: data[0],
+                      roomCollection: data[1]);
+                }
               },
               title: 'Submit Report',
             ),

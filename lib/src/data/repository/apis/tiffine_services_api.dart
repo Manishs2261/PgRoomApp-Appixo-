@@ -667,7 +667,7 @@ class TiffineServicesApis {
   static Future<bool> submitFoodReviewData({
     required String rating,
     required String userReview,
-    required String rId,
+    required String fId,
   }) async {
     // Get a reference to Firestore
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -690,11 +690,12 @@ class TiffineServicesApis {
 
 
       // // Update the 'reviews' field in the RoomReview collection
-      await firestore.collection('DevFoodReview').doc(rId).set({
+      await firestore.collection('DevFoodReview').doc(fId).set({
         "reviews": FieldValue.arrayUnion([reviewData]),
         // Add to an array of reviews
       }, SetOptions(merge: true)); // Avoid overwriting the document
-      return true; // Return true when successful
+      AppLoggerHelper.info("Document updated successfully");
+      return true;
     } catch (e) {
       // Catch any errors and handle them appropriately
       if (e is FirebaseException) {
@@ -704,6 +705,7 @@ class TiffineServicesApis {
         // Generic error
         AppLoggerHelper.error("General error: $e");
       }
+      AppLoggerHelper.error("Error adding document: $e");
       return false; // Return false if an error occurs
     }
   }

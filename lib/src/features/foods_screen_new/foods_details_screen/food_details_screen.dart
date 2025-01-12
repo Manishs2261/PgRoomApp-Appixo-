@@ -3,15 +3,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
+import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/controller/controller.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/widgets/faq_widgets.dart';
 
+import '../../../data/repository/apis/apis.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/colors.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/com_ratingbar_widgets.dart';
-import '../../../utils/Constants/colors.dart';
-import '../../../utils/Constants/image_string.dart';
+import '../../../utils/widgets/report_card_widgets.dart';
+import '../../../utils/widgets/review_view_card.dart';
+import '../../../utils/widgets/space_between_text.dart';
+import '../../../utils/widgets/submit_review_widgets.dart';
+import '../../../utils/widgets/view_map_card_widgets.dart';
 
 class DetailsFood extends StatefulWidget {
   const DetailsFood({super.key});
@@ -22,20 +29,17 @@ class DetailsFood extends StatefulWidget {
 
 class _DetailsFoodState extends State<DetailsFood> {
 
-  final FoodModel  data = Get.arguments;
-
-
-  int currentPage = 0;
+  final controller = Get.put(DetailsFoodController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.black,
         ),
-        title:  Text(
-          data.shopName.toString(),
+        title: Text(
+          controller.data.shopName.toString(),
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -48,13 +52,16 @@ class _DetailsFoodState extends State<DetailsFood> {
               ))
         ],
       ),
-      floatingActionButton:BottomChatAndCallWidgets(onTapChat: () {  }, onTapCall: () {  },),
+      floatingActionButton: BottomChatAndCallWidgets(
+        onTapChat: () {},
+        onTapCall: () {},
+      ),
       floatingActionButtonLocation:
-      FloatingActionButtonLocation.miniCenterFloat,
+          FloatingActionButtonLocation.miniCenterFloat,
       body: SingleChildScrollView(
         child: Padding(
           padding:
-          const EdgeInsets.only(right: 16, top: 16, left: 16, bottom: 100),
+              const EdgeInsets.only(right: 16, top: 16, left: 16, bottom: 100),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,10 +72,10 @@ class _DetailsFoodState extends State<DetailsFood> {
                   children: [
                     PageView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: data.imageList?.length,
+                      itemCount: controller.data.imageList?.length,
                       onPageChanged: (int page) {
                         setState(() {
-                          currentPage = page;
+                          controller.currentPage.value = page;
                         });
                       },
                       itemBuilder: (context, imageIndex) {
@@ -77,9 +84,9 @@ class _DetailsFoodState extends State<DetailsFood> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10.0),
                             child: CachedNetworkImage(
-                              imageUrl: data.imageList?[imageIndex] ?? '',
-                              placeholder: (context, url) =>
-                                  const Center(child: CircularProgressIndicator()),
+                              imageUrl: controller.data.imageList?[imageIndex] ?? '',
+                              placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator()),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
                               fit: BoxFit.cover,
@@ -99,7 +106,7 @@ class _DetailsFoodState extends State<DetailsFood> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          '${currentPage + 1}/ ${data.imageList?.length}',
+                          '${controller.currentPage.value + 1}/ ${controller.data.imageList?.length}',
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,
@@ -119,13 +126,13 @@ class _DetailsFoodState extends State<DetailsFood> {
                           ),
                           child: false
                               ? const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          )
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                )
                               : const Icon(
-                            Icons.favorite_border_outlined,
-                            color: Colors.white,
-                          )),
+                                  Icons.favorite_border_outlined,
+                                  color: Colors.white,
+                                )),
                     ),
                   ],
                 ),
@@ -133,253 +140,281 @@ class _DetailsFoodState extends State<DetailsFood> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Expanded(
+                  Expanded(
                     child: Text(
-                      '${data.shopName}',
+                      '${controller.data.shopName}',
                       maxLines: 2,
-
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500,height:0),
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500, height: 0),
                     ),
                   ),
-
-                  ReUseTextContainer(title: data.foodCategory.toString(),),
+                  ReUseTextContainer(
+                    title: controller.data.foodCategory.toString(),
+                  ),
                 ],
               ),
-              const SizedBox(height: 8,),
-               Text(
-                '${data.description}',
+              const SizedBox(
+                height: 8,
+              ),
+              Text(
+                '${controller.data.description}',
                 maxLines: 5,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500,color: Colors.grey),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.blue,
-                ),
-                child:  Text(
-                  '${data.typeOfShop}',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                ),
-              ),
-
-              const SizedBox(
-                height: 16,
-              ),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Colors.black, Colors.blueAccent],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  padding: const EdgeInsets.all(12.0),
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 40,
-                        width: 40,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(AppImage.mapIcon),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      // Add some spacing between the icon and text
-                       Expanded(
-                        // Allow the column to take up the remaining space
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          // Align text to the start
-                          children: [
-                            Text(
-                              '${data.landmark} ${data.address}, ${data.city}, ${data.state}',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 4,
-                            ),
-                            InkWell(
-                              onTap: ()=> AppHelperFunction.launchMap(double.parse(data.latitude.toString()), double.parse(data.longitude.toString())),
-                              child: Text(
-                                'View On Map',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                'Subscription',
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
               ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all()),
+              const SizedBox(
+                height: 16,
+              ),
+              ReUseTextContainer(
+                title: '${controller.data.typeOfShop}',
+                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                color: Colors.blue,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              ViewMapCardWidgets(
+                landmark: controller.data.landmark.toString(),
+                homeAddress: controller.data.address.toString(),
+                city: controller.data.city.toString(),
+                state: controller.data.state.toString(),
+                latitude: controller.data.state.toString(),
+                longitude: controller.data.longitude.toString(),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Visibility(
+                visible: controller.data.typeOfShop.toString() == 'Mess' ||
+                    controller.data.typeOfShop.toString() == 'Home Mess',
                 child: Column(
-                  children:  data.subscriptionList!.map((room) {
-                    return Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                room.name.toString(),
-                                style: const TextStyle(fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                            Text(
-                              '₹${room.price}/-',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        const Divider(),
-                      ],
-                    );
-                  }).toList(),
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                'Daily meals',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-              Card(
-                color: Colors.white,
-                elevation: 1.5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child:    Container(
-                  margin: const EdgeInsets.all(8),
-                  padding: const EdgeInsets.all(16),
-                  decoration: const BoxDecoration(
-
-                  ),
-                  child: Column(
-                    children:  data.dailyItemList!.map((room) {
-                      return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Subscription',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all()),
+                      child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  room.name.toString(),
-                                  style: const TextStyle(fontWeight: FontWeight.w400,),
-                                ),
-                              ),
-                              Text(
-                                '₹${room.price}/-',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 14),
-                              ),
-                            ],
-                          ),
-                          const Divider(),
-                        ],
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 16,
-              ),
-              const Text(
-                'Mess Rules',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Column(
-                  children:  data.messRules!.map((rule) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Colors.greenAccent,
-                            size: 18,
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Expanded(child: Text(rule))
+                          if (controller.data.breakfastCost!.isNotEmpty)
+                            SpaceBetweenText(
+                              title: 'Breakfast',
+                              cost: controller.data.breakfastCost.toString(),
+                            ),
+                          if (controller.data.lunchOrDinnerCost!.isNotEmpty)
+                            SpaceBetweenText(
+                              title: 'Lunch OR Dinner',
+                              cost: controller.data.lunchOrDinnerCost.toString(),
+                            ),
+                          if (controller.data.lunchAndDinnerCost!.isNotEmpty)
+                            SpaceBetweenText(
+                              title: 'Lunch & Dinner',
+                              cost: controller.data.lunchAndDinnerCost.toString(),
+                            ),
+                          if (controller.data.breakfastAndLunchOrDinnerCost!.isNotEmpty)
+                            SpaceBetweenText(
+                              title: 'Breakfast, Lunch & Dinner',
+                              cost:
+                              controller.data.breakfastAndLunchOrDinnerCost.toString(),
+                            ),
+                          if (controller.data.subscriptionList!.isNotEmpty)
+                            Column(
+                              children: controller.data.subscriptionList!.map((room) {
+                                return SpaceBetweenText(
+                                  title: room.name.toString().capitalizeFirst!,
+                                  cost: room.price.toString(),
+                                );
+                              }).toList(),
+                            ),
                         ],
                       ),
-                    );
-                  }).toList()),
-
-              const SizedBox(height: 16,),
-              Container(
-                width:double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.circular(8)
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Submit Your Review'),
-                    Icon(Icons.arrow_forward_ios_rounded)
+                    ),
                   ],
                 ),
               ),
-              const SizedBox(height: 16,),
+              const SizedBox(
+                height: 16,
+              ),
+              Visibility(
+                visible: controller.data.dailyItemList!.isNotEmpty,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Daily meals',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Card(
+                      color: Colors.white,
+                      elevation: 1.5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(),
+                        child: Column(
+                          children: controller.data.dailyItemList!.map((room) {
+                            return Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        room.name.toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '₹${room.price}/-',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: controller.data.restructureMenuList!.isNotEmpty,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Food Menu',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Card(
+                      color: Colors.white,
+                      elevation: 1.5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(),
+                        child: Column(
+                          children: controller.data.restructureMenuList!.map((room) {
+                            return Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        room.name.toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '₹${room.price}/-',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                const Divider(),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: controller.data.messRules!.isNotEmpty,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Mess Rules',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Column(
+                        children: controller.data.messRules!.map((rule) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.arrow_forward_rounded,
+                                  color: Colors.greenAccent,
+                                  size: 18,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Expanded(child: Text(rule))
+                              ],
+                            ),
+                          );
+                        }).toList()),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SubmitReviewWidgets(
+                onTap: () {
+                  String review = '';
+                  reviewShowDialog(review);
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -397,141 +432,137 @@ class _DetailsFoodState extends State<DetailsFood> {
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: Colors.blue,
-
                     ),
                   ),
                 ],
               ),
-
-              const SizedBox(height: 16,),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 25,
-                            width: 25,
-                            decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(50), color: Colors.blue),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: CachedNetworkImage(
-                                height: 25,
-                                width: 25,
-                                fit: BoxFit.cover,
-                                imageUrl: "",
-                                placeholder: (context, _) =>  const Center(
-                                  child: SpinKitFadingCircle(
-                                    color: AppColors.primary,
-                                    size: 30,
-                                  ),
-                                ),
-                                errorWidget: (context, url, error) =>
-                                const CircleAvatar(
-                                    backgroundColor: AppColors.primary,
-                                    child: Icon(CupertinoIcons.person,size: 18,color: Colors.white,)),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          const Text(
-                            "Manish sahu",
-                            style: TextStyle(fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      const Text('12/12/2000',style: TextStyle(color: Colors.grey,fontSize: 10),)
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Row(
-                    children: [
-                      ComRatingBarWidgets(
-                        initialRating: 5,
-                        itemSize: 10.0,
-                        ignoreGestures: true,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "2.5",
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                      )
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, bottom: 20),
-                    padding: const EdgeInsets.all(10.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: AppHelperFunction.isDarkMode(context)
-                            ? Colors.blueGrey.shade900
-                            : Colors.grey.shade50,
-                        borderRadius: BorderRadius.circular(8)),
-                    child: const Text("To add an underline to your Text widget in Flutter, you can modify the TextStyle to include decoration: TextDecoration.underline. Here's how you can update your code:"),
-                  ),
-                ],
-              ),
-
-
-              Container(
-                width:double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(8)
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Report About Mess',style: TextStyle(color: Colors.white),),
-                    Icon(Icons.arrow_forward_ios_rounded,color: Colors.white,)
-                  ],
-                ),
-              ),
-
               const SizedBox(
                 height: 16,
               ),
-              const Text(
-                'FAQ',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
+              Obx(() {
+                return Column(
+                  children: controller.reviews.map((review) {
+                    return ReviewViewCardWidgets(
+                      imageUrl: '',
+                      userName: 'Reetu',
+                      date: review.date!,
+                      rating: review.rating!,
+                      review: review.review!,
+                    );
+                  }).toList(),
+                );
+              }),
+              ReportCardWidgets(
+                onTap: () => Get.toNamed(RoutesName.reportScreen,
+                    arguments: [controller.data.fId,'DevFoodCollection']),
               ),
-
-              Column(
-                children: data.fAQ!.map((faq) {
-                  // Mapping each FAQ item to a FAQTile widget
-                  return FAQWidgets(
-                    question: faq.question!,
-                    answer: faq.answer!,
-                  );
-                }).toList(),
+              const SizedBox(
+                height: 16,
               ),
-
-
+             Visibility(
+               visible: controller.data.fAQ!.isNotEmpty,
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   const Text(
+                     'FAQ',
+                     style: TextStyle(
+                       fontSize: 16,
+                       fontWeight: FontWeight.w500,
+                       color: Colors.black,
+                     ),
+                   ),
+                   Column(
+                     children: controller.data.fAQ!.map((faq) {
+                       // Mapping each FAQ item to a FAQTile widget
+                       return FAQWidgets(
+                         question: faq.question!,
+                         answer: faq.answer!,
+                       );
+                     }).toList(),
+                   ),
+                 ],
+               ),
+             )
             ],
           ),
         ),
       ),
     );
   }
+
+  Future<dynamic> reviewShowDialog(String review) {
+    return showDialog(
+                  context: Get.context!,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      title: const Text("Your Review"),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ComRatingBarWidgets(
+                            controller: controller,
+                            initialRating: controller.ratingNow.value,
+                            horizontal: 3.0,
+                          ),
+                          const SizedBox(height: 32),
+                          TextField(
+                            controller: controller.reviewController,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black.withOpacity(0.8),
+                                fontWeight: FontWeight.w400),
+                            decoration: const InputDecoration(
+                                labelText: 'Write Your Review',
+                                labelStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400)),
+                            keyboardType: TextInputType.text,
+                            maxLines: 5,
+                            minLines: 1,
+                            maxLength: 500,
+                            onChanged: (value) {
+                              review = value;
+                            },
+                          ),
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                            child: const Text(
+                              "Submit",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            onPressed: () {
+                              if (controller
+                                  .reviewController.text.isNotEmpty) {
+                                TiffineServicesApis.submitFoodReviewData(
+                                    rating:
+                                    controller.ratingNow.value.toString(),
+                                    userReview:
+                                    controller.reviewController.text,
+                                    fId: controller.data.fId!);
+                              }
+
+                              Navigator.of(context).pop();
+                            }),
+                      ],
+                    );
+                  },
+                );
+  }
 }
-
-
 
 class ReUseTextContainer extends StatelessWidget {
   final EdgeInsetsGeometry padding;
@@ -566,7 +597,3 @@ class ReUseTextContainer extends StatelessWidget {
     );
   }
 }
-
-
-
-

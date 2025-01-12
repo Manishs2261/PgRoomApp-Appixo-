@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 
-import '../../features/Rooms_screen_new/details_rooms/controller/details_room_controller.dart';
 import '../Constants/image_string.dart';
 import '../helpers/helper_function.dart';
 
 class ViewMapCardWidgets extends StatelessWidget {
   const ViewMapCardWidgets({
     super.key,
-    required this.controller,
+    required this.landmark,
+    required this.homeAddress,
+    required this.city,
+    required this.state,
+    this.latitude = '',
+    this.longitude = '',
   });
 
-  final DetailsRoomController controller;
+  final String landmark;
+  final String homeAddress;
+  final String city;
+  final String state;
+  final String latitude;
+  final String longitude;
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +49,12 @@ class ViewMapCardWidgets extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            // Add some spacing between the icon and text
             Expanded(
-              // Allow the column to take up the remaining space
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // Align text to the start
                 children: [
                   Text(
-                    '${controller.data.landmark}, ${controller.data.homeAddress}, ${controller.data.city}, ${controller.data.state}',
+                    '$landmark, $homeAddress, $city, $state',
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -58,10 +64,10 @@ class ViewMapCardWidgets extends StatelessWidget {
                   const SizedBox(
                     height: 4,
                   ),
+                  if(longitude.isNotEmpty)
                   InkWell(
                     onTap: () => AppHelperFunction.launchMap(
-                        double.parse(controller.data.latitude!),
-                        double.parse(controller.data.longitude!)),
+                        double.parse(latitude), double.parse(longitude)),
                     child: const Text(
                       'View On Map',
                       style: TextStyle(

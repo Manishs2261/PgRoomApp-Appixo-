@@ -982,11 +982,11 @@ class ApisClass {
     }
   }
 
-  static Future<void> submitRoomReport(
-      {required String reportReason, required String docId}) async {
+  static Future<void> submitReport(
+      {required String reportReason, required String docId,required String roomCollection}) async {
     try {
       await FirebaseFirestore.instance
-          .collection("DevRoomCollection")
+          .collection(roomCollection)
           .doc(docId)
           .update({
         'report': FieldValue.arrayUnion([
@@ -1040,6 +1040,7 @@ class ApisClass {
         "reviews": FieldValue.arrayUnion([reviewData]),
         // Add to an array of reviews
       }, SetOptions(merge: true)); // Avoid overwriting the document
+      AppLoggerHelper.info("Document updated successfully");
       return true; // Return true when successful
     } catch (e) {
       // Catch any errors and handle them appropriately
@@ -1050,7 +1051,9 @@ class ApisClass {
         // Generic error
         AppLoggerHelper.error("General error: $e");
       }
+       AppLoggerHelper.error("Error adding document: $e");
       return false; // Return false if an error occurs
     }
   }
+
 }

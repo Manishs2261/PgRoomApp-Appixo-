@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
+import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
 import '../../../../data/repository/apis/apis.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/top_search_bar/controller/controller.dart';
 
-class ListOfFoodController extends GetxController {
-  RxList<FoodModel> foodListData = <FoodModel>[].obs;
+class ListOfServicesController extends GetxController {
+  RxList<ServicesModel> servicesListData = <ServicesModel>[].obs;
   DocumentSnapshot? lastDocument;
   RxBool isLoadingMore = false.obs;
   RxBool hasMoreData = true.obs;
@@ -18,15 +18,6 @@ class ListOfFoodController extends GetxController {
   late ScrollController scrollController;
   final RxBool isButtonVisible = true.obs;
   var isLoadingInitial = true.obs;
-
-  RxList<FoodModel> foodList = <FoodModel>[].obs;
-  RxList<String> foodType = ['Mess', 'Restaurants', 'Chopati'].obs;
-  RxString? selectedFoodType = ''.obs;
-  RxString? selectedMessType = ''.obs;
-  RxString? selectedFood = ''.obs;
-  RxList<String> messType = ['Vag', 'Non-Vag', 'Both'].obs;
-
-  RxInt currentPage = 0.obs;
 
   @override
   void onInit() {
@@ -69,7 +60,7 @@ class ListOfFoodController extends GetxController {
 
   Future<void> fetchData() async {
     // If no data, show the initial loading indicator
-    if (foodListData.isEmpty) {
+    if (servicesListData.isEmpty) {
       isLoadingInitial.value = true;
     } else {
       isLoadingMore.value = true; // For pagination
@@ -78,7 +69,7 @@ class ListOfFoodController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevFoodCollection')
+          .collection('DevServicesCollection')
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch
 
@@ -92,8 +83,8 @@ class ListOfFoodController extends GetxController {
 
       if (snapshot.docs.isNotEmpty) {
         // Map documents to RoomModel and add to the list
-        foodListData.addAll(
-          snapshot.docs.map((e) => FoodModel.fromJson(e.data())).toList(),
+        servicesListData.addAll(
+          snapshot.docs.map((e) => ServicesModel.fromJson(e.data())).toList(),
         );
         // Update the last document for the next query
         lastDocument = snapshot.docs.last;
@@ -114,7 +105,7 @@ class ListOfFoodController extends GetxController {
   // Refresh data (pull-to-refresh)
   Future<void> refreshData() async {
     // Clear existing data and reset pagination
-    foodListData.clear();
+    servicesListData.clear();
     lastDocument = null;
     hasMoreData.value = true;
 

@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 
 import '../Constants/colors.dart';
 import '../helpers/helper_function.dart';
@@ -73,7 +76,7 @@ class ReviewViewCardWidgets extends StatelessWidget {
               ],
             ),
             Text(
-              date,
+              DateFormat('dd-MM-yyyy').format(DateTime.parse(date)),
               style: const TextStyle(color: Colors.grey, fontSize: 12),
             )
           ],

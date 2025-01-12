@@ -9,6 +9,7 @@ import 'package:pgroom/src/utils/Constants/colors.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
+
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/widgets/gradient_button.dart';
@@ -40,7 +41,7 @@ class ListOfRooms extends StatelessWidget {
         () => listOfRoomController.isLoadingInitial.value
             ? ListView.builder(
                 // Shimmer effect during the initial load
-                itemCount: 2, // Number of shimmer placeholders
+                itemCount: 3, // Number of shimmer placeholders
                 itemBuilder: (context, index) {
                   return ShimmerEffect(
                     width: double.infinity,
@@ -112,462 +113,412 @@ class RoomFilterWidgets extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            backgroundColor: AppColors.white,
-            context: context,
-            builder: (context) {
-              return DraggableScrollableSheet(
-                  initialChildSize: 0.5,
-                  minChildSize: 0.3,
-                  maxChildSize: 0.9,
-                  expand: false,
-                  builder: (builder, scrollController) {
-                    return Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                            alignment: Alignment.topCenter,
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topLeft:
-                                        const Radius.circular(10.0),
-                                    topRight:
-                                        const Radius.circular(10.0))),
-                            child: SingleChildScrollView(
-                              controller: scrollController,
-                              primary: false,
-                              child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'I am looking to:',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400),
+      onPressed: () {
+        showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: AppColors.white,
+          context: context,
+          builder: (context) {
+            return DraggableScrollableSheet(
+                initialChildSize: 0.5,
+                minChildSize: 0.3,
+                maxChildSize: 0.9,
+                expand: false,
+                builder: (builder, scrollController) {
+                  return Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                          alignment: Alignment.topCenter,
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16.0),
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(10.0),
+                                  topRight: const Radius.circular(10.0))),
+                          child: SingleChildScrollView(
+                            controller: scrollController,
+                            primary: false,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'I am looking to:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Obx(
+                                  () => Wrap(
+                                    spacing: 8,
+                                    children: listOfRoomController
+                                        .accommodationType
+                                        .map(
+                                          (type) => FilterChip(
+                                            label: Text(type),
+                                            labelStyle: TextStyle(
+                                                color: listOfRoomController
+                                                            .selectedAccommodationType ==
+                                                        type
+                                                    ? Colors.white
+                                                    : Colors.black),
+                                            selected: listOfRoomController
+                                                    .selectedAccommodationType ==
+                                                type,
+                                            selectedColor: AppColors.primary,
+                                            backgroundColor:
+                                                Colors.blue.withOpacity(0.08),
+                                            // Set color to blue when selected
+                                            onSelected: (selected) {
+                                              if (selected) {
+                                                listOfRoomController
+                                                    .selectedAccommodationType
+                                                    .value = type;
+                                              } else {
+                                                listOfRoomController
+                                                        .selectedAccommodationType
+                                                        .value =
+                                                    ''; // Deselect when tapped again
+                                              }
+                                            },
+                                          ),
+                                        )
+                                        .toList(),
                                   ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Obx(
-                                    () => Wrap(
-                                      spacing: 8,
-                                      children: listOfRoomController
-                                          .accommodationType
-                                          .map(
-                                            (type) => FilterChip(
-                                              label: Text(type),
-                                              labelStyle: TextStyle(
-                                                  color: listOfRoomController
-                                                              .selectedAccommodationType ==
-                                                          type
-                                                      ? Colors.white
-                                                      : Colors.black),
-                                              selected:
-                                                  listOfRoomController
-                                                          .selectedAccommodationType ==
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Obx(
+                                  () => Visibility(
+                                    visible: (listOfRoomController
+                                            .selectedAccommodationType ==
+                                        'PG'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Gender:',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Wrap(
+                                          spacing: 8,
+                                          children: listOfRoomController.gender
+                                              .map(
+                                                (type) => FilterChip(
+                                                  label: Text(type),
+                                                  labelStyle: TextStyle(
+                                                      color: listOfRoomController
+                                                                  .selectedGender ==
+                                                              type
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                  selected: listOfRoomController
+                                                          .selectedGender ==
                                                       type,
-                                              selectedColor:
-                                                  AppColors.primary,
-                                              backgroundColor: Colors
-                                                  .blue
-                                                  .withOpacity(0.08),
-                                              // Set color to blue when selected
-                                              onSelected: (selected) {
-                                                if (selected) {
-                                                  listOfRoomController
-                                                      .selectedAccommodationType
-                                                      .value = type;
-                                                } else {
-                                                  listOfRoomController
-                                                          .selectedAccommodationType
-                                                          .value =
-                                                      ''; // Deselect when tapped again
-                                                }
-                                              },
-                                            ),
-                                          )
-                                          .toList(),
+                                                  selectedColor:
+                                                      AppColors.primary,
+                                                  backgroundColor: Colors.blue
+                                                      .withOpacity(0.08),
+                                                  // Set color to blue when selected
+                                                  onSelected: (selected) {
+                                                    if (selected) {
+                                                      listOfRoomController
+                                                          .selectedGender
+                                                          .value = type;
+                                                    } else {
+                                                      listOfRoomController
+                                                              .selectedGender
+                                                              .value =
+                                                          ''; // Deselect when tapped again
+                                                    }
+                                                  },
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Obx(
-                                    () => Visibility(
-                                      visible: (listOfRoomController
-                                              .selectedAccommodationType ==
-                                          'PG'),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Gender:',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight:
-                                                    FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Wrap(
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Obx(
+                                  () => Visibility(
+                                    visible: (listOfRoomController
+                                            .selectedAccommodationType ==
+                                        'PG'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Room Type:',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          // Set the scroll direction to horizontal
+                                          child: Wrap(
                                             spacing: 8,
-                                            children:
-                                                listOfRoomController
-                                                    .gender
-                                                    .map(
-                                                      (type) =>
-                                                          FilterChip(
-                                                        label: Text(
-                                                            type),
-                                                        labelStyle: TextStyle(
-                                                            color: listOfRoomController.selectedGender ==
-                                                                    type
-                                                                ? Colors
-                                                                    .white
-                                                                : Colors
-                                                                    .black),
-                                                        selected:
-                                                            listOfRoomController
-                                                                    .selectedGender ==
-                                                                type,
-                                                        selectedColor:
-                                                            AppColors
-                                                                .primary,
-                                                        backgroundColor: Colors
-                                                            .blue
-                                                            .withOpacity(
-                                                                0.08),
-                                                        // Set color to blue when selected
-                                                        onSelected:
-                                                            (selected) {
-                                                          if (selected) {
-                                                            listOfRoomController
-                                                                .selectedGender
-                                                                .value = type;
-                                                          } else {
-                                                            listOfRoomController
-                                                                .selectedGender
-                                                                .value = ''; // Deselect when tapped again
-                                                          }
-                                                        },
-                                                      ),
-                                                    )
-                                                    .toList(),
+                                            // Spacing between chips
+                                            children: listOfRoomController
+                                                .roomType
+                                                .map(
+                                                  (type) => FilterChip(
+                                                    label: Text(type),
+                                                    labelStyle: TextStyle(
+                                                      color: listOfRoomController
+                                                                  .selectedRoomType ==
+                                                              type
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                    selected: listOfRoomController
+                                                            .selectedRoomType ==
+                                                        type,
+                                                    selectedColor:
+                                                        AppColors.primary,
+                                                    backgroundColor: Colors.blue
+                                                        .withOpacity(0.08),
+                                                    // Background when not selected
+                                                    onSelected: (selected) {
+                                                      if (selected) {
+                                                        listOfRoomController
+                                                            .selectedRoomType
+                                                            .value = type;
+                                                      } else {
+                                                        listOfRoomController
+                                                                .selectedRoomType
+                                                                .value =
+                                                            ''; // Deselect when tapped again
+                                                      }
+                                                    },
+                                                  ),
+                                                )
+                                                .toList(),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Obx(
-                                    () => Visibility(
-                                      visible: (listOfRoomController
-                                              .selectedAccommodationType ==
-                                          'PG'),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Room Type:',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight:
-                                                    FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          SingleChildScrollView(
-                                            scrollDirection:
-                                                Axis.horizontal,
-                                            // Set the scroll direction to horizontal
-                                            child: Wrap(
-                                              spacing: 8,
-                                              // Spacing between chips
-                                              children:
-                                                  listOfRoomController
-                                                      .roomType
-                                                      .map(
-                                                        (type) =>
-                                                            FilterChip(
-                                                          label: Text(
-                                                              type),
-                                                          labelStyle:
-                                                              TextStyle(
-                                                            color: listOfRoomController.selectedRoomType ==
-                                                                    type
-                                                                ? Colors
-                                                                    .white
-                                                                : Colors
-                                                                    .black,
-                                                          ),
-                                                          selected:
-                                                              listOfRoomController.selectedRoomType ==
-                                                                  type,
-                                                          selectedColor:
-                                                              AppColors
-                                                                  .primary,
-                                                          backgroundColor: Colors
-                                                              .blue
-                                                              .withOpacity(
-                                                                  0.08),
-                                                          // Background when not selected
-                                                          onSelected:
-                                                              (selected) {
-                                                            if (selected) {
-                                                              listOfRoomController
-                                                                  .selectedRoomType
-                                                                  .value = type;
-                                                            } else {
-                                                              listOfRoomController
-                                                                  .selectedRoomType
-                                                                  .value = ''; // Deselect when tapped again
-                                                            }
-                                                          },
-                                                        ),
-                                                      )
-                                                      .toList(),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Obx(
-                                    () => Visibility(
-                                      visible: (listOfRoomController
-                                              .selectedAccommodationType ==
-                                          'Flat'),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'BHK Type:',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight:
-                                                    FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          SingleChildScrollView(
-                                            scrollDirection:
-                                                Axis.horizontal,
-                                            // Set the scroll direction to horizontal
-                                            child: Wrap(
-                                              spacing: 8,
-                                              // Spacing between chips
-                                              children:
-                                                  listOfRoomController
-                                                      .flatType
-                                                      .map(
-                                                        (type) =>
-                                                            FilterChip(
-                                                          label: Text(
-                                                              type),
-                                                          labelStyle:
-                                                              TextStyle(
-                                                            color: listOfRoomController.selectedFlatType ==
-                                                                    type
-                                                                ? Colors
-                                                                    .white
-                                                                : Colors
-                                                                    .black,
-                                                          ),
-                                                          selected:
-                                                              listOfRoomController.selectedFlatType ==
-                                                                  type,
-                                                          selectedColor:
-                                                              AppColors
-                                                                  .primary,
-                                                          backgroundColor: Colors
-                                                              .blue
-                                                              .withOpacity(
-                                                                  0.08),
-                                                          // Background when not selected
-                                                          onSelected:
-                                                              (selected) {
-                                                            if (selected) {
-                                                              listOfRoomController
-                                                                  .selectedFlatType
-                                                                  .value = type;
-                                                            } else {
-                                                              listOfRoomController
-                                                                  .selectedFlatType
-                                                                  .value = ''; // Deselect when tapped again
-                                                            }
-                                                          },
-                                                        ),
-                                                      )
-                                                      .toList(),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  Obx(
-                                    () => Visibility(
-                                      visible: (listOfRoomController
-                                                  .selectedAccommodationType ==
-                                              'PG' ||
-                                          listOfRoomController
-                                                  .selectedAccommodationType ==
-                                              'Co-living'),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text(
-                                            'Food:',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight:
-                                                    FontWeight.bold),
-                                          ),
-                                          const SizedBox(
-                                            height: 8,
-                                          ),
-                                          Wrap(
+                                ),
+                                Obx(
+                                  () => Visibility(
+                                    visible: (listOfRoomController
+                                            .selectedAccommodationType ==
+                                        'Flat'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'BHK Type:',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          // Set the scroll direction to horizontal
+                                          child: Wrap(
                                             spacing: 8,
-                                            children:
-                                                listOfRoomController
-                                                    .food
-                                                    .map(
-                                                      (type) =>
-                                                          FilterChip(
-                                                        label: Text(
-                                                            type),
-                                                        labelStyle: TextStyle(
-                                                            color: listOfRoomController.selectedFood ==
-                                                                    type
-                                                                ? Colors
-                                                                    .white
-                                                                : Colors
-                                                                    .black),
-                                                        selected:
-                                                            listOfRoomController
-                                                                    .selectedFood ==
-                                                                type,
-                                                        selectedColor:
-                                                            AppColors
-                                                                .primary,
-                                                        backgroundColor: Colors
-                                                            .blue
-                                                            .withOpacity(
-                                                                0.08),
-                                                        // Set color to blue when selected
-                                                        onSelected:
-                                                            (selected) {
-                                                          if (selected) {
-                                                            listOfRoomController
-                                                                .selectedFood
-                                                                .value = type;
-                                                          } else {
-                                                            listOfRoomController
-                                                                .selectedFood
-                                                                .value = ''; // Deselect when tapped again
-                                                          }
-                                                        },
-                                                      ),
-                                                    )
-                                                    .toList(),
+                                            // Spacing between chips
+                                            children: listOfRoomController
+                                                .flatType
+                                                .map(
+                                                  (type) => FilterChip(
+                                                    label: Text(type),
+                                                    labelStyle: TextStyle(
+                                                      color: listOfRoomController
+                                                                  .selectedFlatType ==
+                                                              type
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
+                                                    selected: listOfRoomController
+                                                            .selectedFlatType ==
+                                                        type,
+                                                    selectedColor:
+                                                        AppColors.primary,
+                                                    backgroundColor: Colors.blue
+                                                        .withOpacity(0.08),
+                                                    // Background when not selected
+                                                    onSelected: (selected) {
+                                                      if (selected) {
+                                                        listOfRoomController
+                                                            .selectedFlatType
+                                                            .value = type;
+                                                      } else {
+                                                        listOfRoomController
+                                                                .selectedFlatType
+                                                                .value =
+                                                            ''; // Deselect when tapped again
+                                                      }
+                                                    },
+                                                  ),
+                                                )
+                                                .toList(),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  const Text(
-                                    'Budget:',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Obx(
-                                    () => RangeSlider(
-                                      activeColor: AppColors.primary,
-                                      values: listOfRoomController
-                                          .budgetRange.value,
-                                      min: 500,
-                                      max: 100000,
-                                      divisions: 100,
-                                      labels: RangeLabels(
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                Obx(
+                                  () => Visibility(
+                                    visible: (listOfRoomController
+                                                .selectedAccommodationType ==
+                                            'PG' ||
                                         listOfRoomController
-                                            .budgetRange.value.start
-                                            .round()
-                                            .toString(),
-                                        listOfRoomController
-                                            .budgetRange.value.end
-                                            .round()
-                                            .toString(),
-                                      ),
-                                      onChanged:
-                                          (RangeValues values) {
-                                        listOfRoomController
-                                            .budgetRange
-                                            .value = values;
-                                      },
+                                                .selectedAccommodationType ==
+                                            'Co-living'),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Food:',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const SizedBox(
+                                          height: 8,
+                                        ),
+                                        Wrap(
+                                          spacing: 8,
+                                          children: listOfRoomController.food
+                                              .map(
+                                                (type) => FilterChip(
+                                                  label: Text(type),
+                                                  labelStyle: TextStyle(
+                                                      color: listOfRoomController
+                                                                  .selectedFood ==
+                                                              type
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                                  selected: listOfRoomController
+                                                          .selectedFood ==
+                                                      type,
+                                                  selectedColor:
+                                                      AppColors.primary,
+                                                  backgroundColor: Colors.blue
+                                                      .withOpacity(0.08),
+                                                  // Set color to blue when selected
+                                                  onSelected: (selected) {
+                                                    if (selected) {
+                                                      listOfRoomController
+                                                          .selectedFood
+                                                          .value = type;
+                                                    } else {
+                                                      listOfRoomController
+                                                              .selectedFood
+                                                              .value =
+                                                          ''; // Deselect when tapped again
+                                                    }
+                                                  },
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(height: 16),
-                                  Obx(
-                                    () => Text(
-                                      'Selected Budget: ₹${listOfRoomController.budgetRange.value.start.round()} - ₹${listOfRoomController.budgetRange.value.end.round()}',
-                                      style: const TextStyle(
-                                          fontSize: 16),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                const Text(
+                                  'Budget:',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Obx(
+                                  () => RangeSlider(
+                                    activeColor: AppColors.primary,
+                                    values:
+                                        listOfRoomController.budgetRange.value,
+                                    min: 500,
+                                    max: 100000,
+                                    divisions: 100,
+                                    labels: RangeLabels(
+                                      listOfRoomController
+                                          .budgetRange.value.start
+                                          .round()
+                                          .toString(),
+                                      listOfRoomController.budgetRange.value.end
+                                          .round()
+                                          .toString(),
                                     ),
+                                    onChanged: (RangeValues values) {
+                                      listOfRoomController.budgetRange.value =
+                                          values;
+                                    },
                                   ),
-                                  const SizedBox(height: 24),
-                                ],
-                              ),
-                            )),
-                        Positioned(
-                          bottom: 20,
-                          child: ReuseElevButton(
-                              onPressed: () {
-                                Get.toNamed(RoutesName.listOfRooms);
-                              },
-                              title: 'Apply Filter'),
-                        ),
-                      ],
-                    );
-                  });
-            },
-          );
+                                ),
+                                const SizedBox(height: 16),
+                                Obx(
+                                  () => Text(
+                                    'Selected Budget: ₹${listOfRoomController.budgetRange.value.start.round()} - ₹${listOfRoomController.budgetRange.value.end.round()}',
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                              ],
+                            ),
+                          )),
+                      Positioned(
+                        bottom: 20,
+                        child: ReuseElevButton(
+                            onPressed: () {
+                              Get.toNamed(RoutesName.listOfRooms);
+                            },
+                            title: 'Apply Filter'),
+                      ),
+                    ],
+                  );
+                });
+          },
+        );
 
-    //===
-        },
-        backgroundColor: AppColors.primary,
-        child: const Icon(
-          Icons.filter_list,
-          color: Colors.white,
-        ),
-      );
+        //===
+      },
+      backgroundColor: AppColors.primary,
+      child: const Icon(
+        Icons.filter_list,
+        color: Colors.white,
+      ),
+    );
   }
 }
 
@@ -747,113 +698,133 @@ class RoomListCardWidgets extends StatelessWidget {
               style: TextStyle(fontSize: 14),
             ),
             SizedBox(height: 4),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.black, Colors.blueAccent],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                padding: const EdgeInsets.all(12.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(24),
-                              child: CachedNetworkImage(
-                                height: 40,
-                                width: 40,
-                                fit: BoxFit.cover,
-                                imageUrl: roomListData.userImage.toString(),
-                                progressIndicatorBuilder:
-                                    (context, url, progress) =>
-                                        const ShimmerEffect(
-                                            height: 40,
-                                            width: 40,
-                                            borderRadius: 24),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 4),
-                            Text(
-                              '${roomListData.userName?.capitalizeFirst}',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+            UserContactListCardWidgets(
+              name: roomListData.userName.toString(),
+              contactNumber: roomListData.mobileNumber.toString(),
+              atUpdate: roomListData.atUpdate.toString() ,
+              image:  roomListData.userImage.toString(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class UserContactListCardWidgets extends StatelessWidget {
+  const UserContactListCardWidgets({
+    super.key,
+    required this.name,
+    required this.contactNumber,
+    required this.atUpdate,
+    required this.image,
+  });
+
+  final String name;
+  final String contactNumber;
+  final String atUpdate;
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.black, Colors.blueAccent],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: CachedNetworkImage(
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                        imageUrl: image,
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            const ShimmerEffect(
+                                height: 40, width: 40, borderRadius: 24),
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.person,
+                          color: Colors.white,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Updated',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.white70,
-                              ),
-                            ),
-                            Text(
-                              AppHelperFunction.printFormattedDate(
-                                  roomListData.atUpdate.toString()),
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.white70,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                      ),
                     ),
-                    SizedBox(height: 8),
-                    // Buttons for "Chat Now" and "Call Now"
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        // Chat Now Button with Gradient
-                        GradientButton(
-                          icon: Icons.chat,
-                          label: 'Chat Now',
-                          colors: [Colors.orange, Colors.red],
-                          onPressed: () {
-                            // Handle chat action
-                          },
-                        ),
-                        // Call Now Button with Gradient
-                        GradientButton(
-                          icon: Icons.phone,
-                          label: 'Call Now',
-                          colors: [Colors.green, Colors.teal],
-                          onPressed: () {
-                            // Handle call action
-                          },
-                        ),
-                      ],
+                    SizedBox(width: 4),
+                    Text(
+                      '${name.capitalizeFirst}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            )
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Updated',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white70,
+                      ),
+                    ),
+                    Text(
+                      AppHelperFunction.printFormattedDate(atUpdate),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(height: 8),
+            // Buttons for "Chat Now" and "Call Now"
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                // Chat Now Button with Gradient
+                GradientButton(
+                  icon: Icons.chat,
+                  label: 'Chat Now',
+                  colors: [Colors.orange, Colors.red],
+                  onPressed: () {
+                    // Handle chat action
+                  },
+                ),
+                // Call Now Button with Gradient
+                GradientButton(
+                  icon: Icons.phone,
+                  label: 'Call Now',
+                  colors: [Colors.green, Colors.teal],
+                  onPressed: () {
+                    // Handle call action
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),

@@ -172,7 +172,14 @@ class _DetailsRoomState extends State<DetailsRoom> {
               const SizedBox(
                 height: 16,
               ),
-              ViewMapCardWidgets(controller: controller),
+              ViewMapCardWidgets(
+                landmark: controller.data.landmark.toString(),
+                homeAddress:controller.data.homeAddress.toString(),
+                city: controller.data.city.toString(),
+                state: controller.data.state.toString(),
+                latitude:  controller.data.latitude.toString(),
+                longitude: controller.data.longitude.toString(),
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -375,43 +382,46 @@ class _DetailsRoomState extends State<DetailsRoom> {
                 height: 16,
               ),
               if (controller.data.houseRules!.isNotEmpty)
-                const Text(
-                  'House Rules',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
-                  ),
-                ),
-              const SizedBox(
-                height: 16,
-              ),
               Column(
-                  children: controller.data.houseRules!.map((rule) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.arrow_forward_rounded,
-                        color: Colors.greenAccent,
-                        size: 18,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(rule)
-                    ],
+                children: [
+                  const Text(
+                    'House Rules',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
-                );
-              }).toList()),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Column(
+                      children: controller.data.houseRules!.map((rule) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.arrow_forward_rounded,
+                                color: Colors.greenAccent,
+                                size: 18,
+                              ),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(rule)
+                            ],
+                          ),
+                        );
+                      }).toList()),
+                ],
+              ),
               const SizedBox(
                 height: 16,
               ),
               SubmitReviewWidgets(
                 onTap: () {
-                  String itemQuestion = '';
-                  String itemAnswer = '';
+                  String review = '';
                   showDialog(
                     context: Get.context!,
                     builder: (BuildContext context) {
@@ -444,7 +454,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
                               minLines: 1,
                               maxLength: 500,
                               onChanged: (value) {
-                                itemAnswer = value;
+                                review = value;
                               },
                             ),
                           ],
@@ -528,7 +538,7 @@ class _DetailsRoomState extends State<DetailsRoom> {
               }),
               ReportCardWidgets(
                 onTap: () => Get.toNamed(RoutesName.reportScreen,
-                    arguments: controller.data.rId),
+                    arguments: [controller.data.rId!,'DevRoomCollection']),
               ),
               const SizedBox(
                 height: 16,
@@ -558,5 +568,3 @@ class _DetailsRoomState extends State<DetailsRoom> {
     );
   }
 }
-
-

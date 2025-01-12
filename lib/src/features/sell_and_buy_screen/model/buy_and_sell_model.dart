@@ -17,6 +17,10 @@ class BuyAndSellModel {
   String? state;
   String? landmark;
   String? sabId;
+  String? userDocId;
+  String? userName;
+  String? mobileNumber;
+  String? userImage;
 
   BuyAndSellModel({
     this.atCreate,
@@ -35,6 +39,10 @@ class BuyAndSellModel {
     this.state,
     this.landmark,
     this.sabId,
+    this.userDocId,
+    this.userName,
+    this.mobileNumber,
+    this.userImage
   });
 
   BuyAndSellModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +64,10 @@ class BuyAndSellModel {
     state = json['state'];
     landmark = json['landmark'];
     sabId = json['sab_id'];
+    userDocId = json['userDocId'];
+    userName = json['userName'];
+    mobileNumber = json['mobileNumber'];
+    userImage = json['userImage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -76,6 +88,10 @@ class BuyAndSellModel {
     data['state'] = this.state;
     data['landmark'] = this.landmark;
     data['sab_id'] = this.sabId;
+    data['userDocId'] = this.userDocId;
+    data['userName'] = this.userName;
+    data['mobileNumber'] = this.mobileNumber;
+    data['userImage'] = this.userImage;
     return data;
   }
 }

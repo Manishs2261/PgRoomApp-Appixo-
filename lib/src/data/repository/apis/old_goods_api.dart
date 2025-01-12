@@ -7,7 +7,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../features/Home_fitter_new/new_search_home/controller.dart';
 import '../../../features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import '../../../model/old_goods_model/old_goods_model.dart';
 import '../../../utils/logger/logger.dart';
@@ -200,6 +202,8 @@ class SellAndBuyApis {
     }
   }
 
+  static final homeController = Get.put(HomeController());
+
   static Future<bool> addSellAndBuyData({
     required String itemName,
     required String price,
@@ -212,90 +216,117 @@ class SellAndBuyApis {
   }) async {
     AppHelperFunction.showCenterCircularIndicator(true);
 
-    try {
-
-      List<String> imageUrls = [];
-
-      // Step 2: Prepare the data to save in Firestore
-      final item = BuyAndSellModel(
-        itemName: itemName,
-        price: price,
-        description: description,
-        address: address,
-        landmark: landmark,
-        city: city,
-        state: state,
-        image: imageUrls, // Use the uploaded image URLs
-        atCreate: DateTime.now().toString(),
-        atUpdate: DateTime.now().toString(),
-        isDelete: false,
-        report: [],
-        disable: false,
-        sabId: user.uid,
-        uId: user.uid,
-        userReference:FirebaseFirestore.instance
-            .collection('DevUser')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-      );
-
-      // Step 3: Add the data to Firestore
+    if (homeController.user.isNotEmpty) {
       try {
-        DocumentReference docRef = await FirebaseFirestore.instance
-            .collection("DevBuyAndSellCollection")
-            .add(item.toJson())
-            .timeout(const Duration(seconds: 2000), onTimeout: () {
-          Navigator.pop(Get.context!);
-          throw TimeoutException("The operation timed out after 2000 seconds");
-        });
+        List<String> imageUrls = [];
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        String? userDocId = preferences.getString('userDocId');
+        final item = BuyAndSellModel(
+            itemName: itemName,
+            price: price,
+            description: description,
+            address: address,
+            landmark: landmark,
+            city: city,
+            state: state,
+            image: imageUrls,
+            // Use the uploaded image URLs
+            atCreate: DateTime.now().toString(),
+            atUpdate: DateTime.now().toString(),
+            isDelete: false,
+            report: [],
+            disable: false,
+            sabId: user.uid,
+            uId: user.uid,
+            userDocId: userDocId,
+            mobileNumber: homeController.user.first.phone,
+            userName: homeController.user.first.name,
+            userImage: homeController.user.first.image);
 
-        for (File imageFile in imageFiles) {
-          try {
-            String imageUrl = await uploadImageToFirebase(imageFile,docRef.id);
-            imageUrls.add(imageUrl);
-          } catch (e) {
-            AppLoggerHelper.error("Error uploading image: $e");
+        // Step 3: Add the data to Firestore
+        try {
+          DocumentReference docRef = await FirebaseFirestore.instance
+              .collection("DevBuyAndSellCollection")
+              .add(item.toJson())
+              .timeout(const Duration(seconds: 2000), onTimeout: () {
             Navigator.pop(Get.context!);
-            return false; // If any image fails to upload, return false
+            throw TimeoutException(
+                "The operation timed out after 2000 seconds");
+          });
+
+          for (File imageFile in imageFiles) {
+            try {
+              String imageUrl =
+                  await uploadImageToFirebase(imageFile, docRef.id);
+              imageUrls.add(imageUrl);
+            } catch (e) {
+              AppLoggerHelper.error("Error uploading image: $e");
+              Navigator.pop(Get.context!);
+              return false; // If any image fails to upload, return false
+            }
           }
-        }
 
-        // Update the document with its ID
-        await FirebaseFirestore.instance
-            .collection("DevBuyAndSellCollection")
-            .doc(docRef.id)
-            .update({'sab_id': docRef.id , 'image': imageUrls}).whenComplete(() {
+          // Update the document with its ID
+          await FirebaseFirestore.instance
+              .collection("DevBuyAndSellCollection")
+              .doc(docRef.id)
+              .update({'sab_id': docRef.id, 'image': imageUrls}).whenComplete(
+                  () {
+            Navigator.pop(Get.context!);
+            AppLoggerHelper.info(
+                "Document added successfully with ID: ${docRef.id}");
+          });
+
+          try {
+            // Add the new room ID to the roomId list
+            await FirebaseFirestore.instance
+                .collection("DevUser")
+                .doc(userDocId)
+                .update({
+              'roomId': FieldValue.arrayUnion([docRef.id]),
+            });
+
+            AppLoggerHelper.info(
+                "Room ID ${docRef.id} successfully added to user's roomId list.");
+          } catch (e) {
+            Navigator.pop(Get.context!);
+            AppLoggerHelper.error("Error updating user's roomId: $e");
+            return false; // Handle errors gracefully
+          }
           Navigator.pop(Get.context!);
-          AppLoggerHelper.info("Document added successfully with ID: ${docRef.id}");
-        });
+          return true; // Successfully saved data
+        } catch (e) {
+          Navigator.pop(Get.context!);
 
-        return true; // Successfully saved data
+          if (e is TimeoutException) {
+            AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
+            AppLoggerHelper.info("Timeout error: ${e.message}");
+          } else if (e is FirebaseException) {
+            AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
+            AppLoggerHelper.info("Firestore error: ${e.message}");
+          } else {
+            AppHelperFunction.showFlashbar('General error: ${e}');
+            AppLoggerHelper.info("General error: ${e}");
+          }
+          return false; // Return false on Firestore save failure
+        }
       } catch (e) {
         Navigator.pop(Get.context!);
-
-        if (e is TimeoutException) {
-          AppHelperFunction.showFlashbar('Timeout error: ${e.message}');
-          AppLoggerHelper.info("Timeout error: ${e.message}");
-        } else if (e is FirebaseException) {
-          AppHelperFunction.showFlashbar('Firestore error: ${e.message}');
-          AppLoggerHelper.info("Firestore error: ${e.message}");
-        } else {
-          AppHelperFunction.showFlashbar('General error: ${e}');
-          AppLoggerHelper.info("General error: ${e}");
-        }
-        return false; // Return false on Firestore save failure
+        AppLoggerHelper.error("Error adding document: $e");
+        return false; // Return false for general errors
       }
-    } catch (e) {
+    } else {
       Navigator.pop(Get.context!);
-      AppLoggerHelper.error("Error adding document: $e");
-      return false; // Return false for general errors
+      AppHelperFunction.showFlashbar("Something went wrong. Please try again.");
+      AppLoggerHelper.error("Something went wrong. Please try again.");
+      return false;
     }
   }
 
-  static Future<String> uploadImageToFirebase(File imageFile , docId) async {
+  static Future<String> uploadImageToFirebase(File imageFile, docId) async {
     try {
-      final reference = FirebaseStorage.instance
-          .ref()
-          .child('buyAndSellImages/${user.uid}/$docId/${DateTime.now().millisecondsSinceEpoch}.jpg');
+      final reference = FirebaseStorage.instance.ref().child(
+          'buyAndSellImages/${user.uid}/$docId/${DateTime.now().millisecondsSinceEpoch}.jpg');
       final UploadTask uploadTask = reference.putFile(imageFile);
       final TaskSnapshot snapshot = await uploadTask.whenComplete(() => null);
       String downloadUrl = await snapshot.ref.getDownloadURL();
@@ -306,9 +337,5 @@ class SellAndBuyApis {
       throw Exception("Image upload failed");
     }
   }
-
-
-
-
 
 }

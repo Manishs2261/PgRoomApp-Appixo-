@@ -370,7 +370,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfFoods,
-            page: () => const ListOfFoods(),
+            page: () => ListOfFoods(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 

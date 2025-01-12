@@ -5,15 +5,15 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/review_model.dart';
-import '../../model/room_model.dart';
+import '../../model/food_model.dart';
 
-class DetailsRoomController extends GetxController {
+class DetailsFoodController extends GetxController {
   RxDouble ratingNow = 0.0.obs;
 
   final reviewController = TextEditingController();
 
   RxList<ReviewModel> reviews = <ReviewModel>[].obs;
-  final RoomModel data = Get.arguments;
+  final FoodModel data = Get.arguments;
 
   RxInt currentPage = 0.obs;
 
@@ -27,8 +27,8 @@ class DetailsRoomController extends GetxController {
   Future<void> fetchReviewData() async {
     try {
       DocumentSnapshot snapshot = await ApisClass.firebaseFirestore
-          .collection('RoomReview')
-          .doc(data.rId)
+          .collection('DevFoodReview')
+          .doc(data.fId)
           .get();
 
       // Check if document exists
@@ -43,11 +43,9 @@ class DetailsRoomController extends GetxController {
         AppLoggerHelper.debug("Limited reviews: ${reviews.length}");
       } else {
         AppLoggerHelper.debug("Document does not exist");
-        print("Document does not exist");
       }
     } catch (e) {
       AppLoggerHelper.error("Error fetching data: $e");
-      print("Error fetching data: $e");
     }
   }
 }
