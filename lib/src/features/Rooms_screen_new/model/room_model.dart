@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class RoomModel {
   String? city;
@@ -43,49 +42,47 @@ class RoomModel {
   String? mobileNumber;
   String? userImage;
 
-
   RoomModel(
       {this.city,
-        this.mealsAvailable,
-        this.latitude,
-        this.triplePersonCost,
-        this.houseName,
-        this.uId,
-        this.isRoomAvailableDate,
-        this.atUpdate,
-        this.state,
-        this.houseRules,
-        this.landmark,
-        this.roomType,
-        this.genderType,
-        this.doublePersonCost,
-        this.homeAddress,
-        this.longitude,
-        this.atCreate,
-        this.depositAmount,
-        this.roomCategory,
-        this.triplePlusCost,
-        this.isDelete,
-        this.totalRoom,
-        this.houseFAQ,
-        this.roomOwnershipType,
-        this.singlePersonCost,
-        this.disable,
-        this.roomFacilityList,
-        this.report,
-        this.billsList,
-        this.noticePride,
-        this.rId,
-        this.imageList,
-        this.commonAreasList,
-        this.familyCost,
-        this.reportList,
-        this.flatType,
-        this.userDocId,
-        this.userName,
-        this.mobileNumber,
-        this.userImage
-      });
+      this.mealsAvailable,
+      this.latitude,
+      this.triplePersonCost,
+      this.houseName,
+      this.uId,
+      this.isRoomAvailableDate,
+      this.atUpdate,
+      this.state,
+      this.houseRules,
+      this.landmark,
+      this.roomType,
+      this.genderType,
+      this.doublePersonCost,
+      this.homeAddress,
+      this.longitude,
+      this.atCreate,
+      this.depositAmount,
+      this.roomCategory,
+      this.triplePlusCost,
+      this.isDelete,
+      this.totalRoom,
+      this.houseFAQ,
+      this.roomOwnershipType,
+      this.singlePersonCost,
+      this.disable,
+      this.roomFacilityList,
+      this.report,
+      this.billsList,
+      this.noticePride,
+      this.rId,
+      this.imageList,
+      this.commonAreasList,
+      this.familyCost,
+      this.reportList,
+      this.flatType,
+      this.userDocId,
+      this.userName,
+      this.mobileNumber,
+      this.userImage});
 
   RoomModel.fromJson(Map<String, dynamic> json) {
     city = json['city'];
@@ -173,7 +170,7 @@ class RoomModel {
       data['houseFAQ'] = this.houseFAQ!.map((v) => v.toJson()).toList();
     }
     if (this.reportList != null) {
-      data['report'] = this. reportList!.map((v) => v.toJson()).toList();
+      data['report'] = this.reportList!.map((v) => v.toJson()).toList();
     }
     data['roomOwnershipType'] = this.roomOwnershipType;
     data['single_person_cost'] = this.singlePersonCost;
@@ -209,10 +206,10 @@ class HouseFAQ {
   }
 }
 
-class  Report {
+class Report {
   String? date;
   String? description;
-  DocumentReference? userRef ;
+  DocumentReference? userRef;
 
   Report({this.date, this.description, this.userRef});
 

@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
@@ -142,5 +143,50 @@ class ServicesApis {
     }
   }
 
+  static Future<bool> submitServicesReviewData({
+    required String rating,
+    required String userReview,
+    required String rId,
+  }) async {
+    // Get a reference to Firestore
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    try {
+      // Fetch the user document ID
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? userDocId =   preferences.getString('userDocId');
+
+      //  Create the review data map
+      final reviewData = {
+        "date": DateTime.now().toIso8601String(),
+        "rating": rating,
+        "review": userReview,
+        "user": firestore
+            .collection('DevUser')
+            .doc(userDocId)
+            .path, // Correct user reference
+      };
+
+
+      // // Update the 'reviews' field in the RoomReview collection
+      await firestore.collection('DevServicesReview').doc(rId).set({
+        "reviews": FieldValue.arrayUnion([reviewData]),
+        // Add to an array of reviews
+      }, SetOptions(merge: true)); // Avoid overwriting the document
+      AppLoggerHelper.info("Document updated successfully");
+      return true; // Return true when successful
+    } catch (e) {
+      // Catch any errors and handle them appropriately
+      if (e is FirebaseException) {
+        // Firestore-specific exception
+        AppLoggerHelper.error("Firestore error: $e");
+      } else {
+        // Generic error
+        AppLoggerHelper.error("General error: $e");
+      }
+      AppLoggerHelper.error("Error adding document: $e");
+      return false; // Return false if an error occurs
+    }
+  }
 
 }

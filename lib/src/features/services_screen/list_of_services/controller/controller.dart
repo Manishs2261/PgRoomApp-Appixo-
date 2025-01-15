@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
 import '../../../../data/repository/apis/apis.dart';
+import '../../../../utils/Constants/image_string.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/top_search_bar/controller/controller.dart';
 
@@ -18,6 +19,27 @@ class ListOfServicesController extends GetxController {
   late ScrollController scrollController;
   final RxBool isButtonVisible = true.obs;
   var isLoadingInitial = true.obs;
+  RxSet<int> selectedIndices = <int>{}.obs;
+  final RxList<String> nameOfServices = [
+    'ATM',
+    'Plumber',
+    'Electrician',
+    'Clinic',
+    'Medical Shop',
+    'Grocery Shop',
+    'Cloth Store',
+    'Bank'
+  ].obs;
+  final RxList<String> imageOfServices = [
+    AppImage.atmImage,
+    AppImage.plumberImage,
+    AppImage.electricianImage,
+    AppImage.clinicImage,
+    AppImage.medicalShopImage,
+    AppImage.groceryShopImage,
+    AppImage.plumberImage,
+    AppImage.bankImage
+  ].obs;
 
   @override
   void onInit() {

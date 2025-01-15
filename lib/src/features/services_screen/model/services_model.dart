@@ -16,25 +16,33 @@ class ServicesModel {
   String? landmark;
   String? sId;
   String? longitude;
+  String? userDocId;
+  String? userName;
+  String? mobileNumber;
+  String? userImage;
 
   ServicesModel(
       {this.atCreate,
-        this.image,
-        this.address,
-        this.city,
-        this.isDelete,
-        this.latitude,
-        this.description,
-        this.serviceFAQ,
-        this.uId,
-        this.atUpdate,
-        this.disable,
-        this.servicesName,
-        this.report,
-        this.state,
-        this.landmark,
-        this.sId,
-        this.longitude});
+      this.image,
+      this.address,
+      this.city,
+      this.isDelete,
+      this.latitude,
+      this.description,
+      this.serviceFAQ,
+      this.uId,
+      this.atUpdate,
+      this.disable,
+      this.servicesName,
+      this.report,
+      this.state,
+      this.landmark,
+      this.sId,
+      this.longitude,
+      this.userDocId,
+      this.userName,
+      this.mobileNumber,
+      this.userImage});
 
   ServicesModel.fromJson(Map<String, dynamic> json) {
     atCreate = json['atCreate'];
@@ -59,6 +67,10 @@ class ServicesModel {
     landmark = json['landmark'];
     sId = json['s_id'];
     longitude = json['longitude'];
+    userDocId = json['userDocId'];
+    userName = json['userName'];
+    mobileNumber = json['mobileNumber'];
+    userImage = json['userImage'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +79,7 @@ class ServicesModel {
     data['image'] = this.image;
     data['address'] = this.address;
     data['city'] = this.city;
+
     data['isDelete'] = this.isDelete;
     data['latitude'] = this.latitude;
     data['description'] = this.description;
@@ -82,6 +95,10 @@ class ServicesModel {
     data['landmark'] = this.landmark;
     data['s_id'] = this.sId;
     data['longitude'] = this.longitude;
+    data['userDocId'] = this.userDocId;
+    data['userName'] = this.userName;
+    data['mobileNumber'] = this.mobileNumber;
+    data['userImage'] = this.userImage;
     return data;
   }
 }

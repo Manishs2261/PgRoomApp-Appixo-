@@ -81,290 +81,274 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   Widget build(BuildContext context) {
     AppLoggerHelper.debug("Build - ProfileDetailsScreen");
     
-    return SafeArea(
-      child: Scaffold(
-        body: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
-              height: 150,
-              width: double.infinity,
-              child: DrawerHeader(
-                decoration: const BoxDecoration(boxShadow: [
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: Colors.white30,
-                    blurStyle: BlurStyle.outer,
-                    offset: Offset.zero,
-                  )
-                ]),
-                child:Stack(
-                  children: [
-                    Obx(
-                    () {
-                      if(homeController.user.isEmpty){
-                        return  ShimmerEffect(width: Get.width, height: 120);
-                      }
-                      return Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: CachedNetworkImage(
-                                  width: 60,
-                                  height: 60,
-                                  fit: BoxFit.cover,
-                                  imageUrl: homeController.user.first.image ?? '',
-                                  placeholder: (context, _) =>
-                                  const SpinKitFadingCircle(
-                                    color: AppColors.primary,
-                                    size: 35,
-                                  ),
-                                  errorWidget: (context, url, error) =>
-                                  const CircleAvatar(
-                                      child: Icon(CupertinoIcons.person)),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // in this condition
-                                    Flexible(
-                                      child: Text(
-                                        "${homeController.user.first.name?.capitalizeFirst}",
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: false,
-                                        maxLines: 1,
-                                        style: const TextStyle(fontSize: 18),
-                                      ),
-                                    ),
+    return Scaffold(
 
-                                    // in  this email both are same
-                                    Flexible(
-                                      child: Text(
-                                        "${homeController.user.first.email}",
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                        softWrap: false,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          );
-
-                        }
-                    ),
-                  ],
+      body: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.only(top: 16),
+        children: [
+          SizedBox(
+            height: 150,
+            width: double.infinity,
+            child: DrawerHeader(
+              decoration: const BoxDecoration(boxShadow: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: Colors.white30,
+                  blurStyle: BlurStyle.outer,
+                  offset: Offset.zero,
                 )
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home_outlined),
-              title: const Text('Add Your Room'),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
-                    ? Get.toNamed(RoutesName.addYourHomeScreen)
-                    : Get.snackbar("Login", "Your are not login ");
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.food_bank_outlined),
-              title: const Text('Add Your food Services'),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
-                    ? Get.to(() => AddYourTiffineServicesScreen())
-                    : Get.snackbar("Login", "Your are not login ");
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.handshake_outlined),
-              title: const Text('Add Your Deal'),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
-                    ? Get.to(() => AddYourOldGoodsScreen())
-                    : Get.snackbar("Login", "Your not login ");
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            Divider(
-              color: Colors.grey.withOpacity(.3),
-            ),
-            ListTile(
-                leading: const Icon(Icons.person_outline_outlined),
-                title: const Text("Profile"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.profileSCreen);
+              ]),
+              child:Stack(
+                children: [
+                  Obx(
+                  () {
+                    if(homeController.user.isEmpty){
+                      return  ShimmerEffect(width: Get.width, height: 120);
                     }
-                  });
-                }),
-            ListTile(
-                leading: const Icon(Icons.home_work),
-                title: const Text("View to Cart Room"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCardRoomScreen);
-                    }
-                  });
-                }),
-            ListTile(
-                leading: const Icon(Icons.food_bank),
-                title: const Text("View to Cart Food"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartTiffineScreen);
-                    }
-                  });
-                }),
-            ListTile(
-                leading: const Icon(Icons.handshake),
-                title: const Text("View to Cart Deal"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () {
-                  AuthApisClass.checkUserLogin().then((value) {
-                    if (value) {
-                      Get.toNamed(RoutesName.addToCartGoodsScreen);
-                    }
-                  });
-                }),
-            Divider(
-              color: Colors.grey.withOpacity(.3),
-            ),
-            ListTile(
-                leading: const Icon(Icons.share_outlined),
-                title: const Text("Share App"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => Share.share(UserApis.appShareUrl)),
-            ListTile(
-                leading: const Icon(Icons.help_center_outlined),
-                title: const Text("Help"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => Get.toNamed(RoutesName.helpScreen)),
-            ListTile(
-                leading: const Icon(Icons.contact_page_outlined),
-                title: const Text("Contact Us"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => Get.toNamed(RoutesName.contactsUs)),
-            ListTile(
-                leading: const Icon(Icons.info_outline),
-                title: const Text("Privacy And Policy"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => _launchUrlPrivacyPolicy()),
-            ListTile(
-                leading: const Icon(Icons.policy_outlined),
-                title: const Text("Terms And Condition"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => _launchUrlTermsAndCondition()),
-            Divider(
-              color: Colors.grey.withOpacity(.3),
-            ),
-            ListTile(
-                leading: const Icon(
-                  Icons.report_gmailerrorred,
-                  color: Colors.red,
-                ),
-                title: const Text("Report App"),
-                trailing: const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                ),
-                onTap: () => _launchUrlFrom()),
-            Divider(
-              color: Colors.grey.withOpacity(.3),
-            ),
-            Visibility(
-              visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
-              child: ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text("Logout"),
-                  trailing: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16,
-                  ),
-                  onTap: () {
-                    AppHelperFunction.showAlert("Logout", "Are you sure you want to log out?.", () {
-                      UserApis.removeUser().then((value) {
-                        if (value) {
-                          Get.offAllNamed(RoutesName.loginScreen);
-                        }
-                      });
-                    });
-                  }),
-            ),
+                    return Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: CachedNetworkImage(
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                                imageUrl: homeController.user.first.image ?? '',
+                                placeholder: (context, _) =>
+                                const SpinKitFadingCircle(
+                                  color: AppColors.primary,
+                                  size: 35,
+                                ),
+                                errorWidget: (context, url, error) =>
+                                const CircleAvatar(
+                                    child: Icon(CupertinoIcons.person)),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // in this condition
+                                  Flexible(
+                                    child: Text(
+                                      "${homeController.user.first.name?.capitalizeFirst}",
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      maxLines: 1,
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),
 
-            const SizedBox(
-              height: 40,
+                                  // in  this email both are same
+                                  Flexible(
+                                    child: Text(
+                                      "${homeController.user.first.email}",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        );
+
+                      }
+                  ),
+                ],
+              )
             ),
-            Center(
-                child: Text(
-              "version - $appVersion ",
-              style: const TextStyle(fontSize: 16),
-            )),
-            const SizedBox(
-              height: 30,
-            )
-          ],
-        ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.add),
+            title: const Text('Add Your Post'),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
+            onTap: () {
+              (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
+                  ? Get.toNamed(RoutesName.listOfPost)
+                  : Get.snackbar("Login", "Your are not login ");
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.add),
+            title: const Text('View all post'),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              size: 16,
+            ),
+            onTap: () {
+              (ApisClass.auth.currentUser?.uid == finalUserUidGlobal)
+                  ? Get.toNamed(RoutesName.editPostList)
+                  : Get.snackbar("Login", "Your are not login ");
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(
+            color: Colors.grey.withOpacity(.3),
+          ),
+          ListTile(
+              leading: const Icon(Icons.person_outline_outlined),
+              title: const Text("Profile"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.profileSCreen);
+                  }
+                });
+              }),
+          ListTile(
+              leading: const Icon(Icons.home_work),
+              title: const Text("View to Cart Room"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCardRoomScreen);
+                  }
+                });
+              }),
+          ListTile(
+              leading: const Icon(Icons.food_bank),
+              title: const Text("View to Cart Food"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCartTiffineScreen);
+                  }
+                });
+              }),
+          ListTile(
+              leading: const Icon(Icons.handshake),
+              title: const Text("View to Cart Deal"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () {
+                AuthApisClass.checkUserLogin().then((value) {
+                  if (value) {
+                    Get.toNamed(RoutesName.addToCartGoodsScreen);
+                  }
+                });
+              }),
+          Divider(
+            color: Colors.grey.withOpacity(.3),
+          ),
+          ListTile(
+              leading: const Icon(Icons.share_outlined),
+              title: const Text("Share App"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => Share.share(UserApis.appShareUrl)),
+          ListTile(
+              leading: const Icon(Icons.help_center_outlined),
+              title: const Text("Help"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => Get.toNamed(RoutesName.helpScreen)),
+          ListTile(
+              leading: const Icon(Icons.contact_page_outlined),
+              title: const Text("Contact Us"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => Get.toNamed(RoutesName.contactsUs)),
+          ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text("Privacy And Policy"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => _launchUrlPrivacyPolicy()),
+          ListTile(
+              leading: const Icon(Icons.policy_outlined),
+              title: const Text("Terms And Condition"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => _launchUrlTermsAndCondition()),
+          Divider(
+            color: Colors.grey.withOpacity(.3),
+          ),
+          ListTile(
+              leading: const Icon(
+                Icons.report_gmailerrorred,
+                color: Colors.red,
+              ),
+              title: const Text("Report App"),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+                size: 16,
+              ),
+              onTap: () => _launchUrlFrom()),
+          Divider(
+            color: Colors.grey.withOpacity(.3),
+          ),
+          Visibility(
+            visible: (ApisClass.auth.currentUser?.uid == finalUserUidGlobal),
+            child: ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text("Logout"),
+                trailing: const Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16,
+                ),
+                onTap: () {
+                  AppHelperFunction.showAlert("Logout", "Are you sure you want to log out?.", () {
+                    UserApis.removeUser().then((value) {
+                      if (value) {
+                        Get.offAllNamed(RoutesName.loginScreen);
+                      }
+                    });
+                  });
+                }),
+          ),
+
+          const SizedBox(
+            height: 40,
+          ),
+          Center(
+              child: Text(
+            "version - $appVersion ",
+            style: const TextStyle(fontSize: 16),
+          )),
+          const SizedBox(
+            height: 30,
+          )
+        ],
       ),
     );
   }

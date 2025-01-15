@@ -1,21 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
+import '../../../../data/repository/apis/apis.dart';
 import '../../../../model/review_model.dart';
-import '../../model/room_model.dart';
+import '../../../../utils/logger/logger.dart';
 
-class DetailsRoomController extends GetxController {
-  RxDouble ratingNow = 0.0.obs;
-
-  final reviewController = TextEditingController();
+class DetailsServiceController extends GetxController {
 
   RxList<ReviewModel> reviews = <ReviewModel>[].obs;
-  final RoomModel data = Get.arguments;
-
+  final  ServicesModel data = Get.arguments;
+  RxDouble ratingNow = 0.0.obs;
   RxInt currentPage = 0.obs;
+  final reviewController = TextEditingController();
 
   @override
   void onInit() {
@@ -27,8 +25,8 @@ class DetailsRoomController extends GetxController {
   Future<void> fetchReviewData() async {
     try {
       DocumentSnapshot snapshot = await ApisClass.firebaseFirestore
-          .collection('RoomReview')
-          .doc(data.rId)
+          .collection('DevServicesReview')
+          .doc(data.sId)
           .get();
 
       // Check if document exists
@@ -36,7 +34,7 @@ class DetailsRoomController extends GetxController {
         // Extract the reviews array and limit to 5
         List<dynamic> rawReviews = snapshot['reviews'];
         List<dynamic> limitedReviews =
-            rawReviews.take(5).toList(); // Limit to 5 reviews
+        rawReviews.take(5).toList(); // Limit to 5 reviews
         reviews.value =
             limitedReviews.map((e) => ReviewModel.fromJson(e)).toList();
 
@@ -48,4 +46,5 @@ class DetailsRoomController extends GetxController {
       AppLoggerHelper.error("Error fetching data: $e");
     }
   }
+
 }

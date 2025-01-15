@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../res/route_name/routes_name.dart';
@@ -30,19 +28,19 @@ class _ListOfPostState extends State<ListOfPost> {
             ),
             PostCard(
               title: "Room for sharing freely",
-              onTap: ()=> Get.toNamed(RoutesName.firstRoomFormScreen),
+              onTap: () => Get.toNamed(RoutesName.firstRoomFormScreen),
             ),
             PostCard(
               title: "Post your food here",
-              onTap: ()=> Get.toNamed(RoutesName.firstFoodFormScreen),
+              onTap: () => Get.toNamed(RoutesName.firstFoodFormScreen),
             ),
             PostCard(
               title: "Feel free to post items for sale",
-              onTap: ()=> Get.toNamed(RoutesName.sellAndBuyForm),
+              onTap: () => Get.toNamed(RoutesName.sellAndBuyForm),
             ),
             PostCard(
               title: "Free to advertise local services",
-              onTap: ()=> Get.toNamed(RoutesName.firstServiceFormScreen),
+              onTap: () => Get.toNamed(RoutesName.firstServiceFormScreen),
             ),
           ],
         ),
@@ -51,12 +49,11 @@ class _ListOfPostState extends State<ListOfPost> {
   }
 }
 
-
-
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
-    this.title, this.onTap,
+    this.title,
+    this.onTap,
   });
 
   final title;

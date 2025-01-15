@@ -114,5 +114,7 @@ class RoutesName {
 
   static const String  reportScreen = '/reportScreen';
 
+  /// Edit
+static const String  editPostList = '/editPostList';
 
 }

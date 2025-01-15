@@ -36,6 +36,7 @@ import '../../features/Home_fitter_new/List_of_post/List_of_post.dart';
 import '../../features/Home_fitter_new/filter/filter.dart';
 import '../../features/Home_fitter_new/location_search/location_search.dart';
 import '../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
+import '../../features/Home_fitter_new/view_your_post/view_your_post.dart';
 import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
@@ -502,6 +503,12 @@ class AppRoutes {
         GetPage(
             name: RoutesName.reportScreen,
             page: () =>  ReportScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.editPostList,
+            page: () =>  EditPostList(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];
