@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/controller.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/controller/controller.dart';
 import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/first_services_form.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/controller.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/third_service_form/controller.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/controller/controller.dart';
+import 'package:pgroom/src/features/services_screen/services_form_screen/third_service_form/controller/controller.dart';
 
 import '../../../data/repository/apis/services_api.dart';
 import '../../../utils/helpers/helper_function.dart';

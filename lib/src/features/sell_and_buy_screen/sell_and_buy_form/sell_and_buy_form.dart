@@ -9,7 +9,7 @@ import '../../../utils/Constants/colors.dart';
 import '../../../utils/logger/logger.dart';
 import '../../../utils/validator/text_field_validator.dart';
 import '../../../utils/widgets/my_text_form_field.dart';
-import 'controller.dart';
+import 'controller/controller.dart';
 
 class SellAndBuyForm extends StatelessWidget {
   SellAndBuyForm({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../model/services_model.dart';
+import '../../../model/services_model.dart';
 
 class ThirdServicesFormController extends GetxController {
   // Observable list of ServiceFAQ objects

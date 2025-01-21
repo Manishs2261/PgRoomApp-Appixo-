@@ -7,7 +7,7 @@ import '../../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/form_process_step.dart';
-import 'controller.dart';
+import 'controller/controller.dart';
 
 class ThirdRoomFormScreen extends StatelessWidget {
   ThirdRoomFormScreen({super.key});

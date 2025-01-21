@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pgroom/src/features/Home_fitter_new/new_search_home/controller.dart';
 
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/logger/logger.dart';
 
 class EditPostList extends StatefulWidget {
@@ -32,7 +33,7 @@ class _EditPostListState extends State<EditPostList> {
                 Icons.arrow_forward_ios,
                 size: 16,
               ),
-              onTap: () {},
+              onTap: () => Get.toNamed(RoutesName.roomUpdateList),
           ),
           ListTile(
             leading: const Icon(Icons.edit),
@@ -41,7 +42,7 @@ class _EditPostListState extends State<EditPostList> {
               Icons.arrow_forward_ios,
               size: 16,
             ),
-            onTap: () {},
+            onTap: () => Get.toNamed(RoutesName.foodUpdateList),
           ),
           ListTile(
             leading: const Icon(Icons.edit),
@@ -50,7 +51,7 @@ class _EditPostListState extends State<EditPostList> {
               Icons.arrow_forward_ios,
               size: 16,
             ),
-            onTap: () {},
+            onTap: () => Get.toNamed(RoutesName.sellAndBuyUpdateList),
           ),
           ListTile(
             leading: const Icon(Icons.edit),
@@ -59,7 +60,7 @@ class _EditPostListState extends State<EditPostList> {
               Icons.arrow_forward_ios,
               size: 16,
             ),
-            onTap: () {},
+            onTap: () => Get.toNamed(RoutesName.servicesUpdateList),
           ),
 
         ],

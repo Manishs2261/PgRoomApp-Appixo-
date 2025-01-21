@@ -117,4 +117,35 @@ class RoutesName {
   /// Edit
 static const String  editPostList = '/editPostList';
 
+///Update List
+static const String  foodUpdateList = '/foodUpdateList';
+static const String  roomUpdateList = '/roomUpdateList';
+static const String  servicesUpdateList = '/servicesUpdateList';
+static const String  sellAndBuyUpdateList = '/sellAndBuyUpdateList';
+
+
+/// edit
+  static const editServicesPostList = '/editServicesPostList';
+  static const editFoodPostList = '/editFoodPostList';
+  static const editRoomPostList = '/editRoomPostList';
+
+
+
+static const firstUpdateServicesForm = '/firstUpdateServicesForm';
+static const secondUpdateServicesForm = '/secondUpdateServicesForm';
+
+
+static const sellAndBuyUpdateForm = '/sellAndBuyUpdateForm';
+
+static const firstRoomUpdateFormScreen = '/firstRoomUpdateFormScreen';
+static const secondRoomUpdateFormScreen = '/secondRoomUpdateFormScreen';
+static const thirdRoomUpdateFormScreen = '/thirdRoomUpdateFormScreen';
+static const fourthRoomUpdateFormScreen = '/fourthRoomUpdateFormScreen';
+
+static const firstFoodUpdateForm = '/firstFoodUpdateForm';
+static const secondFoodUpdateForm = '/secondFoodUpdateForm';
+static const thirdFoodUpdateForm = '/thirdFoodUpdateForm';
+static const fourthFoodUpdateForm = '/fourthFoodUpdateForm';
+
+
 }

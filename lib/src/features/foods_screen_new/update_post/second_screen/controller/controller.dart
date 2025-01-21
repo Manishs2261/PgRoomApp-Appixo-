@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../res/route_name/routes_name.dart';
-import '../../model/food_model.dart';
+import '../../../model/food_model.dart';
 
-class SecondFoodFormController extends GetxController {
-  RxString foodType = 'Veg'.obs;
+class SecondFoodUpdateFormController extends GetxController {
+  final FoodModel foodModel = Get.arguments;
+
+  late RxString foodType;
 
   RxList<SubscriptionList> subscriptionItem = <SubscriptionList>[].obs;
   final formKey = GlobalKey<FormState>();
@@ -14,18 +15,47 @@ class SecondFoodFormController extends GetxController {
 
   RxList<RestructureMenuList> restructureItem = <RestructureMenuList>[].obs;
 
-  final breakfastController = TextEditingController();
-  final lunchOrDinnerController = TextEditingController();
-  final dinnerAndLunchCostController = TextEditingController();
-  final breakfastAndLunchDinnerController = TextEditingController();
+  late final TextEditingController breakfastController;
 
-  final thaliController = TextEditingController();
-  final cupOfRiceController = TextEditingController();
-  final dalController = TextEditingController();
-  final rotiController = TextEditingController();
-  final sabjiController = TextEditingController();
+  late final TextEditingController lunchOrDinnerController;
 
+  late final TextEditingController dinnerAndLunchCostController;
 
+  late final TextEditingController breakfastAndLunchDinnerController;
+
+  late final TextEditingController thaliController;
+
+  late final TextEditingController cupOfRiceController;
+
+  late final TextEditingController dalController;
+
+  late final TextEditingController rotiController;
+
+  late final TextEditingController sabjiController;
+
+  @override
+  void onInit() {
+    breakfastController = TextEditingController(text: foodModel.breakfastCost);
+    lunchOrDinnerController =
+        TextEditingController(text: foodModel.lunchOrDinnerCost);
+    dinnerAndLunchCostController =
+        TextEditingController(text: foodModel.lunchAndDinnerCost);
+    breakfastAndLunchDinnerController =
+        TextEditingController(text: foodModel.breakfastAndLunchOrDinnerCost);
+
+    thaliController = TextEditingController(text: foodModel.thaliCost);
+    cupOfRiceController = TextEditingController(text: foodModel.aCupOfRice);
+    dalController = TextEditingController(text: foodModel.dal);
+    rotiController = TextEditingController(text: foodModel.roti);
+    sabjiController = TextEditingController(text: foodModel.sabji);
+
+    foodType = foodModel.foodCategory.toString().obs;
+
+    subscriptionItem.addAll(foodModel.subscriptionList ?? []);
+    dailyItem.addAll(foodModel.dailyItemList ?? []);
+    restructureItem.addAll(foodModel.restructureMenuList ?? []);
+    super.onInit();
+  }
 
   // Function to add a new item
   void addSubscriptionItem(String name, String price) {
@@ -34,7 +64,7 @@ class SecondFoodFormController extends GetxController {
 
   // Function to add a new item
   void addDailyItem(String name, String price) {
-    dailyItem.add( DailyItemList(name: name, price: price));
+    dailyItem.add(DailyItemList(name: name, price: price));
   }
 
   // Function to add a new item
@@ -229,15 +259,12 @@ class SecondFoodFormController extends GetxController {
   }
 
   void removeRestructureItem(int index) {
-    restructureItem .removeAt(index);
+    restructureItem.removeAt(index);
   }
 
-
-  onSaveAndNext(){
-
-    if(!formKey.currentState!.validate()){
+  onSaveAndNext() {
+    if (!formKey.currentState!.validate()) {
       return;
     }
-    Get.toNamed(RoutesName.thirdFoodFormScreen);
   }
 }

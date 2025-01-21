@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/second_food_form/controller.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/third_food_form/controller.dart';
+import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/second_food_form/controller/controller.dart';
+import 'package:pgroom/src/features/foods_screen_new/foods_form_screen/third_food_form/controller/controller.dart';
 
 import '../../../utils/helpers/helper_function.dart';
-import 'first_food_form/controller.dart';
-import 'fourth_food_form/controller.dart';
+import 'first_food_form/controlller/controller.dart';
+import 'fourth_food_form/controller/controller.dart';
 
 class FoodDataSaveController extends GetxController {
   final firstFoodFormController = Get.put(FirstFoodFormController());

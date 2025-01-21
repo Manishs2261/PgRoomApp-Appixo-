@@ -1,17 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class GradientButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final List<Color> colors;
-  final VoidCallback onPressed;
+  final Color iconColor;
 
-  GradientButton({
+  final VoidCallback onPressed;
+  final Color borderColor;
+  final Color textColor;
+
+  const GradientButton({
+    super.key,
     required this.icon,
     required this.label,
     required this.colors,
     required this.onPressed,
+    this.iconColor = Colors.white,
+    this.borderColor = Colors.transparent,
+    this.textColor = Colors.white,
   });
 
   @override
@@ -27,6 +34,7 @@ class GradientButton extends StatelessWidget {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: borderColor, width: 1),
         ),
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
@@ -34,14 +42,14 @@ class GradientButton extends StatelessWidget {
           children: [
             Icon(
               icon,
-              color: Colors.white,
+              color: iconColor,
               size: 16, // White icon
             ),
             const SizedBox(width: 8),
             Text(
               label,
-              style: const TextStyle(
-                  color: Colors.white, // White text
+              style: TextStyle(
+                  color: textColor, // White text
                   fontWeight: FontWeight.bold,
                   fontSize: 12),
             ),

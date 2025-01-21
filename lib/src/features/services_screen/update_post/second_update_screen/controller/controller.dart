@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../../res/route_name/routes_name.dart';
+import '../../../../../res/route_name/routes_name.dart';
 
-class SecondServicesFormController extends GetxController {
+class SecondUpdateServicesFormController extends GetxController {
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
 
@@ -17,71 +18,74 @@ class SecondServicesFormController extends GetxController {
 
   LatLng? lastTappedPosition;
 
-  CameraPosition kGooglePlex = const CameraPosition(
-    target: LatLng(22.092196846135895, 82.12939292192459),
-    zoom: 5,
-  );
+  final ServicesModel servicesData = Get.arguments;
+
+  late CameraPosition kGooglePlex;
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    _determinePosition();
     super.onInit();
+
+    // Initialize the camera position to the service data location
+    kGooglePlex = CameraPosition(
+      target: LatLng(
+        double.parse(servicesData.latitude.toString()),
+        double.parse(servicesData.longitude.toString()),
+      ),
+      zoom: 5,
+    );
+
+    // Add an initial marker at the service data location
+    _addInitialMarker();
+
+    // Check and update location permissions
+    _determinePosition();
+  }
+
+  void _addInitialMarker() {
+    final initialPosition = LatLng(
+      double.parse(servicesData.latitude.toString()),
+      double.parse(servicesData.longitude.toString()),
+    );
+
+    markers.add(
+      Marker(
+        markerId: const MarkerId('initial_marker'),
+        position: initialPosition,
+        infoWindow: const InfoWindow(title: 'Initial Location'),
+      ),
+    );
+
+    // Update last tapped position
+    lastTappedPosition = initialPosition;
   }
 
   Future<void> _determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
+    // Check and request location permissions
+    final permissionGranted = await _checkLocationPermissions();
+    if (!permissionGranted) return;
 
-    // Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Show dialog prompting user to enable location services
-      _showLocationSettingsDialog();
-      return;
-    }
-
-    // Check location permissions
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        if (kDebugMode) {
-          print('Location permissions are denied.');
-        }
-        return;
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      // Show dialog explaining the need for permissions
-      _showPermissionDeniedForeverDialog();
-      return;
-    }
-
-    // Fetch the current position
-    Position position = await Geolocator.getCurrentPosition(
+    // Get the current location
+    final position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
 
-    // Log current position
     if (kDebugMode) {
       print('Current Position: ${position.latitude}, ${position.longitude}');
     }
 
-    // Update camera to current location
-    final GoogleMapController controller = await mapController.future;
+    // Animate the camera to the current location
+    final controller = await mapController.future;
     controller.animateCamera(
       CameraUpdate.newLatLng(
         LatLng(position.latitude, position.longitude),
       ),
     );
 
-    // Add marker for current location
+    // Add a marker for the current location
     markers.add(
       Marker(
-        // ignore: prefer_const_constructors
-        markerId: MarkerId('current_location'),
+        markerId: const MarkerId('current_location'),
         position: LatLng(position.latitude, position.longitude),
         infoWindow: InfoWindow(
           title: 'Current Location',
@@ -89,6 +93,32 @@ class SecondServicesFormController extends GetxController {
         ),
       ),
     );
+  }
+
+  Future<bool> _checkLocationPermissions() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      _showLocationSettingsDialog();
+      return false;
+    }
+
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        if (kDebugMode) {
+          print('Location permissions are denied.');
+        }
+        return false;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      _showPermissionDeniedForeverDialog();
+      return false;
+    }
+
+    return true;
   }
 
   void _showLocationSettingsDialog() {
@@ -140,35 +170,33 @@ class SecondServicesFormController extends GetxController {
   }
 
   void handleTap(LatLng tappedPoint) {
-    // Clear previous markers if you only want one marker at a time
-    markers.clear();
-
-    // Add a new marker at the tapped position
-    markers.add(
-      Marker(
-        markerId: MarkerId(tappedPoint.toString()),
-        position: tappedPoint,
-        infoWindow: InfoWindow(
-          title: 'Selected Location',
-          snippet:
-              'Lat: ${tappedPoint.latitude}, Lng: ${tappedPoint.longitude}',
+    // Update markers with a single new marker at the tapped position
+    markers
+      ..clear()
+      ..add(
+        Marker(
+          markerId: MarkerId(tappedPoint.toString()),
+          position: tappedPoint,
+          infoWindow: InfoWindow(
+            title: 'Selected Location',
+            snippet:
+                'Lat: ${tappedPoint.latitude}, Lng: ${tappedPoint.longitude}',
+          ),
         ),
-      ),
-    );
+      );
 
     // Save the last tapped position
     lastTappedPosition = tappedPoint;
 
-    // Log the latitude and longitude
     if (kDebugMode) {
       print(
           'Tapped position: ${tappedPoint.latitude}, ${tappedPoint.longitude}');
     }
   }
 
-  onSaveAndNext() {
+  void onSaveAndNext() {
     if (lastTappedPosition == null) {
-      AppHelperFunction.showSnackBar("Please Select Location Marker");
+      AppHelperFunction.showSnackBar('Please Select Location Marker');
       return;
     }
 

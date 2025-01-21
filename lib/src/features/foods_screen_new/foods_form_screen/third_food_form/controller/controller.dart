@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../../res/route_name/routes_name.dart';
+import '../../../../../res/route_name/routes_name.dart';
 
 class ThirdFoodFormController extends GetxController {
   final Completer<GoogleMapController> mapController =

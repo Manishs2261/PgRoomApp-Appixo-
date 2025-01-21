@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/form_process_step.dart';
-import 'controller.dart';
+import 'controller/controller.dart';
 
 class SecondServicesForm extends StatelessWidget {
   SecondServicesForm({super.key});

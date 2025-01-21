@@ -4,9 +4,9 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form/controller.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/controller.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/controller.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/controller.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/controller/controller.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/controller/controller.dart';
+import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/controller/controller.dart';
 
 import '../../../utils/helpers/helper_function.dart';
 

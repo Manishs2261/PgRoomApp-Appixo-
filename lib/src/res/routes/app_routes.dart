@@ -36,7 +36,16 @@ import '../../features/Home_fitter_new/List_of_post/List_of_post.dart';
 import '../../features/Home_fitter_new/filter/filter.dart';
 import '../../features/Home_fitter_new/location_search/location_search.dart';
 import '../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
+import '../../features/Home_fitter_new/view_your_post/view_screen/food_update/food_update.dart';
+import '../../features/Home_fitter_new/view_your_post/view_screen/room_update/room_update.dart';
+import '../../features/Home_fitter_new/view_your_post/view_screen/sell_and_buy_update/sell_and_buy_update.dart';
+import '../../features/Home_fitter_new/view_your_post/view_screen/services_update/services_update.dart';
 import '../../features/Home_fitter_new/view_your_post/view_your_post.dart';
+import '../../features/Rooms_screen_new/update_post/edit_room.dart';
+import '../../features/Rooms_screen_new/update_post/update_form/first_screen/first_form_update.dart';
+import '../../features/Rooms_screen_new/update_post/update_form/fourth_screen/fourth_form_update.dart';
+import '../../features/Rooms_screen_new/update_post/update_form/second_screen/second_form_update.dart';
+import '../../features/Rooms_screen_new/update_post/update_form/third_screen/third_form_update.dart';
 import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
@@ -45,6 +54,11 @@ import '../../features/foods_screen_new/foods_form_screen/first_food_form/first_
 import '../../features/foods_screen_new/foods_form_screen/fourth_food_form/fourth_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/second_food_form/second_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/third_food_form/third_food_form.dart';
+import '../../features/foods_screen_new/update_post/edit_post.dart';
+import '../../features/foods_screen_new/update_post/first_screen/first_screen.dart';
+import '../../features/foods_screen_new/update_post/fourth_screen/fourth_screen.dart';
+import '../../features/foods_screen_new/update_post/second_screen/second_screen.dart';
+import '../../features/foods_screen_new/update_post/third_screen/third_screen.dart';
 import '../../features/old_goods/add_your_goods/add_your_goods.dart';
 import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
 import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
@@ -76,7 +90,11 @@ import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_d
 import '../../features/room_rent_all_screen/search/search.dart';
 import '../../features/room_rent_all_screen/view_all_image/view_all_image.dart';
 import '../../features/sell_and_buy_screen/sell_and_buy_form/sell_and_buy_form.dart';
+import '../../features/sell_and_buy_screen/update_post/first_screen/first_screen.dart';
 import '../../features/services_screen/services_form_screen/third_service_form/third_services_form.dart';
+import '../../features/services_screen/update_post/edit_services.dart';
+import '../../features/services_screen/update_post/first_screen/first_update_screen.dart';
+import '../../features/services_screen/update_post/second_update_screen/second_update.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/tiffinServicesScreen/search/search.dart';
 import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
@@ -382,12 +400,12 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfSellAndBuy,
-            page: () =>  ListOfSellAndBuy(),
+            page: () => ListOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.sellAndBuyDetails,
-            page: () =>   DetailsOfSellAndBuy(),
+            page: () => DetailsOfSellAndBuy(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -397,7 +415,7 @@ class AppRoutes {
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.servicesDetails,
-            page: () =>  DetailsServices(),
+            page: () => DetailsServices(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
@@ -479,7 +497,7 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.secondServiceFormScreen,
-            page: () =>  SecondServicesForm(),
+            page: () => SecondServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
@@ -491,24 +509,121 @@ class AppRoutes {
 
         GetPage(
             name: RoutesName.sellAndBuyForm,
-            page: () =>  SellAndBuyForm(),
+            page: () => SellAndBuyForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.thirdServicesForm,
-            page: () =>  ThirdServicesForm(),
+            page: () => ThirdServicesForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.reportScreen,
-            page: () =>  ReportScreen(),
+            page: () => ReportScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
         GetPage(
             name: RoutesName.editPostList,
-            page: () =>  EditPostList(),
+            page: () => EditPostList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.foodUpdateList,
+            page: () => FoodUpdateList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.roomUpdateList,
+            page: () => RoomUpdateList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.servicesUpdateList,
+            page: () => ServicesUpdateList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.sellAndBuyUpdateList,
+            page: () => SellAndBuyUpdateList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.firstUpdateServicesForm,
+            page: () => FirstUpdateServicesForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.secondUpdateServicesForm,
+            page: () => SecondUpdateServicesForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.editServicesPostList,
+            page: () => EditServicesPostList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.sellAndBuyUpdateForm,
+            page: () => SellAndBuyUpdateForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.editFoodPostList,
+            page: () => EditFoodPostList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.editRoomPostList,
+            page: () => EditRoomPostList(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.firstRoomUpdateFormScreen,
+            page: () => FirstRoomUpdateFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+        GetPage(
+            name: RoutesName.secondRoomUpdateFormScreen,
+            page: () => SecondRoomUpdateFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.thirdRoomUpdateFormScreen,
+            page: () => ThirdRoomUpdateFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.fourthRoomUpdateFormScreen,
+            page: () => FourthRoomUpdateFormScreen(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.firstFoodUpdateForm,
+            page: () => FirstFoodUpdateForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.secondFoodUpdateForm,
+            page: () => SecondFoodUpdateForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.thirdFoodUpdateForm,
+            page: () => ThirdFoodUpdateForm(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transition: Transition.leftToRightWithFade),
+
+        GetPage(
+            name: RoutesName.fourthFoodUpdateForm,
+            page: () => FourthFoodUpdateForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
       ];

@@ -4,24 +4,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/data/repository/apis/old_goods_api.dart';
+import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../utils/logger/logger.dart';
-
-class SellAndBuyController extends GetxController {
+class SellAndBuyUpdateController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
-  final nameController = TextEditingController();
-  final descriptionController = TextEditingController();
-  final addressController = TextEditingController();
-  final landmarkController = TextEditingController();
-  final cityController = TextEditingController();
-  final stateController = TextEditingController();
-  final priceController = TextEditingController();
+  final BuyAndSellModel sellAndBuyData = Get.arguments;
+
+  late final TextEditingController nameController;
+
+  late final TextEditingController descriptionController;
+  late final TextEditingController addressController;
+  late final TextEditingController landmarkController;
+  late final TextEditingController cityController;
+  late final TextEditingController stateController;
+  late final TextEditingController priceController;
 
   final RxList<File> imageFiles = <File>[].obs; // Store File objects
 
   final ImagePicker picker = ImagePicker();
+
+  @override
+  onInit() {
+    descriptionController =
+        TextEditingController(text: sellAndBuyData.description);
+    addressController = TextEditingController(text: sellAndBuyData.address);
+    landmarkController = TextEditingController(text: sellAndBuyData.landmark);
+    cityController = TextEditingController(text: sellAndBuyData.city);
+    stateController = TextEditingController(text: sellAndBuyData.state);
+    priceController = TextEditingController(text: sellAndBuyData.price);
+    nameController = TextEditingController(text: sellAndBuyData.itemName);
+
+    super.onInit();
+  }
 
   Future<void> pickImages() async {
     final List<XFile> selectedImages = await picker.pickMultiImage();
@@ -36,10 +52,10 @@ class SellAndBuyController extends GetxController {
           .toList();
     } else {
       // Convert XFile to File and update the list
-      imageFiles.value = selectedImages.map((xfile) => File(xfile.path)).toList();
+      imageFiles.value =
+          selectedImages.map((xfile) => File(xfile.path)).toList();
     }
-    }
-
+  }
 
   onDataSave() async {
     bool value = await SellAndBuyApis.addSellAndBuyData(
@@ -59,6 +75,7 @@ class SellAndBuyController extends GetxController {
       AppHelperFunction.showFlashbar('Something went wrong.');
     }
   }
+
   onSaveAndNext() {
     if (!formKey.currentState!.validate()) {
       return;

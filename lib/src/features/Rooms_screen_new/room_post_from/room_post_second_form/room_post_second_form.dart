@@ -10,7 +10,7 @@ import '../../../../utils/validator/text_field_validator.dart';
 import '../../../../utils/widgets/form_headline.dart';
 import '../../../../utils/widgets/form_process_step.dart';
 import '../../../../utils/widgets/my_text_form_field.dart';
-import 'controller.dart';
+import 'controller/controller.dart';
 
 class SecondRoomFormScreen extends StatelessWidget {
   SecondRoomFormScreen({super.key});

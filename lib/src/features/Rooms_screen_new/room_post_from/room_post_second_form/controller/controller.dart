@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../../../res/route_name/routes_name.dart';
+import '../../../../../res/route_name/routes_name.dart';
 
 class SecondRoomFormController extends GetxController{
 
