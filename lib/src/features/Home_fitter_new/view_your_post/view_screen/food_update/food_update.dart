@@ -253,7 +253,7 @@ class FoodListCardWidgets extends StatelessWidget {
                   colors: const [Colors.transparent, Colors.transparent],
                   borderColor: Colors.blue,
                   textColor: Colors.blue,
-                  onPressed: () => Get.toNamed(RoutesName.editFoodPostList, arguments: foodModel),
+                  onPressed: () => Get.toNamed(RoutesName.firstFoodUpdateForm, arguments: foodModel),
                 ),
                 // Call Now Button with Gradient
                 GradientButton(

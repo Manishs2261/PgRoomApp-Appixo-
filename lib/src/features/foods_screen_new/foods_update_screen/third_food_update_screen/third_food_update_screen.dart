@@ -10,7 +10,7 @@ import 'controller/controller.dart';
 class ThirdFoodUpdateForm extends StatelessWidget {
   ThirdFoodUpdateForm({super.key});
 
-  final controller = Get.put(ThirdFoodUpdateFormController());
+  final controller = Get.put(ThirdFoodUpdateController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,14 @@ class ThirdFoodUpdateForm extends StatelessWidget {
         "Build - ThirdRoomFormScreen......................................");
     return Scaffold(
       appBar: AppBar(
-       title: Text('Update Map',style: TextStyle(fontWeight: FontWeight.w400),),
+        automaticallyImplyLeading: false,
+        // Increase the height to accommodate the progress indicator
+        title: const FormProcessStep(
+          isFormOne: true,
+          isFormTwo: true,
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Column(
         children: [

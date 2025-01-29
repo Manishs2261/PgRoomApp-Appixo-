@@ -13,26 +13,28 @@ import '../../../../utils/widgets/form_headline.dart';
 import '../../../../utils/widgets/form_process_step.dart';
 import '../../../../utils/widgets/my_text_form_field.dart';
 import '../../../../utils/widgets/shimmer_effect.dart';
-import 'controller/controller.dart';
-
+import 'controlller/controller.dart';
 
 class FirstFoodUpdateForm extends StatelessWidget {
   FirstFoodUpdateForm({super.key});
 
-  final controller = Get.put(FirstFoodUpdateFormController());
+  final controller = Get.put(FirstFoodUpdateController());
 
   @override
   Widget build(BuildContext context) {
     AppLoggerHelper.debug(
-        "Build - FirstUpdateFoodForm......................................");
+        "Build - FirstFoodForm......................................");
     return Scaffold(
       appBar: AppBar(
-     title:  const Text('Update Details',style: TextStyle(fontWeight: FontWeight.w400),),
-
+        automaticallyImplyLeading: false,
+        // Increase the height to accommodate the progress indicator
+        title: const FormProcessStep(),
+        backgroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64,top: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 64),
           child: Form(
             key: controller.formKey,
             child: Column(
@@ -41,7 +43,7 @@ class FirstFoodUpdateForm extends StatelessWidget {
               children: [
                 const FormHeadline(title: 'Food Type'),
                 Obx(
-                      () => Wrap(
+                  () => Wrap(
                     spacing: 8.0, // Optional: Add space between i
                     runSpacing: 8.0,
                     children: [
@@ -171,7 +173,7 @@ class FirstFoodUpdateForm extends StatelessWidget {
                   child: Container(
                     alignment: Alignment.center,
                     padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColors.primary),
                       borderRadius: BorderRadius.circular(4),
@@ -197,54 +199,54 @@ class FirstFoodUpdateForm extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                      () => (controller.imageFiles.isNotEmpty)
+                  () => (controller.imageFiles.isNotEmpty)
                       ? Container(
+                          margin: const EdgeInsets.only(top: 16),
+                          height: 150,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.imageFiles.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                    File(controller.imageFiles[index].path)),
+                              );
+                            },
+                          ),
+                        )
+                      :  Container(
                     margin: const EdgeInsets.only(top: 16),
+                    // Added Container to ensure constraints
                     height: 150,
+                    // Explicit height for the ListView
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.imageFiles.length,
-                      itemBuilder: (context, index) {
+                      itemCount:
+                      controller.foodModel.imageList?.length ?? 0,
+                      itemBuilder: (context, imageIndex) {
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.file(
-                              File(controller.imageFiles[index].path)),
+                          padding: const EdgeInsets.only(right: 8),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: CachedNetworkImage(
+                              width: Get.width * 0.8,
+                              imageUrl: controller
+                                  .foodModel.imageList?[imageIndex] ??
+                                  '',
+                              placeholder: (context, url) =>
+                                  ShimmerEffect(
+                                      width: Get.width * 0.8,
+                                      height: 140),
+                              errorWidget: (context, url, error) =>
+                              const Icon(Icons.image_outlined),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                         );
                       },
                     ),
-                  )
-                      :  Container(
-                        margin: const EdgeInsets.only(top: 16),
-                        // Added Container to ensure constraints
-                        height: 150,
-                        // Explicit height for the ListView
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                          controller.foodModel.imageList?.length ?? 0,
-                          itemBuilder: (context, imageIndex) {
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: CachedNetworkImage(
-                                  width: Get.width * 0.8,
-                                  imageUrl: controller
-                                      .foodModel.imageList?[imageIndex] ??
-                                      '',
-                                  placeholder: (context, url) =>
-                                      ShimmerEffect(
-                                          width: Get.width * 0.8,
-                                          height: 140),
-                                  errorWidget: (context, url, error) =>
-                                  const Icon(Icons.image_outlined),
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      )
+                  ),
                 ),
 
                 const SizedBox(

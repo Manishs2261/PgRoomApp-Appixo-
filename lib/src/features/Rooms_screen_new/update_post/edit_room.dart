@@ -52,7 +52,7 @@ class _EditRoomPostListState extends State<EditRoomPostList> {
           ),
           ListTile(
             leading: const Icon(Icons.edit),
-            title: const Text('FAQ'),
+            title: const Text('FAQ And Rules'),
             trailing: const Icon(
               Icons.arrow_forward_ios,
               size: 16,

@@ -6,15 +6,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+import '../../../../../data/repository/apis/tiffine_services_api.dart';
 import '../../../../../res/route_name/routes_name.dart';
 
-class FirstFoodUpdateFormController extends GetxController {
+class FirstFoodUpdateController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   final FoodModel foodModel = Get.arguments;
 
   // food type
-  late RxString foodShopType ;
+  late RxString foodShopType;
 
   late final TextEditingController nameController;
 
@@ -34,7 +35,6 @@ class FirstFoodUpdateFormController extends GetxController {
 
   @override
   onInit() {
-
     nameController = TextEditingController(text: foodModel.shopName);
     descriptionController = TextEditingController(text: foodModel.description);
     addressController = TextEditingController(text: foodModel.address);
@@ -67,12 +67,6 @@ class FirstFoodUpdateFormController extends GetxController {
     if (!formKey.currentState!.validate()) {
       return;
     }
-
-    if (imageFiles.isEmpty) {
-      AppHelperFunction.showSnackBar('Please select images');
-      return;
-    }
-
-    Get.toNamed(RoutesName.secondFoodFormScreen);
+    Get.toNamed(RoutesName.secondFoodUpdateForm, arguments: foodModel);
   }
 }

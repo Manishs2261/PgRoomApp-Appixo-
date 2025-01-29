@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
-class FourFoodUpdateFormController extends GetxController {
+class FourFoodUpdateController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
 
@@ -121,7 +121,5 @@ class FourFoodUpdateFormController extends GetxController {
     foodFAQ.removeAt(index);
 
   }
-
-
 
 }

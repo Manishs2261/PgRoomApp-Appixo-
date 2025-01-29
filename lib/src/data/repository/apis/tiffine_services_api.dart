@@ -484,7 +484,8 @@ class TiffineServicesApis {
   static final homeController = Get.put(HomeController());
 
   static Future<bool> addFoodData(
-      {required String foodShopName,
+      {
+        required String foodShopName,
       required String typeOfShop,
       required String description,
       required String address,
@@ -508,7 +509,9 @@ class TiffineServicesApis {
       required List<RestructureMenuList> restructureItemList,
       required List<FoodFAQ> foodFAQ,
       required List<String> mealRule,
-      required String typeFood}) async {
+      required String typeFood
+
+      }) async {
     AppHelperFunction.showCenterCircularIndicator(true);
 
     if (homeController.user.isNotEmpty) {
@@ -709,6 +712,154 @@ class TiffineServicesApis {
       return false; // Return false if an error occurs
     }
   }
+
+
+  static Future<bool> updateFoodData({
+    required String documentId,
+    required String foodShopName,
+    required String typeOfShop,
+    required String description,
+    required String address,
+    required String landmark,
+    required String city,
+    required List<File> imageFiles,
+    required String state,
+    required String latitude,
+    required String longitude,
+    required String breakfastCost,
+    required String lunchOrDinnerCost,
+    required String lunchAndDinnerCost,
+    required String breakfastAndLunchOrDinnerCost,
+    required List<SubscriptionList> subscriptionList,
+    required String thaliCost,
+    required String aCupOfRice,
+    required String roti,
+    required String sabji,
+    required String dal,
+    required List<DailyItemList> dailyItemList,
+    required List<RestructureMenuList> restructureItemList,
+    required List<FoodFAQ> foodFAQ,
+    required List<String> mealRule,
+    required String foodCategory,
+    required List<String> imageUrlsList,
+  }) async {
+    AppHelperFunction.showCenterCircularIndicator(false);
+
+    try {
+      List<String> imageUrls = List.from(imageUrlsList);
+
+      final updatedItem = {
+         'shopName': foodShopName,
+         'typeOfShop': typeOfShop,
+         'description': description,
+         'address': address,
+         'landmark': landmark,
+        'city': city,
+         'state': state,
+         'foodCategory': foodCategory,
+         'breakfastCost': breakfastCost,
+         'breakfastAndLunchOrDinnerCost': breakfastAndLunchOrDinnerCost,
+         'lunchOrDinnerCost': lunchOrDinnerCost,
+         'lunchAndDinnerCost': lunchAndDinnerCost,
+        'SubscriptionList': subscriptionList.map((item) => item.toJson()).toList(),
+         'DailyItemList': dailyItemList.map((item) => item.toJson()).toList(),
+        'RestructureMenuList': restructureItemList.map((item) => item.toJson()).toList(),
+         'messRules': mealRule,
+         'FAQ': foodFAQ.map((item) => item.toJson()).toList(),
+        'latitude': latitude,
+        'longitude': longitude,
+        'aCupOfRice': aCupOfRice,
+        'thaliCost': thaliCost,
+        'sabji': sabji,
+        'dal': dal,
+        'roti': roti,
+        'atUpdate': DateTime.now().toIso8601String(),
+      };
+
+      await FirebaseFirestore.instance
+          .collection("DevFoodCollection")
+          .doc(documentId)
+          .update(updatedItem)
+          .timeout(const Duration(seconds: 20), onTimeout: () {
+        Navigator.pop(Get.context!);
+        throw TimeoutException("The operation timed out");
+      });
+
+      if (imageFiles.isNotEmpty) {
+        // Deleting old images
+        for (String imageUrl in imageUrlsList) {
+          await deleteImageFromFirebase(imageUrl);
+        }
+
+        imageUrls.clear();
+
+        // Uploading new images
+        for (File imageFile in imageFiles) {
+          try {
+            String imageUrl =
+            await uploadImageToFirebase(imageFile, documentId);
+            imageUrls.add(imageUrl);
+          } catch (e) {
+            AppLoggerHelper.error("Error uploading image: \$e");
+            Navigator.pop(Get.context!);
+            return false;
+          }
+        }
+
+        await FirebaseFirestore.instance
+            .collection("DevFoodCollection")
+            .doc(documentId)
+            .update({'imageList': imageUrls}).whenComplete(() {
+          Navigator.pop(Get.context!);
+          AppLoggerHelper.info("Document updated successfully");
+        });
+      } else {
+        Navigator.pop(Get.context!);
+        AppLoggerHelper.info('No images to update');
+      }
+      return true;
+    } catch (e) {
+      Navigator.pop(Get.context!);
+      AppLoggerHelper.error("Error updating document: $e");
+      return false;
+    }
+  }
+
+
+  static Future<void> deleteImageFromFirebase(String imageUrl) async {
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.delete();
+      AppLoggerHelper.info("Image deleted successfully");
+    } catch (e) {
+      AppLoggerHelper.info("data in not delete $e");
+    }
+  }
+
+  static Future<bool> deleteRoomData(
+      {required String documentId, required List<String> imageUrls}) async {
+    try {
+      // Delete images from storage
+      for (String imageUrl in imageUrls) {
+        await deleteImageFromFirebase(imageUrl);
+      }
+
+      // Delete Firestore document
+      await FirebaseFirestore.instance
+          .collection("DevFoodCollection")
+          .doc(documentId)
+          .delete();
+
+      AppLoggerHelper.info("Document and images deleted successfully");
+      return true;
+    } catch (e) {
+      AppLoggerHelper.error("Error deleting document and images: $e");
+      return false;
+    }
+  }
+
+
+
 }
 
 

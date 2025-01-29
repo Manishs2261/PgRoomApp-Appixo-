@@ -20,8 +20,6 @@ final RoomModel roomData = Get.arguments;
   // To store selected facilities
   TextEditingController newHouseRulesController = TextEditingController();
 
-
-
   @override
   void onInit() {
     selectedHouseRules.addAll(roomData.houseRules ?? []);

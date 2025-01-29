@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
  import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -194,12 +195,31 @@ class  ThirdRoomUpdateFormController extends GetxController {
     }
   }
 
-  void onSaveAndNext() {
+  Future<void> onSaveAndNext() async {
     if (lastTappedPosition == null) {
       AppHelperFunction.showSnackBar('Please Select Location Marker');
       return;
     }
 
+    final lat = lastTappedPosition?.latitude.toString();
+    final lng = lastTappedPosition?.longitude.toString();
+    final docId =  roomData.rId?.toString();
 
+    if (lat == null || lng == null || docId == null) {
+      AppHelperFunction.showSnackBar('Invalid location or service data');
+      return;
+    }
+
+    final isUpdated = await ApisClass.updateRoomMapData(
+      latitude: lat,
+      longitude: lng,
+      documentId: docId,
+    );
+
+    if (isUpdated) {
+      Get.close(3); // Close three screens at once
+    } else {
+      Navigator.pop(Get.context!);
+    }
   }
 }

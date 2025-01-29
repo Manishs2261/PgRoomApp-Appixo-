@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -47,12 +48,24 @@ class FirstRoomUpdateFormController extends GetxController {
 
   @override
   onInit() {
-    roomOwnerType = roomModel.roomOwnershipType.toString().obs;
-    roomType = roomModel.roomType.toString().obs;
-    roomCategory = roomModel.roomCategory.toString().obs;
-    genderType = roomModel.genderType.toString().obs;
-    mealsAvailable = roomModel.mealsAvailable.toString().obs;
-    flatType = roomModel.flatType.toString().obs;
+    roomOwnerType = roomModel.roomOwnershipType
+        .toString()
+        .obs;
+    roomType = roomModel.roomType
+        .toString()
+        .obs;
+    roomCategory = roomModel.roomCategory
+        .toString()
+        .obs;
+    genderType = roomModel.genderType
+        .toString()
+        .obs;
+    mealsAvailable = roomModel.mealsAvailable
+        .toString()
+        .obs;
+    flatType = roomModel.flatType
+        .toString()
+        .obs;
 
     roomNameController = TextEditingController(text: roomModel.houseName);
     singleRoomPriceController =
@@ -86,15 +99,37 @@ class FirstRoomUpdateFormController extends GetxController {
     }
   }
 
+  onDataSave() async {
+  bool value = await  ApisClass.updateRoomDetailsData(
+        documentId: roomModel.rId.toString(),
+        roomOwnershipType: roomOwnerType.value,
+        houseName: roomNameController.text,
+        roomCategory: roomCategory.value ,
+        genderType: genderType.value ,
+        roomType: roomType.value,
+        flatType: flatType.value,
+        imageFiles: imageFiles,
+        imageUrlsList:  roomModel.imageList ?? [],
+        bhkCost: bhkCostController.text,
+        singlePersonCost: singleRoomPriceController.text,
+        doublePersonCost: doubleRoomPriceController.text,
+        triplePersonCost: tripleRoomPriceController.text,
+        triplePlusCost: threePlusRoomPriceController.text,
+    );
+  if (value) {
+    Navigator.pop(Get.context!);
+    AppHelperFunction.showFlashbar('Updated successfully.');
+  } else {
+    AppHelperFunction.showFlashbar('Something went wrong.');
+  }
+  }
+
   onSaveAndNext() {
     if (!formKey.currentState!.validate()) {
       // Form validation failed
       return;
     }
 
-    if (imageFiles.isEmpty) {
-      AppHelperFunction.showSnackBar('Please select images');
-      return;
-    }
+    onDataSave();
   }
 }

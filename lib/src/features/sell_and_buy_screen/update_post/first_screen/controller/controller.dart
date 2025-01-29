@@ -58,19 +58,22 @@ class SellAndBuyUpdateController extends GetxController {
   }
 
   onDataSave() async {
-    bool value = await SellAndBuyApis.addSellAndBuyData(
-      itemName: nameController.text,
-      description: descriptionController.text,
-      imageFiles: imageFiles,
-      address: addressController.text,
-      landmark: landmarkController.text,
-      city: cityController.text,
-      state: stateController.text,
-      price: priceController.text,
+    bool value = await SellAndBuyApis.updateSellAndBuyData(
+        documentId:  sellAndBuyData.sabId.toString(),
+        itemName:nameController.text ,
+        price:priceController.text ,
+        description: descriptionController.text,
+        imageFiles: imageFiles,
+        imageUrlsList:  sellAndBuyData.image!,
+        address: addressController.text,
+        landmark: landmarkController.text,
+        city: cityController.text,
+        state: stateController.text,
     );
+
     if (value) {
       Navigator.pop(Get.context!);
-      AppHelperFunction.showFlashbar('Saved successfully.');
+      AppHelperFunction.showFlashbar('Updated successfully.');
     } else {
       AppHelperFunction.showFlashbar('Something went wrong.');
     }
@@ -81,10 +84,6 @@ class SellAndBuyUpdateController extends GetxController {
       return;
     }
 
-    if (imageFiles.isEmpty) {
-      AppHelperFunction.showSnackBar('Please select images');
-      return;
-    }
     onDataSave();
   }
 }

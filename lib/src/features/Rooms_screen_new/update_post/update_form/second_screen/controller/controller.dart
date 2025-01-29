@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 
+import '../../../../../../utils/helpers/helper_function.dart';
 
-class SecondRoomUpdateFormController extends GetxController{
+
+class SecondRoomUpdateFormController extends GetxController {
 
 
   final formKey = GlobalKey<FormState>();
@@ -14,9 +17,9 @@ class SecondRoomUpdateFormController extends GetxController{
   late RxString mealsAvailable;
 
   // Common facilities & house rules
-  late RxList<String> selectedCommonAreas ;
+  late RxList<String> selectedCommonAreas;
 
-  late RxList<String> selectedBills ;
+  late RxList<String> selectedBills;
 
   RxList availableBills = [
     "Electricity",
@@ -55,15 +58,20 @@ class SecondRoomUpdateFormController extends GetxController{
     'Attached Bathroom',
   ].obs;
 
-  late RxList<String> selectedFacilities ;
+  late RxList<String> selectedFacilities;
 
   // To store selected facilities
- late final TextEditingController houseAddressController ;
-  late final TextEditingController landmarkController ;
-  late final TextEditingController cityController ;
-  late final TextEditingController stateController ;
+  late final TextEditingController houseAddressController;
+
+  late final TextEditingController landmarkController;
+
+  late final TextEditingController cityController;
+
+  late final TextEditingController stateController;
+
   late final TextEditingController numberOfRoomController;
-  late final TextEditingController oneTimeDepositController ;
+  late final TextEditingController oneTimeDepositController;
+
   TextEditingController addNewFacilityController = TextEditingController();
   TextEditingController addCommonAreaController = TextEditingController();
   TextEditingController addBillsController = TextEditingController();
@@ -76,16 +84,19 @@ class SecondRoomUpdateFormController extends GetxController{
     cityController = TextEditingController(text: roomData.city);
     stateController = TextEditingController(text: roomData.state);
     numberOfRoomController = TextEditingController(text: roomData.totalRoom);
-    oneTimeDepositController = TextEditingController(text: roomData.depositAmount);
+    oneTimeDepositController =
+        TextEditingController(text: roomData.depositAmount);
 
     selectedFacilities = <String>[].obs;
     selectedBills = <String>[].obs;
     selectedCommonAreas = <String>[].obs;
 
     selectedFacilities.addAll(roomData.roomFacilityList ?? []);
-     selectedBills.addAll(roomData.billsList ?? []);
-     selectedCommonAreas.addAll(roomData.commonAreasList ?? []);
-    mealsAvailable = roomData.mealsAvailable.toString().obs;
+    selectedBills.addAll(roomData.billsList ?? []);
+    selectedCommonAreas.addAll(roomData.commonAreasList ?? []);
+    mealsAvailable = roomData.mealsAvailable
+        .toString()
+        .obs;
     super.onInit();
   }
 
@@ -114,13 +125,37 @@ class SecondRoomUpdateFormController extends GetxController{
   }
 
 
+  onSaveData() async {
+   bool value = await ApisClass.updateRoomAddressData(
+        documentId: roomData.rId.toString(),
+        address: houseAddressController.text ,
+        landmark: landmarkController.text,
+        city: cityController.text,
+        state:  stateController.text,
+        totalRoom: numberOfRoomController.text,
+        isMealsAvailable:  mealsAvailable.value,
+        depositAmount: oneTimeDepositController.text ,
+        facilities: selectedFacilities ,
+        commonArea: selectedCommonAreas,
+        bills: selectedBills
+    );
+
+    if (value) {
+      Navigator.pop(Get.context!);
+      AppHelperFunction.showFlashbar('Updated successfully.');
+    } else {
+      AppHelperFunction.showFlashbar('Something went wrong.');
+    }
+
+  }
+
+
   onSaveAndNext() {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-
-
+    onSaveData();
   }
 
 

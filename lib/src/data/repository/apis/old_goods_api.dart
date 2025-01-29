@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -337,5 +338,119 @@ class SellAndBuyApis {
       throw Exception("Image upload failed");
     }
   }
+
+
+  static Future<bool> updateSellAndBuyData({
+    required String documentId,
+    required String itemName,
+    required String price,
+    required String description,
+    required List<File> imageFiles,
+    required List<String> imageUrlsList,
+    required String address,
+    required String landmark,
+    required String city,
+    required String state,
+  }) async {
+    AppHelperFunction.showCenterCircularIndicator(true);
+
+    try {
+      List<String> imageUrls = List.from(imageUrlsList);
+
+      final updatedItem = {
+        'itemName': itemName,
+        'price': price,
+        'description': description,
+        'address': address,
+        'landmark': landmark,
+        'city': city,
+        'state': state,
+        'atUpdate': DateTime.now().toString(),
+      };
+
+      await FirebaseFirestore.instance
+          .collection("DevBuyAndSellCollection")
+          .doc(documentId)
+          .update(updatedItem)
+          .timeout(const Duration(seconds: 20), onTimeout: () {
+        Navigator.pop(Get.context!);
+        throw TimeoutException("The operation timed out");
+      });
+
+      if (imageFiles.isNotEmpty) {
+        // Deleting old images
+        for (String imageUrl in imageUrlsList) {
+          await deleteImageFromFirebase(imageUrl);
+        }
+
+        imageUrls.clear();
+
+        // Uploading new images
+        for (File imageFile in imageFiles) {
+          try {
+            String imageUrl =
+            await uploadImageToFirebase(imageFile, documentId);
+            imageUrls.add(imageUrl);
+          } catch (e) {
+            AppLoggerHelper.error("Error uploading image: \$e");
+            Navigator.pop(Get.context!);
+            return false;
+          }
+        }
+
+        await FirebaseFirestore.instance
+            .collection("DevBuyAndSellCollection")
+            .doc(documentId)
+            .update({'image': imageUrls}).whenComplete(() {
+          Navigator.pop(Get.context!);
+          AppLoggerHelper.info("Document updated successfully");
+        });
+      } else {
+        Navigator.pop(Get.context!);
+        AppLoggerHelper.info('No images to update');
+      }
+      return true;
+    } catch (e) {
+      Navigator.pop(Get.context!);
+      AppLoggerHelper.error("Error updating document: \$e");
+      return false;
+    }
+  }
+
+
+  static Future<void> deleteImageFromFirebase(String imageUrl) async {
+    try {
+      final ref = storage.refFromURL(imageUrl);
+      await ref.delete();
+      AppLoggerHelper.info("Image deleted successfully");
+    } catch (e) {
+      AppLoggerHelper.info("data in not delete $e");
+    }
+  }
+
+  static Future<bool> deleteRoomData(
+      {required String documentId, required List<String> imageUrls}) async {
+    try {
+      // Delete images from storage
+      for (String imageUrl in imageUrls) {
+        await deleteImageFromFirebase(imageUrl);
+      }
+
+      // Delete Firestore document
+      await FirebaseFirestore.instance
+          .collection("DevBuyAndSellCollection")
+          .doc(documentId)
+          .delete();
+
+      AppLoggerHelper.info("Document and images deleted successfully");
+      return true;
+    } catch (e) {
+      AppLoggerHelper.error("Error deleting document and images: $e");
+      return false;
+    }
+  }
+
+
+
 
 }

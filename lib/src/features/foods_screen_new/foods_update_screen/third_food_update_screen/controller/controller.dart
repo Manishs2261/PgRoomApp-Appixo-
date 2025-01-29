@@ -11,9 +11,9 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../../../res/route_name/routes_name.dart';
 
-class ThirdFoodUpdateFormController extends GetxController {
+class ThirdFoodUpdateController extends GetxController {
   final Completer<GoogleMapController> mapController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController>();
 
   final RxSet<Marker> markers = <Marker>{}.obs;
 
@@ -181,7 +181,7 @@ class ThirdFoodUpdateFormController extends GetxController {
           infoWindow: InfoWindow(
             title: 'Selected Location',
             snippet:
-                'Lat: ${tappedPoint.latitude}, Lng: ${tappedPoint.longitude}',
+            'Lat: ${tappedPoint.latitude}, Lng: ${tappedPoint.longitude}',
           ),
         ),
       );
@@ -201,6 +201,6 @@ class ThirdFoodUpdateFormController extends GetxController {
       return;
     }
 
-    Get.toNamed(RoutesName.thirdServicesForm);
+    Get.toNamed(RoutesName.fourthFoodUpdateForm, arguments: foodModel);
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:pgroom/src/data/repository/apis/services_api.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
@@ -194,12 +195,32 @@ class SecondUpdateServicesFormController extends GetxController {
     }
   }
 
-  void onSaveAndNext() {
+  Future<void> onSaveAndNext() async {
     if (lastTappedPosition == null) {
       AppHelperFunction.showSnackBar('Please Select Location Marker');
       return;
     }
 
-    Get.toNamed(RoutesName.thirdServicesForm);
+    final lat = lastTappedPosition?.latitude.toString();
+    final lng = lastTappedPosition?.longitude.toString();
+    final docId = servicesData.sId?.toString();
+
+    if (lat == null || lng == null || docId == null) {
+      AppHelperFunction.showSnackBar('Invalid location or service data');
+      return;
+    }
+
+    final isUpdated = await ServicesApis.updateServicesMapData(
+      latitude: lat,
+      longitude: lng,
+      documentId: docId,
+    );
+
+    if (isUpdated) {
+      Get.close(3); // Close three screens at once
+    } else {
+      Navigator.pop(Get.context!);
+    }
   }
+
 }

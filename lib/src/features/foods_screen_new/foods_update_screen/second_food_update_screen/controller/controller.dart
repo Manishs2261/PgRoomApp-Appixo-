@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../../res/route_name/routes_name.dart';
 import '../../../model/food_model.dart';
 
-class SecondFoodUpdateFormController extends GetxController {
+class SecondFoodUpdateController extends GetxController {
   final FoodModel foodModel = Get.arguments;
 
   late RxString foodType;
@@ -88,7 +89,7 @@ class SecondFoodUpdateFormController extends GetxController {
             children: [
               TextField(
                 decoration:
-                    const InputDecoration(labelText: 'Enter Subscription Name'),
+                const InputDecoration(labelText: 'Enter Subscription Name'),
                 onChanged: (value) {
                   itemName = value;
                 },
@@ -96,7 +97,7 @@ class SecondFoodUpdateFormController extends GetxController {
               const SizedBox(height: 16),
               TextField(
                 decoration:
-                    const InputDecoration(labelText: 'Enter Subscription Cost'),
+                const InputDecoration(labelText: 'Enter Subscription Cost'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   itemPrice = value;
@@ -147,7 +148,7 @@ class SecondFoodUpdateFormController extends GetxController {
             children: [
               TextField(
                 decoration:
-                    const InputDecoration(labelText: 'Enter Subscription Name'),
+                const InputDecoration(labelText: 'Enter Subscription Name'),
                 onChanged: (value) {
                   itemName = value;
                 },
@@ -155,7 +156,7 @@ class SecondFoodUpdateFormController extends GetxController {
               const SizedBox(height: 16),
               TextField(
                 decoration:
-                    const InputDecoration(labelText: 'Enter Subscription Cost'),
+                const InputDecoration(labelText: 'Enter Subscription Cost'),
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   itemPrice = value;
@@ -206,7 +207,7 @@ class SecondFoodUpdateFormController extends GetxController {
             children: [
               TextField(
                 decoration:
-                    const InputDecoration(labelText: 'Enter Daily Itme Name'),
+                const InputDecoration(labelText: 'Enter Daily Itme Name'),
                 onChanged: (value) {
                   itemName = value;
                 },
@@ -266,5 +267,6 @@ class SecondFoodUpdateFormController extends GetxController {
     if (!formKey.currentState!.validate()) {
       return;
     }
+    Get.toNamed(RoutesName. thirdFoodUpdateForm, arguments: foodModel);
   }
 }

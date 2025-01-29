@@ -138,7 +138,7 @@ class DetailsOfSellAndBuy extends StatelessWidget {
                 height: 4,
               ),
               Text(
-                " Post Date- ${AppHelperFunction.printFormattedDate(controller.data.atCreate!)}",
+                " Post Date- ${AppHelperFunction.printFormattedDate(controller.data.atUpdate!)}",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

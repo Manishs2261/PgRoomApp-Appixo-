@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/services_api.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
@@ -65,7 +66,7 @@ class _ServicesUpdateListState extends State<ServicesUpdateList> {
                         !listOfServicesController.isLoadingMore.value
                     ? Center(
                         child: Text(
-                          'No rooms available. Pull to refresh.',
+                          'No Post available.',
                           style: TextStyle(color: Colors.grey, fontSize: 16),
                         ),
                       )
@@ -133,52 +134,26 @@ class ListOfServicesCardWidgets extends StatelessWidget {
               SizedBox(
                 height: 140,
                 // Set a fixed height for the PageView
-                child: Stack(
-                  children: [
-                    ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: servicesModel.image?.length ?? 0,
-                        itemBuilder: (context, imageIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: CachedNetworkImage(
-                                width: Get.width * 0.8,
-                                imageUrl:
-                                    servicesModel.image?[imageIndex] ?? '',
-                                placeholder: (context, url) => ShimmerEffect(
-                                    width: Get.width * 0.8, height: 140),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.image_outlined),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        }),
-                    Positioned(
-                      top: 1,
-                      left: 1,
-                      child: Container(
-                          margin: EdgeInsets.all(8),
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(100),
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: servicesModel.image?.length ?? 0,
+                    itemBuilder: (context, imageIndex) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: CachedNetworkImage(
+                            width: Get.width * 0.8,
+                            imageUrl: servicesModel.image?[imageIndex] ?? '',
+                            placeholder: (context, url) => ShimmerEffect(
+                                width: Get.width * 0.8, height: 140),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.image_outlined),
+                            fit: BoxFit.cover,
                           ),
-                          child: false
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  Icons.favorite_border_outlined,
-                                  color: Colors.white,
-                                  size: 20,
-                                )),
-                    ),
-                  ],
-                ),
+                        ),
+                      );
+                    }),
               ),
               const SizedBox(height: 12),
               // Room details
@@ -207,17 +182,16 @@ class ListOfServicesCardWidgets extends StatelessWidget {
                 children: [
                   // Chat Now Button with Gradient
                   GradientButton(
-                    icon: Icons.edit,
-                    iconColor: Colors.blue,
-                    label: 'Edit',
-                    colors: const [Colors.transparent, Colors.transparent],
-                    borderColor: Colors.blue,
-                    textColor: Colors.blue,
-                    onPressed: () => Get.toNamed(
-                      RoutesName.editServicesPostList,
-                      arguments: servicesModel,
-                    )
-                  ),
+                      icon: Icons.edit,
+                      iconColor: Colors.blue,
+                      label: 'Edit',
+                      colors: const [Colors.transparent, Colors.transparent],
+                      borderColor: Colors.blue,
+                      textColor: Colors.blue,
+                      onPressed: () => Get.toNamed(
+                            RoutesName.editServicesPostList,
+                            arguments: servicesModel,
+                          )),
                   // Call Now Button with Gradient
                   GradientButton(
                     icon: Icons.delete,
@@ -226,9 +200,9 @@ class ListOfServicesCardWidgets extends StatelessWidget {
                     textColor: Colors.red,
                     borderColor: Colors.red,
                     colors: const [Colors.transparent, Colors.transparent],
-                    onPressed: () {
-                      // Handle call action
-                    },
+                    onPressed: () => ServicesApis.deleteServiceData(
+                        documentId: servicesModel.sId.toString(),
+                        imageUrls: servicesModel.image ?? []),
                   ),
                 ],
               )

@@ -54,11 +54,10 @@ import '../../features/foods_screen_new/foods_form_screen/first_food_form/first_
 import '../../features/foods_screen_new/foods_form_screen/fourth_food_form/fourth_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/second_food_form/second_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/third_food_form/third_food_form.dart';
-import '../../features/foods_screen_new/update_post/edit_post.dart';
-import '../../features/foods_screen_new/update_post/first_screen/first_screen.dart';
-import '../../features/foods_screen_new/update_post/fourth_screen/fourth_screen.dart';
-import '../../features/foods_screen_new/update_post/second_screen/second_screen.dart';
-import '../../features/foods_screen_new/update_post/third_screen/third_screen.dart';
+import '../../features/foods_screen_new/foods_update_screen/first_food_update_screen/first_food_update_screen.dart';
+import '../../features/foods_screen_new/foods_update_screen/fourth_food_update_screen/fourth_food_update_screen.dart';
+import '../../features/foods_screen_new/foods_update_screen/second_food_update_screen/second_food_update_screen.dart';
+import '../../features/foods_screen_new/foods_update_screen/third_food_update_screen/third_food_update_screen.dart';
 import '../../features/old_goods/add_your_goods/add_your_goods.dart';
 import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
 import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
@@ -570,11 +569,7 @@ class AppRoutes {
             page: () => SellAndBuyUpdateForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editFoodPostList,
-            page: () => EditFoodPostList(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
+
         GetPage(
             name: RoutesName.editRoomPostList,
             page: () => EditRoomPostList(),
@@ -626,5 +621,7 @@ class AppRoutes {
             page: () => FourthFoodUpdateForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
+
+
       ];
 }
