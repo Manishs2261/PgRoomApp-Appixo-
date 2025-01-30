@@ -8,10 +8,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pgroom/src/data/repository/apis/services_api.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
-
-import '../../../../../res/route_name/routes_name.dart';
+import '../../../../Home_fitter_new/view_your_post/view_screen/services_update/controller/controller.dart';
 
 class SecondUpdateServicesFormController extends GetxController {
+
+  final listOfServicesController = Get.put(ListOfServicesUpdateController());
+
   final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
 
@@ -217,7 +219,11 @@ class SecondUpdateServicesFormController extends GetxController {
     );
 
     if (isUpdated) {
-      Get.close(3); // Close three screens at once
+      Get.close(3);
+      listOfServicesController.servicesListData.clear();
+      listOfServicesController.lastDocument = null;
+      listOfServicesController.hasMoreData.value = true;
+      await listOfServicesController.fetchData();
     } else {
       Navigator.pop(Get.context!);
     }

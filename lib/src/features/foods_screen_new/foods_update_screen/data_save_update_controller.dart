@@ -6,10 +6,12 @@ import 'package:pgroom/src/features/foods_screen_new/foods_update_screen/third_f
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
 import '../../../utils/helpers/helper_function.dart';
- import 'first_food_update_screen/controlller/controller.dart';
+ import '../../Home_fitter_new/view_your_post/view_screen/food_update/controller/controller.dart';
+import 'first_food_update_screen/controlller/controller.dart';
 import 'fourth_food_update_screen/controller/controller.dart';
 
 class FoodDataSaveController extends GetxController {
+  final listOfFoodController = Get.put(FoodUpdateListController());
   final firstFoodFormController = Get.put(FirstFoodUpdateController());
 
   final secondFoodFormController = Get.put(SecondFoodUpdateController());
@@ -57,10 +59,11 @@ class FoodDataSaveController extends GetxController {
     );
 
     if (value) {
-      Navigator.pop(Get.context!);
-      Navigator.pop(Get.context!);
-      Navigator.pop(Get.context!);
-      Navigator.pop(Get.context!);
+      Get.close(4);
+      listOfFoodController.foodListData.clear();
+      listOfFoodController.lastDocument = null;
+      listOfFoodController.hasMoreData.value = true;
+      await listOfFoodController.fetchData();
       AppHelperFunction.showFlashbar('updated  successfully.');
     } else {
       AppHelperFunction.showFlashbar('Something went wrong.');

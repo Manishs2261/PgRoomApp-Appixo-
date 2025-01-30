@@ -7,10 +7,12 @@ import 'package:pgroom/src/data/repository/apis/services_api.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../../../res/route_name/routes_name.dart';
+import '../../../../Home_fitter_new/view_your_post/view_screen/services_update/controller/controller.dart';
 import '../../../model/services_model.dart';
 
 class FirstUpdateServicesFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
+  final listOfServicesController = Get.put(ListOfServicesUpdateController());
 
   final ServicesModel servicesData = Get.arguments;
   RxList<ServiceFAQ> servicesFAQ = <ServiceFAQ>[].obs;
@@ -83,6 +85,10 @@ class FirstUpdateServicesFormController extends GetxController {
 
     if (value) {
       Get.close(2);
+      listOfServicesController.servicesListData.clear();
+      listOfServicesController.lastDocument = null;
+      listOfServicesController.hasMoreData.value = true;
+      await listOfServicesController.fetchData();
     } else {
       Navigator.pop(Get.context!);
     }
@@ -159,4 +165,6 @@ class FirstUpdateServicesFormController extends GetxController {
   void removeServicesFAQ(int index) {
     servicesFAQ.removeAt(index);
   }
+
+
 }

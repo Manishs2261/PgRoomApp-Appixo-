@@ -564,13 +564,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            Container(
-              height: 200,
-              width: 100,
-              decoration: const BoxDecoration(
-                color: Colors.yellow
-              ),
-            ),
+
             const GradientCardWidgets(),
           ],
         ),

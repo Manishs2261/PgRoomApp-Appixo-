@@ -100,12 +100,13 @@ class _ServicesUpdateListState extends State<ServicesUpdateList> {
 }
 
 class ListOfServicesCardWidgets extends StatelessWidget {
-  const ListOfServicesCardWidgets({
+   ListOfServicesCardWidgets({
     super.key,
     required this.servicesModel,
   });
 
   final ServicesModel servicesModel;
+  final listOfServicesController = Get.put(ListOfServicesUpdateController());
 
   @override
   Widget build(BuildContext context) {
@@ -200,9 +201,43 @@ class ListOfServicesCardWidgets extends StatelessWidget {
                     textColor: Colors.red,
                     borderColor: Colors.red,
                     colors: const [Colors.transparent, Colors.transparent],
-                    onPressed: () => ServicesApis.deleteServiceData(
-                        documentId: servicesModel.sId.toString(),
-                        imageUrls: servicesModel.image ?? []),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Confirm Delete'),
+                            content: Text(
+                                'Are you sure you want to delete this item?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(); // Close the dialog
+                                },
+                                child: Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  ServicesApis.deleteServiceData(
+                                      documentId: servicesModel.sId!,
+                                      imageUrls: servicesModel.image!).whenComplete( () async {
+                                    listOfServicesController.servicesListData.clear();
+                                    listOfServicesController.lastDocument = null;
+                                    listOfServicesController.hasMoreData.value = true;
+                                    await listOfServicesController.fetchData();
+                                      });
+                                  // Close the dialog
+                                  // Perform the delete action here
+                                },
+                                child: Text('Delete',
+                                    style: TextStyle(color: Colors.red)),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               )

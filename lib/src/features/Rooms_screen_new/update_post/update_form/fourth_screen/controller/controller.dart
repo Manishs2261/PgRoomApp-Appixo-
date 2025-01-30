@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
+
+import '../../../../../../utils/helpers/helper_function.dart';
+import '../../../../../Home_fitter_new/view_your_post/view_screen/room_update/controller/controller.dart';
 
 class FourthRoomUpdateFormController extends GetxController {
   final formKey = GlobalKey<FormState>();
-final RoomModel roomData = Get.arguments;
+  final listOfRoomController = Get.put(RoomUpdateListController());
+  final RoomModel roomData = Get.arguments;
   final RxList availableHouseRules = [
     "Available for Students & Working Professionals  ",
     "Non veg food is allowed",
@@ -107,5 +112,22 @@ final RoomModel roomData = Get.arguments;
   // Function to remove an item
   void removeHouseFAQ(int index) {
     houseFAQ.removeAt(index);
+  }
+
+  onUpdateDate() async {
+   bool status = await ApisClass.updateHouseFaqAndRulesData(
+        documentId: roomData.rId!,  faqs: houseFAQ, houseRules: selectedHouseRules);
+
+   if (status) {
+     Navigator.pop(Get.context!);
+     Navigator.pop(Get.context!);
+     listOfRoomController.roomListData.clear();
+     listOfRoomController.lastDocument = null;
+     listOfRoomController.hasMoreData.value = true;
+     await listOfRoomController.fetchData();
+     AppHelperFunction.showFlashbar('Updated successfully.');
+   } else {
+     AppHelperFunction.showFlashbar('Something went wrong.');
+   }
   }
 }

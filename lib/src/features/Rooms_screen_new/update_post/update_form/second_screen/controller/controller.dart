@@ -4,11 +4,12 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 
 import '../../../../../../utils/helpers/helper_function.dart';
+import '../../../../../Home_fitter_new/view_your_post/view_screen/room_update/controller/controller.dart';
 
 
 class SecondRoomUpdateFormController extends GetxController {
 
-
+  final listOfRoomController = Get.put(RoomUpdateListController());
   final formKey = GlobalKey<FormState>();
 
   final RoomModel roomData = Get.arguments;
@@ -142,6 +143,11 @@ class SecondRoomUpdateFormController extends GetxController {
 
     if (value) {
       Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
+      listOfRoomController.roomListData.clear();
+      listOfRoomController.lastDocument = null;
+      listOfRoomController.hasMoreData.value = true;
+      await listOfRoomController.fetchData();
       AppHelperFunction.showFlashbar('Updated successfully.');
     } else {
       AppHelperFunction.showFlashbar('Something went wrong.');

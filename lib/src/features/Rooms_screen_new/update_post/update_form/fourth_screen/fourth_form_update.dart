@@ -175,8 +175,8 @@ class FourthRoomUpdateFormScreen extends StatelessWidget {
                 // Save button
                 const SizedBox(height: 20),
                 ReuseElevButton(
-                  onPressed: () {},
-                  title: "Done",
+                  onPressed: () => controller.onUpdateDate(),
+                  title: "Update",
                 ),
                 const SizedBox(
                   height: 16,

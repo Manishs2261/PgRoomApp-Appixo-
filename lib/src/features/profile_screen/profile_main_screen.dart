@@ -184,7 +184,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add),
+            leading: const Icon(Icons.remove_red_eye),
             title: const Text('View all post'),
             trailing: const Icon(
               Icons.arrow_forward_ios,
@@ -215,48 +215,48 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   }
                 });
               }),
-          ListTile(
-              leading: const Icon(Icons.home_work),
-              title: const Text("View to Cart Room"),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                AuthApisClass.checkUserLogin().then((value) {
-                  if (value) {
-                    Get.toNamed(RoutesName.addToCardRoomScreen);
-                  }
-                });
-              }),
-          ListTile(
-              leading: const Icon(Icons.food_bank),
-              title: const Text("View to Cart Food"),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                AuthApisClass.checkUserLogin().then((value) {
-                  if (value) {
-                    Get.toNamed(RoutesName.addToCartTiffineScreen);
-                  }
-                });
-              }),
-          ListTile(
-              leading: const Icon(Icons.handshake),
-              title: const Text("View to Cart Deal"),
-              trailing: const Icon(
-                Icons.arrow_forward_ios,
-                size: 16,
-              ),
-              onTap: () {
-                AuthApisClass.checkUserLogin().then((value) {
-                  if (value) {
-                    Get.toNamed(RoutesName.addToCartGoodsScreen);
-                  }
-                });
-              }),
+          // ListTile(
+          //     leading: const Icon(Icons.home_work),
+          //     title: const Text("View to Cart Room"),
+          //     trailing: const Icon(
+          //       Icons.arrow_forward_ios,
+          //       size: 16,
+          //     ),
+          //     onTap: () {
+          //       AuthApisClass.checkUserLogin().then((value) {
+          //         if (value) {
+          //           Get.toNamed(RoutesName.addToCardRoomScreen);
+          //         }
+          //       });
+          //     }),
+          // ListTile(
+          //     leading: const Icon(Icons.food_bank),
+          //     title: const Text("View to Cart Food"),
+          //     trailing: const Icon(
+          //       Icons.arrow_forward_ios,
+          //       size: 16,
+          //     ),
+          //     onTap: () {
+          //       AuthApisClass.checkUserLogin().then((value) {
+          //         if (value) {
+          //           Get.toNamed(RoutesName.addToCartTiffineScreen);
+          //         }
+          //       });
+          //     }),
+          // ListTile(
+          //     leading: const Icon(Icons.handshake),
+          //     title: const Text("View to Cart Deal"),
+          //     trailing: const Icon(
+          //       Icons.arrow_forward_ios,
+          //       size: 16,
+          //     ),
+          //     onTap: () {
+          //       AuthApisClass.checkUserLogin().then((value) {
+          //         if (value) {
+          //           Get.toNamed(RoutesName.addToCartGoodsScreen);
+          //         }
+          //       });
+          //     }),
           Divider(
             color: Colors.grey.withOpacity(.3),
           ),

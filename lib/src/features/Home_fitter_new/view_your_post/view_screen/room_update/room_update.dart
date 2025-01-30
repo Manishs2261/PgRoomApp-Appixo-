@@ -3,6 +3,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
@@ -88,12 +89,13 @@ class RoomUpdateList extends StatelessWidget {
 }
 
 class RoomListCardWidgets extends StatelessWidget {
-  const RoomListCardWidgets({
+   RoomListCardWidgets({
     super.key,
     required this.roomListData,
   });
 
   final RoomModel roomListData;
+  final listOfRoomController = Get.put(RoomUpdateListController());
 
   @override
   Widget build(BuildContext context) {
@@ -259,9 +261,38 @@ class RoomListCardWidgets extends StatelessWidget {
                   borderColor: Colors.red,
                   colors: const [Colors.transparent, Colors.transparent],
                   onPressed: () {
-                    // Handle call action
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm Delete'),
+                          content: Text('Are you sure you want to delete this item?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                ApisClass.deleteRoomData(documentId: roomListData.rId!, imageUrls: roomListData.imageList!).whenComplete(() async {
+                                listOfRoomController.roomListData.clear();
+                                    listOfRoomController.lastDocument = null;
+                                    listOfRoomController.hasMoreData.value = true;
+                                    await listOfRoomController.fetchData();
+                                });
+                                // Perform the delete action here
+                              },
+                              child: Text('Delete', style: TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
+
               ],
             )
           ],

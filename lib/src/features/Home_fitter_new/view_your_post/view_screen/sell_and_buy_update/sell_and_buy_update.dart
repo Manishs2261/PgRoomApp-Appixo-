@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/old_goods_api.dart';
 import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
@@ -95,12 +96,13 @@ class SellAndBuyUpdateList extends StatelessWidget {
 }
 
 class SellAndBuyListCardWidgets extends StatelessWidget {
-  const SellAndBuyListCardWidgets({
+   SellAndBuyListCardWidgets({
     super.key,
     required this.buyAndSellModel,
   });
 
   final BuyAndSellModel buyAndSellModel;
+  final listOfSellAndBuyController = Get.put(SellAndBuyUpdateListController());
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +214,35 @@ class SellAndBuyListCardWidgets extends StatelessWidget {
                   borderColor: Colors.red,
                   colors: const [Colors.transparent, Colors.transparent],
                   onPressed: () {
-                    // Handle call action
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm Delete'),
+                          content: Text('Are you sure you want to delete this item?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                SellAndBuyApis.deleteSellAndBuyData(documentId: buyAndSellModel.sabId!, imageUrls: buyAndSellModel.image!).whenComplete(() async {
+                                  listOfSellAndBuyController.sellAndBuyModel.clear();
+                                  listOfSellAndBuyController.lastDocument = null;
+                                  listOfSellAndBuyController.hasMoreData.value = true;
+                                  await listOfSellAndBuyController.fetchData();
+                                });
+                                // Perform the delete action here
+                              },
+                              child: Text('Delete', style: TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ],

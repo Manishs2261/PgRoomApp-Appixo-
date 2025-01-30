@@ -7,8 +7,11 @@ import 'package:pgroom/src/data/repository/apis/old_goods_api.dart';
 import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+import '../../../../Home_fitter_new/view_your_post/view_screen/sell_and_buy_update/controller/controller.dart';
+
 class SellAndBuyUpdateController extends GetxController {
   final formKey = GlobalKey<FormState>();
+  final listOfSellAndBuyController = Get.put(SellAndBuyUpdateListController());
 
   final BuyAndSellModel sellAndBuyData = Get.arguments;
 
@@ -73,6 +76,10 @@ class SellAndBuyUpdateController extends GetxController {
 
     if (value) {
       Navigator.pop(Get.context!);
+      listOfSellAndBuyController.sellAndBuyModel.clear();
+      listOfSellAndBuyController.lastDocument = null;
+      listOfSellAndBuyController.hasMoreData.value = true;
+      await listOfSellAndBuyController.fetchData();
       AppHelperFunction.showFlashbar('Updated successfully.');
     } else {
       AppHelperFunction.showFlashbar('Something went wrong.');

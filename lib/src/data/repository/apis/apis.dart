@@ -1264,6 +1264,7 @@ class ApisClass {
 
   static Future<bool> deleteRoomData(
       {required String documentId, required List<String> imageUrls}) async {
+    AppHelperFunction.showCenterCircularIndicator(true);
     try {
       // Delete images from storage
       for (String imageUrl in imageUrls) {
@@ -1277,6 +1278,8 @@ class ApisClass {
           .delete();
 
       AppLoggerHelper.info("Document and images deleted successfully");
+      Navigator.pop(Get.context!);
+      Navigator.pop(Get.context!);
       return true;
     } catch (e) {
       AppLoggerHelper.error("Error deleting document and images: $e");

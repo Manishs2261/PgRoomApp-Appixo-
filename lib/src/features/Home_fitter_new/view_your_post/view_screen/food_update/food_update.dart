@@ -3,6 +3,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
@@ -90,12 +91,13 @@ class FoodUpdateList extends StatelessWidget {
 }
 
 class FoodListCardWidgets extends StatelessWidget {
-  const FoodListCardWidgets({
+   FoodListCardWidgets({
     super.key,
     required this.foodModel,
   });
 
   final FoodModel foodModel;
+  final listOfFoodController = Get.put(FoodUpdateListController());
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +266,35 @@ class FoodListCardWidgets extends StatelessWidget {
                   borderColor: Colors.red,
                   colors: const [Colors.transparent, Colors.transparent],
                   onPressed: () {
-                    // Handle call action
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Confirm Delete'),
+                          content: Text('Are you sure you want to delete this item?'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                TiffineServicesApis.deleteFoodData(documentId: foodModel.fId!, imageUrls: foodModel.imageList!).whenComplete(() async {
+                                  listOfFoodController.foodListData.clear();
+                                  listOfFoodController.lastDocument = null;
+                                  listOfFoodController.hasMoreData.value = true;
+                                  await listOfFoodController.fetchData();
+                                });
+                                // Perform the delete action here
+                              },
+                              child: Text('Delete', style: TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
               ],

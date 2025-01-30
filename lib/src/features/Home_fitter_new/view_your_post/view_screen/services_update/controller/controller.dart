@@ -34,6 +34,7 @@ class ListOfServicesUpdateController extends GetxController {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
           .collection('DevServicesCollection')
+          .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch
 

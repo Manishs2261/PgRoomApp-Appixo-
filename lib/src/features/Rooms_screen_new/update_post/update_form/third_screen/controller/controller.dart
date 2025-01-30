@@ -9,12 +9,14 @@ import 'package:pgroom/src/data/repository/apis/apis.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
  import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+import '../../../../../Home_fitter_new/view_your_post/view_screen/room_update/controller/controller.dart';
+
 
 
 class  ThirdRoomUpdateFormController extends GetxController {
   final Completer<GoogleMapController> mapController =
   Completer<GoogleMapController>();
-
+  final listOfRoomController = Get.put(RoomUpdateListController());
   final RxSet<Marker> markers = <Marker>{}.obs;
 
   LatLng? lastTappedPosition;
@@ -217,7 +219,11 @@ class  ThirdRoomUpdateFormController extends GetxController {
     );
 
     if (isUpdated) {
-      Get.close(3); // Close three screens at once
+      Get.close(3);
+      listOfRoomController.roomListData.clear();
+      listOfRoomController.lastDocument = null;
+      listOfRoomController.hasMoreData.value = true;
+      await listOfRoomController.fetchData();// Close three screens at once
     } else {
       Navigator.pop(Get.context!);
     }

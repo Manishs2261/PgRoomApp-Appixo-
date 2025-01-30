@@ -30,9 +30,11 @@ class RoomUpdateListController extends GetxController {
     }
 
     try {
+      print(ApisClass.auth.currentUser!.uid);
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
           .collection('DevRoomCollection')
+      .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch
 
