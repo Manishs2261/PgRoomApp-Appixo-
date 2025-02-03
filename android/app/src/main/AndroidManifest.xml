@@ -69,10 +69,10 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2907991407152083~6630431809"/>
+            android:value="you google admob id" />"/>
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAwsLCabPSfnXi7Mq2JV3vzl4Xjl1nMB1Y"/>
+            android:value="you google map api key"/>
 
     </application>
 </manifest>
