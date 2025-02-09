@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../data/repository/apis/apis.dart';
+import '../../../../../../../flavor_config.dart';
+import '../../../../../../data/data_constant.dart';
+import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
 import '../../../../../sell_and_buy_screen/model/buy_and_sell_model.dart';
 
@@ -32,7 +34,7 @@ class SellAndBuyUpdateListController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevBuyAndSellCollection')
+          .collection('${AppEnvironment.environmentName}_${CollectionName.sellAndBuy}')
           .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch

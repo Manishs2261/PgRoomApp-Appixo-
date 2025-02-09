@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
-import '../../../../../data/repository/apis/tiffine_services_api.dart';
+import '../../../../../data/repository/apis/food_collection.dart';
 import '../../../../../res/route_name/routes_name.dart';
 
 class FirstFoodUpdateController extends GetxController {

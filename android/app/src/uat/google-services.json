@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "831669668516",
+    "project_id": "appixo-uat",
+    "storage_bucket": "appixo-uat.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831669668516:android:278427df59015130a57431",
+        "android_client_info": {
+          "package_name": "com.manishsahu.myappixo.app.uat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAjvGngto1GSDM8-OW1cthTHjhU7sl_pA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

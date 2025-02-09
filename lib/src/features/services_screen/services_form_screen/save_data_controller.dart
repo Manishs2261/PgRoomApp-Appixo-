@@ -3,7 +3,7 @@ import 'package:pgroom/src/features/services_screen/services_form_screen/first_s
 import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/controller/controller.dart';
 import 'package:pgroom/src/features/services_screen/services_form_screen/third_service_form/controller/controller.dart';
 
-import '../../../data/repository/apis/services_api.dart';
+import '../../../data/repository/apis/services_collection.dart';
 import '../../../utils/helpers/helper_function.dart';
 
 class SaveDataServiceController extends GetxController {

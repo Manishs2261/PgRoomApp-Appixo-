@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
-import '../../../../../../data/repository/apis/apis.dart';
+import '../../../../../../../flavor_config.dart';
+import '../../../../../../data/data_constant.dart';
+import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
 
 class ListOfServicesUpdateController extends GetxController {
@@ -33,7 +35,7 @@ class ListOfServicesUpdateController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevServicesCollection')
+          .collection('${AppEnvironment.environmentName}_${CollectionName.services}')
           .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch

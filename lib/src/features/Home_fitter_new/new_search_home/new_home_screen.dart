@@ -2,12 +2,13 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pgroom/flavor_config.dart';
 import 'package:pgroom/src/features/Home_fitter_new/new_search_home/widgets/category_card_one.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../data/repository/apis/user_apis.dart';
+import '../../../data/repository/apis/user_collection.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/logger/logger.dart';

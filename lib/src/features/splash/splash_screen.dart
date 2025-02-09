@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/main.dart';
+import 'package:pgroom/common_main.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import 'controller/splash_controller.dart';

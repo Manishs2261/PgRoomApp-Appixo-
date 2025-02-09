@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../data/repository/apis/user_apis.dart';
+import '../../../../data/repository/apis/user_collection.dart';
 import '../../../../utils/helpers/helper_function.dart';
 
 class ProfileController extends GetxController {

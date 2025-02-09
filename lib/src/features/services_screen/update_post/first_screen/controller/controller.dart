@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/services_api.dart';
+import 'package:pgroom/src/data/repository/apis/services_collection.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../../../res/route_name/routes_name.dart';

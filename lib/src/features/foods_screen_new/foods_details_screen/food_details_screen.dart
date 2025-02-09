@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/tiffine_services_api.dart';
+import 'package:pgroom/src/data/repository/apis/food_collection.dart';
 import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/controller/controller.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/widgets/faq_widgets.dart';
 
-import '../../../data/repository/apis/apis.dart';
+import '../../../data/repository/apis/room_collection.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';

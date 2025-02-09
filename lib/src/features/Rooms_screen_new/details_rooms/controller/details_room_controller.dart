@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../../model/review_model.dart';

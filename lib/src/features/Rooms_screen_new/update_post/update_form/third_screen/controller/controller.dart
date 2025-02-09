@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
  import 'package:pgroom/src/utils/helpers/helper_function.dart';
 

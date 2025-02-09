@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pgroom/src/data/repository/apis/services_api.dart';
+import 'package:pgroom/src/data/repository/apis/services_collection.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import '../../../../Home_fitter_new/view_your_post/view_screen/services_update/controller/controller.dart';

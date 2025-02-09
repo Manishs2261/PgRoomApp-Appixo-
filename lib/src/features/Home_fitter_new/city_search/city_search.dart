@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/user_apis.dart';
+import 'package:pgroom/src/data/repository/apis/user_collection.dart';
 import 'package:pgroom/src/features/Home_fitter_new/city_search/controller/controller.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';

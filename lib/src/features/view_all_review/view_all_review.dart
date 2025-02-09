@@ -8,7 +8,7 @@ import 'package:pgroom/src/utils/widgets/com_ratingbar_widgets.dart';
 import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:rating_summary/rating_summary.dart';
-import '../../data/repository/apis/apis.dart';
+import '../../data/repository/apis/room_collection.dart';
 import '../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../utils/Constants/colors.dart';
 

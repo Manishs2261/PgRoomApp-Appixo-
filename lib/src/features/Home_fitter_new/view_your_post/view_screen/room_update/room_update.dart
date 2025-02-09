@@ -3,7 +3,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';

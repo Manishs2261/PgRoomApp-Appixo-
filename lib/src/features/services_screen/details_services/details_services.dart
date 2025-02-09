@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/repository/apis/services_api.dart';
+import '../../../data/repository/apis/services_collection.dart';
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/com_ratingbar_widgets.dart';

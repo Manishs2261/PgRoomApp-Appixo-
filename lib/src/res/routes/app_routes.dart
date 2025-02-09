@@ -8,9 +8,6 @@ import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fi
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/room_post_fourth_form.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/room_post_second_form.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/room_post_third_form.dart';
-import 'package:pgroom/src/features/add_to_card/add_to_card_tiffine.dart';
-import 'package:pgroom/src/features/add_to_card/add_to_cart_goods.dart';
-import 'package:pgroom/src/features/advertisement_page/advertisement_page.dart';
 import 'package:pgroom/src/features/auth_screen/delete_account/delete_account.dart';
 import 'package:pgroom/src/features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
 import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
@@ -26,10 +23,6 @@ import 'package:pgroom/src/features/services_screen/details_services/details_ser
 import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
 import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/first_services_form.dart';
 import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/second_services_form.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/add_your_tiffine_services_screen'
-    '/add_your_tiffine_services_screen.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/details_tiffine_services_screen/details_tiffine_screen.dart';
-import 'package:pgroom/src/features/tiffinServicesScreen/edit_tiffine_screen/edit_tiffine_screen.dart';
 import 'package:pgroom/src/navigation_menu.dart';
 
 import '../../features/Home_fitter_new/List_of_post/List_of_post.dart';
@@ -46,7 +39,6 @@ import '../../features/Rooms_screen_new/update_post/update_form/first_screen/fir
 import '../../features/Rooms_screen_new/update_post/update_form/fourth_screen/fourth_form_update.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/second_screen/second_form_update.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/third_screen/third_form_update.dart';
-import '../../features/add_to_card/add_to_card_room.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
 import '../../features/auth_screen/sing_in_screen/sing_in_screen.dart';
@@ -58,36 +50,9 @@ import '../../features/foods_screen_new/foods_update_screen/first_food_update_sc
 import '../../features/foods_screen_new/foods_update_screen/fourth_food_update_screen/fourth_food_update_screen.dart';
 import '../../features/foods_screen_new/foods_update_screen/second_food_update_screen/second_food_update_screen.dart';
 import '../../features/foods_screen_new/foods_update_screen/third_food_update_screen/third_food_update_screen.dart';
-import '../../features/old_goods/add_your_goods/add_your_goods.dart';
-import '../../features/old_goods/data_save_goods/data_save_goods_screen.dart';
-import '../../features/old_goods/edit_goods/edit_goods_screen.dart';
-import '../../features/old_goods/old_goods_details_screen/goods_details_screen.dart';
-import '../../features/old_goods/search/search_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
 import '../../features/profile_screen/profile_main_screen.dart';
 import '../../features/report_screen/report_screen.dart';
-import '../../features/room_rent_all_screen/add_new_home/add_your_home.dart';
-import '../../features/room_rent_all_screen/details_rent_screen/details_rent_screen.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_add_new_home.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_form_screen_button.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/Edit_Cover_Image_Screen.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/add_other_image/add_other_image.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_charges.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_mapview_screen.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_permission.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_provid_facilities.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/edit_rent_text_details.dart';
-import '../../features/room_rent_all_screen/edit_add_new_home/edit_screen/edit_screen/room_and_price.dart';
-import '../../features/room_rent_all_screen/home/home_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/add_image_/add_image_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/charges_and_door_timing/charges_and_door_timing_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/hostel_and_room_type/hostel_and_room_type_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/map_screen/map_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/permission/permission_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/provide_facilities/provide_facilities_screen.dart';
-import '../../features/room_rent_all_screen/rent_form_screen/rent_details/rent_details_screen.dart';
-import '../../features/room_rent_all_screen/search/search.dart';
-import '../../features/room_rent_all_screen/view_all_image/view_all_image.dart';
 import '../../features/sell_and_buy_screen/sell_and_buy_form/sell_and_buy_form.dart';
 import '../../features/sell_and_buy_screen/update_post/first_screen/first_screen.dart';
 import '../../features/services_screen/services_form_screen/third_service_form/third_services_form.dart';
@@ -95,8 +60,6 @@ import '../../features/services_screen/update_post/edit_services.dart';
 import '../../features/services_screen/update_post/first_screen/first_update_screen.dart';
 import '../../features/services_screen/update_post/second_update_screen/second_update.dart';
 import '../../features/splash/splash_screen.dart';
-import '../../features/tiffinServicesScreen/search/search.dart';
-import '../../features/tiffinServicesScreen/view_all_tiffine_review/view_all_tiffine_review.dart';
 import '../../features/view_all_review/view_all_review.dart';
 import '../route_name/routes_name.dart';
 
@@ -127,116 +90,13 @@ class AppRoutes {
             page: () => ForgetPasswordEmailScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.homeScreen,
-            page: () => const HomeScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.rentDetails_screen,
-            page: () => RentDetailsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addYourHomeScreen,
-            page: () => AddYourHome(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addImageScreen,
-            page: () => AddImageScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.chargeAndDoorTimingScreen,
-            page: () => ChargesAndDoorTime(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.hostelAndRoomTypeScreen,
-            page: () => HostelAndRoomTypeScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.perimissionScreen,
-            page: () => PermissionScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.provideFacilitiesScreen,
-            page: () => ProvideFacilitiesScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.rentDetailsFormScreen,
-            page: () => RentDetailsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.detailsRentInfoScreen,
-            page: () => const DetailsRentInfoScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editAddNewHome_Screen,
-            page: () => EditAddNewHomeScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editFormScreen,
-            page: () => EditFormScreenButton(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editRentDetailScreen,
-            page: () => EditRentTextDetailsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editRoomTyprAndPriceScreen,
-            page: () => EditRoomTypeAndPrice(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editFaciliteProviderScreen,
-            page: () => EditProvideFacilites(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editChargesScreen,
-            page: () => EditAdditionalChargesAndDoorTime(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editPermissionScreen,
-            page: () => EditPermissiionScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editImagesScreen,
-            page: () => EditCoverImageScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.searchScreen,
-            page: () => const SearchScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
+
         GetPage(
             name: RoutesName.viewAllReview,
             page: () => ViewAllReviewScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.viewALlImage,
-            page: () => ViewAllImage(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editOtherImageScareen,
-            page: () => EditOtherImageScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
+
         GetPage(
             name: RoutesName.signProfileScreen,
             page: () => SignProfileScreen(),
@@ -257,86 +117,7 @@ class AppRoutes {
             page: () => const NavigationMenuScreen(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.tiffinDetailsScreen,
-            page: () => DetailsTiffineServicesScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.etidTiffineScreen,
-            page: () => const EditTiffineScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addYourTiffineScreen,
-            page: () => AddYourTiffineServicesScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.viewAllReviewTiffineScreen,
-            page: () => ViewAllReviewTiffineScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.searchTiffineScreen,
-            page: () => const SearchTiffineScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addToCardRoomScreen,
-            page: () => AddToCardRoom(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.advertisementPageScreen,
-            page: () => const AdvertisementPageScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.oldGoodsDetailsScreen,
-            page: () => GoodsDetailsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addYourOldGoodsScreen,
-            page: () => AddYourOldGoodsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.dataSaveOldGoodsScreen,
-            page: () => const DataSaveGoodsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editOldGoodsScreen,
-            page: () => EditGoodsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.mapScreen,
-            page: () => const MapScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.editMapScreen,
-            page: () => const EditMapViewScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addToCartTiffineScreen,
-            page: () => AddToCartTiffineScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.addToCartGoodsScreen,
-            page: () => AddToCartGoodsScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
-        GetPage(
-            name: RoutesName.goodsSearchScreen,
-            page: () => const GoodsSearchScreen(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
+
         GetPage(
             name: RoutesName.helpScreen,
             page: () => const HelpScreen(),
@@ -621,7 +402,5 @@ class AppRoutes {
             page: () => FourthFoodUpdateForm(),
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
-
-
       ];
 }

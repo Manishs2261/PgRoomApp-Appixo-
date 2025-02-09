@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/res/route_name/routes_name.dart';
 
-import '../../../data/repository/apis/apis.dart';
+import '../../../data/repository/apis/room_collection.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/widgets/faq_widgets.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../../../data/repository/apis/user_apis.dart';
+import '../../../data/repository/apis/user_collection.dart';
 import '../../../utils/Constants/image_string.dart';
 import '../../../utils/helpers/helper_function.dart';
 

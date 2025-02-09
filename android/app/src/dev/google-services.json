@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "556483651228",
+    "project_id": "appixo-dev",
+    "storage_bucket": "appixo-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:556483651228:android:6aba8bfe6d298007aaaf59",
+        "android_client_info": {
+          "package_name": "com.manishsahu.myappixo.app.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWr1nG3bM1X_o_XX8uIw-6Bgguqx0uOX4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

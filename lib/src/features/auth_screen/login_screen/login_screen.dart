@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/user_apis.dart';
+import 'package:pgroom/src/data/repository/apis/user_collection.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/footer_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/form_widgets.dart';
 import 'package:pgroom/src/features/auth_screen/login_screen/widgets/header_widgets.dart';

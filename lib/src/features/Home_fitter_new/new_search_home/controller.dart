@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../data/repository/apis/user_apis.dart';
+import '../../../data/repository/apis/user_collection.dart';
 import '../../auth_screen/Model/user_model.dart';
 
 class HomeController extends GetxController {

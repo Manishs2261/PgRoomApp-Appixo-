@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
-import '../../../../../../data/repository/apis/apis.dart';
+import '../../../../../../../flavor_config.dart';
+import '../../../../../../data/data_constant.dart';
+import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
 import '../../../../../Rooms_screen_new/model/room_model.dart';
 
@@ -33,7 +35,7 @@ class RoomUpdateListController extends GetxController {
       print(ApisClass.auth.currentUser!.uid);
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevRoomCollection')
+          .collection('${AppEnvironment.environmentName}_${CollectionName.room}')
       .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch

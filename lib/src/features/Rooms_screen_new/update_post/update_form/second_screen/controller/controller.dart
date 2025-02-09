@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
 
 import '../../../../../../utils/helpers/helper_function.dart';

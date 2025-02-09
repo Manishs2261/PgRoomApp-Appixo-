@@ -4,7 +4,9 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
-import '../../../../data/repository/apis/apis.dart';
+import '../../../../../flavor_config.dart';
+import '../../../../data/data_constant.dart';
+import '../../../../data/repository/apis/room_collection.dart';
 import '../../../../utils/Constants/image_string.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../../utils/widgets/top_search_bar/controller/controller.dart';
@@ -91,7 +93,7 @@ class ListOfServicesController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevServicesCollection')
+          .collection('${AppEnvironment.environmentName}_${CollectionName.services}')
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch
 

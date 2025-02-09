@@ -4,7 +4,9 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
-import '../../../../../../data/repository/apis/apis.dart';
+import '../../../../../../../flavor_config.dart';
+import '../../../../../../data/data_constant.dart';
+import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
 
 class FoodUpdateListController extends GetxController {
@@ -34,7 +36,7 @@ class FoodUpdateListController extends GetxController {
     try {
       // Construct query for Firestore
       Query<Map<String, dynamic>> query = ApisClass.firebaseFirestore
-          .collection('DevFoodCollection')
+          .collection('${AppEnvironment.environmentName}_${CollectionName.food}')
           .where('u_id', isEqualTo: ApisClass.auth.currentUser!.uid)
           .orderBy('atCreate') // Ensure consistent sorting
           .limit(10); // Limit the number of documents per fetch

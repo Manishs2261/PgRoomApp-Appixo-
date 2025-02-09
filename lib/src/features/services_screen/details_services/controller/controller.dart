@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
-import '../../../../data/repository/apis/apis.dart';
+import '../../../../data/repository/apis/room_collection.dart';
 import '../../../../model/review_model.dart';
 import '../../../../utils/logger/logger.dart';
 

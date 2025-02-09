@@ -6,8 +6,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pgroom/src/features/Home_fitter_new/new_search_home/new_home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../data/repository/apis/apis.dart';
-import '../../../../data/repository/apis/user_apis.dart';
+import '../../../../data/repository/apis/room_collection.dart';
+import '../../../../data/repository/apis/user_collection.dart';
 import '../../../../utils/helpers/helper_function.dart';
 import '../../../../utils/logger/logger.dart';
 import '../../../splash/controller/splash_controller.dart';

@@ -3,7 +3,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:pgroom/src/data/repository/apis/apis.dart';
+import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/com_ratingbar_widgets.dart';

@@ -9,8 +9,8 @@ import 'package:pgroom/src/utils/helpers/helper_function.dart';
 import 'package:pgroom/src/utils/logger/logger.dart';
 
  import '../../../features/splash/controller/splash_controller.dart';
-import '../apis/apis.dart';
-import '../apis/user_apis.dart';
+import '../apis/room_collection.dart';
+import '../apis/user_collection.dart';
 
 class AuthApisClass {
   static EmailOTP emailOtp = EmailOTP();

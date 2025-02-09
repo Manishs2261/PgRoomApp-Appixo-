@@ -3,9 +3,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
 import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'features/old_goods/old_goods_screen.dart';
-import 'features/room_rent_all_screen/home/home_screen.dart';
-import 'features/tiffinServicesScreen/tiffinServicesScreen.dart';
 
 class NavigationMenuScreen extends StatefulWidget {
   const NavigationMenuScreen({super.key});
@@ -18,9 +15,7 @@ class _NavigationMenuScreenState extends State<NavigationMenuScreen> {
   int selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const HomeScreen(),
-    TiffineServicesScreen(),
-    OldGoodsScreen(),
+
     const ProfileDetailsScreen()
   ];
 
