@@ -1,19 +1,6 @@
 # Pgroom
 
-
-How to use installation:-
-
-1. create a firebase project.
-2. install firebase cli in your system.
-3. and connect your app to firebase.
-4. enable authentication.
-5. enable google sign in.
-6. enable crashlytics.
-7. enable performance monitoring.
-8. create google map api key and add.
-9. make sure use flutter latest version.
-10. if you want to upload google play store please change app bundle id and change app name.
-11. create new keystore api key and add.
+ 
 
 ![Web 1920 – 1](https://github.com/Manishs2261/PgRoomApp/assets/122163664/f0532038-a01f-47ea-a548-2ee9375b7867)
 
