@@ -10,3 +10,10 @@ class CollectionName{
 
 
 }
+
+//
+// flutter build apk --flavor dev --release -t lib/main_dev.dart
+// flutter build apk --flavor uat --release -t lib/main_uat.dart
+// flutter build apk --flavor prod --release -t lib/main_prod.dart
+
+// flutter build appbundle --flavor prod --release -t lib/main_prod.dart
