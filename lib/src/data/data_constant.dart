@@ -17,3 +17,5 @@ class CollectionName{
 // flutter build apk --flavor prod --release -t lib/main_prod.dart
 
 // flutter build appbundle --flavor prod --release -t lib/main_prod.dart
+//shorebird release android --flavor prod --target lib/main_prod.dart
+// shorebird patch --platforms=android --flavor=prod --target=lib/main_prod.dart --release-version=2.0.2+21
