@@ -259,7 +259,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                         child: FadeTransition(
                           opacity: _searchOpacityAnimation,
                           child: Text(
-                            'Hello, Searching in!',
+                            'Hello, Searching in! your city',
                             style:
                                 TextStyle(color: Colors.white.withOpacity(0.7)),
                           ),
