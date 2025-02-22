@@ -18,7 +18,6 @@ class ProfileController extends GetxController {
 
   @override
   void onInit() {
-    UserApis.getUserData();
     super.onInit();
   }
 

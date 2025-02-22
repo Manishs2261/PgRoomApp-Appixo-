@@ -20,7 +20,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserApis.getUserData();
 
 
     final Uri urlTermsAndCondition = Uri.parse('https://docs.google'

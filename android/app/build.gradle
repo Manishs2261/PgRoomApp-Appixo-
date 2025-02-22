@@ -60,6 +60,9 @@ android {
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = localProperties.getProperty("GOOGLE_MAPS_API_KEY", "")
+        manifestPlaceholders["GOOGLE_ADMOB_API_KEY"] = localProperties.getProperty("GOOGLE_ADMOB_API_KEY", "")
+
     }
 
 
