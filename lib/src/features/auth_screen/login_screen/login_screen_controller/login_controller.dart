@@ -1,11 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/user_collection.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+import '../../../../data/repository/apis/user_collection.dart';
 import '../../../../data/repository/auth_apis/auth_apis.dart';
 import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/helpers/helper_function.dart';
 
 class LoginScreenController extends GetxController {
   final emailControllerLogin = TextEditingController().obs;

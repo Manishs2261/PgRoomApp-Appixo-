@@ -1,10 +1,11 @@
-import 'package:get/get.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/controller/controller.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/controller/controller.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/third_service_form/controller/controller.dart';
+  import 'package:get/get.dart';
+import 'package:tp/src/features/services_screen/services_form_screen/seconds_service_screen/controller/controller.dart';
+import 'package:tp/src/features/services_screen/services_form_screen/third_service_form/controller/controller.dart';
+
 
 import '../../../data/repository/apis/services_collection.dart';
 import '../../../utils/helpers/helper_function.dart';
+import 'first_services_form/controller/controller.dart';
 
 class SaveDataServiceController extends GetxController {
   final firstServiceFormController = Get.put(FirstServicesFormController());

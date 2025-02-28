@@ -46,16 +46,4 @@ Discover our app on the Google Play Store and start your journey today:-
 https://play.google.com/store/apps/details?id=com.manishsahu.myappixo.app
 
 **Happy Room Hunting with Pgroom!**
-
-How to use installation:-
-
-1. create a firebase project.
-2. install firebase cli in your system.
-3. and connect your app to firebase.
-4. enable authentication.
-5. enable google sign in.
-6. enable crashlytics.
-7. enable performance monitoring.
-8. create google map api key and add.
-9. make sure use flutter latest version.
-
+ 

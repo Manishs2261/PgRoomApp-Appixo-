@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/sell_and_buy_collection.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
+
+import '../../../../../data/repository/apis/sell_and_buy_collection.dart';
+import '../../../../../utils/helpers/helper_function.dart';
 import '../../../../Home_fitter_new/view_your_post/view_screen/sell_and_buy_update/controller/controller.dart';
+import '../../../model/buy_and_sell_model.dart';
 
 class SellAndBuyUpdateController extends GetxController {
   final formKey = GlobalKey<FormState>();

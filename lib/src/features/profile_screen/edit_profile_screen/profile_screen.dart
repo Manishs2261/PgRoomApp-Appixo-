@@ -5,12 +5,13 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/data/repository/apis/room_collection.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+
+import '../../../data/repository/apis/room_collection.dart';
 import '../../../data/repository/apis/user_collection.dart';
 import '../../../model/user_model/user_model.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/colors.dart';
+import '../../../utils/logger/logger.dart';
 import '../../splash/controller/splash_controller.dart';
 import 'controller/profile_controller.dart';
 

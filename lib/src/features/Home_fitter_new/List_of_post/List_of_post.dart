@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
 
 import '../../../res/route_name/routes_name.dart';
+import '../../../utils/logger/logger.dart';
 
 class ListOfPost extends StatefulWidget {
   const ListOfPost({super.key});

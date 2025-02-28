@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:pgroom/src/utils/ad_helper/google_ad_helper.dart';
+
+import '../google_ad_helper.dart';
 
 class AdProvider with ChangeNotifier {
   bool isDetailsPageLoaded = false;

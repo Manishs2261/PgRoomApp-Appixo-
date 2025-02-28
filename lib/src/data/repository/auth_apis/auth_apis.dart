@@ -4,11 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+
 
  import '../../../features/splash/controller/splash_controller.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/helpers/helper_function.dart';
+import '../../../utils/logger/logger.dart';
 import '../apis/room_collection.dart';
 import '../apis/user_collection.dart';
 

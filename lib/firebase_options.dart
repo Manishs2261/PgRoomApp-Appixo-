@@ -58,14 +58,14 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDyU1dy2XbzGWpU7_R7Rgu_U1SJO0gXsE4',
-    appId: '1:482025845866:ios:cbc7b9e18dd708af5d8613',
-    messagingSenderId: '482025845866',
-    projectId: 'pgroomapp-e7b8c',
-    databaseURL: 'https://pgroomapp-e7b8c-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'pgroomapp-e7b8c.appspot.com',
-    androidClientId: '482025845866-hst64ut2u3jn7ib0thne9qa05vkrqmab.apps.googleusercontent.com',
-    iosClientId: '482025845866-3m64h5vb05n2j489h5d747jt2tv25k92.apps.googleusercontent.com',
-    iosBundleId: 'com.example.sahumanish.pgroom',
+    apiKey: 'AIzaSyCfTtvDqq1t5g0BrcyQWHzbcrSLnkZMVuk',
+    appId: '1:1012069754938:ios:ca851b8d2bd70fd18bad03',
+    messagingSenderId: '1012069754938',
+    projectId: 'appixo',
+    storageBucket: 'appixo.appspot.com',
+    androidClientId: '1012069754938-0gf90igbsfhcfpdbhj1l7bv7lhlm03oa.apps.googleusercontent.com',
+    iosClientId: '1012069754938-qe42ipac86i67946iifiu41519rvbanv.apps.googleusercontent.com',
+    iosBundleId: 'com.example.tp',
   );
+
 }

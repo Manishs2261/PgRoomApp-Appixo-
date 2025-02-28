@@ -3,16 +3,16 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/controller/controller.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
-import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 
 import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/colors.dart';
+import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/com_reuse_elevated_button.dart';
+import '../../../utils/widgets/shimmer_effect.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
 import '../../../utils/widgets/user_contact_list_card_widgets.dart';
+import '../model/room_model.dart';
+import 'controller/controller.dart';
 
 class ListOfRooms extends StatelessWidget {
   ListOfRooms({super.key});

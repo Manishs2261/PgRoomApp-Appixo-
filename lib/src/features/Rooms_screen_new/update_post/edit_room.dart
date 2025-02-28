@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/Home_fitter_new/new_search_home/controller.dart';
 
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/logger/logger.dart';
+import '../../Home_fitter_new/new_search_home/controller.dart';
 
 class EditRoomPostList extends StatefulWidget {
   const EditRoomPostList({super.key});

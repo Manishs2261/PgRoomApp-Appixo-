@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
+  import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/food_collection.dart';
-  import 'package:pgroom/src/features/foods_screen_new/foods_update_screen/second_food_update_screen/controller/controller.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_update_screen/third_food_update_screen/controller/controller.dart';
-import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
+import 'package:tp/src/features/foods_screen_new/foods_update_screen/second_food_update_screen/controller/controller.dart';
+import 'package:tp/src/features/foods_screen_new/foods_update_screen/third_food_update_screen/controller/controller.dart';
 
+
+import '../../../data/repository/apis/food_collection.dart';
 import '../../../utils/helpers/helper_function.dart';
  import '../../Home_fitter_new/view_your_post/view_screen/food_update/controller/controller.dart';
+import '../model/food_model.dart';
 import 'first_food_update_screen/controlller/controller.dart';
 import 'fourth_food_update_screen/controller/controller.dart';
 

@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 // ignore: unused_import
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/app_validators/app_validators.dart';
+
+import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/Constants/colors.dart';
 import '../../../../utils/Constants/sizes.dart';
+import '../../../../utils/app_validators/app_validators.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../sing_screen_controller/sing_screen_controller.dart';
 

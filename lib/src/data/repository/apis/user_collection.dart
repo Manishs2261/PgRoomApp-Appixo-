@@ -8,12 +8,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:pgroom/flavor_config.dart';
-import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../flavor_config.dart';
+import '../../../features/auth_screen/Model/user_model.dart';
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
 import '../../data_constant.dart';
 

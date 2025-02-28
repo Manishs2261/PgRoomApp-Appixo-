@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
 
 import '../../../../../res/route_name/routes_name.dart';
+import '../../../../../utils/helpers/helper_function.dart';
 
 class FirstFoodFormController extends GetxController {
   final formKey = GlobalKey<FormState>();

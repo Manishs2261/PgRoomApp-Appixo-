@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:pgroom/src/utils/Constants/sizes.dart';
+
+import '../../../utils/Constants/sizes.dart';
 
 class OnBoardingWidget extends StatelessWidget {
   const OnBoardingWidget({

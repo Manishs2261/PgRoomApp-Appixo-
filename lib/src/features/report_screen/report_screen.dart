@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/room_collection.dart';
 
+import '../../data/repository/apis/room_collection.dart';
 import '../../utils/widgets/com_reuse_elevated_button.dart';
 
 class ReportController extends GetxController {

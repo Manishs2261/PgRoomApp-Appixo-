@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/user_collection.dart';
-import 'package:pgroom/src/features/Home_fitter_new/city_search/controller/controller.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
 
+
+import '../../../data/repository/apis/user_collection.dart';
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/Constants/colors.dart';
+import '../../../utils/helpers/helper_function.dart';
+import '../../../utils/logger/logger.dart';
+import 'controller/controller.dart';
 
 class CitySearch extends StatelessWidget {
   CitySearch({super.key});

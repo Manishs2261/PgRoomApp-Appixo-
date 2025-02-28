@@ -1,11 +1,12 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/on_boarding_screen/widget/on_boarding_widget.dart';
-import 'package:pgroom/src/features/on_boarding_screen/widget/smooth_page_indicator.dart';
-import 'package:pgroom/src/features/on_boarding_screen/widget/start_button.dart';
-import 'package:pgroom/src/utils/Constants/image_string.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:tp/src/features/on_boarding_screen/widget/on_boarding_widget.dart';
+import 'package:tp/src/features/on_boarding_screen/widget/smooth_page_indicator.dart';
+import 'package:tp/src/features/on_boarding_screen/widget/start_button.dart';
 
+import '../../utils/Constants/image_string.dart';
+import '../../utils/logger/logger.dart';
 import 'controller/on_boarding_controller.dart';
 
 class OnBoardingOneScreen extends StatelessWidget {

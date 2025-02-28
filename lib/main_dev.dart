@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:pgroom/flavor_config.dart';
+
 
 import 'common_main.dart';
+import 'flavor_config.dart';
 
 void main(){
   WidgetsFlutterBinding.ensureInitialized();

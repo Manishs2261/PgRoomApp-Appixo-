@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/splash/controller/splash_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../res/route_name/routes_name.dart';
 import '../../../../utils/Constants/sizes.dart';
+import '../../../splash/controller/splash_controller.dart';
 
 class SkipTextButtonWidgets extends StatelessWidget {
   const SkipTextButtonWidgets({

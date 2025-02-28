@@ -2,13 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/sell_and_buy_collection.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/model/buy_and_sell_model.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
 
+import '../../../../../data/repository/apis/sell_and_buy_collection.dart';
 import '../../../../../res/route_name/routes_name.dart';
+import '../../../../../utils/logger/logger.dart';
 import '../../../../../utils/widgets/gradient_button.dart';
 import '../../../../../utils/widgets/shimmer_effect.dart';
+import '../../../../sell_and_buy_screen/model/buy_and_sell_model.dart';
 import 'controller/controller.dart';
 
 class SellAndBuyUpdateList extends StatelessWidget {

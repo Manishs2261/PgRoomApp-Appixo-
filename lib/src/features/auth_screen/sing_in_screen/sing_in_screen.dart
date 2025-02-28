@@ -1,11 +1,11 @@
-import 'package:flutter/gestures.dart';
+ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
-import 'package:pgroom/src/utils/Constants/sizes.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:tp/src/features/auth_screen/sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../utils/Constants/sizes.dart';
+import '../../../utils/logger/logger.dart';
 import '../login_screen/widgets/footer_widgets.dart';
 import 'Widgets/HeaderWidgets.dart';
 import 'Widgets/SignFormWidget.dart';

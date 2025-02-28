@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/services_screen/model/services_model.dart';
 
 import '../../../../../../../flavor_config.dart';
 import '../../../../../../data/data_constant.dart';
 import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
+import '../../../../../services_screen/model/services_model.dart';
 
 class ListOfServicesUpdateController extends GetxController {
   RxList<ServicesModel> servicesListData = <ServicesModel>[].obs;

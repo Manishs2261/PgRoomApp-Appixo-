@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
+
+import '../../../model/room_model.dart';
 
 class FourthRoomFormController extends GetxController {
   final formKey = GlobalKey<FormState>();

@@ -3,15 +3,16 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
 
+
+import '../../../res/route_name/routes_name.dart';
+import '../../../utils/Constants/colors.dart';
+import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/com_reuse_elevated_button.dart';
 import '../../../utils/widgets/gradient_button.dart';
 import '../../../utils/widgets/shimmer_effect.dart';
 import '../../../utils/widgets/top_search_bar/top_search_bar.dart';
+import '../model/food_model.dart';
 import 'controller/controller.dart';
 
 class ListOfFoods extends StatelessWidget {

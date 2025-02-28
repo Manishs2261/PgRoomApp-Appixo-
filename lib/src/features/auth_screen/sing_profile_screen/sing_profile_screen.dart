@@ -4,10 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/utils/widgets/com_reuse_elevated_button.dart';
-import 'package:pgroom/src/features/auth_screen/sing_profile_screen/controller/controller.dart';
-import '../../../utils/Constants/colors.dart';
+  import '../../../utils/Constants/colors.dart';
 import '../../../utils/validator/text_field_validator.dart';
+import '../../../utils/widgets/com_reuse_elevated_button.dart';
+import 'controller/controller.dart';
 
 class SignProfileScreen extends StatelessWidget {
   SignProfileScreen({super.key});
