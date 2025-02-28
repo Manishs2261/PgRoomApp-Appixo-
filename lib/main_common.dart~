@@ -1,0 +1,70 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pgroom/src/features/splash/splash_screen.dart';
+import 'package:pgroom/src/res/routes/app_routes.dart';
+import 'package:pgroom/src/utils/Theme/theme.dart';
+import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
+import 'package:pgroom/src/utils/logger/logger.dart';
+import 'package:provider/provider.dart';
+
+// Global object for accessing device screen size
+late Size mediaQuery;
+
+Future<void> mainCommon(String envFile) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Load environment variables
+  await dotenv.load(fileName: envFile);
+  await Firebase.initializeApp();
+  MobileAds.instance.initialize();
+  AppLoggerHelper.initialize();
+
+  // Set preferred screen orientation
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  // // Initialize OneSignal (if needed)
+  // if (dotenv.env['ONESIGNAL_APP_ID'] != null) {
+  //   OneSignal.initialize(dotenv.env['ONESIGNAL_APP_ID']!);
+  //   OneSignal.Notifications.requestPermission(true);
+  // }
+
+  // Pass uncaught errors to Firebase Crashlytics
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => AdProvider()), // Ad Provider
+      ],
+      child: MyApp(env: dotenv.env['ENV'] ?? "Unknown"),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  final String env;
+  const MyApp({super.key, required this.env});
+
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Appixo ($env)',
+      themeMode: ThemeMode.light,
+      darkTheme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      home: SplashScreen(),
+      getPages: AppRoutes.appRoutes(),
+    );
+  }
+}
