@@ -1,0 +1,2 @@
+E:/Flutter Project/PgRoomApp-Appixo-/android/app/.cxx/Debug/2k4h5047/x86_64/CMakeFiles/edit_cache.dir
+E:/Flutter Project/PgRoomApp-Appixo-/android/app/.cxx/Debug/2k4h5047/x86_64/CMakeFiles/rebuild_cache.dir
