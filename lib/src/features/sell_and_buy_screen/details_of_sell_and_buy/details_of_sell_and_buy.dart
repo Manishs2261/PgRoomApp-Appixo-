@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
-import '../../../res/route_name/routes_name.dart';
+  import '../../../res/route_name/routes_name.dart';
+import '../../../utils/helpers/helper_function.dart';
+import '../../../utils/logger/logger.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/report_card_widgets.dart';
 import '../../../utils/widgets/view_map_card_widgets.dart';

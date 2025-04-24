@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:pgroom/src/features/profile_screen/profile_main_screen.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
+import 'package:tp/src/utils/Constants/colors.dart';
+
+import 'features/profile_screen/profile_main_screen.dart';
 
 class NavigationMenuScreen extends StatefulWidget {
   const NavigationMenuScreen({super.key});

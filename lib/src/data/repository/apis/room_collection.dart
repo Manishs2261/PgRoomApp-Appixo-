@@ -2,19 +2,20 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/data/repository/apis/user_collection.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/model/room_model.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tp/src/data/repository/apis/user_collection.dart';
 
 import '../../../../flavor_config.dart';
 import '../../../features/Home_fitter_new/new_search_home/controller.dart';
+import '../../../features/Rooms_screen_new/model/room_model.dart';
 import '../../../utils/helpers/helper_function.dart';
+import '../../../utils/logger/logger.dart';
 import '../../data_constant.dart';
 
 class ApisClass {

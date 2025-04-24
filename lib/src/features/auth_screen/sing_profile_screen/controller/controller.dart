@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pgroom/src/features/Home_fitter_new/new_search_home/new_home_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data/repository/apis/room_collection.dart';
 import '../../../../data/repository/apis/user_collection.dart';
 import '../../../../utils/helpers/helper_function.dart';
 import '../../../../utils/logger/logger.dart';
+import '../../../Home_fitter_new/new_search_home/new_home_screen.dart';
 import '../../../splash/controller/splash_controller.dart';
 import '../../sing_in_screen/sing_screen_controller/sing_screen_controller.dart';
 

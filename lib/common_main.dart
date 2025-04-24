@@ -7,14 +7,15 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:pgroom/src/features/Home_fitter_new/new_search_home/new_home_screen.dart';
-import 'package:pgroom/src/features/splash/splash_screen.dart';
 
-import 'package:pgroom/src/res/routes/app_routes.dart';
-import 'package:pgroom/src/utils/Theme/theme.dart';
-import 'package:pgroom/src/utils/ad_helper/services/ad_services.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:tp/src/features/splash/splash_screen.dart';
+import 'package:tp/src/res/routes/app_routes.dart';
+import 'package:tp/src/utils/Theme/theme.dart';
+import 'package:tp/src/utils/ad_helper/services/ad_services.dart';
+import 'package:tp/src/utils/logger/logger.dart';
+
+import 'firebase_options.dart';
 
 //global object for accessing device screen size
 late Size mediaQuery;
@@ -34,7 +35,13 @@ Future<void> commonMain() async {
   // });
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+  } catch (e) {
+    print(e);
+  }
 
   //_initializerFirebase();
 

@@ -2,9 +2,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import '../../../../../data/repository/auth_apis/auth_apis.dart';
+  import '../../../../../data/repository/auth_apis/auth_apis.dart';
+import '../../../../../res/route_name/routes_name.dart';
+import '../../../../../utils/helpers/helper_function.dart';
 
 class ReAuthScreenController extends GetxController {
   final emailControllerLogin = TextEditingController().obs;

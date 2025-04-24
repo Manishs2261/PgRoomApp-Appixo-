@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/res/route_name/routes_name.dart';
 
 import '../../../data/repository/apis/room_collection.dart';
+import '../../../res/route_name/routes_name.dart';
 import '../../../utils/widgets/bottom_chat_and_call_widgets.dart';
 import '../../../utils/widgets/com_ratingbar_widgets.dart';
 import '../../../utils/widgets/faq_widgets.dart';

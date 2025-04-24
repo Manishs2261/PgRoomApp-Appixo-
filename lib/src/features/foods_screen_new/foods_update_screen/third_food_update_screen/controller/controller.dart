@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
-import 'package:pgroom/src/features/services_screen/model/services_model.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
+
 
 import '../../../../../res/route_name/routes_name.dart';
+import '../../../../../utils/helpers/helper_function.dart';
+import '../../../model/food_model.dart';
 
 class ThirdFoodUpdateController extends GetxController {
   final Completer<GoogleMapController> mapController =

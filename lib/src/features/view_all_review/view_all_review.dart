@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:pgroom/src/utils/widgets/com_ratingbar_widgets.dart';
-import 'package:pgroom/src/utils/helpers/helper_function.dart';
-import 'package:pgroom/src/utils/logger/logger.dart';
+
 import 'package:rating_summary/rating_summary.dart';
 import '../../data/repository/apis/room_collection.dart';
 import '../../model/rating_and_review_Model/rating_and_review_Model.dart';
 import '../../utils/Constants/colors.dart';
+import '../../utils/helpers/helper_function.dart';
+import '../../utils/logger/logger.dart';
+import '../../utils/widgets/com_ratingbar_widgets.dart';
 
 class ViewAllReviewScreen extends StatelessWidget {
   ViewAllReviewScreen({super.key});

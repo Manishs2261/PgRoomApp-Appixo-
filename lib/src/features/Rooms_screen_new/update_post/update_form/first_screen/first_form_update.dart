@@ -4,8 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import '../../../../../utils/Constants/colors.dart';
 import '../../../../../utils/logger/logger.dart';
 import '../../../../../utils/validator/text_field_validator.dart';
 import '../../../../../utils/widgets/com_reuse_elevated_button.dart';

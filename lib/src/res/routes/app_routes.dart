@@ -1,31 +1,10 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
-import 'package:pgroom/src/features/Help_screen/help_screen.dart';
-import 'package:pgroom/src/features/Home_fitter_new/city_search/city_search.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/details_rooms/details_room.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_first_form/room_post_first_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_fourth_form/room_post_fourth_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_second_form/room_post_second_form.dart';
-import 'package:pgroom/src/features/Rooms_screen_new/room_post_from/room_post_third_form/room_post_third_form.dart';
-import 'package:pgroom/src/features/auth_screen/delete_account/delete_account.dart';
-import 'package:pgroom/src/features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
-import 'package:pgroom/src/features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
-import 'package:pgroom/src/features/chats_screen/list_of_chats_sceen/list_of_chat_screen.dart';
-import 'package:pgroom/src/features/contacts_us/contacts.dart';
-import 'package:pgroom/src/features/foods_screen_new/foods_details_screen/food_details_screen.dart';
-import 'package:pgroom/src/features/foods_screen_new/list_of_foods_screen/list_of_foods_screen.dart';
-import 'package:pgroom/src/features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
-import 'package:pgroom/src/features/profile_screen/edit_profile_screen/profile_screen.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/List_of_sell_and_buy/List_of_sell_and_buy.dart';
-import 'package:pgroom/src/features/sell_and_buy_screen/details_of_sell_and_buy/details_of_sell_and_buy.dart';
-import 'package:pgroom/src/features/services_screen/details_services/details_services.dart';
-import 'package:pgroom/src/features/services_screen/list_of_services/list_of_services.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/first_services_form/first_services_form.dart';
-import 'package:pgroom/src/features/services_screen/services_form_screen/seconds_service_screen/second_services_form.dart';
-import 'package:pgroom/src/navigation_menu.dart';
 
+
+import '../../features/Help_screen/help_screen.dart';
 import '../../features/Home_fitter_new/List_of_post/List_of_post.dart';
+import '../../features/Home_fitter_new/city_search/city_search.dart';
 import '../../features/Home_fitter_new/filter/filter.dart';
 import '../../features/Home_fitter_new/location_search/location_search.dart';
 import '../../features/Home_fitter_new/new_search_home/new_home_screen.dart';
@@ -34,14 +13,25 @@ import '../../features/Home_fitter_new/view_your_post/view_screen/room_update/ro
 import '../../features/Home_fitter_new/view_your_post/view_screen/sell_and_buy_update/sell_and_buy_update.dart';
 import '../../features/Home_fitter_new/view_your_post/view_screen/services_update/services_update.dart';
 import '../../features/Home_fitter_new/view_your_post/view_your_post.dart';
+import '../../features/Rooms_screen_new/details_rooms/details_room.dart';
+import '../../features/Rooms_screen_new/list_of_rooms/list_of_rooms.dart';
+import '../../features/Rooms_screen_new/room_post_from/room_post_first_form/room_post_first_form.dart';
+import '../../features/Rooms_screen_new/room_post_from/room_post_fourth_form/room_post_fourth_form.dart';
+import '../../features/Rooms_screen_new/room_post_from/room_post_second_form/room_post_second_form.dart';
+import '../../features/Rooms_screen_new/room_post_from/room_post_third_form/room_post_third_form.dart';
 import '../../features/Rooms_screen_new/update_post/edit_room.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/first_screen/first_form_update.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/fourth_screen/fourth_form_update.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/second_screen/second_form_update.dart';
 import '../../features/Rooms_screen_new/update_post/update_form/third_screen/third_form_update.dart';
+import '../../features/auth_screen/delete_account/delete_account.dart';
 import '../../features/auth_screen/forget_password_email/forget_password.dart';
 import '../../features/auth_screen/login_screen/login_screen.dart';
+import '../../features/auth_screen/re_auth/re_authentication/re_auth_screen.dart';
 import '../../features/auth_screen/sing_in_screen/sing_in_screen.dart';
+import '../../features/auth_screen/sing_profile_screen/sing_profile_screen.dart';
+import '../../features/chats_screen/list_of_chats_sceen/list_of_chat_screen.dart';
+import '../../features/contacts_us/contacts.dart';
 import '../../features/foods_screen_new/foods_form_screen/first_food_form/first_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/fourth_food_form/fourth_food_form.dart';
 import '../../features/foods_screen_new/foods_form_screen/second_food_form/second_food_form.dart';
@@ -50,17 +40,27 @@ import '../../features/foods_screen_new/foods_update_screen/first_food_update_sc
 import '../../features/foods_screen_new/foods_update_screen/fourth_food_update_screen/fourth_food_update_screen.dart';
 import '../../features/foods_screen_new/foods_update_screen/second_food_update_screen/second_food_update_screen.dart';
 import '../../features/foods_screen_new/foods_update_screen/third_food_update_screen/third_food_update_screen.dart';
+import '../../features/foods_screen_new/list_of_foods_screen/list_of_foods_screen.dart';
 import '../../features/on_boarding_screen/on_boarding_screen.dart';
+import '../../features/profile_screen/edit_profile_screen/edit_profile_screen.dart';
+import '../../features/profile_screen/edit_profile_screen/profile_screen.dart';
 import '../../features/profile_screen/profile_main_screen.dart';
 import '../../features/report_screen/report_screen.dart';
+import '../../features/sell_and_buy_screen/List_of_sell_and_buy/List_of_sell_and_buy.dart';
+import '../../features/sell_and_buy_screen/details_of_sell_and_buy/details_of_sell_and_buy.dart';
 import '../../features/sell_and_buy_screen/sell_and_buy_form/sell_and_buy_form.dart';
 import '../../features/sell_and_buy_screen/update_post/first_screen/first_screen.dart';
+import '../../features/services_screen/details_services/details_services.dart';
+import '../../features/services_screen/list_of_services/list_of_services.dart';
+import '../../features/services_screen/services_form_screen/first_services_form/first_services_form.dart';
+import '../../features/services_screen/services_form_screen/seconds_service_screen/second_services_form.dart';
 import '../../features/services_screen/services_form_screen/third_service_form/third_services_form.dart';
 import '../../features/services_screen/update_post/edit_services.dart';
 import '../../features/services_screen/update_post/first_screen/first_update_screen.dart';
 import '../../features/services_screen/update_post/second_update_screen/second_update.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/view_all_review/view_all_review.dart';
+import '../../navigation_menu.dart';
 import '../route_name/routes_name.dart';
 
 class AppRoutes {
@@ -173,11 +173,11 @@ class AppRoutes {
             transitionDuration: const Duration(milliseconds: 250),
             transition: Transition.leftToRightWithFade),
 
-        GetPage(
-            name: RoutesName.foodDetails,
-            page: () => const DetailsFood(),
-            transitionDuration: const Duration(milliseconds: 250),
-            transition: Transition.leftToRightWithFade),
+        // GetPage(
+        //     name: RoutesName.foodDetails,
+        //     page: () => const DetailsFood(),
+        //     transitionDuration: const Duration(milliseconds: 250),
+        //     transition: Transition.leftToRightWithFade),
         GetPage(
             name: RoutesName.listOfSellAndBuy,
             page: () => ListOfSellAndBuy(),

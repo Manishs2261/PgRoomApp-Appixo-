@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
 
 import '../../../../res/route_name/routes_name.dart';
+import '../../../../utils/Constants/colors.dart';
 import '../../../../utils/Constants/sizes.dart';
 import '../../../../utils/validator/text_field_validator.dart';
 import '../login_screen_controller/login_controller.dart';

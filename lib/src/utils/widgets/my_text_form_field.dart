@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
+
+import '../Constants/colors.dart';
 
 class MyTextFormWidget extends StatelessWidget {
   const MyTextFormWidget({

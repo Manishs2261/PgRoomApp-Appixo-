@@ -1,0 +1,284 @@
+[33mcommit 30b391f161f0e2df640d937515e9fc7f253726db[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Tue Oct 22 10:26:12 2024 +0530
+
+    add firstRoomFormScreen
+
+[33mcommit 12aab032230ee5729833f523d14e131e0d3ebc29[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Mon Oct 21 07:51:20 2024 +0530
+
+    change design
+
+[33mcommit c64d249ca389e9d254a64e65436e8668b3e589ff[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Mon Oct 21 07:36:12 2024 +0530
+
+    add new design
+
+[33mcommit d966ad2c964af099563e8eea3da0bdb7b32f25e3[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Mon Oct 21 07:35:33 2024 +0530
+
+    change search variable name
+
+[33mcommit 51030e381953e6c761c3fb779504a57509d38faa[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 16:31:12 2024 +0530
+
+    change a location name
+
+[33mcommit 549813d290f6c44983c02854f72cf1c3e9ebf98a[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 16:30:25 2024 +0530
+
+    create a list of chats screen
+
+[33mcommit a57dc475718327ac3a1a1b1670b8b7e9627aadd1[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 16:29:43 2024 +0530
+
+    remove parameter
+
+[33mcommit ef8e40490d88762bffcdddc4128f3ded2982d314[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 16:29:21 2024 +0530
+
+    add route name
+
+[33mcommit 63813fc2973862e6673606150246c81965e5567d[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 11:08:30 2024 +0530
+
+    add new screen app router name
+
+[33mcommit 51716cef70bce81c48ca6f5a7011bbdfe3469867[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 11:08:19 2024 +0530
+
+    add new screen app router
+
+[33mcommit e4c9489c498ed362963497c8d0a46d6e84e89996[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 00:05:11 2024 +0530
+
+    remove result text
+
+[33mcommit 45a52d53e8a340a341d6b0a384509f73b2d13ce9[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 00:04:43 2024 +0530
+
+    create list of  service screen
+
+[33mcommit fa376a1c5e93923d07adf8246294c3a4be3955dc[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 00:04:22 2024 +0530
+
+    create service details screen
+
+[33mcommit 54ddfc9528a58526c98e2a51e6aa18abae7e81cc[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 20 00:04:04 2024 +0530
+
+    create post date and report option
+
+[33mcommit 1366b8e8460c62a0366b665d4c0fa4ec48a894fd[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Oct 19 17:15:42 2024 +0530
+
+    create details food screen
+
+[33mcommit c7bcfec7b8b61f7e86434bbd82ee062834649996[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Oct 19 17:15:23 2024 +0530
+
+    create list of food screen
+
+[33mcommit bd5b34b78b0889e4553067ff5ff9ee8e0bfb2cab[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Oct 19 17:15:02 2024 +0530
+
+    create list of sell and buy screen
+
+[33mcommit 7213b3842a8988be1126597431754c00c1e2f80c[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Oct 19 17:14:25 2024 +0530
+
+    add rating icon
+
+[33mcommit 52165642bb93aac6b4c2bee0d3779b9b2d31b465[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Oct 19 17:13:21 2024 +0530
+
+    add sell and buy screen
+
+[33mcommit a8f96c5789a6d4eb5318fa76f4a3ff46da4fa52f[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Fri Oct 18 22:17:12 2024 +0530
+
+    add review and FAQ ui
+
+[33mcommit d8d159ce3a3cf2e97da1922bd85ca50cacbf45bb[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Fri Oct 18 20:21:11 2024 +0530
+
+    change a folder name for new screen
+
+[33mcommit b11f5995ba558e25b2fcc9386027f4393f672c6e[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Fri Oct 18 09:07:13 2024 +0530
+
+    add service image and constraint path
+
+[33mcommit 0750aa28837d612d9534f6ceee644a34e5fff17a[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Thu Oct 17 22:22:11 2024 +0530
+
+    add onclick
+
+[33mcommit 78e18b648a2a26e20e26e6c698f8a3381d547303[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Thu Oct 17 22:21:48 2024 +0530
+
+    add onclick
+
+[33mcommit eca694ca2c907873419ce25dd49747f6e2766803[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Thu Oct 17 22:20:28 2024 +0530
+
+    design complete
+
+[33mcommit 08bac4b05b89867bd1a7b9e278be72b9874b95f6[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Thu Oct 17 08:57:19 2024 +0530
+
+    add room data
+
+[33mcommit 14b16d9bf24ec1449867a85088a499351d263d09[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 16 08:14:24 2024 +0530
+
+    list of rooms complete
+
+[33mcommit 00570921c278a8f9836c6fa9a9df7070a22fb5e7[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Tue Oct 15 09:17:02 2024 +0530
+
+    list view container
+
+[33mcommit d71cf544bf531880c821007c914042442fb17a75[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Oct 13 13:44:26 2024 +0530
+
+    add filter
+
+[33mcommit 266a376f89ad624985c2cd7a428d330b04287412[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Fri Oct 11 09:02:27 2024 +0530
+
+    add list of room screen
+
+[33mcommit c2cc0704c39e0030f882a0230e004ae11fb07fea[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Thu Oct 10 20:32:07 2024 +0530
+
+    food filter add
+
+[33mcommit 8552e6fbf2487b99b112a1d668450c28f2de67b0[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 9 22:08:15 2024 +0530
+
+    room filter add
+
+[33mcommit 3f23fad10dda5466d68774b5f5a641ad11432385[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 9 09:16:01 2024 +0530
+
+    add filter screen
+
+[33mcommit afcb6dc79c7c35e50d156fa250985f78deb1a0e8[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Mon Oct 7 21:38:50 2024 +0530
+
+    search screen add ad container
+
+[33mcommit a3a539615a4857158accd35538d7fba6165fc3db[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Fri Oct 4 22:16:42 2024 +0530
+
+    add a search
+
+[33mcommit ac546deb32e975d60f89f1a58f59945904c44e4c[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 2 21:18:05 2024 +0530
+
+    card add
+
+[33mcommit 22fe438c51975875e168226573091f71130d73f3[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 2 11:31:17 2024 +0530
+
+    add image slider
+
+[33mcommit 78bc39e75d1e5d62fb5f03a22e3f08798da45684[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 2 10:55:36 2024 +0530
+
+    add animation
+
+[33mcommit c9be53dbbab54b7fb0319d4ccfb7164650c3a153[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Oct 2 07:44:35 2024 +0530
+
+    change search focus
+
+[33mcommit d6b7fe8ece6fbcb2a4a9dd8961a1e836ebf92a5b[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Tue Oct 1 21:49:21 2024 +0530
+
+    add search and post button
+
+[33mcommit 8234397b125aa0eb142d1788c1adbfbd0eaf04e0[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Sep 29 21:10:12 2024 +0530
+
+    change login method
+
+[33mcommit 0f0ba9d212008f957b5e9bda49c691ac5334e328[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sun Sep 29 17:38:01 2024 +0530
+
+    fix bug
+
+[33mcommit dfceafa4379a9e0c8ffae3bdf682e940a866b94c[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Sep 28 20:09:06 2024 +0530
+
+    change login user data storage path 1.0.15+18
+
+[33mcommit 13814ff9484fd37f4d71ba53c590cfeddcc248dc[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Sep 28 19:29:56 2024 +0530
+
+    remove unwanted image 1.0.14+17
+
+[33mcommit 15a0db1e397ef99690b28cbbff0b3bd31e1ebee5[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Wed Sep 18 21:30:05 2024 +0530
+
+    fix wrong email version 1.0.14+17
+
+[33mcommit ffcec4c9a610e22aefd629d73c196330d4c4f0b8[m
+Merge: 5fef93e 9829a36
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Sep 7 20:19:13 2024 +0530
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 5fef93e3cecf78c02de8dc0e8ffe6aba1b2ecb44[m
+Author: Manish sahu <sanjusahu7326@gmail.com>
+Date:   Sat Sep 7 20:18:17 2024 +0530
+
+    fix bug add contactUs screen version 1.0.13+16
+
+[33mcommit 9829a3665d435fd56

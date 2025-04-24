@@ -1,8 +1,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
+import 'package:tp/src/utils/widgets/shimmer_effect.dart';
 
 import '../helpers/helper_function.dart';
 import 'gradient_button.dart';

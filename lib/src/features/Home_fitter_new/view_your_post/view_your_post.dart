@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:pgroom/src/features/Home_fitter_new/new_search_home/controller.dart';
 
 import '../../../res/route_name/routes_name.dart';
 import '../../../utils/logger/logger.dart';
+import '../new_search_home/controller.dart';
 
 class EditPostList extends StatefulWidget {
   const EditPostList({super.key});

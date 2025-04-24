@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pgroom/src/utils/Constants/colors.dart';
 
+import '../Constants/colors.dart';
 import '../helpers/helper_function.dart';
 
 class ReuseElevButton extends StatelessWidget {

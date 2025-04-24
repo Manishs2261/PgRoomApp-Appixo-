@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:pgroom/src/features/Home_fitter_new/new_search_home/controller.dart';
-import 'package:pgroom/src/features/auth_screen/Model/user_model.dart';
- import 'package:pgroom/src/utils/widgets/shimmer_effect.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../data/repository/apis/room_collection.dart';
@@ -17,6 +14,8 @@ import '../../res/route_name/routes_name.dart';
 import '../../utils/Constants/colors.dart';
 import '../../utils/helpers/helper_function.dart';
 import '../../utils/logger/logger.dart';
+import '../../utils/widgets/shimmer_effect.dart';
+import '../Home_fitter_new/new_search_home/controller.dart';
 import '../splash/controller/splash_controller.dart';
 
 class ProfileDetailsScreen extends StatefulWidget {

@@ -6,10 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/services_screen/model/services_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../flavor_config.dart';
+import '../../../features/services_screen/model/services_model.dart';
 import '../../../utils/helpers/helper_function.dart';
 import '../../../utils/logger/logger.dart';
 import '../../data_constant.dart';

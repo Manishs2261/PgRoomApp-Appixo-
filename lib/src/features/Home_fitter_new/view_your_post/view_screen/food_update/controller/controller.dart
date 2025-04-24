@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:pgroom/src/features/foods_screen_new/model/food_model.dart';
 
 import '../../../../../../../flavor_config.dart';
 import '../../../../../../data/data_constant.dart';
 import '../../../../../../data/repository/apis/room_collection.dart';
 import '../../../../../../utils/logger/logger.dart';
+import '../../../../../foods_screen_new/model/food_model.dart';
 
 class FoodUpdateListController extends GetxController {
   RxList<FoodModel> foodListData = <FoodModel>[].obs;
