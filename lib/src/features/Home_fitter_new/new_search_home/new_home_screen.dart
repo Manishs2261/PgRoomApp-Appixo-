@@ -258,7 +258,7 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
                         child: FadeTransition(
                           opacity: _searchOpacityAnimation,
                           child: Text(
-                            'Hello, Searching in! your city',
+                            'Hello, Searching in!!',
                             style:
                                 TextStyle(color: Colors.white.withOpacity(0.7)),
                           ),
@@ -572,12 +572,6 @@ class _HomeNewState extends State<HomeNew> with TickerProviderStateMixin {
     );
   }
 }
-
-
-
-
-
-
 
 
 class ImageSlider extends StatelessWidget {

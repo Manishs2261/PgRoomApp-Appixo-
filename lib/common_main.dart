@@ -9,6 +9,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:provider/provider.dart';
+import 'package:tp/services/api/api.dart';
+import 'package:tp/services/get_it_service.dart';
 import 'package:tp/src/features/splash/splash_screen.dart';
 import 'package:tp/src/res/routes/app_routes.dart';
 import 'package:tp/src/utils/Theme/theme.dart';
@@ -24,6 +26,7 @@ Future<void> commonMain() async {
   // for initializer  firebase on open a app
 
   WidgetsFlutterBinding.ensureInitialized();
+  setupServiceLocator();
 
   MobileAds.instance.initialize();
   AppLoggerHelper.initialize();

@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppLoggerHelper.debug("Profile Screen");
+    AppLoggerHelper.debug("Profile screen");
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomMaterialIndicator(
